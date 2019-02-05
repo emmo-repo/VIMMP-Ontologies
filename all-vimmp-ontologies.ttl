@@ -1,0 +1,3029 @@
+
+###########################################################
+###########################################################
+#####                                                 #####
+#####  NOTE: THIS IS A COMBINED FILE, CONTAINING THE  #####
+#####  VIMMP UPPER AND MARKETPLACE LEVEL ONTOLOGIES   #####
+#####                                                 #####
+###########################################################
+###########################################################
+
+<http://www.vimmp.eu/semantics/all-vimmp-ontologies.ttl#> a owl:Ontology.
+
+
+### CATEGORIZATION OF VIMMP INSTITUTIONS AND INDIVIDUALS (CVIII) ###
+
+### VERSION 0.0.2 ###
+
+### DATED 22ND JANUARY 2019 ###
+
+@prefix cviii: <http://www.vimmp.eu/semantics/cviii/cviii.ttl#>.
+
+@prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
+@prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
+@prefix xs: <http://www.w3.org/2001/XMLSchema#>.
+
+<http://www.vimmp.eu/semantics/cviii/cviii.ttl#> a owl:Ontology.
+
+cviii:agent_related_entity a owl:Class;
+   rdfs:subClassOf evmpo:role_related_entity.
+cviii:op_agent_related_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+cviii:dp_agent_related_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_role_related_entity owl:equivalentClass cviii:op_agent_related_entity.
+evmpo:dp_role_related_entity owl:equivalentClass cviii:dp_agent_related_entity.
+
+cviii:agent a owl:Class;
+   rdfs:subClassOf cviii:agent_related_entity, evmpo:role.
+cviii:op_agent a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+cviii:dp_agent a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+cviii:op_agent_related_entity rdfs:subClassOf cviii:op_agent.
+cviii:dp_agent_related_entity rdfs:subClassOf cviii:dp_agent.
+evmpo:op_role rdfs:subClassOf cviii:op_agent.
+evmpo:dp_role rdfs:subClassOf cviii:dp_agent.
+
+cviii:has_agentid a cviii:dp_agent;
+   rdfs:domain cviii:agent;
+   rdfs:range xs:nonNegativeInteger.
+cviii:has_name a cviii:dp_agent;
+   rdfs:domain cviii:agent;
+   rdfs:range xs:string.
+cviii:acts_on a cviii:op_agent;
+   rdfs:domain cviii:agent;
+   rdfs:range macro:virtual_marketplace.
+
+evmpo:stakeholder rdfs:subClassOf cviii:agent.
+cviii:op_agent rdfs:subClassOf evmpo:op_stakeholder.
+cviii:dp_agent rdfs:subClassOf evmpo:dp_stakeholder.
+
+cviii:expert a owl:Class;
+   rdfs:subClassOf cviii:agent, evmpo:stakeholder;
+   owl:equivalentClass evmpo:expert.
+cviii:op_expert a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+cviii:dp_expert a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+cviii:op_agent rdfs:subClassOf cviii:op_expert.
+cviii:dp_agent rdfs:subClassOf cviii:dp_expert.
+evmpo:op_stakeholder rdfs:subClassOf cviii:op_expert.
+evmpo:dp_stakeholder rdfs:subClassOf cviii:dp_expert.
+evmpo:op_expert owl:equivalentClass cviii:op_expert.
+evmpo:dp_expert owl:equivalentClass cviii:dp_expert.
+
+cviii:certifier a owl:Class;
+   rdfs:subClassOf cviii:agent.
+cviii:op_certifier a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+cviii:dp_certifier a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+cviii:op_agent rdfs:subClassOf cviii:op_certifier.
+cviii:dp_agent rdfs:subClassOf cviii:dp_certifier.
+
+cviii:certifying_expert a owl:Class;
+   rdfs:subClassOf cviii:certifier, cviii:expert.
+cviii:op_certifying_expert a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+cviii:dp_certifying_expert a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+cviii:op_certifier rdfs:subClassOf cviii:op_certifying_expert.
+cviii:dp_certifier rdfs:subClassOf cviii:dp_certifying_expert.
+cviii:op_expert rdfs:subClassOf cviii:op_certifying_expert.
+cviii:dp_expert rdfs:subClassOf cviii:dp_certifying_expert.
+
+cviii:certifying_resource a owl:Class;
+   rdfs:subClassOf cviii:certifier.
+cviii:op_certifying_resource a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+cviii:dp_certifying_resource a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+cviii:op_certifier rdfs:subClassOf cviii:op_certifying_resource.
+cviii:dp_certifier rdfs:subClassOf cviii:dp_certifying_resource.
+
+cviii:is_at_uri a cviii:op_certifying_resource;
+   rdfs:domain cviii:certifying_resource;
+   rdfs:range rdfs:Resource.
+
+cviii:certifying_journal_article a owl:Class;
+   rdfs:subClassOf cviii:certifying_resource.
+cviii:op_certifying_journal_article a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+cviii:dp_certifying_journal_article a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+cviii:op_certifying_resource rdfs:subClassOf cviii:op_certifying_journal_article.
+cviii:dp_certifying_resource rdfs:subClassOf cviii:dp_certifying_journal_article.
+   
+cviii:certifying_database a owl:Class;
+   rdfs:subClassOf cviii:certifier, macro:repository.
+cviii:op_certifying_database a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+cviii:dp_certifying_database a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+cviii:op_certifier rdfs:subClassOf cviii:op_certifying_database.
+cviii:dp_certifier rdfs:subClassOf cviii:dp_certifying_database.
+macro:op_repository rdfs:subClassOf cviii:op_certifying_database.
+macro:dp_repository rdfs:subClassOf cviii:dp_certifying_database.
+
+cviii:interlocutor a owl:Class;
+   rdfs:subClassOf cviii:agent.
+cviii:op_interlocutor a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+cviii:dp_interlocutor a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+cviii:op_agent rdfs:subClassOf cviii:op_interlocutor.
+cviii:dp_agent rdfs:subClassOf cviii:dp_interlocutor.
+
+cviii:marketplace_subject a owl:Class;
+   rdfs:subClassOf cviii:interlocutor, cviii:certifier, evmpo:stakeholder.
+cviii:op_marketplace_subject a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+cviii:dp_marketplace_subject a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+cviii:op_interlocutor rdfs:subClassOf cviii:op_marketplace_subject.
+cviii:dp_interlocutor rdfs:subClassOf cviii:dp_marketplace_subject.
+cviii:op_certifier rdfs:subClassOf cviii:op_marketplace_subject.
+cviii:dp_certifier rdfs:subClassOf cviii:dp_marketplace_subject.
+evmpo:op_stakeholder rdfs:subClassOf cviii:op_marketplace_subject.
+evmpo:dp_stakeholder rdfs:subClassOf cviii:dp_marketplace_subject.
+
+cviii:end_user a owl:Class;
+   rdfs:subClassOf cviii:marketplace_subject;
+   owl:equivalentClass evmpo:end_user.
+cviii:op_end_user a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+cviii:dp_end_user a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+cviii:op_marketplace_subject rdfs:subClassOf cviii:op_end_user.
+cviii:dp_marketplace_subject rdfs:subClassOf cviii:dp_end_user.
+evmpo:op_end_user owl:equivalentClass cviii:op_end_user.
+evmpo:dp_end_user owl:equivalentClass cviii:dp_end_user.
+
+cviii:translator a owl:Class;
+   rdfs:subClassOf cviii:marketplace_subject;
+   owl:equivalentClass evmpo:translator.
+cviii:op_translator a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+cviii:dp_translator a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+cviii:op_marketplace_subject rdfs:subClassOf cviii:op_translator.
+cviii:dp_marketplace_subject rdfs:subClassOf cviii:dp_translator.
+evmpo:op_translator owl:equivalentClass cviii:op_translator.
+evmpo:dp_translator owl:equivalentClass cviii:dp_translator.
+
+cviii:model_provider a owl:Class;
+   rdfs:subClassOf cviii:marketplace_subject;
+   owl:equivalentClass evmpo:model_provider.
+cviii:op_model_provider a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+cviii:dp_model_provider a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+cviii:op_marketplace_subject rdfs:subClassOf cviii:op_model_provider.
+cviii:dp_marketplace_subject rdfs:subClassOf cviii:dp_model_provider.
+evmpo:op_model_provider owl:equivalentClass cviii:op_model_provider.
+evmpo:dp_model_provider owl:equivalentClass cviii:dp_model_provider.
+
+cviii:pseudonym a owl:Class;
+   rdfs:subClassOf cviii:interlocutor.
+cviii:op_pseudonym a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+cviii:dp_pseudonym a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+cviii:op_interlocutor rdfs:subClassOf cviii:op_pseudonym.
+cviii:dp_interlocutor rdfs:subClassOf cviii:dp_pseudonym.
+
+cviii:interlocutor_type a owl:Class;
+   rdfs:subClassOf cviii:agent_related_entity, evmpo:role_annotation.
+cviii:op_interlocutor_type a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+cviii:dp_interlocutor_type a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+cviii:op_agent_related_entity rdfs:subClassOf cviii:op_interlocutor_type.
+cviii:dp_agent_related_entity rdfs:subClassOf cviii:dp_interlocutor_type.
+evmpo:op_role_annotation rdfs:subClassOf cviii:op_interlocutor_type.
+evmpo:dp_role_annotation rdfs:subClassOf cviii:dp_interlocutor_type.
+
+cviii:interlocutor_group a owl:Class;
+   rdfs:subClassOf cviii:interlocutor_type.
+cviii:op_interlocutor_group a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+cviii:dp_interlocutor_group a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+cviii:op_interlocutor_type rdfs:subClassOf cviii:op_interlocutor_group.
+cviii:dp_interlocutor_type rdfs:subClassOf cviii:dp_interlocutor_group.
+
+cviii:END_USER a cviii:interlocutor_group.
+cviii:TRANSLATOR a cviii:interlocutor_group.
+cviii:MODEL_PROVIDER a cviii:interlocutor_group.
+
+cviii:interlocutor_tag a owl:Class;
+   rdfs:subClassOf cviii:interlocutor_type.
+cviii:op_interlocutor_tag a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+cviii:dp_interlocutor_tag a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+cviii:op_interlocutor_type rdfs:subClassOf cviii:op_interlocutor_tag.
+cviii:dp_interlocutor_type rdfs:subClassOf cviii:dp_interlocutor_tag.
+
+cviii:has_interlocutor_tag a cviii:op_interlocutor;
+   rdfs:domain cviii:interlocutor;
+   rdfs:range cviii:interlocutor_tag.
+
+cviii:is_in_group a cviii:op_interlocutor_tag;
+   rdfs:domain cviii:interlocutor_tag;
+   rdfs:range cviii:interlocutor_group.
+cviii:is_in_country a cviii:dp_interlocutor_tag;
+   rdfs:domain cviii:interlocutor_tag;
+   rdfs:range xs:string.
+cviii:is_academic a cviii:dp_interlocutor_tag;
+   rdfs:domain cviii:interlocutor_tag;
+   rdfs:range xs:boolean.
+cviii:is_for_profit a cviii:dp_interlocutor_tag;
+   rdfs:domain cviii:interlocutor_tag;
+   rdfs:range xs:boolean.
+cviii:is_military a cviii:dp_interlocutor_tag;
+   rdfs:domain cviii:interlocutor_tag;
+   rdfs:range xs:boolean.
+cviii:is_nuclear a cviii:dp_interlocutor_tag;
+   rdfs:domain cviii:interlocutor_tag;
+   rdfs:range xs:boolean.
+cviii:is_sme a cviii:dp_interlocutor_tag;
+   rdfs:domain cviii:interlocutor_tag;
+   rdfs:range xs:boolean.
+
+### EUROPEAN VIRTUAL MARKETPLACE ONTOLOGY (EVMPO) ###
+
+### PROPOSAL DATED 22ND JANUARY 2019 ###
+
+@prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
+
+@prefix ccso: <https://w3id.org/ccso/ccso#>.
+@prefix emmo: <http://emmc.info/emmo#>.
+@prefix iao: <http://purl.obolibrary.org/obo/iao.owl#>.
+@prefix ical: <https://www.w3.org/2002/12/cal/icaltzd#>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xs: <http://www.w3.org/2001/XMLSchema#>.
+
+<http://emmc.info/semantics/evmpo/evmpo.ttl> a owl:Ontology.
+
+evmpo:marketplace_related_entity a owl:Class.
+evmpo:op_marketplace_related_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_marketplace_related_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+
+evmpo:paradigmatic_entity a owl:Class; rdfs:subClassOf evmpo:marketplace_related_entity.
+evmpo:non_paradigmatic_entity a owl:Class; rdfs:subClassOf evmpo:marketplace_related_entity.
+
+
+###########################################################
+###  paradigmatic fundamental category (1): assessment  ###
+###########################################################
+
+### sub-ontology ###
+
+evmpo:assessment_related_entity a owl:Class;
+   rdfs:subClassOf evmpo:marketplace_related_entity;
+   rdfs:comment "assessment or non-paradigmatic aspect of an assessment"^^xs:string.
+evmpo:op_assessment_related_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_assessment_related_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_marketplace_related_entity rdfs:subClassOf evmpo:op_assessment_related_entity.
+evmpo:dp_marketplace_related_entity rdfs:subClassOf evmpo:dp_assessment_related_entity.
+
+### fundamental class ###
+
+evmpo:assessment a owl:Class;
+   rdfs:subClassOf evmpo:assessment_related_entity, evmpo:paradigmatic_entity;
+   rdfs:comment "assessment, i.e., proposition on accuracy or performance of an entity or on somebody's trust in an entity"^^xs:string.
+evmpo:op_assessment a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_assessment a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_assessment_related_entity rdfs:subClassOf evmpo:op_assessment.
+evmpo:dp_assessment_related_entity rdfs:subClassOf evmpo:dp_assessment.
+
+### subclasses of the fundamental class ###
+
+evmpo:endorsement_assessment a owl:Class;
+   rdfs:subClassOf evmpo:assessment;
+   rdfs:comment "endorsement_assessment, i.e., an assessment (proposition) by which an entity is claimed to be good or fit for a certain purpose"^^xs:string.
+evmpo:op_endorsement_assessment a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_endorsement_assessment a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_assessment rdfs:subClassOf evmpo:op_endorsement_assessment.
+evmpo:dp_assessment rdfs:subClassOf evmpo:dp_endorsement_assessment.
+evmpo:requirement_assessment a owl:Class;
+   rdfs:subClassOf evmpo:assessment;
+   rdfs:comment "requirement_assessment, i.e., an assessment (proposition) concerning computational requirements (computing time, memory, other hardware, software, and data prerequisites) for an infrastructure or a simulation workflow"^^xs:string.
+evmpo:op_requirement_assessment a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_requirement_assessment a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_assessment rdfs:subClassOf evmpo:op_requirement_assessment.
+evmpo:dp_assessment rdfs:subClassOf evmpo:dp_requirement_assessment.
+evmpo:validity_assessment a owl:Class;
+   rdfs:subClassOf evmpo:assessment;
+   rdfs:comment "validity_assessment, i.e., an assessment (proposition) quantifying the uncertainty or error of a model, a simulation workflow, an experimental data point or any other quantitative datum or collection thereof"^^xs:string.
+evmpo:op_validity_assessment a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_validity_assessment a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_assessment rdfs:subClassOf evmpo:op_validity_assessment.
+evmpo:dp_assessment rdfs:subClassOf evmpo:dp_validity_assessment.
+
+### annotations to the fundamental class ###
+
+evmpo:assessment_annotation a owl:Class;
+   rdfs:subClassOf evmpo:annotation, evmpo:assessment_related_entity;
+   rdfs:comment "assessment_annotation, i.e., annotation of an assessment"^^xs:string.
+evmpo:has_assessment_annotation a evmpo:op_assessment;
+   rdfs:domain evmpo:assessment;
+   rdfs:range evmpo:annotation;
+   rdfs:subPropertyOf evmpo:has_annotation.
+
+
+###############################################################
+###  paradigmatic fundamental category (2): calendar_event  ###
+###############################################################
+
+### sub-ontology ###
+
+evmpo:calendar_related_entity a owl:Class;
+   rdfs:subClassOf evmpo:marketplace_related_entity;
+   rdfs:comment "calendar_event or non-paradigmatic aspect of a calendar_event"^^xs:string.
+evmpo:op_calendar_related_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_calendar_related_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_marketplace_related_entity rdfs:subClassOf evmpo:op_calendar_related_entity.
+evmpo:dp_marketplace_related_entity rdfs:subClassOf evmpo:dp_calendar_related_entity.
+
+### fundamental class ###
+
+evmpo:calendar_event a owl:Class;
+   rdfs:subClassOf evmpo:calendar_related_entity, evmpo:paradigmatic_entity;
+   owl:equivalentClass ical:Vevent;
+   rdfs:comment "calendar_event, i.e., a meeting or activity which is scheduled or can be scheduled, equivalent to Vevent (labelled Event) from ICALTZD"^^xs:string.
+evmpo:op_calendar_event a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_calendar_event a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_calendar_related_entity rdfs:subClassOf evmpo:op_calendar_event.
+evmpo:dp_calendar_related_entity rdfs:subClassOf evmpo:dp_calendar_event.
+
+### subclasses of the fundamental class ###
+
+evmpo:training_event a owl:Class;
+   rdfs:subClassOf evmpo:calendar_event;
+   owl:equivalentClass ccso:Event;
+   rdfs:comment "event at which training activities occur, equivalent to Event from CCSO"^^xs:string.
+evmpo:op_training_event a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_training_event a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_calendar_event rdfs:subClassOf evmpo:op_training_event.
+evmpo:dp_calendar_event rdfs:subClassOf evmpo:dp_training_event.
+
+### annotations to the fundamental class ###
+
+evmpo:calendar_event_annotation a owl:Class;
+   rdfs:subClassOf evmpo:annotation, evmpo:calendar_related_entity;
+   rdfs:comment "calendar_event_annotation, i.e., annotation of a calendar_event"^^xs:string.
+evmpo:has_calendar_event_annotation a evmpo:op_calendar_event;
+   rdfs:domain evmpo:calendar_event;
+   rdfs:range evmpo:annotation;
+   rdfs:subPropertyOf evmpo:has_annotation.
+
+
+##############################################################
+###  paradigmatic fundamental category (3): communication  ###
+##############################################################
+
+### sub-ontology ###
+
+evmpo:communication_related_entity a owl:Class;
+   rdfs:subClassOf evmpo:marketplace_related_entity;
+   rdfs:comment "communication or non-paradigmatic aspect of a communication"^^xs:string.
+evmpo:op_communication_related_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_communication_related_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_marketplace_related_entity rdfs:subClassOf evmpo:op_communication_related_entity.
+evmpo:dp_marketplace_related_entity rdfs:subClassOf evmpo:dp_communication_related_entity.
+
+### fundamental class ###
+
+evmpo:communication a owl:Class;
+   rdfs:subClassOf evmpo:communication_related_entity, evmpo:paradigmatic_entity;
+   rdfs:comment "communication, i.e., a statement or sequence of statements that is communicated by a on a virtual marketplace by a stakeholder"^^xs:string.
+evmpo:op_communication a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_communication a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_communication_related_entity rdfs:subClassOf evmpo:op_communication.
+evmpo:dp_communication_related_entity rdfs:subClassOf evmpo:dp_communication.
+
+### subclasses of the fundamental class ###
+
+evmpo:declaration a owl:Class;
+   rdfs:subClassOf evmpo:communication;
+   rdfs:comment "declaration, i.e., a communication without a recipient that is processed by a virtual marketplace"^^xs:string.
+evmpo:op_declaration a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_declaration a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_communication rdfs:subClassOf evmpo:op_declaration.
+evmpo:dp_communication rdfs:subClassOf evmpo:dp_declaration.
+evmpo:interlocution a owl:Class;
+   rdfs:subClassOf evmpo:communication;
+   rdfs:comment "interlocution, i.e., a communication which includes one or multiple recipients (not sent only to the marketplace itself, but also to one or multiple stakeholders)"^^xs:string.
+evmpo:op_interlocution a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_interlocution a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_communication rdfs:subClassOf evmpo:op_interlocution.
+evmpo:dp_communication rdfs:subClassOf evmpo:dp_interlocution.
+evmpo:statement a owl:Class;
+   rdfs:subClassOf evmpo:communication;
+   rdfs:comment "statement, i.e., an elementary communication that cannot be further decomposed into multiple statements"^^xs:string.
+evmpo:op_statement a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_statement a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_communication rdfs:subClassOf evmpo:op_statement.
+evmpo:dp_communication rdfs:subClassOf evmpo:dp_statement.
+
+### annotations to the fundamental class ###
+
+evmpo:communication_annotation a owl:Class;
+   rdfs:subClassOf evmpo:annotation, evmpo:communication_related_entity;
+   rdfs:comment "communication_annotation, i.e., annotation of a communication"^^xs:string.
+evmpo:has_communication_annotation a evmpo:op_communication;
+   rdfs:domain evmpo:communication;
+   rdfs:range evmpo:annotation;
+   rdfs:subPropertyOf evmpo:has_annotation.
+
+
+###########################################################################
+###  paradigmatic fundamental category (4): information_content_entity  ###
+###########################################################################
+
+### sub-ontology ###
+
+evmpo:content_related_entity a owl:Class;
+   rdfs:subClassOf evmpo:marketplace_related_entity;
+   rdfs:comment "information_content_entity or non-paradigmatic aspect of a information_content_entity"^^xs:string.
+evmpo:op_content_related_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_content_related_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_marketplace_related_entity rdfs:subClassOf evmpo:op_content_related_entity.
+evmpo:dp_marketplace_related_entity rdfs:subClassOf evmpo:dp_content_related_entity.
+
+### fundamental class ###
+
+evmpo:information_content_entity a owl:Class;
+   owl:equivalentClass iao:IAO_0000030;  # iao label "information content entity"
+   rdfs:subClassOf evmpo:content_related_entity, evmpo:paradigmatic_entity;
+   rdfs:comment "information_content_entity, i.e., an information content entity as characterized by the IAO"^^xs:string.
+evmpo:op_information_content_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_information_content_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_content_related_entity rdfs:subClassOf evmpo:op_information_content_entity.
+evmpo:dp_content_related_entity rdfs:subClassOf evmpo:dp_information_content_entity.
+
+### subclasses of the fundamental class ###
+
+evmpo:data_item a owl:Class;
+   owl:equivalentClass iao:IAO_0000027;  # iao label "data item"
+   rdfs:subClassOf evmpo:information_content_entity;
+   rdfs:comment "data item as characterized by the IAO"^^xs:string.
+evmpo:document a owl:Class;
+   owl:equivalentClass iao:IAO_0000310;  # iao label "document"
+   rdfs:subClassOf evmpo:information_content_entity;
+   rdfs:comment "document as characterized by the IAO"^^xs:string.
+evmpo:legal_document a owl:Class;
+   rdfs:subClassOf evmpo:document;
+   rdfs:comment "any document (e.g., a contract or a quotation) related to legal issues"^^xs:string.
+evmpo:training_document a owl:Class;
+   rdfs:subClassOf evmpo:document;
+   rdfs:comment "any document (e.g., manual, textbook, video, or collection of slides) that can help at acquiring competencies"^^xs:string.
+
+### annotations to the fundamental class ###
+
+evmpo:information_content_entity_annotation a owl:Class;
+   rdfs:subClassOf evmpo:annotation, evmpo:content_related_entity;
+   rdfs:comment "information_content_entity_annotation, i.e., annotation of a information_content_entity"^^xs:string.
+evmpo:has_information_content_entity_annotation a evmpo:op_information_content_entity;
+   rdfs:domain evmpo:information_content_entity;
+   rdfs:range evmpo:annotation;
+   rdfs:subPropertyOf evmpo:has_annotation.
+
+
+###############################################################
+###  paradigmatic fundamental category (5): infrastructure  ###
+###############################################################
+
+### sub-ontology ###
+
+evmpo:infrastructure_related_entity a owl:Class;
+   rdfs:subClassOf evmpo:marketplace_related_entity;
+   rdfs:comment "infrastructure or non-paradigmatic aspect of a infrastructure"^^xs:string.
+evmpo:op_infrastructure_related_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_infrastructure_related_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_marketplace_related_entity rdfs:subClassOf evmpo:op_infrastructure_related_entity.
+evmpo:dp_marketplace_related_entity rdfs:subClassOf evmpo:dp_infrastructure_related_entity.
+
+### fundamental class ###
+
+evmpo:infrastructure a owl:Class;
+   rdfs:subClassOf evmpo:infrastructure_related_entity, evmpo:paradigmatic_entity;
+   rdfs:comment "infrastructure, i.e., an entity representing marketplace infrastructure such as hardware, a repository, or software"^^xs:string.
+evmpo:op_infrastructure a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_infrastructure a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_infrastructure_related_entity rdfs:subClassOf evmpo:op_infrastructure.
+evmpo:dp_infrastructure_related_entity rdfs:subClassOf evmpo:dp_infrastructure.
+
+### subclasses of the fundamental class ###
+
+evmpo:data_infrastructure a owl:Class;
+   rdfs:subClassOf evmpo:infrastructure;
+   rdfs:comment "data infrastructure, i.e., any infrastructure concerning material property data/metadata, model (parameter) data/metadata, or similar repositories and databases"^^xs:string.
+evmpo:op_data_infrastructure a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_data_infrastructure a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_infrastructure rdfs:subClassOf evmpo:op_data_infrastructure.
+evmpo:dp_infrastructure rdfs:subClassOf evmpo:dp_data_infrastructure.
+evmpo:hardware_infrastructure a owl:Class;
+   rdfs:subClassOf evmpo:infrastructure;
+   rdfs:comment "hardware infrastructure, i.e., infrastructure concerning hardware resources"^^xs:string.
+evmpo:op_hardware_infrastructure a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_hardware_infrastructure a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_infrastructure rdfs:subClassOf evmpo:op_hardware_infrastructure.
+evmpo:dp_infrastructure rdfs:subClassOf evmpo:dp_hardware_infrastructure.
+evmpo:software_infrastructure a owl:Class;
+   rdfs:subClassOf evmpo:infrastructure;
+   rdfs:comment "software infrastructure, i.e., infrastructure concerning software, licensing, etc."^^xs:string.
+evmpo:op_software_infrastructure a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_software_infrastructure a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_infrastructure rdfs:subClassOf evmpo:op_software_infrastructure.
+evmpo:dp_infrastructure rdfs:subClassOf evmpo:dp_software_infrastructure.
+
+### annotations to the fundamental class ###
+
+evmpo:infrastructure_annotation a owl:Class;
+   rdfs:subClassOf evmpo:annotation, evmpo:infrastructure_related_entity;
+   rdfs:comment "infrastructure_annotation, i.e., annotation of a infrastructure"^^xs:string.
+evmpo:has_infrastructure_annotation a evmpo:op_infrastructure;
+   rdfs:domain evmpo:infrastructure;
+   rdfs:range evmpo:annotation;
+   rdfs:subPropertyOf evmpo:has_annotation.
+
+
+#########################################################
+###  paradigmatic fundamental category (6): material  ###
+#########################################################
+
+### sub-ontology ###
+
+evmpo:material_related_entity a owl:Class;
+   rdfs:subClassOf evmpo:marketplace_related_entity;
+   rdfs:comment "material or non-paradigmatic aspect of a material"^^xs:string.
+evmpo:op_material_related_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_material_related_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_marketplace_related_entity rdfs:subClassOf evmpo:op_material_related_entity.
+evmpo:dp_marketplace_related_entity rdfs:subClassOf evmpo:dp_material_related_entity.
+
+### fundamental class ###
+
+evmpo:material a owl:Class;
+   owl:equivalentClass emmo:EMMO_53ebe495_28bf_47cd_b21d_c4c871ee4763;  # "emmo material"
+   rdfs:subClassOf evmpo:material_related_entity, evmpo:paradigmatic_entity;
+   rdfs:comment "material, i.e., a material as characterized by the EMMO"^^xs:string.
+evmpo:op_material a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_material a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_material_related_entity rdfs:subClassOf evmpo:op_material.
+evmpo:dp_material_related_entity rdfs:subClassOf evmpo:dp_material.
+
+### annotations to the fundamental class ###
+
+evmpo:material_annotation a owl:Class;
+   rdfs:subClassOf evmpo:annotation, evmpo:material_related_entity;
+   rdfs:comment "material_annotation, i.e., annotation of a material"^^xs:string.
+evmpo:has_material_annotation a evmpo:op_material;
+   rdfs:domain evmpo:material;
+   rdfs:range evmpo:annotation;
+   rdfs:subPropertyOf evmpo:has_annotation.
+
+
+######################################################
+###  paradigmatic fundamental category (7): model  ###
+######################################################
+
+### sub-ontology ###
+
+evmpo:model_related_entity a owl:Class;
+   rdfs:subClassOf evmpo:marketplace_related_entity;
+   rdfs:comment "model or non-paradigmatic aspect of a model"^^xs:string.
+evmpo:op_model_related_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_model_related_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_marketplace_related_entity rdfs:subClassOf evmpo:op_model_related_entity.
+evmpo:dp_marketplace_related_entity rdfs:subClassOf evmpo:dp_model_related_entity.
+
+### fundamental class ###
+
+evmpo:model a owl:Class;
+   owl:equivalentClass emmo:EMMO_75bfd283_ff56_4a97_b05e_a3ea15d5e0a8;  # "emmo model"
+   rdfs:subClassOf evmpo:model_related_entity, evmpo:paradigmatic_entity;
+   rdfs:comment "model, i.e., a model as characterized by the EMMO"^^xs:string.
+evmpo:op_model a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_model a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_model_related_entity rdfs:subClassOf evmpo:op_model.
+evmpo:dp_model_related_entity rdfs:subClassOf evmpo:dp_model.
+
+### annotations to the fundamental class ###
+
+evmpo:model_annotation a owl:Class;
+   rdfs:subClassOf evmpo:annotation, evmpo:model_related_entity;
+   rdfs:comment "model_annotation, i.e., annotation of a model"^^xs:string.
+evmpo:has_model_annotation a evmpo:op_model;
+   rdfs:domain evmpo:model;
+   rdfs:range evmpo:annotation;
+   rdfs:subPropertyOf evmpo:has_annotation.
+
+
+########################################################
+###  paradigmatic fundamental category (8): process  ###
+########################################################
+
+### sub-ontology ###
+
+evmpo:process_related_entity a owl:Class;
+   rdfs:subClassOf evmpo:marketplace_related_entity;
+   rdfs:comment "process or non-paradigmatic aspect of a process"^^xs:string.
+evmpo:op_process_related_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_process_related_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_marketplace_related_entity rdfs:subClassOf evmpo:op_process_related_entity.
+evmpo:dp_marketplace_related_entity rdfs:subClassOf evmpo:dp_process_related_entity.
+
+### fundamental class ###
+
+evmpo:process a owl:Class;
+   rdfs:subClassOf evmpo:process_related_entity, evmpo:paradigmatic_entity;
+   rdfs:comment "process, i.e., the temporal evolution of one or multiple entities"^^xs:string.
+evmpo:op_process a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_process a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_process_related_entity rdfs:subClassOf evmpo:op_process.
+evmpo:dp_process_related_entity rdfs:subClassOf evmpo:dp_process.
+
+### subclasses of the fundamental class ###
+
+evmpo:business_process a owl:Class;
+   rdfs:subClassOf evmpo:process;
+   rdfs:comment "business process, i.e., a process-level description of business activities"^^xs:string.
+evmpo:op_business_process a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_business_process a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_process rdfs:subClassOf evmpo:op_business_process.
+evmpo:dp_process rdfs:subClassOf evmpo:dp_business_process.
+evmpo:communication_process a owl:Class;
+   rdfs:subClassOf evmpo:process;
+   rdfs:comment "communication process, i.e., a process of exchanging statements, information content entities, or binary data"^^xs:string.
+evmpo:op_communication_process a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_communication_process a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_process rdfs:subClassOf evmpo:op_communication_process.
+evmpo:dp_process rdfs:subClassOf evmpo:dp_communication_process.
+evmpo:computational_process a owl:Class;
+   rdfs:subClassOf evmpo:process;
+   rdfs:comment "computational process, i.e., a process by software is executed on hardware, and by which data may be generated or altered"^^xs:string.
+evmpo:op_computational_process a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_computational_process a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_process rdfs:subClassOf evmpo:op_computational_process.
+evmpo:dp_process rdfs:subClassOf evmpo:dp_computational_process.
+evmpo:manufacturing_process a owl:Class;
+   rdfs:subClassOf evmpo:process;
+   rdfs:comment "manufacturing process, i.e., a process-level description of industrial production activities"^^xs:string.
+evmpo:op_manufacturing_process a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_manufacturing_process a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_process rdfs:subClassOf evmpo:op_manufacturing_process.
+evmpo:dp_process rdfs:subClassOf evmpo:dp_manufacturing_process.
+evmpo:physical_process a owl:Class;
+   rdfs:subClassOf evmpo:process;
+   rdfs:subClassOf emmo:EMMO_1703b6d9_b780_4c61_a75b_5f0cd39323e3;  # emmo process
+   rdfs:comment "physical process, i.e., a process associated with or experienced by a material"^^xs:string.
+evmpo:op_physical_process a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_physical_process a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_process rdfs:subClassOf evmpo:op_physical_process.
+evmpo:dp_process rdfs:subClassOf evmpo:dp_physical_process.
+
+### annotations to the fundamental class ###
+
+evmpo:process_annotation a owl:Class;
+   rdfs:subClassOf evmpo:annotation, evmpo:process_related_entity;
+   rdfs:comment "process_annotation, i.e., annotation of a process"^^xs:string.
+evmpo:has_process_annotation a evmpo:op_process;
+   rdfs:domain evmpo:process;
+   rdfs:range evmpo:annotation;
+   rdfs:subPropertyOf evmpo:has_annotation.
+
+
+########################################################
+###  paradigmatic fundamental category (9): product  ###
+########################################################
+
+### sub-ontology ###
+
+evmpo:product_related_entity a owl:Class;
+   rdfs:subClassOf evmpo:marketplace_related_entity;
+   rdfs:comment "product or non-paradigmatic aspect of a product"^^xs:string.
+evmpo:op_product_related_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_product_related_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_marketplace_related_entity rdfs:subClassOf evmpo:op_product_related_entity.
+evmpo:dp_marketplace_related_entity rdfs:subClassOf evmpo:dp_product_related_entity.
+
+### fundamental class ###
+
+evmpo:product a owl:Class;
+   rdfs:subClassOf evmpo:product_related_entity, evmpo:paradigmatic_entity;
+   rdfs:comment "product, i.e., a good or service which can be offered either on a virtual marketplace or off-site"^^xs:string.
+evmpo:op_product a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_product a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_product_related_entity rdfs:subClassOf evmpo:op_product.
+evmpo:dp_product_related_entity rdfs:subClassOf evmpo:dp_product.
+
+### subclasses of the fundamental class ###
+
+evmpo:good a owl:Class;
+   rdfs:subClassOf evmpo:product;
+   rdfs:subClassOf emmo:EMMO_38c33b6b_d9fc_4707_b698_4d42ede804d3;  # "emmo engineering entity"
+   rdfs:comment "material object that is marketed as a good"^^xs:string.
+evmpo:op_good a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_good a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_product rdfs:subClassOf evmpo:op_good.
+evmpo:dp_product rdfs:subClassOf evmpo:dp_good.
+evmpo:service a owl:Class;
+   rdfs:subClassOf evmpo:product;
+   rdfs:comment "activity or (fully or partially) immaterial object that is marketed as a service"^^xs:string.
+evmpo:op_service a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_service a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_product rdfs:subClassOf evmpo:op_service.
+evmpo:dp_product rdfs:subClassOf evmpo:dp_service.
+evmpo:tradeable_object a owl:Class;
+   rdfs:subClassOf evmpo:service;
+   rdfs:comment "any service that can be traded on a virtual marketplace"^^xs:string.
+evmpo:op_tradeable_object a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_tradeable_object a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_product rdfs:subClassOf evmpo:op_tradeable_object.
+evmpo:dp_product rdfs:subClassOf evmpo:dp_tradeable_object.
+
+### annotations to the fundamental class ###
+
+evmpo:product_annotation a owl:Class;
+   rdfs:subClassOf evmpo:annotation, evmpo:product_related_entity;
+   rdfs:comment "product_annotation, i.e., annotation of a product"^^xs:string.
+evmpo:has_product_annotation a evmpo:op_product;
+   rdfs:domain evmpo:product;
+   rdfs:range evmpo:annotation;
+   rdfs:subPropertyOf evmpo:has_annotation.
+
+
+##########################################################
+###  paradigmatic fundamental category (10): property  ###
+##########################################################
+
+### sub-ontology ###
+
+evmpo:property_related_entity a owl:Class;
+   rdfs:subClassOf evmpo:marketplace_related_entity;
+   rdfs:comment "property or non-paradigmatic aspect of a property"^^xs:string.
+evmpo:op_property_related_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_property_related_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_marketplace_related_entity rdfs:subClassOf evmpo:op_property_related_entity.
+evmpo:dp_marketplace_related_entity rdfs:subClassOf evmpo:dp_property_related_entity.
+
+### fundamental class ###
+
+evmpo:property a owl:Class;
+   rdfs:equivalentClass emmo:EMMO_a6876b60_21b9_48cf_beed_b9ae7c8f5c98;  # emmo property
+   rdfs:subClassOf evmpo:property_related_entity, evmpo:paradigmatic_entity;
+   rdfs:comment "property, i.e., a property as characterized by the EMMO"^^xs:string.
+evmpo:op_property a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_property a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_property_related_entity rdfs:subClassOf evmpo:op_property.
+evmpo:dp_property_related_entity rdfs:subClassOf evmpo:dp_property.
+
+### subclasses of the fundamental class ###
+
+evmpo:material_property a owl:Class;
+   rdfs:subClassOf evmpo:property;
+   rdfs:comment "material property, i.e., a property associated with a material"^^xs:string.
+evmpo:op_material_property a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_material_property a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_property rdfs:subClassOf evmpo:op_material_property.
+evmpo:dp_property rdfs:subClassOf evmpo:dp_material_property.
+evmpo:physical_process_property a owl:Class;
+   rdfs:subClassOf evmpo:property;
+   rdfs:comment "physical process property, i.e., a property associated with a physical process"^^xs:string.
+evmpo:op_physical_process a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_physical_process a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_property rdfs:subClassOf evmpo:op_physical_process.
+evmpo:dp_property rdfs:subClassOf evmpo:dp_physical_process.
+
+### annotations to the fundamental class ###
+
+evmpo:property_annotation a owl:Class;
+   rdfs:subClassOf evmpo:annotation, evmpo:property_related_entity;
+   rdfs:comment "property_annotation, i.e., annotation of a property"^^xs:string.
+evmpo:has_property_annotation a evmpo:op_property;
+   rdfs:domain evmpo:property;
+   rdfs:range evmpo:annotation;
+   rdfs:subPropertyOf evmpo:has_annotation.
+
+
+######################################################
+###  paradigmatic fundamental category (11): role  ###
+######################################################
+
+### sub-ontology ###
+
+evmpo:role_related_entity a owl:Class;
+   rdfs:subClassOf evmpo:marketplace_related_entity;
+   rdfs:comment "role or non-paradigmatic aspect of a role"^^xs:string.
+evmpo:op_role_related_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_role_related_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_marketplace_related_entity rdfs:subClassOf evmpo:op_role_related_entity.
+evmpo:dp_marketplace_related_entity rdfs:subClassOf evmpo:dp_role_related_entity.
+
+### fundamental class ###
+
+evmpo:role a owl:Class;
+   owl:equivalentClass emmo:EMMO_da6411c8_8551_487c_94ee_582ba2b8b748;  # emmo "role"
+   rdfs:subClassOf evmpo:role_related_entity, evmpo:paradigmatic_entity;
+   rdfs:comment "role, i.e., a role as characterized by the EMMO"^^xs:string.
+evmpo:op_role a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_role a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_role_related_entity rdfs:subClassOf evmpo:op_role.
+evmpo:dp_role_related_entity rdfs:subClassOf evmpo:dp_role.
+
+### subclasses of the fundamental class ###
+
+evmpo:stakeholder a owl:Class;
+   rdfs:subClassOf evmpo:role;
+   rdfs:subClassOf emmo:EMMO_a39a6ebd_a450_4435_be98_19677c6873da;  # emmo "observer"
+   rdfs:comment "stakeholder, i.e., an individual, institution, or group related to the virtual marketplace"^^xs:string.
+evmpo:op_stakeholder a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_stakeholder a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_role rdfs:subClassOf evmpo:op_stakeholder.
+evmpo:dp_role rdfs:subClassOf evmpo:dp_stakeholder.
+
+evmpo:group a owl:Class;
+   rdfs:subClassOf evmpo:stakeholder;
+   rdfs:comment "any virtual-marketplace participant that is not an institution, but also not a single person"^^xs:string.
+evmpo:op_group a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_group a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_stakeholder rdfs:subClassOf evmpo:op_group.
+evmpo:dp_stakeholder rdfs:subClassOf evmpo:dp_group.
+evmpo:institution a owl:Class;
+   rdfs:subClassOf evmpo:stakeholder;
+   rdfs:comment "academic institution, company, or any other organization that relates to the virtual marketplace"^^xs:string.
+evmpo:op_institution a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_institution a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_stakeholder rdfs:subClassOf evmpo:op_institution.
+evmpo:dp_stakeholder rdfs:subClassOf evmpo:dp_institution.
+evmpo:person a owl:Class;
+   rdfs:subClassOf evmpo:stakeholder;
+   rdfs:subClassOf emmo:EMMO_4a47a644_330f_4346_bd7b_c007a233ef3e;  # emmo "human_being"
+   rdfs:comment "an individual virtual-marketplace participant of any type"^^xs:string.
+evmpo:op_person a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_person a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_stakeholder rdfs:subClassOf evmpo:op_person.
+evmpo:dp_stakeholder rdfs:subClassOf evmpo:dp_person.
+
+evmpo:data_provider a owl:Class;
+   rdfs:subClassOf evmpo:stakeholder;
+   rdfs:comment "a data provider on a virtual marketplace"^^xs:string.
+evmpo:op_data_provider a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_data_provider a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_stakeholder rdfs:subClassOf evmpo:op_data_provider.
+evmpo:dp_stakeholder rdfs:subClassOf evmpo:dp_data_provider.
+evmpo:end_user a owl:Class;
+   rdfs:subClassOf evmpo:stakeholder;
+   rdfs:comment "an end user on a virtual marketplace"^^xs:string.
+evmpo:op_end_user a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_end_user a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_stakeholder rdfs:subClassOf evmpo:op_end_user.
+evmpo:dp_stakeholder rdfs:subClassOf evmpo:dp_end_user.
+evmpo:expert a owl:Class;
+   rdfs:subClassOf evmpo:stakeholder;
+   rdfs:comment "marketplace-relevant entity in possession of competencies in the field of materials modelling and simulation"^^xs:string.
+evmpo:op_expert a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_expert a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_stakeholder rdfs:subClassOf evmpo:op_expert.
+evmpo:dp_stakeholder rdfs:subClassOf evmpo:dp_expert.
+evmpo:model_provider a owl:Class;
+   rdfs:subClassOf evmpo:stakeholder;
+   rdfs:comment "a model provider on a virtual marketplace"^^xs:string.
+evmpo:op_model_provider a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_model_provider a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_stakeholder rdfs:subClassOf evmpo:op_model_provider.
+evmpo:dp_stakeholder rdfs:subClassOf evmpo:dp_model_provider.
+evmpo:software_owner a owl:Class;
+   rdfs:subClassOf evmpo:stakeholder;
+   rdfs:comment "a software owner on a virtual marketplace"^^xs:string.
+evmpo:op_software_owner a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_software_owner a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_stakeholder rdfs:subClassOf evmpo:op_software_owner.
+evmpo:dp_stakeholder rdfs:subClassOf evmpo:dp_software_owner.
+evmpo:trainer a owl:Class;
+   rdfs:subClassOf evmpo:stakeholder;
+   rdfs:comment "marketplace-relevant entity that can be accessed to acquire/develop competencies in the field of materials modelling and simulation"^^xs:string.
+evmpo:op_trainer a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_trainer a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_stakeholder rdfs:subClassOf evmpo:op_trainer.
+evmpo:dp_stakeholder rdfs:subClassOf evmpo:dp_trainer.
+evmpo:translator a owl:Class;
+   rdfs:subClassOf evmpo:stakeholder;
+   rdfs:comment "a translator on a virtual marketplace"^^xs:string.
+evmpo:op_translator a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_translator a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_stakeholder rdfs:subClassOf evmpo:op_translator.
+evmpo:dp_stakeholder rdfs:subClassOf evmpo:dp_translator.
+
+### annotations to the fundamental class ###
+
+evmpo:role_annotation a owl:Class;
+   rdfs:subClassOf evmpo:annotation, evmpo:role_related_entity;
+   rdfs:comment "role_annotation, i.e., annotation of a role"^^xs:string.
+evmpo:has_role_annotation a evmpo:op_role;
+   rdfs:domain evmpo:role;
+   rdfs:range evmpo:annotation;
+   rdfs:subPropertyOf evmpo:has_annotation.
+
+
+############################################################
+###  paradigmatic fundamental category (12): simulation  ###
+############################################################
+
+### sub-ontology ###
+
+evmpo:simulation_related_entity a owl:Class;
+   rdfs:subClassOf evmpo:marketplace_related_entity;
+   rdfs:comment "simulation or non-paradigmatic aspect of simulation"^^xs:string.
+evmpo:op_simulation_related_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_simulation_related_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_marketplace_related_entity rdfs:subClassOf evmpo:op_simulation_related_entity.
+evmpo:dp_marketplace_related_entity rdfs:subClassOf evmpo:dp_simulation_related_entity.
+
+### fundamental class ###
+
+evmpo:simulation a owl:Class;
+   rdfs:subClassOf evmpo:simulation_related_entity, evmpo:paradigmatic_entity;
+   rdfs:comment "simulation, i.e., a simulation workflow (including a single simulation as special case)"^^xs:string.
+evmpo:op_simulation a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_simulation a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_simulation_related_entity rdfs:subClassOf evmpo:op_simulation.
+evmpo:dp_simulation_related_entity rdfs:subClassOf evmpo:dp_simulation.
+
+### annotations to the fundamental class ###
+
+evmpo:simulation_annotation a owl:Class;
+   rdfs:subClassOf evmpo:annotation, evmpo:simulation_related_entity;
+   rdfs:comment "simulation_annotation, i.e., annotation to a simulation workflow"^^xs:string.
+evmpo:has_simulation_annotation a evmpo:op_simulation;
+   rdfs:domain evmpo:simulation;
+   rdfs:range evmpo:annotation;
+   rdfs:subPropertyOf evmpo:has_annotation.
+
+
+###############################################################
+###  non-paradigmatic fundamental category (0): annotation  ###
+###############################################################
+
+### fundamental class ###
+
+evmpo:annotation a owl:Class;
+   rdfs:subClassOf evmpo:marketplace_related_entity, evmpo:non_paradigmatic_entity;
+   rdfs:comment "annotation, i.e., a non-paradigmatic aspect of any entity covered by EVMPO or a subordinate marketplace-level or subdomain-specific ontology"^^xs:string.
+evmpo:op_annotation a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_annotation a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_marketplace_related_entity rdfs:subClassOf evmpo:op_annotation.
+evmpo:dp_marketplace_related_entity rdfs:subClassOf evmpo:dp_annotation.
+
+### properties related to the fundamental class and its subclasses ###
+
+evmpo:has_annotation a evmpo:op_marketplace_related_entity;
+   rdfs:domain evmpo:marketplace_related_entity;
+   rdfs:range evmpo:annotation.
+
+### annotations to the fundamental class ###
+
+evmpo:meta_annotation a owl:Class;
+   rdfs:subClassOf evmpo:annotation;
+   rdfs:comment "meta_annotation, i.e., a non-paradigmatic aspect of a non-paradigmatic entity"^^xs:string.
+evmpo:has_meta_annotation a evmpo:op_annotation;
+   rdfs:domain evmpo:annotation;
+   rdfs:range evmpo:annotation;
+   rdfs:subPropertyOf evmpo:has_annotation.
+
+### MARKETPLACE-ACCESSIBLE COMPUTATIONAL RESOURCE ONTOLOGY (MACRO) ###
+
+### VERSION 0.0.2 ###
+
+### DATED 21ST JANUARY 2019 ###
+
+@prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
+
+@prefix cviii: <http://www.vimmp.eu/semantics/cviii/cviii.ttl#>.
+@prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xs: <http://www.w3.org/2001/XMLSchema#>.
+
+<http://www.vimmp.eu/semantics/macro/macro.ttl#> a owl:Ontology.
+
+macro:infrastructure_related_entity a owl:Class;
+   owl:equivalentClass evmpo:infrastructure_related_entity.
+macro:op_infrastructure_related_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+macro:dp_infrastructure_related_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_infrastructure_related_entity owl:equivalentClass macro:op_infrastructure_related_entity.
+evmpo:dp_infrastructure_related_entity owl:equivalentClass macro:dp_infrastructure_related_entity.
+
+macro:infrastructure a owl:Class;
+   rdfs:subClassOf macro:infrastructure_related_entity.
+macro:op_infrastructure a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+macro:dp_infrastructure a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+macro:op_infrastructure_related_entity rdfs:subClassOf macro:op_infrastructure.
+macro:dp_infrastructure_related_entity rdfs:subClassOf macro:dp_infrastructure.
+
+macro:repository a owl:Class;
+   rdfs:subClassOf macro:infrastructure, cviii:agent.
+macro:op_repository a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+macro:dp_repository a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+macro:op_infrastructure rdfs:subClassOf macro:op_repository.
+macro:dp_infrastructure rdfs:subClassOf macro:dp_repository.
+cviii:op_agent rdfs:subClassOf macro:op_repository.
+cviii:dp_agent rdfs:subClassOf macro:dp_repository.
+
+macro:VIMMP_CERTIFICATE_REGISTRY a macro:repository;
+   cviii:acts_on macro:VIMMP_MARKETPLACE;
+   cviii:has_name "VIMMP Marketplace Certificate Registry".
+
+macro:virtual_marketplace a owl:Class;
+   rdfs:subClassOf macro:infrastructure.
+
+macro:VIMMP_MARKETPLACE a macro:virtual_marketplace.
+macro:MARKETPLACE_MARKETPLACE a macro:virtual_marketplace.
+
+### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
+
+### VERSION 0.1.1 ###
+
+### DATED 21ST JANUARY 2019 ###
+
+@prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
+
+@prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix qudt: <http://qudt.org/schema/qudt#>.
+@prefix quq: <http://purl.oclc.org/NET/ssnx/qu/quantity#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xs: <http://www.w3.org/2001/XMLSchema#>.
+
+<http://www.vimmp.eu/semantics/osmo/osmo.ttl#> a owl:Ontology.
+
+osmo:model_related_entity a owl:Class;
+   owl:equivalentClass evmpo:model_related_entity.
+osmo:op_model_related_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_model_related_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_model_related_entity owl:equivalentClass osmo:op_model_related_entity.
+evmpo:dp_model_related_entity owl:equivalentClass osmo:dp_model_related_entity.
+
+osmo:simulation_related_entity a owl:Class;
+   owl:equivalentClass evmpo:simulation_related_entity.
+osmo:op_simulation_related_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_simulation_related_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_simulation_related_entity owl:equivalentClass osmo:op_simulation_related_entity.
+evmpo:dp_simulation_related_entity owl:equivalentClass osmo:dp_simulation_related_entity.
+
+
+osmo:moda_structure_entity a owl:Class;
+   rdfs:subClassOf osmo:simulation_related_entity.
+osmo:op_moda_structure_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_moda_structure_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_simulation_related_entity rdfs:subClassOf osmo:op_moda_structure_entity.
+osmo:dp_simulation_related_entity rdfs:subClassOf osmo:dp_moda_structure_entity.
+
+osmo:moda_section a owl:Class;
+   rdfs:subClassOf osmo:moda_structure_entity, evmpo:simulation_annotation.
+osmo:op_moda_section a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_moda_section a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_moda_structure_entity rdfs:subClassOf osmo:op_moda_section.
+osmo:dp_moda_structure_entity rdfs:subClassOf osmo:dp_moda_section.
+evmpo:op_simulation_annotation rdfs:subClassOf osmo:op_moda_section.
+evmpo:dp_simulation_annotation rdfs:subClassOf osmo:dp_moda_section.
+
+osmo:has_boundary_condition a osmo:op_moda_section;
+   rdfs:domain osmo:moda_section;
+   rdfs:range osmo:moda_boundary_condition.
+osmo:has_result_property a osmo:op_moda_section;
+   rdfs:domain osmo:moda_section;
+   rdfs:range osmo:moda_property.
+
+osmo:moda_usercase a owl:Class;
+   rdfs:subClassOf osmo:moda_section.
+osmo:op_moda_usercase a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_moda_usercase a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_moda_section rdfs:subClassOf osmo:op_moda_usercase.
+osmo:dp_moda_section rdfs:subClassOf osmo:dp_moda_usercase.
+
+osmo:has_material_class a osmo:op_moda_usercase;
+   rdfs:domain osmo:moda_usercase;
+   rdfs:range osmo:moda_material_class;
+   rdfs:subPropertyOf evmpo:has_meta_annotation.
+osmo:has_problem_class a osmo:op_moda_usercase;
+   rdfs:domain osmo:moda_usercase;
+   rdfs:range osmo:moda_problem_class;
+   rdfs:subPropertyOf evmpo:has_meta_annotation.
+osmo:has_material a osmo:op_moda_usercase;
+   rdfs:domain osmo:moda_usercase;
+   rdfs:range osmo:moda_material_descriptor;
+   rdfs:subPropertyOf evmpo:has_meta_annotation.
+
+
+osmo:moda_usercase_entity a owl:Class;
+   rdfs:subClassOf osmo:simulation_related_entity, evmpo:simulation_annotation.
+osmo:op_moda_usercase_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_moda_usercase_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_simulation_related_entity rdfs:subClassOf osmo:op_moda_usercase_entity.
+osmo:dp_simulation_related_entity rdfs:subClassOf osmo:dp_moda_usercase_entity.
+evmpo:op_simulation_annotation rdfs:subClassOf osmo:op_moda_usercase_entity.
+evmpo:dp_simulation_annotation rdfs:subClassOf osmo:dp_moda_usercase_entity.
+
+osmo:moda_material_class a owl:Class;
+   rdfs:subClassOf osmo:moda_usercase_entity, evmpo:meta_annotation.
+
+osmo:FLUID a osmo:moda_material_class.
+osmo:SOLID a osmo:moda_material_class.
+
+osmo:moda_material_descriptor a owl:Class;
+   rdfs:subClassOf osmo:moda_usercase_entity, evmpo:meta_annotation.
+osmo:op_moda_material_descriptor a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_moda_material_descriptor a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_moda_usercase_entity rdfs:subClassOf osmo:op_moda_material_descriptor.
+osmo:dp_moda_usercase_entity rdfs:subClassOf osmo:dp_moda_material_descriptor.
+
+osmo:has_mole_fraction a osmo:dp_moda_material_descriptor, owl:FunctionalProperty;
+   rdfs:domain osmo:moda_material_descriptor;
+   rdfs:range xs:decimal.
+
+osmo:moda_cas_number a owl:Class;
+   rdfs:subClassOf osmo:moda_material_descriptor.
+osmo:op_moda_cas_number a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_moda_cas_number a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_moda_material_descriptor rdfs:subClassOf osmo:op_moda_cas_number.
+osmo:dp_moda_material_descriptor rdfs:subClassOf osmo:dp_moda_cas_number.
+
+osmo:is_given_by a osmo:dp_moda_cas_number, owl:FunctionalProperty;
+   rdfs:domain osmo:moda_cas_number;
+   rdfs:range xs:string.
+
+
+osmo:moda_problem_class a owl:Class;
+   rdfs:subClassOf osmo:moda_usercase_entity, evmpo:meta_annotation.
+
+osmo:KINETICS a osmo:moda_problem_class.
+osmo:MECHANICS a osmo:moda_problem_class.
+osmo:SPECTRA a osmo:moda_problem_class.
+osmo:THERMODYNAMICS a osmo:moda_problem_class.
+osmo:TRANSPORT a osmo:moda_problem_class.
+
+osmo:moda_system_entity a owl:Class;
+   rdfs:subClassOf osmo:simulation_related_entity.
+osmo:op_moda_system_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_moda_system_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_simulation_related_entity rdfs:subClassOf osmo:op_moda_system_entity.
+osmo:dp_simulation_related_entity rdfs:subClassOf osmo:dp_moda_system_entity.
+
+osmo:moda_property a owl:Class;
+   rdfs:subClassOf osmo:moda_system_entity.
+osmo:op_moda_property a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_moda_property a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_moda_system_entity rdfs:subClassOf osmo:op_moda_property.
+osmo:dp_moda_system_entity rdfs:subClassOf osmo:dp_moda_property.
+
+osmo:is_quantity_kind a osmo:op_moda_property, owl:FunctionalProperty;
+   rdfs:domain osmo:moda_property;
+   rdfs:range quq:QuantityKind.
+
+osmo:moda_boundary_condition a owl:Class;
+   rdfs:subClassOf osmo:moda_system_entity.
+osmo:op_moda_boundary_condition a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_moda_boundary_condition a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_moda_system_entity rdfs:subClassOf osmo:op_moda_boundary_condition.
+osmo:dp_moda_system_entity rdfs:subClassOf osmo:dp_moda_boundary_condition.
+
+osmo:moda_property_condition a owl:Class;
+   rdfs:subClassOf osmo:moda_boundary_condition.
+osmo:op_moda_property_condition a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_moda_property_condition a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_moda_boundary_condition rdfs:subClassOf osmo:op_moda_property_condition.
+osmo:dp_moda_boundary_condition rdfs:subClassOf osmo:dp_moda_property_condition.
+
+osmo:has_given_property a osmo:op_moda_property_condition;
+   rdfs:domain osmo:moda_property_condition;
+   rdfs:range osmo:moda_property.
+osmo:has_exact_value a osmo:dp_moda_property_condition, owl:FunctionalProperty;
+   rdfs:domain osmo:moda_property_condition;
+   rdfs:range xs:decimal.
+osmo:has_lower_bound a osmo:dp_moda_property_condition;
+   rdfs:domain osmo:moda_property_condition;
+   rdfs:range xs:decimal.
+osmo:has_upper_bound a osmo:dp_moda_property_condition;
+   rdfs:domain osmo:moda_property_condition;
+   rdfs:range xs:decimal.
+osmo:is_given_in a osmo:op_moda_property_condition, owl:FunctionalProperty;
+   rdfs:domain osmo:moda_property_condition;
+   rdfs:range qudt:DecimalScaledUnit.
+
+
+osmo:moda_model a owl:Class;
+   rdfs:subClassOf osmo:moda_section.
+osmo:op_moda_model a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:op_moda_section rdfs:subClassOf osmo:op_moda_model.
+
+osmo:has_model_type a osmo:op_moda_model;
+   rdfs:domain osmo:moda_model;
+   rdfs:range osmo:moda_model_type;
+   rdfs:subPropertyOf evmpo:has_meta_annotation.
+osmo:has_model_scale a osmo:op_moda_model;
+   rdfs:domain osmo:moda_model;
+   rdfs:range osmo:moda_model_scale;
+   rdfs:subPropertyOf evmpo:has_meta_annotation.
+osmo:has_physics_equation a osmo:op_moda_model;
+   rdfs:domain osmo:moda_model;
+   rdfs:range osmo:moda_physics_equation;
+   rdfs:subPropertyOf evmpo:has_meta_annotation.
+osmo:has_materials_relation a osmo:op_moda_model;
+   rdfs:domain osmo:moda_model;
+   rdfs:range osmo:moda_materials_relation;
+   rdfs:subPropertyOf evmpo:has_meta_annotation.
+osmo:has_simulated_input a osmo:op_moda_model;
+   rdfs:domain osmo:moda_model;
+   rdfs:range osmo:moda_simulated_input;
+   rdfs:subPropertyOf evmpo:has_meta_annotation.
+
+osmo:moda_model_type a owl:Class;
+   rdfs:subClassOf osmo:model_related_entity, evmpo:meta_annotation.
+
+osmo:EOS a osmo:moda_model_type.
+osmo:FLEXIBLE a osmo:moda_model_type.
+osmo:FORCE_FIELD a osmo:moda_model_type.
+osmo:MULTIBODY a osmo:moda_model_type.
+osmo:PAIRWISE a osmo:moda_model_type.
+osmo:PARAMETERIZED a osmo:moda_model_type.
+osmo:RIGID a osmo:moda_model_type.
+osmo:UNITED_ATOM a osmo:moda_model_type.
+osmo:UNPARAMETERIZED a osmo:moda_model_type.
+
+osmo:moda_model_scale a owl:Class;
+   rdfs:subClassOf osmo:model_related_entity, evmpo:meta_annotation.
+
+osmo:ELECTRONIC a osmo:moda_model_scale.
+osmo:ATOMISTIC a osmo:moda_model_scale.
+osmo:MESOSCOPIC a osmo:moda_model_scale.
+osmo:CONTINUUM a osmo:moda_model_scale.
+
+osmo:moda_physics_equation a owl:Class;
+   rdfs:subClassOf osmo:model_related_entity, evmpo:meta_annotation.
+
+osmo:ALLEN_CAHN_CLASSICAL a osmo:moda_physics_equation.
+osmo:ENSEMBLE_AVERAGES_CLASSICAL a osmo:moda_physics_equation.
+osmo:MOTION_DISCRETE_NEWTON a osmo:moda_physics_equation.
+osmo:PAIRWISE_ADDITIVITY_CLASSICAL a osmo:moda_physics_equation.
+osmo:PARTITION_FUNCTION_CLASSICAL a osmo:moda_physics_equation.
+osmo:PERTURBATION_THEORY_SAFT a osmo:moda_physics_equation.
+osmo:SCHROEDINGER_TIME_DEPENDENT a osmo:moda_physics_equation.
+osmo:SCHROEDINGER_TIME_INDEPENDENT a osmo:moda_physics_equation.
+
+osmo:moda_materials_relation a owl:Class;
+   rdfs:subClassOf osmo:model_related_entity, evmpo:meta_annotation.
+osmo:dp_moda_materials_relation a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_moda_materials_relation a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:op_model_related_entity rdfs:subClassOf osmo:op_moda_materials_relation.
+osmo:dp_model_related_entity rdfs:subClassOf osmo:dp_moda_materials_relation.
+evmpo:op_meta_annotation rdfs:subClassOf osmo:op_moda_materials_relation.
+evmpo:dp_meta_annotation rdfs:subClassOf osmo:dp_moda_materials_relation.
+
+osmo:has_uri a osmo:op_moda_materials_relation;
+   rdfs:domain osmo:moda_materials_relation;
+   rdfs:range rdfs:Resource.
+
+osmo:has_relation_name a osmo:dp_moda_materials_relation;
+   rdfs:domain osmo:moda_materials_relation;
+   rdfs:range xs:string.
+
+osmo:has_relation_type a osmo:dp_moda_materials_relation;
+   rdfs:domain osmo:moda_materials_relation;
+   rdfs:range xs:string.
+
+osmo:moda_simulated_input a owl:Class;
+   rdfs:subClassOf osmo:model_related_entity, evmpo:meta_annotation.
+
+
+osmo:moda_solver a owl:Class;
+   rdfs:subClassOf osmo:moda_section.
+osmo:op_moda_solver a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_moda_solver a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_moda_section rdfs:subClassOf osmo:op_moda_solver.
+osmo:dp_moda_section rdfs:subClassOf osmo:dp_moda_solver.
+
+osmo:has_solver_type a osmo:op_moda_solver;
+   rdfs:domain osmo:moda_solver;
+   rdfs:range osmo:moda_solver_type;
+   rdfs:subPropertyOf evmpo:has_meta_annotation.
+osmo:is_tool a osmo:dp_moda_solver;
+   rdfs:domain osmo:moda_solver;
+   rdfs:range xs:string.
+osmo:has_computational_representation a osmo:dp_moda_solver;
+   rdfs:domain osmo:moda_solver;
+   rdfs:range xs:string.
+osmo:has_parameter_descriptor a osmo:dp_moda_solver;
+   rdfs:domain osmo:moda_solver;
+   rdfs:range xs:string.
+
+osmo:moda_solver_entity a owl:Class;
+   rdfs:subClassOf osmo:simulation_related_entity, evmpo:simulation_annotation.
+
+osmo:moda_solver_type a owl:Class;
+   rdfs:subClassOf osmo:moda_solver_entity, evmpo:meta_annotation.
+
+osmo:EOS_SINGLE_PHASE_SOLVER a osmo:moda_solver_type.
+osmo:EOS_PHASE_EQUILIBRIUM_SOLVER a osmo:moda_solver_type.
+osmo:MOLECULAR_DYNAMICS_SOLVER a osmo:moda_solver_type.
+osmo:MONTE_CARLO_SOLVER a osmo:moda_solver_type.
+
+osmo:PERIODIC_BOUNDARY_CONDITION a osmo:moda_boundary_condition.
+
+
+osmo:moda_processor a owl:Class;
+   rdfs:subClassOf osmo:moda_section.
+
+osmo:moda_trajectory_analyser a owl:Class;
+   rdfs:subClassOf osmo:moda_processor.
+
+osmo:moda_property_selector a owl:Class;
+   rdfs:subClassOf osmo:moda_processor.
+
+
+osmo:moda a owl:Class;
+   rdfs:subClassOf osmo:moda_structure_entity;
+   owl:equivalentClass evmpo:simulation.
+osmo:op_moda a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_moda a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_moda_structure_entity rdfs:subClassOf osmo:op_moda.
+osmo:dp_moda_structure_entity rdfs:subClassOf osmo:dp_moda.
+evmpo:op_simulation owl:equivalentClass osmo:op_moda.
+evmpo:dp_simulation owl:equivalentClass osmo:dp_moda.
+
+osmo:has_usercase a osmo:op_moda;
+   rdfs:domain osmo:moda;
+   rdfs:range osmo:moda_usercase;
+   rdfs:subPropertyOf evmpo:has_simulation_annotation.
+osmo:has_model a osmo:op_moda;
+   rdfs:domain osmo:moda;
+   rdfs:range osmo:moda_model;
+   rdfs:subPropertyOf evmpo:has_simulation_annotation.
+osmo:has_solver a osmo:op_moda;
+   rdfs:domain osmo:moda;
+   rdfs:range osmo:moda_solver;
+   rdfs:subPropertyOf evmpo:has_simulation_annotation.
+osmo:has_processor a osmo:op_moda;
+   rdfs:domain osmo:moda;
+   rdfs:range osmo:moda_processor;
+   rdfs:subPropertyOf evmpo:has_simulation_annotation.
+
+### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
+
+### VERSION 0.2.1 ###
+
+### DATED 21ST JANUARY 2019 ###
+
+@prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
+
+@prefix ccso: <https://w3id.org/ccso/ccso#>.
+@prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
+@prefix iao: <http://purl.obolibrary.org/obo/iao.owl#>.
+@prefix ical: <https://www.w3.org/2002/12/cal/icaltzd#>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xs: <http://www.w3.org/2001/XMLSchema#>.
+
+<http://www.vimmp.eu/semantics/otras/otras.ttl#> a owl:Ontology.
+
+otras:training_related_entity a owl:Class;
+   rdfs:subClassOf evmpo:marketplace_related_entity.
+otras:op_training_related_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_training_related_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_marketplace_related_entity rdfs:subClassOf otras:op_training_related_entity.
+evmpo:dp_marketplace_related_entity rdfs:subClassOf otras:dp_training_related_entity.
+
+otras:constrained_entity a owl:Class;
+   rdfs:subClassOf otras:training_related_entity;
+   owl:intersectionOf (owl:Restriction otras:training_related_entity).
+
+otras:carrier a owl:Class;
+   rdfs:comment "carrier, e.g, material, activity, event that carries the contents of a course"^^xs:string;
+   rdfs:subClassOf otras:training_related_entity.
+otras:op_carrier a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_carrier a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+otras:op_training_related_entity rdfs:subClassOf otras:op_carrier.
+otras:dp_training_related_entity rdfs:subClassOf otras:dp_carrier.
+
+otras:training_document a owl:Class;
+   rdfs:comment "a training document is an document (as defined by IAO) that is related to training activities on a virtual marketplace"^^xs:string;
+   rdfs:subClassOf evmpo:document, otras:carrier;
+   rdfs:subClassOf iao:IAO_0000310;  # iao label "document"
+   owl:intersectionOf (evmpo:document otras:carrier).
+otras:op_training_document a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_training_document a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_document rdfs:subClassOf otras:op_training_document.
+evmpo:dp_document rdfs:subClassOf otras:dp_training_document.
+otras:op_carrier rdfs:subClassOf otras:op_training_document.
+otras:dp_carrier rdfs:subClassOf otras:dp_training_document.
+
+otras:training_event a owl:Class;
+   rdfs:comment "a training event is a (potential) virtual marketplace calendar event at which training activities occur, equivalent to Event from CCSO"^^xs:string;
+   rdfs:subClassOf evmpo:calendar_event, ical:Vevent, otras:carrier;
+   owl:equivalentClass ccso:Event;
+   owl:intersectionOf (evmpo:calendar_event otras:carrier).
+otras:op_training_event a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_training_event a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_calendar_event rdfs:subClassOf otras:op_training_event.
+evmpo:dp_calendar_event rdfs:subClassOf otras:dp_training_event.
+otras:op_carrier rdfs:subClassOf otras:op_training_event.
+otras:dp_carrier rdfs:subClassOf otras:dp_training_event.
+
+otras:tradeable_object a owl:Class;
+   rdfs:comment "a tradeable object is a service that is offered, or can be offered, on a virtual marketplace"^^xs:string;
+   owl:equivalentClass evmpo:tradeable_object;
+   rdfs:subClassOf evmpo:service.
+otras:op_tradeable_object a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_tradeable_object a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_service rdfs:subClassOf otras:op_tradeable_object; owl:equivalentClass evmpo:op_tradeable_object.
+evmpo:dp_service rdfs:subClassOf otras:dp_tradeable_object; owl:equivalentClass evmpo:dp_tradeable_object.
+
+otras:training_service a owl:Class;
+   rdfs:comment "a training service is a tradeable object that has a content related to training activities on a virtual marketplace"^^xs:string;
+   rdfs:subClassOf otras:tradeable_object, otras:training_related_entity.
+otras:op_training_service a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_training_service a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+otras:op_tradeable_object rdfs:subClassOf otras:op_training_service.
+otras:dp_tradeable_object rdfs:subClassOf otras:dp_training_service.
+otras:op_training_related_entity rdfs:subClassOf otras:op_training_service.
+otras:dp_training_related_entity rdfs:subClassOf otras:dp_training_service.
+
+otras:has_offered_course a otras:op_training_service;
+   rdfs:domain otras:training_service;
+   rdfs:range otras:course;
+   rdfs:subPropertyOf evmpo:has_product_annotation.
+
+otras:focus a owl:Class;
+   rdfs:comment "focus, i.e., a studied object or topic or training objective (or an aspect or constitutive part thereof)";
+   rdfs:subClassOf otras:training_related_entity.
+otras:op_focus a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_focus a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+otras:op_training_related_entity rdfs:subClassOf otras:op_focus.
+otras:dp_training_related_entity rdfs:subClassOf otras:dp_focus.
+
+otras:has_focus_descriptor a otras:dp_focus;
+   rdfs:domain otras:focus;
+   rdfs:range rdfs:Literal.
+
+otras:topic a owl:Class;
+   rdfs:comment "a topic as defined by CCSO"^^xs:string;
+   rdfs:subClassOf evmpo:meta_annotation, otras:focus;
+   owl:equivalentClass ccso:Topic.
+otras:op_topic a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_topic a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_meta_annotation rdfs:subClassOf otras:op_topic.
+evmpo:dp_meta_annotation rdfs:subClassOf otras:dp_topic.
+otras:op_focus rdfs:subClassOf otras:op_topic.
+otras:dp_focus rdfs:subClassOf otras:dp_topic.
+
+otras:has_topic_descriptor a otras:dp_topic;
+   rdfs:domain otras:topic;
+   rdfs:range rdfs:Literal;
+   rdfs:subPropertyOf otras:has_focus_descriptor.
+
+otras:specifier a owl:Class;
+   rdfs:comment "specifier, i.e., a constitutive element of a learning outcome (acquired competency) description"^^xs:string;
+   rdfs:subClassOf evmpo:meta_annotation, otras:focus, otras:HAS_A_SPECIFIER_DESCRIPTOR.
+otras:op_specifier a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_specifier a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_meta_annotation rdfs:subClassOf otras:op_specifier.
+evmpo:dp_meta_annotation rdfs:subClassOf otras:dp_specifier.
+otras:op_focus rdfs:subClassOf otras:op_specifier.
+otras:dp_focus rdfs:subClassOf otras:dp_specifier.
+
+otras:has_specifier_descriptor a otras:dp_specifier;
+   rdfs:domain otras:specifier;
+   rdfs:range rdfs:Literal;
+   rdfs:subPropertyOf otras:has_focus_descriptor.
+otras:HAS_A_SPECIFIER_DESCRIPTOR a owl:Restriction;
+   rdfs:subClassOf otras:constrained_entity;
+   owl:onProperty otras:has_specifier_descriptor;
+   owl:someValuesFrom rdfs:Literal.
+
+otras:operator_specifier a owl:Class;
+   rdfs:comment "operator specifier, i.e., the type of activity facilitated by an acquisition of the specified competency"^^xs:string;
+   rdfs:subClassOf otras:specifier.
+otras:op_operator_specifier a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_operator_specifier a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+otras:op_specifier rdfs:subClassOf otras:op_operator_specifier.
+otras:dp_specifier rdfs:subClassOf otras:dp_operator_specifier.
+
+otras:is_expressed_by a otras:dp_operator_specifier;
+   rdfs:domain otras:operator_specifier;
+   rdfs:range rdfs:Literal.
+otras:R_IS_EXPRESSED a owl:Restriction;
+   rdfs:subClassOf otras:constrained_entity;
+   owl:onProperty otras:is_expressed_by;
+   owl:someValuesFrom rdfs:Literal.
+otras:operator_specifier rdfs:subClassOf otras:R_IS_EXPRESSED.
+otras:is_defined_by a otras:dp_specifier;
+   rdfs:domain otras:operator_specifier;
+   rdfs:range rdfs:Literal;
+   rdfs:subPropertyOf otras:has_specifier_descriptor.
+
+otras:has_operator_descriptor a otras:dp_operator_specifier;
+   rdfs:domain otras:operator_specifier;
+   rdfs:range rdfs:Literal;
+   rdfs:subPropertyOf otras:has_specifier_descriptor;
+   owl:equivalentProperty otras:is_expressed_by.
+
+otras:has_kmk_level a otras:op_operator_specifier;
+   rdfs:domain otras:operator_specifier;
+   rdfs:range otras:kmk_operator_level;
+   rdfs:subPropertyOf evmpo:has_meta_annotation.
+
+otras:operand_specifier a owl:Class;
+   rdfs:comment "operand specifier, i.e., an entity acted upon by an operator specifier"^^xs:string;
+   rdfs:subClassOf otras:specifier.
+otras:op_operand_specifier a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_operand_specifier a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+otras:op_specifier rdfs:subClassOf otras:op_operand_specifier.
+otras:dp_specifier rdfs:subClassOf otras:dp_operand_specifier.
+
+otras:has_operand_descriptor a otras:dp_operand_specifier;
+   rdfs:domain otras:operand_specifier;
+   rdfs:range rdfs:Literal;
+   rdfs:subPropertyOf otras:has_specifier_descriptor.
+otras:has_operand_topic a otras:op_operand_specifier;
+   rdfs:domain otras:operand_specifier;
+   rdfs:range otras:topic;
+   rdfs:subPropertyOf evmpo:has_meta_annotation.
+
+otras:implementation_specifier a owl:Class;
+   rdfs:comment "implementation specifier, i.e., a process or procedural aspect of the specified competency"^^xs:string;
+   rdfs:subClassOf otras:specifier.
+otras:op_implementation_specifier a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_implementation_specifier a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+otras:op_specifier rdfs:subClassOf otras:op_implementation_specifier.
+otras:dp_specifier rdfs:subClassOf otras:dp_implementation_specifier.
+
+otras:has_implementation_descriptor a otras:dp_implementation_specifier;
+   rdfs:domain otras:implementation_specifier;
+   rdfs:range rdfs:Literal;
+   rdfs:subPropertyOf otras:has_specifier_descriptor.
+
+otras:example_specifier a owl:Class;
+   rdfs:comment "example specifier, i.e., a concrete example of how the competency may be exercised in practice"^^xs:string;
+   rdfs:subClassOf otras:specifier.
+otras:op_example_specifier a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_example_specifier a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+otras:op_specifier rdfs:subClassOf otras:op_example_specifier.
+otras:dp_specifier rdfs:subClassOf otras:dp_example_specifier.
+
+otras:has_example_descriptor a otras:dp_example_specifier;
+   rdfs:domain otras:example_specifier;
+   rdfs:range rdfs:Literal;
+   rdfs:subPropertyOf otras:has_specifier_descriptor.
+otras:has_example_topic a otras:op_example_specifier;
+   rdfs:domain otras:example_specifier;
+   rdfs:range otras:topic;
+   rdfs:subPropertyOf evmpo:has_meta_annotation.
+
+otras:learning_outcome a owl:Class;
+   rdfs:comment "a learning outcome, equivalent to LearningOutcome from CCSO, further characterized by OTRAS"^^xs:string;
+   rdfs:subClassOf evmpo:meta_annotation, otras:focus;
+   owl:equivalentClass ccso:LearningOutcome.
+otras:op_learning_outcome a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_learning_outcome a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_meta_annotation rdfs:subClassOf otras:op_learning_outcome.
+evmpo:dp_meta_annotation rdfs:subClassOf otras:dp_learning_outcome.
+otras:op_focus rdfs:subClassOf otras:op_learning_outcome.
+otras:dp_focus rdfs:subClassOf otras:dp_learning_outcome.
+
+otras:has_l_o_descriptor a otras:dp_specifier;
+   rdfs:domain otras:learning_outcome;
+   rdfs:range rdfs:Literal;
+   rdfs:subPropertyOf otras:has_focus_descriptor.
+
+otras:has_specifier a otras:op_learning_outcome;
+   rdfs:domain otras:learning_outcome;
+   rdfs:range otras:specifier;
+   rdfs:subPropertyOf evmpo:has_meta_annotation.
+otras:has_operator_specifier a otras:op_learning_outcome;
+   rdfs:domain otras:learning_outcome;
+   rdfs:range otras:operator_specifier;
+   rdfs:subPropertyOf otras:has_specifier.
+otras:R_HAS_AN_OPERATOR_SPECIFIER a owl:Restriction;
+   rdfs:subClassOf otras:constrained_entity;
+   owl:onProperty otras:has_operator_specifier;
+   owl:someValuesFrom otras:operator_specifier.
+otras:learning_outcome rdfs:subClassOf otras:R_HAS_AN_OPERATOR_SPECIFIER.
+otras:has_operand_specifier a otras:op_learning_outcome;
+   rdfs:domain otras:learning_outcome;
+   rdfs:range otras:operand_specifier;
+   rdfs:subPropertyOf otras:has_specifier.
+otras:R_HAS_AN_OPERAND_SPECIFIER a owl:Restriction;
+   rdfs:subClassOf otras:constrained_entity;
+   owl:onProperty otras:has_operand_specifier;
+   owl:someValuesFrom otras:operand_specifier.
+otras:learning_outcome rdfs:subClassOf otras:R_HAS_AN_OPERAND_SPECIFIER.
+otras:has_implementation_specifier a otras:op_learning_outcome;
+   rdfs:domain otras:learning_outcome;
+   rdfs:range otras:implementation_specifier;
+   rdfs:subPropertyOf otras:has_specifier.
+otras:has_example_specifier a otras:op_learning_outcome;
+   rdfs:domain otras:learning_outcome;
+   rdfs:range otras:example_specifier;
+   rdfs:subPropertyOf otras:has_specifier.
+
+otras:syllabus a owl:Class;
+   rdfs:comment "a syllabus as defined by CCSO"^^xs:string;
+   rdfs:subClassOf evmpo:meta_annotation, otras:training_related_entity;
+   owl:equivalentClass ccso:Syllabus.
+otras:op_syllabus a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_syllabus a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_meta_annotation rdfs:subClassOf otras:op_syllabus.
+evmpo:dp_meta_annotation rdfs:subClassOf otras:dp_syllabus.
+otras:op_training_related_entity rdfs:subClassOf otras:op_syllabus.
+otras:dp_training_related_entity rdfs:subClassOf otras:dp_syllabus.
+
+otras:aims_to a otras:op_syllabus;
+   rdfs:domain otras:syllabus;
+   rdfs:range otras:learning_outcome;
+   rdfs:subPropertyOf evmpo:has_meta_annotation;
+   owl:equivalentProperty ccso:aimsToLO.
+otras:covers_topic a otras:op_syllabus;
+   rdfs:domain otras:syllabus;
+   rdfs:range otras:topic;
+   rdfs:subPropertyOf evmpo:has_meta_annotation;
+   owl:equivalentProperty ccso:coversTopic.
+otras:has_syllabus_resource a otras:op_syllabus;
+   rdfs:domain otras:syllabus;
+   rdfs:range rdfs:Resource.
+
+otras:course a owl:Class;
+   rdfs:comment "a course as defined by CCSO"^^xs:string;
+   rdfs:subClassOf evmpo:product_annotation, otras:training_related_entity;
+   owl:equivalentClass ccso:Course.
+otras:op_course a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_course a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_product_annotation rdfs:subClassOf otras:op_course.
+evmpo:dp_product_annotation rdfs:subClassOf otras:dp_course.
+otras:op_training_related_entity rdfs:subClassOf otras:op_course.
+otras:dp_training_related_entity rdfs:subClassOf otras:dp_course.
+
+otras:has_carrier a otras:op_course;
+   rdfs:domain otras:course;
+   rdfs:range otras:carrier.
+otras:has_document a otras:op_course;
+   rdfs:domain otras:course;
+   rdfs:range otras:training_document;
+   rdfs:subPropertyOf otras:has_carrier.
+otras:has_event a otras:op_course;
+   rdfs:domain otras:course;
+   rdfs:range otras:training_event;
+   rdfs:subPropertyOf otras:has_carrier.
+otras:has_syllabus a otras:op_course, owl:FunctionalProperty;
+   rdfs:domain otras:course;
+   rdfs:range otras:syllabus;
+   rdfs:subPropertyOf evmpo:has_meta_annotation;
+   owl:equivalentProperty ccso:hasSyllabus.
+otras:is_offered_by a otras:op_course;
+   rdfs:domain otras:course;
+   rdfs:range otras:training_service;
+   owl:inverseOf otras:has_offered_course.
+
+otras:training_unit a owl:Class;
+   rdfs:comment "a training unit is an elementary (part of a) course that is not further subdivided into (proper) parts"^^xs:string;
+   rdfs:subClassOf evmpo:meta_annotation, otras:course.
+otras:op_training_unit a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_training_unit a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_meta_annotation rdfs:subClassOf otras:op_training_unit.
+evmpo:dp_meta_annotation rdfs:subClassOf otras:dp_training_unit.
+otras:op_course rdfs:subClassOf otras:op_training_unit.
+otras:dp_course rdfs:subClassOf otras:dp_training_unit.
+
+otras:is_part_of_course a otras:op_training_unit, owl:FunctionalProperty;
+   rdfs:domain otras:training_unit;
+   rdfs:range otras:course.
+otras:has_training_unit a otras:op_course;
+   rdfs:domain otras:course;
+   rdfs:range otras:training_unit;
+   rdfs:subPropertyOf evmpo:has_meta_annotation;
+   owl:inverseOf otras:is_part_of_course.
+otras:R_HAS_NO_TRAINING_UNIT a owl:Restriction;
+   rdfs:subClassOf otras:constrained_entity;
+   owl:onProperty otras:has_training_unit;
+   owl:cardinality 0.
+otras:training_unit owl:intersectionOf (otras:course otras:R_HAS_NO_TRAINING_UNIT).
+
+
+otras:mm_topic a owl:Class;
+   rdfs:comment "materials modelling topic, i.e., a topic related to the subject area of materials modelling, understood broadly"^^xs:string;
+   rdfs:subClassOf otras:topic.
+otras:op_mm_topic a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_mm_topic a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_topic rdfs:subClassOf otras:op_mm_topic.
+evmpo:dp_topic rdfs:subClassOf otras:dp_mm_topic.
+
+otras:has_topic_code a otras:dp_mm_topic;
+   rdfs:domain otras:mm_topic;
+   rdfs:range xs:nonNegativeInteger.
+otras:R_HAS_EXACTLY_ONE_TOPIC_CODE a owl:Restriction;
+   rdfs:subClassOf otras:constrained_entity;
+   owl:onProperty otras:has_topic_code;
+   owl:cardinality 1.
+otras:mm_topic rdfs:subClassOf otras:R_HAS_EXACTLY_ONE_TOPIC_CODE.
+otras:R_HAS_A_TOPIC_DESCRIPTOR a owl:Restriction;
+   rdfs:subClassOf otras:constrained_entity;
+   owl:onProperty otras:has_topic_descriptor;
+   owl:someValuesFrom rdfs:Literal.
+otras:mm_topic rdfs:subClassOf otras:R_HAS_A_TOPIC_DESCRIPTOR.
+
+otras:mm_topic_basic a owl:Class;
+   rdfs:comment "basic prerequisites for materials modelling studies (codes 1XXX and 2XXX)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic.
+otras:mm_topic_basic_chemical a owl:Class;
+   rdfs:comment "basic prerequisites in chemical and process engineering, biotechnology, petrochemistry, and organic chemistry (code 11XX or 21XX)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_basic.
+otras:mm_topic_basic_economics a owl:Class;
+   rdfs:comment "basic prerequisites in economics, marketing, and business administration (code 12XX or 22XX)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_basic.
+otras:mm_topic_basic_information a owl:Class;
+   rdfs:comment "basic prerequisites in information technology, computer science, and progamming (code 13XX or 23XX)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_basic.
+otras:mm_topic_basic_materials a owl:Class;
+   rdfs:comment "basic prerequisites in materials science and general or inorganic chemistry (code 14XX or 24XX)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_basic.
+otras:mm_topic_basic_mathematics a owl:Class;
+   rdfs:comment "basic prerequisites in mathematics (code 15XX or 25XX)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_basic.
+otras:mm_topic_basic_mechanical a owl:Class;
+   rdfs:comment "basic prerequisites in mechanical, aerospace, civil, electrical, and general engineering (code 16XX or 26XX)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_basic.
+otras:mm_topic_basic_physics a owl:Class;
+   rdfs:comment "basic prerequisites in physics (code 17XX or 27XX)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_basic.
+otras:mm_topic_basic_interdisciplinary a owl:Class;
+   rdfs:comment "basic prerequisites that are best described as equally belonging to multiple fields (code 18XX or 28XX)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_basic.
+otras:mm_topic_basic_secondary a owl:Class;
+   rdfs:comment "secondary or pre-undergraduate level education topics and general areas of basic knowledge (code 19XX or 29XX)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_basic.
+
+otras:mm_topic_computational a owl:Class;
+   rdfs:comment "a topic related to computational and numerical aspects of materials modelling (code 3XXX if unique, 8XXX if interdisciplinary)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic.
+
+otras:mm_topic_data a owl:Class;
+   rdfs:comment "a topic related to data science and technology aspects of materials modelling (code 4XXX if unique, 8XXX if interdisciplinary)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic.
+
+otras:mm_topic_materials a owl:Class;
+   rdfs:comment "a topic related to materials, including but not limited to fluids, and their properties (code 5XXX if unique, 8XXX if interdisciplinary)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic.
+
+otras:mm_topic_social a owl:Class;
+   rdfs:comment "a topic related to social, economic, and community aspects of materials modelling (code 6XXX if unique, 8XXX if interdisciplinary)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic.
+
+otras:mm_topic_theoretical a owl:Class;
+   rdfs:comment "a topic related to (non-computational) theoretical aspects of materials modelling (code 7XXX if unique, 8XXX if interdisciplinary)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic.
+otras:mm_topic_theoretical_electronic a owl:Class;
+   rdfs:comment "theoretical aspects of electronic modelling (code 71XX)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_theoretical.
+otras:mm_topic_theoretical_discrete a owl:Class;
+   rdfs:comment "theoretical aspects of discrete (atomistic and mesoscopic) modelling (code 72XX)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_theoretical.
+otras:mm_topic_theoretical_continuum a owl:Class;
+   rdfs:comment "theoretical aspects of (non-electronic, classical-mechanical) continuum modelling (code 73XX)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_theoretical.
+otras:mm_topic_theoretical_non_equilibrium a owl:Class;
+   rdfs:comment "theoretical aspects of non-equilibrium states and physical processes (code 74XX)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_theoretical.
+otras:mm_topic_theoretical_multiphase a owl:Class;
+   rdfs:comment "theoretical aspects of interfacial phenomena and multiphase or heterogeneous systems (code 75XX)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_theoretical.
+otras:mm_topic_theoretical_statistical a owl:Class;
+   rdfs:comment "theoretical aspects of statistical mechanics and statistical approaches to materials modelling (code 76XX)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_theoretical.
+otras:mm_topic_theoretical_thermodynamics a owl:Class;
+   rdfs:comment "theoretical aspects of phenomenological thermodynamics (code 77XX)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_theoretical.
+otras:mm_topic_theoretical_mechanics a owl:Class;
+   rdfs:comment "theoretical aspects of classical and/or quantum mechanics (code 78XX)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_theoretical.
+
+otras:mm_topic_interdisciplinary a owl:Class;
+   rdfs:comment "a topic beyond UG level that is best described as being shared by multiple of the main aspects (code 8XXX)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic.
+otras:mm_topic_interdisciplinary_comp_data a owl:Class;
+   rdfs:comment "an interdisciplinary topic beyond UG level that mainly combines computational and data-science aspects (code 834X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_interdisciplinary, otras:mm_topic_computational, otras:mm_topic_data.
+otras:mm_topic_interdisciplinary_comp_materials a owl:Class;
+   rdfs:comment "an interdisciplinary topic beyond UG level that mainly combines computational and material-property aspects (code 835X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_interdisciplinary, otras:mm_topic_computational, otras:mm_topic_materials.
+otras:mm_topic_interdisciplinary_comp_social a owl:Class;
+   rdfs:comment "an interdisciplinary topic beyond UG level that mainly combines computational and socio-economic aspects (code 836X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_interdisciplinary, otras:mm_topic_computational, otras:mm_topic_social.
+otras:mm_topic_interdisciplinary_comp_theoretical a owl:Class;
+   rdfs:comment "an interdisciplinary topic beyond UG level that mainly combines computational and theoretical aspects (code 837X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_interdisciplinary, otras:mm_topic_computational, otras:mm_topic_theoretical.
+otras:mm_topic_interdisciplinary_comp_side a owl:Class;
+   rdfs:comment "an interdisciplinary topic beyond UG level that mainly combines computational and side-interest aspects (code 839X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_interdisciplinary, otras:mm_topic_computational, otras:mm_topic_side.
+otras:mm_topic_interdisciplinary_data_materials a owl:Class;
+   rdfs:comment "an interdisciplinary topic beyond UG level that mainly combines data-science and material-property aspects (code 845X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_interdisciplinary, otras:mm_topic_data, otras:mm_topic_materials.
+otras:mm_topic_interdisciplinary_data_social a owl:Class;
+   rdfs:comment "an interdisciplinary topic beyond UG level that mainly combines data-science and socio-economic aspects (code 846X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_interdisciplinary, otras:mm_topic_data, otras:mm_topic_social.
+otras:mm_topic_interdisciplinary_data_theoretical a owl:Class;
+   rdfs:comment "an interdisciplinary topic beyond UG level that mainly combines data-science and theoretical aspects (code 847X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_interdisciplinary, otras:mm_topic_data, otras:mm_topic_theoretical.
+otras:mm_topic_interdisciplinary_data_side a owl:Class;
+   rdfs:comment "an interdisciplinary topic beyond UG level that mainly combines data-science and side-interest aspects (code 849X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_interdisciplinary, otras:mm_topic_data, otras:mm_topic_side.
+otras:mm_topic_interdisciplinary_materials_social a owl:Class;
+   rdfs:comment "an interdisciplinary topic beyond UG level that mainly combines material-property and socio-economic aspects (code 856X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_interdisciplinary, otras:mm_topic_materials, otras:mm_topic_social.
+otras:mm_topic_interdisciplinary_materials_theoretical a owl:Class;
+   rdfs:comment "an interdisciplinary topic beyond UG level that mainly combines material-property and theoretical aspects (code 857X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_interdisciplinary, otras:mm_topic_materials, otras:mm_topic_theoretical.
+otras:mm_topic_interdisciplinary_materials_side a owl:Class;
+   rdfs:comment "an interdisciplinary topic beyond UG level that mainly combines material-property and side-interest aspects (code 859X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_interdisciplinary, otras:mm_topic_materials, otras:mm_topic_side.
+otras:mm_topic_interdisciplinary_social_theoretical a owl:Class;
+   rdfs:comment "an interdisciplinary topic beyond UG level that mainly combines socio-economic and theoretical aspects (code 867X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_interdisciplinary, otras:mm_topic_social, otras:mm_topic_theoretical.
+otras:mm_topic_interdisciplinary_social_side a owl:Class;
+   rdfs:comment "an interdisciplinary topic beyond UG level that mainly combines socio-economic and side-interest aspects (code 869X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_interdisciplinary, otras:mm_topic_social, otras:mm_topic_side.
+otras:mm_topic_interdisciplinary_theoretical_side a owl:Class;
+   rdfs:comment "an interdisciplinary topic beyond UG level that mainly combines theoretical and side-interest aspects (code 879X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_interdisciplinary, otras:mm_topic_theoretical, otras:mm_topic_side.
+
+otras:mm_topic_side a owl:Class;
+   rdfs:comment "a topic from other disciplines that can be a side interest from the point of view of materials modelling (code 9XXX)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic.
+
+otras:MM_TOPIC_0000 a otras:mm_topic;
+   otras:has_topic_code 0;
+   otras:has_topic_descriptor "Topic (general)"^^xs:string.
+   
+otras:MM_TOPIC_1000 a otras:mm_topic_basic;
+   otras:has_topic_code 1000;
+   otras:has_topic_descriptor "Topic: Basic prerequisites (general)"^^xs:string.
+
+otras:MM_TOPIC_1100 a otras:mm_topic_basic_chemical;
+   otras:has_topic_code 1100;
+   otras:has_topic_descriptor "Topic: Basic prerequisites in chemical and process engineering, biotechnology, petrochemistry, and organic chemistry"^^xs:string.
+otras:MM_TOPIC_1110 a otras:mm_topic_basic_chemical;
+   otras:has_topic_code 1110;
+   otras:has_topic_descriptor "Topic: Foundations in biotechnology and nutritional chemistry"^^xs:string.
+otras:MM_TOPIC_1120 a otras:mm_topic_basic_chemical;
+   otras:has_topic_code 1120;
+   otras:has_topic_descriptor "Topic: Foundations in fluid process engineering"^^xs:string.
+otras:MM_TOPIC_1130 a otras:mm_topic_basic_chemical;
+   otras:has_topic_code 1130;
+   otras:has_topic_descriptor "Topic: Foundations in industrial and applied chemistry and chemical reaction technology"^^xs:string.
+otras:MM_TOPIC_1140 a otras:mm_topic_basic_chemical;
+   otras:has_topic_code 1140;
+   otras:has_topic_descriptor "Topic: Foundations in organic chemistry"^^xs:string.
+otras:MM_TOPIC_1150 a otras:mm_topic_basic_chemical;
+   otras:has_topic_code 1150;
+   otras:has_topic_descriptor "Topic: Foundations in petrochemical engineering"^^xs:string.
+otras:MM_TOPIC_1160 a otras:mm_topic_basic_chemical;
+   otras:has_topic_code 1160;
+   otras:has_topic_descriptor "Topic: Foundations in thermal and general process engineering"^^xs:string.
+otras:MM_TOPIC_1170 a otras:mm_topic_basic_chemical;
+   otras:has_topic_code 1170;
+   otras:has_topic_descriptor "Topic: Foundations in mechanical process engineering and particle technology"^^xs:string.
+otras:MM_TOPIC_1180 a otras:mm_topic_basic_chemical;
+   otras:has_topic_code 1180;
+   otras:has_topic_descriptor "Topic: Foundations in chemical engineering thermodynamics"^^xs:string.
+
+otras:MM_TOPIC_1200 a otras:mm_topic_basic_economics;
+   otras:has_topic_code 1200;
+   otras:has_topic_descriptor "Topic: Basic prerequisites in economics, marketing, and business administration"^^xs:string.
+
+otras:MM_TOPIC_1300 a otras:mm_topic_basic_information;
+   otras:has_topic_code 1300;
+   otras:has_topic_descriptor "Topic: Basic prerequisites in information technology, computer science, and progamming"^^xs:string.
+
+otras:MM_TOPIC_1400 a otras:mm_topic_basic_materials;
+   otras:has_topic_code 1400;
+   otras:has_topic_descriptor "Topic: Basic prerequisites in materials science and general or inorganic chemistry"^^xs:string.
+
+otras:MM_TOPIC_1500 a otras:mm_topic_basic_mathematics;
+   otras:has_topic_code 1500;
+   otras:has_topic_descriptor "Topic: Basic prerequisites in mathematics, statistics, and logic"^^xs:string.
+
+otras:MM_TOPIC_1600 a otras:mm_topic_basic_mechanical;
+   otras:has_topic_code 1600;
+   otras:has_topic_descriptor "Topic: Basic prerequisites in mechanical, aerospace, civil, electrical, and general engineering"^^xs:string.
+
+otras:MM_TOPIC_1700 a otras:mm_topic_basic_physics;
+   otras:has_topic_code 1700;
+   otras:has_topic_descriptor "Topic: Basic prerequisites in physics and theoretical or physical chemistry"^^xs:string.
+
+otras:MM_TOPIC_1800 a otras:mm_topic_basic_interdisciplinary;
+   otras:has_topic_code 1800;
+   otras:has_topic_descriptor "Topic: Interdisciplinary basic prerequisites"^^xs:string.
+
+otras:MM_TOPIC_1900 a otras:mm_topic_basic_interdisciplinary;
+   otras:has_topic_code 1900;
+   otras:has_topic_descriptor "Topic: Secondary or pre-undergraduate level education and general basic knowledge"^^xs:string.
+
+otras:MM_TOPIC_3000 a otras:mm_topic_computational;
+   otras:has_topic_code 3000;
+   otras:has_topic_descriptor "Topic: Computational or numerical (beyond basic prerequisites)"^^xs:string.
+
+otras:MM_TOPIC_4000 a otras:mm_topic_data;
+   otras:has_topic_code 4000;
+   otras:has_topic_descriptor "Topic: Data science and technology (beyond basic prerequisites)"^^xs:string.
+
+otras:MM_TOPIC_5000 a otras:mm_topic_materials;
+   otras:has_topic_code 5000;
+   otras:has_topic_descriptor "Topic: Materials (beyond basic prerequisites)"^^xs:string.
+
+otras:MM_TOPIC_6000 a otras:mm_topic_social;
+   otras:has_topic_code 6000;
+   otras:has_topic_descriptor "Topic: Social, economic, community (beyond basic prerequisites)"^^xs:string.
+
+otras:MM_TOPIC_7000 a otras:mm_topic_theoretical;
+   otras:has_topic_code 7000;
+   otras:has_topic_descriptor "Topic: Theoretical (beyond basic prerequisites; excluding computational and numerical aspects)"^^xs:string.
+
+otras:MM_TOPIC_7100 a otras:mm_topic_theoretical_electronic;
+   otras:has_topic_code 7100;
+   otras:has_topic_descriptor "Topic: Theoretical aspects of electronic modelling"^^xs:string.
+
+otras:MM_TOPIC_7200 a otras:mm_topic_theoretical_discrete;
+   otras:has_topic_code 7200;
+   otras:has_topic_descriptor "Topic: Theoretical aspects of discrete (atomistic and mesoscopic) modelling"^^xs:string.
+
+otras:MM_TOPIC_7300 a otras:mm_topic_theoretical_continuum;
+   otras:has_topic_code 7300;
+   otras:has_topic_descriptor "Topic: Theoretical aspects of (non-electronic, classical-mechanical) continuum modelling"^^xs:string.
+
+otras:MM_TOPIC_7400 a otras:mm_topic_theoretical_non_equilibrium;
+   otras:has_topic_code 7400;
+   otras:has_topic_descriptor "Topic: Theoretical aspects of non-equilibrium states and physical processes"^^xs:string.
+
+otras:MM_TOPIC_7500 a otras:mm_topic_theoretical_multiphase;
+   otras:has_topic_code 7500;
+   otras:has_topic_descriptor "Topic: Theoretical aspects of interfacial phenomena and multiphase or heterogeneous systems"^^xs:string.
+
+otras:MM_TOPIC_7600 a otras:mm_topic_theoretical_statistical;
+   otras:has_topic_code 7600;
+   otras:has_topic_descriptor "Topic: Theoretical aspects of statistical mechanics and statistical approaches to materials modelling"^^xs:string.
+
+otras:MM_TOPIC_7700 a otras:mm_topic_theoretical_thermodynamics;
+   otras:has_topic_code 7700;
+   otras:has_topic_descriptor "Topic: Theoretical aspects of phenomenological thermodynamics"^^xs:string.
+
+otras:MM_TOPIC_7800 a otras:mm_topic_theoretical_mechanics;
+   otras:has_topic_code 7800;
+   otras:has_topic_descriptor "Topic: Theoretical aspects of classical and/or quantum mechanics"^^xs:string.
+
+otras:MM_TOPIC_8000 a otras:mm_topic_interdisciplinary, otras:mm_topic_computational, otras:mm_topic_data, otras:mm_topic_materials, otras:mm_topic_social, otras:mm_topic_theoretical;
+   otras:has_topic_code 8000;
+   otras:has_topic_descriptor "Topic: Interdisciplinary (beyond basic prerequisites)"^^xs:string.
+
+otras:MM_TOPIC_8340 a otras:mm_topic_interdisciplinary_comp_data;
+   otras:has_topic_code 8340;
+   otras:has_topic_descriptor "Topic: Interdisciplinary studies with significant computational and data-science aspects"^^xs:string.
+
+otras:MM_TOPIC_8350 a otras:mm_topic_interdisciplinary_comp_materials;
+   otras:has_topic_code 8350;
+   otras:has_topic_descriptor "Topic: Interdisciplinary studies with significant computational and material-property aspects"^^xs:string.
+
+otras:MM_TOPIC_8360 a otras:mm_topic_interdisciplinary_comp_social;
+   otras:has_topic_code 8360;
+   otras:has_topic_descriptor "Topic: Interdisciplinary studies with significant computational and socio-economic aspects"^^xs:string.
+
+otras:MM_TOPIC_8370 a otras:mm_topic_interdisciplinary_comp_theoretical;
+   otras:has_topic_code 8370;
+   otras:has_topic_descriptor "Topic: Interdisciplinary studies with significant computational and theoretical aspects"^^xs:string.
+
+otras:MM_TOPIC_8390 a otras:mm_topic_interdisciplinary_comp_side;
+   otras:has_topic_code 8390;
+   otras:has_topic_descriptor "Topic: Interdisciplinary studies with significant computational and side-interest aspects"^^xs:string.
+
+otras:MM_TOPIC_8450 a otras:mm_topic_interdisciplinary_data_materials;
+   otras:has_topic_code 8450;
+   otras:has_topic_descriptor "Topic: Interdisciplinary studies with significant data-science and material-property aspects"^^xs:string.
+
+otras:MM_TOPIC_8460 a otras:mm_topic_interdisciplinary_data_social;
+   otras:has_topic_code 8460;
+   otras:has_topic_descriptor "Topic: Interdisciplinary studies with significant data-science and socio-economic aspects"^^xs:string.
+
+otras:MM_TOPIC_8470 a otras:mm_topic_interdisciplinary_data_theoretical;
+   otras:has_topic_code 8470;
+   otras:has_topic_descriptor "Topic: Interdisciplinary studies with significant data-science and theoretical aspects"^^xs:string.
+
+otras:MM_TOPIC_8490 a otras:mm_topic_interdisciplinary_data_side;
+   otras:has_topic_code 8490;
+   otras:has_topic_descriptor "Topic: Interdisciplinary studies with significant data-science and side-interest aspects"^^xs:string.
+
+otras:MM_TOPIC_8560 a otras:mm_topic_interdisciplinary_materials_social;
+   otras:has_topic_code 8560;
+   otras:has_topic_descriptor "Topic: Interdisciplinary studies with significant material-property and socio-economic aspects"^^xs:string.
+
+otras:MM_TOPIC_8570 a otras:mm_topic_interdisciplinary_materials_theoretical;
+   otras:has_topic_code 8570;
+   otras:has_topic_descriptor "Topic: Interdisciplinary studies with significant material-property and theoretical aspects"^^xs:string.
+
+otras:MM_TOPIC_8590 a otras:mm_topic_interdisciplinary_materials_side;
+   otras:has_topic_code 8590;
+   otras:has_topic_descriptor "Topic: Interdisciplinary studies with significant material-property and side-interest aspects"^^xs:string.
+
+otras:MM_TOPIC_8670 a otras:mm_topic_interdisciplinary_social_theoretical;
+   otras:has_topic_code 8670;
+   otras:has_topic_descriptor "Topic: Interdisciplinary studies with significant socio-economic and theoretical aspects"^^xs:string.
+
+otras:MM_TOPIC_8690 a otras:mm_topic_interdisciplinary_social_side;
+   otras:has_topic_code 8690;
+   otras:has_topic_descriptor "Topic: Interdisciplinary studies with significant socio-economic and side-interest aspects"^^xs:string.
+
+otras:MM_TOPIC_8790 a otras:mm_topic_interdisciplinary_theoretical_side;
+   otras:has_topic_code 8790;
+   otras:has_topic_descriptor "Topic: Interdisciplinary studies with significant theoretical and side-interest aspects"^^xs:string.
+   
+otras:MM_TOPIC_9000 a otras:mm_topic_side;
+   otras:has_topic_code 9000;
+   otras:has_topic_descriptor "Topic: Side interests (general)"^^xs:string.
+
+
+otras:kmk_operator_level a owl:Class;
+   rdfs:comment "KMK operator level, i.e., a requirement level corresponding to one of the headings from the KMK catalogue of operators for statements of learning outcomes in natural-science subjects"^^xs:string;
+   rdfs:subClassOf otras:focus.
+otras:op_kmk_operator_level a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_kmk_operator_level a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+otras:op_focus rdfs:subClassOf otras:op_kmk_operator_level.
+otras:dp_focus rdfs:subClassOf otras:dp_kmk_operator_level.
+
+otras:is_numerical_level a otras:dp_kmk_operator_level;
+   rdfs:domain otras:kmk_operator_level;
+   rdfs:range xs:nonNegativeInteger.
+otras:R_IS_EXACTLY_ONE_NUMERICAL_LEVEL a owl:Restriction;
+   rdfs:subClassOf otras:constrained_entity;
+   owl:onProperty otras:is_numerical_level;
+   owl:cardinality 1.
+otras:kmk_operator_level rdfs:subClassOf otras:R_IS_EXACTLY_ONE_NUMERICAL_LEVEL.
+
+otras:KMK_LEVEL_I a otras:kmk_operator_level;
+   otras:is_numerical_level 1.
+otras:KMK_LEVEL_II a otras:kmk_operator_level;
+   otras:is_numerical_level 2.
+otras:KMK_LEVEL_III a otras:kmk_operator_level;
+   otras:is_numerical_level 3.
+
+otras:kmk_operator_specifier a owl:Class;
+   rdfs:comment "KMK operator specifier, i.e., an operator from the catalogue for natural-science subjects agreed upon by the German Federal Conference of State Cultural Ministries (KMK)"^^xs:string;
+   rdfs:subClassOf otras:operator_specifier.
+otras:op_kmk_operator_specifier a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_kmk_operator_specifier a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+otras:op_operator_specifier rdfs:subClassOf otras:op_kmk_operator_specifier.
+otras:dp_operator_specifier rdfs:subClassOf otras:dp_kmk_operator_specifier.
+
+otras:R_IS_DEFINED a owl:Restriction;
+   rdfs:subClassOf otras:constrained_entity;
+   owl:onProperty otras:is_defined_by;
+   owl:someValuesFrom rdfs:Literal.
+otras:kmk_operator_specifier rdfs:subClassOf otras:R_IS_DEFINED.
+otras:R_HAS_A_KMK_LEVEL a owl:Restriction;
+   rdfs:subClassOf otras:constrained_entity;
+   owl:onProperty otras:has_kmk_level;
+   owl:someValuesFrom otras:kmk_operator_level.
+otras:kmk_operator_specifier rdfs:subClassOf otras:R_HAS_A_KMK_LEVEL.
+
+otras:has_operator_code a otras:dp_kmk_operator_specifier;
+   rdfs:domain otras:kmk_operator_specifier;
+   rdfs:range xs:nonNegativeInteger.
+otras:R_HAS_EXACTLY_ONE_OPERATOR_CODE a owl:Restriction;
+   rdfs:subClassOf otras:constrained_entity;
+   owl:onProperty otras:has_operator_code;
+   owl:cardinality 1.
+otras:kmk_operator_specifier rdfs:subClassOf otras:R_HAS_EXACTLY_ONE_OPERATOR_CODE.
+
+otras:KMK_OPERATOR_100 a otras:kmk_operator_specifier;
+   otras:has_operator_code 100;
+   otras:has_kmk_level otras:KMK_LEVEL_I;
+   otras:is_expressed_by "KMK level I operator (unspecified)"^^xs:string;
+   otras:is_defined_by "an unspecified learning operator at the basic level, as categorized by the KMK document"^^xs:string.
+
+otras:KMK_OPERATOR_120 a otras:kmk_operator_specifier;
+   otras:has_operator_code 120;
+   otras:has_kmk_level otras:KMK_LEVEL_I;
+   otras:is_expressed_by "name/label"^^xs:string;
+   otras:is_defined_by "assign the specific terms to a given structure"^^xs:string.
+
+otras:KMK_OPERATOR_130 a otras:kmk_operator_specifier;
+   otras:has_operator_code 130;
+   otras:has_kmk_level otras:KMK_LEVEL_I;
+   otras:is_expressed_by "outline/present"^^xs:string;
+   otras:is_defined_by "give the main features or general principles in a structured way"^^xs:string.
+
+otras:KMK_OPERATOR_140 a otras:kmk_operator_specifier;
+   otras:has_operator_code 140;
+   otras:has_kmk_level otras:KMK_LEVEL_I;
+   otras:is_expressed_by "list/give"^^xs:string;
+   otras:is_defined_by "give names/terms or other brief answers, leaving out the explanation"^^xs:string.
+
+otras:KMK_OPERATOR_150 a otras:kmk_operator_specifier;
+   otras:has_operator_code 150;
+   otras:has_kmk_level otras:KMK_LEVEL_I;
+   otras:is_expressed_by "write a lab report/data log"^^xs:string;
+   otras:is_defined_by "write down procedures, observations and results (or discussions and conclusions), if applicable, following scientific conventions"^^xs:string.
+
+otras:KMK_OPERATOR_160 a otras:kmk_operator_specifier;
+   otras:has_operator_code 160;
+   otras:has_kmk_level otras:KMK_LEVEL_I;
+   otras:is_expressed_by "sketch"^^xs:string;
+   otras:is_defined_by "clearly lay out facts/structures/results by means of a graph/diagram/table or similar"^^xs:string.
+
+otras:KMK_OPERATOR_170 a otras:kmk_operator_specifier;
+   otras:has_operator_code 170;
+   otras:has_kmk_level otras:KMK_LEVEL_I;
+   otras:is_expressed_by "draw"^^xs:string;
+   otras:is_defined_by "create an exact graphical representation"^^xs:string.
+
+otras:KMK_OPERATOR_200 a otras:kmk_operator_specifier;
+   otras:has_operator_code 200;
+   otras:has_kmk_level otras:KMK_LEVEL_II;
+   otras:is_expressed_by "KMK level II operator (unspecified)"^^xs:string;
+   otras:is_defined_by "an unspecified learning operator at intermediate level, as categorized by the KMK document"^^xs:string.
+
+otras:KMK_OPERATOR_215 a otras:kmk_operator_specifier;
+   otras:has_operator_code 215;
+   otras:has_kmk_level otras:KMK_LEVEL_II;
+   otras:is_expressed_by "compare"^^xs:string;
+   otras:is_defined_by "give a criteria-based account of similarities and differences between phenomena, objects, or processes"^^xs:string.
+
+otras:KMK_OPERATOR_220 a otras:kmk_operator_specifier;
+   otras:has_operator_code 220;
+   otras:has_kmk_level otras:KMK_LEVEL_II;
+   otras:is_expressed_by "deduce"^^xs:string;
+   otras:is_defined_by "reach a conclusion from the information given"^^xs:string.
+
+otras:KMK_OPERATOR_225 a otras:kmk_operator_specifier;
+   otras:has_operator_code 225;
+   otras:has_kmk_level otras:KMK_LEVEL_II;
+   otras:is_expressed_by "estimate"^^xs:string;
+   otras:is_defined_by "find an approximate and reasonable value for an unknown quantity"^^xs:string.
+
+otras:KMK_OPERATOR_230 a otras:kmk_operator_specifier;
+   otras:has_operator_code 230;
+   otras:has_kmk_level otras:KMK_LEVEL_II;
+   otras:is_expressed_by "analyse and identify"^^xs:string;
+   otras:is_defined_by "investigate phenomena, data, etc., systematically considering and representing parts or features and relationships or connections"^^xs:string.
+
+otras:KMK_OPERATOR_235 a otras:kmk_operator_specifier;
+   otras:has_operator_code 235;
+   otras:has_kmk_level otras:KMK_LEVEL_II;
+   otras:is_expressed_by "apply"^^xs:string;
+   otras:is_defined_by "use a known idea, equation, principle, theory, or law in a new situation"^^xs:string.
+
+otras:KMK_OPERATOR_240 a otras:kmk_operator_specifier;
+   otras:has_operator_code 240;
+   otras:has_kmk_level otras:KMK_LEVEL_II;
+   otras:is_expressed_by "calculate"^^xs:string;
+   otras:is_defined_by "insert the corresponding values into an equation and generate the result"^^xs:string.
+
+otras:KMK_OPERATOR_245 a otras:kmk_operator_specifier;
+   otras:has_operator_code 245;
+   otras:has_kmk_level otras:KMK_LEVEL_II;
+   otras:is_expressed_by "describe"^^xs:string;
+   otras:is_defined_by "give a detailed and structured description of something using the appropriate terminology"^^xs:string.
+
+otras:KMK_OPERATOR_250 a otras:kmk_operator_specifier;
+   otras:has_operator_code 250;
+   otras:has_kmk_level otras:KMK_LEVEL_II;
+   otras:is_expressed_by "find"^^xs:string;
+   otras:is_defined_by "generate a result from data given (graphically or numerically)"^^xs:string.
+
+otras:KMK_OPERATOR_255 a otras:kmk_operator_specifier;
+   otras:has_operator_code 255;
+   otras:has_kmk_level otras:KMK_LEVEL_II;
+   otras:is_expressed_by "explain"^^xs:string;
+   otras:is_defined_by "give a detailed account of causes, reasons, or mechanisms to illuminate structures, processes, and relationships"^^xs:string.
+
+otras:KMK_OPERATOR_260 a otras:kmk_operator_specifier;
+   otras:has_operator_code 260;
+   otras:has_kmk_level otras:KMK_LEVEL_II;
+   otras:is_expressed_by "describe and explain"^^xs:string;
+   otras:is_defined_by "describe, explain, and give examples"^^xs:string.
+
+otras:KMK_OPERATOR_265 a otras:kmk_operator_specifier;
+   otras:has_operator_code 265;
+   otras:has_kmk_level otras:KMK_LEVEL_II;
+   otras:is_expressed_by "formulate"^^xs:string;
+   otras:is_defined_by "represent processes and facts verbally or symbolically"^^xs:string.
+
+otras:KMK_OPERATOR_270 a otras:kmk_operator_specifier;
+   otras:has_operator_code 270;
+   otras:has_kmk_level otras:KMK_LEVEL_II;
+   otras:is_expressed_by "derive"^^xs:string;
+   otras:is_defined_by "manipulate mathematical relationships to obtain a new equation or relationship, commenting the main steps on the way"^^xs:string.
+
+otras:KMK_OPERATOR_275 a otras:kmk_operator_specifier;
+   otras:has_operator_code 275;
+   otras:has_kmk_level otras:KMK_LEVEL_II;
+   otras:is_expressed_by "sort/group/classify"^^xs:string;
+   otras:is_defined_by "arrange systematically, in proper order or appropriately grouped, based on existing principles or according to certain features"^^xs:string.
+
+otras:KMK_OPERATOR_280 a otras:kmk_operator_specifier;
+   otras:has_operator_code 280;
+   otras:has_kmk_level otras:KMK_LEVEL_II;
+   otras:is_expressed_by "test/verify"^^xs:string;
+   otras:is_defined_by "check facts and interrelations for quality, performance, and/or reliability"^^xs:string.
+
+otras:KMK_OPERATOR_285 a otras:kmk_operator_specifier;
+   otras:has_operator_code 285;
+   otras:has_kmk_level otras:KMK_LEVEL_II;
+   otras:is_expressed_by "investigate/examine"^^xs:string;
+   otras:is_defined_by "research a subject to discover information and facts"^^xs:string.
+
+otras:KMK_OPERATOR_290 a otras:kmk_operator_specifier;
+   otras:has_operator_code 290;
+   otras:has_kmk_level otras:KMK_LEVEL_II;
+   otras:is_expressed_by "generalize"^^xs:string;
+   otras:is_defined_by "formulate or derive a general statement"^^xs:string.
+
+otras:KMK_OPERATOR_295 a otras:kmk_operator_specifier;
+   otras:has_operator_code 295;
+   otras:has_kmk_level otras:KMK_LEVEL_II;
+   otras:is_expressed_by "summarize"^^xs:string;
+   otras:is_defined_by "give a brief account or summary"^^xs:string.
+
+otras:KMK_OPERATOR_300 a otras:kmk_operator_specifier;
+   otras:has_operator_code 300;
+   otras:has_kmk_level otras:KMK_LEVEL_III;
+   otras:is_expressed_by "KMK level III operator (unspecified)"^^xs:string;
+   otras:is_defined_by "an unspecified learning operator at the advanced level, as categorized by the KMK document"^^xs:string.
+
+otras:KMK_OPERATOR_320 a otras:kmk_operator_specifier;
+   otras:has_operator_code 320;
+   otras:has_kmk_level otras:KMK_LEVEL_III;
+   otras:is_expressed_by "propose a hypothesis"^^xs:string;
+   otras:is_defined_by "suggest or construct a clearly focused and justified assumption"^^xs:string.
+
+otras:KMK_OPERATOR_330 a otras:kmk_operator_specifier;
+   otras:has_operator_code 330;
+   otras:has_kmk_level otras:KMK_LEVEL_III;
+   otras:is_expressed_by "evaluate"^^xs:string;
+   otras:is_defined_by "process data and results, deduce a relationship between variables, make general statements, and assess implications"^^xs:string.
+
+otras:KMK_OPERATOR_340 a otras:kmk_operator_specifier;
+   otras:has_operator_code 340;
+   otras:has_kmk_level otras:KMK_LEVEL_III;
+   otras:is_expressed_by "justify/give reasons"^^xs:string;
+   otras:is_defined_by "relate pheonomena to underlying rules, (physical) laws, and causal relationships"^^xs:string.
+
+otras:KMK_OPERATOR_350 a otras:kmk_operator_specifier;
+   otras:has_operator_code 350;
+   otras:has_kmk_level otras:KMK_LEVEL_III;
+   otras:is_expressed_by "comment on/assess"^^xs:string;
+   otras:is_defined_by "judge something on the basis of scientific criteria or methods"^^xs:string.
+
+otras:KMK_OPERATOR_360 a otras:kmk_operator_specifier;
+   otras:has_operator_code 360;
+   otras:has_kmk_level otras:KMK_LEVEL_III;
+   otras:is_expressed_by "prove"^^xs:string;
+   otras:is_defined_by "show something by means of factual argumentation and logical reasoning"^^xs:string.
+
+otras:KMK_OPERATOR_370 a otras:kmk_operator_specifier;
+   otras:has_operator_code 370;
+   otras:has_kmk_level otras:KMK_LEVEL_III;
+   otras:is_expressed_by "discuss"^^xs:string;
+   otras:is_defined_by "investigate or examine by argument, give and weigh arguments for and against something"^^xs:string.
+
+otras:KMK_OPERATOR_380 a otras:kmk_operator_specifier;
+   otras:has_operator_code 380;
+   otras:has_kmk_level otras:KMK_LEVEL_III;
+   otras:is_expressed_by "interpret"^^xs:string;
+   otras:is_defined_by "find explanations for phenomena/data to reach conclusions"^^xs:string.
+
+otras:KMK_OPERATOR_390 a otras:kmk_operator_specifier;
+   otras:has_operator_code 390;
+   otras:has_kmk_level otras:KMK_LEVEL_III;
+   otras:is_expressed_by "plan"^^xs:string;
+   otras:is_defined_by "come up with a design for an experiment or a structured approach to investigate a problem"^^xs:string.
+
+### VIMMP COMMUNICATION ONTOLOGY (VICO) ###
+
+### VERSION 0.0.2 ###
+
+### DATED 22ND JANUARY 2019 ###
+
+@prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
+
+@prefix cviii: <http://www.vimmp.eu/semantics/cviii/cviii.ttl#>.
+@prefix dcterms: <http://purl.org/dc/terms#>.
+@prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
+@prefix xs: <http://www.w3.org/2001/XMLSchema#>.
+
+<http://www.vimmp.eu/semantics/vico/vico.ttl#> a owl:Ontology.
+
+vico:communication_related_entity a owl:Class;
+   owl:equivalentClass evmpo:communication_related_entity.
+vico:op_communication_related_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vico:dp_communication_related_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_communication_related_entity owl:equivalentClass vico:op_communication_related_entity.
+evmpo:dp_communication_related_entity owl:equivalentClass vico:dp_communication_related_entity.
+
+vico:communication a owl:Class;
+   rdfs:subClassOf vico:communication_related_entity;
+   owl:equivalentClass evmpo:communication.
+vico:op_communication a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vico:dp_communication a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vico:op_communication_related_entity owl:equivalentClass vico:op_communication.
+vico:dp_communication_related_entity owl:equivalentClass vico:dp_communication.
+
+vico:has_access_rule a vico:op_communication;
+   rdfs:domain vico:communication;
+   rdfs:range vico:access_rule.
+vico:has_author a vico:op_communication;
+   rdfs:domain vico:communication;
+   rdfs:range cviii:agent.
+vico:has_submission_date a vico:op_communication;
+   rdfs:domain vico:communication;
+   rdfs:range dcterms:W3C-DTF.
+vico:has_expiry_date a vico:op_interlocution;
+   rdfs:domain vico:communication;
+   rdfs:range dcterms:W3C-DTF.
+
+vico:communication_appendix a owl:Class;
+   rdfs:subClassOf vico:communication;
+   rdfs:comment "communication which cannot stand alone, but only in association with a communication body"^^xs:string.
+vico:op_communication_appendix a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vico:dp_communication_appendix a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vico:op_communication rdfs:subClassOf vico:op_communication_appendix.
+vico:dp_communication rdfs:subClassOf vico:dp_communication_appendix.
+
+vico:certificate a owl:Class;
+   rdfs:subClassOf vico:communication_appendix.
+vico:op_certificate a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vico:dp_certificate a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vico:op_communication_appendix rdfs:subClassOf vico:op_certificate.
+vico:dp_communication_appendix rdfs:subClassOf vico:dp_certificate.
+
+vico:has_certifier a vico:op_certificate;
+   rdfs:domain vico:certificate;
+   rdfs:range cviii:certifier.
+vico:states a vico:op_certificate;
+   rdfs:domain vico:certificate;
+   rdfs:range vivo:assessment.
+
+vico:access_rule a owl:Class;
+   rdfs:subClassOf vico:communication_appendix.
+vico:op_access_rule a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vico:dp_access_rule a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vico:op_communication_appendix rdfs:subClassOf vico:op_access_rule.
+vico:dp_communication_appendix rdfs:subClassOf vico:dp_access_rule.
+
+vico:allows a vico:op_access_rule;
+   rdfs:domain vico:access_rule;
+   rdfs:range cviii:interlocutor.
+vico:excludes a vico:op_access_rule;
+   rdfs:domain vico:access_rule;
+   rdfs:range cviii:interlocutor.
+vico:allows_all a vico:op_access_rule;
+   rdfs:domain vico:access_rule;
+   rdfs:range cviii:interlocutor_group.
+vico:excludes_all a vico:op_access_rule;
+   rdfs:domain vico:access_rule;
+   rdfs:range cviii:interlocutor_group.
+
+
+vico:communication_body a owl:Class;
+   rdfs:subClassOf vico:communication.
+vico:op_communication_body a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vico:dp_communication_body a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vico:op_communication rdfs:subClassOf vico:op_communication_body.
+vico:dp_communication rdfs:subClassOf vico:dp_communication_body.
+
+vico:has_appendix a vico:op_communication_body;
+   rdfs:domain vico:communication_body;
+   rdfs:range vico:communication_appendix.
+vico:has_certificate a vico:op_communication_body;
+   rdfs:domain vico:communication_body;
+   rdfs:range vico:certificate;
+   rdfs:subPropertyOf vico:has_appendix.
+vico:follows a vico:op_communication_body;
+   rdfs:domain vico:communication_body;
+   rdfs:range vico:communication_body.
+
+vico:declaration a owl:Class;
+   rdfs:subClassOf vico:communication_body;
+   rdfs:comment "declaration as defined by the EVMPO"^^xs:string;
+   owl:equivalentClass evmpo:declaration.
+vico:op_declaration a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vico:dp_declaration a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vico:op_communication_body rdfs:subClassOf vico:op_declaration.
+vico:dp_communication_body rdfs:subClassOf vico:dp_declaration.
+
+vico:interlocution a owl:Class;
+   rdfs:subClassOf vico:communication_body;
+   rdfs:comment "interlocution as defined by the EVMPO"^^xs:string;
+   owl:equivalentClass evmpo:interlocution.
+vico:op_interlocution a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vico:dp_interlocution a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vico:op_communication_body rdfs:subClassOf vico:op_interlocution.
+vico:dp_communication_body rdfs:subClassOf vico:dp_interlocution.
+
+vico:statement a owl:Class;
+   rdfs:subClassOf vico:communication;
+   rdfs:comment "statement as defined by the EVMPO"^^xs:string;
+   owl:equivalentClass evmpo:statement.
+vico:op_statement a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vico:dp_statement a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vico:op_communication rdfs:subClassOf vico:op_statement.
+vico:dp_communication rdfs:subClassOf vico:dp_statement.
+
+vico:appendix_statement a owl:Class;
+   rdfs:subClassOf vico:communication_appendix, vico:statement;
+   owl:intersectionOf (vico:communication_appendix vico:statement).
+vico:op_appendix_statement a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vico:dp_appendix_statement a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vico:op_communication_appendix rdfs:subClassOf vico:op_appendix_statement.
+vico:dp_communication_appendix rdfs:subClassOf vico:dp_appendix_statement.
+vico:op_statement rdfs:subClassOf vico:op_appendix_statement.
+vico:dp_statement rdfs:subClassOf vico:dp_appendix_statement.
+
+vico:body_statement a owl:Class;
+   rdfs:subClassOf vico:communication_body, vico:statement;
+   owl:intersectionOf (vico:communication_body vico:statement).
+vico:op_body_statement a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vico:dp_body_statement a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vico:op_communication_body rdfs:subClassOf vico:op_body_statement.
+vico:dp_communication_body rdfs:subClassOf vico:dp_body_statement.
+vico:op_statement rdfs:subClassOf vico:op_body_statement.
+vico:dp_statement rdfs:subClassOf vico:dp_body_statement.
+
+vico:declaration_statement a owl:Class;
+   rdfs:subClassOf vico:declaration, vico:body_statement;
+   owl:intersectionOf (vico:declaration vico:body_statement).
+vico:op_declaration_statement a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vico:dp_declaration_statement a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vico:op_declaration rdfs:subClassOf vico:op_declaration_statement.
+vico:dp_declaration rdfs:subClassOf vico:dp_declaration_statement.
+vico:op_body_statement rdfs:subClassOf vico:op_declaration_statement.
+vico:dp_body_statement rdfs:subClassOf vico:dp_declaration_statement.
+
+vico:interlocution_statement a owl:Class;
+   rdfs:subClassOf vico:interlocution, vico:body_statement;
+   owl:intersectionOf (vico:interlocution vico:body_statement).
+vico:op_interlocution_statement a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vico:dp_interlocution_statement a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vico:op_interlocution rdfs:subClassOf vico:op_interlocution_statement.
+vico:dp_interlocution rdfs:subClassOf vico:dp_interlocution_statement.
+vico:op_body_statement rdfs:subClassOf vico:op_interlocution_statement.
+vico:dp_body_statement rdfs:subClassOf vico:dp_interlocution_statement.
+
+### VIMMP VALIDATION ONTOLOGY (VIVO) ###
+
+### VERSION 0.1.1 ###
+
+### DATED 22ND JANUARY 2019 ###
+
+@prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
+
+@prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
+@prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix qudt: <http://qudt.org/schema/qudt#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xs: <http://www.w3.org/2001/XMLSchema#>.
+
+<http://www.vimmp.eu/semantics/vivo/vivo.ttl#> a owl:Ontology.
+
+vivo:validation_related_entity a owl:Class;
+   owl:equivalentClass evmpo:assessment_related_entity.
+vivo:op_validation_related_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vivo:dp_validation_related_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_assessment_related_entity owl:equivalentClass vivo:op_validation_related_entity.
+evmpo:dp_assessment_related_entity owl:equivalentClass vivo:dp_validation_related_entity.
+
+vivo:assessment a owl:Class;
+   rdfs:subClassOf vivo:validation_related_entity;
+   owl:equivalentClass evmpo:assessment.
+vivo:op_assessment a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty;
+   owl:equivalentClass evmpo:op_assessment.
+vivo:dp_assessment a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty;
+   owl:equivalentClass evmpo:dp_assessment.
+vivo:op_validation_related_entity rdfs:subClassOf vivo:op_assessment.
+vivo:dp_validation_related_entity rdfs:subClassOf vivo:dp_assessment.
+
+vivo:assessment_annotation a owl:Class;
+   rdfs:subClassOf vivo:validation_related_entity;
+   owl:equivalentClass evmpo:assessment_annotation.
+vivo:op_assessment_annotation a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty;
+   owl:equivalentClass evmpo:op_assessment_annotation.
+vivo:dp_assessment_annotation a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty;
+   owl:equivalentClass evmpo:dp_assessment_annotation.
+vivo:op_validation_related_entity rdfs:subClassOf vivo:op_assessment_annotation.
+vivo:dp_validation_related_entity rdfs:subClassOf vivo:dp_assessment_annotation.
+
+
+vivo:endorsement_entity a owl:Class;
+   rdfs:subClassOf vivo:validation_related_entity.
+vivo:op_endorsement_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vivo:dp_endorsement_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vivo:op_validation_related_entity rdfs:subClassOf vivo:op_endorsement_entity.
+vivo:dp_validation_related_entity rdfs:subClassOf vivo:dp_endorsement_entity.
+
+vivo:endorsement_assessment a owl:Class;
+   rdfs:subClassOf vivo:endorsement_entity, vivo:assessment;
+   owl:equivalentClass evmpo:endorsement_assessment.
+vivo:op_endorsement_assessment a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty;
+   owl:equivalentClass evmpo:op_endorsement_assessment.
+vivo:dp_endorsement_assessment a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty;
+   owl:equivalentClass evmpo:dp_endorsement_assessment.
+vivo:op_endorsement_entity rdfs:subClassOf vivo:op_endorsement_assessment.
+vivo:dp_endorsement_entity rdfs:subClassOf vivo:dp_endorsement_assessment.
+vivo:op_assessment rdfs:subClassOf vivo:op_endorsement_assessment.
+vivo:dp_assessment rdfs:subClassOf vivo:dp_endorsement_assessment.
+
+vivo:has_text_content a vivo:dp_endorsement_assessment;
+   rdfs:domain vivo:endorsement_assessment;
+   rdfs:range xs:string.
+vivo:has_stars a vivo:dp_endorsement_assessment;
+   rdfs:domain vivo:endorsement_assessment;
+   rdfs:range xs:nonNegativeInteger.
+
+vivo:requirement_entity a owl:Class;
+   rdfs:subClassOf vivo:validation_related_entity.
+vivo:op_requirement_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vivo:dp_requirement_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vivo:op_validation_related_entity rdfs:subClassOf vivo:op_requirement_entity.
+vivo:dp_validation_related_entity rdfs:subClassOf vivo:dp_requirement_entity.
+
+vivo:requirement_assessment a owl:Class;
+   rdfs:subClassOf vivo:requirement_entity, vivo:assessment;
+   owl:equivalentClass evmpo:requirement_assessment.
+vivo:op_requirement_assessment a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty;
+   owl:equivalentClass evmpo:op_requirement_assessment.
+vivo:dp_requirement_assessment a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty;
+   owl:equivalentClass evmpo:dp_requirement_assessment.
+vivo:op_requirement_entity rdfs:subClassOf vivo:op_requirement_assessment.
+vivo:dp_requirement_entity rdfs:subClassOf vivo:dp_requirement_assessment.
+vivo:op_assessment rdfs:subClassOf vivo:op_requirement_assessment.
+vivo:dp_assessment rdfs:subClassOf vivo:dp_requirement_assessment.
+
+vivo:validity_entity a owl:Class;
+   rdfs:subClassOf vivo:validation_related_entity.
+vivo:op_validity_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vivo:dp_validity_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vivo:op_validation_related_entity rdfs:subClassOf vivo:op_validity_entity.
+vivo:dp_validation_related_entity rdfs:subClassOf vivo:dp_validity_entity.
+
+vivo:validity_assessment a owl:Class;
+   rdfs:subClassOf vivo:validity_entity, vivo:assessment;
+   owl:equivalentClass evmpo:validity_assessment.
+vivo:op_validity_assessment a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty;
+   owl:equivalentClass evmpo:op_validity_assessment.
+vivo:dp_validity_assessment a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty;
+   owl:equivalentClass evmpo:dp_validity_assessment.
+vivo:op_validity_entity rdfs:subClassOf vivo:op_validity_assessment.
+vivo:dp_validity_entity rdfs:subClassOf vivo:dp_validity_assessment.
+vivo:op_assessment rdfs:subClassOf vivo:op_validity_assessment.
+vivo:dp_assessment rdfs:subClassOf vivo:dp_validity_assessment.
+
+
+vivo:has_qualification a vivo:op_validity_assessment;
+   rdfs:domain vivo:validity_assessment;
+   rdfs:range vivo:qualification;
+   rdfs:subPropertyOf evmpo:has_assessment_annotation.
+vivo:has_confidence a vivo:op_validity_assessment;
+   rdfs:domain vivo:validity_assessment;
+   rdfs:range vivo:confidence;
+   rdfs:subPropertyOf evmpo:has_assessment_annotation.
+vivo:has_content a vivo:op_validity_assessment;
+   rdfs:domain vivo:validity_assessment;
+   rdfs:range vivo:assertion;
+   rdfs:subPropertyOf evmpo:has_assessment_annotation.
+
+
+vivo:qualification a owl:Class;
+   rdfs:subClassOf vivo:assessment_annotation.
+vivo:op_qualification a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vivo:dp_qualification a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vivo:op_assessment_annotation rdfs:subClassOf vivo:op_qualification.
+vivo:dp_assessment_annotation rdfs:subClassOf vivo:dp_qualification.
+
+vivo:EXPECTATION a vivo:qualification.
+vivo:UNSPECIFIED a vivo:qualification.
+
+vivo:quantification a owl:Class;
+   rdfs:subClassOf vivo:qualification.
+vivo:op_quantification a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vivo:dp_quantification a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vivo:op_qualification rdfs:subClassOf vivo:op_quantification.
+vivo:dp_qualification rdfs:subClassOf vivo:dp_quantification.
+
+vivo:is_relative_rank a vivo:dp_quantification, owl:FunctionalProperty;
+   rdfs:domain vivo:quantification;
+   rdfs:range xs:decimal.
+vivo:MEDIAN_CASE a vivo:quantification;
+   vivo:is_relative_rank 0.5.
+
+vivo:scalar_order_quantification a owl:Class;
+   rdfs:subClassOf vivo:quantification.
+vivo:HIGHEST_CASE a vivo:scalar_order_quantification;
+   vivo:is_relative_rank 1.0.
+vivo:LOWEST_CASE a vivo:scalar_order_quantification;
+   vivo:is_relative_rank 0.0.
+
+vivo:judgement_order_quantification a owl:Class;
+   rdfs:subClassOf vivo:quantification.
+vivo:BEST_CASE a vivo:judgement_order_quantification;
+   vivo:is_relative_rank 1.0.
+vivo:WORST_CASE a vivo:judgement_order_quantification;
+   vivo:is_relative_rank 0.0.
+
+   
+vivo:confidence a owl:Class;
+   rdfs:subClassOf vivo:assessment_annotation.
+vivo:op_confidence a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vivo:dp_confidence a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vivo:op_assessment_annotation rdfs:subClassOf vivo:op_confidence.
+vivo:dp_assessment_annotation rdfs:subClassOf vivo:dp_confidence.
+
+vivo:ESTIMATE_FROM_CORRELATION a vivo:confidence.
+vivo:ESTIMATE_FROM_EXPERIENCE a vivo:confidence.
+vivo:STATEMENT_OF_BELIEF a vivo:confidence.
+vivo:STATEMENT_OF_KNOWLEDGE a vivo:confidence.
+
+
+vivo:assertion a owl:Class;
+   rdfs:subClassOf vivo:assessment_annotation.
+vivo:op_assertion a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vivo:dp_assertion a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vivo:op_assessment_annotation rdfs:subClassOf vivo:op_assertion.
+vivo:dp_assessment_annotation rdfs:subClassOf vivo:dp_assertion.
+
+vivo:asserts_magnitude a vivo:dp_assertion, owl:FunctionalProperty;
+   rdfs:domain vivo:assertion;
+   rdfs:range xs:decimal.
+
+
+vivo:requirement_assertion a owl:Class;
+   rdfs:subClassOf vivo:assertion, vivo:requirement_entity.
+vivo:op_requirement_assertion a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vivo:dp_requirement_assertion a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vivo:op_assertion rdfs:subClassOf vivo:op_requirement_assertion.
+vivo:op_requirement_entity rdfs:subClassOf vivo:op_requirement_assertion.
+vivo:dp_assertion rdfs:subClassOf vivo:dp_requirement_assertion.
+vivo:dp_requirement_entity rdfs:subClassOf vivo:dp_requirement_assertion.
+
+vivo:has_requirement_type a vivo:op_requirement_assertion, owl:FunctionalProperty;
+   rdfs:domain vivo:requirement_assertion;
+   rdfs:range vivo:requirement_type;
+   rdfs:subPropertyOf evmpo:has_meta_annotation.
+vivo:has_requirement_scope a vivo:op_requirement_assertion, owl:FunctionalProperty;
+   rdfs:domain vivo:requirement_assertion;
+   rdfs:range vivo:requirement_scope;
+   rdfs:subPropertyOf evmpo:has_meta_annotation.
+
+vivo:requirement_type a owl:Class;
+   rdfs:subClassOf vivo:requirement_entity, evmpo:meta_annotation.
+
+vivo:REQUIRED_CORE_HOUR a vivo:requirement_type.
+vivo:REQUIRED_IO_CAPACITY_MEGABYTE a vivo:requirement_type.
+vivo:REQUIRED_MEMORY_MEGABYTE a vivo:requirement_type.
+vivo:REQUIRED_RUNTIME_HOUR a vivo:requirement_type.
+
+vivo:requirement_scope a owl:Class;
+   rdfs:subClassOf vivo:requirement_entity, evmpo:meta_annotation.
+
+vivo:REQUIRED_OVERALL a vivo:requirement_scope.
+vivo:REQUIRED_PER_DATA_POINT a vivo:requirement_scope.
+vivo:REQUIRED_PER_SIMULATION_RUN a vivo:requirement_scope.
+vivo:REQUIRED_PER_SIMULATED_NANOSECOND a vivo:requirement_scope.
+
+
+vivo:moda_property_assertion a owl:Class;
+   rdfs:subClassOf vivo:assertion, vivo:validity_entity.
+vivo:op_moda_property_assertion a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vivo:dp_moda_property_assertion a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vivo:op_assertion rdfs:subClassOf vivo:op_moda_property_assertion.
+vivo:dp_assertion rdfs:subClassOf vivo:dp_moda_property_assertion.
+vivo:op_validity_entity rdfs:subClassOf vivo:op_moda_property_assertion.
+vivo:dp_validity_entity rdfs:subClassOf vivo:dp_moda_property_assertion.
+
+vivo:refers_to_material a vivo:op_moda_property_assertion, owl:FunctionalProperty;
+   rdfs:domain vivo:moda_property_assertion;
+   rdfs:range osmo:moda_material_descriptor;
+   rdfs:subPropertyOf evmpo:has_meta_annotation.
+vivo:refers_to_property a vivo:op_moda_property_assertion, owl:FunctionalProperty;
+   rdfs:domain vivo:moda_property_assertion;
+   rdfs:range osmo:moda_property.
+
+vivo:absolute_assertion a owl:Class;
+   rdfs:subClassOf vivo:moda_property_assertion.
+vivo:op_absolute_assertion a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vivo:dp_absolute_assertion a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vivo:op_moda_property_assertion rdfs:subClassOf vivo:op_absolute_assertion.
+vivo:dp_moda_property_assertion rdfs:subClassOf vivo:dp_absolute_assertion.
+
+vivo:has_unit a vivo:op_absolute_assertion, owl:FunctionalProperty;
+   rdfs:domain vivo:absolute_assertion;
+   rdfs:range qudt:DecimalScaledUnit.
+
+vivo:deviation_assertion a owl:Class;
+   rdfs:subClassOf vivo:moda_property_assertion.
+
+vivo:magnitude_assertion a owl:Class;
+   rdfs:subClassOf vivo:absolute_assertion.
+   
+vivo:absolute_deviation_assertion a owl:Class;
+   rdfs:subClassOf vivo:absolute_assertion, vivo:deviation_assertion.
+vivo:relative_deviation_assertion a owl:Class;
+   rdfs:subClassOf vivo:deviation_assertion.
+
+### VIMMP TRANSLATION ONTOLOGY (VTO) ###
+
+### VERSION 0.4.1 ###
+
+### DATED 21ST JANUARY 2019 ###
+
+@prefix vto: <http://www.vimmp.eu/semantics/vto/vto.ttl#>.
+
+@prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xs: <http://www.w3.org/2001/XMLSchema#>.
+
+<http://www.vimmp.eu/semantics/vto/vto.ttl#> a owl:Ontology.
+
+vto:translation_related_entity a owl:Class;
+   rdfs:subClassOf evmpo:product_related_entity.
+vto:op_translation_related_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vto:dp_translation_related_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_product_related_entity rdfs:subClassOf vto:op_translation_related_entity.
+evmpo:dp_product_related_entity rdfs:subClassOf vto:dp_translation_related_entity.

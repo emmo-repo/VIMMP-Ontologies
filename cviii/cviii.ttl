@@ -1,0 +1,245 @@
+
+### CATEGORIZATION OF VIMMP INSTITUTIONS AND INDIVIDUALS (CVIII) ###
+
+### VERSION 0.0.2 ###
+
+### DATED 22ND JANUARY 2019 ###
+
+@prefix cviii: <http://www.vimmp.eu/semantics/cviii/cviii.ttl#>.
+
+@prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
+@prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
+@prefix xs: <http://www.w3.org/2001/XMLSchema#>.
+
+<http://www.vimmp.eu/semantics/cviii/cviii.ttl#> a owl:Ontology.
+
+cviii:agent_related_entity a owl:Class;
+   rdfs:subClassOf evmpo:role_related_entity.
+cviii:op_agent_related_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+cviii:dp_agent_related_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_role_related_entity owl:equivalentClass cviii:op_agent_related_entity.
+evmpo:dp_role_related_entity owl:equivalentClass cviii:dp_agent_related_entity.
+
+cviii:agent a owl:Class;
+   rdfs:subClassOf cviii:agent_related_entity, evmpo:role.
+cviii:op_agent a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+cviii:dp_agent a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+cviii:op_agent_related_entity rdfs:subClassOf cviii:op_agent.
+cviii:dp_agent_related_entity rdfs:subClassOf cviii:dp_agent.
+evmpo:op_role rdfs:subClassOf cviii:op_agent.
+evmpo:dp_role rdfs:subClassOf cviii:dp_agent.
+
+cviii:has_agentid a cviii:dp_agent;
+   rdfs:domain cviii:agent;
+   rdfs:range xs:nonNegativeInteger.
+cviii:has_name a cviii:dp_agent;
+   rdfs:domain cviii:agent;
+   rdfs:range xs:string.
+cviii:acts_on a cviii:op_agent;
+   rdfs:domain cviii:agent;
+   rdfs:range macro:virtual_marketplace.
+
+evmpo:stakeholder rdfs:subClassOf cviii:agent.
+cviii:op_agent rdfs:subClassOf evmpo:op_stakeholder.
+cviii:dp_agent rdfs:subClassOf evmpo:dp_stakeholder.
+
+cviii:expert a owl:Class;
+   rdfs:subClassOf cviii:agent, evmpo:stakeholder;
+   owl:equivalentClass evmpo:expert.
+cviii:op_expert a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+cviii:dp_expert a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+cviii:op_agent rdfs:subClassOf cviii:op_expert.
+cviii:dp_agent rdfs:subClassOf cviii:dp_expert.
+evmpo:op_stakeholder rdfs:subClassOf cviii:op_expert.
+evmpo:dp_stakeholder rdfs:subClassOf cviii:dp_expert.
+evmpo:op_expert owl:equivalentClass cviii:op_expert.
+evmpo:dp_expert owl:equivalentClass cviii:dp_expert.
+
+cviii:certifier a owl:Class;
+   rdfs:subClassOf cviii:agent.
+cviii:op_certifier a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+cviii:dp_certifier a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+cviii:op_agent rdfs:subClassOf cviii:op_certifier.
+cviii:dp_agent rdfs:subClassOf cviii:dp_certifier.
+
+cviii:certifying_expert a owl:Class;
+   rdfs:subClassOf cviii:certifier, cviii:expert.
+cviii:op_certifying_expert a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+cviii:dp_certifying_expert a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+cviii:op_certifier rdfs:subClassOf cviii:op_certifying_expert.
+cviii:dp_certifier rdfs:subClassOf cviii:dp_certifying_expert.
+cviii:op_expert rdfs:subClassOf cviii:op_certifying_expert.
+cviii:dp_expert rdfs:subClassOf cviii:dp_certifying_expert.
+
+cviii:certifying_resource a owl:Class;
+   rdfs:subClassOf cviii:certifier.
+cviii:op_certifying_resource a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+cviii:dp_certifying_resource a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+cviii:op_certifier rdfs:subClassOf cviii:op_certifying_resource.
+cviii:dp_certifier rdfs:subClassOf cviii:dp_certifying_resource.
+
+cviii:is_at_uri a cviii:op_certifying_resource;
+   rdfs:domain cviii:certifying_resource;
+   rdfs:range rdfs:Resource.
+
+cviii:certifying_journal_article a owl:Class;
+   rdfs:subClassOf cviii:certifying_resource.
+cviii:op_certifying_journal_article a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+cviii:dp_certifying_journal_article a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+cviii:op_certifying_resource rdfs:subClassOf cviii:op_certifying_journal_article.
+cviii:dp_certifying_resource rdfs:subClassOf cviii:dp_certifying_journal_article.
+   
+cviii:certifying_database a owl:Class;
+   rdfs:subClassOf cviii:certifier, macro:repository.
+cviii:op_certifying_database a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+cviii:dp_certifying_database a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+cviii:op_certifier rdfs:subClassOf cviii:op_certifying_database.
+cviii:dp_certifier rdfs:subClassOf cviii:dp_certifying_database.
+macro:op_repository rdfs:subClassOf cviii:op_certifying_database.
+macro:dp_repository rdfs:subClassOf cviii:dp_certifying_database.
+
+cviii:interlocutor a owl:Class;
+   rdfs:subClassOf cviii:agent.
+cviii:op_interlocutor a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+cviii:dp_interlocutor a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+cviii:op_agent rdfs:subClassOf cviii:op_interlocutor.
+cviii:dp_agent rdfs:subClassOf cviii:dp_interlocutor.
+
+cviii:marketplace_subject a owl:Class;
+   rdfs:subClassOf cviii:interlocutor, cviii:certifier, evmpo:stakeholder.
+cviii:op_marketplace_subject a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+cviii:dp_marketplace_subject a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+cviii:op_interlocutor rdfs:subClassOf cviii:op_marketplace_subject.
+cviii:dp_interlocutor rdfs:subClassOf cviii:dp_marketplace_subject.
+cviii:op_certifier rdfs:subClassOf cviii:op_marketplace_subject.
+cviii:dp_certifier rdfs:subClassOf cviii:dp_marketplace_subject.
+evmpo:op_stakeholder rdfs:subClassOf cviii:op_marketplace_subject.
+evmpo:dp_stakeholder rdfs:subClassOf cviii:dp_marketplace_subject.
+
+cviii:end_user a owl:Class;
+   rdfs:subClassOf cviii:marketplace_subject;
+   owl:equivalentClass evmpo:end_user.
+cviii:op_end_user a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+cviii:dp_end_user a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+cviii:op_marketplace_subject rdfs:subClassOf cviii:op_end_user.
+cviii:dp_marketplace_subject rdfs:subClassOf cviii:dp_end_user.
+evmpo:op_end_user owl:equivalentClass cviii:op_end_user.
+evmpo:dp_end_user owl:equivalentClass cviii:dp_end_user.
+
+cviii:translator a owl:Class;
+   rdfs:subClassOf cviii:marketplace_subject;
+   owl:equivalentClass evmpo:translator.
+cviii:op_translator a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+cviii:dp_translator a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+cviii:op_marketplace_subject rdfs:subClassOf cviii:op_translator.
+cviii:dp_marketplace_subject rdfs:subClassOf cviii:dp_translator.
+evmpo:op_translator owl:equivalentClass cviii:op_translator.
+evmpo:dp_translator owl:equivalentClass cviii:dp_translator.
+
+cviii:model_provider a owl:Class;
+   rdfs:subClassOf cviii:marketplace_subject;
+   owl:equivalentClass evmpo:model_provider.
+cviii:op_model_provider a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+cviii:dp_model_provider a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+cviii:op_marketplace_subject rdfs:subClassOf cviii:op_model_provider.
+cviii:dp_marketplace_subject rdfs:subClassOf cviii:dp_model_provider.
+evmpo:op_model_provider owl:equivalentClass cviii:op_model_provider.
+evmpo:dp_model_provider owl:equivalentClass cviii:dp_model_provider.
+
+cviii:pseudonym a owl:Class;
+   rdfs:subClassOf cviii:interlocutor.
+cviii:op_pseudonym a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+cviii:dp_pseudonym a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+cviii:op_interlocutor rdfs:subClassOf cviii:op_pseudonym.
+cviii:dp_interlocutor rdfs:subClassOf cviii:dp_pseudonym.
+
+cviii:interlocutor_type a owl:Class;
+   rdfs:subClassOf cviii:agent_related_entity, evmpo:role_annotation.
+cviii:op_interlocutor_type a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+cviii:dp_interlocutor_type a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+cviii:op_agent_related_entity rdfs:subClassOf cviii:op_interlocutor_type.
+cviii:dp_agent_related_entity rdfs:subClassOf cviii:dp_interlocutor_type.
+evmpo:op_role_annotation rdfs:subClassOf cviii:op_interlocutor_type.
+evmpo:dp_role_annotation rdfs:subClassOf cviii:dp_interlocutor_type.
+
+cviii:interlocutor_group a owl:Class;
+   rdfs:subClassOf cviii:interlocutor_type.
+cviii:op_interlocutor_group a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+cviii:dp_interlocutor_group a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+cviii:op_interlocutor_type rdfs:subClassOf cviii:op_interlocutor_group.
+cviii:dp_interlocutor_type rdfs:subClassOf cviii:dp_interlocutor_group.
+
+cviii:END_USER a cviii:interlocutor_group.
+cviii:TRANSLATOR a cviii:interlocutor_group.
+cviii:MODEL_PROVIDER a cviii:interlocutor_group.
+
+cviii:interlocutor_tag a owl:Class;
+   rdfs:subClassOf cviii:interlocutor_type.
+cviii:op_interlocutor_tag a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+cviii:dp_interlocutor_tag a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+cviii:op_interlocutor_type rdfs:subClassOf cviii:op_interlocutor_tag.
+cviii:dp_interlocutor_type rdfs:subClassOf cviii:dp_interlocutor_tag.
+
+cviii:has_interlocutor_tag a cviii:op_interlocutor;
+   rdfs:domain cviii:interlocutor;
+   rdfs:range cviii:interlocutor_tag.
+
+cviii:is_in_group a cviii:op_interlocutor_tag;
+   rdfs:domain cviii:interlocutor_tag;
+   rdfs:range cviii:interlocutor_group.
+cviii:is_in_country a cviii:dp_interlocutor_tag;
+   rdfs:domain cviii:interlocutor_tag;
+   rdfs:range xs:string.
+cviii:is_academic a cviii:dp_interlocutor_tag;
+   rdfs:domain cviii:interlocutor_tag;
+   rdfs:range xs:boolean.
+cviii:is_for_profit a cviii:dp_interlocutor_tag;
+   rdfs:domain cviii:interlocutor_tag;
+   rdfs:range xs:boolean.
+cviii:is_military a cviii:dp_interlocutor_tag;
+   rdfs:domain cviii:interlocutor_tag;
+   rdfs:range xs:boolean.
+cviii:is_nuclear a cviii:dp_interlocutor_tag;
+   rdfs:domain cviii:interlocutor_tag;
+   rdfs:range xs:boolean.
+cviii:is_sme a cviii:dp_interlocutor_tag;
+   rdfs:domain cviii:interlocutor_tag;
+   rdfs:range xs:boolean.

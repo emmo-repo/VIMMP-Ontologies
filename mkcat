@@ -1,0 +1,3 @@
+
+cat all-vimmp-header.ttl */*.ttl > ./all-vimmp-ontologies.ttl
+

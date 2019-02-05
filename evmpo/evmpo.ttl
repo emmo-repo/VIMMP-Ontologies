@@ -1,0 +1,860 @@
+
+### EUROPEAN VIRTUAL MARKETPLACE ONTOLOGY (EVMPO) ###
+
+### PROPOSAL DATED 22ND JANUARY 2019 ###
+
+@prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
+
+@prefix ccso: <https://w3id.org/ccso/ccso#>.
+@prefix emmo: <http://emmc.info/emmo#>.
+@prefix iao: <http://purl.obolibrary.org/obo/iao.owl#>.
+@prefix ical: <https://www.w3.org/2002/12/cal/icaltzd#>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xs: <http://www.w3.org/2001/XMLSchema#>.
+
+<http://emmc.info/semantics/evmpo/evmpo.ttl> a owl:Ontology.
+
+evmpo:marketplace_related_entity a owl:Class.
+evmpo:op_marketplace_related_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_marketplace_related_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+
+evmpo:paradigmatic_entity a owl:Class; rdfs:subClassOf evmpo:marketplace_related_entity.
+evmpo:non_paradigmatic_entity a owl:Class; rdfs:subClassOf evmpo:marketplace_related_entity.
+
+
+###########################################################
+###  paradigmatic fundamental category (1): assessment  ###
+###########################################################
+
+### sub-ontology ###
+
+evmpo:assessment_related_entity a owl:Class;
+   rdfs:subClassOf evmpo:marketplace_related_entity;
+   rdfs:comment "assessment or non-paradigmatic aspect of an assessment"^^xs:string.
+evmpo:op_assessment_related_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_assessment_related_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_marketplace_related_entity rdfs:subClassOf evmpo:op_assessment_related_entity.
+evmpo:dp_marketplace_related_entity rdfs:subClassOf evmpo:dp_assessment_related_entity.
+
+### fundamental class ###
+
+evmpo:assessment a owl:Class;
+   rdfs:subClassOf evmpo:assessment_related_entity, evmpo:paradigmatic_entity;
+   rdfs:comment "assessment, i.e., proposition on accuracy or performance of an entity or on somebody's trust in an entity"^^xs:string.
+evmpo:op_assessment a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_assessment a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_assessment_related_entity rdfs:subClassOf evmpo:op_assessment.
+evmpo:dp_assessment_related_entity rdfs:subClassOf evmpo:dp_assessment.
+
+### subclasses of the fundamental class ###
+
+evmpo:endorsement_assessment a owl:Class;
+   rdfs:subClassOf evmpo:assessment;
+   rdfs:comment "endorsement_assessment, i.e., an assessment (proposition) by which an entity is claimed to be good or fit for a certain purpose"^^xs:string.
+evmpo:op_endorsement_assessment a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_endorsement_assessment a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_assessment rdfs:subClassOf evmpo:op_endorsement_assessment.
+evmpo:dp_assessment rdfs:subClassOf evmpo:dp_endorsement_assessment.
+evmpo:requirement_assessment a owl:Class;
+   rdfs:subClassOf evmpo:assessment;
+   rdfs:comment "requirement_assessment, i.e., an assessment (proposition) concerning computational requirements (computing time, memory, other hardware, software, and data prerequisites) for an infrastructure or a simulation workflow"^^xs:string.
+evmpo:op_requirement_assessment a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_requirement_assessment a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_assessment rdfs:subClassOf evmpo:op_requirement_assessment.
+evmpo:dp_assessment rdfs:subClassOf evmpo:dp_requirement_assessment.
+evmpo:validity_assessment a owl:Class;
+   rdfs:subClassOf evmpo:assessment;
+   rdfs:comment "validity_assessment, i.e., an assessment (proposition) quantifying the uncertainty or error of a model, a simulation workflow, an experimental data point or any other quantitative datum or collection thereof"^^xs:string.
+evmpo:op_validity_assessment a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_validity_assessment a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_assessment rdfs:subClassOf evmpo:op_validity_assessment.
+evmpo:dp_assessment rdfs:subClassOf evmpo:dp_validity_assessment.
+
+### annotations to the fundamental class ###
+
+evmpo:assessment_annotation a owl:Class;
+   rdfs:subClassOf evmpo:annotation, evmpo:assessment_related_entity;
+   rdfs:comment "assessment_annotation, i.e., annotation of an assessment"^^xs:string.
+evmpo:has_assessment_annotation a evmpo:op_assessment;
+   rdfs:domain evmpo:assessment;
+   rdfs:range evmpo:annotation;
+   rdfs:subPropertyOf evmpo:has_annotation.
+
+
+###############################################################
+###  paradigmatic fundamental category (2): calendar_event  ###
+###############################################################
+
+### sub-ontology ###
+
+evmpo:calendar_related_entity a owl:Class;
+   rdfs:subClassOf evmpo:marketplace_related_entity;
+   rdfs:comment "calendar_event or non-paradigmatic aspect of a calendar_event"^^xs:string.
+evmpo:op_calendar_related_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_calendar_related_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_marketplace_related_entity rdfs:subClassOf evmpo:op_calendar_related_entity.
+evmpo:dp_marketplace_related_entity rdfs:subClassOf evmpo:dp_calendar_related_entity.
+
+### fundamental class ###
+
+evmpo:calendar_event a owl:Class;
+   rdfs:subClassOf evmpo:calendar_related_entity, evmpo:paradigmatic_entity;
+   owl:equivalentClass ical:Vevent;
+   rdfs:comment "calendar_event, i.e., a meeting or activity which is scheduled or can be scheduled, equivalent to Vevent (labelled Event) from ICALTZD"^^xs:string.
+evmpo:op_calendar_event a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_calendar_event a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_calendar_related_entity rdfs:subClassOf evmpo:op_calendar_event.
+evmpo:dp_calendar_related_entity rdfs:subClassOf evmpo:dp_calendar_event.
+
+### subclasses of the fundamental class ###
+
+evmpo:training_event a owl:Class;
+   rdfs:subClassOf evmpo:calendar_event;
+   owl:equivalentClass ccso:Event;
+   rdfs:comment "event at which training activities occur, equivalent to Event from CCSO"^^xs:string.
+evmpo:op_training_event a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_training_event a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_calendar_event rdfs:subClassOf evmpo:op_training_event.
+evmpo:dp_calendar_event rdfs:subClassOf evmpo:dp_training_event.
+
+### annotations to the fundamental class ###
+
+evmpo:calendar_event_annotation a owl:Class;
+   rdfs:subClassOf evmpo:annotation, evmpo:calendar_related_entity;
+   rdfs:comment "calendar_event_annotation, i.e., annotation of a calendar_event"^^xs:string.
+evmpo:has_calendar_event_annotation a evmpo:op_calendar_event;
+   rdfs:domain evmpo:calendar_event;
+   rdfs:range evmpo:annotation;
+   rdfs:subPropertyOf evmpo:has_annotation.
+
+
+##############################################################
+###  paradigmatic fundamental category (3): communication  ###
+##############################################################
+
+### sub-ontology ###
+
+evmpo:communication_related_entity a owl:Class;
+   rdfs:subClassOf evmpo:marketplace_related_entity;
+   rdfs:comment "communication or non-paradigmatic aspect of a communication"^^xs:string.
+evmpo:op_communication_related_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_communication_related_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_marketplace_related_entity rdfs:subClassOf evmpo:op_communication_related_entity.
+evmpo:dp_marketplace_related_entity rdfs:subClassOf evmpo:dp_communication_related_entity.
+
+### fundamental class ###
+
+evmpo:communication a owl:Class;
+   rdfs:subClassOf evmpo:communication_related_entity, evmpo:paradigmatic_entity;
+   rdfs:comment "communication, i.e., a statement or sequence of statements that is communicated by a on a virtual marketplace by a stakeholder"^^xs:string.
+evmpo:op_communication a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_communication a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_communication_related_entity rdfs:subClassOf evmpo:op_communication.
+evmpo:dp_communication_related_entity rdfs:subClassOf evmpo:dp_communication.
+
+### subclasses of the fundamental class ###
+
+evmpo:declaration a owl:Class;
+   rdfs:subClassOf evmpo:communication;
+   rdfs:comment "declaration, i.e., a communication without a recipient that is processed by a virtual marketplace"^^xs:string.
+evmpo:op_declaration a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_declaration a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_communication rdfs:subClassOf evmpo:op_declaration.
+evmpo:dp_communication rdfs:subClassOf evmpo:dp_declaration.
+evmpo:interlocution a owl:Class;
+   rdfs:subClassOf evmpo:communication;
+   rdfs:comment "interlocution, i.e., a communication which includes one or multiple recipients (not sent only to the marketplace itself, but also to one or multiple stakeholders)"^^xs:string.
+evmpo:op_interlocution a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_interlocution a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_communication rdfs:subClassOf evmpo:op_interlocution.
+evmpo:dp_communication rdfs:subClassOf evmpo:dp_interlocution.
+evmpo:statement a owl:Class;
+   rdfs:subClassOf evmpo:communication;
+   rdfs:comment "statement, i.e., an elementary communication that cannot be further decomposed into multiple statements"^^xs:string.
+evmpo:op_statement a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_statement a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_communication rdfs:subClassOf evmpo:op_statement.
+evmpo:dp_communication rdfs:subClassOf evmpo:dp_statement.
+
+### annotations to the fundamental class ###
+
+evmpo:communication_annotation a owl:Class;
+   rdfs:subClassOf evmpo:annotation, evmpo:communication_related_entity;
+   rdfs:comment "communication_annotation, i.e., annotation of a communication"^^xs:string.
+evmpo:has_communication_annotation a evmpo:op_communication;
+   rdfs:domain evmpo:communication;
+   rdfs:range evmpo:annotation;
+   rdfs:subPropertyOf evmpo:has_annotation.
+
+
+###########################################################################
+###  paradigmatic fundamental category (4): information_content_entity  ###
+###########################################################################
+
+### sub-ontology ###
+
+evmpo:content_related_entity a owl:Class;
+   rdfs:subClassOf evmpo:marketplace_related_entity;
+   rdfs:comment "information_content_entity or non-paradigmatic aspect of a information_content_entity"^^xs:string.
+evmpo:op_content_related_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_content_related_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_marketplace_related_entity rdfs:subClassOf evmpo:op_content_related_entity.
+evmpo:dp_marketplace_related_entity rdfs:subClassOf evmpo:dp_content_related_entity.
+
+### fundamental class ###
+
+evmpo:information_content_entity a owl:Class;
+   owl:equivalentClass iao:IAO_0000030;  # iao label "information content entity"
+   rdfs:subClassOf evmpo:content_related_entity, evmpo:paradigmatic_entity;
+   rdfs:comment "information_content_entity, i.e., an information content entity as characterized by the IAO"^^xs:string.
+evmpo:op_information_content_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_information_content_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_content_related_entity rdfs:subClassOf evmpo:op_information_content_entity.
+evmpo:dp_content_related_entity rdfs:subClassOf evmpo:dp_information_content_entity.
+
+### subclasses of the fundamental class ###
+
+evmpo:data_item a owl:Class;
+   owl:equivalentClass iao:IAO_0000027;  # iao label "data item"
+   rdfs:subClassOf evmpo:information_content_entity;
+   rdfs:comment "data item as characterized by the IAO"^^xs:string.
+evmpo:document a owl:Class;
+   owl:equivalentClass iao:IAO_0000310;  # iao label "document"
+   rdfs:subClassOf evmpo:information_content_entity;
+   rdfs:comment "document as characterized by the IAO"^^xs:string.
+evmpo:legal_document a owl:Class;
+   rdfs:subClassOf evmpo:document;
+   rdfs:comment "any document (e.g., a contract or a quotation) related to legal issues"^^xs:string.
+evmpo:training_document a owl:Class;
+   rdfs:subClassOf evmpo:document;
+   rdfs:comment "any document (e.g., manual, textbook, video, or collection of slides) that can help at acquiring competencies"^^xs:string.
+
+### annotations to the fundamental class ###
+
+evmpo:information_content_entity_annotation a owl:Class;
+   rdfs:subClassOf evmpo:annotation, evmpo:content_related_entity;
+   rdfs:comment "information_content_entity_annotation, i.e., annotation of a information_content_entity"^^xs:string.
+evmpo:has_information_content_entity_annotation a evmpo:op_information_content_entity;
+   rdfs:domain evmpo:information_content_entity;
+   rdfs:range evmpo:annotation;
+   rdfs:subPropertyOf evmpo:has_annotation.
+
+
+###############################################################
+###  paradigmatic fundamental category (5): infrastructure  ###
+###############################################################
+
+### sub-ontology ###
+
+evmpo:infrastructure_related_entity a owl:Class;
+   rdfs:subClassOf evmpo:marketplace_related_entity;
+   rdfs:comment "infrastructure or non-paradigmatic aspect of a infrastructure"^^xs:string.
+evmpo:op_infrastructure_related_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_infrastructure_related_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_marketplace_related_entity rdfs:subClassOf evmpo:op_infrastructure_related_entity.
+evmpo:dp_marketplace_related_entity rdfs:subClassOf evmpo:dp_infrastructure_related_entity.
+
+### fundamental class ###
+
+evmpo:infrastructure a owl:Class;
+   rdfs:subClassOf evmpo:infrastructure_related_entity, evmpo:paradigmatic_entity;
+   rdfs:comment "infrastructure, i.e., an entity representing marketplace infrastructure such as hardware, a repository, or software"^^xs:string.
+evmpo:op_infrastructure a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_infrastructure a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_infrastructure_related_entity rdfs:subClassOf evmpo:op_infrastructure.
+evmpo:dp_infrastructure_related_entity rdfs:subClassOf evmpo:dp_infrastructure.
+
+### subclasses of the fundamental class ###
+
+evmpo:data_infrastructure a owl:Class;
+   rdfs:subClassOf evmpo:infrastructure;
+   rdfs:comment "data infrastructure, i.e., any infrastructure concerning material property data/metadata, model (parameter) data/metadata, or similar repositories and databases"^^xs:string.
+evmpo:op_data_infrastructure a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_data_infrastructure a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_infrastructure rdfs:subClassOf evmpo:op_data_infrastructure.
+evmpo:dp_infrastructure rdfs:subClassOf evmpo:dp_data_infrastructure.
+evmpo:hardware_infrastructure a owl:Class;
+   rdfs:subClassOf evmpo:infrastructure;
+   rdfs:comment "hardware infrastructure, i.e., infrastructure concerning hardware resources"^^xs:string.
+evmpo:op_hardware_infrastructure a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_hardware_infrastructure a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_infrastructure rdfs:subClassOf evmpo:op_hardware_infrastructure.
+evmpo:dp_infrastructure rdfs:subClassOf evmpo:dp_hardware_infrastructure.
+evmpo:software_infrastructure a owl:Class;
+   rdfs:subClassOf evmpo:infrastructure;
+   rdfs:comment "software infrastructure, i.e., infrastructure concerning software, licensing, etc."^^xs:string.
+evmpo:op_software_infrastructure a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_software_infrastructure a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_infrastructure rdfs:subClassOf evmpo:op_software_infrastructure.
+evmpo:dp_infrastructure rdfs:subClassOf evmpo:dp_software_infrastructure.
+
+### annotations to the fundamental class ###
+
+evmpo:infrastructure_annotation a owl:Class;
+   rdfs:subClassOf evmpo:annotation, evmpo:infrastructure_related_entity;
+   rdfs:comment "infrastructure_annotation, i.e., annotation of a infrastructure"^^xs:string.
+evmpo:has_infrastructure_annotation a evmpo:op_infrastructure;
+   rdfs:domain evmpo:infrastructure;
+   rdfs:range evmpo:annotation;
+   rdfs:subPropertyOf evmpo:has_annotation.
+
+
+#########################################################
+###  paradigmatic fundamental category (6): material  ###
+#########################################################
+
+### sub-ontology ###
+
+evmpo:material_related_entity a owl:Class;
+   rdfs:subClassOf evmpo:marketplace_related_entity;
+   rdfs:comment "material or non-paradigmatic aspect of a material"^^xs:string.
+evmpo:op_material_related_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_material_related_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_marketplace_related_entity rdfs:subClassOf evmpo:op_material_related_entity.
+evmpo:dp_marketplace_related_entity rdfs:subClassOf evmpo:dp_material_related_entity.
+
+### fundamental class ###
+
+evmpo:material a owl:Class;
+   owl:equivalentClass emmo:EMMO_53ebe495_28bf_47cd_b21d_c4c871ee4763;  # "emmo material"
+   rdfs:subClassOf evmpo:material_related_entity, evmpo:paradigmatic_entity;
+   rdfs:comment "material, i.e., a material as characterized by the EMMO"^^xs:string.
+evmpo:op_material a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_material a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_material_related_entity rdfs:subClassOf evmpo:op_material.
+evmpo:dp_material_related_entity rdfs:subClassOf evmpo:dp_material.
+
+### annotations to the fundamental class ###
+
+evmpo:material_annotation a owl:Class;
+   rdfs:subClassOf evmpo:annotation, evmpo:material_related_entity;
+   rdfs:comment "material_annotation, i.e., annotation of a material"^^xs:string.
+evmpo:has_material_annotation a evmpo:op_material;
+   rdfs:domain evmpo:material;
+   rdfs:range evmpo:annotation;
+   rdfs:subPropertyOf evmpo:has_annotation.
+
+
+######################################################
+###  paradigmatic fundamental category (7): model  ###
+######################################################
+
+### sub-ontology ###
+
+evmpo:model_related_entity a owl:Class;
+   rdfs:subClassOf evmpo:marketplace_related_entity;
+   rdfs:comment "model or non-paradigmatic aspect of a model"^^xs:string.
+evmpo:op_model_related_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_model_related_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_marketplace_related_entity rdfs:subClassOf evmpo:op_model_related_entity.
+evmpo:dp_marketplace_related_entity rdfs:subClassOf evmpo:dp_model_related_entity.
+
+### fundamental class ###
+
+evmpo:model a owl:Class;
+   owl:equivalentClass emmo:EMMO_75bfd283_ff56_4a97_b05e_a3ea15d5e0a8;  # "emmo model"
+   rdfs:subClassOf evmpo:model_related_entity, evmpo:paradigmatic_entity;
+   rdfs:comment "model, i.e., a model as characterized by the EMMO"^^xs:string.
+evmpo:op_model a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_model a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_model_related_entity rdfs:subClassOf evmpo:op_model.
+evmpo:dp_model_related_entity rdfs:subClassOf evmpo:dp_model.
+
+### annotations to the fundamental class ###
+
+evmpo:model_annotation a owl:Class;
+   rdfs:subClassOf evmpo:annotation, evmpo:model_related_entity;
+   rdfs:comment "model_annotation, i.e., annotation of a model"^^xs:string.
+evmpo:has_model_annotation a evmpo:op_model;
+   rdfs:domain evmpo:model;
+   rdfs:range evmpo:annotation;
+   rdfs:subPropertyOf evmpo:has_annotation.
+
+
+########################################################
+###  paradigmatic fundamental category (8): process  ###
+########################################################
+
+### sub-ontology ###
+
+evmpo:process_related_entity a owl:Class;
+   rdfs:subClassOf evmpo:marketplace_related_entity;
+   rdfs:comment "process or non-paradigmatic aspect of a process"^^xs:string.
+evmpo:op_process_related_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_process_related_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_marketplace_related_entity rdfs:subClassOf evmpo:op_process_related_entity.
+evmpo:dp_marketplace_related_entity rdfs:subClassOf evmpo:dp_process_related_entity.
+
+### fundamental class ###
+
+evmpo:process a owl:Class;
+   rdfs:subClassOf evmpo:process_related_entity, evmpo:paradigmatic_entity;
+   rdfs:comment "process, i.e., the temporal evolution of one or multiple entities"^^xs:string.
+evmpo:op_process a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_process a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_process_related_entity rdfs:subClassOf evmpo:op_process.
+evmpo:dp_process_related_entity rdfs:subClassOf evmpo:dp_process.
+
+### subclasses of the fundamental class ###
+
+evmpo:business_process a owl:Class;
+   rdfs:subClassOf evmpo:process;
+   rdfs:comment "business process, i.e., a process-level description of business activities"^^xs:string.
+evmpo:op_business_process a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_business_process a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_process rdfs:subClassOf evmpo:op_business_process.
+evmpo:dp_process rdfs:subClassOf evmpo:dp_business_process.
+evmpo:communication_process a owl:Class;
+   rdfs:subClassOf evmpo:process;
+   rdfs:comment "communication process, i.e., a process of exchanging statements, information content entities, or binary data"^^xs:string.
+evmpo:op_communication_process a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_communication_process a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_process rdfs:subClassOf evmpo:op_communication_process.
+evmpo:dp_process rdfs:subClassOf evmpo:dp_communication_process.
+evmpo:computational_process a owl:Class;
+   rdfs:subClassOf evmpo:process;
+   rdfs:comment "computational process, i.e., a process by software is executed on hardware, and by which data may be generated or altered"^^xs:string.
+evmpo:op_computational_process a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_computational_process a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_process rdfs:subClassOf evmpo:op_computational_process.
+evmpo:dp_process rdfs:subClassOf evmpo:dp_computational_process.
+evmpo:manufacturing_process a owl:Class;
+   rdfs:subClassOf evmpo:process;
+   rdfs:comment "manufacturing process, i.e., a process-level description of industrial production activities"^^xs:string.
+evmpo:op_manufacturing_process a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_manufacturing_process a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_process rdfs:subClassOf evmpo:op_manufacturing_process.
+evmpo:dp_process rdfs:subClassOf evmpo:dp_manufacturing_process.
+evmpo:physical_process a owl:Class;
+   rdfs:subClassOf evmpo:process;
+   rdfs:subClassOf emmo:EMMO_1703b6d9_b780_4c61_a75b_5f0cd39323e3;  # emmo process
+   rdfs:comment "physical process, i.e., a process associated with or experienced by a material"^^xs:string.
+evmpo:op_physical_process a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_physical_process a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_process rdfs:subClassOf evmpo:op_physical_process.
+evmpo:dp_process rdfs:subClassOf evmpo:dp_physical_process.
+
+### annotations to the fundamental class ###
+
+evmpo:process_annotation a owl:Class;
+   rdfs:subClassOf evmpo:annotation, evmpo:process_related_entity;
+   rdfs:comment "process_annotation, i.e., annotation of a process"^^xs:string.
+evmpo:has_process_annotation a evmpo:op_process;
+   rdfs:domain evmpo:process;
+   rdfs:range evmpo:annotation;
+   rdfs:subPropertyOf evmpo:has_annotation.
+
+
+########################################################
+###  paradigmatic fundamental category (9): product  ###
+########################################################
+
+### sub-ontology ###
+
+evmpo:product_related_entity a owl:Class;
+   rdfs:subClassOf evmpo:marketplace_related_entity;
+   rdfs:comment "product or non-paradigmatic aspect of a product"^^xs:string.
+evmpo:op_product_related_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_product_related_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_marketplace_related_entity rdfs:subClassOf evmpo:op_product_related_entity.
+evmpo:dp_marketplace_related_entity rdfs:subClassOf evmpo:dp_product_related_entity.
+
+### fundamental class ###
+
+evmpo:product a owl:Class;
+   rdfs:subClassOf evmpo:product_related_entity, evmpo:paradigmatic_entity;
+   rdfs:comment "product, i.e., a good or service which can be offered either on a virtual marketplace or off-site"^^xs:string.
+evmpo:op_product a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_product a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_product_related_entity rdfs:subClassOf evmpo:op_product.
+evmpo:dp_product_related_entity rdfs:subClassOf evmpo:dp_product.
+
+### subclasses of the fundamental class ###
+
+evmpo:good a owl:Class;
+   rdfs:subClassOf evmpo:product;
+   rdfs:subClassOf emmo:EMMO_38c33b6b_d9fc_4707_b698_4d42ede804d3;  # "emmo engineering entity"
+   rdfs:comment "material object that is marketed as a good"^^xs:string.
+evmpo:op_good a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_good a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_product rdfs:subClassOf evmpo:op_good.
+evmpo:dp_product rdfs:subClassOf evmpo:dp_good.
+evmpo:service a owl:Class;
+   rdfs:subClassOf evmpo:product;
+   rdfs:comment "activity or (fully or partially) immaterial object that is marketed as a service"^^xs:string.
+evmpo:op_service a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_service a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_product rdfs:subClassOf evmpo:op_service.
+evmpo:dp_product rdfs:subClassOf evmpo:dp_service.
+evmpo:tradeable_object a owl:Class;
+   rdfs:subClassOf evmpo:service;
+   rdfs:comment "any service that can be traded on a virtual marketplace"^^xs:string.
+evmpo:op_tradeable_object a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_tradeable_object a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_product rdfs:subClassOf evmpo:op_tradeable_object.
+evmpo:dp_product rdfs:subClassOf evmpo:dp_tradeable_object.
+
+### annotations to the fundamental class ###
+
+evmpo:product_annotation a owl:Class;
+   rdfs:subClassOf evmpo:annotation, evmpo:product_related_entity;
+   rdfs:comment "product_annotation, i.e., annotation of a product"^^xs:string.
+evmpo:has_product_annotation a evmpo:op_product;
+   rdfs:domain evmpo:product;
+   rdfs:range evmpo:annotation;
+   rdfs:subPropertyOf evmpo:has_annotation.
+
+
+##########################################################
+###  paradigmatic fundamental category (10): property  ###
+##########################################################
+
+### sub-ontology ###
+
+evmpo:property_related_entity a owl:Class;
+   rdfs:subClassOf evmpo:marketplace_related_entity;
+   rdfs:comment "property or non-paradigmatic aspect of a property"^^xs:string.
+evmpo:op_property_related_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_property_related_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_marketplace_related_entity rdfs:subClassOf evmpo:op_property_related_entity.
+evmpo:dp_marketplace_related_entity rdfs:subClassOf evmpo:dp_property_related_entity.
+
+### fundamental class ###
+
+evmpo:property a owl:Class;
+   rdfs:equivalentClass emmo:EMMO_a6876b60_21b9_48cf_beed_b9ae7c8f5c98;  # emmo property
+   rdfs:subClassOf evmpo:property_related_entity, evmpo:paradigmatic_entity;
+   rdfs:comment "property, i.e., a property as characterized by the EMMO"^^xs:string.
+evmpo:op_property a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_property a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_property_related_entity rdfs:subClassOf evmpo:op_property.
+evmpo:dp_property_related_entity rdfs:subClassOf evmpo:dp_property.
+
+### subclasses of the fundamental class ###
+
+evmpo:material_property a owl:Class;
+   rdfs:subClassOf evmpo:property;
+   rdfs:comment "material property, i.e., a property associated with a material"^^xs:string.
+evmpo:op_material_property a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_material_property a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_property rdfs:subClassOf evmpo:op_material_property.
+evmpo:dp_property rdfs:subClassOf evmpo:dp_material_property.
+evmpo:physical_process_property a owl:Class;
+   rdfs:subClassOf evmpo:property;
+   rdfs:comment "physical process property, i.e., a property associated with a physical process"^^xs:string.
+evmpo:op_physical_process a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_physical_process a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_property rdfs:subClassOf evmpo:op_physical_process.
+evmpo:dp_property rdfs:subClassOf evmpo:dp_physical_process.
+
+### annotations to the fundamental class ###
+
+evmpo:property_annotation a owl:Class;
+   rdfs:subClassOf evmpo:annotation, evmpo:property_related_entity;
+   rdfs:comment "property_annotation, i.e., annotation of a property"^^xs:string.
+evmpo:has_property_annotation a evmpo:op_property;
+   rdfs:domain evmpo:property;
+   rdfs:range evmpo:annotation;
+   rdfs:subPropertyOf evmpo:has_annotation.
+
+
+######################################################
+###  paradigmatic fundamental category (11): role  ###
+######################################################
+
+### sub-ontology ###
+
+evmpo:role_related_entity a owl:Class;
+   rdfs:subClassOf evmpo:marketplace_related_entity;
+   rdfs:comment "role or non-paradigmatic aspect of a role"^^xs:string.
+evmpo:op_role_related_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_role_related_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_marketplace_related_entity rdfs:subClassOf evmpo:op_role_related_entity.
+evmpo:dp_marketplace_related_entity rdfs:subClassOf evmpo:dp_role_related_entity.
+
+### fundamental class ###
+
+evmpo:role a owl:Class;
+   owl:equivalentClass emmo:EMMO_da6411c8_8551_487c_94ee_582ba2b8b748;  # emmo "role"
+   rdfs:subClassOf evmpo:role_related_entity, evmpo:paradigmatic_entity;
+   rdfs:comment "role, i.e., a role as characterized by the EMMO"^^xs:string.
+evmpo:op_role a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_role a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_role_related_entity rdfs:subClassOf evmpo:op_role.
+evmpo:dp_role_related_entity rdfs:subClassOf evmpo:dp_role.
+
+### subclasses of the fundamental class ###
+
+evmpo:stakeholder a owl:Class;
+   rdfs:subClassOf evmpo:role;
+   rdfs:subClassOf emmo:EMMO_a39a6ebd_a450_4435_be98_19677c6873da;  # emmo "observer"
+   rdfs:comment "stakeholder, i.e., an individual, institution, or group related to the virtual marketplace"^^xs:string.
+evmpo:op_stakeholder a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_stakeholder a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_role rdfs:subClassOf evmpo:op_stakeholder.
+evmpo:dp_role rdfs:subClassOf evmpo:dp_stakeholder.
+
+evmpo:group a owl:Class;
+   rdfs:subClassOf evmpo:stakeholder;
+   rdfs:comment "any virtual-marketplace participant that is not an institution, but also not a single person"^^xs:string.
+evmpo:op_group a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_group a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_stakeholder rdfs:subClassOf evmpo:op_group.
+evmpo:dp_stakeholder rdfs:subClassOf evmpo:dp_group.
+evmpo:institution a owl:Class;
+   rdfs:subClassOf evmpo:stakeholder;
+   rdfs:comment "academic institution, company, or any other organization that relates to the virtual marketplace"^^xs:string.
+evmpo:op_institution a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_institution a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_stakeholder rdfs:subClassOf evmpo:op_institution.
+evmpo:dp_stakeholder rdfs:subClassOf evmpo:dp_institution.
+evmpo:person a owl:Class;
+   rdfs:subClassOf evmpo:stakeholder;
+   rdfs:subClassOf emmo:EMMO_4a47a644_330f_4346_bd7b_c007a233ef3e;  # emmo "human_being"
+   rdfs:comment "an individual virtual-marketplace participant of any type"^^xs:string.
+evmpo:op_person a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_person a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_stakeholder rdfs:subClassOf evmpo:op_person.
+evmpo:dp_stakeholder rdfs:subClassOf evmpo:dp_person.
+
+evmpo:data_provider a owl:Class;
+   rdfs:subClassOf evmpo:stakeholder;
+   rdfs:comment "a data provider on a virtual marketplace"^^xs:string.
+evmpo:op_data_provider a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_data_provider a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_stakeholder rdfs:subClassOf evmpo:op_data_provider.
+evmpo:dp_stakeholder rdfs:subClassOf evmpo:dp_data_provider.
+evmpo:end_user a owl:Class;
+   rdfs:subClassOf evmpo:stakeholder;
+   rdfs:comment "an end user on a virtual marketplace"^^xs:string.
+evmpo:op_end_user a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_end_user a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_stakeholder rdfs:subClassOf evmpo:op_end_user.
+evmpo:dp_stakeholder rdfs:subClassOf evmpo:dp_end_user.
+evmpo:expert a owl:Class;
+   rdfs:subClassOf evmpo:stakeholder;
+   rdfs:comment "marketplace-relevant entity in possession of competencies in the field of materials modelling and simulation"^^xs:string.
+evmpo:op_expert a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_expert a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_stakeholder rdfs:subClassOf evmpo:op_expert.
+evmpo:dp_stakeholder rdfs:subClassOf evmpo:dp_expert.
+evmpo:model_provider a owl:Class;
+   rdfs:subClassOf evmpo:stakeholder;
+   rdfs:comment "a model provider on a virtual marketplace"^^xs:string.
+evmpo:op_model_provider a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_model_provider a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_stakeholder rdfs:subClassOf evmpo:op_model_provider.
+evmpo:dp_stakeholder rdfs:subClassOf evmpo:dp_model_provider.
+evmpo:software_owner a owl:Class;
+   rdfs:subClassOf evmpo:stakeholder;
+   rdfs:comment "a software owner on a virtual marketplace"^^xs:string.
+evmpo:op_software_owner a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_software_owner a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_stakeholder rdfs:subClassOf evmpo:op_software_owner.
+evmpo:dp_stakeholder rdfs:subClassOf evmpo:dp_software_owner.
+evmpo:trainer a owl:Class;
+   rdfs:subClassOf evmpo:stakeholder;
+   rdfs:comment "marketplace-relevant entity that can be accessed to acquire/develop competencies in the field of materials modelling and simulation"^^xs:string.
+evmpo:op_trainer a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_trainer a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_stakeholder rdfs:subClassOf evmpo:op_trainer.
+evmpo:dp_stakeholder rdfs:subClassOf evmpo:dp_trainer.
+evmpo:translator a owl:Class;
+   rdfs:subClassOf evmpo:stakeholder;
+   rdfs:comment "a translator on a virtual marketplace"^^xs:string.
+evmpo:op_translator a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_translator a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_stakeholder rdfs:subClassOf evmpo:op_translator.
+evmpo:dp_stakeholder rdfs:subClassOf evmpo:dp_translator.
+
+### annotations to the fundamental class ###
+
+evmpo:role_annotation a owl:Class;
+   rdfs:subClassOf evmpo:annotation, evmpo:role_related_entity;
+   rdfs:comment "role_annotation, i.e., annotation of a role"^^xs:string.
+evmpo:has_role_annotation a evmpo:op_role;
+   rdfs:domain evmpo:role;
+   rdfs:range evmpo:annotation;
+   rdfs:subPropertyOf evmpo:has_annotation.
+
+
+############################################################
+###  paradigmatic fundamental category (12): simulation  ###
+############################################################
+
+### sub-ontology ###
+
+evmpo:simulation_related_entity a owl:Class;
+   rdfs:subClassOf evmpo:marketplace_related_entity;
+   rdfs:comment "simulation or non-paradigmatic aspect of simulation"^^xs:string.
+evmpo:op_simulation_related_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_simulation_related_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_marketplace_related_entity rdfs:subClassOf evmpo:op_simulation_related_entity.
+evmpo:dp_marketplace_related_entity rdfs:subClassOf evmpo:dp_simulation_related_entity.
+
+### fundamental class ###
+
+evmpo:simulation a owl:Class;
+   rdfs:subClassOf evmpo:simulation_related_entity, evmpo:paradigmatic_entity;
+   rdfs:comment "simulation, i.e., a simulation workflow (including a single simulation as special case)"^^xs:string.
+evmpo:op_simulation a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_simulation a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_simulation_related_entity rdfs:subClassOf evmpo:op_simulation.
+evmpo:dp_simulation_related_entity rdfs:subClassOf evmpo:dp_simulation.
+
+### annotations to the fundamental class ###
+
+evmpo:simulation_annotation a owl:Class;
+   rdfs:subClassOf evmpo:annotation, evmpo:simulation_related_entity;
+   rdfs:comment "simulation_annotation, i.e., annotation to a simulation workflow"^^xs:string.
+evmpo:has_simulation_annotation a evmpo:op_simulation;
+   rdfs:domain evmpo:simulation;
+   rdfs:range evmpo:annotation;
+   rdfs:subPropertyOf evmpo:has_annotation.
+
+
+###############################################################
+###  non-paradigmatic fundamental category (0): annotation  ###
+###############################################################
+
+### fundamental class ###
+
+evmpo:annotation a owl:Class;
+   rdfs:subClassOf evmpo:marketplace_related_entity, evmpo:non_paradigmatic_entity;
+   rdfs:comment "annotation, i.e., a non-paradigmatic aspect of any entity covered by EVMPO or a subordinate marketplace-level or subdomain-specific ontology"^^xs:string.
+evmpo:op_annotation a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_annotation a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_marketplace_related_entity rdfs:subClassOf evmpo:op_annotation.
+evmpo:dp_marketplace_related_entity rdfs:subClassOf evmpo:dp_annotation.
+
+### properties related to the fundamental class and its subclasses ###
+
+evmpo:has_annotation a evmpo:op_marketplace_related_entity;
+   rdfs:domain evmpo:marketplace_related_entity;
+   rdfs:range evmpo:annotation.
+
+### annotations to the fundamental class ###
+
+evmpo:meta_annotation a owl:Class;
+   rdfs:subClassOf evmpo:annotation;
+   rdfs:comment "meta_annotation, i.e., a non-paradigmatic aspect of a non-paradigmatic entity"^^xs:string.
+evmpo:has_meta_annotation a evmpo:op_annotation;
+   rdfs:domain evmpo:annotation;
+   rdfs:range evmpo:annotation;
+   rdfs:subPropertyOf evmpo:has_annotation.

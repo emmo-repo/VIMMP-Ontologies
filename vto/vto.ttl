@@ -1,0 +1,25 @@
+
+### VIMMP TRANSLATION ONTOLOGY (VTO) ###
+
+### VERSION 0.4.1 ###
+
+### DATED 21ST JANUARY 2019 ###
+
+@prefix vto: <http://www.vimmp.eu/semantics/vto/vto.ttl#>.
+
+@prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xs: <http://www.w3.org/2001/XMLSchema#>.
+
+<http://www.vimmp.eu/semantics/vto/vto.ttl#> a owl:Ontology.
+
+vto:translation_related_entity a owl:Class;
+   rdfs:subClassOf evmpo:product_related_entity.
+vto:op_translation_related_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vto:dp_translation_related_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_product_related_entity rdfs:subClassOf vto:op_translation_related_entity.
+evmpo:dp_product_related_entity rdfs:subClassOf vto:dp_translation_related_entity.

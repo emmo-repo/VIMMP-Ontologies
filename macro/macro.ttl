@@ -1,0 +1,56 @@
+
+### MARKETPLACE-ACCESSIBLE COMPUTATIONAL RESOURCE ONTOLOGY (MACRO) ###
+
+### VERSION 0.0.2 ###
+
+### DATED 21ST JANUARY 2019 ###
+
+@prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
+
+@prefix cviii: <http://www.vimmp.eu/semantics/cviii/cviii.ttl#>.
+@prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xs: <http://www.w3.org/2001/XMLSchema#>.
+
+<http://www.vimmp.eu/semantics/macro/macro.ttl#> a owl:Ontology.
+
+macro:infrastructure_related_entity a owl:Class;
+   owl:equivalentClass evmpo:infrastructure_related_entity.
+macro:op_infrastructure_related_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+macro:dp_infrastructure_related_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_infrastructure_related_entity owl:equivalentClass macro:op_infrastructure_related_entity.
+evmpo:dp_infrastructure_related_entity owl:equivalentClass macro:dp_infrastructure_related_entity.
+
+macro:infrastructure a owl:Class;
+   rdfs:subClassOf macro:infrastructure_related_entity.
+macro:op_infrastructure a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+macro:dp_infrastructure a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+macro:op_infrastructure_related_entity rdfs:subClassOf macro:op_infrastructure.
+macro:dp_infrastructure_related_entity rdfs:subClassOf macro:dp_infrastructure.
+
+macro:repository a owl:Class;
+   rdfs:subClassOf macro:infrastructure, cviii:agent.
+macro:op_repository a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+macro:dp_repository a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+macro:op_infrastructure rdfs:subClassOf macro:op_repository.
+macro:dp_infrastructure rdfs:subClassOf macro:dp_repository.
+cviii:op_agent rdfs:subClassOf macro:op_repository.
+cviii:dp_agent rdfs:subClassOf macro:dp_repository.
+
+macro:VIMMP_CERTIFICATE_REGISTRY a macro:repository;
+   cviii:acts_on macro:VIMMP_MARKETPLACE;
+   cviii:has_name "VIMMP Marketplace Certificate Registry".
+
+macro:virtual_marketplace a owl:Class;
+   rdfs:subClassOf macro:infrastructure.
+
+macro:VIMMP_MARKETPLACE a macro:virtual_marketplace.
+macro:MARKETPLACE_MARKETPLACE a macro:virtual_marketplace.

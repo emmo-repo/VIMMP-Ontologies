@@ -1,0 +1,360 @@
+
+### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
+
+### VERSION 0.1.1 ###
+
+### DATED 21ST JANUARY 2019 ###
+
+@prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
+
+@prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix qudt: <http://qudt.org/schema/qudt#>.
+@prefix quq: <http://purl.oclc.org/NET/ssnx/qu/quantity#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xs: <http://www.w3.org/2001/XMLSchema#>.
+
+<http://www.vimmp.eu/semantics/osmo/osmo.ttl#> a owl:Ontology.
+
+osmo:model_related_entity a owl:Class;
+   owl:equivalentClass evmpo:model_related_entity.
+osmo:op_model_related_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_model_related_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_model_related_entity owl:equivalentClass osmo:op_model_related_entity.
+evmpo:dp_model_related_entity owl:equivalentClass osmo:dp_model_related_entity.
+
+osmo:simulation_related_entity a owl:Class;
+   owl:equivalentClass evmpo:simulation_related_entity.
+osmo:op_simulation_related_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_simulation_related_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_simulation_related_entity owl:equivalentClass osmo:op_simulation_related_entity.
+evmpo:dp_simulation_related_entity owl:equivalentClass osmo:dp_simulation_related_entity.
+
+
+osmo:moda_structure_entity a owl:Class;
+   rdfs:subClassOf osmo:simulation_related_entity.
+osmo:op_moda_structure_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_moda_structure_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_simulation_related_entity rdfs:subClassOf osmo:op_moda_structure_entity.
+osmo:dp_simulation_related_entity rdfs:subClassOf osmo:dp_moda_structure_entity.
+
+osmo:moda_section a owl:Class;
+   rdfs:subClassOf osmo:moda_structure_entity, evmpo:simulation_annotation.
+osmo:op_moda_section a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_moda_section a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_moda_structure_entity rdfs:subClassOf osmo:op_moda_section.
+osmo:dp_moda_structure_entity rdfs:subClassOf osmo:dp_moda_section.
+evmpo:op_simulation_annotation rdfs:subClassOf osmo:op_moda_section.
+evmpo:dp_simulation_annotation rdfs:subClassOf osmo:dp_moda_section.
+
+osmo:has_boundary_condition a osmo:op_moda_section;
+   rdfs:domain osmo:moda_section;
+   rdfs:range osmo:moda_boundary_condition.
+osmo:has_result_property a osmo:op_moda_section;
+   rdfs:domain osmo:moda_section;
+   rdfs:range osmo:moda_property.
+
+osmo:moda_usercase a owl:Class;
+   rdfs:subClassOf osmo:moda_section.
+osmo:op_moda_usercase a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_moda_usercase a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_moda_section rdfs:subClassOf osmo:op_moda_usercase.
+osmo:dp_moda_section rdfs:subClassOf osmo:dp_moda_usercase.
+
+osmo:has_material_class a osmo:op_moda_usercase;
+   rdfs:domain osmo:moda_usercase;
+   rdfs:range osmo:moda_material_class;
+   rdfs:subPropertyOf evmpo:has_meta_annotation.
+osmo:has_problem_class a osmo:op_moda_usercase;
+   rdfs:domain osmo:moda_usercase;
+   rdfs:range osmo:moda_problem_class;
+   rdfs:subPropertyOf evmpo:has_meta_annotation.
+osmo:has_material a osmo:op_moda_usercase;
+   rdfs:domain osmo:moda_usercase;
+   rdfs:range osmo:moda_material_descriptor;
+   rdfs:subPropertyOf evmpo:has_meta_annotation.
+
+
+osmo:moda_usercase_entity a owl:Class;
+   rdfs:subClassOf osmo:simulation_related_entity, evmpo:simulation_annotation.
+osmo:op_moda_usercase_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_moda_usercase_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_simulation_related_entity rdfs:subClassOf osmo:op_moda_usercase_entity.
+osmo:dp_simulation_related_entity rdfs:subClassOf osmo:dp_moda_usercase_entity.
+evmpo:op_simulation_annotation rdfs:subClassOf osmo:op_moda_usercase_entity.
+evmpo:dp_simulation_annotation rdfs:subClassOf osmo:dp_moda_usercase_entity.
+
+osmo:moda_material_class a owl:Class;
+   rdfs:subClassOf osmo:moda_usercase_entity, evmpo:meta_annotation.
+
+osmo:FLUID a osmo:moda_material_class.
+osmo:SOLID a osmo:moda_material_class.
+
+osmo:moda_material_descriptor a owl:Class;
+   rdfs:subClassOf osmo:moda_usercase_entity, evmpo:meta_annotation.
+osmo:op_moda_material_descriptor a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_moda_material_descriptor a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_moda_usercase_entity rdfs:subClassOf osmo:op_moda_material_descriptor.
+osmo:dp_moda_usercase_entity rdfs:subClassOf osmo:dp_moda_material_descriptor.
+
+osmo:has_mole_fraction a osmo:dp_moda_material_descriptor, owl:FunctionalProperty;
+   rdfs:domain osmo:moda_material_descriptor;
+   rdfs:range xs:decimal.
+
+osmo:moda_cas_number a owl:Class;
+   rdfs:subClassOf osmo:moda_material_descriptor.
+osmo:op_moda_cas_number a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_moda_cas_number a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_moda_material_descriptor rdfs:subClassOf osmo:op_moda_cas_number.
+osmo:dp_moda_material_descriptor rdfs:subClassOf osmo:dp_moda_cas_number.
+
+osmo:is_given_by a osmo:dp_moda_cas_number, owl:FunctionalProperty;
+   rdfs:domain osmo:moda_cas_number;
+   rdfs:range xs:string.
+
+
+osmo:moda_problem_class a owl:Class;
+   rdfs:subClassOf osmo:moda_usercase_entity, evmpo:meta_annotation.
+
+osmo:KINETICS a osmo:moda_problem_class.
+osmo:MECHANICS a osmo:moda_problem_class.
+osmo:SPECTRA a osmo:moda_problem_class.
+osmo:THERMODYNAMICS a osmo:moda_problem_class.
+osmo:TRANSPORT a osmo:moda_problem_class.
+
+osmo:moda_system_entity a owl:Class;
+   rdfs:subClassOf osmo:simulation_related_entity.
+osmo:op_moda_system_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_moda_system_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_simulation_related_entity rdfs:subClassOf osmo:op_moda_system_entity.
+osmo:dp_simulation_related_entity rdfs:subClassOf osmo:dp_moda_system_entity.
+
+osmo:moda_property a owl:Class;
+   rdfs:subClassOf osmo:moda_system_entity.
+osmo:op_moda_property a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_moda_property a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_moda_system_entity rdfs:subClassOf osmo:op_moda_property.
+osmo:dp_moda_system_entity rdfs:subClassOf osmo:dp_moda_property.
+
+osmo:is_quantity_kind a osmo:op_moda_property, owl:FunctionalProperty;
+   rdfs:domain osmo:moda_property;
+   rdfs:range quq:QuantityKind.
+
+osmo:moda_boundary_condition a owl:Class;
+   rdfs:subClassOf osmo:moda_system_entity.
+osmo:op_moda_boundary_condition a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_moda_boundary_condition a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_moda_system_entity rdfs:subClassOf osmo:op_moda_boundary_condition.
+osmo:dp_moda_system_entity rdfs:subClassOf osmo:dp_moda_boundary_condition.
+
+osmo:moda_property_condition a owl:Class;
+   rdfs:subClassOf osmo:moda_boundary_condition.
+osmo:op_moda_property_condition a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_moda_property_condition a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_moda_boundary_condition rdfs:subClassOf osmo:op_moda_property_condition.
+osmo:dp_moda_boundary_condition rdfs:subClassOf osmo:dp_moda_property_condition.
+
+osmo:has_given_property a osmo:op_moda_property_condition;
+   rdfs:domain osmo:moda_property_condition;
+   rdfs:range osmo:moda_property.
+osmo:has_exact_value a osmo:dp_moda_property_condition, owl:FunctionalProperty;
+   rdfs:domain osmo:moda_property_condition;
+   rdfs:range xs:decimal.
+osmo:has_lower_bound a osmo:dp_moda_property_condition;
+   rdfs:domain osmo:moda_property_condition;
+   rdfs:range xs:decimal.
+osmo:has_upper_bound a osmo:dp_moda_property_condition;
+   rdfs:domain osmo:moda_property_condition;
+   rdfs:range xs:decimal.
+osmo:is_given_in a osmo:op_moda_property_condition, owl:FunctionalProperty;
+   rdfs:domain osmo:moda_property_condition;
+   rdfs:range qudt:DecimalScaledUnit.
+
+
+osmo:moda_model a owl:Class;
+   rdfs:subClassOf osmo:moda_section.
+osmo:op_moda_model a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:op_moda_section rdfs:subClassOf osmo:op_moda_model.
+
+osmo:has_model_type a osmo:op_moda_model;
+   rdfs:domain osmo:moda_model;
+   rdfs:range osmo:moda_model_type;
+   rdfs:subPropertyOf evmpo:has_meta_annotation.
+osmo:has_model_scale a osmo:op_moda_model;
+   rdfs:domain osmo:moda_model;
+   rdfs:range osmo:moda_model_scale;
+   rdfs:subPropertyOf evmpo:has_meta_annotation.
+osmo:has_physics_equation a osmo:op_moda_model;
+   rdfs:domain osmo:moda_model;
+   rdfs:range osmo:moda_physics_equation;
+   rdfs:subPropertyOf evmpo:has_meta_annotation.
+osmo:has_materials_relation a osmo:op_moda_model;
+   rdfs:domain osmo:moda_model;
+   rdfs:range osmo:moda_materials_relation;
+   rdfs:subPropertyOf evmpo:has_meta_annotation.
+osmo:has_simulated_input a osmo:op_moda_model;
+   rdfs:domain osmo:moda_model;
+   rdfs:range osmo:moda_simulated_input;
+   rdfs:subPropertyOf evmpo:has_meta_annotation.
+
+osmo:moda_model_type a owl:Class;
+   rdfs:subClassOf osmo:model_related_entity, evmpo:meta_annotation.
+
+osmo:EOS a osmo:moda_model_type.
+osmo:FLEXIBLE a osmo:moda_model_type.
+osmo:FORCE_FIELD a osmo:moda_model_type.
+osmo:MULTIBODY a osmo:moda_model_type.
+osmo:PAIRWISE a osmo:moda_model_type.
+osmo:PARAMETERIZED a osmo:moda_model_type.
+osmo:RIGID a osmo:moda_model_type.
+osmo:UNITED_ATOM a osmo:moda_model_type.
+osmo:UNPARAMETERIZED a osmo:moda_model_type.
+
+osmo:moda_model_scale a owl:Class;
+   rdfs:subClassOf osmo:model_related_entity, evmpo:meta_annotation.
+
+osmo:ELECTRONIC a osmo:moda_model_scale.
+osmo:ATOMISTIC a osmo:moda_model_scale.
+osmo:MESOSCOPIC a osmo:moda_model_scale.
+osmo:CONTINUUM a osmo:moda_model_scale.
+
+osmo:moda_physics_equation a owl:Class;
+   rdfs:subClassOf osmo:model_related_entity, evmpo:meta_annotation.
+
+osmo:ALLEN_CAHN_CLASSICAL a osmo:moda_physics_equation.
+osmo:ENSEMBLE_AVERAGES_CLASSICAL a osmo:moda_physics_equation.
+osmo:MOTION_DISCRETE_NEWTON a osmo:moda_physics_equation.
+osmo:PAIRWISE_ADDITIVITY_CLASSICAL a osmo:moda_physics_equation.
+osmo:PARTITION_FUNCTION_CLASSICAL a osmo:moda_physics_equation.
+osmo:PERTURBATION_THEORY_SAFT a osmo:moda_physics_equation.
+osmo:SCHROEDINGER_TIME_DEPENDENT a osmo:moda_physics_equation.
+osmo:SCHROEDINGER_TIME_INDEPENDENT a osmo:moda_physics_equation.
+
+osmo:moda_materials_relation a owl:Class;
+   rdfs:subClassOf osmo:model_related_entity, evmpo:meta_annotation.
+osmo:dp_moda_materials_relation a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_moda_materials_relation a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:op_model_related_entity rdfs:subClassOf osmo:op_moda_materials_relation.
+osmo:dp_model_related_entity rdfs:subClassOf osmo:dp_moda_materials_relation.
+evmpo:op_meta_annotation rdfs:subClassOf osmo:op_moda_materials_relation.
+evmpo:dp_meta_annotation rdfs:subClassOf osmo:dp_moda_materials_relation.
+
+osmo:has_uri a osmo:op_moda_materials_relation;
+   rdfs:domain osmo:moda_materials_relation;
+   rdfs:range rdfs:Resource.
+
+osmo:has_relation_name a osmo:dp_moda_materials_relation;
+   rdfs:domain osmo:moda_materials_relation;
+   rdfs:range xs:string.
+
+osmo:has_relation_type a osmo:dp_moda_materials_relation;
+   rdfs:domain osmo:moda_materials_relation;
+   rdfs:range xs:string.
+
+osmo:moda_simulated_input a owl:Class;
+   rdfs:subClassOf osmo:model_related_entity, evmpo:meta_annotation.
+
+
+osmo:moda_solver a owl:Class;
+   rdfs:subClassOf osmo:moda_section.
+osmo:op_moda_solver a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_moda_solver a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_moda_section rdfs:subClassOf osmo:op_moda_solver.
+osmo:dp_moda_section rdfs:subClassOf osmo:dp_moda_solver.
+
+osmo:has_solver_type a osmo:op_moda_solver;
+   rdfs:domain osmo:moda_solver;
+   rdfs:range osmo:moda_solver_type;
+   rdfs:subPropertyOf evmpo:has_meta_annotation.
+osmo:is_tool a osmo:dp_moda_solver;
+   rdfs:domain osmo:moda_solver;
+   rdfs:range xs:string.
+osmo:has_computational_representation a osmo:dp_moda_solver;
+   rdfs:domain osmo:moda_solver;
+   rdfs:range xs:string.
+osmo:has_parameter_descriptor a osmo:dp_moda_solver;
+   rdfs:domain osmo:moda_solver;
+   rdfs:range xs:string.
+
+osmo:moda_solver_entity a owl:Class;
+   rdfs:subClassOf osmo:simulation_related_entity, evmpo:simulation_annotation.
+
+osmo:moda_solver_type a owl:Class;
+   rdfs:subClassOf osmo:moda_solver_entity, evmpo:meta_annotation.
+
+osmo:EOS_SINGLE_PHASE_SOLVER a osmo:moda_solver_type.
+osmo:EOS_PHASE_EQUILIBRIUM_SOLVER a osmo:moda_solver_type.
+osmo:MOLECULAR_DYNAMICS_SOLVER a osmo:moda_solver_type.
+osmo:MONTE_CARLO_SOLVER a osmo:moda_solver_type.
+
+osmo:PERIODIC_BOUNDARY_CONDITION a osmo:moda_boundary_condition.
+
+
+osmo:moda_processor a owl:Class;
+   rdfs:subClassOf osmo:moda_section.
+
+osmo:moda_trajectory_analyser a owl:Class;
+   rdfs:subClassOf osmo:moda_processor.
+
+osmo:moda_property_selector a owl:Class;
+   rdfs:subClassOf osmo:moda_processor.
+
+
+osmo:moda a owl:Class;
+   rdfs:subClassOf osmo:moda_structure_entity;
+   owl:equivalentClass evmpo:simulation.
+osmo:op_moda a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_moda a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_moda_structure_entity rdfs:subClassOf osmo:op_moda.
+osmo:dp_moda_structure_entity rdfs:subClassOf osmo:dp_moda.
+evmpo:op_simulation owl:equivalentClass osmo:op_moda.
+evmpo:dp_simulation owl:equivalentClass osmo:dp_moda.
+
+osmo:has_usercase a osmo:op_moda;
+   rdfs:domain osmo:moda;
+   rdfs:range osmo:moda_usercase;
+   rdfs:subPropertyOf evmpo:has_simulation_annotation.
+osmo:has_model a osmo:op_moda;
+   rdfs:domain osmo:moda;
+   rdfs:range osmo:moda_model;
+   rdfs:subPropertyOf evmpo:has_simulation_annotation.
+osmo:has_solver a osmo:op_moda;
+   rdfs:domain osmo:moda;
+   rdfs:range osmo:moda_solver;
+   rdfs:subPropertyOf evmpo:has_simulation_annotation.
+osmo:has_processor a osmo:op_moda;
+   rdfs:domain osmo:moda;
+   rdfs:range osmo:moda_processor;
+   rdfs:subPropertyOf evmpo:has_simulation_annotation.

@@ -1,0 +1,976 @@
+
+### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
+
+### VERSION 0.2.1 ###
+
+### DATED 21ST JANUARY 2019 ###
+
+@prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
+
+@prefix ccso: <https://w3id.org/ccso/ccso#>.
+@prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
+@prefix iao: <http://purl.obolibrary.org/obo/iao.owl#>.
+@prefix ical: <https://www.w3.org/2002/12/cal/icaltzd#>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xs: <http://www.w3.org/2001/XMLSchema#>.
+
+<http://www.vimmp.eu/semantics/otras/otras.ttl#> a owl:Ontology.
+
+otras:training_related_entity a owl:Class;
+   rdfs:subClassOf evmpo:marketplace_related_entity.
+otras:op_training_related_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_training_related_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_marketplace_related_entity rdfs:subClassOf otras:op_training_related_entity.
+evmpo:dp_marketplace_related_entity rdfs:subClassOf otras:dp_training_related_entity.
+
+otras:constrained_entity a owl:Class;
+   rdfs:subClassOf otras:training_related_entity;
+   owl:intersectionOf (owl:Restriction otras:training_related_entity).
+
+otras:carrier a owl:Class;
+   rdfs:comment "carrier, e.g, material, activity, event that carries the contents of a course"^^xs:string;
+   rdfs:subClassOf otras:training_related_entity.
+otras:op_carrier a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_carrier a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+otras:op_training_related_entity rdfs:subClassOf otras:op_carrier.
+otras:dp_training_related_entity rdfs:subClassOf otras:dp_carrier.
+
+otras:training_document a owl:Class;
+   rdfs:comment "a training document is an document (as defined by IAO) that is related to training activities on a virtual marketplace"^^xs:string;
+   rdfs:subClassOf evmpo:document, otras:carrier;
+   rdfs:subClassOf iao:IAO_0000310;  # iao label "document"
+   owl:intersectionOf (evmpo:document otras:carrier).
+otras:op_training_document a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_training_document a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_document rdfs:subClassOf otras:op_training_document.
+evmpo:dp_document rdfs:subClassOf otras:dp_training_document.
+otras:op_carrier rdfs:subClassOf otras:op_training_document.
+otras:dp_carrier rdfs:subClassOf otras:dp_training_document.
+
+otras:training_event a owl:Class;
+   rdfs:comment "a training event is a (potential) virtual marketplace calendar event at which training activities occur, equivalent to Event from CCSO"^^xs:string;
+   rdfs:subClassOf evmpo:calendar_event, ical:Vevent, otras:carrier;
+   owl:equivalentClass ccso:Event;
+   owl:intersectionOf (evmpo:calendar_event otras:carrier).
+otras:op_training_event a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_training_event a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_calendar_event rdfs:subClassOf otras:op_training_event.
+evmpo:dp_calendar_event rdfs:subClassOf otras:dp_training_event.
+otras:op_carrier rdfs:subClassOf otras:op_training_event.
+otras:dp_carrier rdfs:subClassOf otras:dp_training_event.
+
+otras:tradeable_object a owl:Class;
+   rdfs:comment "a tradeable object is a service that is offered, or can be offered, on a virtual marketplace"^^xs:string;
+   owl:equivalentClass evmpo:tradeable_object;
+   rdfs:subClassOf evmpo:service.
+otras:op_tradeable_object a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_tradeable_object a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_service rdfs:subClassOf otras:op_tradeable_object; owl:equivalentClass evmpo:op_tradeable_object.
+evmpo:dp_service rdfs:subClassOf otras:dp_tradeable_object; owl:equivalentClass evmpo:dp_tradeable_object.
+
+otras:training_service a owl:Class;
+   rdfs:comment "a training service is a tradeable object that has a content related to training activities on a virtual marketplace"^^xs:string;
+   rdfs:subClassOf otras:tradeable_object, otras:training_related_entity.
+otras:op_training_service a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_training_service a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+otras:op_tradeable_object rdfs:subClassOf otras:op_training_service.
+otras:dp_tradeable_object rdfs:subClassOf otras:dp_training_service.
+otras:op_training_related_entity rdfs:subClassOf otras:op_training_service.
+otras:dp_training_related_entity rdfs:subClassOf otras:dp_training_service.
+
+otras:has_offered_course a otras:op_training_service;
+   rdfs:domain otras:training_service;
+   rdfs:range otras:course;
+   rdfs:subPropertyOf evmpo:has_product_annotation.
+
+otras:focus a owl:Class;
+   rdfs:comment "focus, i.e., a studied object or topic or training objective (or an aspect or constitutive part thereof)";
+   rdfs:subClassOf otras:training_related_entity.
+otras:op_focus a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_focus a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+otras:op_training_related_entity rdfs:subClassOf otras:op_focus.
+otras:dp_training_related_entity rdfs:subClassOf otras:dp_focus.
+
+otras:has_focus_descriptor a otras:dp_focus;
+   rdfs:domain otras:focus;
+   rdfs:range rdfs:Literal.
+
+otras:topic a owl:Class;
+   rdfs:comment "a topic as defined by CCSO"^^xs:string;
+   rdfs:subClassOf evmpo:meta_annotation, otras:focus;
+   owl:equivalentClass ccso:Topic.
+otras:op_topic a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_topic a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_meta_annotation rdfs:subClassOf otras:op_topic.
+evmpo:dp_meta_annotation rdfs:subClassOf otras:dp_topic.
+otras:op_focus rdfs:subClassOf otras:op_topic.
+otras:dp_focus rdfs:subClassOf otras:dp_topic.
+
+otras:has_topic_descriptor a otras:dp_topic;
+   rdfs:domain otras:topic;
+   rdfs:range rdfs:Literal;
+   rdfs:subPropertyOf otras:has_focus_descriptor.
+
+otras:specifier a owl:Class;
+   rdfs:comment "specifier, i.e., a constitutive element of a learning outcome (acquired competency) description"^^xs:string;
+   rdfs:subClassOf evmpo:meta_annotation, otras:focus, otras:HAS_A_SPECIFIER_DESCRIPTOR.
+otras:op_specifier a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_specifier a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_meta_annotation rdfs:subClassOf otras:op_specifier.
+evmpo:dp_meta_annotation rdfs:subClassOf otras:dp_specifier.
+otras:op_focus rdfs:subClassOf otras:op_specifier.
+otras:dp_focus rdfs:subClassOf otras:dp_specifier.
+
+otras:has_specifier_descriptor a otras:dp_specifier;
+   rdfs:domain otras:specifier;
+   rdfs:range rdfs:Literal;
+   rdfs:subPropertyOf otras:has_focus_descriptor.
+otras:HAS_A_SPECIFIER_DESCRIPTOR a owl:Restriction;
+   rdfs:subClassOf otras:constrained_entity;
+   owl:onProperty otras:has_specifier_descriptor;
+   owl:someValuesFrom rdfs:Literal.
+
+otras:operator_specifier a owl:Class;
+   rdfs:comment "operator specifier, i.e., the type of activity facilitated by an acquisition of the specified competency"^^xs:string;
+   rdfs:subClassOf otras:specifier.
+otras:op_operator_specifier a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_operator_specifier a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+otras:op_specifier rdfs:subClassOf otras:op_operator_specifier.
+otras:dp_specifier rdfs:subClassOf otras:dp_operator_specifier.
+
+otras:is_expressed_by a otras:dp_operator_specifier;
+   rdfs:domain otras:operator_specifier;
+   rdfs:range rdfs:Literal.
+otras:R_IS_EXPRESSED a owl:Restriction;
+   rdfs:subClassOf otras:constrained_entity;
+   owl:onProperty otras:is_expressed_by;
+   owl:someValuesFrom rdfs:Literal.
+otras:operator_specifier rdfs:subClassOf otras:R_IS_EXPRESSED.
+otras:is_defined_by a otras:dp_specifier;
+   rdfs:domain otras:operator_specifier;
+   rdfs:range rdfs:Literal;
+   rdfs:subPropertyOf otras:has_specifier_descriptor.
+
+otras:has_operator_descriptor a otras:dp_operator_specifier;
+   rdfs:domain otras:operator_specifier;
+   rdfs:range rdfs:Literal;
+   rdfs:subPropertyOf otras:has_specifier_descriptor;
+   owl:equivalentProperty otras:is_expressed_by.
+
+otras:has_kmk_level a otras:op_operator_specifier;
+   rdfs:domain otras:operator_specifier;
+   rdfs:range otras:kmk_operator_level;
+   rdfs:subPropertyOf evmpo:has_meta_annotation.
+
+otras:operand_specifier a owl:Class;
+   rdfs:comment "operand specifier, i.e., an entity acted upon by an operator specifier"^^xs:string;
+   rdfs:subClassOf otras:specifier.
+otras:op_operand_specifier a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_operand_specifier a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+otras:op_specifier rdfs:subClassOf otras:op_operand_specifier.
+otras:dp_specifier rdfs:subClassOf otras:dp_operand_specifier.
+
+otras:has_operand_descriptor a otras:dp_operand_specifier;
+   rdfs:domain otras:operand_specifier;
+   rdfs:range rdfs:Literal;
+   rdfs:subPropertyOf otras:has_specifier_descriptor.
+otras:has_operand_topic a otras:op_operand_specifier;
+   rdfs:domain otras:operand_specifier;
+   rdfs:range otras:topic;
+   rdfs:subPropertyOf evmpo:has_meta_annotation.
+
+otras:implementation_specifier a owl:Class;
+   rdfs:comment "implementation specifier, i.e., a process or procedural aspect of the specified competency"^^xs:string;
+   rdfs:subClassOf otras:specifier.
+otras:op_implementation_specifier a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_implementation_specifier a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+otras:op_specifier rdfs:subClassOf otras:op_implementation_specifier.
+otras:dp_specifier rdfs:subClassOf otras:dp_implementation_specifier.
+
+otras:has_implementation_descriptor a otras:dp_implementation_specifier;
+   rdfs:domain otras:implementation_specifier;
+   rdfs:range rdfs:Literal;
+   rdfs:subPropertyOf otras:has_specifier_descriptor.
+
+otras:example_specifier a owl:Class;
+   rdfs:comment "example specifier, i.e., a concrete example of how the competency may be exercised in practice"^^xs:string;
+   rdfs:subClassOf otras:specifier.
+otras:op_example_specifier a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_example_specifier a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+otras:op_specifier rdfs:subClassOf otras:op_example_specifier.
+otras:dp_specifier rdfs:subClassOf otras:dp_example_specifier.
+
+otras:has_example_descriptor a otras:dp_example_specifier;
+   rdfs:domain otras:example_specifier;
+   rdfs:range rdfs:Literal;
+   rdfs:subPropertyOf otras:has_specifier_descriptor.
+otras:has_example_topic a otras:op_example_specifier;
+   rdfs:domain otras:example_specifier;
+   rdfs:range otras:topic;
+   rdfs:subPropertyOf evmpo:has_meta_annotation.
+
+otras:learning_outcome a owl:Class;
+   rdfs:comment "a learning outcome, equivalent to LearningOutcome from CCSO, further characterized by OTRAS"^^xs:string;
+   rdfs:subClassOf evmpo:meta_annotation, otras:focus;
+   owl:equivalentClass ccso:LearningOutcome.
+otras:op_learning_outcome a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_learning_outcome a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_meta_annotation rdfs:subClassOf otras:op_learning_outcome.
+evmpo:dp_meta_annotation rdfs:subClassOf otras:dp_learning_outcome.
+otras:op_focus rdfs:subClassOf otras:op_learning_outcome.
+otras:dp_focus rdfs:subClassOf otras:dp_learning_outcome.
+
+otras:has_l_o_descriptor a otras:dp_specifier;
+   rdfs:domain otras:learning_outcome;
+   rdfs:range rdfs:Literal;
+   rdfs:subPropertyOf otras:has_focus_descriptor.
+
+otras:has_specifier a otras:op_learning_outcome;
+   rdfs:domain otras:learning_outcome;
+   rdfs:range otras:specifier;
+   rdfs:subPropertyOf evmpo:has_meta_annotation.
+otras:has_operator_specifier a otras:op_learning_outcome;
+   rdfs:domain otras:learning_outcome;
+   rdfs:range otras:operator_specifier;
+   rdfs:subPropertyOf otras:has_specifier.
+otras:R_HAS_AN_OPERATOR_SPECIFIER a owl:Restriction;
+   rdfs:subClassOf otras:constrained_entity;
+   owl:onProperty otras:has_operator_specifier;
+   owl:someValuesFrom otras:operator_specifier.
+otras:learning_outcome rdfs:subClassOf otras:R_HAS_AN_OPERATOR_SPECIFIER.
+otras:has_operand_specifier a otras:op_learning_outcome;
+   rdfs:domain otras:learning_outcome;
+   rdfs:range otras:operand_specifier;
+   rdfs:subPropertyOf otras:has_specifier.
+otras:R_HAS_AN_OPERAND_SPECIFIER a owl:Restriction;
+   rdfs:subClassOf otras:constrained_entity;
+   owl:onProperty otras:has_operand_specifier;
+   owl:someValuesFrom otras:operand_specifier.
+otras:learning_outcome rdfs:subClassOf otras:R_HAS_AN_OPERAND_SPECIFIER.
+otras:has_implementation_specifier a otras:op_learning_outcome;
+   rdfs:domain otras:learning_outcome;
+   rdfs:range otras:implementation_specifier;
+   rdfs:subPropertyOf otras:has_specifier.
+otras:has_example_specifier a otras:op_learning_outcome;
+   rdfs:domain otras:learning_outcome;
+   rdfs:range otras:example_specifier;
+   rdfs:subPropertyOf otras:has_specifier.
+
+otras:syllabus a owl:Class;
+   rdfs:comment "a syllabus as defined by CCSO"^^xs:string;
+   rdfs:subClassOf evmpo:meta_annotation, otras:training_related_entity;
+   owl:equivalentClass ccso:Syllabus.
+otras:op_syllabus a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_syllabus a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_meta_annotation rdfs:subClassOf otras:op_syllabus.
+evmpo:dp_meta_annotation rdfs:subClassOf otras:dp_syllabus.
+otras:op_training_related_entity rdfs:subClassOf otras:op_syllabus.
+otras:dp_training_related_entity rdfs:subClassOf otras:dp_syllabus.
+
+otras:aims_to a otras:op_syllabus;
+   rdfs:domain otras:syllabus;
+   rdfs:range otras:learning_outcome;
+   rdfs:subPropertyOf evmpo:has_meta_annotation;
+   owl:equivalentProperty ccso:aimsToLO.
+otras:covers_topic a otras:op_syllabus;
+   rdfs:domain otras:syllabus;
+   rdfs:range otras:topic;
+   rdfs:subPropertyOf evmpo:has_meta_annotation;
+   owl:equivalentProperty ccso:coversTopic.
+otras:has_syllabus_resource a otras:op_syllabus;
+   rdfs:domain otras:syllabus;
+   rdfs:range rdfs:Resource.
+
+otras:course a owl:Class;
+   rdfs:comment "a course as defined by CCSO"^^xs:string;
+   rdfs:subClassOf evmpo:product_annotation, otras:training_related_entity;
+   owl:equivalentClass ccso:Course.
+otras:op_course a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_course a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_product_annotation rdfs:subClassOf otras:op_course.
+evmpo:dp_product_annotation rdfs:subClassOf otras:dp_course.
+otras:op_training_related_entity rdfs:subClassOf otras:op_course.
+otras:dp_training_related_entity rdfs:subClassOf otras:dp_course.
+
+otras:has_carrier a otras:op_course;
+   rdfs:domain otras:course;
+   rdfs:range otras:carrier.
+otras:has_document a otras:op_course;
+   rdfs:domain otras:course;
+   rdfs:range otras:training_document;
+   rdfs:subPropertyOf otras:has_carrier.
+otras:has_event a otras:op_course;
+   rdfs:domain otras:course;
+   rdfs:range otras:training_event;
+   rdfs:subPropertyOf otras:has_carrier.
+otras:has_syllabus a otras:op_course, owl:FunctionalProperty;
+   rdfs:domain otras:course;
+   rdfs:range otras:syllabus;
+   rdfs:subPropertyOf evmpo:has_meta_annotation;
+   owl:equivalentProperty ccso:hasSyllabus.
+otras:is_offered_by a otras:op_course;
+   rdfs:domain otras:course;
+   rdfs:range otras:training_service;
+   owl:inverseOf otras:has_offered_course.
+
+otras:training_unit a owl:Class;
+   rdfs:comment "a training unit is an elementary (part of a) course that is not further subdivided into (proper) parts"^^xs:string;
+   rdfs:subClassOf evmpo:meta_annotation, otras:course.
+otras:op_training_unit a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_training_unit a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_meta_annotation rdfs:subClassOf otras:op_training_unit.
+evmpo:dp_meta_annotation rdfs:subClassOf otras:dp_training_unit.
+otras:op_course rdfs:subClassOf otras:op_training_unit.
+otras:dp_course rdfs:subClassOf otras:dp_training_unit.
+
+otras:is_part_of_course a otras:op_training_unit, owl:FunctionalProperty;
+   rdfs:domain otras:training_unit;
+   rdfs:range otras:course.
+otras:has_training_unit a otras:op_course;
+   rdfs:domain otras:course;
+   rdfs:range otras:training_unit;
+   rdfs:subPropertyOf evmpo:has_meta_annotation;
+   owl:inverseOf otras:is_part_of_course.
+otras:R_HAS_NO_TRAINING_UNIT a owl:Restriction;
+   rdfs:subClassOf otras:constrained_entity;
+   owl:onProperty otras:has_training_unit;
+   owl:cardinality 0.
+otras:training_unit owl:intersectionOf (otras:course otras:R_HAS_NO_TRAINING_UNIT).
+
+
+otras:mm_topic a owl:Class;
+   rdfs:comment "materials modelling topic, i.e., a topic related to the subject area of materials modelling, understood broadly"^^xs:string;
+   rdfs:subClassOf otras:topic.
+otras:op_mm_topic a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_mm_topic a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_topic rdfs:subClassOf otras:op_mm_topic.
+evmpo:dp_topic rdfs:subClassOf otras:dp_mm_topic.
+
+otras:has_topic_code a otras:dp_mm_topic;
+   rdfs:domain otras:mm_topic;
+   rdfs:range xs:nonNegativeInteger.
+otras:R_HAS_EXACTLY_ONE_TOPIC_CODE a owl:Restriction;
+   rdfs:subClassOf otras:constrained_entity;
+   owl:onProperty otras:has_topic_code;
+   owl:cardinality 1.
+otras:mm_topic rdfs:subClassOf otras:R_HAS_EXACTLY_ONE_TOPIC_CODE.
+otras:R_HAS_A_TOPIC_DESCRIPTOR a owl:Restriction;
+   rdfs:subClassOf otras:constrained_entity;
+   owl:onProperty otras:has_topic_descriptor;
+   owl:someValuesFrom rdfs:Literal.
+otras:mm_topic rdfs:subClassOf otras:R_HAS_A_TOPIC_DESCRIPTOR.
+
+otras:mm_topic_basic a owl:Class;
+   rdfs:comment "basic prerequisites for materials modelling studies (codes 1XXX and 2XXX)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic.
+otras:mm_topic_basic_chemical a owl:Class;
+   rdfs:comment "basic prerequisites in chemical and process engineering, biotechnology, petrochemistry, and organic chemistry (code 11XX or 21XX)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_basic.
+otras:mm_topic_basic_economics a owl:Class;
+   rdfs:comment "basic prerequisites in economics, marketing, and business administration (code 12XX or 22XX)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_basic.
+otras:mm_topic_basic_information a owl:Class;
+   rdfs:comment "basic prerequisites in information technology, computer science, and progamming (code 13XX or 23XX)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_basic.
+otras:mm_topic_basic_materials a owl:Class;
+   rdfs:comment "basic prerequisites in materials science and general or inorganic chemistry (code 14XX or 24XX)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_basic.
+otras:mm_topic_basic_mathematics a owl:Class;
+   rdfs:comment "basic prerequisites in mathematics (code 15XX or 25XX)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_basic.
+otras:mm_topic_basic_mechanical a owl:Class;
+   rdfs:comment "basic prerequisites in mechanical, aerospace, civil, electrical, and general engineering (code 16XX or 26XX)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_basic.
+otras:mm_topic_basic_physics a owl:Class;
+   rdfs:comment "basic prerequisites in physics (code 17XX or 27XX)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_basic.
+otras:mm_topic_basic_interdisciplinary a owl:Class;
+   rdfs:comment "basic prerequisites that are best described as equally belonging to multiple fields (code 18XX or 28XX)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_basic.
+otras:mm_topic_basic_secondary a owl:Class;
+   rdfs:comment "secondary or pre-undergraduate level education topics and general areas of basic knowledge (code 19XX or 29XX)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_basic.
+
+otras:mm_topic_computational a owl:Class;
+   rdfs:comment "a topic related to computational and numerical aspects of materials modelling (code 3XXX if unique, 8XXX if interdisciplinary)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic.
+
+otras:mm_topic_data a owl:Class;
+   rdfs:comment "a topic related to data science and technology aspects of materials modelling (code 4XXX if unique, 8XXX if interdisciplinary)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic.
+
+otras:mm_topic_materials a owl:Class;
+   rdfs:comment "a topic related to materials, including but not limited to fluids, and their properties (code 5XXX if unique, 8XXX if interdisciplinary)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic.
+
+otras:mm_topic_social a owl:Class;
+   rdfs:comment "a topic related to social, economic, and community aspects of materials modelling (code 6XXX if unique, 8XXX if interdisciplinary)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic.
+
+otras:mm_topic_theoretical a owl:Class;
+   rdfs:comment "a topic related to (non-computational) theoretical aspects of materials modelling (code 7XXX if unique, 8XXX if interdisciplinary)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic.
+otras:mm_topic_theoretical_electronic a owl:Class;
+   rdfs:comment "theoretical aspects of electronic modelling (code 71XX)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_theoretical.
+otras:mm_topic_theoretical_discrete a owl:Class;
+   rdfs:comment "theoretical aspects of discrete (atomistic and mesoscopic) modelling (code 72XX)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_theoretical.
+otras:mm_topic_theoretical_continuum a owl:Class;
+   rdfs:comment "theoretical aspects of (non-electronic, classical-mechanical) continuum modelling (code 73XX)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_theoretical.
+otras:mm_topic_theoretical_non_equilibrium a owl:Class;
+   rdfs:comment "theoretical aspects of non-equilibrium states and physical processes (code 74XX)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_theoretical.
+otras:mm_topic_theoretical_multiphase a owl:Class;
+   rdfs:comment "theoretical aspects of interfacial phenomena and multiphase or heterogeneous systems (code 75XX)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_theoretical.
+otras:mm_topic_theoretical_statistical a owl:Class;
+   rdfs:comment "theoretical aspects of statistical mechanics and statistical approaches to materials modelling (code 76XX)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_theoretical.
+otras:mm_topic_theoretical_thermodynamics a owl:Class;
+   rdfs:comment "theoretical aspects of phenomenological thermodynamics (code 77XX)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_theoretical.
+otras:mm_topic_theoretical_mechanics a owl:Class;
+   rdfs:comment "theoretical aspects of classical and/or quantum mechanics (code 78XX)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_theoretical.
+
+otras:mm_topic_interdisciplinary a owl:Class;
+   rdfs:comment "a topic beyond UG level that is best described as being shared by multiple of the main aspects (code 8XXX)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic.
+otras:mm_topic_interdisciplinary_comp_data a owl:Class;
+   rdfs:comment "an interdisciplinary topic beyond UG level that mainly combines computational and data-science aspects (code 834X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_interdisciplinary, otras:mm_topic_computational, otras:mm_topic_data.
+otras:mm_topic_interdisciplinary_comp_materials a owl:Class;
+   rdfs:comment "an interdisciplinary topic beyond UG level that mainly combines computational and material-property aspects (code 835X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_interdisciplinary, otras:mm_topic_computational, otras:mm_topic_materials.
+otras:mm_topic_interdisciplinary_comp_social a owl:Class;
+   rdfs:comment "an interdisciplinary topic beyond UG level that mainly combines computational and socio-economic aspects (code 836X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_interdisciplinary, otras:mm_topic_computational, otras:mm_topic_social.
+otras:mm_topic_interdisciplinary_comp_theoretical a owl:Class;
+   rdfs:comment "an interdisciplinary topic beyond UG level that mainly combines computational and theoretical aspects (code 837X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_interdisciplinary, otras:mm_topic_computational, otras:mm_topic_theoretical.
+otras:mm_topic_interdisciplinary_comp_side a owl:Class;
+   rdfs:comment "an interdisciplinary topic beyond UG level that mainly combines computational and side-interest aspects (code 839X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_interdisciplinary, otras:mm_topic_computational, otras:mm_topic_side.
+otras:mm_topic_interdisciplinary_data_materials a owl:Class;
+   rdfs:comment "an interdisciplinary topic beyond UG level that mainly combines data-science and material-property aspects (code 845X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_interdisciplinary, otras:mm_topic_data, otras:mm_topic_materials.
+otras:mm_topic_interdisciplinary_data_social a owl:Class;
+   rdfs:comment "an interdisciplinary topic beyond UG level that mainly combines data-science and socio-economic aspects (code 846X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_interdisciplinary, otras:mm_topic_data, otras:mm_topic_social.
+otras:mm_topic_interdisciplinary_data_theoretical a owl:Class;
+   rdfs:comment "an interdisciplinary topic beyond UG level that mainly combines data-science and theoretical aspects (code 847X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_interdisciplinary, otras:mm_topic_data, otras:mm_topic_theoretical.
+otras:mm_topic_interdisciplinary_data_side a owl:Class;
+   rdfs:comment "an interdisciplinary topic beyond UG level that mainly combines data-science and side-interest aspects (code 849X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_interdisciplinary, otras:mm_topic_data, otras:mm_topic_side.
+otras:mm_topic_interdisciplinary_materials_social a owl:Class;
+   rdfs:comment "an interdisciplinary topic beyond UG level that mainly combines material-property and socio-economic aspects (code 856X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_interdisciplinary, otras:mm_topic_materials, otras:mm_topic_social.
+otras:mm_topic_interdisciplinary_materials_theoretical a owl:Class;
+   rdfs:comment "an interdisciplinary topic beyond UG level that mainly combines material-property and theoretical aspects (code 857X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_interdisciplinary, otras:mm_topic_materials, otras:mm_topic_theoretical.
+otras:mm_topic_interdisciplinary_materials_side a owl:Class;
+   rdfs:comment "an interdisciplinary topic beyond UG level that mainly combines material-property and side-interest aspects (code 859X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_interdisciplinary, otras:mm_topic_materials, otras:mm_topic_side.
+otras:mm_topic_interdisciplinary_social_theoretical a owl:Class;
+   rdfs:comment "an interdisciplinary topic beyond UG level that mainly combines socio-economic and theoretical aspects (code 867X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_interdisciplinary, otras:mm_topic_social, otras:mm_topic_theoretical.
+otras:mm_topic_interdisciplinary_social_side a owl:Class;
+   rdfs:comment "an interdisciplinary topic beyond UG level that mainly combines socio-economic and side-interest aspects (code 869X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_interdisciplinary, otras:mm_topic_social, otras:mm_topic_side.
+otras:mm_topic_interdisciplinary_theoretical_side a owl:Class;
+   rdfs:comment "an interdisciplinary topic beyond UG level that mainly combines theoretical and side-interest aspects (code 879X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_interdisciplinary, otras:mm_topic_theoretical, otras:mm_topic_side.
+
+otras:mm_topic_side a owl:Class;
+   rdfs:comment "a topic from other disciplines that can be a side interest from the point of view of materials modelling (code 9XXX)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic.
+
+otras:MM_TOPIC_0000 a otras:mm_topic;
+   otras:has_topic_code 0;
+   otras:has_topic_descriptor "Topic (general)"^^xs:string.
+   
+otras:MM_TOPIC_1000 a otras:mm_topic_basic;
+   otras:has_topic_code 1000;
+   otras:has_topic_descriptor "Topic: Basic prerequisites (general)"^^xs:string.
+
+otras:MM_TOPIC_1100 a otras:mm_topic_basic_chemical;
+   otras:has_topic_code 1100;
+   otras:has_topic_descriptor "Topic: Basic prerequisites in chemical and process engineering, biotechnology, petrochemistry, and organic chemistry"^^xs:string.
+otras:MM_TOPIC_1110 a otras:mm_topic_basic_chemical;
+   otras:has_topic_code 1110;
+   otras:has_topic_descriptor "Topic: Foundations in biotechnology and nutritional chemistry"^^xs:string.
+otras:MM_TOPIC_1120 a otras:mm_topic_basic_chemical;
+   otras:has_topic_code 1120;
+   otras:has_topic_descriptor "Topic: Foundations in fluid process engineering"^^xs:string.
+otras:MM_TOPIC_1130 a otras:mm_topic_basic_chemical;
+   otras:has_topic_code 1130;
+   otras:has_topic_descriptor "Topic: Foundations in industrial and applied chemistry and chemical reaction technology"^^xs:string.
+otras:MM_TOPIC_1140 a otras:mm_topic_basic_chemical;
+   otras:has_topic_code 1140;
+   otras:has_topic_descriptor "Topic: Foundations in organic chemistry"^^xs:string.
+otras:MM_TOPIC_1150 a otras:mm_topic_basic_chemical;
+   otras:has_topic_code 1150;
+   otras:has_topic_descriptor "Topic: Foundations in petrochemical engineering"^^xs:string.
+otras:MM_TOPIC_1160 a otras:mm_topic_basic_chemical;
+   otras:has_topic_code 1160;
+   otras:has_topic_descriptor "Topic: Foundations in thermal and general process engineering"^^xs:string.
+otras:MM_TOPIC_1170 a otras:mm_topic_basic_chemical;
+   otras:has_topic_code 1170;
+   otras:has_topic_descriptor "Topic: Foundations in mechanical process engineering and particle technology"^^xs:string.
+otras:MM_TOPIC_1180 a otras:mm_topic_basic_chemical;
+   otras:has_topic_code 1180;
+   otras:has_topic_descriptor "Topic: Foundations in chemical engineering thermodynamics"^^xs:string.
+
+otras:MM_TOPIC_1200 a otras:mm_topic_basic_economics;
+   otras:has_topic_code 1200;
+   otras:has_topic_descriptor "Topic: Basic prerequisites in economics, marketing, and business administration"^^xs:string.
+
+otras:MM_TOPIC_1300 a otras:mm_topic_basic_information;
+   otras:has_topic_code 1300;
+   otras:has_topic_descriptor "Topic: Basic prerequisites in information technology, computer science, and progamming"^^xs:string.
+
+otras:MM_TOPIC_1400 a otras:mm_topic_basic_materials;
+   otras:has_topic_code 1400;
+   otras:has_topic_descriptor "Topic: Basic prerequisites in materials science and general or inorganic chemistry"^^xs:string.
+
+otras:MM_TOPIC_1500 a otras:mm_topic_basic_mathematics;
+   otras:has_topic_code 1500;
+   otras:has_topic_descriptor "Topic: Basic prerequisites in mathematics, statistics, and logic"^^xs:string.
+
+otras:MM_TOPIC_1600 a otras:mm_topic_basic_mechanical;
+   otras:has_topic_code 1600;
+   otras:has_topic_descriptor "Topic: Basic prerequisites in mechanical, aerospace, civil, electrical, and general engineering"^^xs:string.
+
+otras:MM_TOPIC_1700 a otras:mm_topic_basic_physics;
+   otras:has_topic_code 1700;
+   otras:has_topic_descriptor "Topic: Basic prerequisites in physics and theoretical or physical chemistry"^^xs:string.
+
+otras:MM_TOPIC_1800 a otras:mm_topic_basic_interdisciplinary;
+   otras:has_topic_code 1800;
+   otras:has_topic_descriptor "Topic: Interdisciplinary basic prerequisites"^^xs:string.
+
+otras:MM_TOPIC_1900 a otras:mm_topic_basic_interdisciplinary;
+   otras:has_topic_code 1900;
+   otras:has_topic_descriptor "Topic: Secondary or pre-undergraduate level education and general basic knowledge"^^xs:string.
+
+otras:MM_TOPIC_3000 a otras:mm_topic_computational;
+   otras:has_topic_code 3000;
+   otras:has_topic_descriptor "Topic: Computational or numerical (beyond basic prerequisites)"^^xs:string.
+
+otras:MM_TOPIC_4000 a otras:mm_topic_data;
+   otras:has_topic_code 4000;
+   otras:has_topic_descriptor "Topic: Data science and technology (beyond basic prerequisites)"^^xs:string.
+
+otras:MM_TOPIC_5000 a otras:mm_topic_materials;
+   otras:has_topic_code 5000;
+   otras:has_topic_descriptor "Topic: Materials (beyond basic prerequisites)"^^xs:string.
+
+otras:MM_TOPIC_6000 a otras:mm_topic_social;
+   otras:has_topic_code 6000;
+   otras:has_topic_descriptor "Topic: Social, economic, community (beyond basic prerequisites)"^^xs:string.
+
+otras:MM_TOPIC_7000 a otras:mm_topic_theoretical;
+   otras:has_topic_code 7000;
+   otras:has_topic_descriptor "Topic: Theoretical (beyond basic prerequisites; excluding computational and numerical aspects)"^^xs:string.
+
+otras:MM_TOPIC_7100 a otras:mm_topic_theoretical_electronic;
+   otras:has_topic_code 7100;
+   otras:has_topic_descriptor "Topic: Theoretical aspects of electronic modelling"^^xs:string.
+
+otras:MM_TOPIC_7200 a otras:mm_topic_theoretical_discrete;
+   otras:has_topic_code 7200;
+   otras:has_topic_descriptor "Topic: Theoretical aspects of discrete (atomistic and mesoscopic) modelling"^^xs:string.
+
+otras:MM_TOPIC_7300 a otras:mm_topic_theoretical_continuum;
+   otras:has_topic_code 7300;
+   otras:has_topic_descriptor "Topic: Theoretical aspects of (non-electronic, classical-mechanical) continuum modelling"^^xs:string.
+
+otras:MM_TOPIC_7400 a otras:mm_topic_theoretical_non_equilibrium;
+   otras:has_topic_code 7400;
+   otras:has_topic_descriptor "Topic: Theoretical aspects of non-equilibrium states and physical processes"^^xs:string.
+
+otras:MM_TOPIC_7500 a otras:mm_topic_theoretical_multiphase;
+   otras:has_topic_code 7500;
+   otras:has_topic_descriptor "Topic: Theoretical aspects of interfacial phenomena and multiphase or heterogeneous systems"^^xs:string.
+
+otras:MM_TOPIC_7600 a otras:mm_topic_theoretical_statistical;
+   otras:has_topic_code 7600;
+   otras:has_topic_descriptor "Topic: Theoretical aspects of statistical mechanics and statistical approaches to materials modelling"^^xs:string.
+
+otras:MM_TOPIC_7700 a otras:mm_topic_theoretical_thermodynamics;
+   otras:has_topic_code 7700;
+   otras:has_topic_descriptor "Topic: Theoretical aspects of phenomenological thermodynamics"^^xs:string.
+
+otras:MM_TOPIC_7800 a otras:mm_topic_theoretical_mechanics;
+   otras:has_topic_code 7800;
+   otras:has_topic_descriptor "Topic: Theoretical aspects of classical and/or quantum mechanics"^^xs:string.
+
+otras:MM_TOPIC_8000 a otras:mm_topic_interdisciplinary, otras:mm_topic_computational, otras:mm_topic_data, otras:mm_topic_materials, otras:mm_topic_social, otras:mm_topic_theoretical;
+   otras:has_topic_code 8000;
+   otras:has_topic_descriptor "Topic: Interdisciplinary (beyond basic prerequisites)"^^xs:string.
+
+otras:MM_TOPIC_8340 a otras:mm_topic_interdisciplinary_comp_data;
+   otras:has_topic_code 8340;
+   otras:has_topic_descriptor "Topic: Interdisciplinary studies with significant computational and data-science aspects"^^xs:string.
+
+otras:MM_TOPIC_8350 a otras:mm_topic_interdisciplinary_comp_materials;
+   otras:has_topic_code 8350;
+   otras:has_topic_descriptor "Topic: Interdisciplinary studies with significant computational and material-property aspects"^^xs:string.
+
+otras:MM_TOPIC_8360 a otras:mm_topic_interdisciplinary_comp_social;
+   otras:has_topic_code 8360;
+   otras:has_topic_descriptor "Topic: Interdisciplinary studies with significant computational and socio-economic aspects"^^xs:string.
+
+otras:MM_TOPIC_8370 a otras:mm_topic_interdisciplinary_comp_theoretical;
+   otras:has_topic_code 8370;
+   otras:has_topic_descriptor "Topic: Interdisciplinary studies with significant computational and theoretical aspects"^^xs:string.
+
+otras:MM_TOPIC_8390 a otras:mm_topic_interdisciplinary_comp_side;
+   otras:has_topic_code 8390;
+   otras:has_topic_descriptor "Topic: Interdisciplinary studies with significant computational and side-interest aspects"^^xs:string.
+
+otras:MM_TOPIC_8450 a otras:mm_topic_interdisciplinary_data_materials;
+   otras:has_topic_code 8450;
+   otras:has_topic_descriptor "Topic: Interdisciplinary studies with significant data-science and material-property aspects"^^xs:string.
+
+otras:MM_TOPIC_8460 a otras:mm_topic_interdisciplinary_data_social;
+   otras:has_topic_code 8460;
+   otras:has_topic_descriptor "Topic: Interdisciplinary studies with significant data-science and socio-economic aspects"^^xs:string.
+
+otras:MM_TOPIC_8470 a otras:mm_topic_interdisciplinary_data_theoretical;
+   otras:has_topic_code 8470;
+   otras:has_topic_descriptor "Topic: Interdisciplinary studies with significant data-science and theoretical aspects"^^xs:string.
+
+otras:MM_TOPIC_8490 a otras:mm_topic_interdisciplinary_data_side;
+   otras:has_topic_code 8490;
+   otras:has_topic_descriptor "Topic: Interdisciplinary studies with significant data-science and side-interest aspects"^^xs:string.
+
+otras:MM_TOPIC_8560 a otras:mm_topic_interdisciplinary_materials_social;
+   otras:has_topic_code 8560;
+   otras:has_topic_descriptor "Topic: Interdisciplinary studies with significant material-property and socio-economic aspects"^^xs:string.
+
+otras:MM_TOPIC_8570 a otras:mm_topic_interdisciplinary_materials_theoretical;
+   otras:has_topic_code 8570;
+   otras:has_topic_descriptor "Topic: Interdisciplinary studies with significant material-property and theoretical aspects"^^xs:string.
+
+otras:MM_TOPIC_8590 a otras:mm_topic_interdisciplinary_materials_side;
+   otras:has_topic_code 8590;
+   otras:has_topic_descriptor "Topic: Interdisciplinary studies with significant material-property and side-interest aspects"^^xs:string.
+
+otras:MM_TOPIC_8670 a otras:mm_topic_interdisciplinary_social_theoretical;
+   otras:has_topic_code 8670;
+   otras:has_topic_descriptor "Topic: Interdisciplinary studies with significant socio-economic and theoretical aspects"^^xs:string.
+
+otras:MM_TOPIC_8690 a otras:mm_topic_interdisciplinary_social_side;
+   otras:has_topic_code 8690;
+   otras:has_topic_descriptor "Topic: Interdisciplinary studies with significant socio-economic and side-interest aspects"^^xs:string.
+
+otras:MM_TOPIC_8790 a otras:mm_topic_interdisciplinary_theoretical_side;
+   otras:has_topic_code 8790;
+   otras:has_topic_descriptor "Topic: Interdisciplinary studies with significant theoretical and side-interest aspects"^^xs:string.
+   
+otras:MM_TOPIC_9000 a otras:mm_topic_side;
+   otras:has_topic_code 9000;
+   otras:has_topic_descriptor "Topic: Side interests (general)"^^xs:string.
+
+
+otras:kmk_operator_level a owl:Class;
+   rdfs:comment "KMK operator level, i.e., a requirement level corresponding to one of the headings from the KMK catalogue of operators for statements of learning outcomes in natural-science subjects"^^xs:string;
+   rdfs:subClassOf otras:focus.
+otras:op_kmk_operator_level a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_kmk_operator_level a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+otras:op_focus rdfs:subClassOf otras:op_kmk_operator_level.
+otras:dp_focus rdfs:subClassOf otras:dp_kmk_operator_level.
+
+otras:is_numerical_level a otras:dp_kmk_operator_level;
+   rdfs:domain otras:kmk_operator_level;
+   rdfs:range xs:nonNegativeInteger.
+otras:R_IS_EXACTLY_ONE_NUMERICAL_LEVEL a owl:Restriction;
+   rdfs:subClassOf otras:constrained_entity;
+   owl:onProperty otras:is_numerical_level;
+   owl:cardinality 1.
+otras:kmk_operator_level rdfs:subClassOf otras:R_IS_EXACTLY_ONE_NUMERICAL_LEVEL.
+
+otras:KMK_LEVEL_I a otras:kmk_operator_level;
+   otras:is_numerical_level 1.
+otras:KMK_LEVEL_II a otras:kmk_operator_level;
+   otras:is_numerical_level 2.
+otras:KMK_LEVEL_III a otras:kmk_operator_level;
+   otras:is_numerical_level 3.
+
+otras:kmk_operator_specifier a owl:Class;
+   rdfs:comment "KMK operator specifier, i.e., an operator from the catalogue for natural-science subjects agreed upon by the German Federal Conference of State Cultural Ministries (KMK)"^^xs:string;
+   rdfs:subClassOf otras:operator_specifier.
+otras:op_kmk_operator_specifier a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_kmk_operator_specifier a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+otras:op_operator_specifier rdfs:subClassOf otras:op_kmk_operator_specifier.
+otras:dp_operator_specifier rdfs:subClassOf otras:dp_kmk_operator_specifier.
+
+otras:R_IS_DEFINED a owl:Restriction;
+   rdfs:subClassOf otras:constrained_entity;
+   owl:onProperty otras:is_defined_by;
+   owl:someValuesFrom rdfs:Literal.
+otras:kmk_operator_specifier rdfs:subClassOf otras:R_IS_DEFINED.
+otras:R_HAS_A_KMK_LEVEL a owl:Restriction;
+   rdfs:subClassOf otras:constrained_entity;
+   owl:onProperty otras:has_kmk_level;
+   owl:someValuesFrom otras:kmk_operator_level.
+otras:kmk_operator_specifier rdfs:subClassOf otras:R_HAS_A_KMK_LEVEL.
+
+otras:has_operator_code a otras:dp_kmk_operator_specifier;
+   rdfs:domain otras:kmk_operator_specifier;
+   rdfs:range xs:nonNegativeInteger.
+otras:R_HAS_EXACTLY_ONE_OPERATOR_CODE a owl:Restriction;
+   rdfs:subClassOf otras:constrained_entity;
+   owl:onProperty otras:has_operator_code;
+   owl:cardinality 1.
+otras:kmk_operator_specifier rdfs:subClassOf otras:R_HAS_EXACTLY_ONE_OPERATOR_CODE.
+
+otras:KMK_OPERATOR_100 a otras:kmk_operator_specifier;
+   otras:has_operator_code 100;
+   otras:has_kmk_level otras:KMK_LEVEL_I;
+   otras:is_expressed_by "KMK level I operator (unspecified)"^^xs:string;
+   otras:is_defined_by "an unspecified learning operator at the basic level, as categorized by the KMK document"^^xs:string.
+
+otras:KMK_OPERATOR_120 a otras:kmk_operator_specifier;
+   otras:has_operator_code 120;
+   otras:has_kmk_level otras:KMK_LEVEL_I;
+   otras:is_expressed_by "name/label"^^xs:string;
+   otras:is_defined_by "assign the specific terms to a given structure"^^xs:string.
+
+otras:KMK_OPERATOR_130 a otras:kmk_operator_specifier;
+   otras:has_operator_code 130;
+   otras:has_kmk_level otras:KMK_LEVEL_I;
+   otras:is_expressed_by "outline/present"^^xs:string;
+   otras:is_defined_by "give the main features or general principles in a structured way"^^xs:string.
+
+otras:KMK_OPERATOR_140 a otras:kmk_operator_specifier;
+   otras:has_operator_code 140;
+   otras:has_kmk_level otras:KMK_LEVEL_I;
+   otras:is_expressed_by "list/give"^^xs:string;
+   otras:is_defined_by "give names/terms or other brief answers, leaving out the explanation"^^xs:string.
+
+otras:KMK_OPERATOR_150 a otras:kmk_operator_specifier;
+   otras:has_operator_code 150;
+   otras:has_kmk_level otras:KMK_LEVEL_I;
+   otras:is_expressed_by "write a lab report/data log"^^xs:string;
+   otras:is_defined_by "write down procedures, observations and results (or discussions and conclusions), if applicable, following scientific conventions"^^xs:string.
+
+otras:KMK_OPERATOR_160 a otras:kmk_operator_specifier;
+   otras:has_operator_code 160;
+   otras:has_kmk_level otras:KMK_LEVEL_I;
+   otras:is_expressed_by "sketch"^^xs:string;
+   otras:is_defined_by "clearly lay out facts/structures/results by means of a graph/diagram/table or similar"^^xs:string.
+
+otras:KMK_OPERATOR_170 a otras:kmk_operator_specifier;
+   otras:has_operator_code 170;
+   otras:has_kmk_level otras:KMK_LEVEL_I;
+   otras:is_expressed_by "draw"^^xs:string;
+   otras:is_defined_by "create an exact graphical representation"^^xs:string.
+
+otras:KMK_OPERATOR_200 a otras:kmk_operator_specifier;
+   otras:has_operator_code 200;
+   otras:has_kmk_level otras:KMK_LEVEL_II;
+   otras:is_expressed_by "KMK level II operator (unspecified)"^^xs:string;
+   otras:is_defined_by "an unspecified learning operator at intermediate level, as categorized by the KMK document"^^xs:string.
+
+otras:KMK_OPERATOR_215 a otras:kmk_operator_specifier;
+   otras:has_operator_code 215;
+   otras:has_kmk_level otras:KMK_LEVEL_II;
+   otras:is_expressed_by "compare"^^xs:string;
+   otras:is_defined_by "give a criteria-based account of similarities and differences between phenomena, objects, or processes"^^xs:string.
+
+otras:KMK_OPERATOR_220 a otras:kmk_operator_specifier;
+   otras:has_operator_code 220;
+   otras:has_kmk_level otras:KMK_LEVEL_II;
+   otras:is_expressed_by "deduce"^^xs:string;
+   otras:is_defined_by "reach a conclusion from the information given"^^xs:string.
+
+otras:KMK_OPERATOR_225 a otras:kmk_operator_specifier;
+   otras:has_operator_code 225;
+   otras:has_kmk_level otras:KMK_LEVEL_II;
+   otras:is_expressed_by "estimate"^^xs:string;
+   otras:is_defined_by "find an approximate and reasonable value for an unknown quantity"^^xs:string.
+
+otras:KMK_OPERATOR_230 a otras:kmk_operator_specifier;
+   otras:has_operator_code 230;
+   otras:has_kmk_level otras:KMK_LEVEL_II;
+   otras:is_expressed_by "analyse and identify"^^xs:string;
+   otras:is_defined_by "investigate phenomena, data, etc., systematically considering and representing parts or features and relationships or connections"^^xs:string.
+
+otras:KMK_OPERATOR_235 a otras:kmk_operator_specifier;
+   otras:has_operator_code 235;
+   otras:has_kmk_level otras:KMK_LEVEL_II;
+   otras:is_expressed_by "apply"^^xs:string;
+   otras:is_defined_by "use a known idea, equation, principle, theory, or law in a new situation"^^xs:string.
+
+otras:KMK_OPERATOR_240 a otras:kmk_operator_specifier;
+   otras:has_operator_code 240;
+   otras:has_kmk_level otras:KMK_LEVEL_II;
+   otras:is_expressed_by "calculate"^^xs:string;
+   otras:is_defined_by "insert the corresponding values into an equation and generate the result"^^xs:string.
+
+otras:KMK_OPERATOR_245 a otras:kmk_operator_specifier;
+   otras:has_operator_code 245;
+   otras:has_kmk_level otras:KMK_LEVEL_II;
+   otras:is_expressed_by "describe"^^xs:string;
+   otras:is_defined_by "give a detailed and structured description of something using the appropriate terminology"^^xs:string.
+
+otras:KMK_OPERATOR_250 a otras:kmk_operator_specifier;
+   otras:has_operator_code 250;
+   otras:has_kmk_level otras:KMK_LEVEL_II;
+   otras:is_expressed_by "find"^^xs:string;
+   otras:is_defined_by "generate a result from data given (graphically or numerically)"^^xs:string.
+
+otras:KMK_OPERATOR_255 a otras:kmk_operator_specifier;
+   otras:has_operator_code 255;
+   otras:has_kmk_level otras:KMK_LEVEL_II;
+   otras:is_expressed_by "explain"^^xs:string;
+   otras:is_defined_by "give a detailed account of causes, reasons, or mechanisms to illuminate structures, processes, and relationships"^^xs:string.
+
+otras:KMK_OPERATOR_260 a otras:kmk_operator_specifier;
+   otras:has_operator_code 260;
+   otras:has_kmk_level otras:KMK_LEVEL_II;
+   otras:is_expressed_by "describe and explain"^^xs:string;
+   otras:is_defined_by "describe, explain, and give examples"^^xs:string.
+
+otras:KMK_OPERATOR_265 a otras:kmk_operator_specifier;
+   otras:has_operator_code 265;
+   otras:has_kmk_level otras:KMK_LEVEL_II;
+   otras:is_expressed_by "formulate"^^xs:string;
+   otras:is_defined_by "represent processes and facts verbally or symbolically"^^xs:string.
+
+otras:KMK_OPERATOR_270 a otras:kmk_operator_specifier;
+   otras:has_operator_code 270;
+   otras:has_kmk_level otras:KMK_LEVEL_II;
+   otras:is_expressed_by "derive"^^xs:string;
+   otras:is_defined_by "manipulate mathematical relationships to obtain a new equation or relationship, commenting the main steps on the way"^^xs:string.
+
+otras:KMK_OPERATOR_275 a otras:kmk_operator_specifier;
+   otras:has_operator_code 275;
+   otras:has_kmk_level otras:KMK_LEVEL_II;
+   otras:is_expressed_by "sort/group/classify"^^xs:string;
+   otras:is_defined_by "arrange systematically, in proper order or appropriately grouped, based on existing principles or according to certain features"^^xs:string.
+
+otras:KMK_OPERATOR_280 a otras:kmk_operator_specifier;
+   otras:has_operator_code 280;
+   otras:has_kmk_level otras:KMK_LEVEL_II;
+   otras:is_expressed_by "test/verify"^^xs:string;
+   otras:is_defined_by "check facts and interrelations for quality, performance, and/or reliability"^^xs:string.
+
+otras:KMK_OPERATOR_285 a otras:kmk_operator_specifier;
+   otras:has_operator_code 285;
+   otras:has_kmk_level otras:KMK_LEVEL_II;
+   otras:is_expressed_by "investigate/examine"^^xs:string;
+   otras:is_defined_by "research a subject to discover information and facts"^^xs:string.
+
+otras:KMK_OPERATOR_290 a otras:kmk_operator_specifier;
+   otras:has_operator_code 290;
+   otras:has_kmk_level otras:KMK_LEVEL_II;
+   otras:is_expressed_by "generalize"^^xs:string;
+   otras:is_defined_by "formulate or derive a general statement"^^xs:string.
+
+otras:KMK_OPERATOR_295 a otras:kmk_operator_specifier;
+   otras:has_operator_code 295;
+   otras:has_kmk_level otras:KMK_LEVEL_II;
+   otras:is_expressed_by "summarize"^^xs:string;
+   otras:is_defined_by "give a brief account or summary"^^xs:string.
+
+otras:KMK_OPERATOR_300 a otras:kmk_operator_specifier;
+   otras:has_operator_code 300;
+   otras:has_kmk_level otras:KMK_LEVEL_III;
+   otras:is_expressed_by "KMK level III operator (unspecified)"^^xs:string;
+   otras:is_defined_by "an unspecified learning operator at the advanced level, as categorized by the KMK document"^^xs:string.
+
+otras:KMK_OPERATOR_320 a otras:kmk_operator_specifier;
+   otras:has_operator_code 320;
+   otras:has_kmk_level otras:KMK_LEVEL_III;
+   otras:is_expressed_by "propose a hypothesis"^^xs:string;
+   otras:is_defined_by "suggest or construct a clearly focused and justified assumption"^^xs:string.
+
+otras:KMK_OPERATOR_330 a otras:kmk_operator_specifier;
+   otras:has_operator_code 330;
+   otras:has_kmk_level otras:KMK_LEVEL_III;
+   otras:is_expressed_by "evaluate"^^xs:string;
+   otras:is_defined_by "process data and results, deduce a relationship between variables, make general statements, and assess implications"^^xs:string.
+
+otras:KMK_OPERATOR_340 a otras:kmk_operator_specifier;
+   otras:has_operator_code 340;
+   otras:has_kmk_level otras:KMK_LEVEL_III;
+   otras:is_expressed_by "justify/give reasons"^^xs:string;
+   otras:is_defined_by "relate pheonomena to underlying rules, (physical) laws, and causal relationships"^^xs:string.
+
+otras:KMK_OPERATOR_350 a otras:kmk_operator_specifier;
+   otras:has_operator_code 350;
+   otras:has_kmk_level otras:KMK_LEVEL_III;
+   otras:is_expressed_by "comment on/assess"^^xs:string;
+   otras:is_defined_by "judge something on the basis of scientific criteria or methods"^^xs:string.
+
+otras:KMK_OPERATOR_360 a otras:kmk_operator_specifier;
+   otras:has_operator_code 360;
+   otras:has_kmk_level otras:KMK_LEVEL_III;
+   otras:is_expressed_by "prove"^^xs:string;
+   otras:is_defined_by "show something by means of factual argumentation and logical reasoning"^^xs:string.
+
+otras:KMK_OPERATOR_370 a otras:kmk_operator_specifier;
+   otras:has_operator_code 370;
+   otras:has_kmk_level otras:KMK_LEVEL_III;
+   otras:is_expressed_by "discuss"^^xs:string;
+   otras:is_defined_by "investigate or examine by argument, give and weigh arguments for and against something"^^xs:string.
+
+otras:KMK_OPERATOR_380 a otras:kmk_operator_specifier;
+   otras:has_operator_code 380;
+   otras:has_kmk_level otras:KMK_LEVEL_III;
+   otras:is_expressed_by "interpret"^^xs:string;
+   otras:is_defined_by "find explanations for phenomena/data to reach conclusions"^^xs:string.
+
+otras:KMK_OPERATOR_390 a otras:kmk_operator_specifier;
+   otras:has_operator_code 390;
+   otras:has_kmk_level otras:KMK_LEVEL_III;
+   otras:is_expressed_by "plan"^^xs:string;
+   otras:is_defined_by "come up with a design for an experiment or a structured approach to investigate a problem"^^xs:string.

@@ -1,0 +1,201 @@
+
+### VIMMP COMMUNICATION ONTOLOGY (VICO) ###
+
+### VERSION 0.0.2 ###
+
+### DATED 22ND JANUARY 2019 ###
+
+@prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
+
+@prefix cviii: <http://www.vimmp.eu/semantics/cviii/cviii.ttl#>.
+@prefix dcterms: <http://purl.org/dc/terms#>.
+@prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
+@prefix xs: <http://www.w3.org/2001/XMLSchema#>.
+
+<http://www.vimmp.eu/semantics/vico/vico.ttl#> a owl:Ontology.
+
+vico:communication_related_entity a owl:Class;
+   owl:equivalentClass evmpo:communication_related_entity.
+vico:op_communication_related_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vico:dp_communication_related_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_communication_related_entity owl:equivalentClass vico:op_communication_related_entity.
+evmpo:dp_communication_related_entity owl:equivalentClass vico:dp_communication_related_entity.
+
+vico:communication a owl:Class;
+   rdfs:subClassOf vico:communication_related_entity;
+   owl:equivalentClass evmpo:communication.
+vico:op_communication a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vico:dp_communication a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vico:op_communication_related_entity owl:equivalentClass vico:op_communication.
+vico:dp_communication_related_entity owl:equivalentClass vico:dp_communication.
+
+vico:has_access_rule a vico:op_communication;
+   rdfs:domain vico:communication;
+   rdfs:range vico:access_rule.
+vico:has_author a vico:op_communication;
+   rdfs:domain vico:communication;
+   rdfs:range cviii:agent.
+vico:has_submission_date a vico:op_communication;
+   rdfs:domain vico:communication;
+   rdfs:range dcterms:W3C-DTF.
+vico:has_expiry_date a vico:op_interlocution;
+   rdfs:domain vico:communication;
+   rdfs:range dcterms:W3C-DTF.
+
+vico:communication_appendix a owl:Class;
+   rdfs:subClassOf vico:communication;
+   rdfs:comment "communication which cannot stand alone, but only in association with a communication body"^^xs:string.
+vico:op_communication_appendix a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vico:dp_communication_appendix a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vico:op_communication rdfs:subClassOf vico:op_communication_appendix.
+vico:dp_communication rdfs:subClassOf vico:dp_communication_appendix.
+
+vico:certificate a owl:Class;
+   rdfs:subClassOf vico:communication_appendix.
+vico:op_certificate a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vico:dp_certificate a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vico:op_communication_appendix rdfs:subClassOf vico:op_certificate.
+vico:dp_communication_appendix rdfs:subClassOf vico:dp_certificate.
+
+vico:has_certifier a vico:op_certificate;
+   rdfs:domain vico:certificate;
+   rdfs:range cviii:certifier.
+vico:states a vico:op_certificate;
+   rdfs:domain vico:certificate;
+   rdfs:range vivo:assessment.
+
+vico:access_rule a owl:Class;
+   rdfs:subClassOf vico:communication_appendix.
+vico:op_access_rule a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vico:dp_access_rule a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vico:op_communication_appendix rdfs:subClassOf vico:op_access_rule.
+vico:dp_communication_appendix rdfs:subClassOf vico:dp_access_rule.
+
+vico:allows a vico:op_access_rule;
+   rdfs:domain vico:access_rule;
+   rdfs:range cviii:interlocutor.
+vico:excludes a vico:op_access_rule;
+   rdfs:domain vico:access_rule;
+   rdfs:range cviii:interlocutor.
+vico:allows_all a vico:op_access_rule;
+   rdfs:domain vico:access_rule;
+   rdfs:range cviii:interlocutor_group.
+vico:excludes_all a vico:op_access_rule;
+   rdfs:domain vico:access_rule;
+   rdfs:range cviii:interlocutor_group.
+
+
+vico:communication_body a owl:Class;
+   rdfs:subClassOf vico:communication.
+vico:op_communication_body a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vico:dp_communication_body a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vico:op_communication rdfs:subClassOf vico:op_communication_body.
+vico:dp_communication rdfs:subClassOf vico:dp_communication_body.
+
+vico:has_appendix a vico:op_communication_body;
+   rdfs:domain vico:communication_body;
+   rdfs:range vico:communication_appendix.
+vico:has_certificate a vico:op_communication_body;
+   rdfs:domain vico:communication_body;
+   rdfs:range vico:certificate;
+   rdfs:subPropertyOf vico:has_appendix.
+vico:follows a vico:op_communication_body;
+   rdfs:domain vico:communication_body;
+   rdfs:range vico:communication_body.
+
+vico:declaration a owl:Class;
+   rdfs:subClassOf vico:communication_body;
+   rdfs:comment "declaration as defined by the EVMPO"^^xs:string;
+   owl:equivalentClass evmpo:declaration.
+vico:op_declaration a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vico:dp_declaration a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vico:op_communication_body rdfs:subClassOf vico:op_declaration.
+vico:dp_communication_body rdfs:subClassOf vico:dp_declaration.
+
+vico:interlocution a owl:Class;
+   rdfs:subClassOf vico:communication_body;
+   rdfs:comment "interlocution as defined by the EVMPO"^^xs:string;
+   owl:equivalentClass evmpo:interlocution.
+vico:op_interlocution a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vico:dp_interlocution a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vico:op_communication_body rdfs:subClassOf vico:op_interlocution.
+vico:dp_communication_body rdfs:subClassOf vico:dp_interlocution.
+
+vico:statement a owl:Class;
+   rdfs:subClassOf vico:communication;
+   rdfs:comment "statement as defined by the EVMPO"^^xs:string;
+   owl:equivalentClass evmpo:statement.
+vico:op_statement a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vico:dp_statement a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vico:op_communication rdfs:subClassOf vico:op_statement.
+vico:dp_communication rdfs:subClassOf vico:dp_statement.
+
+vico:appendix_statement a owl:Class;
+   rdfs:subClassOf vico:communication_appendix, vico:statement;
+   owl:intersectionOf (vico:communication_appendix vico:statement).
+vico:op_appendix_statement a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vico:dp_appendix_statement a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vico:op_communication_appendix rdfs:subClassOf vico:op_appendix_statement.
+vico:dp_communication_appendix rdfs:subClassOf vico:dp_appendix_statement.
+vico:op_statement rdfs:subClassOf vico:op_appendix_statement.
+vico:dp_statement rdfs:subClassOf vico:dp_appendix_statement.
+
+vico:body_statement a owl:Class;
+   rdfs:subClassOf vico:communication_body, vico:statement;
+   owl:intersectionOf (vico:communication_body vico:statement).
+vico:op_body_statement a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vico:dp_body_statement a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vico:op_communication_body rdfs:subClassOf vico:op_body_statement.
+vico:dp_communication_body rdfs:subClassOf vico:dp_body_statement.
+vico:op_statement rdfs:subClassOf vico:op_body_statement.
+vico:dp_statement rdfs:subClassOf vico:dp_body_statement.
+
+vico:declaration_statement a owl:Class;
+   rdfs:subClassOf vico:declaration, vico:body_statement;
+   owl:intersectionOf (vico:declaration vico:body_statement).
+vico:op_declaration_statement a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vico:dp_declaration_statement a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vico:op_declaration rdfs:subClassOf vico:op_declaration_statement.
+vico:dp_declaration rdfs:subClassOf vico:dp_declaration_statement.
+vico:op_body_statement rdfs:subClassOf vico:op_declaration_statement.
+vico:dp_body_statement rdfs:subClassOf vico:dp_declaration_statement.
+
+vico:interlocution_statement a owl:Class;
+   rdfs:subClassOf vico:interlocution, vico:body_statement;
+   owl:intersectionOf (vico:interlocution vico:body_statement).
+vico:op_interlocution_statement a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vico:dp_interlocution_statement a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vico:op_interlocution rdfs:subClassOf vico:op_interlocution_statement.
+vico:dp_interlocution rdfs:subClassOf vico:dp_interlocution_statement.
+vico:op_body_statement rdfs:subClassOf vico:op_interlocution_statement.
+vico:dp_body_statement rdfs:subClassOf vico:dp_interlocution_statement.
