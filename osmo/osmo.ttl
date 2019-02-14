@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 0.1.2 ###
+### VERSION 0.2.0 ###
 
-### DATED 29TH JANUARY 2019 ###
+### DATED 14TH FEBRUARY 2019 ###
 
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -18,57 +18,215 @@
 <http://www.vimmp.eu/semantics/osmo/osmo.ttl#> a owl:Ontology.
 
 osmo:model_related_entity a owl:Class;
-   owl:equivalentClass evmpo:model_related_entity.
+   rdfs:subClassOf evmpo:marketplace_related_entity;
+   owl:equivalentClass evmpo:model_related_entity;
+   rdfs:comment "model or non-paradigmatic aspect of a model"^^xs:string.
 osmo:op_model_related_entity a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
+   rdfs:subClassOf owl:ObjectProperty;
+   owl:equivalentClass evmpo:op_model_related_entity.
 osmo:dp_model_related_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty;
+   owl:equivalentClass evmpo:dp_model_related_entity.
+evmpo:op_marketplace_related_entity rdfs:subClassOf osmo:op_model_related_entity.
+evmpo:dp_marketplace_related_entity rdfs:subClassOf osmo:dp_model_related_entity.
+
+osmo:model_related_entity owl:disjointUnionOf (osmo:model osmo:model_annotation).
+
+osmo:constrained_model_related_entity a owl:Class;
+   rdfs:subClassOf osmo:model_related_entity.
+
+osmo:model a owl:Class;
+   rdfs:subClassOf osmo:model_related_entity, evmpo:model_related_entity;
+   owl:equivalentClass evmpo:model;
+   rdfs:comment "model, i.e., a model as characterized by the EMMO"^^xs:string.
+osmo:op_model a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty;
+   owl:equivalentClass evmpo:op_model.
+osmo:dp_model a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty;
+   owl:equivalentClass evmpo:dp_model.
+evmpo:op_model_related_entity rdfs:subClassOf osmo:op_model.
+evmpo:dp_model_related_entity rdfs:subClassOf osmo:dp_model.
+osmo:op_model_related_entity rdfs:subClassOf osmo:op_model.
+osmo:dp_model_related_entity rdfs:subClassOf osmo:dp_model.
+
+osmo:model_annotation a owl:Class;
+   rdfs:subClassOf osmo:model_related_entity, evmpo:model_related_entity;
+   owl:equivalentClass evmpo:model_annotation;
+   rdfs:comment "model annotation, i.e., a non-paradigmatic aspect of a model"^^xs:string.
+osmo:op_model_annotation a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_model_annotation a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_model_related_entity owl:equivalentClass osmo:op_model_related_entity.
-evmpo:dp_model_related_entity owl:equivalentClass osmo:dp_model_related_entity.
+evmpo:op_model_related_entity rdfs:subClassOf osmo:op_model_annotation.
+evmpo:dp_model_related_entity rdfs:subClassOf osmo:dp_model_annotation.
+osmo:op_model_related_entity rdfs:subClassOf osmo:op_model_annotation.
+osmo:dp_model_related_entity rdfs:subClassOf osmo:dp_model_annotation.
 
 osmo:simulation_related_entity a owl:Class;
-   owl:equivalentClass evmpo:simulation_related_entity.
+   rdfs:subClassOf evmpo:marketplace_related_entity;
+   owl:equivalentClass evmpo:simulation_related_entity;
+   rdfs:comment "simulation or non-paradigmatic aspect of a simulation"^^xs:string.
 osmo:op_simulation_related_entity a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
+   rdfs:subClassOf owl:ObjectProperty;
+   owl:equivalentClass evmpo:op_simulation_related_entity.
 osmo:dp_simulation_related_entity a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_simulation_related_entity owl:equivalentClass osmo:op_simulation_related_entity.
-evmpo:dp_simulation_related_entity owl:equivalentClass osmo:dp_simulation_related_entity.
+   rdfs:subClassOf owl:DatatypeProperty;
+   owl:equivalentClass evmpo:dp_simulation_related_entity.
+evmpo:op_marketplace_related_entity rdfs:subClassOf osmo:op_simulation_related_entity.
+evmpo:dp_marketplace_related_entity rdfs:subClassOf osmo:dp_simulation_related_entity.
+
+osmo:simulation_related_entity owl:disjointUnionOf (osmo:simulation osmo:simulation_annotation).
+
+osmo:constrained_simulation_related_entity a owl:Class;
+   rdfs:subClassOf osmo:simulation_related_entity.
+
+osmo:simulation a owl:Class;
+   rdfs:subClassOf osmo:simulation_related_entity, evmpo:simulation_related_entity;
+   owl:equivalentClass evmpo:simulation;
+   rdfs:comment "simulation, i.e., a simulation workflow (including a single simulation as special case)"^^xs:string.
+osmo:op_simulation a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty;
+   owl:equivalentClass evmpo:op_simulation.
+osmo:dp_simulation a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty;
+   owl:equivalentClass evmpo:dp_simulation.
+evmpo:op_simulation_related_entity rdfs:subClassOf osmo:op_simulation.
+evmpo:dp_simulation_related_entity rdfs:subClassOf osmo:dp_simulation.
+osmo:op_simulation_related_entity rdfs:subClassOf osmo:op_simulation.
+osmo:dp_simulation_related_entity rdfs:subClassOf osmo:dp_simulation.
 
 osmo:simulation_annotation a owl:Class;
+   rdfs:subClassOf osmo:simulation_related_entity, evmpo:simulation_related_entity;
    owl:equivalentClass evmpo:simulation_annotation;
-   rdfs:subClassOf osmo:simulation_related_entity.
+   rdfs:comment "simulation annotation, i.e., a non-paradigmatic aspect of a simulation"^^xs:string.
 osmo:op_simulation_annotation a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 osmo:dp_simulation_annotation a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_simulation_annotation owl:equivalentClass osmo:op_simulation_annotation.
-evmpo:dp_simulation_annotation owl:equivalentClass osmo:dp_simulation_annotation.
+evmpo:op_simulation_related_entity rdfs:subClassOf osmo:op_simulation_annotation.
+evmpo:dp_simulation_related_entity rdfs:subClassOf osmo:dp_simulation_annotation.
+osmo:op_simulation_related_entity rdfs:subClassOf osmo:op_simulation_annotation.
+osmo:dp_simulation_related_entity rdfs:subClassOf osmo:dp_simulation_annotation.
 
 
 osmo:moda_structure_entity a owl:Class;
-   rdfs:subClassOf osmo:simulation_related_entity.
+   rdfs:subClassOf evmpo:marketplace_related_entity;
+   rdfs:comment "moda structure entity, i.e., a model, simulation, or aspects thereof that can be represented by a section or a combination of sections in MODA"^^xs:string.
 osmo:op_moda_structure_entity a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 osmo:dp_moda_structure_entity a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_simulation_related_entity rdfs:subClassOf osmo:op_moda_structure_entity.
-osmo:dp_simulation_related_entity rdfs:subClassOf osmo:dp_moda_structure_entity.
+evmpo:op_marketplace_related_entity rdfs:subClassOf osmo:op_moda_structure_entity.
+evmpo:dp_marketplace_related_entity rdfs:subClassOf osmo:dp_moda_structure_entity.
+
+osmo:moda_structure_entity owl:disjointUnionOf (osmo:moda_section osmo:moda_graph).
+
+osmo:moda_section owl:intersectionOf (osmo:moda_structure_entity osmo:model_related_entity).
+osmo:moda_graph owl:intersectionOf (osmo:moda_structure_entity osmo:simulation_related_entity).
 
 osmo:moda_section a owl:Class;
-   rdfs:subClassOf osmo:moda_structure_entity, osmo:simulation_annotation.
+   rdfs:subClassOf osmo:moda_structure_entity, osmo:model_related_entity;
+   rdfs:comment "moda section, i.e., a user case, model, solver, or processor that can be represented by a section in MODA"^^xs:string.
 osmo:op_moda_section a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 osmo:dp_moda_section a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 osmo:op_moda_structure_entity rdfs:subClassOf osmo:op_moda_section.
 osmo:dp_moda_structure_entity rdfs:subClassOf osmo:dp_moda_section.
-osmo:op_simulation_annotation rdfs:subClassOf osmo:op_moda_section.
-osmo:dp_simulation_annotation rdfs:subClassOf osmo:dp_moda_section.
+osmo:op_model_related_entity rdfs:subClassOf osmo:op_moda_section.
+osmo:dp_model_related_entity rdfs:subClassOf osmo:dp_moda_section.
+
+osmo:moda_section owl:disjointUnionOf (osmo:moda_usercase osmo:moda_model osmo:moda_solver osmo:moda_processor).
+
+#
+# ...
+#
+
+osmo:moda_graph a owl:Class;
+   rdfs:subClassOf osmo:moda_structure_entity, osmo:simulation_related_entity;
+   rdfs:comment "MODA graph, i.e., a model, simulation, or aspects thereof that can be represented in MODA by a combination of MODA sections"^^xs:string.
+osmo:op_moda_graph a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_moda_graph a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_moda_structure_entity rdfs:subClassOf osmo:op_moda_graph.
+osmo:dp_moda_structure_entity rdfs:subClassOf osmo:dp_moda_graph.
+osmo:op_simulation_related_entity rdfs:subClassOf osmo:op_moda_graph.
+osmo:dp_simulation_related_entity rdfs:subClassOf osmo:dp_moda_graph.
+
+osmo:contains a osmo:op_moda_graph;
+   rdfs:domain osmo:moda_graph;
+   rdfs:range osmo:moda_section;
+   rdfs:comment "[G contains S] if the MODA section S occurs as a part/component of the MODA graph G"^^xs:string.
+osmo:has_cause a osmo:op_moda_graph, owl:TransitiveProperty;
+   rdfs:domain osmo:moda_graph;
+   rdfs:range osmo:moda_graph;
+   rdfs:comment "[G has_cause F] means that in every execution, F needs to finish before G can begin"^^xs:string.
+osmo:has_effect a osmo:op_moda_graph, owl:TransitiveProperty;
+   rdfs:domain osmo:moda_graph;
+   rdfs:range osmo:moda_graph;
+   owl:inverseOf osmo:has_cause.
+osmo:is_coupled_with a osmo:op_moda_graph;
+   rdfs:domain osmo:moda_graph;
+   rdfs:range osmo:moda_graph;
+   rdfs:comment "if [F is_coupled_with G] they must occur synchronously when a workflow that contains them is executed"^^xs:string.
+osmo:is_direct_cause_of a osmo:op_moda_graph;
+   rdfs:domain osmo:moda_graph;
+   rdfs:range osmo:moda_graph;
+   owl:subPropertyOf osmo:is_linked_to, osmo:has_effect;
+   rdfs:comment "if [F is direct cause of G] there is an immediate link by which G depends on the conclusion of F"^^xs:string.
+osmo:is_direct_effect_of a osmo:op_moda_graph;
+   rdfs:domain osmo:moda_graph;
+   rdfs:range osmo:moda_graph;
+   owl:inverseOf osmo:is_direct_cause_of;
+   owl:subPropertyOf osmo:is_linked_to, osmo:has_cause.
+osmo:is_linked_to a osmo:op_moda_graph;
+   rdfs:domain osmo:moda_graph;
+   rdfs:range osmo:moda_graph;
+   rdfs:comment "if [F is linked to G] they cannot be executed concurrently; one side depends on the completion of the other side"^^xs:string.
+osmo:is_part_of a osmo:op_moda_graph, owl:TransitiveProperty;
+   rdfs:domain osmo:moda_graph;
+   rdfs:range osmo:moda_graph;
+   rdfs:comment "[F is_part_of G] if F is a subgraph of graph G"^^xs:string.
+
+osmo:moda_node a owl:Class;
+   rdfs:subClassOf osmo:moda_graph;
+   rdfs:comment "MODA node, i.e., a MODA graph that contains exactly one MODA section"^^xs:string.
+osmo:op_moda_node a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_moda_node a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_moda_graph rdfs:subClassOf osmo:op_moda_node.
+osmo:dp_moda_graph rdfs:subClassOf osmo:dp_moda_node.
+
+osmo:R_CONTAINS_ONE_SECTION a owl:Restriction;
+   rdfs:subClassOf osmo:constrained_simulation_related_entity;
+   owl:onProperty osmo:contains;
+   owl:cardinality 1.
+osmo:moda_node rdfs:subClassOf osmo:R_CONTAINS_ONE_SECTION.
+
+osmo:moda_workflow a owl:Class;
+   rdfs:subClassOf osmo:moda_graph, osmo:simulation;
+   rdfs:comment "MODA workflow, i.e., an executable simulation (workflow) that can be represented in MODA"^^xs:string.
+osmo:op_moda_workflow a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_moda_workflow a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_moda_graph rdfs:subClassOf osmo:op_moda_workflow.
+osmo:dp_moda_graph rdfs:subClassOf osmo:dp_moda_workflow.
+osmo:op_simulation rdfs:subClassOf osmo:op_moda_workflow.
+osmo:dp_simulation rdfs:subClassOf osmo:dp_moda_workflow.
+
+osmo:moda_workflow owl:intersectionOf (osmo:moda_graph osmo:simulation).
+
+#
+# ...
+#
 
 osmo:has_boundary_condition a osmo:op_moda_section;
    rdfs:domain osmo:moda_section;
-   rdfs:range osmo:moda_boundary_condition.
+   rdfs:range osmo:moda_boundary_condition. 
 osmo:has_result_property a osmo:op_moda_section;
    rdfs:domain osmo:moda_section;
    rdfs:range osmo:moda_property.
@@ -97,15 +255,15 @@ osmo:has_material a osmo:op_moda_usercase;
 
 
 osmo:moda_usercase_entity a owl:Class;
-   rdfs:subClassOf osmo:simulation_related_entity, osmo:simulation_annotation.
+   rdfs:subClassOf osmo:model_related_entity, osmo:model_annotation.
 osmo:op_moda_usercase_entity a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 osmo:dp_moda_usercase_entity a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_simulation_related_entity rdfs:subClassOf osmo:op_moda_usercase_entity.
-osmo:dp_simulation_related_entity rdfs:subClassOf osmo:dp_moda_usercase_entity.
-osmo:op_simulation_annotation rdfs:subClassOf osmo:op_moda_usercase_entity.
-osmo:dp_simulation_annotation rdfs:subClassOf osmo:dp_moda_usercase_entity.
+osmo:op_model_related_entity rdfs:subClassOf osmo:op_moda_usercase_entity.
+osmo:dp_model_related_entity rdfs:subClassOf osmo:dp_moda_usercase_entity.
+osmo:op_model_annotation rdfs:subClassOf osmo:op_moda_usercase_entity.
+osmo:dp_model_annotation rdfs:subClassOf osmo:dp_moda_usercase_entity.
 
 osmo:moda_material_class a owl:Class;
    rdfs:subClassOf osmo:moda_usercase_entity, evmpo:meta_annotation.
@@ -150,13 +308,13 @@ osmo:THERMODYNAMICS a osmo:moda_problem_class.
 osmo:TRANSPORT a osmo:moda_problem_class.
 
 osmo:moda_system_entity a owl:Class;
-   rdfs:subClassOf osmo:simulation_related_entity.
+   rdfs:subClassOf osmo:model_related_entity.
 osmo:op_moda_system_entity a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 osmo:dp_moda_system_entity a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_simulation_related_entity rdfs:subClassOf osmo:op_moda_system_entity.
-osmo:dp_simulation_related_entity rdfs:subClassOf osmo:dp_moda_system_entity.
+osmo:op_model_related_entity rdfs:subClassOf osmo:op_moda_system_entity.
+osmo:dp_model_related_entity rdfs:subClassOf osmo:dp_moda_system_entity.
 
 osmo:moda_property a owl:Class;
    rdfs:subClassOf osmo:moda_system_entity.
@@ -207,10 +365,11 @@ osmo:is_given_in a osmo:op_moda_property_condition, owl:FunctionalProperty;
 
 
 osmo:moda_model a owl:Class;
-   rdfs:subClassOf osmo:moda_section.
+   rdfs:subClassOf osmo:moda_section, osmo:model.
 osmo:op_moda_model a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 osmo:op_moda_section rdfs:subClassOf osmo:op_moda_model.
+osmo:op_model rdfs:subClassOf osmo:op_moda_model.
 
 osmo:has_model_type a osmo:op_moda_model;
    rdfs:domain osmo:moda_model;
@@ -317,7 +476,7 @@ osmo:has_parameter_descriptor a osmo:dp_moda_solver;
    rdfs:range xs:string.
 
 osmo:moda_solver_entity a owl:Class;
-   rdfs:subClassOf osmo:simulation_related_entity, osmo:simulation_annotation.
+   rdfs:subClassOf osmo:model_related_entity, osmo:model_annotation.
 
 osmo:moda_solver_type a owl:Class;
    rdfs:subClassOf osmo:moda_solver_entity, evmpo:meta_annotation.
@@ -339,32 +498,3 @@ osmo:moda_trajectory_analyser a owl:Class;
 osmo:moda_property_selector a owl:Class;
    rdfs:subClassOf osmo:moda_processor.
 
-
-osmo:moda a owl:Class;
-   rdfs:subClassOf osmo:moda_structure_entity;
-   owl:equivalentClass evmpo:simulation.
-osmo:op_moda a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_structure_entity rdfs:subClassOf osmo:op_moda.
-osmo:dp_moda_structure_entity rdfs:subClassOf osmo:dp_moda.
-evmpo:op_simulation owl:equivalentClass osmo:op_moda.
-evmpo:dp_simulation owl:equivalentClass osmo:dp_moda.
-
-osmo:has_usercase a osmo:op_moda;
-   rdfs:domain osmo:moda;
-   rdfs:range osmo:moda_usercase;
-   rdfs:subPropertyOf evmpo:has_simulation_annotation.
-osmo:has_model a osmo:op_moda;
-   rdfs:domain osmo:moda;
-   rdfs:range osmo:moda_model;
-   rdfs:subPropertyOf evmpo:has_simulation_annotation.
-osmo:has_solver a osmo:op_moda;
-   rdfs:domain osmo:moda;
-   rdfs:range osmo:moda_solver;
-   rdfs:subPropertyOf evmpo:has_simulation_annotation.
-osmo:has_processor a osmo:op_moda;
-   rdfs:domain osmo:moda;
-   rdfs:range osmo:moda_processor;
-   rdfs:subPropertyOf evmpo:has_simulation_annotation.

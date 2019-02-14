@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
 
-### VERSION 0.2.1 ###
+### VERSION 0.2.2 ###
 
-### DATED 21ST JANUARY 2019 ###
+### DATED 14TH FEBRUARY 2019 ###
 
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 
@@ -28,8 +28,7 @@ evmpo:op_marketplace_related_entity rdfs:subClassOf otras:op_training_related_en
 evmpo:dp_marketplace_related_entity rdfs:subClassOf otras:dp_training_related_entity.
 
 otras:constrained_entity a owl:Class;
-   rdfs:subClassOf otras:training_related_entity;
-   owl:intersectionOf (owl:Restriction otras:training_related_entity).
+   rdfs:subClassOf otras:training_related_entity.
 
 otras:carrier a owl:Class;
    rdfs:comment "carrier, e.g, material, activity, event that carries the contents of a course"^^xs:string;

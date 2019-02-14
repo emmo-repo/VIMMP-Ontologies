@@ -1,9 +1,9 @@
 
 ### VIMMP COMMUNICATION ONTOLOGY (VICO) ###
 
-### VERSION 0.0.3 ###
+### VERSION 0.0.4 ###
 
-### DATED 12TH FEBRUARY 2019 ###
+### DATED 14TH FEBRUARY 2019 ###
 
 @prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
 
@@ -29,8 +29,7 @@ vico:dp_communication_related_entity a owl:Class;
    owl:equivalentClass evmpo:dp_communication_related_entity.
 
 vico:constrained_entity a owl:Class;
-   rdfs:subClassOf vico:communication_related_entity;
-   owl:intersectionOf (owl:Restriction vico:communication_related_entity).
+   rdfs:subClassOf vico:communication_related_entity.
 
 vico:communication a owl:Class;
    rdfs:subClassOf vico:communication_related_entity, evmpo:communication_related_entity;
