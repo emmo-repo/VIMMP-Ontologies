@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 0.1.1 ###
+### VERSION 0.1.2 ###
 
-### DATED 21ST JANUARY 2019 ###
+### DATED 29TH JANUARY 2019 ###
 
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -35,6 +35,16 @@ osmo:dp_simulation_related_entity a owl:Class;
 evmpo:op_simulation_related_entity owl:equivalentClass osmo:op_simulation_related_entity.
 evmpo:dp_simulation_related_entity owl:equivalentClass osmo:dp_simulation_related_entity.
 
+osmo:simulation_annotation a owl:Class;
+   owl:equivalentClass evmpo:simulation_annotation;
+   rdfs:subClassOf osmo:simulation_related_entity.
+osmo:op_simulation_annotation a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_simulation_annotation a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_simulation_annotation owl:equivalentClass osmo:op_simulation_annotation.
+evmpo:dp_simulation_annotation owl:equivalentClass osmo:dp_simulation_annotation.
+
 
 osmo:moda_structure_entity a owl:Class;
    rdfs:subClassOf osmo:simulation_related_entity.
@@ -46,15 +56,15 @@ osmo:op_simulation_related_entity rdfs:subClassOf osmo:op_moda_structure_entity.
 osmo:dp_simulation_related_entity rdfs:subClassOf osmo:dp_moda_structure_entity.
 
 osmo:moda_section a owl:Class;
-   rdfs:subClassOf osmo:moda_structure_entity, evmpo:simulation_annotation.
+   rdfs:subClassOf osmo:moda_structure_entity, osmo:simulation_annotation.
 osmo:op_moda_section a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 osmo:dp_moda_section a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 osmo:op_moda_structure_entity rdfs:subClassOf osmo:op_moda_section.
 osmo:dp_moda_structure_entity rdfs:subClassOf osmo:dp_moda_section.
-evmpo:op_simulation_annotation rdfs:subClassOf osmo:op_moda_section.
-evmpo:dp_simulation_annotation rdfs:subClassOf osmo:dp_moda_section.
+osmo:op_simulation_annotation rdfs:subClassOf osmo:op_moda_section.
+osmo:dp_simulation_annotation rdfs:subClassOf osmo:dp_moda_section.
 
 osmo:has_boundary_condition a osmo:op_moda_section;
    rdfs:domain osmo:moda_section;
@@ -87,15 +97,15 @@ osmo:has_material a osmo:op_moda_usercase;
 
 
 osmo:moda_usercase_entity a owl:Class;
-   rdfs:subClassOf osmo:simulation_related_entity, evmpo:simulation_annotation.
+   rdfs:subClassOf osmo:simulation_related_entity, osmo:simulation_annotation.
 osmo:op_moda_usercase_entity a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 osmo:dp_moda_usercase_entity a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 osmo:op_simulation_related_entity rdfs:subClassOf osmo:op_moda_usercase_entity.
 osmo:dp_simulation_related_entity rdfs:subClassOf osmo:dp_moda_usercase_entity.
-evmpo:op_simulation_annotation rdfs:subClassOf osmo:op_moda_usercase_entity.
-evmpo:dp_simulation_annotation rdfs:subClassOf osmo:dp_moda_usercase_entity.
+osmo:op_simulation_annotation rdfs:subClassOf osmo:op_moda_usercase_entity.
+osmo:dp_simulation_annotation rdfs:subClassOf osmo:dp_moda_usercase_entity.
 
 osmo:moda_material_class a owl:Class;
    rdfs:subClassOf osmo:moda_usercase_entity, evmpo:meta_annotation.
@@ -307,7 +317,7 @@ osmo:has_parameter_descriptor a osmo:dp_moda_solver;
    rdfs:range xs:string.
 
 osmo:moda_solver_entity a owl:Class;
-   rdfs:subClassOf osmo:simulation_related_entity, evmpo:simulation_annotation.
+   rdfs:subClassOf osmo:simulation_related_entity, osmo:simulation_annotation.
 
 osmo:moda_solver_type a owl:Class;
    rdfs:subClassOf osmo:moda_solver_entity, evmpo:meta_annotation.

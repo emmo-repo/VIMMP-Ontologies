@@ -1,9 +1,9 @@
 
 ### CATEGORIZATION OF VIMMP INSTITUTIONS AND INDIVIDUALS (CVIII) ###
 
-### VERSION 0.0.2 ###
+### VERSION 0.0.3 ###
 
-### DATED 22ND JANUARY 2019 ###
+### DATED 13TH FEBRUARY 2019 ###
 
 @prefix cviii: <http://www.vimmp.eu/semantics/cviii/cviii.ttl#>.
 
@@ -37,15 +37,31 @@ cviii:dp_agent_related_entity rdfs:subClassOf cviii:dp_agent.
 evmpo:op_role rdfs:subClassOf cviii:op_agent.
 evmpo:dp_role rdfs:subClassOf cviii:dp_agent.
 
+cviii:acts_on a cviii:op_agent;
+   rdfs:domain cviii:agent;
+   rdfs:range macro:virtual_marketplace.
 cviii:has_agentid a cviii:dp_agent;
    rdfs:domain cviii:agent;
    rdfs:range xs:nonNegativeInteger.
 cviii:has_name a cviii:dp_agent;
    rdfs:domain cviii:agent;
    rdfs:range xs:string.
-cviii:acts_on a cviii:op_agent;
+cviii:is_assignee_of a cviii:op_agent;
    rdfs:domain cviii:agent;
-   rdfs:range macro:virtual_marketplace.
+   rdfs:range vico:communication_body;
+   owl:inverseOf vico:has_assignee.
+cviii:is_author_of a cviii:op_agent;
+   rdfs:domain cviii:agent;
+   rdfs:range vico:communication;
+   owl:inverseOf vico:has_author.
+cviii:is_listener_of a cviii:op_agent;
+   rdfs:domain cviii:agent;
+   rdfs:range vico:communication_body;
+   owl:inverseOf vico:has_listener.
+cviii:is_recipient_of a cviii:op_agent;
+   rdfs:domain cviii:agent;
+   rdfs:range vico:interlocution;
+   owl:inverseOf vico:has_recipient.
 
 evmpo:stakeholder rdfs:subClassOf cviii:agent.
 cviii:op_agent rdfs:subClassOf evmpo:op_stakeholder.
@@ -73,6 +89,11 @@ cviii:dp_certifier a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 cviii:op_agent rdfs:subClassOf cviii:op_certifier.
 cviii:dp_agent rdfs:subClassOf cviii:dp_certifier.
+
+cviii:is_certifier_of a cviii:op_certifier;
+   rdfs:domain cviii:certifier;
+   rdfs:range vico:certificate;
+   owl:inverseOf vico:has_certifier.
 
 cviii:certifying_expert a owl:Class;
    rdfs:subClassOf cviii:certifier, cviii:expert.

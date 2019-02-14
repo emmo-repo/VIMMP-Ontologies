@@ -1,9 +1,9 @@
 
 ### VIMMP VALIDATION ONTOLOGY (VIVO) ###
 
-### VERSION 0.1.1 ###
+### VERSION 0.1.2 ###
 
-### DATED 22ND JANUARY 2019 ###
+### DATED 29TH JANUARY 2019 ###
 
 @prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
 
@@ -17,17 +17,17 @@
 
 <http://www.vimmp.eu/semantics/vivo/vivo.ttl#> a owl:Ontology.
 
-vivo:validation_related_entity a owl:Class;
+vivo:assessment_related_entity a owl:Class;
    owl:equivalentClass evmpo:assessment_related_entity.
-vivo:op_validation_related_entity a owl:Class;
+vivo:op_assessment_related_entity a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-vivo:dp_validation_related_entity a owl:Class;
+vivo:dp_assessment_related_entity a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_assessment_related_entity owl:equivalentClass vivo:op_validation_related_entity.
-evmpo:dp_assessment_related_entity owl:equivalentClass vivo:dp_validation_related_entity.
+evmpo:op_assessment_related_entity owl:equivalentClass vivo:op_assessment_related_entity.
+evmpo:dp_assessment_related_entity owl:equivalentClass vivo:dp_assessment_related_entity.
 
 vivo:assessment a owl:Class;
-   rdfs:subClassOf vivo:validation_related_entity;
+   rdfs:subClassOf vivo:assessment_related_entity;
    owl:equivalentClass evmpo:assessment.
 vivo:op_assessment a owl:Class;
    rdfs:subClassOf owl:ObjectProperty;
@@ -35,11 +35,11 @@ vivo:op_assessment a owl:Class;
 vivo:dp_assessment a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty;
    owl:equivalentClass evmpo:dp_assessment.
-vivo:op_validation_related_entity rdfs:subClassOf vivo:op_assessment.
-vivo:dp_validation_related_entity rdfs:subClassOf vivo:dp_assessment.
+vivo:op_assessment_related_entity rdfs:subClassOf vivo:op_assessment.
+vivo:dp_assessment_related_entity rdfs:subClassOf vivo:dp_assessment.
 
 vivo:assessment_annotation a owl:Class;
-   rdfs:subClassOf vivo:validation_related_entity;
+   rdfs:subClassOf vivo:assessment_related_entity;
    owl:equivalentClass evmpo:assessment_annotation.
 vivo:op_assessment_annotation a owl:Class;
    rdfs:subClassOf owl:ObjectProperty;
@@ -47,18 +47,18 @@ vivo:op_assessment_annotation a owl:Class;
 vivo:dp_assessment_annotation a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty;
    owl:equivalentClass evmpo:dp_assessment_annotation.
-vivo:op_validation_related_entity rdfs:subClassOf vivo:op_assessment_annotation.
-vivo:dp_validation_related_entity rdfs:subClassOf vivo:dp_assessment_annotation.
+vivo:op_assessment_related_entity rdfs:subClassOf vivo:op_assessment_annotation.
+vivo:dp_assessment_related_entity rdfs:subClassOf vivo:dp_assessment_annotation.
 
 
 vivo:endorsement_entity a owl:Class;
-   rdfs:subClassOf vivo:validation_related_entity.
+   rdfs:subClassOf vivo:assessment_related_entity.
 vivo:op_endorsement_entity a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 vivo:dp_endorsement_entity a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-vivo:op_validation_related_entity rdfs:subClassOf vivo:op_endorsement_entity.
-vivo:dp_validation_related_entity rdfs:subClassOf vivo:dp_endorsement_entity.
+vivo:op_assessment_related_entity rdfs:subClassOf vivo:op_endorsement_entity.
+vivo:dp_assessment_related_entity rdfs:subClassOf vivo:dp_endorsement_entity.
 
 vivo:endorsement_assessment a owl:Class;
    rdfs:subClassOf vivo:endorsement_entity, vivo:assessment;
@@ -82,13 +82,13 @@ vivo:has_stars a vivo:dp_endorsement_assessment;
    rdfs:range xs:nonNegativeInteger.
 
 vivo:requirement_entity a owl:Class;
-   rdfs:subClassOf vivo:validation_related_entity.
+   rdfs:subClassOf vivo:assessment_related_entity.
 vivo:op_requirement_entity a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 vivo:dp_requirement_entity a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-vivo:op_validation_related_entity rdfs:subClassOf vivo:op_requirement_entity.
-vivo:dp_validation_related_entity rdfs:subClassOf vivo:dp_requirement_entity.
+vivo:op_assessment_related_entity rdfs:subClassOf vivo:op_requirement_entity.
+vivo:dp_assessment_related_entity rdfs:subClassOf vivo:dp_requirement_entity.
 
 vivo:requirement_assessment a owl:Class;
    rdfs:subClassOf vivo:requirement_entity, vivo:assessment;
@@ -105,13 +105,13 @@ vivo:op_assessment rdfs:subClassOf vivo:op_requirement_assessment.
 vivo:dp_assessment rdfs:subClassOf vivo:dp_requirement_assessment.
 
 vivo:validity_entity a owl:Class;
-   rdfs:subClassOf vivo:validation_related_entity.
+   rdfs:subClassOf vivo:assessment_related_entity.
 vivo:op_validity_entity a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 vivo:dp_validity_entity a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-vivo:op_validation_related_entity rdfs:subClassOf vivo:op_validity_entity.
-vivo:dp_validation_related_entity rdfs:subClassOf vivo:dp_validity_entity.
+vivo:op_assessment_related_entity rdfs:subClassOf vivo:op_validity_entity.
+vivo:dp_assessment_related_entity rdfs:subClassOf vivo:dp_validity_entity.
 
 vivo:validity_assessment a owl:Class;
    rdfs:subClassOf vivo:validity_entity, vivo:assessment;

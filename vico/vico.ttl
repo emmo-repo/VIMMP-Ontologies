@@ -1,9 +1,9 @@
 
 ### VIMMP COMMUNICATION ONTOLOGY (VICO) ###
 
-### VERSION 0.0.2 ###
+### VERSION 0.0.3 ###
 
-### DATED 22ND JANUARY 2019 ###
+### DATED 12TH FEBRUARY 2019 ###
 
 @prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
 
@@ -19,40 +19,76 @@
 <http://www.vimmp.eu/semantics/vico/vico.ttl#> a owl:Ontology.
 
 vico:communication_related_entity a owl:Class;
-   owl:equivalentClass evmpo:communication_related_entity.
+   owl:equivalentClass evmpo:communication_related_entity;
+   rdfs:comment "communication or non-paradigmatic aspect of a communication"^^xs:string.
 vico:op_communication_related_entity a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
+   rdfs:subClassOf owl:ObjectProperty;
+   owl:equivalentClass evmpo:op_communication_related_entity.
 vico:dp_communication_related_entity a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_communication_related_entity owl:equivalentClass vico:op_communication_related_entity.
-evmpo:dp_communication_related_entity owl:equivalentClass vico:dp_communication_related_entity.
+   rdfs:subClassOf owl:DatatypeProperty;
+   owl:equivalentClass evmpo:dp_communication_related_entity.
+
+vico:constrained_entity a owl:Class;
+   rdfs:subClassOf vico:communication_related_entity;
+   owl:intersectionOf (owl:Restriction vico:communication_related_entity).
 
 vico:communication a owl:Class;
-   rdfs:subClassOf vico:communication_related_entity;
-   owl:equivalentClass evmpo:communication.
+   rdfs:subClassOf vico:communication_related_entity, evmpo:communication_related_entity;
+   owl:equivalentClass evmpo:communication;
+   rdfs:comment "communication, i.e., a statement or sequence of statements that is communicated by a on a virtual marketplace by a stakeholder"^^xs:string.
 vico:op_communication a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
+   rdfs:subClassOf owl:ObjectProperty;
+   owl:equivalentClass evmpo:op_communication.
 vico:dp_communication a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-vico:op_communication_related_entity owl:equivalentClass vico:op_communication.
-vico:dp_communication_related_entity owl:equivalentClass vico:dp_communication.
+   rdfs:subClassOf owl:DatatypeProperty;
+   owl:equivalentClass evmpo:dp_communication.
+vico:op_communication_related_entity rdfs:subClassOf vico:op_communication.
+vico:dp_communication_related_entity rdfs:subClassOf vico:dp_communication.
 
-vico:has_access_rule a vico:op_communication;
+vico:contains a vico:op_communication, owl:TransitiveProperty;
    rdfs:domain vico:communication;
-   rdfs:range vico:access_rule.
-vico:has_author a vico:op_communication;
+   rdfs:range vico:communication;
+   rdfs:comment "The expression [A contains B] means that B is a proper part of A, where A and B are both communications"^^xs:string.
+vico:has_access_rule a vico:op_communication, owl:FunctionalProperty;
    rdfs:domain vico:communication;
-   rdfs:range cviii:agent.
-vico:has_submission_date a vico:op_communication;
+   rdfs:range vico:access_rule;
+   rdfs:subPropertyOf evmpo:has_communication_annotation;
+   rdfs:comment "regulates (read) access to the communicated content"^^xs:string.
+vico:has_author a vico:op_communication, owl:FunctionalProperty;
+   rdfs:domain vico:communication;
+   rdfs:range cviii:agent;
+   owl:inverseOf cviii:is_author_of.
+vico:has_expiry_date a vico:op_interlocution, owl:FunctionalProperty;
    rdfs:domain vico:communication;
    rdfs:range dcterms:W3C-DTF.
-vico:has_expiry_date a vico:op_interlocution;
+vico:has_submission_date a vico:op_communication, owl:FunctionalProperty;
    rdfs:domain vico:communication;
    rdfs:range dcterms:W3C-DTF.
+   
+vico:R_HAS_AN_AUTHOR a owl:Restriction;
+   rdfs:subClassOf vico:constrained_entity;
+   owl:onProperty vico:has_author;
+   owl:someValuesFrom cviii:agent.
+vico:communication
+   owl:disjointUnionOf (vico:communication_body vico:communication_appendix);
+   rdfs:subClassOf vico:R_HAS_AN_AUTHOR.
+
+vico:communication_annotation a owl:Class;
+   rdfs:subClassOf vico:communication_related_entity, evmpo:communication_related_entity;
+   owl:equivalentClass evmpo:communication_annotation;
+   rdfs:comment "communication_annotation, i.e., annotation of a communication"^^xs:string.
+vico:op_communication_annotation a owl:Class;
+   owl:equivalentClass evmpo:op_communication_annotation;
+   rdfs:subClassOf owl:ObjectProperty.
+vico:dp_communication_annotation a owl:Class;
+   owl:equivalentClass evmpo:dp_communication_annotation;
+   rdfs:subClassOf owl:DatatypeProperty.
+vico:op_communication_related_entity owl:equivalentClass vico:op_communication_annotation.
+vico:dp_communication_related_entity owl:equivalentClass vico:dp_communication_annotation.
 
 vico:communication_appendix a owl:Class;
    rdfs:subClassOf vico:communication;
-   rdfs:comment "communication which cannot stand alone, but only in association with a communication body"^^xs:string.
+   rdfs:comment "communication appendix, i.e., a communication which cannot stand alone and needs to be combined with a communication body"^^xs:string.
 vico:op_communication_appendix a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 vico:dp_communication_appendix a owl:Class;
@@ -61,7 +97,8 @@ vico:op_communication rdfs:subClassOf vico:op_communication_appendix.
 vico:dp_communication rdfs:subClassOf vico:dp_communication_appendix.
 
 vico:certificate a owl:Class;
-   rdfs:subClassOf vico:communication_appendix.
+   rdfs:subClassOf vico:communication_appendix;
+   rdfs:comment "certificate, i.e., a communication appendix by which an assessment (from VIVO) is stated"^^xs:string.
 vico:op_certificate a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 vico:dp_certificate a owl:Class;
@@ -71,33 +108,52 @@ vico:dp_communication_appendix rdfs:subClassOf vico:dp_certificate.
 
 vico:has_certifier a vico:op_certificate;
    rdfs:domain vico:certificate;
-   rdfs:range cviii:certifier.
-vico:states a vico:op_certificate;
+   rdfs:range cviii:certifier;
+   owl:inverseOf cviii:is_certifier_of;
+   rdfs:comment "connects a certificate to the certifier who is responsible for the included assessment (not necessarily identical with the author who communicates the certificate)"^^xs:string.
+vico:states_assessment a vico:op_certificate;
    rdfs:domain vico:certificate;
    rdfs:range vivo:assessment.
 
+vico:R_HAS_A_CERTIFIER a owl:Restriction;
+   rdfs:subClassOf vico:constrained_entity;
+   owl:onProperty vico:has_certifier;
+   owl:someValuesFrom cviii:certifier.
+vico:R_STATES_AN_ASSESSMENT a owl:Restriction;
+   rdfs:subClassOf vico:constrained_entity;
+   owl:onProperty vico:states_assessment;
+   owl:someValuesFrom vivo:assessment.
+vico:certificate rdfs:subClassOf vico:R_HAS_A_CERTIFIER, vico:R_STATES_AN_ASSESSMENT.
+
 vico:access_rule a owl:Class;
-   rdfs:subClassOf vico:communication_appendix.
+   rdfs:subClassOf vico:communication_annotation;
+   rdfs:comment "access rule, i.e., a communication annotation that specifies who is allowed to read the communicated content"^^xs:string.
 vico:op_access_rule a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 vico:dp_access_rule a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-vico:op_communication_appendix rdfs:subClassOf vico:op_access_rule.
-vico:dp_communication_appendix rdfs:subClassOf vico:dp_access_rule.
+vico:op_communication_annotation rdfs:subClassOf vico:op_access_rule.
+vico:dp_communication_annotation rdfs:subClassOf vico:dp_access_rule.
 
 vico:allows a vico:op_access_rule;
    rdfs:domain vico:access_rule;
-   rdfs:range cviii:interlocutor.
+   rdfs:range cviii:interlocutor;
+   rdfs:comment "[A allows B] means that B, who is an interlocutor, must be granted access"^^xs:string.
 vico:excludes a vico:op_access_rule;
    rdfs:domain vico:access_rule;
-   rdfs:range cviii:interlocutor.
+   rdfs:range cviii:interlocutor;
+   rdfs:comment "[A excludes B] means that B, who is an interlocutor, must be denied access"^^xs:string.
 vico:allows_all a vico:op_access_rule;
    rdfs:domain vico:access_rule;
-   rdfs:range cviii:interlocutor_group.
+   rdfs:range cviii:interlocutor_group;
+   rdfs:comment "[A allows_all C] means that all interlocutors from group C must be granted access"^^xs:string.
 vico:excludes_all a vico:op_access_rule;
    rdfs:domain vico:access_rule;
-   rdfs:range cviii:interlocutor_group.
+   rdfs:range cviii:interlocutor_group;
+   rdfs:comment "[A excludes_all C] means that all interlocutors from group C must be denied access"^^xs:string.
 
+vico:allows owl:propertyDisjointWith vico:excludes.
+vico:allows_all owl:propertyDisjointWith vico:excludes_all.
 
 vico:communication_body a owl:Class;
    rdfs:subClassOf vico:communication.
@@ -111,6 +167,10 @@ vico:dp_communication rdfs:subClassOf vico:dp_communication_body.
 vico:has_appendix a vico:op_communication_body;
    rdfs:domain vico:communication_body;
    rdfs:range vico:communication_appendix.
+vico:has_assignee a vico:op_communication_body;
+   rdfs:domain vico:communication_body;
+   rdfs:range cviii:agent;
+   owl:inverseOf cviii:is_assignee_of.
 vico:has_certificate a vico:op_communication_body;
    rdfs:domain vico:communication_body;
    rdfs:range vico:certificate;
@@ -118,6 +178,10 @@ vico:has_certificate a vico:op_communication_body;
 vico:follows a vico:op_communication_body;
    rdfs:domain vico:communication_body;
    rdfs:range vico:communication_body.
+vico:has_listener a vico:op_communication_body;
+   rdfs:domain vico:communication_body;
+   rdfs:range cviii:agent;
+   owl:inverseOf cviii:is_listener_of.
 
 vico:declaration a owl:Class;
    rdfs:subClassOf vico:communication_body;
@@ -140,6 +204,11 @@ vico:dp_interlocution a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 vico:op_communication_body rdfs:subClassOf vico:op_interlocution.
 vico:dp_communication_body rdfs:subClassOf vico:dp_interlocution.
+
+vico:has_recipient a vico:op_interlocution;
+   rdfs:domain vico:interlocution;
+   rdfs:range cviii:agent;
+   owl:inverseOf cviii:is_recipient_of.
 
 vico:statement a owl:Class;
    rdfs:subClassOf vico:communication;
