@@ -2795,9 +2795,9 @@ otras:KMK_OPERATOR_390 a otras:kmk_operator_specifier;
 
 ### VIMMP COMMUNICATION ONTOLOGY (VICO) ###
 
-### VERSION 0.1.0 ###
+### VERSION 0.1.1 ###
 
-### DATED 21TH FEBRUARY 2019 ###
+### DATED 21ST FEBRUARY 2019 ###
 
 @prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
 
@@ -2808,6 +2808,7 @@ otras:KMK_OPERATOR_390 a otras:kmk_operator_specifier;
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
+@prefix vto: <http://www.vimmp.eu/semantics/vto/vto.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
 <http://www.vimmp.eu/semantics/vico/vico.ttl#> a owl:Ontology.
@@ -3135,6 +3136,32 @@ vico:signal_i_like a owl:Class;
    rdfs:subClassOf vico:signal_statement;
    rdfs:comment "signal i like, communicating that the author approves of the followed message"^^xs:string.
 
+vico:translation_interlocution a owl:Class;
+   rdfs:subClassOf vico:interlocution;
+   rdfs:comment "translation interlocution, i.e., an interlocution which, as its main feature or purpose, contributes to translation"^^xs:string.
+vico:op_translation_interlocution a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vico:dp_translation_interlocution a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vico:op_interlocution rdfs:subClassOf vico:op_translation_interlocution.
+vico:dp_interlocution rdfs:subClassOf vico:dp_translation_interlocution.
+
+vico:translation_statement a owl:Class;
+   rdfs:subClassOf vico:translation_interlocution, vico:statement;
+   owl:intersectionOf (vico:translation_interlocution vico:statement);
+   owl:equivalentClass vto:moda_statement.
+vico:op_translation_statement a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty;
+   owl:equivalentClass vto:op_moda_statement.
+vico:dp_translation_statement a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty;
+   owl:equivalentClass vto:dp_moda_statement.
+vico:op_translation_interlocution rdfs:subClassOf vico:op_translation_statement.
+vico:dp_translation_interlocution rdfs:subClassOf vico:dp_translation_statement.
+vico:op_statement rdfs:subClassOf vico:op_translation_statement.
+vico:dp_statement rdfs:subClassOf vico:dp_translation_statement.
+
+
 ### VIMMP VALIDATION ONTOLOGY (VIVO) ###
 
 ### VERSION 0.1.2 ###
@@ -3431,25 +3458,64 @@ vivo:relative_deviation_assertion a owl:Class;
 
 ### VIMMP TRANSLATION ONTOLOGY (VTO) ###
 
-### VERSION 0.4.1 ###
+### VERSION 0.4.2 ###
 
-### DATED 21ST JANUARY 2019 ###
+### DATED 21ST FEBRUARY 2019 ###
 
 @prefix vto: <http://www.vimmp.eu/semantics/vto/vto.ttl#>.
 
 @prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
+@prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
 <http://www.vimmp.eu/semantics/vto/vto.ttl#> a owl:Ontology.
 
 vto:translation_related_entity a owl:Class;
-   rdfs:subClassOf evmpo:product_related_entity.
+   rdfs:subClassOf evmpo:marketplace_related_entity.
 vto:op_translation_related_entity a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 vto:dp_translation_related_entity a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_product_related_entity rdfs:subClassOf vto:op_translation_related_entity.
-evmpo:dp_product_related_entity rdfs:subClassOf vto:dp_translation_related_entity.
+evmpo:op_marketplace_related_entity rdfs:subClassOf vto:op_translation_related_entity.
+evmpo:dp_marketplace_related_entity rdfs:subClassOf vto:dp_translation_related_entity.
+
+vto:moda_statement a owl:Class;
+   rdfs:subClassOf vto:translation_related_entity, evmpo:interlocution, evmpo:statement;
+   owl:equivalentClass vico:translation_statement;
+   rdfs:comment "MODA statement, i.e., an interlocution statement (following VICO) that relates to a MODA graph (following OSMO)"^^xs:string.
+vto:op_moda_statement a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty;
+   owl:equivalentClass vico:op_translation_statement.
+vto:dp_moda_statement a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty;
+   owl:equivalentClass vico:dp_translation_statement.
+vto:op_translation_related_entity rdfs:subClassOf vto:op_moda_statement.
+vto:dp_translation_related_entity rdfs:subClassOf vto:dp_moda_statement.
+evmpo:op_interlocution rdfs:subClassOf vto:op_moda_statement.
+evmpo:dp_interlocution rdfs:subClassOf vto:dp_moda_statement.
+evmpo:op_statement rdfs:subClassOf vto:op_moda_statement.
+evmpo:dp_statement rdfs:subClassOf vto:dp_moda_statement.
+
+vto:problem_statement a owl:Class;
+   rdfs:subClassOf vto:moda_statement;
+   rdfs:comment "problem statement, i.e., a MODA statement that discusses a user case from the user-side point of view, in terms of MODA section 1"^^xs:string.
+vto:op_problem_statement a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vto:dp_problem_statement a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vto:op_moda_statement rdfs:subClassOf vto:op_problem_statement.
+vto:dp_moda_statement rdfs:subClassOf vto:dp_problem_statement.
+
+vto:solution_statement a owl:Class;
+   rdfs:subClassOf vto:moda_statement;
+   rdfs:comment "solution statement, i.e., a MODA statement by which a modelling and simulation solution is provided in response to a problem statement"^^xs:string.
+vto:op_solution_statement a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vto:dp_solution_statement a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vto:op_moda_statement rdfs:subClassOf vto:op_solution_statement.
+vto:dp_moda_statement rdfs:subClassOf vto:dp_solution_statement.

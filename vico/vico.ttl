@@ -1,9 +1,9 @@
 
 ### VIMMP COMMUNICATION ONTOLOGY (VICO) ###
 
-### VERSION 0.1.0 ###
+### VERSION 0.1.1 ###
 
-### DATED 21TH FEBRUARY 2019 ###
+### DATED 21ST FEBRUARY 2019 ###
 
 @prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
 
@@ -14,6 +14,7 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
+@prefix vto: <http://www.vimmp.eu/semantics/vto/vto.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
 <http://www.vimmp.eu/semantics/vico/vico.ttl#> a owl:Ontology.
@@ -340,3 +341,29 @@ vico:dp_statement rdfs:subClassOf vico:dp_signal_statement.
 vico:signal_i_like a owl:Class;
    rdfs:subClassOf vico:signal_statement;
    rdfs:comment "signal i like, communicating that the author approves of the followed message"^^xs:string.
+
+vico:translation_interlocution a owl:Class;
+   rdfs:subClassOf vico:interlocution;
+   rdfs:comment "translation interlocution, i.e., an interlocution which, as its main feature or purpose, contributes to translation"^^xs:string.
+vico:op_translation_interlocution a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vico:dp_translation_interlocution a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vico:op_interlocution rdfs:subClassOf vico:op_translation_interlocution.
+vico:dp_interlocution rdfs:subClassOf vico:dp_translation_interlocution.
+
+vico:translation_statement a owl:Class;
+   rdfs:subClassOf vico:translation_interlocution, vico:statement;
+   owl:intersectionOf (vico:translation_interlocution vico:statement);
+   owl:equivalentClass vto:moda_statement.
+vico:op_translation_statement a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty;
+   owl:equivalentClass vto:op_moda_statement.
+vico:dp_translation_statement a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty;
+   owl:equivalentClass vto:dp_moda_statement.
+vico:op_translation_interlocution rdfs:subClassOf vico:op_translation_statement.
+vico:dp_translation_interlocution rdfs:subClassOf vico:dp_translation_statement.
+vico:op_statement rdfs:subClassOf vico:op_translation_statement.
+vico:dp_statement rdfs:subClassOf vico:dp_translation_statement.
+
