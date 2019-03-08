@@ -1,9 +1,9 @@
 
 ### CATEGORIZATION OF VIMMP INSTITUTIONS AND INDIVIDUALS (CVIII) ###
 
-### VERSION 0.0.3 ###
+### VERSION 0.0.4 ###
 
-### DATED 13TH FEBRUARY 2019 ###
+### DATED 8TH MARCH 2019 ###
 
 @prefix cviii: <http://www.vimmp.eu/semantics/cviii/cviii.ttl#>.
 
@@ -48,7 +48,7 @@ cviii:has_name a cviii:dp_agent;
    rdfs:range xs:string.
 cviii:is_assignee_of a cviii:op_agent;
    rdfs:domain cviii:agent;
-   rdfs:range vico:communication_body;
+   rdfs:range vico:message;
    owl:inverseOf vico:has_assignee.
 cviii:is_author_of a cviii:op_agent;
    rdfs:domain cviii:agent;
@@ -56,7 +56,7 @@ cviii:is_author_of a cviii:op_agent;
    owl:inverseOf vico:has_author.
 cviii:is_listener_of a cviii:op_agent;
    rdfs:domain cviii:agent;
-   rdfs:range vico:communication_body;
+   rdfs:range vico:message;
    owl:inverseOf vico:has_listener.
 cviii:is_recipient_of a cviii:op_agent;
    rdfs:domain cviii:agent;

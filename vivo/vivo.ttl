@@ -1,9 +1,9 @@
 
 ### VIMMP VALIDATION ONTOLOGY (VIVO) ###
 
-### VERSION 0.1.2 ###
+### VERSION 0.1.3 ###
 
-### DATED 29TH JANUARY 2019 ###
+### DATED 8TH MARCH 2019 ###
 
 @prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
 
@@ -267,7 +267,7 @@ vivo:refers_to_material a vivo:op_moda_property_assertion, owl:FunctionalPropert
    rdfs:subPropertyOf evmpo:has_meta_annotation.
 vivo:refers_to_property a vivo:op_moda_property_assertion, owl:FunctionalProperty;
    rdfs:domain vivo:moda_property_assertion;
-   rdfs:range osmo:moda_property.
+   rdfs:range osmo:physical_property.
 
 vivo:absolute_assertion a owl:Class;
    rdfs:subClassOf vivo:moda_property_assertion.
