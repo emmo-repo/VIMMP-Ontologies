@@ -2930,9 +2930,9 @@ otras:KMK_OPERATOR_390 a otras:kmk_operator_specifier;
 
 ### VIMMP COMMUNICATION ONTOLOGY (VICO) ###
 
-### VERSION 0.1.1 ###
+### VERSION 0.1.2 ###
 
-### DATED 21ST FEBRUARY 2019 ###
+### DATED 11TH MARCH 2019 ###
 
 @prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
 
@@ -3271,31 +3271,34 @@ vico:signal_i_like a owl:Class;
    rdfs:subClassOf vico:signal_statement;
    rdfs:comment "signal i like, communicating that the author approves of the followed message"^^xs:string.
 
-vico:translation_interlocution a owl:Class;
-   rdfs:subClassOf vico:interlocution;
-   rdfs:comment "translation interlocution, i.e., an interlocution which, as its main feature or purpose, contributes to translation"^^xs:string.
-vico:op_translation_interlocution a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-vico:dp_translation_interlocution a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-vico:op_interlocution rdfs:subClassOf vico:op_translation_interlocution.
-vico:dp_interlocution rdfs:subClassOf vico:dp_translation_interlocution.
+vico:translation_communication a owl:Class;
+   rdfs:subClassOf vico:communication;
+   owl:equivalentClass vto:translation_communication;
+   rdfs:comment "translation communication, i.e., a communication which, as its main feature or purpose, relates to translation"^^xs:string.
+vico:op_translation_communication a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty;
+   owl:equivalentClass vto:op_translation_communication.
+vico:dp_translation_communication a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty;
+   owl:equivalentClass vto:dp_translation_communication.
+vico:op_communication rdfs:subClassOf vico:op_translation_communication.
+vico:dp_communication rdfs:subClassOf vico:dp_translation_communication.
 
 vico:translation_statement a owl:Class;
-   rdfs:subClassOf vico:translation_interlocution, vico:statement;
-   owl:intersectionOf (vico:translation_interlocution vico:statement);
-   owl:equivalentClass vto:moda_statement.
+   rdfs:subClassOf vico:statement, vico:translation_communication;
+   owl:equivalentClass vto:translation_statement;
+   owl:intersection (vico:translation_communication vico:statement);
+   rdfs:comment "translation statement, i.e., a statement which, as its main feature or purpose, relates to translation"^^xs:string.
 vico:op_translation_statement a owl:Class;
    rdfs:subClassOf owl:ObjectProperty;
-   owl:equivalentClass vto:op_moda_statement.
+   owl:equivalentClass vto:op_translation_statement.
 vico:dp_translation_statement a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty;
-   owl:equivalentClass vto:dp_moda_statement.
-vico:op_translation_interlocution rdfs:subClassOf vico:op_translation_statement.
-vico:dp_translation_interlocution rdfs:subClassOf vico:dp_translation_statement.
+   owl:equivalentClass vto:op_translation_statement.
+vico:op_translation_communication rdfs:subClassOf vico:op_translation_statement.
+vico:dp_translation_communication rdfs:subClassOf vico:dp_translation_statement.
 vico:op_statement rdfs:subClassOf vico:op_translation_statement.
 vico:dp_statement rdfs:subClassOf vico:dp_translation_statement.
-
 
 ### VIMMP VALIDATION ONTOLOGY (VIVO) ###
 
@@ -3593,9 +3596,9 @@ vivo:relative_deviation_assertion a owl:Class;
 
 ### VIMMP TRANSLATION ONTOLOGY (VTO) ###
 
-### VERSION 0.4.2 ###
+### VERSION 0.4.3 ###
 
-### DATED 21ST FEBRUARY 2019 ###
+### DATED 11TH MARCH 2019 ###
 
 @prefix vto: <http://www.vimmp.eu/semantics/vto/vto.ttl#>.
 
@@ -3610,7 +3613,8 @@ vivo:relative_deviation_assertion a owl:Class;
 <http://www.vimmp.eu/semantics/vto/vto.ttl#> a owl:Ontology.
 
 vto:translation_related_entity a owl:Class;
-   rdfs:subClassOf evmpo:marketplace_related_entity.
+   rdfs:subClassOf evmpo:marketplace_related_entity;
+   rdfs:comment "translation related entity, i.e., an entity related to translating materials modelling problems to appropriate solutions"^^xs:string.
 vto:op_translation_related_entity a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 vto:dp_translation_related_entity a owl:Class;
@@ -3618,22 +3622,48 @@ vto:dp_translation_related_entity a owl:Class;
 evmpo:op_marketplace_related_entity rdfs:subClassOf vto:op_translation_related_entity.
 evmpo:dp_marketplace_related_entity rdfs:subClassOf vto:dp_translation_related_entity.
 
-vto:moda_statement a owl:Class;
-   rdfs:subClassOf vto:translation_related_entity, evmpo:interlocution, evmpo:statement;
-   owl:equivalentClass vico:translation_statement;
-   rdfs:comment "MODA statement, i.e., an interlocution statement (following VICO) that relates to a MODA graph (following OSMO)"^^xs:string.
-vto:op_moda_statement a owl:Class;
+vto:translation_communication a owl:Class;
+   rdfs:subClassOf vto:translation_related_entity, evmpo:communication;
+   owl:equivalentClass vico:translation_communication;
+   rdfs:comment "translation communication, i.e., a EVMPO/VICO communication which, as its main feature or purpose, relates to translation"^^xs:string.
+vto:op_translation_communication a owl:Class;
    rdfs:subClassOf owl:ObjectProperty;
-   owl:equivalentClass vico:op_translation_statement.
-vto:dp_moda_statement a owl:Class;
+   owl:equivalentClass vico:op_translation_communication.
+vto:dp_translation_communication a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty;
-   owl:equivalentClass vico:dp_translation_statement.
-vto:op_translation_related_entity rdfs:subClassOf vto:op_moda_statement.
-vto:dp_translation_related_entity rdfs:subClassOf vto:dp_moda_statement.
-evmpo:op_interlocution rdfs:subClassOf vto:op_moda_statement.
-evmpo:dp_interlocution rdfs:subClassOf vto:dp_moda_statement.
-evmpo:op_statement rdfs:subClassOf vto:op_moda_statement.
-evmpo:dp_statement rdfs:subClassOf vto:dp_moda_statement.
+   owl:equivalentClass vico:dp_translation_communication.
+vto:op_translation_related_entity rdfs:subClassOf vto:op_translation_communication.
+vto:dp_translation_related_entity rdfs:subClassOf vto:dp_translation_communication.
+vto:op_communication rdfs:subClassOf vto:op_translation_communication.
+vto:dp_communication rdfs:subClassOf vto:dp_translation_communication.
+
+vto:translation_statement a owl:Class;
+   rdfs:subClassOf evmpo:statement, vto:translation_communication;
+   owl:equivalentClass vico:translation_statement;
+   owl:intersection (vto:translation_communication evmpo:statement);
+   rdfs:comment "translation statement, i.e., a EVMPO/VICO statement which, as its main feature or purpose, relates to translation"^^xs:string.
+vto:op_translation_statement a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty;
+   owl:equivalentClass vto:op_translation_statement.
+vico:dp_translation_statement a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty;
+   owl:equivalentClass vto:op_translation_statement.
+vico:op_translation_communication rdfs:subClassOf vico:op_translation_statement.
+vico:dp_translation_communication rdfs:subClassOf vico:dp_translation_statement.
+evmpo:op_statement rdfs:subClassOf vico:op_translation_statement.
+evmpo:dp_statement rdfs:subClassOf vico:dp_translation_statement.
+
+vto:translation_statement owl:disjointUnionOf (vto:moda_statement vto:negotiation_statement vto:project_statement).
+
+vto:moda_statement a owl:Class;
+   rdfs:subClassOf vto:translation_statement;
+   rdfs:comment "MODA statement, i.e., a translation statement that relates to a MODA graph and/or user case (following OSMO)"^^xs:string.
+vto:op_moda_statement a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vto:dp_moda_statement a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vto:op_translation_statement rdfs:subClassOf vto:op_moda_statement.
+vto:dp_translation_statement rdfs:subClassOf vto:dp_moda_statement.
 
 vto:problem_statement a owl:Class;
    rdfs:subClassOf vto:moda_statement;
@@ -3654,3 +3684,27 @@ vto:dp_solution_statement a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 vto:op_moda_statement rdfs:subClassOf vto:op_solution_statement.
 vto:dp_moda_statement rdfs:subClassOf vto:dp_solution_statement.
+
+vto:negotiation_statement a owl:Class;
+   rdfs:subClassOf vto:translation_statement, evmpo:interlocution;
+   rdfs:comment "negotiation statement, i.e., a translation statement that relates to negotiations on a materials modelling project"^^xs:string.
+vto:op_negotiation_statement a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vto:dp_negotiation_statement a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vto:op_translation_statement rdfs:subClassOf vto:op_negotiation_statement.
+vto:dp_translation_statement rdfs:subClassOf vto:dp_negotiation_statement.
+evmpo:op_interlocution rdfs:subClassOf vto:op_negotiation_statement.
+evmpo:dp_interlocution rdfs:subClassOf vto:dp_negotiation_statement.
+
+vto:project_statement a owl:Class;
+   rdfs:subClassOf vto:translation_statement, evmpo:declaration;
+   rdfs:comment "project statement, i.e., a translation statement that relates to an agreed materials modelling project"^^xs:string.
+vto:op_project_statement a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vto:dp_project_statement a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vto:op_translation_statement rdfs:subClassOf vto:op_project_statement.
+vto:dp_translation_statement rdfs:subClassOf vto:dp_project_statement.
+evmpo:op_declaration rdfs:subClassOf vto:op_project_statement.
+evmpo:dp_declaration rdfs:subClassOf vto:dp_project_statement.
