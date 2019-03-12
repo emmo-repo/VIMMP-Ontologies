@@ -1,9 +1,9 @@
 
 ### VIMMP VALIDATION ONTOLOGY (VIVO) ###
 
-### VERSION 0.1.3 ###
+### VERSION 0.1.4 ###
 
-### DATED 8TH MARCH 2019 ###
+### DATED 12TH MARCH 2019 ###
 
 @prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
 
@@ -49,6 +49,49 @@ vivo:dp_assessment_annotation a owl:Class;
    owl:equivalentClass evmpo:dp_assessment_annotation.
 vivo:op_assessment_related_entity rdfs:subClassOf vivo:op_assessment_annotation.
 vivo:dp_assessment_related_entity rdfs:subClassOf vivo:dp_assessment_annotation.
+
+vivo:property_related_entity a owl:Class;
+   rdfs:subClassOf evmpo:marketplace_related_entity;
+   owl:equivalentClass evmpo:property_related_entity;
+   rdfs:comment "EVMPO property or non-paradigmatic aspect of an EVMPO property"^^xs:string.
+vivo:op_property_related_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty;
+   owl:equivalentClass evmpo:op_property_related_entity.
+vivo:dp_property_related_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty;
+   owl:equivalentClass evmpo:dp_property_related_entity.
+evmpo:op_marketplace_related_entity rdfs:subClassOf vivo:op_property_related_entity.
+evmpo:dp_marketplace_related_entity rdfs:subClassOf vivo:dp_property_related_entity.
+
+vivo:property_related_entity owl:disjointUnionOf (vivo:property vivo:property_annotation).
+
+vivo:property a owl:Class;
+   rdfs:subClassOf vivo:property_related_entity, evmpo:property_related_entity;
+   owl:equivalentClass evmpo:property;
+   rdfs:comment "property as defined by the EVMPO"^^xs:string.
+vivo:op_property a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty;
+   owl:equivalentClass evmpo:op_property.
+vivo:dp_property a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty;
+   owl:equivalentClass evmpo:dp_property.
+evmpo:op_property_related_entity rdfs:subClassOf vivo:op_property.
+evmpo:dp_property_related_entity rdfs:subClassOf vivo:dp_property.
+vivo:op_property_related_entity rdfs:subClassOf vivo:op_property.
+vivo:dp_property_related_entity rdfs:subClassOf vivo:dp_property.
+
+vivo:property_annotation a owl:Class;
+   rdfs:subClassOf vivo:property_related_entity, evmpo:property_related_entity;
+   owl:equivalentClass evmpo:property_annotation;
+   rdfs:comment "non-paradigmatic aspect of a property as defined by the EVMPO"^^xs:string.
+vivo:op_property_annotation a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vivo:dp_property_annotation a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_property_related_entity rdfs:subClassOf vivo:op_property_annotation.
+evmpo:dp_property_related_entity rdfs:subClassOf vivo:dp_property_annotation.
+vivo:op_property_related_entity rdfs:subClassOf vivo:op_property_annotation.
+vivo:dp_property_related_entity rdfs:subClassOf vivo:dp_property_annotation.
 
 
 vivo:endorsement_entity a owl:Class;
@@ -183,7 +226,7 @@ vivo:BEST_CASE a vivo:judgement_order_quantification;
 vivo:WORST_CASE a vivo:judgement_order_quantification;
    vivo:is_relative_rank 0.0.
 
-   
+
 vivo:confidence a owl:Class;
    rdfs:subClassOf vivo:assessment_annotation.
 vivo:op_confidence a owl:Class;
@@ -250,6 +293,54 @@ vivo:REQUIRED_PER_SIMULATION_RUN a vivo:requirement_scope.
 vivo:REQUIRED_PER_SIMULATED_NANOSECOND a vivo:requirement_scope.
 
 
+vivo:physical_property a owl:Class;
+   rdfs:subClassOf vivo:property, evmpo:material_property;
+   rdfs:comment "thermodynamic or mechanical behaviour of a material (referring either to the real material itself or a model thereof)"^^xs:string.
+vivo:op_physical_property a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vivo:dp_physical_property a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vivo:op_property rdfs:subClassOf vivo:op_physical_property.
+vivo:dp_property rdfs:subClassOf vivo:dp_physical_property.
+evmpo:op_material_property rdfs:subClassOf vivo:op_physical_property.
+evmpo:dp_material_property rdfs:subClassOf vivo:dp_physical_property.
+
+vivo:is_quantity_kind a vivo:op_physical_property, owl:FunctionalProperty;
+   rdfs:domain vivo:physical_property;
+   rdfs:range quq:QuantityKind;
+   rdfs:comment "points to the physical property characterization following QUDT"^^xs:string.
+
+vivo:physical_property_information a owl:Class;
+   rdfs:subClassOf vivo:property_annotation, evmpo:property_annotation;
+   rdfs:comment "physical property information, i.e., a condition/datum referring to a physical (thermodynamic or mechanical) property"^^xs:string.
+vivo:op_physical_property_information a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vivo:dp_physical_property_information a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vivo:op_property_annotation rdfs:subClassOf vivo:op_physical_property_information.
+vivo:dp_property_annotation rdfs:subClassOf vivo:dp_physical_property_information.
+evmpo:op_property_annotation rdfs:subClassOf vivo:op_physical_property_information.
+evmpo:dp_property_annotation rdfs:subClassOf vivo:dp_physical_property_information.
+
+vivo:has_error a vivo:dp_physical_property_information;
+   rdfs:domain vivo:physical_property_information;
+   rdfs:range xs:decimal.
+vivo:has_given_property a vivo:op_physical_property_information;
+   rdfs:domain vivo:physical_property_information;
+   rdfs:range vivo:physical_property.
+vivo:has_lower_bound a vivo:dp_physical_property_information;
+   rdfs:domain vivo:physical_property_information;
+   rdfs:range xs:decimal.
+vivo:has_upper_bound a vivo:dp_physical_property_information;
+   rdfs:domain vivo:physical_property_information;
+   rdfs:range xs:decimal.
+vivo:has_value a vivo:dp_physical_property_information, owl:FunctionalProperty;
+   rdfs:domain vivo:physical_property_information;
+   rdfs:range xs:decimal.
+vivo:is_given_in a vivo:op_physical_property_information, owl:FunctionalProperty;
+   rdfs:domain vivo:physical_property_information;
+   rdfs:range qudt:DecimalScaledUnit.
+
 vivo:moda_property_assertion a owl:Class;
    rdfs:subClassOf vivo:assertion, vivo:validity_entity.
 vivo:op_moda_property_assertion a owl:Class;
@@ -267,7 +358,7 @@ vivo:refers_to_material a vivo:op_moda_property_assertion, owl:FunctionalPropert
    rdfs:subPropertyOf evmpo:has_meta_annotation.
 vivo:refers_to_property a vivo:op_moda_property_assertion, owl:FunctionalProperty;
    rdfs:domain vivo:moda_property_assertion;
-   rdfs:range osmo:physical_property.
+   rdfs:range vivo:physical_property.
 
 vivo:absolute_assertion a owl:Class;
    rdfs:subClassOf vivo:moda_property_assertion.
@@ -287,7 +378,7 @@ vivo:deviation_assertion a owl:Class;
 
 vivo:magnitude_assertion a owl:Class;
    rdfs:subClassOf vivo:absolute_assertion.
-   
+
 vivo:absolute_deviation_assertion a owl:Class;
    rdfs:subClassOf vivo:absolute_assertion, vivo:deviation_assertion.
 vivo:relative_deviation_assertion a owl:Class;

@@ -1195,9 +1195,9 @@ macro:MARKETPLACE_MARKETPLACE a macro:virtual_marketplace.
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 0.2.2 ###
+### VERSION 0.2.3 ###
 
-### DATED 8TH MARCH 2019 ###
+### DATED 12TH MARCH 2019 ###
 
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -1207,6 +1207,7 @@ macro:MARKETPLACE_MARKETPLACE a macro:virtual_marketplace.
 @prefix quq: <http://purl.oclc.org/NET/ssnx/qu/quantity#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
 <http://www.vimmp.eu/semantics/osmo/osmo.ttl#> a owl:Ontology.
@@ -1303,49 +1304,6 @@ evmpo:dp_simulation_related_entity rdfs:subClassOf osmo:dp_simulation_annotation
 osmo:op_simulation_related_entity rdfs:subClassOf osmo:op_simulation_annotation.
 osmo:dp_simulation_related_entity rdfs:subClassOf osmo:dp_simulation_annotation.
 
-osmo:property_related_entity a owl:Class;
-   rdfs:subClassOf evmpo:marketplace_related_entity;
-   owl:equivalentClass evmpo:property_related_entity;
-   rdfs:comment "EVMPO property or non-paradigmatic aspect of an EVMPO property"^^xs:string.
-osmo:op_property_related_entity a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty;
-   owl:equivalentClass evmpo:op_property_related_entity.
-osmo:dp_property_related_entity a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty;
-   owl:equivalentClass evmpo:dp_property_related_entity.
-evmpo:op_marketplace_related_entity rdfs:subClassOf osmo:op_property_related_entity.
-evmpo:dp_marketplace_related_entity rdfs:subClassOf osmo:dp_property_related_entity.
-
-osmo:property_related_entity owl:disjointUnionOf (osmo:property osmo:property_annotation).
-
-osmo:property a owl:Class;
-   rdfs:subClassOf osmo:property_related_entity, evmpo:property_related_entity;
-   owl:equivalentClass evmpo:property;
-   rdfs:comment "property as defined by the EVMPO"^^xs:string.
-osmo:op_property a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty;
-   owl:equivalentClass evmpo:op_property.
-osmo:dp_property a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty;
-   owl:equivalentClass evmpo:dp_property.
-evmpo:op_property_related_entity rdfs:subClassOf osmo:op_property.
-evmpo:dp_property_related_entity rdfs:subClassOf osmo:dp_property.
-osmo:op_property_related_entity rdfs:subClassOf osmo:op_property.
-osmo:dp_property_related_entity rdfs:subClassOf osmo:dp_property.
-
-osmo:property_annotation a owl:Class;
-   rdfs:subClassOf osmo:property_related_entity, evmpo:property_related_entity;
-   owl:equivalentClass evmpo:property_annotation;
-   rdfs:comment "non-paradigmatic aspect of a property as defined by the EVMPO"^^xs:string.
-osmo:op_property_annotation a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_property_annotation a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_property_related_entity rdfs:subClassOf osmo:op_property_annotation.
-evmpo:dp_property_related_entity rdfs:subClassOf osmo:dp_property_annotation.
-osmo:op_property_related_entity rdfs:subClassOf osmo:op_property_annotation.
-osmo:dp_property_related_entity rdfs:subClassOf osmo:dp_property_annotation.
-
 osmo:material_related_entity a owl:Class;
    rdfs:subClassOf evmpo:marketplace_related_entity;
    owl:equivalentClass evmpo:material_related_entity;
@@ -1416,11 +1374,6 @@ osmo:dp_moda_section_entity rdfs:subClassOf osmo:dp_moda_section.
 
 osmo:moda_section owl:disjointUnionOf (osmo:moda_usercase osmo:moda_model osmo:moda_solver osmo:moda_processor).
 
-osmo:has_boundary_condition a osmo:op_moda_section;
-   rdfs:domain osmo:moda_section;
-   rdfs:range osmo:moda_boundary_condition;
-   rdfs:subPropertyOf osmo:has_moda_aspect;
-   rdfs:comment "points to any given information that needs to be taken into account"^^xs:string.
 osmo:has_moda_aspect a osmo:op_moda_section;
    rdfs:domain osmo:moda_section;
    rdfs:range osmo:moda_section_aspect;
@@ -1428,8 +1381,34 @@ osmo:has_moda_aspect a osmo:op_moda_section;
    rdfs:comment "points to an aspect associated with the respective MODA section"^^xs:string.
 osmo:has_result_property a osmo:op_moda_section;
    rdfs:domain osmo:moda_section;
-   rdfs:range osmo:physical_property;
+   rdfs:range vivo:physical_property;
    rdfs:comment "points to desired physical (thermodynamic or mechanical) information, which is not given and needs to be determined"^^xs:string.
+
+osmo:has_boundary_condition a osmo:op_moda_section;
+   rdfs:domain osmo:moda_section;
+   rdfs:range osmo:moda_boundary_condition;
+   rdfs:subPropertyOf osmo:has_moda_aspect;
+   rdfs:comment "points to any given information that needs to be taken into account"^^xs:string.
+osmo:has_geometry_information a osmo:op_moda_section;
+   rdfs:domain osmo:moda_section;
+   rdfs:range osmo:moda_geometry_information;
+   rdfs:subPropertyOf osmo:has_boundary_condition.
+osmo:has_material_information a osmo:op_moda_section;
+   rdfs:domain osmo:moda_section;
+   rdfs:range osmo:moda_material_information;
+   rdfs:subPropertyOf osmo:has_moda_aspect.
+osmo:has_moda_section_description a osmo:op_moda_section;
+   rdfs:domain osmo:moda_section;
+   rdfs:range osmo:moda_section_description;
+   rdfs:subPropertyOf osmo:has_moda_aspect.
+osmo:has_section_literature a osmo:op_moda_section;
+   rdfs:domain osmo:moda_section;
+   rdfs:range osmo:moda_section_literature;
+   rdfs:subPropertyOf osmo:has_moda_aspect.
+osmo:has_timespan a osmo:op_moda_section;
+   rdfs:domain osmo:moda_section;
+   rdfs:range osmo:moda_timespan;
+   rdfs:subPropertyOf osmo:has_moda_aspect.
 
 osmo:moda_section_aspect a owl:Class;
    rdfs:subClassOf osmo:moda_section_entity, evmpo:annotation;
@@ -1443,22 +1422,14 @@ osmo:dp_moda_section_entity rdfs:subClassOf osmo:dp_moda_section_aspect.
 evmpo:op_annotation rdfs:subClassOf osmo:op_moda_section_aspect.
 evmpo:dp_annotation rdfs:subClassOf osmo:dp_moda_section_aspect.
 
-osmo:physical_property a owl:Class;
-   rdfs:subClassOf osmo:property, evmpo:material_property;
-   rdfs:comment "thermodynamic or mechanical behaviour of a material (referring either to the real material itself or a model thereof)"^^xs:string.
-osmo:op_physical_property a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_physical_property a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_property rdfs:subClassOf osmo:op_physical_property.
-osmo:dp_property rdfs:subClassOf osmo:dp_physical_property.
-evmpo:op_material_property rdfs:subClassOf osmo:op_physical_property.
-evmpo:dp_material_property rdfs:subClassOf osmo:dp_physical_property.
-
-osmo:is_quantity_kind a osmo:op_physical_property, owl:FunctionalProperty;
-   rdfs:domain osmo:physical_property;
-   rdfs:range quq:QuantityKind;
-   rdfs:comment "points to the physical property characterization following QUDT"^^xs:string.
+osmo:has_moda_string_content a osmo:dp_moda_section_aspect;
+   rdfs:domain osmo:moda_section_aspect;
+   rdfs:range xs:string;
+   rdfs:comment "plain-text description of an aspect/subsection according to MODA"^^xs:string.
+osmo:has_moda_decimal_content a osmo:dp_moda_section_aspect;
+   rdfs:domain osmo:moda_section_aspect;
+   rdfs:range xs:decimal;
+   rdfs:comment "numerical value associated with an aspect/subsection according to MODA"^^xs:string.
 
 osmo:moda_boundary_condition a owl:Class;
    rdfs:subClassOf osmo:moda_section_aspect;
@@ -1470,33 +1441,57 @@ osmo:dp_moda_boundary_condition a owl:Class;
 osmo:op_moda_section_aspect rdfs:subClassOf osmo:op_moda_boundary_condition.
 osmo:dp_moda_section_aspect rdfs:subClassOf osmo:dp_moda_boundary_condition.
 
-osmo:PERIODIC_BOUNDARY_CONDITION a osmo:moda_boundary_condition.
-
-osmo:physical_property_information a owl:Class;
+osmo:moda_geometry_information a owl:Class;
    rdfs:subClassOf osmo:moda_boundary_condition;
-   rdfs:comment "physical property information, i.e., a condition/datum referring to a physical (thermodynamic or mechanical) property"^^xs:string.
-osmo:op_physical_property_information a owl:Class;
+   rdfs:comment "MODA geometry information, i.e., information on the geometry considered by a MODA section (note: this is not the geometry, but information about the geometry)"^^xs:string.
+osmo:op_moda_geometry_information a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_physical_property_information a owl:Class;
+osmo:dp_moda_geometry_information a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_boundary_condition rdfs:subClassOf osmo:op_physical_property_information.
-osmo:dp_moda_boundary_condition rdfs:subClassOf osmo:dp_physical_property_information.
+osmo:op_moda_boundary_condition rdfs:subClassOf osmo:op_moda_geometry_information.
+osmo:dp_moda_boundary_condition rdfs:subClassOf osmo:dp_moda_geometry_information.
 
-osmo:has_given_property a osmo:op_physical_property_information;
-   rdfs:domain osmo:physical_property_information;
-   rdfs:range osmo:physical_property.
-osmo:has_exact_value a osmo:dp_physical_property_information, owl:FunctionalProperty;
-   rdfs:domain osmo:physical_property_information;
-   rdfs:range xs:decimal.
-osmo:has_lower_bound a osmo:dp_physical_property_information;
-   rdfs:domain osmo:physical_property_information;
-   rdfs:range xs:decimal.
-osmo:has_upper_bound a osmo:dp_physical_property_information;
-   rdfs:domain osmo:physical_property_information;
-   rdfs:range xs:decimal.
-osmo:is_given_in a osmo:op_physical_property_information, owl:FunctionalProperty;
-   rdfs:domain osmo:physical_property_information;
-   rdfs:range qudt:DecimalScaledUnit.
+osmo:PERIODIC_BOUNDARY_CONDITION a osmo:moda_geometry_information.
+
+osmo:moda_material_information a owl:Class;
+   rdfs:subClassOf osmo:moda_section_aspect;
+   rdfs:comment "MODA material information, i.e., information on the material considered by a MODA section (note: this is not the material, but information about the material)"^^xs:string.
+osmo:op_moda_material_information a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_moda_material_information a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_moda_section_aspect rdfs:subClassOf osmo:op_moda_material_information.
+osmo:dp_moda_section_aspect rdfs:subClassOf osmo:dp_moda_material_information.
+
+osmo:moda_section_description a owl:Class;
+   rdfs:subClassOf osmo:moda_section_aspect;
+   rdfs:comment "MODA section description, i.e., any descriptive-type information concerning a MODA section"^^xs:string.
+osmo:op_moda_section_description a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_moda_section_description a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_moda_section_aspect rdfs:subClassOf osmo:op_moda_section_description.
+osmo:dp_moda_section_aspect rdfs:subClassOf osmo:dp_moda_section_description.
+
+osmo:moda_section_literature a owl:Class;
+   rdfs:subClassOf osmo:moda_section_aspect;
+   rdfs:comment "MODA section literature, i.e., a literature reference associated with a MODA section"^^xs:string.
+osmo:op_moda_section_literature a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_moda_section_literature a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_moda_section_aspect rdfs:subClassOf osmo:op_moda_section_literature.
+osmo:dp_moda_section_aspect rdfs:subClassOf osmo:dp_moda_section_literature.
+
+osmo:moda_timespan a owl:Class;
+   rdfs:subClassOf osmo:moda_section_aspect;
+   rdfs:comment "MODA time span, i.e., the time interval considered, modelled, or represented by a MODA section"^^xs:string.
+osmo:op_moda_timespan a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_moda_timespan a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_moda_timespan rdfs:subClassOf osmo:op_moda_section_description.
+osmo:dp_moda_timespan rdfs:subClassOf osmo:dp_moda_section_description.
 
 osmo:moda_usercase_entity a owl:Class;
    rdfs:subClassOf osmo:moda_section_entity;
@@ -3302,9 +3297,9 @@ vico:dp_statement rdfs:subClassOf vico:dp_translation_statement.
 
 ### VIMMP VALIDATION ONTOLOGY (VIVO) ###
 
-### VERSION 0.1.3 ###
+### VERSION 0.1.4 ###
 
-### DATED 8TH MARCH 2019 ###
+### DATED 12TH MARCH 2019 ###
 
 @prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
 
@@ -3350,6 +3345,49 @@ vivo:dp_assessment_annotation a owl:Class;
    owl:equivalentClass evmpo:dp_assessment_annotation.
 vivo:op_assessment_related_entity rdfs:subClassOf vivo:op_assessment_annotation.
 vivo:dp_assessment_related_entity rdfs:subClassOf vivo:dp_assessment_annotation.
+
+vivo:property_related_entity a owl:Class;
+   rdfs:subClassOf evmpo:marketplace_related_entity;
+   owl:equivalentClass evmpo:property_related_entity;
+   rdfs:comment "EVMPO property or non-paradigmatic aspect of an EVMPO property"^^xs:string.
+vivo:op_property_related_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty;
+   owl:equivalentClass evmpo:op_property_related_entity.
+vivo:dp_property_related_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty;
+   owl:equivalentClass evmpo:dp_property_related_entity.
+evmpo:op_marketplace_related_entity rdfs:subClassOf vivo:op_property_related_entity.
+evmpo:dp_marketplace_related_entity rdfs:subClassOf vivo:dp_property_related_entity.
+
+vivo:property_related_entity owl:disjointUnionOf (vivo:property vivo:property_annotation).
+
+vivo:property a owl:Class;
+   rdfs:subClassOf vivo:property_related_entity, evmpo:property_related_entity;
+   owl:equivalentClass evmpo:property;
+   rdfs:comment "property as defined by the EVMPO"^^xs:string.
+vivo:op_property a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty;
+   owl:equivalentClass evmpo:op_property.
+vivo:dp_property a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty;
+   owl:equivalentClass evmpo:dp_property.
+evmpo:op_property_related_entity rdfs:subClassOf vivo:op_property.
+evmpo:dp_property_related_entity rdfs:subClassOf vivo:dp_property.
+vivo:op_property_related_entity rdfs:subClassOf vivo:op_property.
+vivo:dp_property_related_entity rdfs:subClassOf vivo:dp_property.
+
+vivo:property_annotation a owl:Class;
+   rdfs:subClassOf vivo:property_related_entity, evmpo:property_related_entity;
+   owl:equivalentClass evmpo:property_annotation;
+   rdfs:comment "non-paradigmatic aspect of a property as defined by the EVMPO"^^xs:string.
+vivo:op_property_annotation a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vivo:dp_property_annotation a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_property_related_entity rdfs:subClassOf vivo:op_property_annotation.
+evmpo:dp_property_related_entity rdfs:subClassOf vivo:dp_property_annotation.
+vivo:op_property_related_entity rdfs:subClassOf vivo:op_property_annotation.
+vivo:dp_property_related_entity rdfs:subClassOf vivo:dp_property_annotation.
 
 
 vivo:endorsement_entity a owl:Class;
@@ -3484,7 +3522,7 @@ vivo:BEST_CASE a vivo:judgement_order_quantification;
 vivo:WORST_CASE a vivo:judgement_order_quantification;
    vivo:is_relative_rank 0.0.
 
-   
+
 vivo:confidence a owl:Class;
    rdfs:subClassOf vivo:assessment_annotation.
 vivo:op_confidence a owl:Class;
@@ -3551,6 +3589,54 @@ vivo:REQUIRED_PER_SIMULATION_RUN a vivo:requirement_scope.
 vivo:REQUIRED_PER_SIMULATED_NANOSECOND a vivo:requirement_scope.
 
 
+vivo:physical_property a owl:Class;
+   rdfs:subClassOf vivo:property, evmpo:material_property;
+   rdfs:comment "thermodynamic or mechanical behaviour of a material (referring either to the real material itself or a model thereof)"^^xs:string.
+vivo:op_physical_property a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vivo:dp_physical_property a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vivo:op_property rdfs:subClassOf vivo:op_physical_property.
+vivo:dp_property rdfs:subClassOf vivo:dp_physical_property.
+evmpo:op_material_property rdfs:subClassOf vivo:op_physical_property.
+evmpo:dp_material_property rdfs:subClassOf vivo:dp_physical_property.
+
+vivo:is_quantity_kind a vivo:op_physical_property, owl:FunctionalProperty;
+   rdfs:domain vivo:physical_property;
+   rdfs:range quq:QuantityKind;
+   rdfs:comment "points to the physical property characterization following QUDT"^^xs:string.
+
+vivo:physical_property_information a owl:Class;
+   rdfs:subClassOf vivo:property_annotation, evmpo:property_annotation;
+   rdfs:comment "physical property information, i.e., a condition/datum referring to a physical (thermodynamic or mechanical) property"^^xs:string.
+vivo:op_physical_property_information a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vivo:dp_physical_property_information a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vivo:op_property_annotation rdfs:subClassOf vivo:op_physical_property_information.
+vivo:dp_property_annotation rdfs:subClassOf vivo:dp_physical_property_information.
+evmpo:op_property_annotation rdfs:subClassOf vivo:op_physical_property_information.
+evmpo:dp_property_annotation rdfs:subClassOf vivo:dp_physical_property_information.
+
+vivo:has_error a vivo:dp_physical_property_information;
+   rdfs:domain vivo:physical_property_information;
+   rdfs:range xs:decimal.
+vivo:has_given_property a vivo:op_physical_property_information;
+   rdfs:domain vivo:physical_property_information;
+   rdfs:range vivo:physical_property.
+vivo:has_lower_bound a vivo:dp_physical_property_information;
+   rdfs:domain vivo:physical_property_information;
+   rdfs:range xs:decimal.
+vivo:has_upper_bound a vivo:dp_physical_property_information;
+   rdfs:domain vivo:physical_property_information;
+   rdfs:range xs:decimal.
+vivo:has_value a vivo:dp_physical_property_information, owl:FunctionalProperty;
+   rdfs:domain vivo:physical_property_information;
+   rdfs:range xs:decimal.
+vivo:is_given_in a vivo:op_physical_property_information, owl:FunctionalProperty;
+   rdfs:domain vivo:physical_property_information;
+   rdfs:range qudt:DecimalScaledUnit.
+
 vivo:moda_property_assertion a owl:Class;
    rdfs:subClassOf vivo:assertion, vivo:validity_entity.
 vivo:op_moda_property_assertion a owl:Class;
@@ -3568,7 +3654,7 @@ vivo:refers_to_material a vivo:op_moda_property_assertion, owl:FunctionalPropert
    rdfs:subPropertyOf evmpo:has_meta_annotation.
 vivo:refers_to_property a vivo:op_moda_property_assertion, owl:FunctionalProperty;
    rdfs:domain vivo:moda_property_assertion;
-   rdfs:range osmo:physical_property.
+   rdfs:range vivo:physical_property.
 
 vivo:absolute_assertion a owl:Class;
    rdfs:subClassOf vivo:moda_property_assertion.
@@ -3588,7 +3674,7 @@ vivo:deviation_assertion a owl:Class;
 
 vivo:magnitude_assertion a owl:Class;
    rdfs:subClassOf vivo:absolute_assertion.
-   
+
 vivo:absolute_deviation_assertion a owl:Class;
    rdfs:subClassOf vivo:absolute_assertion, vivo:deviation_assertion.
 vivo:relative_deviation_assertion a owl:Class;
