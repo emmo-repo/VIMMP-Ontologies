@@ -1145,7 +1145,7 @@ osmo:dp_model_annotation rdfs:subClassOf osmo:dp_condition.
 osmo:op_simulation_annotation rdfs:subClassOf osmo:op_condition.
 osmo:dp_simulation_annotation rdfs:subClassOf osmo:dp_condition.
 
-osmo:condition owl:disjointUnionOf (owl:qualitative_condition owl:quantitative_condition).
+osmo:condition owl:disjointUnionOf (osmo:qualitative_condition osmo:quantitative_condition).
 
 osmo:qualitative_condition a owl:Class;
    rdfs:subClassOf osmo:condition;
