@@ -1,9 +1,9 @@
 
 ### VIMMP VALIDATION ONTOLOGY (VIVO) ###
 
-### VERSION 0.1.4 ###
+### VERSION 0.1.5 ###
 
-### DATED 12TH MARCH 2019 ###
+### DATED 13TH MARCH 2019 ###
 
 @prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
 
@@ -322,9 +322,9 @@ vivo:dp_property_annotation rdfs:subClassOf vivo:dp_physical_property_informatio
 evmpo:op_property_annotation rdfs:subClassOf vivo:op_physical_property_information.
 evmpo:dp_property_annotation rdfs:subClassOf vivo:dp_physical_property_information.
 
-vivo:has_error a vivo:dp_physical_property_information;
+vivo:has_error_statement a vivo:op_physical_property_information;
    rdfs:domain vivo:physical_property_information;
-   rdfs:range xs:decimal.
+   rdfs:range vivo:deviation_assertion.
 vivo:has_given_property a vivo:op_physical_property_information;
    rdfs:domain vivo:physical_property_information;
    rdfs:range vivo:physical_property.
@@ -383,3 +383,5 @@ vivo:absolute_deviation_assertion a owl:Class;
    rdfs:subClassOf vivo:absolute_assertion, vivo:deviation_assertion.
 vivo:relative_deviation_assertion a owl:Class;
    rdfs:subClassOf vivo:deviation_assertion.
+
+
