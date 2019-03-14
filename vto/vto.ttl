@@ -1,9 +1,9 @@
 
 ### VIMMP TRANSLATION ONTOLOGY (VTO) ###
 
-### VERSION 0.4.4 ###
+### VERSION 0.4.5 ###
 
-### DATED 12TH MARCH 2019 ###
+### DATED 14TH MARCH 2019 ###
 
 @prefix vto: <http://www.vimmp.eu/semantics/vto/vto.ttl#>.
 
@@ -17,28 +17,28 @@
 
 <http://www.vimmp.eu/semantics/vto/vto.ttl#> a owl:Ontology.
 
-vto:translation_related_entity a owl:Class;
+vto:translation_entity a owl:Class;
    rdfs:subClassOf evmpo:marketplace_related_entity;
-   rdfs:comment "translation related entity, i.e., an entity related to translating materials modelling problems to appropriate solutions"^^xs:string.
-vto:op_translation_related_entity a owl:Class;
+   rdfs:comment "translation entity, i.e., an entity related to translating materials modelling problems to appropriate solutions"^^xs:string.
+vto:op_translation_entity a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-vto:dp_translation_related_entity a owl:Class;
+vto:dp_translation_entity a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_marketplace_related_entity rdfs:subClassOf vto:op_translation_related_entity.
-evmpo:dp_marketplace_related_entity rdfs:subClassOf vto:dp_translation_related_entity.
+evmpo:op_marketplace_related_entity rdfs:subClassOf vto:op_translation_entity.
+evmpo:dp_marketplace_related_entity rdfs:subClassOf vto:dp_translation_entity.
 
 vto:project a owl:Class;
-   rdfs:subClassOf evmpo:marketplace_related_entity;
+   rdfs:subClassOf vto:translation_entity;
    rdfs:comment "project, i.e., an undertaking of one or several stakeholders aiming at reaching a pre-specified objective within limited time"^^xs:string.
 vto:op_project a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 vto:dp_project a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_marketplace_related_entity rdfs:subClassOf vto:op_project.
-evmpo:dp_marketplace_related_entity rdfs:subClassOf vto:dp_project.
+vto:op_translation_entity rdfs:subClassOf vto:op_project.
+vto:dp_translation_entity rdfs:subClassOf vto:dp_project.
 
 vto:mm_project a owl:Class;
-   rdfs:subClassOf vto:project, vto:translation_related_entity, evmpo:simulation_annotation;
+   rdfs:subClassOf vto:project, vto:translation_entity, evmpo:annotation;
    rdfs:comment "materials modelling project, i.e., a project specifically on materials modelling, aiming at realizing an agreed workflow that can be represented by MODA/OSMO"^^xs:string.
 vto:op_mm_project a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
@@ -46,13 +46,13 @@ vto:dp_mm_project a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 vto:op_project rdfs:subClassOf vto:op_mm_project.
 vto:dp_project rdfs:subClassOf vto:dp_mm_project.
-vto:op_translation_related_entity rdfs:subClassOf vto:op_mm_project.
-vto:dp_translation_related_entity rdfs:subClassOf vto:dp_mm_project.
-evmpo:op_simulation_annotation rdfs:subClassOf vto:op_mm_project.
-evmpo:dp_simulation_annotation rdfs:subClassOf vto:dp_mm_project.
+vto:op_translation_entity rdfs:subClassOf vto:op_mm_project.
+vto:dp_translation_entity rdfs:subClassOf vto:dp_mm_project.
+evmpo:op_annotation rdfs:subClassOf vto:op_mm_project.
+evmpo:dp_annotation rdfs:subClassOf vto:dp_mm_project.
 
 vto:translation_communication a owl:Class;
-   rdfs:subClassOf vto:translation_related_entity, evmpo:communication;
+   rdfs:subClassOf vto:translation_entity, evmpo:communication;
    owl:equivalentClass vico:translation_communication;
    rdfs:comment "translation communication, i.e., a EVMPO/VICO communication which, as its main feature or purpose, relates to translation"^^xs:string.
 vto:op_translation_communication a owl:Class;
@@ -61,8 +61,8 @@ vto:op_translation_communication a owl:Class;
 vto:dp_translation_communication a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty;
    owl:equivalentClass vico:dp_translation_communication.
-vto:op_translation_related_entity rdfs:subClassOf vto:op_translation_communication.
-vto:dp_translation_related_entity rdfs:subClassOf vto:dp_translation_communication.
+vto:op_translation_entity rdfs:subClassOf vto:op_translation_communication.
+vto:dp_translation_entity rdfs:subClassOf vto:dp_translation_communication.
 vto:op_communication rdfs:subClassOf vto:op_translation_communication.
 vto:dp_communication rdfs:subClassOf vto:dp_translation_communication.
 

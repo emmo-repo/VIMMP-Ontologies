@@ -1,9 +1,9 @@
 
 ### CATEGORIZATION OF VIMMP INSTITUTIONS AND INDIVIDUALS (CVIII) ###
 
-### VERSION 0.0.4 ###
+### VERSION 0.0.5 ###
 
-### DATED 8TH MARCH 2019 ###
+### DATED 14TH MARCH 2019 ###
 
 @prefix cviii: <http://www.vimmp.eu/semantics/cviii/cviii.ttl#>.
 
@@ -17,23 +17,12 @@
 
 <http://www.vimmp.eu/semantics/cviii/cviii.ttl#> a owl:Ontology.
 
-cviii:agent_related_entity a owl:Class;
-   rdfs:subClassOf evmpo:role_related_entity.
-cviii:op_agent_related_entity a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-cviii:dp_agent_related_entity a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_role_related_entity owl:equivalentClass cviii:op_agent_related_entity.
-evmpo:dp_role_related_entity owl:equivalentClass cviii:dp_agent_related_entity.
-
 cviii:agent a owl:Class;
-   rdfs:subClassOf cviii:agent_related_entity, evmpo:role.
+   rdfs:subClassOf evmpo:role.
 cviii:op_agent a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 cviii:dp_agent a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-cviii:op_agent_related_entity rdfs:subClassOf cviii:op_agent.
-cviii:dp_agent_related_entity rdfs:subClassOf cviii:dp_agent.
 evmpo:op_role rdfs:subClassOf cviii:op_agent.
 evmpo:dp_role rdfs:subClassOf cviii:dp_agent.
 
@@ -207,15 +196,13 @@ cviii:op_interlocutor rdfs:subClassOf cviii:op_pseudonym.
 cviii:dp_interlocutor rdfs:subClassOf cviii:dp_pseudonym.
 
 cviii:interlocutor_type a owl:Class;
-   rdfs:subClassOf cviii:agent_related_entity, evmpo:role_annotation.
+   rdfs:subClassOf evmpo:annotation.
 cviii:op_interlocutor_type a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 cviii:dp_interlocutor_type a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-cviii:op_agent_related_entity rdfs:subClassOf cviii:op_interlocutor_type.
-cviii:dp_agent_related_entity rdfs:subClassOf cviii:dp_interlocutor_type.
-evmpo:op_role_annotation rdfs:subClassOf cviii:op_interlocutor_type.
-evmpo:dp_role_annotation rdfs:subClassOf cviii:dp_interlocutor_type.
+evmpo:op_annotation rdfs:subClassOf cviii:op_interlocutor_type.
+evmpo:dp_annotation rdfs:subClassOf cviii:dp_interlocutor_type.
 
 cviii:interlocutor_group a owl:Class;
    rdfs:subClassOf cviii:interlocutor_type.

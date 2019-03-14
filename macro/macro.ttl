@@ -1,9 +1,9 @@
 
 ### MARKETPLACE-ACCESSIBLE COMPUTATIONAL RESOURCE ONTOLOGY (MACRO) ###
 
-### VERSION 0.0.2 ###
+### VERSION 0.0.3 ###
 
-### DATED 21ST JANUARY 2019 ###
+### DATED 14TH MARCH 2019 ###
 
 @prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
 
@@ -16,23 +16,17 @@
 
 <http://www.vimmp.eu/semantics/macro/macro.ttl#> a owl:Ontology.
 
-macro:infrastructure_related_entity a owl:Class;
-   owl:equivalentClass evmpo:infrastructure_related_entity.
-macro:op_infrastructure_related_entity a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-macro:dp_infrastructure_related_entity a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_infrastructure_related_entity owl:equivalentClass macro:op_infrastructure_related_entity.
-evmpo:dp_infrastructure_related_entity owl:equivalentClass macro:dp_infrastructure_related_entity.
-
 macro:infrastructure a owl:Class;
-   rdfs:subClassOf macro:infrastructure_related_entity.
+   rdfs:subClassOf evmpo:paradigmatic_entity;
+   owl:equivalentClass evmpo:infrastructure.
 macro:op_infrastructure a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
+   rdfs:subClassOf owl:ObjectProperty;
+   owl:equivalentClass evmpo:op_infrastructure.
 macro:dp_infrastructure a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-macro:op_infrastructure_related_entity rdfs:subClassOf macro:op_infrastructure.
-macro:dp_infrastructure_related_entity rdfs:subClassOf macro:dp_infrastructure.
+   rdfs:subClassOf owl:DatatypeProperty;
+   owl:equivalentClass evmpo:dp_infrastructure.
+evmpo:op_paradigmatic_entity rdfs:subClassOf macro:op_infrastructure.
+evmpo:dp_paradigmatic_entity rdfs:subClassOf macro:dp_infrastructure.
 
 macro:repository a owl:Class;
    rdfs:subClassOf macro:infrastructure, cviii:agent.
