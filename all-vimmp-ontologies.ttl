@@ -13,9 +13,9 @@
 
 ### CATEGORIZATION OF VIMMP INSTITUTIONS AND INDIVIDUALS (CVIII) ###
 
-### VERSION 0.0.5 ###
+### VERSION 0.0.6 ###
 
-### DATED 14TH MARCH 2019 ###
+### DATED 15TH MARCH 2019 ###
 
 @prefix cviii: <http://www.vimmp.eu/semantics/cviii/cviii.ttl#>.
 
@@ -240,11 +240,13 @@ cviii:dp_interlocutor_type rdfs:subClassOf cviii:dp_interlocutor_tag.
 
 cviii:has_interlocutor_tag a cviii:op_interlocutor;
    rdfs:domain cviii:interlocutor;
-   rdfs:range cviii:interlocutor_tag.
+   rdfs:range cviii:interlocutor_tag;
+   rdfs:subPropertyOf evmpo:has_role_annotation.
 
 cviii:is_in_group a cviii:op_interlocutor_tag;
    rdfs:domain cviii:interlocutor_tag;
-   rdfs:range cviii:interlocutor_group.
+   rdfs:range cviii:interlocutor_group;
+   rdfs:subPropertyOf evmpo:has_meta_annotation.
 cviii:is_in_country a cviii:dp_interlocutor_tag;
    rdfs:domain cviii:interlocutor_tag;
    rdfs:range xs:string.
@@ -266,7 +268,7 @@ cviii:is_sme a cviii:dp_interlocutor_tag;
 
 ### EUROPEAN VIRTUAL MARKETPLACE ONTOLOGY (EVMPO) ###
 
-### VERSION 1.0.1, DATED 14TH MARCH 2019 ###
+### VERSION 1.0.2, DATED 15TH MARCH 2019 ###
 
 @prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
 
@@ -298,6 +300,8 @@ evmpo:dp_marketplace_related_entity a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 evmpo:op_marketplace_related_entity rdfs:subClassOf evmpo:op_paradigmatic_entity.
 evmpo:dp_marketplace_related_entity rdfs:subClassOf evmpo:dp_paradigmatic_entity.
+
+evmpo:paradigmatic_entity owl:disjointWith evmpo:annotation.
 
 
 ###########################################################
@@ -469,16 +473,40 @@ evmpo:data_item a owl:Class;
    owl:equivalentClass iao:IAO_0000027;  # iao label "data item"
    rdfs:subClassOf evmpo:information_content_entity;
    rdfs:comment "data item as characterized by the IAO"^^xs:string.
+evmpo:op_data_item a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_data_item a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_information_content_entity rdfs:subClassOf evmpo:op_data_item.
+evmpo:dp_information_content_entity rdfs:subClassOf evmpo:dp_data_item.
 evmpo:document a owl:Class;
    owl:equivalentClass iao:IAO_0000310;  # iao label "document"
    rdfs:subClassOf evmpo:information_content_entity;
    rdfs:comment "document as characterized by the IAO"^^xs:string.
+evmpo:op_document a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_document a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_information_content_entity rdfs:subClassOf evmpo:op_document.
+evmpo:dp_information_content_entity rdfs:subClassOf evmpo:dp_document.
 evmpo:legal_document a owl:Class;
    rdfs:subClassOf evmpo:document;
    rdfs:comment "any document (e.g., a contract or a quotation) related to legal issues"^^xs:string.
+evmpo:op_legal_document a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_legal_document a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_document rdfs:subClassOf evmpo:op_legal_document.
+evmpo:dp_document rdfs:subClassOf evmpo:dp_legal_document.
 evmpo:training_document a owl:Class;
    rdfs:subClassOf evmpo:document;
    rdfs:comment "any document (e.g., manual, textbook, video, or collection of slides) that can help at acquiring competencies"^^xs:string.
+evmpo:op_training_document a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_training_document a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_document rdfs:subClassOf evmpo:op_training_document.
+evmpo:dp_document rdfs:subClassOf evmpo:dp_training_document.
 
 ### annotations to the fundamental class ###
 
@@ -583,6 +611,8 @@ evmpo:dp_model a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 evmpo:op_paradigmatic_entity rdfs:subClassOf evmpo:op_model.
 evmpo:dp_paradigmatic_entity rdfs:subClassOf evmpo:dp_model.
+
+evmpo:model owl:disjointWith evmpo:simulation.
 
 ### annotations to the fundamental class ###
 
@@ -709,8 +739,8 @@ evmpo:op_tradeable_object a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 evmpo:dp_tradeable_object a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_product rdfs:subClassOf evmpo:op_tradeable_object.
-evmpo:dp_product rdfs:subClassOf evmpo:dp_tradeable_object.
+evmpo:op_service rdfs:subClassOf evmpo:op_tradeable_object.
+evmpo:dp_service rdfs:subClassOf evmpo:dp_tradeable_object.
 
 ### annotations to the fundamental class ###
 
@@ -751,12 +781,12 @@ evmpo:dp_property rdfs:subClassOf evmpo:dp_material_property.
 evmpo:physical_process_property a owl:Class;
    rdfs:subClassOf evmpo:property;
    rdfs:comment "physical process property, i.e., a property associated with a physical process"^^xs:string.
-evmpo:op_physical_process a owl:Class;
+evmpo:op_physical_process_property a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-evmpo:dp_physical_process a owl:Class;
+evmpo:dp_physical_process_property a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_property rdfs:subClassOf evmpo:op_physical_process.
-evmpo:dp_property rdfs:subClassOf evmpo:dp_physical_process.
+evmpo:op_property rdfs:subClassOf evmpo:op_physical_process_property.
+evmpo:dp_property rdfs:subClassOf evmpo:dp_physical_process_property.
 
 ### annotations to the fundamental class ###
 
@@ -1002,9 +1032,9 @@ macro:MARKETPLACE_MARKETPLACE a macro:virtual_marketplace.
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 0.2.5 ###
+### VERSION 0.2.6 ###
 
-### DATED 14TH MARCH 2019 ###
+### DATED 15TH MARCH 2019 ###
 
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -1047,6 +1077,8 @@ osmo:dp_simulation a owl:Class;
    owl:equivalentClass evmpo:dp_simulation.
 evmpo:op_paradigmatic_entity rdfs:subClassOf osmo:op_simulation.
 evmpo:dp_paradigmatic_entity rdfs:subClassOf osmo:dp_simulation.
+
+osmo:model owl:disjointWith osmo:simulation.
 
 
 osmo:moda_structure_entity a owl:Class;
@@ -1099,7 +1131,6 @@ osmo:has_output_property a osmo:op_moda_section;
 osmo:has_moda_aspect a osmo:op_moda_section;
    rdfs:domain osmo:moda_section;
    rdfs:range osmo:moda_section_aspect;
-   rdfs:subPropertyOf evmpo:has_annotation;
    rdfs:comment "points to an aspect associated with the respective MODA section"^^xs:string.
 
 osmo:has_boundary_condition a osmo:op_moda_section;
@@ -1125,11 +1156,11 @@ osmo:has_material_information a osmo:op_moda_section;
 osmo:has_method_type a osmo:op_moda_section;
    rdfs:domain osmo:moda_section;
    rdfs:range osmo:moda_method_type;
-   rdfs:subPropertyOf osmo:has_moda_aspect.
+   rdfs:subPropertyOf osmo:has_moda_aspect, evmpo:has_annotation.
 osmo:has_moda_section_description a osmo:op_moda_section;
    rdfs:domain osmo:moda_section;
    rdfs:range osmo:moda_section_description;
-   rdfs:subPropertyOf osmo:has_moda_aspect.
+   rdfs:subPropertyOf osmo:has_moda_aspect, evmpo:has_annotation.
 osmo:has_section_literature a osmo:op_moda_section;
    rdfs:domain osmo:moda_section;
    rdfs:range osmo:moda_section_literature;
@@ -1137,7 +1168,7 @@ osmo:has_section_literature a osmo:op_moda_section;
 osmo:has_section_parameter a osmo:op_moda_section;
    rdfs:domain osmo:moda_section;
    rdfs:range osmo:moda_section_parameter;
-   rdfs:subPropertyOf osmo:has_moda_aspect.
+   rdfs:subPropertyOf osmo:has_moda_aspect, evmpo:has_annotation.
 osmo:has_temporal_discretization a osmo:op_moda_section;
    rdfs:domain osmo:moda_section;
    rdfs:range osmo:moda_temporal_discretization;
@@ -1148,7 +1179,7 @@ osmo:has_timespan a osmo:op_moda_section;
    rdfs:subPropertyOf osmo:has_moda_aspect.
 
 osmo:moda_section_aspect a owl:Class;
-   rdfs:subClassOf osmo:moda_section_entity, evmpo:annotation;
+   rdfs:subClassOf osmo:moda_section_entity;
    rdfs:comment "MODA section aspect, i.e., an aspect of a user case, model, solver, or processor that can be represented by a section in MODA"^^xs:string.
 osmo:op_moda_section_aspect a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
@@ -1156,8 +1187,6 @@ osmo:dp_moda_section_aspect a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 osmo:op_moda_section_entity rdfs:subClassOf osmo:op_moda_section_aspect.
 osmo:dp_moda_section_entity rdfs:subClassOf osmo:dp_moda_section_aspect.
-evmpo:op_annotation rdfs:subClassOf osmo:op_moda_section_aspect.
-evmpo:dp_annotation rdfs:subClassOf osmo:dp_moda_section_aspect.
 
 osmo:has_moda_string_content a osmo:dp_moda_section_aspect;
    rdfs:domain osmo:moda_section_aspect;
@@ -1194,7 +1223,7 @@ vivo:dp_deviation_assertion rdfs:subClassOf osmo:dp_moda_error_statement.
 
 osmo:moda_geometry_information a owl:Class;
    rdfs:subClassOf osmo:moda_boundary_condition;
-   rdfs:comment "MODA geometry information, i.e., information on the geometry considered by a MODA section (note: this is not the geometry, but information about the geometry)"^^xs:string.
+   rdfs:comment "MODA geometry information, i.e., geometry considered by a MODA section"^^xs:string.
 osmo:op_moda_geometry_information a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 osmo:dp_moda_geometry_information a owl:Class;
@@ -1206,7 +1235,7 @@ osmo:PERIODIC_BOUNDARY_CONDITION a osmo:moda_geometry_information.
 
 osmo:moda_material_information a owl:Class;
    rdfs:subClassOf osmo:moda_section_aspect;
-   rdfs:comment "MODA material information, i.e., information on the material considered by a MODA section (note: this is not the material, but information about the material)"^^xs:string.
+   rdfs:comment "MODA material information, i.e., material considered by a MODA section"^^xs:string.
 osmo:op_moda_material_information a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 osmo:dp_moda_material_information a owl:Class;
@@ -1215,14 +1244,16 @@ osmo:op_moda_section_aspect rdfs:subClassOf osmo:op_moda_material_information.
 osmo:dp_moda_section_aspect rdfs:subClassOf osmo:dp_moda_material_information.
 
 osmo:moda_method_type a owl:Class;
-   rdfs:subClassOf osmo:moda_section_aspect;
-   rdfs:comment "MODA method type, i.e., any information on type (and name) of a method employed by a MODA section"^^xs:string.
+   rdfs:subClassOf osmo:moda_section_aspect, evmpo:annotation;
+   rdfs:comment "MODA method type, i.e., type and/or name information on a method employed by a MODA section"^^xs:string.
 osmo:op_moda_method_type a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 osmo:dp_moda_method_type a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 osmo:op_moda_section_aspect rdfs:subClassOf osmo:op_moda_method_type.
 osmo:dp_moda_section_aspect rdfs:subClassOf osmo:dp_moda_method_type.
+evmpo:op_annotation rdfs:subClassOf osmo:op_moda_method_type.
+evmpo:dp_annotation rdfs:subClassOf osmo:dp_moda_method_type.
 
 osmo:moda_section_parameter a owl:Class;
    rdfs:subClassOf osmo:moda_section_aspect, osmo:parameter;
@@ -1237,7 +1268,7 @@ osmo:op_parameter rdfs:subClassOf osmo:op_moda_section_parameter.
 osmo:dp_parameter rdfs:subClassOf osmo:dp_moda_section_parameter.
 
 osmo:moda_section_description a owl:Class;
-   rdfs:subClassOf osmo:moda_section_aspect;
+   rdfs:subClassOf osmo:moda_section_aspect, evmpo:annotation;
    rdfs:comment "MODA section description, i.e., any descriptive-type information concerning a MODA section"^^xs:string.
 osmo:op_moda_section_description a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
@@ -1245,6 +1276,8 @@ osmo:dp_moda_section_description a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 osmo:op_moda_section_aspect rdfs:subClassOf osmo:op_moda_section_description.
 osmo:dp_moda_section_aspect rdfs:subClassOf osmo:dp_moda_section_description.
+evmpo:op_annotation rdfs:subClassOf osmo:op_moda_section_description.
+evmpo:dp_annotation rdfs:subClassOf osmo:dp_moda_section_description.
 
 osmo:moda_section_literature a owl:Class;
    rdfs:subClassOf osmo:moda_section_aspect;
@@ -1258,7 +1291,7 @@ osmo:dp_moda_section_aspect rdfs:subClassOf osmo:dp_moda_section_literature.
 
 osmo:moda_software a owl:Class;
    rdfs:subClassOf osmo:moda_section_aspect;
-   rdfs:comment "MODA software, i.e., descriptive-type information on software employed for a MODA section"^^xs:string.
+   rdfs:comment "MODA software, i.e., software employed for a MODA section"^^xs:string.
 osmo:op_moda_software a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 osmo:dp_moda_software a owl:Class;
@@ -1267,18 +1300,20 @@ osmo:op_moda_section_aspect rdfs:subClassOf osmo:op_moda_software.
 osmo:dp_moda_section_aspect rdfs:subClassOf osmo:dp_moda_software.
 
 osmo:moda_temporal_discretization a owl:Class;
-   rdfs:subClassOf osmo:moda_section_aspect;
-   rdfs:comment "MODA temporal discretization, i.e., information on a temporal discretization approach conceptually underlying a MODA section"^^xs:string.
+   rdfs:subClassOf osmo:moda_section_aspect, evmpo:annotation;
+   rdfs:comment "MODA temporal discretization, i.e., temporal discretization approach conceptually underlying a MODA section"^^xs:string.
 osmo:op_moda_temporal_discretization a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 osmo:dp_moda_temporal_discretization a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 osmo:op_moda_section_aspect rdfs:subClassOf osmo:op_moda_temporal_discretization.
 osmo:dp_moda_section_aspect rdfs:subClassOf osmo:dp_moda_temporal_discretization.
+evmpo:op_annotation rdfs:subClassOf osmo:op_moda_temporal_discretization.
+evmpo:dp_annotation rdfs:subClassOf osmo:dp_moda_temporal_discretization.
 
 osmo:moda_timespan a owl:Class;
    rdfs:subClassOf osmo:moda_section_aspect;
-   rdfs:comment "MODA time span, i.e., information on the time interval considered, modelled, or represented by a MODA section"^^xs:string.
+   rdfs:comment "MODA time span, i.e., time interval considered, modelled, or represented by a MODA section"^^xs:string.
 osmo:op_moda_timespan a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 osmo:dp_moda_timespan a owl:Class;
@@ -1321,7 +1356,7 @@ osmo:has_moda_usercase_aspect a osmo:op_moda_usercase;
 osmo:has_moda_usercase_description a osmo:op_moda_usercase;
    rdfs:domain osmo:moda_usercase;
    rdfs:range osmo:moda_usercase_description;
-   rdfs:subPropertyOf osmo:has_moda_usercase_aspect, osmo:has_moda_section_description;
+   rdfs:subPropertyOf osmo:has_moda_usercase_aspect, osmo:has_moda_section_description, evmpo:has_meta_annotation;
    rdfs:comment "MODA subsection 1.1"^^xs:string.
 osmo:has_moda_usercase_mi a osmo:op_moda_usercase;
    rdfs:domain osmo:moda_usercase;
@@ -1474,12 +1509,12 @@ osmo:has_moda_model_ge a osmo:op_moda_model;
 osmo:has_moda_model_type a osmo:op_moda_model;
    rdfs:domain osmo:moda_model;
    rdfs:range osmo:moda_model_type;
-   rdfs:subPropertyOf osmo:has_moda_model_aspect, osmo:has_method_type;
+   rdfs:subPropertyOf osmo:has_moda_model_aspect, osmo:has_method_type, evmpo:has_model_annotation;
    rdfs:comment "MODA subsection 2.1"^^xs:string.
 osmo:has_romm_level a osmo:op_moda_model;
    rdfs:domain osmo:moda_model;
    rdfs:range osmo:romm_level;
-   rdfs:subPropertyOf osmo:has_moda_model_aspect;
+   rdfs:subPropertyOf osmo:has_moda_model_aspect, evmpo:has_model_annotation;
    rdfs:comment "MODA subsection 2.2"^^xs:string.
 osmo:has_moda_model_pe a osmo:op_moda_model;
    rdfs:domain osmo:moda_model;
@@ -1498,7 +1533,7 @@ osmo:has_moda_model_boundary_condition a osmo:op_moda_model;
    rdfs:comment "MODA subsection 2.5"^^xs:string.
 
 osmo:moda_model_aspect a owl:Class;
-   rdfs:subClassOf osmo:moda_section_aspect, osmo:moda_model_entity, evmpo:annotation;
+   rdfs:subClassOf osmo:moda_section_aspect, osmo:moda_model_entity;
    rdfs:comment "MODA model aspect, i.e., an aspect of a model that can be described by MODA section 2"^^xs:string.
 osmo:op_moda_model_aspect a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
@@ -1508,8 +1543,6 @@ osmo:op_moda_section_aspect rdfs:subClassOf osmo:op_moda_model_aspect.
 osmo:dp_moda_section_aspect rdfs:subClassOf osmo:dp_moda_model_aspect.
 osmo:op_moda_model_entity rdfs:subClassOf osmo:op_moda_model_aspect.
 osmo:dp_moda_model_entity rdfs:subClassOf osmo:dp_moda_model_aspect.
-evmpo:op_annotation rdfs:subClassOf osmo:op_moda_model_aspect.
-evmpo:dp_annotation rdfs:subClassOf osmo:dp_moda_model_aspect.
 
 osmo:moda_model_aspect owl:intersectionOf (osmo:moda_section_aspect osmo:moda_model_entity).
 
@@ -1536,7 +1569,7 @@ osmo:UNITED_ATOM a osmo:moda_model_type.
 osmo:UNPARAMETERIZED a osmo:moda_model_type.
 
 osmo:romm_level a owl:Class;
-   rdfs:subClassOf osmo:moda_model_aspect;
+   rdfs:subClassOf osmo:moda_model_aspect, evmpo:annotation;
    owl:oneOf (osmo:ELECTRONIC osmo:ATOMISTIC osmo:MESOSCOPIC osmo:CONTINUUM);
    rdfs:comment "RoMM level (MODA subsection 2.2), i.e., the electronic, atomistic, mesoscopic, or continuum level following RoMM"^^xs:string.
 osmo:op_romm_level a owl:Class;
@@ -1545,6 +1578,8 @@ osmo:dp_romm_level a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 osmo:op_moda_model_aspect rdfs:subClassOf osmo:op_romm_level.
 osmo:dp_moda_model_aspect rdfs:subClassOf osmo:dp_romm_level.
+evmpo:op_annotation rdfs:subClassOf osmo:op_romm_level.
+evmpo:dp_annotation rdfs:subClassOf osmo:dp_romm_level.
 
 osmo:ELECTRONIC a osmo:romm_level;
    osmo:has_moda_string_content "electronic materials model".
@@ -1634,7 +1669,7 @@ osmo:has_moda_solver_aspect a osmo:op_moda_solver;
 osmo:has_moda_solver_method_type a osmo:op_moda_solver;
    rdfs:domain osmo:moda_solver;
    rdfs:range osmo:moda_solver_method_type;
-   rdfs:subPropertyOf osmo:has_moda_solver_aspect, osmo:has_method_type;
+   rdfs:subPropertyOf osmo:has_moda_solver_aspect, osmo:has_method_type, evmpo:has_meta_annotation;
    rdfs:comment "MODA subsection 3.1"^^xs:string.
 osmo:has_moda_solver_software a osmo:op_moda_solver;
    rdfs:domain osmo:moda_solver;
@@ -1659,7 +1694,7 @@ osmo:has_moda_solver_boundary_condition a osmo:op_moda_solver;
 osmo:has_moda_solver_parameter a osmo:op_moda_solver;
    rdfs:domain osmo:moda_solver;
    rdfs:range osmo:moda_solver_parameter;
-   rdfs:subPropertyOf osmo:has_moda_solver_aspect, osmo:has_section_parameter;
+   rdfs:subPropertyOf osmo:has_moda_solver_aspect, osmo:has_section_parameter, evmpo:has_meta_annotation;
    rdfs:comment "MODA subsection 3.6"^^xs:string.
 
 osmo:moda_solver_aspect a owl:Class;
@@ -1842,7 +1877,7 @@ osmo:has_moda_processor_aspect a osmo:op_moda_processor;
 osmo:has_moda_processor_method_type a osmo:op_moda_processor;
    rdfs:domain osmo:moda_processor;
    rdfs:range osmo:moda_processor_method_type;
-   rdfs:subPropertyOf osmo:has_moda_processor_aspect, osmo:has_method_type;
+   rdfs:subPropertyOf osmo:has_moda_processor_aspect, osmo:has_method_type, evmpo:has_meta_annotation;
    rdfs:comment "MODA subsection 4.2"^^xs:string.
 osmo:has_moda_processor_es a osmo:op_moda_processor;
    rdfs:domain osmo:moda_processor;
@@ -2037,14 +2072,14 @@ evmpo:op_annotation rdfs:subClassOf osmo:op_parameter.
 evmpo:dp_annotation rdfs:subClassOf osmo:dp_parameter.
 
 osmo:condition a owl:Class;
-   rdfs:subClassOf evmpo:annotation;
+   rdfs:subClassOf evmpo:marketplace_related_entity;
    rdfs:comment "condition, i.e., a statement concerning values of properties and/or parameters and/or their relation to each other"^^xs:string.
 osmo:op_condition a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 osmo:dp_condition a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_annotation rdfs:subClassOf osmo:op_condition.
-evmpo:dp_annotation rdfs:subClassOf osmo:dp_condition.
+evmpo:op_marketplace_related_entity rdfs:subClassOf osmo:op_condition.
+evmpo:dp_marketplace_related_entity rdfs:subClassOf osmo:dp_condition.
 
 osmo:condition owl:disjointUnionOf (osmo:qualitative_condition osmo:quantitative_condition).
 
@@ -2075,7 +2110,7 @@ osmo:dp_condition rdfs:subClassOf osmo:dp_quantitative_condition.
 osmo:has_material_class a osmo:op_moda_usercase;
    rdfs:domain osmo:moda_usercase;
    rdfs:range osmo:moda_material_class;
-   rdfs:subPropertyOf evmpo:has_annotation.
+   rdfs:subPropertyOf evmpo:has_meta_annotation.
 osmo:has_material a osmo:op_moda_usercase;
    rdfs:domain osmo:moda_usercase;
    rdfs:range osmo:moda_material_descriptor.
@@ -2115,9 +2150,9 @@ osmo:is_given_by a osmo:dp_moda_cas_number, owl:FunctionalProperty;
 
 ### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
 
-### VERSION 0.2.3 ###
+### VERSION 0.2.4 ###
 
-### DATED 14TH MARCH 2019 ###
+### DATED 15TH MARCH 2019 ###
 
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 
@@ -2156,7 +2191,7 @@ otras:op_training_entity rdfs:subClassOf otras:op_carrier.
 otras:dp_training_entity rdfs:subClassOf otras:dp_carrier.
 
 otras:training_document a owl:Class;
-   rdfs:comment "a training document is an document (as defined by IAO) that is related to training activities on a virtual marketplace"^^xs:string;
+   rdfs:comment "a training document is an document (as defined by IAO) that is related to training content on a virtual marketplace"^^xs:string;
    rdfs:subClassOf evmpo:document, otras:carrier;
    rdfs:subClassOf iao:IAO_0000310;  # iao label "document"
    owl:intersectionOf (evmpo:document otras:carrier).
@@ -2188,11 +2223,13 @@ otras:tradeable_object a owl:Class;
    owl:equivalentClass evmpo:tradeable_object;
    rdfs:subClassOf evmpo:service.
 otras:op_tradeable_object a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
+   rdfs:subClassOf owl:ObjectProperty;
+   owl:equivalentClass evmpo:op_tradeable_object.
 otras:dp_tradeable_object a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_service rdfs:subClassOf otras:op_tradeable_object; owl:equivalentClass evmpo:op_tradeable_object.
-evmpo:dp_service rdfs:subClassOf otras:dp_tradeable_object; owl:equivalentClass evmpo:dp_tradeable_object.
+   rdfs:subClassOf owl:DatatypeProperty;
+   owl:equivalentClass evmpo:dp_tradeable_object.
+evmpo:op_service rdfs:subClassOf otras:op_tradeable_object.
+evmpo:dp_service rdfs:subClassOf otras:dp_tradeable_object.
 
 otras:training_service a owl:Class;
    rdfs:comment "a training service is a tradeable object that has a content related to training activities on a virtual marketplace"^^xs:string;
@@ -2211,13 +2248,15 @@ otras:has_offered_course a otras:op_training_service;
 
 otras:focus a owl:Class;
    rdfs:comment "focus, i.e., a studied object or topic or training objective (or an aspect or constitutive part thereof)";
-   rdfs:subClassOf otras:training_entity.
+   rdfs:subClassOf otras:training_entity, evmpo:annotation.
 otras:op_focus a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 otras:dp_focus a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 otras:op_training_entity rdfs:subClassOf otras:op_focus.
 otras:dp_training_entity rdfs:subClassOf otras:dp_focus.
+evmpo:op_annotation rdfs:subClassOf otras:op_focus.
+evmpo:dp_annotation rdfs:subClassOf otras:dp_focus.
 
 otras:has_focus_descriptor a otras:dp_focus;
    rdfs:domain otras:focus;
@@ -2225,14 +2264,12 @@ otras:has_focus_descriptor a otras:dp_focus;
 
 otras:topic a owl:Class;
    rdfs:comment "a topic as defined by CCSO"^^xs:string;
-   rdfs:subClassOf evmpo:annotation, otras:focus;
+   rdfs:subClassOf otras:focus;
    owl:equivalentClass ccso:Topic.
 otras:op_topic a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 otras:dp_topic a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_annotation rdfs:subClassOf otras:op_topic.
-evmpo:dp_annotation rdfs:subClassOf otras:dp_topic.
 otras:op_focus rdfs:subClassOf otras:op_topic.
 otras:dp_focus rdfs:subClassOf otras:dp_topic.
 
@@ -2243,13 +2280,11 @@ otras:has_topic_descriptor a otras:dp_topic;
 
 otras:specifier a owl:Class;
    rdfs:comment "specifier, i.e., a constitutive element of a learning outcome (acquired competency) description"^^xs:string;
-   rdfs:subClassOf evmpo:annotation, otras:focus, otras:HAS_A_SPECIFIER_DESCRIPTOR.
+   rdfs:subClassOf otras:focus, otras:HAS_A_SPECIFIER_DESCRIPTOR.
 otras:op_specifier a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 otras:dp_specifier a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_annotation rdfs:subClassOf otras:op_specifier.
-evmpo:dp_annotation rdfs:subClassOf otras:dp_specifier.
 otras:op_focus rdfs:subClassOf otras:op_specifier.
 otras:dp_focus rdfs:subClassOf otras:dp_specifier.
 
@@ -2351,14 +2386,12 @@ otras:has_example_topic a otras:op_example_specifier;
 
 otras:learning_outcome a owl:Class;
    rdfs:comment "a learning outcome, equivalent to LearningOutcome from CCSO, further characterized by OTRAS"^^xs:string;
-   rdfs:subClassOf evmpo:annotation, otras:focus;
+   rdfs:subClassOf otras:focus;
    owl:equivalentClass ccso:LearningOutcome.
 otras:op_learning_outcome a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 otras:dp_learning_outcome a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_annotation rdfs:subClassOf otras:op_learning_outcome.
-evmpo:dp_annotation rdfs:subClassOf otras:dp_learning_outcome.
 otras:op_focus rdfs:subClassOf otras:op_learning_outcome.
 otras:dp_focus rdfs:subClassOf otras:dp_learning_outcome.
 
@@ -2400,24 +2433,24 @@ otras:has_example_specifier a otras:op_learning_outcome;
 
 otras:syllabus a owl:Class;
    rdfs:comment "a syllabus as defined by CCSO"^^xs:string;
-   rdfs:subClassOf evmpo:annotation;
+   rdfs:subClassOf evmpo:document;
    owl:equivalentClass ccso:Syllabus.
 otras:op_syllabus a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 otras:dp_syllabus a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_annotation rdfs:subClassOf otras:op_syllabus.
-evmpo:dp_annotation rdfs:subClassOf otras:dp_syllabus.
+evmpo:op_document rdfs:subClassOf otras:op_syllabus.
+evmpo:dp_document rdfs:subClassOf otras:dp_syllabus.
 
 otras:aims_to a otras:op_syllabus;
    rdfs:domain otras:syllabus;
    rdfs:range otras:learning_outcome;
-   rdfs:subPropertyOf evmpo:has_meta_annotation;
+   rdfs:subPropertyOf evmpo:has_information_content_entity_annotation;
    owl:equivalentProperty ccso:aimsToLO.
 otras:covers_topic a otras:op_syllabus;
    rdfs:domain otras:syllabus;
    rdfs:range otras:topic;
-   rdfs:subPropertyOf evmpo:has_meta_annotation;
+   rdfs:subPropertyOf evmpo:has_information_content_entity_annotation;
    owl:equivalentProperty ccso:coversTopic.
 otras:has_syllabus_resource a otras:op_syllabus;
    rdfs:domain otras:syllabus;
@@ -2425,12 +2458,14 @@ otras:has_syllabus_resource a otras:op_syllabus;
 
 otras:course a owl:Class;
    rdfs:comment "a course as defined by CCSO"^^xs:string;
-   rdfs:subClassOf evmpo:annotation;
+   rdfs:subClassOf otras:training_entity, evmpo:annotation;
    owl:equivalentClass ccso:Course.
 otras:op_course a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 otras:dp_course a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
+otras:op_training_entity rdfs:subClassOf otras:op_course.
+otras:dp_training_entity rdfs:subClassOf otras:dp_course.
 evmpo:op_annotation rdfs:subClassOf otras:op_course.
 evmpo:dp_annotation rdfs:subClassOf otras:dp_course.
 
@@ -2448,7 +2483,6 @@ otras:has_event a otras:op_course;
 otras:has_syllabus a otras:op_course, owl:FunctionalProperty;
    rdfs:domain otras:course;
    rdfs:range otras:syllabus;
-   rdfs:subPropertyOf evmpo:has_meta_annotation;
    owl:equivalentProperty ccso:hasSyllabus.
 otras:is_offered_by a otras:op_course;
    rdfs:domain otras:course;
@@ -2457,13 +2491,11 @@ otras:is_offered_by a otras:op_course;
 
 otras:training_unit a owl:Class;
    rdfs:comment "a training unit is an elementary (part of a) course that is not further subdivided into (proper) parts"^^xs:string;
-   rdfs:subClassOf evmpo:annotation, otras:course.
+   rdfs:subClassOf otras:course.
 otras:op_training_unit a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 otras:dp_training_unit a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_annotation rdfs:subClassOf otras:op_training_unit.
-evmpo:dp_annotation rdfs:subClassOf otras:dp_training_unit.
 otras:op_course rdfs:subClassOf otras:op_training_unit.
 otras:dp_course rdfs:subClassOf otras:dp_training_unit.
 
@@ -2480,7 +2512,6 @@ otras:R_HAS_NO_TRAINING_UNIT a owl:Restriction;
    owl:onProperty otras:has_training_unit;
    owl:cardinality 0.
 otras:training_unit owl:intersectionOf (otras:course otras:R_HAS_NO_TRAINING_UNIT).
-
 
 otras:mm_topic a owl:Class;
    rdfs:comment "materials modelling topic, i.e., a topic related to the subject area of materials modelling, understood broadly"^^xs:string;
@@ -2637,7 +2668,7 @@ otras:mm_topic_side a owl:Class;
 otras:MM_TOPIC_0000 a otras:mm_topic;
    otras:has_topic_code 0;
    otras:has_topic_descriptor "Topic (general)"^^xs:string.
-   
+
 otras:MM_TOPIC_1000 a otras:mm_topic_basic;
    otras:has_topic_code 1000;
    otras:has_topic_descriptor "Topic: Basic prerequisites (general)"^^xs:string.
@@ -2817,7 +2848,7 @@ otras:MM_TOPIC_8690 a otras:mm_topic_interdisciplinary_social_side;
 otras:MM_TOPIC_8790 a otras:mm_topic_interdisciplinary_theoretical_side;
    otras:has_topic_code 8790;
    otras:has_topic_descriptor "Topic: Interdisciplinary studies with significant theoretical and side-interest aspects"^^xs:string.
-   
+
 otras:MM_TOPIC_9000 a otras:mm_topic_side;
    otras:has_topic_code 9000;
    otras:has_topic_descriptor "Topic: Side interests (general)"^^xs:string.
@@ -3434,9 +3465,9 @@ vico:dp_statement rdfs:subClassOf vico:dp_translation_statement.
 
 ### VIMMP VALIDATION ONTOLOGY (VIVO) ###
 
-### VERSION 0.1.6 ###
+### VERSION 0.1.7 ###
 
-### DATED 14TH MARCH 2019 ###
+### DATED 15TH MARCH 2019 ###
 
 @prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
 
@@ -3573,8 +3604,7 @@ vivo:has_confidence a vivo:op_accuracy_assessment;
    rdfs:subPropertyOf evmpo:has_assessment_annotation.
 vivo:has_content a vivo:op_accuracy_assessment;
    rdfs:domain vivo:accuracy_assessment;
-   rdfs:range vivo:assertion;
-   rdfs:subPropertyOf evmpo:has_assessment_annotation.
+   rdfs:range vivo:assertion.
 
 
 vivo:qualification a owl:Class;
@@ -3633,15 +3663,26 @@ vivo:ESTIMATE_FROM_EXPERIENCE a vivo:confidence.
 vivo:STATEMENT_OF_BELIEF a vivo:confidence.
 vivo:STATEMENT_OF_KNOWLEDGE a vivo:confidence.
 
+vivo:data_item a owl:Class;
+   rdfs:subClassOf evmpo:information_content_entity;
+   owl:equivalentClass evmpo:data_item.
+vivo:op_data_item a owl:Class;
+   rdfs:subClassOf evmpo:ObjectProperty;
+   owl:equivalentClass evmpo:op_data_item.
+vivo:dp_data_item a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty;
+   owl:equivalentClass evmpo:dp_data_item.
+evmpo:op_information_content_entity rdfs:subClassOf vivo:op_data_item.
+evmpo:dp_information_content_entity rdfs:subClassOf vivo:dp_data_item.
 
 vivo:assertion a owl:Class;
-   rdfs:subClassOf evmpo:annotation.
+   rdfs:subClassOf vivo:data_item.
 vivo:op_assertion a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 vivo:dp_assertion a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_annotation rdfs:subClassOf vivo:op_assertion.
-evmpo:dp_annotation rdfs:subClassOf vivo:dp_assertion.
+vivo:op_data_item rdfs:subClassOf vivo:op_assertion.
+vivo:dp_data_item rdfs:subClassOf vivo:dp_assertion.
 
 vivo:asserts_magnitude a vivo:dp_assertion, owl:FunctionalProperty;
    rdfs:domain vivo:assertion;
@@ -3655,18 +3696,18 @@ vivo:op_requirement_assertion a owl:Class;
 vivo:dp_requirement_assertion a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 vivo:op_assertion rdfs:subClassOf vivo:op_requirement_assertion.
-vivo:op_requirement_entity rdfs:subClassOf vivo:op_requirement_assertion.
 vivo:dp_assertion rdfs:subClassOf vivo:dp_requirement_assertion.
+vivo:op_requirement_entity rdfs:subClassOf vivo:op_requirement_assertion.
 vivo:dp_requirement_entity rdfs:subClassOf vivo:dp_requirement_assertion.
 
 vivo:has_requirement_type a vivo:op_requirement_assertion, owl:FunctionalProperty;
    rdfs:domain vivo:requirement_assertion;
    rdfs:range vivo:requirement_type;
-   rdfs:subPropertyOf evmpo:has_meta_annotation.
+   rdfs:subPropertyOf evmpo:has_information_content_entity_annotation.
 vivo:has_requirement_scope a vivo:op_requirement_assertion, owl:FunctionalProperty;
    rdfs:domain vivo:requirement_assertion;
    rdfs:range vivo:requirement_scope;
-   rdfs:subPropertyOf evmpo:has_meta_annotation.
+   rdfs:subPropertyOf evmpo:has_information_content_entity_annotation.
 
 vivo:requirement_type a owl:Class;
    rdfs:subClassOf vivo:requirement_entity, evmpo:annotation.
@@ -3703,14 +3744,14 @@ vivo:is_quantity_kind a vivo:op_physical_property, owl:FunctionalProperty;
    rdfs:comment "points to the physical property characterization following QUDT"^^xs:string.
 
 vivo:physical_property_information a owl:Class;
-   rdfs:subClassOf evmpo:annotation;
+   rdfs:subClassOf vivo:data_item;
    rdfs:comment "physical property information, i.e., a condition/datum referring to a physical (thermodynamic or mechanical) property"^^xs:string.
 vivo:op_physical_property_information a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 vivo:dp_physical_property_information a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_annotation rdfs:subClassOf vivo:op_physical_property_information.
-evmpo:dp_annotation rdfs:subClassOf vivo:dp_physical_property_information.
+vivo:op_data_item rdfs:subClassOf vivo:op_physical_property_information.
+vivo:dp_data_item rdfs:subClassOf vivo:dp_physical_property_information.
 
 vivo:has_error_statement a vivo:op_physical_property_information;
    rdfs:domain vivo:physical_property_information;
@@ -3745,7 +3786,7 @@ vivo:dp_accuracy_entity rdfs:subClassOf vivo:dp_moda_property_assertion.
 vivo:refers_to_material a vivo:op_moda_property_assertion, owl:FunctionalProperty;
    rdfs:domain vivo:moda_property_assertion;
    rdfs:range osmo:moda_material_descriptor;
-   rdfs:subPropertyOf evmpo:has_meta_annotation.
+   rdfs:subPropertyOf evmpo:has_information_content_entity_annotation.
 vivo:refers_to_property a vivo:op_moda_property_assertion, owl:FunctionalProperty;
    rdfs:domain vivo:moda_property_assertion;
    rdfs:range vivo:physical_property.
@@ -3775,12 +3816,11 @@ vivo:relative_deviation_assertion a owl:Class;
    rdfs:subClassOf vivo:deviation_assertion.
 
 
-
 ### VIMMP TRANSLATION ONTOLOGY (VTO) ###
 
-### VERSION 0.4.5 ###
+### VERSION 0.4.6 ###
 
-### DATED 14TH MARCH 2019 ###
+### DATED 15TH MARCH 2019 ###
 
 @prefix vto: <http://www.vimmp.eu/semantics/vto/vto.ttl#>.
 
@@ -3805,7 +3845,7 @@ evmpo:op_marketplace_related_entity rdfs:subClassOf vto:op_translation_entity.
 evmpo:dp_marketplace_related_entity rdfs:subClassOf vto:dp_translation_entity.
 
 vto:project a owl:Class;
-   rdfs:subClassOf vto:translation_entity;
+   rdfs:subClassOf vto:translation_entity, evmpo:process;
    rdfs:comment "project, i.e., an undertaking of one or several stakeholders aiming at reaching a pre-specified objective within limited time"^^xs:string.
 vto:op_project a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
@@ -3813,9 +3853,11 @@ vto:dp_project a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 vto:op_translation_entity rdfs:subClassOf vto:op_project.
 vto:dp_translation_entity rdfs:subClassOf vto:dp_project.
+evmpo:op_process rdfs:subClassOf vto:op_project.
+evmpo:dp_process rdfs:subClassOf vto:dp_project.
 
 vto:mm_project a owl:Class;
-   rdfs:subClassOf vto:project, vto:translation_entity, evmpo:annotation;
+   rdfs:subClassOf vto:project, vto:translation_entity;
    rdfs:comment "materials modelling project, i.e., a project specifically on materials modelling, aiming at realizing an agreed workflow that can be represented by MODA/OSMO"^^xs:string.
 vto:op_mm_project a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
@@ -3825,8 +3867,6 @@ vto:op_project rdfs:subClassOf vto:op_mm_project.
 vto:dp_project rdfs:subClassOf vto:dp_mm_project.
 vto:op_translation_entity rdfs:subClassOf vto:op_mm_project.
 vto:dp_translation_entity rdfs:subClassOf vto:dp_mm_project.
-evmpo:op_annotation rdfs:subClassOf vto:op_mm_project.
-evmpo:dp_annotation rdfs:subClassOf vto:dp_mm_project.
 
 vto:translation_communication a owl:Class;
    rdfs:subClassOf vto:translation_entity, evmpo:communication;

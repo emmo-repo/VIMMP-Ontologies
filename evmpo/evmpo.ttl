@@ -1,7 +1,7 @@
 
 ### EUROPEAN VIRTUAL MARKETPLACE ONTOLOGY (EVMPO) ###
 
-### VERSION 1.0.1, DATED 14TH MARCH 2019 ###
+### VERSION 1.0.2, DATED 15TH MARCH 2019 ###
 
 @prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
 
@@ -33,6 +33,8 @@ evmpo:dp_marketplace_related_entity a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 evmpo:op_marketplace_related_entity rdfs:subClassOf evmpo:op_paradigmatic_entity.
 evmpo:dp_marketplace_related_entity rdfs:subClassOf evmpo:dp_paradigmatic_entity.
+
+evmpo:paradigmatic_entity owl:disjointWith evmpo:annotation.
 
 
 ###########################################################
@@ -204,16 +206,40 @@ evmpo:data_item a owl:Class;
    owl:equivalentClass iao:IAO_0000027;  # iao label "data item"
    rdfs:subClassOf evmpo:information_content_entity;
    rdfs:comment "data item as characterized by the IAO"^^xs:string.
+evmpo:op_data_item a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_data_item a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_information_content_entity rdfs:subClassOf evmpo:op_data_item.
+evmpo:dp_information_content_entity rdfs:subClassOf evmpo:dp_data_item.
 evmpo:document a owl:Class;
    owl:equivalentClass iao:IAO_0000310;  # iao label "document"
    rdfs:subClassOf evmpo:information_content_entity;
    rdfs:comment "document as characterized by the IAO"^^xs:string.
+evmpo:op_document a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_document a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_information_content_entity rdfs:subClassOf evmpo:op_document.
+evmpo:dp_information_content_entity rdfs:subClassOf evmpo:dp_document.
 evmpo:legal_document a owl:Class;
    rdfs:subClassOf evmpo:document;
    rdfs:comment "any document (e.g., a contract or a quotation) related to legal issues"^^xs:string.
+evmpo:op_legal_document a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_legal_document a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_document rdfs:subClassOf evmpo:op_legal_document.
+evmpo:dp_document rdfs:subClassOf evmpo:dp_legal_document.
 evmpo:training_document a owl:Class;
    rdfs:subClassOf evmpo:document;
    rdfs:comment "any document (e.g., manual, textbook, video, or collection of slides) that can help at acquiring competencies"^^xs:string.
+evmpo:op_training_document a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_training_document a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_document rdfs:subClassOf evmpo:op_training_document.
+evmpo:dp_document rdfs:subClassOf evmpo:dp_training_document.
 
 ### annotations to the fundamental class ###
 
@@ -318,6 +344,8 @@ evmpo:dp_model a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 evmpo:op_paradigmatic_entity rdfs:subClassOf evmpo:op_model.
 evmpo:dp_paradigmatic_entity rdfs:subClassOf evmpo:dp_model.
+
+evmpo:model owl:disjointWith evmpo:simulation.
 
 ### annotations to the fundamental class ###
 
@@ -444,8 +472,8 @@ evmpo:op_tradeable_object a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 evmpo:dp_tradeable_object a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_product rdfs:subClassOf evmpo:op_tradeable_object.
-evmpo:dp_product rdfs:subClassOf evmpo:dp_tradeable_object.
+evmpo:op_service rdfs:subClassOf evmpo:op_tradeable_object.
+evmpo:dp_service rdfs:subClassOf evmpo:dp_tradeable_object.
 
 ### annotations to the fundamental class ###
 
@@ -486,12 +514,12 @@ evmpo:dp_property rdfs:subClassOf evmpo:dp_material_property.
 evmpo:physical_process_property a owl:Class;
    rdfs:subClassOf evmpo:property;
    rdfs:comment "physical process property, i.e., a property associated with a physical process"^^xs:string.
-evmpo:op_physical_process a owl:Class;
+evmpo:op_physical_process_property a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-evmpo:dp_physical_process a owl:Class;
+evmpo:dp_physical_process_property a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_property rdfs:subClassOf evmpo:op_physical_process.
-evmpo:dp_property rdfs:subClassOf evmpo:dp_physical_process.
+evmpo:op_property rdfs:subClassOf evmpo:op_physical_process_property.
+evmpo:dp_property rdfs:subClassOf evmpo:dp_physical_process_property.
 
 ### annotations to the fundamental class ###
 

@@ -1,9 +1,9 @@
 
 ### VIMMP VALIDATION ONTOLOGY (VIVO) ###
 
-### VERSION 0.1.6 ###
+### VERSION 0.1.7 ###
 
-### DATED 14TH MARCH 2019 ###
+### DATED 15TH MARCH 2019 ###
 
 @prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
 
@@ -140,8 +140,7 @@ vivo:has_confidence a vivo:op_accuracy_assessment;
    rdfs:subPropertyOf evmpo:has_assessment_annotation.
 vivo:has_content a vivo:op_accuracy_assessment;
    rdfs:domain vivo:accuracy_assessment;
-   rdfs:range vivo:assertion;
-   rdfs:subPropertyOf evmpo:has_assessment_annotation.
+   rdfs:range vivo:assertion.
 
 
 vivo:qualification a owl:Class;
@@ -200,15 +199,26 @@ vivo:ESTIMATE_FROM_EXPERIENCE a vivo:confidence.
 vivo:STATEMENT_OF_BELIEF a vivo:confidence.
 vivo:STATEMENT_OF_KNOWLEDGE a vivo:confidence.
 
+vivo:data_item a owl:Class;
+   rdfs:subClassOf evmpo:information_content_entity;
+   owl:equivalentClass evmpo:data_item.
+vivo:op_data_item a owl:Class;
+   rdfs:subClassOf evmpo:ObjectProperty;
+   owl:equivalentClass evmpo:op_data_item.
+vivo:dp_data_item a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty;
+   owl:equivalentClass evmpo:dp_data_item.
+evmpo:op_information_content_entity rdfs:subClassOf vivo:op_data_item.
+evmpo:dp_information_content_entity rdfs:subClassOf vivo:dp_data_item.
 
 vivo:assertion a owl:Class;
-   rdfs:subClassOf evmpo:annotation.
+   rdfs:subClassOf vivo:data_item.
 vivo:op_assertion a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 vivo:dp_assertion a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_annotation rdfs:subClassOf vivo:op_assertion.
-evmpo:dp_annotation rdfs:subClassOf vivo:dp_assertion.
+vivo:op_data_item rdfs:subClassOf vivo:op_assertion.
+vivo:dp_data_item rdfs:subClassOf vivo:dp_assertion.
 
 vivo:asserts_magnitude a vivo:dp_assertion, owl:FunctionalProperty;
    rdfs:domain vivo:assertion;
@@ -222,18 +232,18 @@ vivo:op_requirement_assertion a owl:Class;
 vivo:dp_requirement_assertion a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 vivo:op_assertion rdfs:subClassOf vivo:op_requirement_assertion.
-vivo:op_requirement_entity rdfs:subClassOf vivo:op_requirement_assertion.
 vivo:dp_assertion rdfs:subClassOf vivo:dp_requirement_assertion.
+vivo:op_requirement_entity rdfs:subClassOf vivo:op_requirement_assertion.
 vivo:dp_requirement_entity rdfs:subClassOf vivo:dp_requirement_assertion.
 
 vivo:has_requirement_type a vivo:op_requirement_assertion, owl:FunctionalProperty;
    rdfs:domain vivo:requirement_assertion;
    rdfs:range vivo:requirement_type;
-   rdfs:subPropertyOf evmpo:has_meta_annotation.
+   rdfs:subPropertyOf evmpo:has_information_content_entity_annotation.
 vivo:has_requirement_scope a vivo:op_requirement_assertion, owl:FunctionalProperty;
    rdfs:domain vivo:requirement_assertion;
    rdfs:range vivo:requirement_scope;
-   rdfs:subPropertyOf evmpo:has_meta_annotation.
+   rdfs:subPropertyOf evmpo:has_information_content_entity_annotation.
 
 vivo:requirement_type a owl:Class;
    rdfs:subClassOf vivo:requirement_entity, evmpo:annotation.
@@ -270,14 +280,14 @@ vivo:is_quantity_kind a vivo:op_physical_property, owl:FunctionalProperty;
    rdfs:comment "points to the physical property characterization following QUDT"^^xs:string.
 
 vivo:physical_property_information a owl:Class;
-   rdfs:subClassOf evmpo:annotation;
+   rdfs:subClassOf vivo:data_item;
    rdfs:comment "physical property information, i.e., a condition/datum referring to a physical (thermodynamic or mechanical) property"^^xs:string.
 vivo:op_physical_property_information a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 vivo:dp_physical_property_information a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_annotation rdfs:subClassOf vivo:op_physical_property_information.
-evmpo:dp_annotation rdfs:subClassOf vivo:dp_physical_property_information.
+vivo:op_data_item rdfs:subClassOf vivo:op_physical_property_information.
+vivo:dp_data_item rdfs:subClassOf vivo:dp_physical_property_information.
 
 vivo:has_error_statement a vivo:op_physical_property_information;
    rdfs:domain vivo:physical_property_information;
@@ -312,7 +322,7 @@ vivo:dp_accuracy_entity rdfs:subClassOf vivo:dp_moda_property_assertion.
 vivo:refers_to_material a vivo:op_moda_property_assertion, owl:FunctionalProperty;
    rdfs:domain vivo:moda_property_assertion;
    rdfs:range osmo:moda_material_descriptor;
-   rdfs:subPropertyOf evmpo:has_meta_annotation.
+   rdfs:subPropertyOf evmpo:has_information_content_entity_annotation.
 vivo:refers_to_property a vivo:op_moda_property_assertion, owl:FunctionalProperty;
    rdfs:domain vivo:moda_property_assertion;
    rdfs:range vivo:physical_property.
@@ -340,5 +350,4 @@ vivo:absolute_deviation_assertion a owl:Class;
    rdfs:subClassOf vivo:absolute_assertion, vivo:deviation_assertion.
 vivo:relative_deviation_assertion a owl:Class;
    rdfs:subClassOf vivo:deviation_assertion.
-
 

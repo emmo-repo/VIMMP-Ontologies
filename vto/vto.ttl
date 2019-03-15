@@ -1,9 +1,9 @@
 
 ### VIMMP TRANSLATION ONTOLOGY (VTO) ###
 
-### VERSION 0.4.5 ###
+### VERSION 0.4.6 ###
 
-### DATED 14TH MARCH 2019 ###
+### DATED 15TH MARCH 2019 ###
 
 @prefix vto: <http://www.vimmp.eu/semantics/vto/vto.ttl#>.
 
@@ -28,7 +28,7 @@ evmpo:op_marketplace_related_entity rdfs:subClassOf vto:op_translation_entity.
 evmpo:dp_marketplace_related_entity rdfs:subClassOf vto:dp_translation_entity.
 
 vto:project a owl:Class;
-   rdfs:subClassOf vto:translation_entity;
+   rdfs:subClassOf vto:translation_entity, evmpo:process;
    rdfs:comment "project, i.e., an undertaking of one or several stakeholders aiming at reaching a pre-specified objective within limited time"^^xs:string.
 vto:op_project a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
@@ -36,9 +36,11 @@ vto:dp_project a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 vto:op_translation_entity rdfs:subClassOf vto:op_project.
 vto:dp_translation_entity rdfs:subClassOf vto:dp_project.
+evmpo:op_process rdfs:subClassOf vto:op_project.
+evmpo:dp_process rdfs:subClassOf vto:dp_project.
 
 vto:mm_project a owl:Class;
-   rdfs:subClassOf vto:project, vto:translation_entity, evmpo:annotation;
+   rdfs:subClassOf vto:project, vto:translation_entity;
    rdfs:comment "materials modelling project, i.e., a project specifically on materials modelling, aiming at realizing an agreed workflow that can be represented by MODA/OSMO"^^xs:string.
 vto:op_mm_project a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
@@ -48,8 +50,6 @@ vto:op_project rdfs:subClassOf vto:op_mm_project.
 vto:dp_project rdfs:subClassOf vto:dp_mm_project.
 vto:op_translation_entity rdfs:subClassOf vto:op_mm_project.
 vto:dp_translation_entity rdfs:subClassOf vto:dp_mm_project.
-evmpo:op_annotation rdfs:subClassOf vto:op_mm_project.
-evmpo:dp_annotation rdfs:subClassOf vto:dp_mm_project.
 
 vto:translation_communication a owl:Class;
    rdfs:subClassOf vto:translation_entity, evmpo:communication;

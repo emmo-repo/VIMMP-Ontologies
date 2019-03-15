@@ -1,9 +1,9 @@
 
 ### CATEGORIZATION OF VIMMP INSTITUTIONS AND INDIVIDUALS (CVIII) ###
 
-### VERSION 0.0.5 ###
+### VERSION 0.0.6 ###
 
-### DATED 14TH MARCH 2019 ###
+### DATED 15TH MARCH 2019 ###
 
 @prefix cviii: <http://www.vimmp.eu/semantics/cviii/cviii.ttl#>.
 
@@ -228,11 +228,13 @@ cviii:dp_interlocutor_type rdfs:subClassOf cviii:dp_interlocutor_tag.
 
 cviii:has_interlocutor_tag a cviii:op_interlocutor;
    rdfs:domain cviii:interlocutor;
-   rdfs:range cviii:interlocutor_tag.
+   rdfs:range cviii:interlocutor_tag;
+   rdfs:subPropertyOf evmpo:has_role_annotation.
 
 cviii:is_in_group a cviii:op_interlocutor_tag;
    rdfs:domain cviii:interlocutor_tag;
-   rdfs:range cviii:interlocutor_group.
+   rdfs:range cviii:interlocutor_group;
+   rdfs:subPropertyOf evmpo:has_meta_annotation.
 cviii:is_in_country a cviii:dp_interlocutor_tag;
    rdfs:domain cviii:interlocutor_tag;
    rdfs:range xs:string.
