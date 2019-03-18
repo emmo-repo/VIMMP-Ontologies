@@ -1,15 +1,16 @@
 
 ### VIMMP COMMUNICATION ONTOLOGY (VICO) ###
 
-### VERSION 0.1.3 ###
+### VERSION 0.1.4 ###
 
-### DATED 14TH MARCH 2019 ###
+### DATED 18TH MARCH 2019 ###
 
 @prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
 
 @prefix cviii: <http://www.vimmp.eu/semantics/cviii/cviii.ttl#>.
 @prefix dcterms: <http://purl.org/dc/terms#>.
 @prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
+@prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
@@ -35,6 +36,10 @@ vico:dp_communication a owl:Class;
 evmpo:op_paradigmatic_entity rdfs:subClassOf vico:op_communication.
 evmpo:dp_paradigmatic_entity rdfs:subClassOf vico:dp_communication.
 
+vico:carries_label a vico:op_communication;
+   rdfs:domain vico:communication;
+   rdfs:range vico:label;
+   rdfs:subPropertyOf evmpo:has_communication_annotation.
 vico:contains a vico:op_communication, owl:TransitiveProperty;
    rdfs:domain vico:communication;
    rdfs:range vico:communication;
@@ -57,6 +62,9 @@ vico:has_submission_date a vico:op_communication, owl:FunctionalProperty;
 vico:has_text a vico:dp_communication;
    rdfs:domain vico:communication;
    rdfs:range xs:string.
+vico:is_on_marketplace a vico:op_interlocution;
+   rdfs:domain vico:communication;
+   rdfs:range macro:virtual_marketplace.
 
 vico:R_HAS_AN_AUTHOR a owl:Restriction;
    rdfs:subClassOf vico:constrained_entity;
@@ -172,6 +180,65 @@ vico:excludes_all a vico:op_access_rule;
 vico:allows owl:propertyDisjointWith vico:excludes.
 vico:allows_all owl:propertyDisjointWith vico:excludes_all.
 
+vico:label a owl:Class;
+   rdfs:subClassOf evmpo:annotation;
+   rdfs:comment "label, i.e., a remark or information item that can be carried by (i.e., associated with) a communication"^^xs:string.
+vico:op_label a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vico:dp_label a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_annotation rdfs:subClassOf vico:op_label.
+evmpo:dp_annotation rdfs:subClassOf vico:dp_label.
+
+vico:status a owl:Class;
+   rdfs:subClassOf vico:label;
+   rdfs:comment "status, i.e., a label that expresses information on the submission, reading, or exchange process of a communication"^^xs:string.
+vico:op_status a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vico:dp_status a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_label rdfs:subClassOf vico:op_status.
+evmpo:dp_label rdfs:subClassOf vico:dp_status.
+
+vico:has_status_timestamp a vico:op_status, owl:FunctionalProperty;
+   rdfs:domain vico:status;
+   rdfs:range dcterms:W3C-DTF.
+
+vico:processed_status a owl:Class;
+   rdfs:subClassOf vico:status;
+   rdfs:comment "processed status, i.e., a status expressing to what extent a communication and/or its contents or associated tasks have been processed or carried out"^^xs:string.
+vico:op_processed_status a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vico:dp_processed_status a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_status rdfs:subClassOf vico:op_processed_status.
+evmpo:dp_status rdfs:subClassOf vico:dp_processed_status.
+
+vico:has_fractional_progress a vico:dp_processed_status;
+   rdfs:domain vico:processed_status;
+   rdfs:range xs:decimal;
+   rdfs:comment "fractional extent to which the communication has been processed; minimum: 0 for zero progress, maximum: 1 for completion"^^xs:string.
+
+vico:read_status a owl:Class;
+   rdfs:subClassOf vico:status;
+   rdfs:comment "read status, i.e., a status expressing that a communication has been read"^^xs:string.
+vico:op_read_status a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vico:dp_read_status a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_status rdfs:subClassOf vico:op_read_status.
+evmpo:dp_status rdfs:subClassOf vico:dp_read_status.
+
+vico:sent_status a owl:Class;
+   rdfs:subClassOf vico:status;
+   rdfs:comment "sent status, i.e., a status expressing that a communication has been sent"^^xs:string.
+vico:op_sent_status a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vico:dp_sent_status a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_status rdfs:subClassOf vico:op_sent_status.
+evmpo:dp_status rdfs:subClassOf vico:dp_sent_status.
+
 vico:message a owl:Class;
    rdfs:subClassOf vico:communication;
    rdfs:comment "message, i.e., a stand-alone communication (as opposed to an appendix)"^^xs:string.
@@ -210,7 +277,11 @@ vico:R_HAS_ONE_ACCESS_RULE a owl:Restriction;
    rdfs:subClassOf vico:constrained_entity;
    owl:onProperty vico:has_access_rule;
    owl:cardinality 1.
-vico:message rdfs:subClassOf vico:R_HAS_ONE_ACCESS_RULE.
+vico:R_IS_ON_A_MARKETPLACE a owl:Restriction;
+   rdfs:subClassOf vico:constrained_entity;
+   owl:onProperty vico:is_on_marketplace;
+   owl:someValuesFrom macro:virtual_marketplace.
+vico:message rdfs:subClassOf vico:R_HAS_ONE_ACCESS_RULE, vico:R_IS_ON_A_MARKETPLACE.
 
 vico:message owl:disjointUnionOf (vico:declaration vico:interlocution).
 
@@ -347,3 +418,26 @@ vico:op_translation_communication rdfs:subClassOf vico:op_translation_statement.
 vico:dp_translation_communication rdfs:subClassOf vico:dp_translation_statement.
 vico:op_statement rdfs:subClassOf vico:op_translation_statement.
 vico:dp_statement rdfs:subClassOf vico:dp_translation_statement.
+
+vico:legal_communication a owl:Class;
+   rdfs:subClassOf vico:communication;
+   rdfs:comment "legal communication, i.e., a communication which, as its main feature or purpose, relates to legal, financial, or contractual issues"^^xs:string.
+vico:op_legal_communication a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vico:dp_legal_communication a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vico:op_communication rdfs:subClassOf vico:op_legal_communication.
+vico:dp_communication rdfs:subClassOf vico:dp_legal_communication.
+
+vico:legal_statement a owl:Class;
+   rdfs:subClassOf vico:statement, vico:legal_communication;
+   owl:intersection (vico:legal_communication vico:statement);
+   rdfs:comment "legal statement, i.e., a statement which, as its main feature or purpose, relates to legal, financial, or contractual issues"^^xs:string.
+vico:op_legal_statement a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vico:dp_legal_statement a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vico:op_legal_communication rdfs:subClassOf vico:op_legal_statement.
+vico:dp_legal_communication rdfs:subClassOf vico:dp_legal_statement.
+vico:op_statement rdfs:subClassOf vico:op_legal_statement.
+vico:dp_statement rdfs:subClassOf vico:dp_legal_statement.
