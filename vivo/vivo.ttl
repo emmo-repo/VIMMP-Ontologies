@@ -1,9 +1,9 @@
 
 ### VIMMP VALIDATION ONTOLOGY (VIVO) ###
 
-### VERSION 0.1.7 ###
+### VERSION 0.1.8 ###
 
-### DATED 15TH MARCH 2019 ###
+### DATED 19TH MARCH 2019 ###
 
 @prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
 
@@ -11,6 +11,7 @@
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
 @prefix qudt: <http://qudt.org/schema/qudt#>.
+@prefix quq: <http://purl.oclc.org/NET/ssnx/qu/quantity#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.

@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 0.2.6 ###
+### VERSION 0.2.7 ###
 
-### DATED 15TH MARCH 2019 ###
+### DATED 19TH MARCH 2019 ###
 
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -60,7 +60,7 @@ osmo:dp_moda_structure_entity a owl:Class;
 evmpo:op_marketplace_related_entity rdfs:subClassOf osmo:op_moda_structure_entity.
 evmpo:dp_marketplace_related_entity rdfs:subClassOf osmo:dp_moda_structure_entity.
 
-osmo:moda_structure_entity owl:disjointUnionOf (osmo:moda_section_entity osmo:moda_graph).
+osmo:moda_structure_entity owl:disjointUnionOf (osmo:logical_entity osmo:moda_section_entity osmo:moda_graph).
 
 osmo:moda_section_entity a owl:Class;
    rdfs:subClassOf osmo:moda_structure_entity;
@@ -92,10 +92,14 @@ osmo:has_input_property a osmo:op_moda_section;
    rdfs:domain osmo:moda_section;
    rdfs:range vivo:physical_property;
    rdfs:comment "points to required physical (thermodynamic or mechanical) information, which needs to be provided, e.g., from the output of another MODA section"^^xs:string.
+osmo:has_internal_property a osmo:op_moda_section;
+   rdfs:domain osmo:moda_section;
+   rdfs:range vivo:physical_property;
+   rdfs:comment "points to physical information that plays a role within the respective MODA section"^^xs:string.
 osmo:has_output_property a osmo:op_moda_section;
    rdfs:domain osmo:moda_section;
    rdfs:range vivo:physical_property;
-   rdfs:comment "points to desired physical (thermodynamic or mechanical) information, which is not given and needs to be determined"^^xs:string.
+   rdfs:comment "points to desired physical (thermodynamic or mechanical) information which is obtained as a result from the respective MODA section"^^xs:string.
 
 osmo:has_moda_aspect a osmo:op_moda_section;
    rdfs:domain osmo:moda_section;
@@ -977,6 +981,10 @@ osmo:has_effect a osmo:op_moda_graph, owl:TransitiveProperty;
    rdfs:domain osmo:moda_graph;
    rdfs:range osmo:moda_graph;
    owl:inverseOf osmo:has_cause.
+osmo:has_logical_resource a osmo:op_moda_graph;
+   rdfs:domain osmo:moda_graph;
+   rdfs:range osmo:logical_resource;
+   rdfs:subPropertyOf evmpo:has_annotation.
 osmo:is_coupled_with a osmo:op_moda_graph;
    rdfs:domain osmo:moda_graph;
    rdfs:range osmo:moda_graph;
@@ -1071,6 +1079,86 @@ osmo:dp_quantitative_condition a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 osmo:op_condition rdfs:subClassOf osmo:op_quantitative_condition.
 osmo:dp_condition rdfs:subClassOf osmo:dp_quantitative_condition.
+
+osmo:logical_entity a owl:Class;
+   rdfs:subClassOf osmo:moda_structure_entity, evmpo:annotation;
+   rdfs:comment "logical entity, i.e., a notational element of a simulation workflow related to data exchange and communication"^^xs:string.
+osmo:op_logical_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_logical_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_moda_structure_entity rdfs:subClassOf osmo:op_logical_entity.
+osmo:dp_moda_structure_entity rdfs:subClassOf osmo:dp_logical_entity.
+evmpo:op_annotation rdfs:subClassOf osmo:op_logical_entity.
+evmpo:dp_annotation rdfs:subClassOf osmo:dp_logical_entity.
+
+osmo:logical_resource a owl:Class;
+   rdfs:subClassOf osmo:logical_entity;
+   rdfs:comment "logical resource, i.e., a notational element of a simulation workflow to which data are formally written and/or from where they can be formally read"^^xs:string.
+osmo:op_logical_resource a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_logical_resource a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_logical_entity rdfs:subClassOf osmo:op_logical_resource.
+osmo:dp_logical_entity rdfs:subClassOf osmo:dp_logical_resource.
+
+osmo:has_lrid a osmo:dp_logical_resource;
+   rdfs:domain osmo:logical_resource;
+   rdfs:range xs:string;
+   rdfs:comment "points to the logical resource ID (LRID) associated with the present logical resource"^^xs:string.
+osmo:is_interactive a osmo:dp_logical_resource;
+   rdfs:domain osmo:logical_resource;
+   rdfs:range xs:boolean;
+   rdfs:comment "states whether an external entity (user interaction, or some process not represented in the workflow) has write access to this resource at execution time"^^xs:string.
+
+osmo:logical_access a owl:Class;
+   rdfs:subClassOf osmo:logical_entity;
+   rdfs:comment "logical access, i.e., a notational process/connection by which a MODA section accesses a logical resource"^^xs:string.
+osmo:op_logical_access a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_logical_access a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_logical_entity rdfs:subClassOf osmo:op_logical_access.
+osmo:dp_logical_entity rdfs:subClassOf osmo:dp_logical_access.
+
+osmo:has_access_point a osmo:op_logical_access;
+   rdfs:domain osmo:logical_access;
+   rdfs:range osmo:moda_section.
+osmo:has_resource a osmo:op_logical_access;
+   rdfs:domain osmo:logical_access;
+   rdfs:range osmo:logical_resource;
+   rdfs:subPropertyOf evmpo:has_meta_annotation.
+osmo:is_at_runtime a osmo:dp_logical_access;
+   rdfs:domain osmo:logical_access;
+   rdfs:range xs:boolean.
+osmo:is_final a osmo:dp_logical_access;
+   rdfs:domain osmo:logical_access;
+   rdfs:range xs:boolean.
+osmo:is_initial a osmo:dp_logical_access;
+   rdfs:domain osmo:logical_access;
+   rdfs:range xs:boolean.
+
+osmo:logical_access owl:disjointUnionOf (osmo:logical_read_access osmo:logical_write_access).
+
+osmo:logical_read_access a owl:Class;
+   rdfs:subClassOf osmo:logical_access;
+   rdfs:comment "logical read access, i.e., a notational process/connection by which a MODA section reads from a logical resource"^^xs:string.
+osmo:op_logical_read_access a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_logical_read_access a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_logical_access rdfs:subClassOf osmo:op_logical_read_access.
+osmo:dp_logical_access rdfs:subClassOf osmo:dp_logical_read_access.
+
+osmo:logical_write_access a owl:Class;
+   rdfs:subClassOf osmo:logical_access;
+   rdfs:comment "logical write access, i.e., a notational process/connection by which a MODA section writes to a logical resource"^^xs:string.
+osmo:op_logical_write_access a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_logical_write_access a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_logical_access rdfs:subClassOf osmo:op_logical_write_access.
+osmo:dp_logical_access rdfs:subClassOf osmo:dp_logical_write_access.
 
 #
 # ...
