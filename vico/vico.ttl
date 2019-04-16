@@ -1,9 +1,9 @@
 
 ### VIMMP COMMUNICATION ONTOLOGY (VICO) ###
 
-### VERSION 0.1.4 ###
+### VERSION 0.1.5 ###
 
-### DATED 18TH MARCH 2019 ###
+### DATED 2ND APRIL 2019 ###
 
 @prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
 
@@ -36,10 +36,6 @@ vico:dp_communication a owl:Class;
 evmpo:op_paradigmatic_entity rdfs:subClassOf vico:op_communication.
 evmpo:dp_paradigmatic_entity rdfs:subClassOf vico:dp_communication.
 
-vico:carries_label a vico:op_communication;
-   rdfs:domain vico:communication;
-   rdfs:range vico:label;
-   rdfs:subPropertyOf evmpo:has_communication_annotation.
 vico:contains a vico:op_communication, owl:TransitiveProperty;
    rdfs:domain vico:communication;
    rdfs:range vico:communication;
@@ -56,6 +52,14 @@ vico:has_author a vico:op_communication, owl:FunctionalProperty;
 vico:has_expiry_date a vico:op_interlocution, owl:FunctionalProperty;
    rdfs:domain vico:communication;
    rdfs:range dcterms:W3C-DTF.
+vico:has_label a vico:op_communication;
+   rdfs:domain vico:communication;
+   rdfs:range vico:label;
+   rdfs:subPropertyOf evmpo:has_communication_annotation.
+vico:has_status a vico:op_communication;
+   rdfs:domain vico:communication;
+   rdfs:range vico:status;
+   rdfs:subPropertyOf vico:has_label.
 vico:has_submission_date a vico:op_communication, owl:FunctionalProperty;
    rdfs:domain vico:communication;
    rdfs:range dcterms:W3C-DTF.
@@ -261,6 +265,11 @@ vico:has_certificate a vico:op_message;
    rdfs:domain vico:message;
    rdfs:range vico:certificate;
    rdfs:subPropertyOf vico:has_appendix.
+vico:has_comment a vico:op_message;
+   rdfs:domain vico:message;
+   rdfs:range vico:comment;
+   rdfs:subPropertyOf vico:is_followed_by;
+   owl:inverseOf vico:has_commented_message.
 vico:follows a vico:op_message;
    rdfs:domain vico:message;
    rdfs:range vico:message.
@@ -268,6 +277,10 @@ vico:has_listener a vico:op_message;
    rdfs:domain vico:message;
    rdfs:range cviii:agent;
    owl:inverseOf cviii:is_listener_of.
+vico:has_signal a vico:op_message;
+   rdfs:domain vico:message;
+   rdfs:range vico:signal_statement;
+   rdfs:subPropertyOf vico:is_followed_by.
 vico:is_followed_by a vico:op_message;
    rdfs:domain vico:message;
    rdfs:range vico:message;
@@ -368,11 +381,21 @@ vico:dp_comment a owl:Class;
 vico:op_collocution rdfs:subClassOf vico:op_comment.
 vico:dp_collocution rdfs:subClassOf vico:dp_comment.
 
+vico:has_commented_message a vico:op_comment;
+   rdfs:domain vico:comment;
+   rdfs:range vico:message;
+   rdfs:subPropertyOf vico:follows;
+   owl:inverseOf vico:has_comment.
+
+vico:R_HAS_A_COMMENTED_MESSAGE a owl:Restriction;
+   rdfs:subClassOf vico:constrained_entity;
+   owl:onProperty vico:has_commented_message;
+   owl:someValuesFrom vico:message.
 vico:R_HAS_A_TEXT a owl:Restriction;
    rdfs:subClassOf vico:constrained_entity;
    owl:onProperty vico:has_text;
    owl:someValuesFrom xs:string.
-vico:comment rdfs:subClassOf vico:R_HAS_A_TEXT.
+vico:comment rdfs:subClassOf vico:R_HAS_A_COMMENTED_MESSAGE, vico:R_HAS_A_TEXT.
 
 vico:signal_statement a owl:Class;
    rdfs:subClassOf vico:collocution, vico:statement;
@@ -385,6 +408,12 @@ vico:op_collocution rdfs:subClassOf vico:op_signal_statement.
 vico:dp_collocution rdfs:subClassOf vico:dp_signal_statement.
 vico:op_statement rdfs:subClassOf vico:op_signal_statement.
 vico:dp_statement rdfs:subClassOf vico:dp_signal_statement.
+
+vico:R_FOLLOWS_ONE_MESSAGE a owl:Restriction;
+   rdfs:subClassOf vico:constrained_entity;
+   owl:onProperty vico:follows;
+   owl:cardinality 1.
+vico:signal_statement rdfs:subClassOf vico:R_FOLLOWS_ONE_MESSAGE.
 
 vico:signal_i_like a owl:Class;
    rdfs:subClassOf vico:signal_statement;

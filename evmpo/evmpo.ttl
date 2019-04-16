@@ -1,7 +1,7 @@
 
 ### EUROPEAN VIRTUAL MARKETPLACE ONTOLOGY (EVMPO) ###
 
-### VERSION 1.0.2, DATED 15TH MARCH 2019 ###
+### VERSION 1.0.3, DATED 16TH APRIL 2019 ###
 
 @prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
 
@@ -548,109 +548,120 @@ evmpo:dp_paradigmatic_entity rdfs:subClassOf evmpo:dp_role.
 
 ### subclasses of the fundamental class ###
 
-evmpo:stakeholder a owl:Class;
+evmpo:agent a owl:Class;
    rdfs:subClassOf evmpo:role;
    rdfs:subClassOf emmo:EMMO_a39a6ebd_a450_4435_be98_19677c6873da;  # emmo "observer"
-   rdfs:comment "stakeholder, i.e., an individual, institution, or group related to the virtual marketplace"^^xs:string.
+   rdfs:comment "agent, i.e., an entity that has (in principle) the potential of acting at a virtual marketplace, whether that capability is exercised or not"^^xs:string;
+   owl:equivalentClass evmpo:agent.
+evmpo:op_agent a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_agent a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_role rdfs:subClassOf evmpo:op_agent.
+evmpo:dp_role rdfs:subClassOf evmpo:dp_agent.
+
+evmpo:stakeholder a owl:Class;
+   rdfs:subClassOf evmpo:agent;
+   rdfs:comment "stakeholder, i.e., an agent that acts at one or multiple virtual marketplaces"^^xs:string.
 evmpo:op_stakeholder a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 evmpo:dp_stakeholder a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_role rdfs:subClassOf evmpo:op_stakeholder.
-evmpo:dp_role rdfs:subClassOf evmpo:dp_stakeholder.
+evmpo:op_agent rdfs:subClassOf evmpo:op_stakeholder.
+evmpo:dp_agent rdfs:subClassOf evmpo:dp_stakeholder.
 
-evmpo:group a owl:Class;
-   rdfs:subClassOf evmpo:stakeholder;
-   rdfs:comment "any virtual-marketplace participant that is not an institution, but also not a single person"^^xs:string.
-evmpo:op_group a owl:Class;
+evmpo:agent_group a owl:Class;
+   rdfs:subClassOf evmpo:agent;
+   rdfs:comment "agent group, i.e., an agent that consists of multiple constituent agents, but not in an institutionalized form"^^xs:string.
+evmpo:op_agent_group a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-evmpo:dp_group a owl:Class;
+evmpo:dp_agent_group a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_stakeholder rdfs:subClassOf evmpo:op_group.
-evmpo:dp_stakeholder rdfs:subClassOf evmpo:dp_group.
+evmpo:op_agent rdfs:subClassOf evmpo:op_agent_group.
+evmpo:dp_agent rdfs:subClassOf evmpo:dp_agent_group.
 evmpo:institution a owl:Class;
-   rdfs:subClassOf evmpo:stakeholder;
-   rdfs:comment "academic institution, company, or any other organization that relates to the virtual marketplace"^^xs:string.
+   rdfs:subClassOf evmpo:agent;
+   rdfs:comment "institution, i.e., any permanent association, organization, office, or comparable entity that has the capability of acting at a virtual marketplace"^^xs:string.
 evmpo:op_institution a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 evmpo:dp_institution a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_stakeholder rdfs:subClassOf evmpo:op_institution.
-evmpo:dp_stakeholder rdfs:subClassOf evmpo:dp_institution.
-evmpo:person a owl:Class;
-   rdfs:subClassOf evmpo:stakeholder;
+evmpo:op_agent rdfs:subClassOf evmpo:op_institution.
+evmpo:dp_agent rdfs:subClassOf evmpo:dp_institution.
+evmpo:human_agent a owl:Class;
+   rdfs:subClassOf evmpo:agent;
    rdfs:subClassOf emmo:EMMO_4a47a644_330f_4346_bd7b_c007a233ef3e;  # emmo "human_being"
-   rdfs:comment "an individual virtual-marketplace participant of any type"^^xs:string.
-evmpo:op_person a owl:Class;
+   rdfs:comment "human agent, i.e., a single human being whose identity is disclosed and who has the potential/ability to act at a virtual marketplace"^^xs:string.
+evmpo:op_human_agent a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-evmpo:dp_person a owl:Class;
+evmpo:dp_human_agent a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_stakeholder rdfs:subClassOf evmpo:op_person.
-evmpo:dp_stakeholder rdfs:subClassOf evmpo:dp_person.
+evmpo:op_agent rdfs:subClassOf evmpo:op_human_agent.
+evmpo:dp_agent rdfs:subClassOf evmpo:dp_human_agent.
 
 evmpo:data_provider a owl:Class;
-   rdfs:subClassOf evmpo:stakeholder;
-   rdfs:comment "a data provider on a virtual marketplace"^^xs:string.
+   rdfs:subClassOf evmpo:agent;
+   rdfs:comment "a data provider"^^xs:string.
 evmpo:op_data_provider a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 evmpo:dp_data_provider a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_stakeholder rdfs:subClassOf evmpo:op_data_provider.
-evmpo:dp_stakeholder rdfs:subClassOf evmpo:dp_data_provider.
+evmpo:op_agent rdfs:subClassOf evmpo:op_data_provider.
+evmpo:dp_agent rdfs:subClassOf evmpo:dp_data_provider.
 evmpo:end_user a owl:Class;
-   rdfs:subClassOf evmpo:stakeholder;
-   rdfs:comment "an end user on a virtual marketplace"^^xs:string.
+   rdfs:subClassOf evmpo:agent;
+   rdfs:comment "an end user"^^xs:string.
 evmpo:op_end_user a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 evmpo:dp_end_user a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_stakeholder rdfs:subClassOf evmpo:op_end_user.
-evmpo:dp_stakeholder rdfs:subClassOf evmpo:dp_end_user.
+evmpo:op_agent rdfs:subClassOf evmpo:op_end_user.
+evmpo:dp_agent rdfs:subClassOf evmpo:dp_end_user.
 evmpo:expert a owl:Class;
-   rdfs:subClassOf evmpo:stakeholder;
-   rdfs:comment "marketplace-relevant entity in possession of competencies in the field of materials modelling and simulation"^^xs:string.
+   rdfs:subClassOf evmpo:agent;
+   rdfs:comment "entity in possession of competencies in the field of materials modelling and simulation"^^xs:string.
 evmpo:op_expert a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 evmpo:dp_expert a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_stakeholder rdfs:subClassOf evmpo:op_expert.
-evmpo:dp_stakeholder rdfs:subClassOf evmpo:dp_expert.
+evmpo:op_agent rdfs:subClassOf evmpo:op_expert.
+evmpo:dp_agent rdfs:subClassOf evmpo:dp_expert.
 evmpo:model_provider a owl:Class;
-   rdfs:subClassOf evmpo:stakeholder;
-   rdfs:comment "a model provider on a virtual marketplace"^^xs:string.
+   rdfs:subClassOf evmpo:agent;
+   rdfs:comment "a model provider"^^xs:string.
 evmpo:op_model_provider a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 evmpo:dp_model_provider a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_stakeholder rdfs:subClassOf evmpo:op_model_provider.
-evmpo:dp_stakeholder rdfs:subClassOf evmpo:dp_model_provider.
+evmpo:op_agent rdfs:subClassOf evmpo:op_model_provider.
+evmpo:dp_agent rdfs:subClassOf evmpo:dp_model_provider.
 evmpo:software_owner a owl:Class;
-   rdfs:subClassOf evmpo:stakeholder;
-   rdfs:comment "a software owner on a virtual marketplace"^^xs:string.
+   rdfs:subClassOf evmpo:agent;
+   rdfs:comment "a software owner"^^xs:string.
 evmpo:op_software_owner a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 evmpo:dp_software_owner a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_stakeholder rdfs:subClassOf evmpo:op_software_owner.
-evmpo:dp_stakeholder rdfs:subClassOf evmpo:dp_software_owner.
-evmpo:trainer a owl:Class;
-   rdfs:subClassOf evmpo:stakeholder;
-   rdfs:comment "marketplace-relevant entity that can be accessed to acquire/develop competencies in the field of materials modelling and simulation"^^xs:string.
-evmpo:op_trainer a owl:Class;
+evmpo:op_agent rdfs:subClassOf evmpo:op_software_owner.
+evmpo:dp_agent rdfs:subClassOf evmpo:dp_software_owner.
+evmpo:training_provider a owl:Class;
+   rdfs:subClassOf evmpo:agent;
+   rdfs:comment "entity that can be accessed to acquire/develop competencies in the field of materials modelling and simulation"^^xs:string.
+evmpo:op_training_provider a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-evmpo:dp_trainer a owl:Class;
+evmpo:dp_training_provider a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_stakeholder rdfs:subClassOf evmpo:op_trainer.
-evmpo:dp_stakeholder rdfs:subClassOf evmpo:dp_trainer.
+evmpo:op_agent rdfs:subClassOf evmpo:op_training_provider.
+evmpo:dp_agent rdfs:subClassOf evmpo:dp_training_provider.
 evmpo:translator a owl:Class;
-   rdfs:subClassOf evmpo:stakeholder;
-   rdfs:comment "a translator on a virtual marketplace"^^xs:string.
+   rdfs:subClassOf evmpo:agent;
+   rdfs:comment "a translator"^^xs:string.
 evmpo:op_translator a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 evmpo:dp_translator a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_stakeholder rdfs:subClassOf evmpo:op_translator.
-evmpo:dp_stakeholder rdfs:subClassOf evmpo:dp_translator.
+evmpo:op_agent rdfs:subClassOf evmpo:op_translator.
+evmpo:dp_agent rdfs:subClassOf evmpo:dp_translator.
 
 ### annotations to the fundamental class ###
 
