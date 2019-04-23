@@ -1220,9 +1220,9 @@ macro:MARKETPLACE_MARKETPLACE a macro:virtual_marketplace.
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 0.3.0 ###
+### VERSION 0.3.1 ###
 
-### DATED 17TH APRIL 2019 ###
+### DATED 23RD APRIL 2019 ###
 
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -1950,6 +1950,12 @@ osmo:dp_moda_material_information a owl:Class;
 osmo:op_moda_section_aspect rdfs:subClassOf osmo:op_moda_material_information.
 osmo:dp_moda_section_aspect rdfs:subClassOf osmo:dp_moda_material_information.
 
+osmo:R_HAS_A_MATERIAL_CONTENT a owl:Restriction;
+   rdfs:subClassOf osmo:constrained_entity;
+   owl:onProperty osmo:has_aspect_paradigmatic_content;
+   owl:someValuesFrom osmo:material.
+osmo:moda_material_information rdfs:subClassOf osmo:R_HAS_A_MATERIAL_CONTENT.
+
 osmo:moda_method_type a owl:Class;
    rdfs:subClassOf osmo:moda_section_aspect;
    rdfs:comment "MODA method type, i.e., type and/or name information on a method employed by a MODA section"^^xs:string.
@@ -2118,7 +2124,7 @@ osmo:op_moda_usercase_entity rdfs:subClassOf osmo:dp_moda_usercase_aspect.
 osmo:moda_usercase_aspect owl:intersectionOf (osmo:moda_section_aspect osmo:moda_usercase_entity).
 
 osmo:moda_usercase_description a owl:Class;
-   rdfs:subClassOf osmo:moda_usercase_aspect, osmo:moda_section_description;
+   rdfs:subClassOf osmo:moda_usercase_aspect, osmo:moda_section_description, osmo:R_HAS_AN_ASPECT_TEXT_CONTENT;
    rdfs:comment "MODA user case description (MODA subsection 1.1), describes aspects of a user case textually"^^xs:string.
 osmo:op_moda_usercase_description a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
@@ -2810,6 +2816,7 @@ osmo:dp_simulation rdfs:subClassOf osmo:dp_moda_workflow.
 
 osmo:moda_workflow owl:intersectionOf (osmo:moda_graph osmo:simulation).
 
+
 osmo:parameter a owl:Class;
    rdfs:subClassOf evmpo:annotation;
    rdfs:comment "parameter, i.e., adjustable quantity within a model or a simulation workflow, or a part or component thereof"^^xs:string.
@@ -2851,6 +2858,7 @@ osmo:dp_quantitative_condition a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 osmo:op_condition rdfs:subClassOf osmo:op_quantitative_condition.
 osmo:dp_condition rdfs:subClassOf osmo:dp_quantitative_condition.
+
 
 osmo:logical_entity a owl:Class;
    rdfs:subClassOf osmo:moda_structure_entity, evmpo:annotation;
@@ -2932,50 +2940,91 @@ osmo:dp_logical_write_access a owl:Class;
 osmo:op_logical_access rdfs:subClassOf osmo:op_logical_write_access.
 osmo:dp_logical_access rdfs:subClassOf osmo:dp_logical_write_access.
 
-#
-# ...
-#
 
-osmo:has_material_class a osmo:op_moda_usercase;
-   rdfs:domain osmo:moda_usercase;
-   rdfs:range osmo:moda_material_class;
-   rdfs:subPropertyOf evmpo:has_meta_annotation.
-osmo:has_material a osmo:op_moda_usercase;
-   rdfs:domain osmo:moda_usercase;
-   rdfs:range osmo:moda_material_descriptor.
+osmo:material a owl:Class;
+   rdfs:subClassOf evmpo:paradigmatic_entity;
+   owl:equivalentClass evmpo:material;
+   rdfs:comment "material, i.e., a material as characterized by the EMMO"^^xs:string.
+osmo:op_material a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty;
+   owl:equivalentClass evmpo:op_material.
+osmo:dp_material a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty;
+   owl:equivalentClass evmpo:dp_material.
+evmpo:op_paradigmatic_entity rdfs:subClassOf osmo:op_material.
+evmpo:dp_paradigmatic_entity rdfs:subClassOf osmo:dp_material.
 
-osmo:moda_material_class a owl:Class;
-   rdfs:subClassOf osmo:moda_usercase_entity, evmpo:annotation.
+osmo:has_cas_number a osmo:dp_material, owl:FunctionalProperty;
+   rdfs:domain osmo:material;
+   rdfs:range xs:string;
+   rdfs:comment "points to the Chemical Abstracts Service Registry Number (CASRN, or CAS number) associated with a material"^^xs:string.
 
-osmo:FLUID a osmo:moda_material_class.
-osmo:SOLID a osmo:moda_material_class.
+osmo:has_ec_number a osmo:dp_material, owl:FunctionalProperty;
+   rdfs:domain osmo:material;
+   rdfs:range xs:string;
+   rdfs:comment "points to the EC number (i.e., the European common market number) associated with a material"^^xs:string.
 
-osmo:moda_material_descriptor a owl:Class;
-   rdfs:subClassOf osmo:moda_usercase_entity, evmpo:annotation.
-osmo:op_moda_material_descriptor a owl:Class;
+osmo:cas_listed_material a owl:Class;
+   rdfs:subClassOf osmo:material;
+   rdfs:comment "CAS listed material, i.e., a material that has a Chemical Abstracts Service Registry Number (CASRN, or CAS number)"^^xs:string.
+osmo:op_cas_listed_material a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_material_descriptor a owl:Class;
+osmo:dp_cas_listed_material a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_usercase_entity rdfs:subClassOf osmo:op_moda_material_descriptor.
-osmo:dp_moda_usercase_entity rdfs:subClassOf osmo:dp_moda_material_descriptor.
+osmo:op_material rdfs:subClassOf osmo:op_cas_listed_material.
+osmo:dp_material rdfs:subClassOf osmo:dp_cas_listed_material.
 
-osmo:has_mole_fraction a osmo:dp_moda_material_descriptor, owl:FunctionalProperty;
-   rdfs:domain osmo:moda_material_descriptor;
-   rdfs:range xs:decimal.
+osmo:R_HAS_A_CAS_NUMBER a owl:Restriction;
+   rdfs:subClassOf osmo:constrained_entity;
+   owl:onProperty osmo:has_cas_number;
+   owl:someValuesFrom xs:string.
+osmo:cas_listed_material owl:intersectionOf (osmo:material osmo:R_HAS_A_CAS_NUMBER).
 
-osmo:moda_cas_number a owl:Class;
-   rdfs:subClassOf osmo:moda_material_descriptor.
-osmo:op_moda_cas_number a owl:Class;
+osmo:ec_listed_material a owl:Class;
+   rdfs:subClassOf osmo:material;
+   rdfs:comment "EC listed material, i.e., a material that has an EC number and is traded on the European common market"^^xs:string.
+osmo:op_ec_listed_material a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_cas_number a owl:Class;
+osmo:dp_ec_listed_material a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_material_descriptor rdfs:subClassOf osmo:op_moda_cas_number.
-osmo:dp_moda_material_descriptor rdfs:subClassOf osmo:dp_moda_cas_number.
+osmo:op_material rdfs:subClassOf osmo:op_ec_listed_material.
+osmo:dp_material rdfs:subClassOf osmo:dp_ec_listed_material.
 
-osmo:is_given_by a osmo:dp_moda_cas_number, owl:FunctionalProperty;
-   rdfs:domain osmo:moda_cas_number;
-   rdfs:range xs:string.
+osmo:R_HAS_AN_EC_NUMBER a owl:Restriction;
+   rdfs:subClassOf osmo:constrained_entity;
+   owl:onProperty osmo:has_ec_number;
+   owl:someValuesFrom xs:string.
+osmo:ec_listed_material owl:intersectionOf (osmo:material osmo:R_HAS_AN_EC_NUMBER).
 
+osmo:einecs_listed_material a owl:Class;
+   rdfs:subClassOf osmo:ec_listed_material;
+   rdfs:comment "EINECS listed material, i.e., an EC listed material from the European Inventory of Existing Commercial Chemical Substances (EINECS)"^^xs:string.
+osmo:op_einecs_listed_material a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_einecs_listed_material a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_ec_listed_material rdfs:subClassOf osmo:op_einecs_listed_material.
+osmo:dp_ec_listed_material rdfs:subClassOf osmo:dp_einecs_listed_material.
+
+osmo:elincs_listed_material a owl:Class;
+   rdfs:subClassOf osmo:ec_listed_material;
+   rdfs:comment "ELINCS listed material, i.e., an EC listed material from the European List of Notified Chemical Substances (ELINCS)"^^xs:string.
+osmo:op_elincs_listed_material a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_elincs_listed_material a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_ec_listed_material rdfs:subClassOf osmo:op_elincs_listed_material.
+osmo:dp_ec_listed_material rdfs:subClassOf osmo:dp_elincs_listed_material.
+
+osmo:nlp_listed_material a owl:Class;
+   rdfs:subClassOf osmo:ec_listed_material;
+   rdfs:comment "NLP listed material, i.e., an EC listed material from the No-Longer-Polymers (NLP) List"^^xs:string.
+osmo:op_nlp_listed_material a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_nlp_listed_material a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_ec_listed_material rdfs:subClassOf osmo:op_nlp_listed_material.
+osmo:dp_ec_listed_material rdfs:subClassOf osmo:dp_nlp_listed_material.
 
 ### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
 
@@ -4417,9 +4466,9 @@ vico:dp_statement rdfs:subClassOf vico:dp_legal_statement.
 
 ### VIMMP VALIDATION ONTOLOGY (VIVO) ###
 
-### VERSION 0.1.8 ###
+### VERSION 0.1.9 ###
 
-### DATED 19TH MARCH 2019 ###
+### DATED 23RD MARCH 2019 ###
 
 @prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
 
@@ -4738,8 +4787,7 @@ vivo:dp_accuracy_entity rdfs:subClassOf vivo:dp_moda_property_assertion.
 
 vivo:refers_to_material a vivo:op_moda_property_assertion, owl:FunctionalProperty;
    rdfs:domain vivo:moda_property_assertion;
-   rdfs:range osmo:moda_material_descriptor;
-   rdfs:subPropertyOf evmpo:has_information_content_entity_annotation.
+   rdfs:range evmpo:material.
 vivo:refers_to_property a vivo:op_moda_property_assertion, owl:FunctionalProperty;
    rdfs:domain vivo:moda_property_assertion;
    rdfs:range vivo:physical_property.
