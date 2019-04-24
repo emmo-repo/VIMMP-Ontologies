@@ -1220,9 +1220,9 @@ macro:MARKETPLACE_MARKETPLACE a macro:virtual_marketplace.
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 0.3.1 ###
+### VERSION 0.3.2 ###
 
-### DATED 23RD APRIL 2019 ###
+### DATED 24TH APRIL 2019 ###
 
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -1942,13 +1942,19 @@ osmo:PERIODIC_BOUNDARY_CONDITION a osmo:moda_geometry_information.
 
 osmo:moda_material_information a owl:Class;
    rdfs:subClassOf osmo:moda_section_aspect;
-   rdfs:comment "MODA material information, i.e., material considered by a MODA section"^^xs:string.
+   rdfs:comment "MODA material information, i.e., aspect related to the material considered by a MODA section"^^xs:string.
 osmo:op_moda_material_information a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 osmo:dp_moda_material_information a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 osmo:op_moda_section_aspect rdfs:subClassOf osmo:op_moda_material_information.
 osmo:dp_moda_section_aspect rdfs:subClassOf osmo:dp_moda_material_information.
+
+osmo:has_material_information_uf a osmo:op_moda_material_information;
+   rdfs:domain osmo:moda_material_information;
+   rdfs:range osmo:material_information_uf;
+   rdfs:subPropertyOf osmo:has_aspect_annotation_content, osmo:has_unit_function;
+   rdfs:comment "points to the element function associated with the present material information (a MODA section can have multiple material informations, describing different units)"^^xs:string.
 
 osmo:R_HAS_A_MATERIAL_CONTENT a owl:Restriction;
    rdfs:subClassOf osmo:constrained_entity;
@@ -2634,7 +2640,7 @@ osmo:R_HAS_A_MODA_PROCESSOR_METHOD_TYPE a owl:Restriction;
    owl:someValuesFrom osmo:moda_processor_method_type.
 osmo:moda_processor rdfs:subClassOf osmo:R_HAS_A_MODA_PROCESSOR_METHOD_TYPE.
 
-osmo:processor owl:disjointUnionOf (osmo:preprocessor osmo:coupled_processor osmo:postprocessor).
+osmo:moda_processor owl:disjointUnionOf (osmo:preprocessor osmo:coupled_processor osmo:postprocessor).
 
 osmo:preprocessor a owl:Class;
    rdfs:subClassOf osmo:moda_processor;
@@ -3025,6 +3031,52 @@ osmo:dp_nlp_listed_material a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 osmo:op_ec_listed_material rdfs:subClassOf osmo:op_nlp_listed_material.
 osmo:dp_ec_listed_material rdfs:subClassOf osmo:dp_nlp_listed_material.
+
+
+osmo:unit_function a owl:Class;
+   rdfs:subClassOf evmpo:annotation;
+   rdfs:comment "Unit function, i.e., purpose or impact of one out of multiple coexisting units of the same or similar type"^^xs:string.
+osmo:op_unit_function a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_unit_function a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_annotation rdfs:subClassOf osmo:op_unit_function.
+evmpo:dp_annotation rdfs:subClassOf osmo:dp_unit_function.
+
+osmo:has_uf_descriptor a osmo:dp_unit_function;
+   rdfs:domain osmo:unit_function;
+   rdfs:range xs:string.
+osmo:refers_to_unit a osmo:op_unit_function;
+   rdfs:domain osmo:unit_function;
+   rdfs:range evmpo:marketplace_related_entity;
+   owl:inverseOf osmo:has_unit_function.
+
+osmo:R_HAS_A_UF_DESCRIPTOR a owl:Restriction;
+   rdfs:subClassOf osmo:constrained_entity;
+   owl:onProperty osmo:has_uf_descriptor;
+   owl:someValuesFrom xs:string.
+osmo:R_REFERS_TO_A_UNIT a owl:Restriction;
+   rdfs:subClassOf osmo:constrained_entity;
+   owl:onProperty osmo:refers_to_unit;
+   owl:someValuesFrom evmpo:marketplace_related_entity.
+osmo:unit_function rdfs:subClassOf osmo:R_HAS_A_UF_DESCRIPTOR, osmo:R_REFERS_TO_A_UNIT.
+
+osmo:has_unit_function a evmpo:op_marketplace_related_entity, owl:ObjectProperty;
+   rdfs:domain evmpo:marketplace_related_entity;
+   rdfs:range osmo:unit_function;
+   rdfs:subPropertyOf evmpo:has_annotation;
+   owl:inverseOf osmo:refers_to_unit.
+
+osmo:material_information_uf a owl:Class;
+   rdfs:subClassOf osmo:unit_function;
+   rdfs:comment "Unit function of an MI"^^xs:string.
+osmo:op_material_information_uf a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_material_information_uf a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_unit_function rdfs:subClassOf osmo:op_material_information_uf.
+osmo:dp_unit_function rdfs:subClassOf osmo:dp_material_information_uf.
+
 
 ### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
 
