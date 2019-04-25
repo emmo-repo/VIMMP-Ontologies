@@ -799,6 +799,7 @@ osmo:dp_moda_section_aspect rdfs:subClassOf osmo:dp_moda_section_literature.
 osmo:R_HAS_A_CITATION_CONTENT a owl:Restriction;
    owl:onProperty osmo:has_aspect_paradigmatic_content;
    owl:someValuesFrom otras:citation.
+osmo:moda_section_literature rdfs:subClassOf osmo:R_HAS_A_CITATION_CONTENT.
 
 osmo:moda_software a owl:Class;
    rdfs:subClassOf osmo:moda_section_aspect;
