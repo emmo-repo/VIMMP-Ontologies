@@ -1,9 +1,9 @@
 
 ### VIMMP VALIDATION ONTOLOGY (VIVO) ###
 
-### VERSION 0.1.9 ###
+### VERSION 0.1.10 ###
 
-### DATED 23RD MARCH 2019 ###
+### DATED 25TH APRIL 2019 ###
 
 @prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
 
@@ -204,7 +204,7 @@ vivo:data_item a owl:Class;
    rdfs:subClassOf evmpo:information_content_entity;
    owl:equivalentClass evmpo:data_item.
 vivo:op_data_item a owl:Class;
-   rdfs:subClassOf evmpo:ObjectProperty;
+   rdfs:subClassOf owl:ObjectProperty;
    owl:equivalentClass evmpo:op_data_item.
 vivo:dp_data_item a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty;

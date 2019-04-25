@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 0.3.2 ###
+### VERSION 0.3.3 ###
 
-### DATED 24TH APRIL 2019 ###
+### DATED 25TH APRIL 2019 ###
 
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -11,6 +11,7 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
 @prefix qudt: <http://qudt.org/schema/qudt#>.
 @prefix quq: <http://purl.oclc.org/NET/ssnx/qu/quantity#>.
+@prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
@@ -794,6 +795,10 @@ osmo:dp_moda_section_literature a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 osmo:op_moda_section_aspect rdfs:subClassOf osmo:op_moda_section_literature.
 osmo:dp_moda_section_aspect rdfs:subClassOf osmo:dp_moda_section_literature.
+
+osmo:R_HAS_A_CITATION_CONTENT a owl:Restriction;
+   owl:onProperty osmo:has_aspect_paradigmatic_content;
+   owl:someValuesFrom otras:citation.
 
 osmo:moda_software a owl:Class;
    rdfs:subClassOf osmo:moda_section_aspect;

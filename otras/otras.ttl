@@ -1,13 +1,14 @@
 
 ### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
 
-### VERSION 0.2.4 ###
+### VERSION 0.2.5 ###
 
-### DATED 15TH MARCH 2019 ###
+### DATED 25TH APRIL 2019 ###
 
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 
 @prefix ccso: <https://w3id.org/ccso/ccso#>.
+@prefix cviii: <http://www.vimmp.eu/semantics/cviii/cviii.ttl#>.
 @prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
 @prefix iao: <http://purl.obolibrary.org/obo/iao.owl#>.
 @prefix ical: <https://www.w3.org/2002/12/cal/icaltzd#>.
@@ -41,11 +42,56 @@ otras:dp_carrier a owl:Class;
 otras:op_training_entity rdfs:subClassOf otras:op_carrier.
 otras:dp_training_entity rdfs:subClassOf otras:dp_carrier.
 
+otras:document a owl:Class;
+   rdfs:subClassOf evmpo:information_content_entity, iao:IAO_0000030;  # iao label "information content entity"
+   rdfs:comment "document as defined by EVMPO and IAO"^^xs:string;
+   owl:equivalentClass evmpo:document, iao:IAO_0000310.  # iao label "document"
+otras:op_document a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty;
+   owl:equivalentClass evmpo:op_document.
+otras:dp_document a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty;
+   owl:equivalentClass evmpo:dp_document.
+evmpo:op_information_content_entity rdfs:subClassOf otras:op_document.
+evmpo:dp_information_content_entity rdfs:subClassOf otras:dp_document.
+
+otras:has_citation_representation a otras:op_document;
+   rdfs:domain otras:document;
+   rdfs:range otras:citation;
+   owl:inverseOf otras:is_citation_about_document.
+
+otras:scientific_publication a owl:Class;
+   rdfs:subClassOf otras:document;
+   rdfs:comment "scientific publication, i.e., publication about an investigation, as defined by the IAO"^^xs:string;
+   owl:equivalentClass iao:IAO_0000312.  # iao label "scientific publication" or equivalently "publication about an investigation"
+otras:op_scientific_publication a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_scientific_publication a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_document rdfs:subClassOf otras:op_scientific_publication.
+evmpo:dp_document rdfs:subClassOf otras:dp_scientific_publication.
+
+otras:R_HAS_A_CITATION_REPRESENTATION a owl:Restriction;
+   rdfs:subClassOf otras:constrained_entity;
+   owl:onProperty otras:has_citation_representation;
+   owl:someValuesFrom otras:citation.
+otras:scientific_publication rdfs:subClassOf otras:R_HAS_A_CITATION_REPRESENTATION.
+
+otras:journal_article a owl:Class;
+   rdfs:subClassOf otras:scientific_publication;
+   rdfs:comment "a journal article"^^xs:string.
+otras:op_journal_article a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_journal_article a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_scientific_publication rdfs:subClassOf otras:op_journal_article.
+evmpo:dp_scientific_publication rdfs:subClassOf otras:dp_journal_article.
+
 otras:training_document a owl:Class;
-   rdfs:comment "a training document is an document (as defined by IAO) that is related to training content on a virtual marketplace"^^xs:string;
-   rdfs:subClassOf evmpo:document, otras:carrier;
+   rdfs:comment "a training document is a document (as defined by IAO) that is related to training content on a virtual marketplace"^^xs:string;
+   rdfs:subClassOf otras:document, otras:carrier;
    rdfs:subClassOf iao:IAO_0000310;  # iao label "document"
-   owl:intersectionOf (evmpo:document otras:carrier).
+   owl:intersectionOf (otras:document otras:carrier).
 otras:op_training_document a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 otras:dp_training_document a owl:Class;
@@ -964,3 +1010,218 @@ otras:KMK_OPERATOR_390 a otras:kmk_operator_specifier;
    otras:has_kmk_level otras:KMK_LEVEL_III;
    otras:is_expressed_by "plan"^^xs:string;
    otras:is_defined_by "come up with a design for an experiment or a structured approach to investigate a problem"^^xs:string.
+
+
+otras:citation a owl:Class;
+   rdfs:subClassOf evmpo:information_content_entity, iao:IAO_0000030;  # iao label "information content entity"
+   rdfs:comment "citation as defined by IAO; n.b., OTRAS adds some properties to this beyond what is specified by the IAO"^^xs:string;
+   owl:equivalentClass iao:IAO_0000301.  # iao label "citation"
+otras:op_citation a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_citation a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_information_content_entity rdfs:subClassOf otras:op_citation.
+evmpo:dp_information_content_entity rdfs:subClassOf otras:dp_citation.
+
+otras:has_author_map a otras:op_citation;
+   rdfs:domain otras:citation;
+   rdfs:range otras:author_map;
+   rdfs:subPropertyOf evmpo:has_information_content_entity_annotation.
+
+otras:has_doi a otras:dp_citation;
+   rdfs:domain otras:citation;
+   rdfs:range xs:string.
+otras:has_first_author_surname a otras:dp_citation;
+   rdfs:domain otras:citation;
+   rdfs:range xs:string.
+otras:has_publication_title a otras:dp_citation;
+   rdfs:domain otras:citation;
+   rdfs:range xs:string.
+otras:has_publication_year a otras:dp_citation;
+   rdfs:domain otras:citation;
+   rdfs:range xs:gYear.
+
+otras:is_about a evmpo:op_information_content_entity, owl:ObjectProperty;
+   rdfs:domain evmpo:information_content_entity;
+   rdfs:range evmpo:marketplace_related_entity;
+   rdfs:subPropertyOf iao:IAO_0000136.  # iao property labelled "is_about"
+otras:is_citation_about_document a otras:op_citation;
+   rdfs:domain otras:citation;
+   rdfs:range otras:document;
+   rdfs:subPropertyOf otras:is_about;
+   owl:inverseOf otras:is_cited_as.
+
+otras:R_HAS_ONE_FIRST_AUTHOR_SURNAME a owl:Restriction;  # important to ensure that any set of citations can be sorted by first-author surname
+   rdfs:subClassOf otras:constrained_entity;
+   owl:onProperty otras:has_first_author_surname;
+   owl:cardinality 1.
+otras:R_HAS_ONE_PUBLICATION_YEAR a owl:Restriction;  # important to ensure that any set of citations can be sorted by year
+   rdfs:subClassOf otras:constrained_entity;
+   owl:onProperty otras:has_publication_year;
+   owl:cardinality 1.
+otras:R_IS_CITATION_ABOUT_A_DOCUMENT a owl:Restriction;
+   rdfs:subClassOf otras:constrained_entity;
+   owl:onProperty otras:is_citation_about_document;
+   owl:someValuesFrom otras:document.
+otras:citation rdfs:subClassOf otras:R_HAS_ONE_PUBLICATION_YEAR, otras:R_IS_CITATION_ABOUT_A_DOCUMENT.
+
+otras:doi_citation a owl:Class;
+   rdfs:subClassOf otras:citation;
+   rdfs:comment "DOI citation, i.e., a citation that has a DOI"^^xs:string.
+otras:op_doi_citation a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_doi_citation a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_citation rdfs:subClassOf otras:op_doi_citation.
+evmpo:dp_citation rdfs:subClassOf otras:dp_doi_citation.
+
+otras:R_IS_ABOUT_ONE_ENTITY a owl:Restriction;
+   rdfs:subClassOf otras:constrained_entity;
+   owl:onProperty otras:is_about;
+   owl:cardinality 1.
+otras:R_HAS_A_DOI a owl:Restriction;
+   rdfs:subClassOf otras:constrained_entity;
+   owl:onProperty otras:has_doi;
+   owl:someValuesFrom xs:string.
+otras:doi_citation
+   rdfs:subClassOf otras:R_IS_ABOUT_ONE_ENTITY;
+   owl:intersectionOf (otras:citation otras:R_HAS_A_DOI).
+
+otras:journal_article_citation a owl:Class;
+   rdfs:subClassOf otras:doi_citation;
+   rdfs:comment "journal article citation, i.e., a DOI citation that is about a journal article"^^xs:string.
+otras:op_journal_article_citation a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_journal_article_citation a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_doi_citation rdfs:subClassOf otras:op_journal_article_citation.
+evmpo:dp_doi_citation rdfs:subClassOf otras:dp_journal_article_citation.
+
+otras:R_IS_CITATION_ABOUT_A_JOURNAL_ARTICLE a owl:Restriction;
+   rdfs:subClassOf otras:constrained_entity;
+   owl:onProperty otras:is_citation_about_document;
+   owl:someValuesFrom otras:journal_article.
+otras:journal_article_citation owl:intersectionOf (otras:doi_citation otras:R_IS_CITATION_ABOUT_A_JOURNAL_ARTICLE).
+
+otras:has_publication_journal_identifier a otras:dp_journal_article_citation;
+   rdfs:domain otras:journal_article_citation;
+   rdfs:range xs:string.
+otras:has_publication_journal_name a otras:dp_journal_article_citation;
+   rdfs:domain otras:journal_article_citation;
+   rdfs:range xs:string;
+   rdfs:subPropertyOf otras:has_publication_journal_identifier.
+otras:has_publication_journal_abbreviation a otras:dp_journal_article_citation;
+   rdfs:domain otras:journal_article_citation;
+   rdfs:range xs:string;
+   rdfs:subPropertyOf otras:has_publication_journal_identifier.
+otras:has_publication_journal_issn a otras:dp_journal_article_citation;
+   rdfs:domain otras:journal_article_citation;
+   rdfs:range xs:string;
+   rdfs:subPropertyOf otras:has_publication_journal_identifier.
+
+otras:has_publication_journal_volume a otras:dp_journal_article_citation;
+   rdfs:domain otras:journal_article_citation;
+   rdfs:range xs:positiveInteger.
+otras:has_publication_journal_issue a otras:dp_journal_article_citation;
+   rdfs:domain otras:journal_article_citation;
+   rdfs:range xs:positiveInteger.
+otras:has_publication_journal_pages a otras:dp_journal_article_citation;
+   rdfs:domain otras:journal_article_citation;
+   rdfs:range xs:string.
+
+otras:R_HAS_A_PUBLICATION_JOURNAL_IDENTIFIER a owl:Restriction;
+   rdfs:subClassOf otras:constrained_entity;
+   owl:onProperty otras:has_publication_journal_identifier;
+   owl:someValuesFrom xs:string.
+otras:R_HAS_A_PUBLICATION_JOURNAL_VOLUME a owl:Restriction;
+   rdfs:subClassOf otras:constrained_entity;
+   owl:onProperty otras:has_publication_journal_volume;
+   owl:someValuesFrom xs:positiveInteger.
+otras:R_HAS_PUBLICATION_JOURNAL_PAGES a owl:Restriction;
+   rdfs:subClassOf otras:constrained_entity;
+   owl:onProperty otras:has_publication_journal_pages;
+   owl:someValuesFrom xs:string.
+otras:journal_article_citation rdfs:subClassOf otras:R_HAS_A_PUBLICATION_JOURNAL_IDENTIFIER, otras:R_HAS_A_PUBLICATION_JOURNAL_VOLUME, otras:R_HAS_PUBLICATION_JOURNAL_PAGES.
+
+otras:author_identification_entity a owl:Class;
+   rdfs:subClassOf otras:training_entity, evmpo:annotation;
+   rdfs:comment "author identification entity, i.e., an entity related to the identification of authors"^^xs:string.
+otras:op_author_identification_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_author_identification_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+otras:op_training_entity rdfs:subClassOf otras:op_author_identification_entity.
+otras:dp_training_entity rdfs:subClassOf otras:dp_author_identification_entity.
+evmpo:op_annotation rdfs:subClassOf otras:op_author_identification_entity.
+evmpo:dp_annotation rdfs:subClassOf otras:dp_author_identification_entity.
+
+otras:author_identifier a owl:Class;
+   rdfs:subClassOf otras:author_identification_entity;
+   rdfs:comment "author identifier, i.e., a descriptor by which an author can be identified"^^xs:string.
+otras:op_author_identifier a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_author_identifier a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+otras:op_author_identification_entity rdfs:subClassOf otras:op_author_identifier.
+otras:dp_author_identification_entity rdfs:subClassOf otras:dp_author_identifier.
+
+otras:has_identified_given_name a otras:dp_author_identifier, owl:FunctionalProperty;
+   rdfs:domain otras:author_identifier;
+   rdfs:range xs:string.
+otras:has_identified_given_name_initials a otras:dp_author_identifier, owl:FunctionalProperty;
+   rdfs:domain otras:author_identifier;
+   rdfs:range xs:string.
+otras:has_identified_person a otras:op_author_identifier;
+   rdfs:domain otras:author_identifier;
+   rdfs:range cviii:person.
+otras:has_identified_surname a otras:dp_author_identifier, owl:FunctionalProperty;
+   rdfs:domain otras:author_identifier;
+   rdfs:range xs:string.
+
+otras:R_HAS_ONE_IDENTIFIED_SURNAME a owl:Restriction;
+   rdfs:subClassOf otras:constrained_entity;
+   owl:onProperty otras:has_identified_surname;
+   owl:cardinality 1.
+
+otras:author_map a owl:Class;
+   rdfs:subClassOf otras:author_identification_entity;
+   rdfs:comment "author map, i.e., an indexed collection of author identifiers (n.b., not a collection of the persons themselves, but of identifiers)"^^xs:string.
+otras:op_author_map a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_author_map a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+otras:op_author_identification_entity rdfs:subClassOf otras:op_author_map.
+otras:dp_author_identification_entity rdfs:subClassOf otras:dp_author_map.
+
+otras:has_author_map_element a otras:op_author_map;
+   rdfs:domain otras:author_map;
+   rdfs:range otras:author_map_element;
+   rdfs:subPropertyOf evmpo:has_meta_annotation.
+
+otras:author_map_element a owl:Class;
+   rdfs:subClassOf otras:author_identification_entity;
+   rdfs:comment "author map element, i.e., a numbered entry within an indexed collection of author identifiers"^^xs:string.
+otras:op_author_map_element a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_author_map_element a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+otras:op_author_identification_entity rdfs:subClassOf otras:op_author_map_element.
+otras:dp_author_identification_entity rdfs:subClassOf otras:dp_author_map_element.
+
+otras:has_ame_identifier a otras:op_author_map_element, owl:FunctionalProperty;
+   rdfs:domain otras:author_map_element;
+   rdfs:range otras:author_identifier;
+   rdfs:subPropertyOf evmpo:has_meta_annotation.
+otras:has_ame_index a otras:dp_author_map_element, owl:FunctionalProperty;
+   rdfs:domain otras:author_map_element;
+   rdfs:range xs:nonNegativeInteger.
+
+otras:R_HAS_ONE_AME_IDENTIFIER a owl:Restriction;
+   rdfs:subClassOf otras:constrained_entity;
+   owl:onProperty otras:has_ame_identifier;
+   owl:cardinality 1.
+otras:R_HAS_ONE_AME_INDEX a owl:Restriction;
+   rdfs:subClassOf otras:constrained_entity;
+   owl:onProperty otras:has_ame_index;
+   owl:cardinality 1.
+otras:author_map_element rdfs:subClassOf otras:R_HAS_ONE_AME_IDENTIFIER, otras:R_HAS_ONE_AME_INDEX.
