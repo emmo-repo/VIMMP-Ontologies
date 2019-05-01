@@ -3086,9 +3086,9 @@ osmo:dp_unit_function rdfs:subClassOf osmo:dp_material_information_uf.
 
 ### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
 
-### VERSION 0.2.5 ###
+### VERSION 0.3.0 ###
 
-### DATED 25TH APRIL 2019 ###
+### DATED 1ST MAY 2019 ###
 
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 
@@ -3292,26 +3292,28 @@ otras:dp_specifier rdfs:subClassOf otras:dp_operator_specifier.
 otras:is_expressed_by a otras:dp_operator_specifier;
    rdfs:domain otras:operator_specifier;
    rdfs:range rdfs:Literal.
-otras:R_IS_EXPRESSED a owl:Restriction;
-   rdfs:subClassOf otras:constrained_entity;
-   owl:onProperty otras:is_expressed_by;
-   owl:someValuesFrom rdfs:Literal.
-otras:operator_specifier rdfs:subClassOf otras:R_IS_EXPRESSED.
 otras:is_defined_by a otras:dp_specifier;
    rdfs:domain otras:operator_specifier;
    rdfs:range rdfs:Literal;
    rdfs:subPropertyOf otras:has_specifier_descriptor.
-
+otras:has_operator_code a otras:dp_operator_specifier;
+   rdfs:domain otras:operator_specifier;
+   rdfs:range xs:nonNegativeInteger.
 otras:has_operator_descriptor a otras:dp_operator_specifier;
    rdfs:domain otras:operator_specifier;
    rdfs:range rdfs:Literal;
    rdfs:subPropertyOf otras:has_specifier_descriptor;
    owl:equivalentProperty otras:is_expressed_by.
-
-otras:has_kmk_level a otras:op_operator_specifier;
+otras:has_operator_level a otras:op_operator_specifier;
    rdfs:domain otras:operator_specifier;
-   rdfs:range otras:kmk_operator_level;
+   rdfs:range otras:operator_level;
    rdfs:subPropertyOf evmpo:has_meta_annotation.
+
+otras:R_IS_EXPRESSED a owl:Restriction;
+   rdfs:subClassOf otras:constrained_entity;
+   owl:onProperty otras:is_expressed_by;
+   owl:someValuesFrom rdfs:Literal.
+otras:operator_specifier rdfs:subClassOf otras:R_IS_EXPRESSED.
 
 otras:operand_specifier a owl:Class;
    rdfs:comment "operand specifier, i.e., an entity acted upon by an operator specifier"^^xs:string;
@@ -3836,31 +3838,46 @@ otras:MM_TOPIC_9000 a otras:mm_topic_side;
    otras:has_topic_descriptor "Topic: Side interests (general)"^^xs:string.
 
 
+otras:operator_level a owl:Class;
+   rdfs:comment "operator level, i.e., a requirement level for competency statement operators"^^xs:string;
+   rdfs:subClassOf otras:focus.
+otras:op_operator_level a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_operator_level a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+otras:op_focus rdfs:subClassOf otras:op_operator_level.
+otras:dp_focus rdfs:subClassOf otras:dp_operator_level.
+
+otras:is_at_numerical_level a otras:dp_operator_level;
+   rdfs:domain otras:operator_level;
+   rdfs:range xs:nonNegativeInteger;
+   rdfs:comment "value which is 0 (special case: below basic), 1 (basic), 2 (intermediate), 3 (advanced), 4 (expert), or 5 (special case: exceptional distinction or unique skill)".
+
+otras:EXPERT_LEVEL a otras:operator_level;
+   otras:is_at_numerical_level 4.
+
 otras:kmk_operator_level a owl:Class;
    rdfs:comment "KMK operator level, i.e., a requirement level corresponding to one of the headings from the KMK catalogue of operators for statements of learning outcomes in natural-science subjects"^^xs:string;
-   rdfs:subClassOf otras:focus.
+   rdfs:subClassOf otras:operator_level.
 otras:op_kmk_operator_level a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 otras:dp_kmk_operator_level a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-otras:op_focus rdfs:subClassOf otras:op_kmk_operator_level.
-otras:dp_focus rdfs:subClassOf otras:dp_kmk_operator_level.
+otras:op_operator_level rdfs:subClassOf otras:op_kmk_operator_level.
+otras:dp_operator_level rdfs:subClassOf otras:dp_kmk_operator_level.
 
-otras:is_numerical_level a otras:dp_kmk_operator_level;
-   rdfs:domain otras:kmk_operator_level;
-   rdfs:range xs:nonNegativeInteger.
-otras:R_IS_EXACTLY_ONE_NUMERICAL_LEVEL a owl:Restriction;
+otras:R_IS_AT_ONE_NUMERICAL_LEVEL a owl:Restriction;
    rdfs:subClassOf otras:constrained_entity;
-   owl:onProperty otras:is_numerical_level;
+   owl:onProperty otras:is_at_numerical_level;
    owl:cardinality 1.
-otras:kmk_operator_level rdfs:subClassOf otras:R_IS_EXACTLY_ONE_NUMERICAL_LEVEL.
+otras:kmk_operator_level rdfs:subClassOf otras:R_IS_AT_ONE_NUMERICAL_LEVEL.
 
 otras:KMK_LEVEL_I a otras:kmk_operator_level;
-   otras:is_numerical_level 1.
+   otras:is_at_numerical_level 1.
 otras:KMK_LEVEL_II a otras:kmk_operator_level;
-   otras:is_numerical_level 2.
+   otras:is_at_numerical_level 2.
 otras:KMK_LEVEL_III a otras:kmk_operator_level;
-   otras:is_numerical_level 3.
+   otras:is_at_numerical_level 3.
 
 otras:kmk_operator_specifier a owl:Class;
    rdfs:comment "KMK operator specifier, i.e., an operator from the catalogue for natural-science subjects agreed upon by the German Federal Conference of State Cultural Ministries (KMK)"^^xs:string;
@@ -3872,25 +3889,40 @@ otras:dp_kmk_operator_specifier a owl:Class;
 otras:op_operator_specifier rdfs:subClassOf otras:op_kmk_operator_specifier.
 otras:dp_operator_specifier rdfs:subClassOf otras:dp_kmk_operator_specifier.
 
-otras:R_IS_DEFINED a owl:Restriction;
-   rdfs:subClassOf otras:constrained_entity;
-   owl:onProperty otras:is_defined_by;
-   owl:someValuesFrom rdfs:Literal.
-otras:kmk_operator_specifier rdfs:subClassOf otras:R_IS_DEFINED.
+otras:has_kmk_level a otras:op_kmk_operator_specifier;
+   rdfs:domain otras:kmk_operator_specifier;
+   rdfs:range otras:kmk_operator_level;
+   rdfs:subPropertyOf otras:has_operator_level.
+
 otras:R_HAS_A_KMK_LEVEL a owl:Restriction;
    rdfs:subClassOf otras:constrained_entity;
    owl:onProperty otras:has_kmk_level;
    owl:someValuesFrom otras:kmk_operator_level.
-otras:kmk_operator_specifier rdfs:subClassOf otras:R_HAS_A_KMK_LEVEL.
-
-otras:has_operator_code a otras:dp_kmk_operator_specifier;
-   rdfs:domain otras:kmk_operator_specifier;
-   rdfs:range xs:nonNegativeInteger.
-otras:R_HAS_EXACTLY_ONE_OPERATOR_CODE a owl:Restriction;
+otras:R_HAS_ONE_OPERATOR_CODE a owl:Restriction;
    rdfs:subClassOf otras:constrained_entity;
    owl:onProperty otras:has_operator_code;
    owl:cardinality 1.
-otras:kmk_operator_specifier rdfs:subClassOf otras:R_HAS_EXACTLY_ONE_OPERATOR_CODE.
+otras:R_IS_DEFINED_BY_A_STRING a owl:Restriction;
+   rdfs:subClassOf otras:constrained_entity;
+   owl:onProperty otras:is_defined_by;
+   owl:someValuesFrom xs:string.
+otras:kmk_operator_specifier rdfs:subClassOf otras:R_HAS_A_KMK_LEVEL, otras:R_HAS_ONE_OPERATOR_CODE, otras:R_IS_DEFINED_BY_A_STRING.
+
+otras:expert_operator_specifier a owl:Class;
+   rdfs:comment "expert operator specifier, i.e., an competency statement operator specifier for expert-level competencies"^^xs:string;
+   rdfs:subClassOf otras:operator_specifier.
+otras:op_expert_operator_specifier a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_expert_operator_specifier a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+otras:op_operator_specifier rdfs:subClassOf otras:op_expert_operator_specifier.
+otras:dp_operator_specifier rdfs:subClassOf otras:dp_expert_operator_specifier.
+
+otras:R_HAS_EXPERT_LEVEL a owl:Restriction;
+   rdfs:subClassOf otras:constrained_entity;
+   owl:onProperty otras:has_operator_level;
+   owl:hasValue otras:EXPERT_LEVEL.
+otras:expert_operator_specifier rdfs:subClassOf otras:R_HAS_EXPERT_LEVEL, otras:R_HAS_ONE_OPERATOR_CODE.
 
 otras:KMK_OPERATOR_100 a otras:kmk_operator_specifier;
    otras:has_operator_code 100;
@@ -4095,6 +4127,63 @@ otras:KMK_OPERATOR_390 a otras:kmk_operator_specifier;
    otras:has_kmk_level otras:KMK_LEVEL_III;
    otras:is_expressed_by "plan"^^xs:string;
    otras:is_defined_by "come up with a design for an experiment or a structured approach to investigate a problem"^^xs:string.
+
+otras:EXP_OPERATOR_400 a otras:expert_operator_specifier;
+   otras:has_operator_code 400;
+   otras:is_expressed_by "expert level operator (unspecified)"^^xs:string;
+   otras:is_defined_by "an unspecified learning operator at the expert level"^^xs:string.
+
+otras:EXP_OPERATOR_420 a otras:expert_operator_specifier;
+   otras:has_operator_code 420;
+   otras:is_expressed_by "to review/evaluate critically"^^xs:string.
+
+otras:EXP_OPERATOR_425 a otras:expert_operator_specifier;
+   otras:has_operator_code 425;
+   otras:is_expressed_by "to advise/manage"^^xs:string.
+
+otras:EXP_OPERATOR_430 a otras:expert_operator_specifier;
+   otras:has_operator_code 430;
+   otras:is_expressed_by "to characterize experimentally"^^xs:string.
+
+otras:EXP_OPERATOR_435 a otras:expert_operator_specifier;
+   otras:has_operator_code 435;
+   otras:is_expressed_by "to document"^^xs:string.
+
+otras:EXP_OPERATOR_440 a otras:expert_operator_specifier;
+   otras:has_operator_code 440;
+   otras:is_expressed_by "to carry out professional work"^^xs:string.
+
+otras:EXP_OPERATOR_445 a otras:expert_operator_specifier;
+   otras:has_operator_code 445;
+   otras:is_expressed_by "to correspond"^^xs:string.
+
+otras:EXP_OPERATOR_450 a otras:expert_operator_specifier;
+   otras:has_operator_code 450;
+   otras:is_expressed_by "to teach"^^xs:string.
+
+otras:EXP_OPERATOR_455 a otras:expert_operator_specifier;
+   otras:has_operator_code 455;
+   otras:is_expressed_by "to plan/project/propose"^^xs:string.
+
+otras:EXP_OPERATOR_460 a otras:expert_operator_specifier;
+   otras:has_operator_code 460;
+   otras:is_expressed_by "to conduct an exam/assessment"^^xs:string.
+
+otras:EXP_OPERATOR_465 a otras:expert_operator_specifier;
+   otras:has_operator_code 465;
+   otras:is_expressed_by "to systematize"^^xs:string.
+
+otras:EXP_OPERATOR_470 a otras:expert_operator_specifier;
+   otras:has_operator_code 470;
+   otras:is_expressed_by "to expand/extend/generalize"^^xs:string.
+
+otras:EXP_OPERATOR_475 a otras:expert_operator_specifier;
+   otras:has_operator_code 475;
+   otras:is_expressed_by "to simplify/reduce"^^xs:string.
+
+otras:EXP_OPERATOR_480 a otras:expert_operator_specifier;
+   otras:has_operator_code 480;
+   otras:is_expressed_by "to innovate/develop"^^xs:string.
 
 
 otras:citation a owl:Class;
