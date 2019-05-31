@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 0.3.3 ###
+### VERSION 0.4.0 ###
 
-### DATED 25TH APRIL 2019 ###
+### DATED 31ST MAY 2019 ###
 
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -51,1080 +51,1095 @@ evmpo:dp_paradigmatic_entity rdfs:subClassOf osmo:dp_simulation.
 osmo:model owl:disjointWith osmo:simulation.
 
 
-osmo:romm_entity a owl:Class;
+osmo:materials_model_classifier a owl:Class;
    rdfs:subClassOf evmpo:annotation;
-   rdfs:comment "RoMM entity, i.e., a descriptor for categorizing model-related entities, following RoMM (note: these are descriptors, not identical with the described entities)"^^xs:string.
-osmo:op_romm_entity a owl:Class;
+   rdfs:comment "materials model classifier, i.e., a symbol for categories of materials-model related entities, following RoMM (note: these are descriptors, not identical with the described entities)"^^xs:string.
+osmo:op_materials_model_classifier a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_romm_entity a owl:Class;
+osmo:dp_materials_model_classifier a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_annotation rdfs:subClassOf osmo:op_romm_entity.
-evmpo:dp_annotation rdfs:subClassOf osmo:dp_romm_entity.
+evmpo:op_annotation rdfs:subClassOf osmo:op_materials_model_classifier.
+evmpo:dp_annotation rdfs:subClassOf osmo:dp_materials_model_classifier.
 
-osmo:romm_granularity_level a owl:Class;
-   rdfs:subClassOf osmo:romm_entity;
+osmo:granularity_level a owl:Class;
+   rdfs:subClassOf osmo:materials_model_classifier;
    owl:oneOf (osmo:ELECTRONIC osmo:ATOMISTIC osmo:MESOSCOPIC osmo:CONTINUUM);
-   rdfs:comment "RoMM granularity level, i.e., an annotation label referring to the electronic, atomistic, mesoscopic, or continuum level according to RoMM"^^xs:string.
-osmo:op_romm_granularity_level a owl:Class;
+   rdfs:comment "granularity level (from RoMM), i.e., electronic, atomistic, mesoscopic, or continuum level according to RoMM"^^xs:string.
+osmo:op_granularity_level a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_romm_granularity_level a owl:Class;
+osmo:dp_granularity_level a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_romm_entity rdfs:subClassOf osmo:op_romm_granularity_level.
-osmo:dp_romm_entity rdfs:subClassOf osmo:dp_romm_granularity_level.
+osmo:op_materials_model_classifier rdfs:subClassOf osmo:op_granularity_level.
+osmo:dp_materials_model_classifier rdfs:subClassOf osmo:dp_granularity_level.
 
-osmo:ELECTRONIC a osmo:romm_granularity_level;
+osmo:ELECTRONIC a osmo:granularity_level;
    rdfs:comment "granularity level label: electronic materials modelling"^^xs:string.
-osmo:ATOMISTIC a osmo:romm_granularity_level;
+osmo:ATOMISTIC a osmo:granularity_level;
    rdfs:comment "granularity level label: atomistic materials modelling"^^xs:string.
-osmo:MESOSCOPIC a osmo:romm_granularity_level;
+osmo:MESOSCOPIC a osmo:granularity_level;
    rdfs:comment "granularity level label: mesoscopic materials modelling"^^xs:string.
-osmo:CONTINUUM a osmo:romm_granularity_level;
+osmo:CONTINUUM a osmo:granularity_level;
    rdfs:comment "granularity level label: continuum materials modelling"^^xs:string.
 
-osmo:romm_model_type a owl:Class;
-   rdfs:subClassOf osmo:romm_entity;
-   rdfs:comment "RoMM model type, i.e., an annotation label referring to the model type, following RoMM (n.b., these entities are not models, they are descriptors of models)"^^xs:string.
-osmo:op_romm_model_type a owl:Class;
+osmo:physics_equation_type a owl:Class;
+   rdfs:subClassOf osmo:materials_model_classifier;
+   rdfs:comment "physics equation type, i.e., a symbol referring to the physical equation underlying a model, mostly following RoMM (n.b., these entities are not models, they are descriptors of models)"^^xs:string.
+osmo:op_physics_equation_type a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_romm_model_type a owl:Class;
+osmo:dp_physics_equation_type a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_romm_entity rdfs:subClassOf osmo:op_romm_model_type.
-osmo:dp_romm_entity rdfs:subClassOf osmo:dp_romm_model_type.
+osmo:op_materials_model_classifier rdfs:subClassOf osmo:op_physics_equation_type.
+osmo:dp_materials_model_classifier rdfs:subClassOf osmo:dp_physics_equation_type.
 
-osmo:has_romm_granularity_level a osmo:op_romm_model_type;
-   rdfs:domain osmo:romm_model_type;
-   rdfs:range osmo:romm_granularity_level;
+osmo:has_granularity_level a osmo:op_physics_equation_type;
+   rdfs:domain osmo:physics_equation_type;
+   rdfs:range osmo:granularity_level;
    rdfs:subPropertyOf evmpo:has_meta_annotation.
-osmo:has_romm_type_descriptor a osmo:dp_romm_model_type;
-   rdfs:domain osmo:romm_model_type;
+osmo:has_pe_type_descriptor a osmo:dp_physics_equation_type;
+   rdfs:domain osmo:physics_equation_type;
    rdfs:range xs:string.
 
-osmo:R_HAS_ONE_ROMM_GRANULARITY_LEVEL a owl:Restriction;
+osmo:R_HAS_ONE_GRANULARITY_LEVEL a owl:Restriction;
    rdfs:subClassOf osmo:constrained_entity;
-   owl:onProperty osmo:has_romm_granularity_level;
+   owl:onProperty osmo:has_granularity_level;
    owl:cardinality 1.
-osmo:R_HAS_A_ROMM_TYPE_DESCRIPTOR a owl:Restriction;
+osmo:R_HAS_A_PE_TYPE_DESCRIPTOR a owl:Restriction;
    rdfs:subClassOf osmo:constrained_entity;
-   owl:onProperty osmo:has_romm_type_descriptor;
+   owl:onProperty osmo:has_pe_type_descriptor;
    owl:someValuesFrom xs:string.
-osmo:romm_model_type rdfs:subClassOf osmo:R_HAS_ONE_ROMM_GRANULARITY_LEVEL, osmo:R_HAS_A_ROMM_TYPE_DESCRIPTOR.
+osmo:physics_equation_type rdfs:subClassOf osmo:R_HAS_ONE_GRANULARITY_LEVEL, osmo:R_HAS_A_PE_TYPE_DESCRIPTOR.
 
-osmo:romm_model_type owl:disjointUnionOf (osmo:romm_type_electronic osmo:romm_type_atomistic osmo:romm_type_mesoscopic osmo:romm_type_continuum).
+osmo:physics_equation_type owl:disjointUnionOf (osmo:pe_type_electronic osmo:pe_type_atomistic osmo:pe_type_mesoscopic osmo:pe_type_continuum).
 
-osmo:romm_type_electronic a owl:Class;
-   rdfs:subClassOf osmo:romm_model_type;
-   rdfs:comment "electronic RoMM model type, i.e., a RoMM model type that operates at the electronic granularity level"^^xs:string.
-osmo:op_romm_type_electronic a owl:Class;
+osmo:pe_type_electronic a owl:Class;
+   rdfs:subClassOf osmo:physics_equation_type;
+   rdfs:comment "electronic physics equation type, i.e., a PE type at the electronic granularity level"^^xs:string.
+osmo:op_pe_type_electronic a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_romm_type_electronic a owl:Class;
+osmo:dp_pe_type_electronic a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_romm_model_type rdfs:subClassOf osmo:op_romm_type_electronic.
-osmo:dp_romm_model_type rdfs:subClassOf osmo:dp_romm_type_electronic.
+osmo:op_physics_equation_type rdfs:subClassOf osmo:op_pe_type_electronic.
+osmo:dp_physics_equation_type rdfs:subClassOf osmo:dp_pe_type_electronic.
 
 osmo:R_HAS_ELECTRONIC_GRANULARITY_LEVEL a owl:Restriction;
    rdfs:subClassOf osmo:constrained_entity;
-   owl:onProperty osmo:has_romm_granularity_level;
+   owl:onProperty osmo:has_granularity_level;
    owl:hasValue osmo:ELECTRONIC.
-osmo:romm_type_electronic
-   owl:intersectionOf (osmo:romm_model_type osmo:R_HAS_ELECTRONIC_GRANULARITY_LEVEL);
+osmo:pe_type_electronic
+   owl:intersectionOf (osmo:physics_equation_type osmo:R_HAS_ELECTRONIC_GRANULARITY_LEVEL);
    owl:disjointUnionOf (
-      osmo:romm_type_electronic_qm_abinitio         # category 1.1
-      osmo:romm_type_electronic_manybody_effective  # category 1.2
-      osmo:romm_type_electronic_time_dependent      # category 1.3
-      osmo:romm_type_electronic_charge_transport    # category 1.4
-      osmo:romm_type_electronic_spin_transport      # category 1.5
+      osmo:pe_type_electronic_qm_abinitio         # RoMM category 1.1, OSMO PE type E.1
+      osmo:pe_type_electronic_manybody_effective  # RoMM category 1.2, OSMO PE type E.2
+      osmo:pe_type_electronic_time_dependent      # RoMM category 1.3, OSMO PE type E.3
+      osmo:pe_type_electronic_charge_transport    # RoMM category 1.4, OSMO PE type E.4
+      osmo:pe_type_electronic_spin_transport      # RoMM category 1.5, OSMO PE type E.5
    ).
 
-osmo:romm_type_electronic_qm_abinitio a owl:Class;
-   rdfs:subClassOf osmo:romm_type_electronic;
+osmo:pe_type_electronic_qm_abinitio a owl:Class;
+   rdfs:subClassOf osmo:pe_type_electronic;
    rdfs:subClassOf [a owl:Restriction;
-      owl:onProperty osmo:has_romm_type_descriptor;
-      owl:hasValue "ab-initio quantum mechanical (or first principle) model"^^xs:string];
-   rdfs:comment "RoMM model vocabulary category 1.1"^^xs:string.
-osmo:op_romm_type_electronic_qm_abinitio a owl:Class;
+      owl:onProperty osmo:has_pe_type_descriptor;
+      owl:hasValue "PE type E.1: Ab-initio quantum mechanical (or first principle) model"^^xs:string];
+   rdfs:comment "RoMM model vocabulary category 1.1, OSMO PE type E.1"^^xs:string.
+osmo:op_pe_type_electronic_qm_abinitio a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_romm_type_electronic_qm_abinitio a owl:Class;
+osmo:dp_pe_type_electronic_qm_abinitio a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_romm_type_electronic rdfs:subClassOf osmo:op_romm_type_electronic_qm_abinitio.
-osmo:dp_romm_type_electronic rdfs:subClassOf osmo:dp_romm_type_electronic_qm_abinitio.
+osmo:op_pe_type_electronic rdfs:subClassOf osmo:op_pe_type_electronic_qm_abinitio.
+osmo:dp_pe_type_electronic rdfs:subClassOf osmo:dp_pe_type_electronic_qm_abinitio.
 
-osmo:romm_type_electronic_manybody_effective a owl:Class;
-   rdfs:subClassOf osmo:romm_type_electronic;
+osmo:pe_type_electronic_manybody_effective a owl:Class;
+   rdfs:subClassOf osmo:pe_type_electronic;
    rdfs:subClassOf [a owl:Restriction;
-      owl:onProperty osmo:has_romm_type_descriptor;
-      owl:hasValue "electronic many-body and/or effective Hamiltonian model"^^xs:string];
-   rdfs:comment "RoMM model vocabulary category 1.2"^^xs:string.
-osmo:op_romm_type_electronic_manybody_effective a owl:Class;
+      owl:onProperty osmo:has_pe_type_descriptor;
+      owl:hasValue "PE type E.2: Electronic many-body and/or effective Hamiltonian model"^^xs:string];
+   rdfs:comment "RoMM model vocabulary category 1.2, OSMO PE type E.2"^^xs:string.
+osmo:op_pe_type_electronic_manybody_effective a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_romm_type_electronic_manybody_effective a owl:Class;
+osmo:dp_pe_type_electronic_manybody_effective a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_romm_type_electronic rdfs:subClassOf osmo:op_romm_type_electronic_manybody_effective.
-osmo:dp_romm_type_electronic rdfs:subClassOf osmo:dp_romm_type_electronic_manybody_effective.
+osmo:op_pe_type_electronic rdfs:subClassOf osmo:op_pe_type_electronic_manybody_effective.
+osmo:dp_pe_type_electronic rdfs:subClassOf osmo:dp_pe_type_electronic_manybody_effective.
 
-osmo:romm_type_electronic_time_dependent a owl:Class;
-   rdfs:subClassOf osmo:romm_type_electronic;
+osmo:pe_type_electronic_time_dependent a owl:Class;
+   rdfs:subClassOf osmo:pe_type_electronic;
    rdfs:subClassOf [a owl:Restriction;
-      owl:onProperty osmo:has_romm_type_descriptor;
-      owl:hasValue "QM model of the response to time-dependent fields"^^xs:string];
-   rdfs:comment "RoMM model vocabulary category 1.3"^^xs:string.
-osmo:op_romm_type_electronic_time_dependent a owl:Class;
+      owl:onProperty osmo:has_pe_type_descriptor;
+      owl:hasValue "PE type E.3: QM model of the response to time-dependent fields"^^xs:string];
+   rdfs:comment "RoMM model vocabulary category 1.3, OSMO PE type E.3"^^xs:string.
+osmo:op_pe_type_electronic_time_dependent a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_romm_type_electronic_time_dependent a owl:Class;
+osmo:dp_pe_type_electronic_time_dependent a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_romm_type_electronic rdfs:subClassOf osmo:op_romm_type_electronic_time_dependent.
-osmo:dp_romm_type_electronic rdfs:subClassOf osmo:dp_romm_type_electronic_time_dependent.
+osmo:op_pe_type_electronic rdfs:subClassOf osmo:op_pe_type_electronic_time_dependent.
+osmo:dp_pe_type_electronic rdfs:subClassOf osmo:dp_pe_type_electronic_time_dependent.
 
-osmo:romm_type_electronic_charge_transport a owl:Class;
-   rdfs:subClassOf osmo:romm_type_electronic;
+osmo:pe_type_electronic_charge_transport a owl:Class;
+   rdfs:subClassOf osmo:pe_type_electronic;
    rdfs:subClassOf [a owl:Restriction;
-      owl:onProperty osmo:has_romm_type_descriptor;
-      owl:hasValue "statistical charge transport model"^^xs:string];
-   rdfs:comment "RoMM model vocabulary category 1.4"^^xs:string.
-osmo:op_romm_type_electronic_charge_transport a owl:Class;
+      owl:onProperty osmo:has_pe_type_descriptor;
+      owl:hasValue "PE type E.4: Statistical charge transport model"^^xs:string];
+   rdfs:comment "RoMM model vocabulary category 1.4, OSMO PE type E.4"^^xs:string.
+osmo:op_pe_type_electronic_charge_transport a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_romm_type_electronic_charge_transport a owl:Class;
+osmo:dp_pe_type_electronic_charge_transport a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_romm_type_electronic rdfs:subClassOf osmo:op_romm_type_electronic_charge_transport.
-osmo:dp_romm_type_electronic rdfs:subClassOf osmo:dp_romm_type_electronic_charge_transport.
+osmo:op_pe_type_electronic rdfs:subClassOf osmo:op_pe_type_electronic_charge_transport.
+osmo:dp_pe_type_electronic rdfs:subClassOf osmo:dp_pe_type_electronic_charge_transport.
 
-osmo:romm_type_electronic_spin_transport a owl:Class;
-   rdfs:subClassOf osmo:romm_type_electronic;
+osmo:pe_type_electronic_spin_transport a owl:Class;
+   rdfs:subClassOf osmo:pe_type_electronic;
    rdfs:subClassOf [a owl:Restriction;
-      owl:onProperty osmo:has_romm_type_descriptor;
-      owl:hasValue "statistical electron spin transport model"^^xs:string];
-   rdfs:comment "RoMM model vocabulary category 1.5"^^xs:string.
-osmo:op_romm_type_electronic_spin_transport a owl:Class;
+      owl:onProperty osmo:has_pe_type_descriptor;
+      owl:hasValue "PE type E.5: Statistical electron spin transport model"^^xs:string];
+   rdfs:comment "RoMM model vocabulary category 1.5, OSMO PE type E.5"^^xs:string.
+osmo:op_pe_type_electronic_spin_transport a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_romm_type_electronic_spin_transport a owl:Class;
+osmo:dp_pe_type_electronic_spin_transport a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_romm_type_electronic rdfs:subClassOf osmo:op_romm_type_electronic_spin_transport.
-osmo:dp_romm_type_electronic rdfs:subClassOf osmo:dp_romm_type_electronic_spin_transport.
+osmo:op_pe_type_electronic rdfs:subClassOf osmo:op_pe_type_electronic_spin_transport.
+osmo:dp_pe_type_electronic rdfs:subClassOf osmo:dp_pe_type_electronic_spin_transport.
 
-osmo:romm_type_atomistic a owl:Class;
-   rdfs:subClassOf osmo:romm_model_type;
-   rdfs:comment "atomistic RoMM model type, i.e., a RoMM model type that operates at the atomistic granularity level"^^xs:string.
-osmo:op_romm_type_atomistic a owl:Class;
+osmo:pe_type_atomistic a owl:Class;
+   rdfs:subClassOf osmo:physics_equation_type;
+   rdfs:comment "atomistic physics equation type, i.e., a PE type that at the atomistic granularity level"^^xs:string.
+osmo:op_pe_type_atomistic a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_romm_type_atomistic a owl:Class;
+osmo:dp_pe_type_atomistic a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_romm_model_type rdfs:subClassOf osmo:op_romm_type_atomistic.
-osmo:dp_romm_model_type rdfs:subClassOf osmo:dp_romm_type_atomistic.
+osmo:op_physics_equation_type rdfs:subClassOf osmo:op_pe_type_atomistic.
+osmo:dp_physics_equation_type rdfs:subClassOf osmo:dp_pe_type_atomistic.
 
 osmo:R_HAS_ATOMISTIC_GRANULARITY_LEVEL a owl:Restriction;
    rdfs:subClassOf osmo:constrained_entity;
-   owl:onProperty osmo:has_romm_granularity_level;
+   owl:onProperty osmo:has_granularity_level;
    owl:hasValue osmo:ATOMISTIC.
-osmo:romm_type_atomistic
-   owl:intersectionOf (osmo:romm_model_type osmo:R_HAS_ATOMISTIC_GRANULARITY_LEVEL);
+osmo:pe_type_atomistic
+   owl:intersectionOf (osmo:physics_equation_type osmo:R_HAS_ATOMISTIC_GRANULARITY_LEVEL);
    owl:disjointUnionOf (
-      osmo:romm_type_atomistic_density_functional     # category 2.1
-      osmo:romm_type_atomistic_molecular_mechanics    # category 2.2
-      osmo:romm_type_atomistic_molecular_dynamics     # category 2.3
-      osmo:romm_type_atomistic_monte_carlo            # category 2.4
-      osmo:romm_type_atomistic_spin_model             # category 2.5
-      osmo:romm_type_atomistic_statistical_transport  # category 2.6
-      osmo:romm_type_atomistic_phonon_model           # category 2.7
+      osmo:pe_type_atomistic_density_functional     # RoMM category 2.1, OSMO PE type A.1
+      osmo:pe_type_atomistic_molecular_statics      # RoMM category 2.2, OSMO PE type A.2
+      osmo:pe_type_atomistic_molecular_dynamics     # RoMM category 2.3, OSMO PE type A.3
+      osmo:pe_type_atomistic_partition_function     # RoMM category 2.4, OSMO PE type A.4
+      osmo:pe_type_atomistic_spin_model             # RoMM category 2.5, OSMO PE type A.5
+      osmo:pe_type_atomistic_statistical_transport  # RoMM categories 2.6 and 2.7, OSMO PE type A.6
    ).
 
-osmo:romm_type_atomistic_density_functional a owl:Class;
-   rdfs:subClassOf osmo:romm_type_atomistic;
+osmo:pe_type_atomistic_density_functional a owl:Class;
+   rdfs:subClassOf osmo:pe_type_atomistic;
    rdfs:subClassOf [a owl:Restriction;
-      owl:onProperty osmo:has_romm_type_descriptor;
-      owl:hasValue "classical-mechanical density functional theory (atomistic)"^^xs:string];
-   rdfs:comment "RoMM model vocabulary category 2.1"^^xs:string.
-osmo:op_romm_type_atomistic_density_functional a owl:Class;
+      owl:onProperty osmo:has_pe_type_descriptor;
+      owl:hasValue "PE type A.1: Classical-mechanical density functional theory (atomistic)"^^xs:string];
+   rdfs:comment "RoMM model vocabulary category 2.1, OSMO PE type A.1"^^xs:string.
+osmo:op_pe_type_atomistic_density_functional a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_romm_type_atomistic_density_functional a owl:Class;
+osmo:dp_pe_type_atomistic_density_functional a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_romm_type_atomistic rdfs:subClassOf osmo:op_romm_type_atomistic_density_functional.
-osmo:dp_romm_type_atomistic rdfs:subClassOf osmo:dp_romm_type_atomistic_density_functional.
+osmo:op_pe_type_atomistic rdfs:subClassOf osmo:op_pe_type_atomistic_density_functional.
+osmo:dp_pe_type_atomistic rdfs:subClassOf osmo:dp_pe_type_atomistic_density_functional.
 
-osmo:romm_type_atomistic_molecular_mechanics a owl:Class;
-   rdfs:subClassOf osmo:romm_type_atomistic;
+osmo:pe_type_atomistic_molecular_statics a owl:Class;
+   rdfs:subClassOf osmo:pe_type_atomistic;
    rdfs:subClassOf [a owl:Restriction;
-      owl:onProperty osmo:has_romm_type_descriptor;
-      owl:hasValue "molecular mechanics (atomistic)"^^xs:string];
-   rdfs:comment "RoMM model vocabulary category 2.2"^^xs:string.
-osmo:op_romm_type_atomistic_molecular_mechanics a owl:Class;
+      owl:onProperty osmo:has_pe_type_descriptor;
+      owl:hasValue "PE type A.2: Molecular statics (atomistic), energy minimization"^^xs:string];
+   rdfs:comment "RoMM model vocabulary category 2.2, OSMO PE type A.2"^^xs:string.
+osmo:op_pe_type_atomistic_molecular_statics a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_romm_type_atomistic_molecular_mechanics a owl:Class;
+osmo:dp_pe_type_atomistic_molecular_statics a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_romm_type_atomistic rdfs:subClassOf osmo:op_romm_type_atomistic_molecular_mechanics.
-osmo:dp_romm_type_atomistic rdfs:subClassOf osmo:dp_romm_type_atomistic_molecular_mechanics.
+osmo:op_pe_type_atomistic rdfs:subClassOf osmo:op_pe_type_atomistic_molecular_statics.
+osmo:dp_pe_type_atomistic rdfs:subClassOf osmo:dp_pe_type_atomistic_molecular_statics.
 
-osmo:romm_type_atomistic_molecular_dynamics a owl:Class;
-   rdfs:subClassOf osmo:romm_type_atomistic;
+osmo:pe_type_atomistic_molecular_dynamics a owl:Class;
+   rdfs:subClassOf osmo:pe_type_atomistic;
    rdfs:subClassOf [a owl:Restriction;
-      owl:onProperty osmo:has_romm_type_descriptor;
-      owl:hasValue "molecular dynamics (atomistic)"^^xs:string];
-   rdfs:comment "RoMM model vocabulary category 2.3"^^xs:string.
-osmo:op_romm_type_atomistic_molecular_dynamics a owl:Class;
+      owl:onProperty osmo:has_pe_type_descriptor;
+      owl:hasValue "PE type A.3: Molecular dynamics (atomistic)"^^xs:string];
+   rdfs:comment "RoMM model vocabulary category 2.3, OSMO PE type A.3"^^xs:string.
+osmo:op_pe_type_atomistic_molecular_dynamics a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_romm_type_atomistic_molecular_dynamics a owl:Class;
+osmo:dp_pe_type_atomistic_molecular_dynamics a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_romm_type_atomistic rdfs:subClassOf osmo:op_romm_type_atomistic_molecular_dynamics.
-osmo:dp_romm_type_atomistic rdfs:subClassOf osmo:dp_romm_type_atomistic_molecular_dynamics.
+osmo:op_pe_type_atomistic rdfs:subClassOf osmo:op_pe_type_atomistic_molecular_dynamics.
+osmo:dp_pe_type_atomistic rdfs:subClassOf osmo:dp_pe_type_atomistic_molecular_dynamics.
 
-osmo:romm_type_atomistic_monte_carlo a owl:Class;
-   rdfs:subClassOf osmo:romm_type_atomistic;
+osmo:pe_type_atomistic_partition_function a owl:Class;
+   rdfs:subClassOf osmo:pe_type_atomistic;
    rdfs:subClassOf [a owl:Restriction;
-      owl:onProperty osmo:has_romm_type_descriptor;
-      owl:hasValue "Monte Carlo (atomistic)"^^xs:string];
-   rdfs:comment "RoMM model vocabulary category 2.4"^^xs:string.
-osmo:op_romm_type_atomistic_monte_carlo a owl:Class;
+      owl:onProperty osmo:has_pe_type_descriptor;
+      owl:hasValue "PE type A.4: Partition function (atomistic), e.g., for a Monte Carlo solver"^^xs:string];
+   rdfs:comment "RoMM model vocabulary category 2.4, OSMO PE type A.4"^^xs:string.
+osmo:op_pe_type_atomistic_partition_function a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_romm_type_atomistic_monte_carlo a owl:Class;
+osmo:dp_pe_type_atomistic_partition_function a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_romm_type_atomistic rdfs:subClassOf osmo:op_romm_type_atomistic_monte_carlo.
-osmo:dp_romm_type_atomistic rdfs:subClassOf osmo:dp_romm_type_atomistic_monte_carlo.
+osmo:op_pe_type_atomistic rdfs:subClassOf osmo:op_pe_type_atomistic_partition_function.
+osmo:dp_pe_type_atomistic rdfs:subClassOf osmo:dp_pe_type_atomistic_partition_function.
 
-osmo:romm_type_atomistic_spin_model a owl:Class;
-   rdfs:subClassOf osmo:romm_type_atomistic;
+osmo:pe_type_atomistic_spin_model a owl:Class;
+   rdfs:subClassOf osmo:pe_type_atomistic;
    rdfs:subClassOf [a owl:Restriction;
-      owl:onProperty osmo:has_romm_type_descriptor;
-      owl:hasValue "atomistic spin model"^^xs:string];
-   rdfs:comment "RoMM model vocabulary category 2.5"^^xs:string.
-osmo:op_romm_type_atomistic_spin_model a owl:Class;
+      owl:onProperty osmo:has_pe_type_descriptor;
+      owl:hasValue "PE type A.5: Atomistic spin model"^^xs:string];
+   rdfs:comment "RoMM model vocabulary category 2.5, OSMO PE type A.5"^^xs:string.
+osmo:op_pe_type_atomistic_spin_model a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_romm_type_atomistic_spin_model a owl:Class;
+osmo:dp_pe_type_atomistic_spin_model a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_romm_type_atomistic rdfs:subClassOf osmo:op_romm_type_atomistic_spin_model.
-osmo:dp_romm_type_atomistic rdfs:subClassOf osmo:dp_romm_type_atomistic_spin_model.
+osmo:op_pe_type_atomistic rdfs:subClassOf osmo:op_pe_type_atomistic_spin_model.
+osmo:dp_pe_type_atomistic rdfs:subClassOf osmo:dp_pe_type_atomistic_spin_model.
 
-osmo:romm_type_atomistic_statistical_transport a owl:Class;
-   rdfs:subClassOf osmo:romm_type_atomistic;
+osmo:pe_type_atomistic_statistical_transport a owl:Class;
+   rdfs:subClassOf osmo:pe_type_atomistic;
    rdfs:subClassOf [a owl:Restriction;
-      owl:onProperty osmo:has_romm_type_descriptor;
-      owl:hasValue "statistical transport model (atomistic)"^^xs:string];
-   rdfs:comment "RoMM model vocabulary category 2.6"^^xs:string.
-osmo:op_romm_type_atomistic_statistical_transport a owl:Class;
+      owl:onProperty osmo:has_pe_type_descriptor;
+      owl:hasValue "PE type A.6: Statistical transport model (atomistic)"^^xs:string];
+   rdfs:comment "RoMM model vocabulary categories 2.6 and 2.7, OSMO PE type A.6"^^xs:string.
+osmo:op_pe_type_atomistic_statistical_transport a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_romm_type_atomistic_statistical_transport a owl:Class;
+osmo:dp_pe_type_atomistic_statistical_transport a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_romm_type_atomistic rdfs:subClassOf osmo:op_romm_type_atomistic_statistical_transport.
-osmo:dp_romm_type_atomistic rdfs:subClassOf osmo:dp_romm_type_atomistic_statistical_transport.
+osmo:op_pe_type_atomistic rdfs:subClassOf osmo:op_pe_type_atomistic_statistical_transport.
+osmo:dp_pe_type_atomistic rdfs:subClassOf osmo:dp_pe_type_atomistic_statistical_transport.
 
-osmo:romm_type_atomistic_phonon_model a owl:Class;
-   rdfs:subClassOf osmo:romm_type_atomistic;
-   rdfs:subClassOf [a owl:Restriction;
-      owl:onProperty osmo:has_romm_type_descriptor;
-      owl:hasValue "atomistic phonon model (Boltzmann transport equation)"^^xs:string];
-   rdfs:comment "RoMM model vocabulary category 2.7"^^xs:string.
-osmo:op_romm_type_atomistic_phonon_model a owl:Class;
+osmo:pe_type_mesoscopic a owl:Class;
+   rdfs:subClassOf osmo:physics_equation_type;
+   rdfs:comment "mesoscopic physics equation type, i.e., a PE type at the mesoscopic granularity level"^^xs:string.
+osmo:op_pe_type_mesoscopic a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_romm_type_atomistic_phonon_model a owl:Class;
+osmo:dp_pe_type_mesoscopic a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_romm_type_atomistic rdfs:subClassOf osmo:op_romm_type_atomistic_phonon_model.
-osmo:dp_romm_type_atomistic rdfs:subClassOf osmo:dp_romm_type_atomistic_phonon_model.
-
-osmo:romm_type_mesoscopic a owl:Class;
-   rdfs:subClassOf osmo:romm_model_type;
-   rdfs:comment "mesoscopic RoMM model type, i.e., a RoMM model type that operates at the mesoscopic granularity level"^^xs:string.
-osmo:op_romm_type_mesoscopic a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_romm_type_mesoscopic a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_romm_model_type rdfs:subClassOf osmo:op_romm_type_mesoscopic.
-osmo:dp_romm_model_type rdfs:subClassOf osmo:dp_romm_type_mesoscopic.
+osmo:op_physics_equation_type rdfs:subClassOf osmo:op_pe_type_mesoscopic.
+osmo:dp_physics_equation_type rdfs:subClassOf osmo:dp_pe_type_mesoscopic.
 
 osmo:R_HAS_MESOSCOPIC_GRANULARITY_LEVEL a owl:Restriction;
    rdfs:subClassOf osmo:constrained_entity;
-   owl:onProperty osmo:has_romm_granularity_level;
+   owl:onProperty osmo:has_granularity_level;
    owl:hasValue osmo:MESOSCOPIC.
-osmo:romm_type_mesoscopic
-   owl:intersectionOf (osmo:romm_model_type osmo:R_HAS_MESOSCOPIC_GRANULARITY_LEVEL);
+osmo:pe_type_mesoscopic
+   owl:intersectionOf (osmo:physics_equation_type osmo:R_HAS_MESOSCOPIC_GRANULARITY_LEVEL);
    owl:disjointUnionOf (
-      osmo:romm_type_mesoscopic_density_functional     # category 3.1
-      osmo:romm_type_mesoscopic_molecular_dynamics     # category 3.2
-      osmo:romm_type_mesoscopic_statistical_mechanics  # category 3.3
-      osmo:romm_type_mesoscopic_micromagnetism_model   # category 3.4
-      osmo:romm_type_mesoscopic_phonon_model           # category 3.5
+      osmo:pe_type_mesoscopic_density_functional     # RoMM category 3.1, OSMO PE type M.1
+      osmo:pe_type_mesoscopic_molecular_statics      # OSMO PE type M.2
+      osmo:pe_type_mesoscopic_molecular_dynamics     # RoMM category 3.2, OSMO PE type M.3
+      osmo:pe_type_mesoscopic_partition_function     # RoMM category 3.3, OSMO PE type M.4
+      osmo:pe_type_mesoscopic_micromagnetism         # RoMM category 3.4, OSMO PE type M.5
+      osmo:pe_type_mesoscopic_statistical_transport  # RoMM category 3.5, OSMO PE type M.6
    ).
 
-osmo:romm_type_mesoscopic_density_functional a owl:Class;
-   rdfs:subClassOf osmo:romm_type_mesoscopic;
+osmo:pe_type_mesoscopic_density_functional a owl:Class;
+   rdfs:subClassOf osmo:pe_type_mesoscopic;
    rdfs:subClassOf [a owl:Restriction;
-      owl:onProperty osmo:has_romm_type_descriptor;
-      owl:hasValue "classical-mechanical density functional theory (mesoscopic)"^^xs:string];
-   rdfs:comment "RoMM model vocabulary category 3.1"^^xs:string.
-osmo:op_romm_type_mesoscopic_density_functional a owl:Class;
+      owl:onProperty osmo:has_pe_type_descriptor;
+      owl:hasValue "PE type M.1: Classical-mechanical density functional theory (mesoscopic)"^^xs:string];
+   rdfs:comment "RoMM model vocabulary category 3.1, OSMO PE type M.1"^^xs:string.
+osmo:op_pe_type_mesoscopic_density_functional a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_romm_type_mesoscopic_density_functional a owl:Class;
+osmo:dp_pe_type_mesoscopic_density_functional a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_romm_type_mesoscopic rdfs:subClassOf osmo:op_romm_type_mesoscopic_density_functional.
-osmo:dp_romm_type_mesoscopic rdfs:subClassOf osmo:dp_romm_type_mesoscopic_density_functional.
+osmo:op_pe_type_mesoscopic rdfs:subClassOf osmo:op_pe_type_mesoscopic_density_functional.
+osmo:dp_pe_type_mesoscopic rdfs:subClassOf osmo:dp_pe_type_mesoscopic_density_functional.
 
-osmo:romm_type_mesoscopic_molecular_dynamics a owl:Class;
-   rdfs:subClassOf osmo:romm_type_mesoscopic;
+osmo:pe_type_mesoscopic_molecular_statics a owl:Class;
+   rdfs:subClassOf osmo:pe_type_mesoscopic;
    rdfs:subClassOf [a owl:Restriction;
-      owl:onProperty osmo:has_romm_type_descriptor;
-      owl:hasValue "mesoscopic molecular dynamics, i.e., coarse-grained or united-atom model"^^xs:string];
-   rdfs:comment "RoMM model vocabulary category 3.2"^^xs:string.
-osmo:op_romm_type_mesoscopic_molecular_dynamics a owl:Class;
+      owl:onProperty osmo:has_pe_type_descriptor;
+      owl:hasValue "PE type M.2: Molecular statics (mesoscopic), i.e., energy minimization"^^xs:string];
+   rdfs:comment "OSMO PE type M.2"^^xs:string.
+osmo:op_pe_type_mesoscopic_molecular_statics a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_romm_type_mesoscopic_molecular_dynamics a owl:Class;
+osmo:dp_pe_type_mesoscopic_molecular_statics a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_romm_type_mesoscopic rdfs:subClassOf osmo:op_romm_type_mesoscopic_molecular_dynamics.
-osmo:dp_romm_type_mesoscopic rdfs:subClassOf osmo:dp_romm_type_mesoscopic_molecular_dynamics.
+osmo:op_pe_type_mesoscopic rdfs:subClassOf osmo:op_pe_type_mesoscopic_molecular_statics.
+osmo:dp_pe_type_mesoscopic rdfs:subClassOf osmo:dp_pe_type_mesoscopic_molecular_statics.
 
-osmo:romm_type_mesoscopic_statistical_mechanics a owl:Class;
-   rdfs:subClassOf osmo:romm_type_mesoscopic;
+osmo:pe_type_mesoscopic_molecular_dynamics a owl:Class;
+   rdfs:subClassOf osmo:pe_type_mesoscopic;
    rdfs:subClassOf [a owl:Restriction;
-      owl:onProperty osmo:has_romm_type_descriptor;
-      owl:hasValue "mesoscopic statistical-mechanical model"^^xs:string];
-   rdfs:comment "RoMM model vocabulary category 3.3"^^xs:string.
-osmo:op_romm_type_mesoscopic_statistical_mechanics a owl:Class;
+      owl:onProperty osmo:has_pe_type_descriptor;
+      owl:hasValue "PE type M.3: Molecular dynamics (mesoscopic), i.e., coarse-grained or united-atom modelling"^^xs:string];
+   rdfs:comment "RoMM model vocabulary category 3.2, OSMO PE type M.3"^^xs:string.
+osmo:op_pe_type_mesoscopic_molecular_dynamics a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_romm_type_mesoscopic_statistical_mechanics a owl:Class;
+osmo:dp_pe_type_mesoscopic_molecular_dynamics a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_romm_type_mesoscopic rdfs:subClassOf osmo:op_romm_type_mesoscopic_statistical_mechanics.
-osmo:dp_romm_type_mesoscopic rdfs:subClassOf osmo:dp_romm_type_mesoscopic_statistical_mechanics.
+osmo:op_pe_type_mesoscopic rdfs:subClassOf osmo:op_pe_type_mesoscopic_molecular_dynamics.
+osmo:dp_pe_type_mesoscopic rdfs:subClassOf osmo:dp_pe_type_mesoscopic_molecular_dynamics.
 
-osmo:romm_type_mesoscopic_micromagnetism_model a owl:Class;
-   rdfs:subClassOf osmo:romm_type_mesoscopic;
+osmo:pe_type_mesoscopic_partition_function a owl:Class;
+   rdfs:subClassOf osmo:pe_type_mesoscopic;
    rdfs:subClassOf [a owl:Restriction;
-      owl:onProperty osmo:has_romm_type_descriptor;
-      owl:hasValue "micromagnetism model"^^xs:string];
-   rdfs:comment "RoMM model vocabulary category 3.4"^^xs:string.
-osmo:op_romm_type_mesoscopic_micromagnetism_model a owl:Class;
+      owl:onProperty osmo:has_pe_type_descriptor;
+      owl:hasValue "PE type M.4: Partition function (mesoscopic), e.g., for a Monte Carlo solver"^^xs:string];
+   rdfs:comment "RoMM model vocabulary category 3.3, OSMO PE type M.4"^^xs:string.
+osmo:op_pe_type_mesoscopic_partition_function a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_romm_type_mesoscopic_micromagnetism_model a owl:Class;
+osmo:dp_pe_type_mesoscopic_partition_function a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_romm_type_mesoscopic rdfs:subClassOf osmo:op_romm_type_mesoscopic_micromagnetism_model.
-osmo:dp_romm_type_mesoscopic rdfs:subClassOf osmo:dp_romm_type_mesoscopic_micromagnetism_model.
+osmo:op_pe_type_mesoscopic rdfs:subClassOf osmo:op_pe_type_mesoscopic_partition_function.
+osmo:dp_pe_type_mesoscopic rdfs:subClassOf osmo:dp_pe_type_mesoscopic_partition_function.
 
-osmo:romm_type_mesoscopic_phonon_model a owl:Class;
-   rdfs:subClassOf osmo:romm_type_mesoscopic;
+osmo:pe_type_mesoscopic_micromagnetism a owl:Class;
+   rdfs:subClassOf osmo:pe_type_mesoscopic;
    rdfs:subClassOf [a owl:Restriction;
-      owl:onProperty osmo:has_romm_type_descriptor;
-      owl:hasValue "mesoscopic phonon model (Boltzmann transport equation)"^^xs:string];
-   rdfs:comment "RoMM model vocabulary category 3.5"^^xs:string.
-osmo:op_romm_type_mesoscopic_phonon_model a owl:Class;
+      owl:onProperty osmo:has_pe_type_descriptor;
+      owl:hasValue "PE type M.5: Micromagnetism model"^^xs:string];
+   rdfs:comment "RoMM model vocabulary category 3.4, OSMO PE type M.5"^^xs:string.
+osmo:op_pe_type_mesoscopic_micromagnetism a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_romm_type_mesoscopic_phonon_model a owl:Class;
+osmo:dp_pe_type_mesoscopic_micromagnetism a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_romm_type_mesoscopic rdfs:subClassOf osmo:op_romm_type_mesoscopic_phonon_model.
-osmo:dp_romm_type_mesoscopic rdfs:subClassOf osmo:dp_romm_type_mesoscopic_phonon_model.
+osmo:op_pe_type_mesoscopic rdfs:subClassOf osmo:op_pe_type_mesoscopic_micromagnetism.
+osmo:dp_pe_type_mesoscopic rdfs:subClassOf osmo:dp_pe_type_mesoscopic_micromagnetism.
 
-osmo:romm_type_continuum a owl:Class;
-   rdfs:subClassOf osmo:romm_model_type;
-   rdfs:comment "continuum RoMM model type, i.e., a RoMM model type that operates at the continuum granularity level"^^xs:string.
-osmo:op_romm_type_continuum a owl:Class;
+osmo:pe_type_mesoscopic_statistical_transport a owl:Class;
+   rdfs:subClassOf osmo:pe_type_mesoscopic;
+   rdfs:subClassOf [a owl:Restriction;
+      owl:onProperty osmo:has_pe_type_descriptor;
+      owl:hasValue "PE type M.6: Statistical transport model (mesoscopic)"^^xs:string];
+   rdfs:comment "RoMM model vocabulary categories 3.5, OSMO PE type M.6"^^xs:string.
+osmo:op_pe_type_mesoscopic_statistical_transport a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_romm_type_continuum a owl:Class;
+osmo:dp_pe_type_mesoscopic_statistical_transport a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_romm_model_type rdfs:subClassOf osmo:op_romm_type_continuum.
-osmo:dp_romm_model_type rdfs:subClassOf osmo:dp_romm_type_continuum.
+osmo:op_pe_type_mesoscopic rdfs:subClassOf osmo:op_pe_type_mesoscopic_statistical_transport.
+osmo:dp_pe_type_mesoscopic rdfs:subClassOf osmo:dp_pe_type_mesoscopic_statistical_transport.
+
+osmo:pe_type_continuum a owl:Class;
+   rdfs:subClassOf osmo:physics_equation_type;
+   rdfs:comment "continuum physics equation type, i.e., a PE type that operates at the continuum granularity level"^^xs:string.
+osmo:op_pe_type_continuum a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_pe_type_continuum a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_physics_equation_type rdfs:subClassOf osmo:op_pe_type_continuum.
+osmo:dp_physics_equation_type rdfs:subClassOf osmo:dp_pe_type_continuum.
 
 osmo:R_HAS_CONTINUUM_GRANULARITY_LEVEL a owl:Restriction;
    rdfs:subClassOf osmo:constrained_entity;
-   owl:onProperty osmo:has_romm_granularity_level;
+   owl:onProperty osmo:has_granularity_level;
    owl:hasValue osmo:CONTINUUM.
-osmo:romm_type_continuum
-   owl:intersectionOf (osmo:romm_model_type osmo:R_HAS_CONTINUUM_GRANULARITY_LEVEL);
+osmo:pe_type_continuum
+   owl:intersectionOf (osmo:physics_equation_type osmo:R_HAS_CONTINUUM_GRANULARITY_LEVEL);
    owl:disjointUnionOf (
-      osmo:romm_type_continuum_solid_mechanics         # category 4.1
-      osmo:romm_type_continuum_fluid_mechanics         # category 4.2
-      osmo:romm_type_continuum_heat_transfer           # category 4.3
-      osmo:romm_type_continuum_thermodynamics_model    # category 4.4
-      osmo:romm_type_continuum_reaction_kinetics       # category 4.5
-      osmo:romm_type_continuum_electromagnetism_model  # category 4.6
-      osmo:romm_type_continuum_process_model           # category 4.7
+      osmo:pe_type_continuum_solid_mechanics    # RoMM category 4.1, OSMO PE type C.1
+      osmo:pe_type_continuum_fluid_mechanics    # RoMM category 4.2, OSMO PE type C.2
+      osmo:pe_type_continuum_heat_transfer      # RoMM category 4.3, OSMO PE type C.3
+      osmo:pe_type_continuum_phase_field        # RoMM category 4.4.2, OSMO PE type C.4
+      osmo:pe_type_continuum_thermodynamics     # RoMM category 4.4.1, OSMO PE type C.5
+      osmo:pe_type_continuum_reaction_kinetics  # RoMM category 4.5, OSMO PE type C.6
+      osmo:pe_type_continuum_electromagnetism   # RoMM category 4.6, OSMO PE type C.7
+      osmo:pe_type_continuum_process_model      # RoMM category 4.7, OSMO PE type C.8
    ).
 
-osmo:romm_type_continuum_solid_mechanics a owl:Class;
-   rdfs:subClassOf osmo:romm_type_continuum;
+osmo:pe_type_continuum_solid_mechanics a owl:Class;
+   rdfs:subClassOf osmo:pe_type_continuum;
    rdfs:subClassOf [a owl:Restriction;
-      owl:onProperty osmo:has_romm_type_descriptor;
-      owl:hasValue "continuum solid mechanics"^^xs:string];
-   rdfs:comment "RoMM model vocabulary category 4.1"^^xs:string.
-osmo:op_romm_type_continuum_solid_mechanics a owl:Class;
+      owl:onProperty osmo:has_pe_type_descriptor;
+      owl:hasValue "PE type C.1: Continuum solid mechanics"^^xs:string];
+   rdfs:comment "RoMM model vocabulary category 4.1, OSMO PE type C.1"^^xs:string.
+osmo:op_pe_type_continuum_solid_mechanics a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_romm_type_continuum_solid_mechanics a owl:Class;
+osmo:dp_pe_type_continuum_solid_mechanics a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_romm_type_continuum rdfs:subClassOf osmo:op_romm_type_continuum_solid_mechanics.
-osmo:dp_romm_type_continuum rdfs:subClassOf osmo:dp_romm_type_continuum_solid_mechanics.
+osmo:op_pe_type_continuum rdfs:subClassOf osmo:op_pe_type_continuum_solid_mechanics.
+osmo:dp_pe_type_continuum rdfs:subClassOf osmo:dp_pe_type_continuum_solid_mechanics.
 
-osmo:romm_type_continuum_fluid_mechanics a owl:Class;
-   rdfs:subClassOf osmo:romm_type_continuum;
+osmo:pe_type_continuum_fluid_mechanics a owl:Class;
+   rdfs:subClassOf osmo:pe_type_continuum;
    rdfs:subClassOf [a owl:Restriction;
-      owl:onProperty osmo:has_romm_type_descriptor;
-      owl:hasValue "continuum fluid mechanics"^^xs:string];
-   rdfs:comment "RoMM model vocabulary category 4.2"^^xs:string.
-osmo:op_romm_type_continuum_fluid_mechanics a owl:Class;
+      owl:onProperty osmo:has_pe_type_descriptor;
+      owl:hasValue "PE type C.2: Continuum fluid mechanics"^^xs:string];
+   rdfs:comment "RoMM model vocabulary category 4.2, OSMO PE type C.2"^^xs:string.
+osmo:op_pe_type_continuum_fluid_mechanics a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_romm_type_continuum_fluid_mechanics a owl:Class;
+osmo:dp_pe_type_continuum_fluid_mechanics a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_romm_type_continuum rdfs:subClassOf osmo:op_romm_type_continuum_fluid_mechanics.
-osmo:dp_romm_type_continuum rdfs:subClassOf osmo:dp_romm_type_continuum_fluid_mechanics.
+osmo:op_pe_type_continuum rdfs:subClassOf osmo:op_pe_type_continuum_fluid_mechanics.
+osmo:dp_pe_type_continuum rdfs:subClassOf osmo:dp_pe_type_continuum_fluid_mechanics.
 
-osmo:romm_type_continuum_heat_transfer a owl:Class;
-   rdfs:subClassOf osmo:romm_type_continuum;
+osmo:pe_type_continuum_heat_transfer a owl:Class;
+   rdfs:subClassOf osmo:pe_type_continuum;
    rdfs:subClassOf [a owl:Restriction;
-      owl:onProperty osmo:has_romm_type_descriptor;
-      owl:hasValue "continuum modelling of heat transfer and thermomechanics"^^xs:string];
-   rdfs:comment "RoMM model vocabulary category 4.3"^^xs:string.
-osmo:op_romm_type_continuum_heat_transfer a owl:Class;
+      owl:onProperty osmo:has_pe_type_descriptor;
+      owl:hasValue "PE type C.3: Continuum modelling of heat transfer and thermomechanics"^^xs:string];
+   rdfs:comment "RoMM model vocabulary category 4.3, OSMO PE type C.3"^^xs:string.
+osmo:op_pe_type_continuum_heat_transfer a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_romm_type_continuum_heat_transfer a owl:Class;
+osmo:dp_pe_type_continuum_heat_transfer a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_romm_type_continuum rdfs:subClassOf osmo:op_romm_type_continuum_heat_transfer.
-osmo:dp_romm_type_continuum rdfs:subClassOf osmo:dp_romm_type_continuum_heat_transfer.
+osmo:op_pe_type_continuum rdfs:subClassOf osmo:op_pe_type_continuum_heat_transfer.
+osmo:dp_pe_type_continuum rdfs:subClassOf osmo:dp_pe_type_continuum_heat_transfer.
 
-osmo:romm_type_continuum_thermodynamics_model a owl:Class;
-   rdfs:subClassOf osmo:romm_type_continuum;
+osmo:pe_type_continuum_phase_field a owl:Class;
+   rdfs:subClassOf osmo:pe_type_continuum;
    rdfs:subClassOf [a owl:Restriction;
-      owl:onProperty osmo:has_romm_type_descriptor;
-      owl:hasValue "continuum thermodynamics (equations of state, phase field models, density gradient theory, etc.)"^^xs:string];
-   rdfs:comment "RoMM model vocabulary category 4.4"^^xs:string.
-osmo:op_romm_type_continuum_thermodynamics_model a owl:Class;
+      owl:onProperty osmo:has_pe_type_descriptor;
+      owl:hasValue "PE type C.4: Phase field model or continuum density gradient theory"^^xs:string];
+   rdfs:comment "RoMM model vocabulary category 4.4.2, OSMO PE type C.4"^^xs:string.
+osmo:op_pe_type_continuum_phase_field a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_romm_type_continuum_thermodynamics_model a owl:Class;
+osmo:dp_pe_type_continuum_phase_field a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_romm_type_continuum rdfs:subClassOf osmo:op_romm_type_continuum_thermodynamics_model.
-osmo:dp_romm_type_continuum rdfs:subClassOf osmo:dp_romm_type_continuum_thermodynamics_model.
+osmo:op_pe_type_continuum rdfs:subClassOf osmo:op_pe_type_continuum_phase_field.
+osmo:dp_pe_type_continuum rdfs:subClassOf osmo:dp_pe_type_continuum_phase_field.
 
-osmo:romm_type_continuum_reaction_kinetics a owl:Class;
-   rdfs:subClassOf osmo:romm_type_continuum;
+osmo:pe_type_continuum_thermodynamics a owl:Class;
+   rdfs:subClassOf osmo:pe_type_continuum;
    rdfs:subClassOf [a owl:Restriction;
-      owl:onProperty osmo:has_romm_type_descriptor;
-      owl:hasValue "continuum modelling of chemical reaction kinetics"^^xs:string];
-   rdfs:comment "RoMM model vocabulary category 4.5"^^xs:string.
-osmo:op_romm_type_continuum_reaction_kinetics a owl:Class;
+      owl:onProperty osmo:has_pe_type_descriptor;
+      owl:hasValue "PE type C.5: Continuum thermodynamics"^^xs:string];
+   rdfs:comment "RoMM model vocabulary category 4.4.1, OSMO PE type C.5"^^xs:string.
+osmo:op_pe_type_continuum_thermodynamics a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_romm_type_continuum_reaction_kinetics a owl:Class;
+osmo:dp_pe_type_continuum_thermodynamics a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_romm_type_continuum rdfs:subClassOf osmo:op_romm_type_continuum_reaction_kinetics.
-osmo:dp_romm_type_continuum rdfs:subClassOf osmo:dp_romm_type_continuum_reaction_kinetics.
+osmo:op_pe_type_continuum rdfs:subClassOf osmo:op_pe_type_continuum_thermodynamics.
+osmo:dp_pe_type_continuum rdfs:subClassOf osmo:dp_pe_type_continuum_thermodynamics.
 
-osmo:romm_type_continuum_electromagnetism_model a owl:Class;
-   rdfs:subClassOf osmo:romm_type_continuum;
+osmo:pe_type_continuum_reaction_kinetics a owl:Class;
+   rdfs:subClassOf osmo:pe_type_continuum;
    rdfs:subClassOf [a owl:Restriction;
-      owl:onProperty osmo:has_romm_type_descriptor;
-      owl:hasValue "continuum electromagnetism model (including optics, magnetism, etc.)"^^xs:string];
-   rdfs:comment "RoMM model vocabulary category 4.6"^^xs:string.
-osmo:op_romm_type_continuum_electromagnetism_model a owl:Class;
+      owl:onProperty osmo:has_pe_type_descriptor;
+      owl:hasValue "OSMO PE type C.6: Continuum modelling of chemical reaction kinetics"^^xs:string];
+   rdfs:comment "RoMM model vocabulary category 4.5, OSMO PE type C.6"^^xs:string.
+osmo:op_pe_type_continuum_reaction_kinetics a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_romm_type_continuum_electromagnetism_model a owl:Class;
+osmo:dp_pe_type_continuum_reaction_kinetics a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_romm_type_continuum rdfs:subClassOf osmo:op_romm_type_continuum_electromagnetism_model.
-osmo:dp_romm_type_continuum rdfs:subClassOf osmo:dp_romm_type_continuum_electromagnetism_model.
+osmo:op_pe_type_continuum rdfs:subClassOf osmo:op_pe_type_continuum_reaction_kinetics.
+osmo:dp_pe_type_continuum rdfs:subClassOf osmo:dp_pe_type_continuum_reaction_kinetics.
 
-osmo:romm_type_continuum_process_model a owl:Class;
-   rdfs:subClassOf osmo:romm_type_continuum;
+osmo:pe_type_continuum_electromagnetism a owl:Class;
+   rdfs:subClassOf osmo:pe_type_continuum;
    rdfs:subClassOf [a owl:Restriction;
-      owl:onProperty osmo:has_romm_type_descriptor;
-      owl:hasValue "continuum process model (including devices and components of chemical/mechanical processes, flow-chart models, etc.)"^^xs:string];
-   rdfs:comment "RoMM model vocabulary category 4.7"^^xs:string.
-osmo:op_romm_type_continuum_process_model a owl:Class;
+      owl:onProperty osmo:has_pe_type_descriptor;
+      owl:hasValue "PE type C.7: Continuum electromagnetism model (including optics, magnetism, etc.)"^^xs:string];
+   rdfs:comment "RoMM model vocabulary category 4.6, OSMO PE type C.7"^^xs:string.
+osmo:op_pe_type_continuum_electromagnetism a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_romm_type_continuum_process_model a owl:Class;
+osmo:dp_pe_type_continuum_electromagnetism a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_romm_type_continuum rdfs:subClassOf osmo:op_romm_type_continuum_process_model.
-osmo:dp_romm_type_continuum rdfs:subClassOf osmo:dp_romm_type_continuum_process_model.
+osmo:op_pe_type_continuum rdfs:subClassOf osmo:op_pe_type_continuum_electromagnetism.
+osmo:dp_pe_type_continuum rdfs:subClassOf osmo:dp_pe_type_continuum_electromagnetism.
 
-osmo:moda_structure_entity a owl:Class;
+osmo:pe_type_continuum_process_model a owl:Class;
+   rdfs:subClassOf osmo:pe_type_continuum;
+   rdfs:subClassOf [a owl:Restriction;
+      owl:onProperty osmo:has_pe_type_descriptor;
+      owl:hasValue "PE type C.8: Continuum process model (including devices and components of chemical/mechanical processes, flow-chart models, etc.)"^^xs:string];
+   rdfs:comment "RoMM model vocabulary category 4.7, OSMO PE type C.8"^^xs:string.
+osmo:op_pe_type_continuum_process_model a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_pe_type_continuum_process_model a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_pe_type_continuum rdfs:subClassOf osmo:op_pe_type_continuum_process_model.
+osmo:dp_pe_type_continuum rdfs:subClassOf osmo:dp_pe_type_continuum_process_model.
+
+osmo:workflow_entity a owl:Class;
    rdfs:subClassOf evmpo:marketplace_related_entity;
-   rdfs:comment "moda structure entity, i.e., a model, simulation, or aspects thereof that can be represented by a section or a combination of sections in MODA"^^xs:string.
-osmo:op_moda_structure_entity a owl:Class;
+   rdfs:comment "workflow entity, i.e., an element or aspect that can occur in a simulation workflow structure"^^xs:string.
+osmo:op_workflow_entity a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_structure_entity a owl:Class;
+osmo:dp_workflow_entity a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_marketplace_related_entity rdfs:subClassOf osmo:op_moda_structure_entity.
-evmpo:dp_marketplace_related_entity rdfs:subClassOf osmo:dp_moda_structure_entity.
+evmpo:op_marketplace_related_entity rdfs:subClassOf osmo:op_workflow_entity.
+evmpo:dp_marketplace_related_entity rdfs:subClassOf osmo:dp_workflow_entity.
 
-osmo:moda_structure_entity owl:disjointUnionOf (osmo:logical_entity osmo:moda_section_entity osmo:moda_graph).
+osmo:workflow_entity owl:disjointUnionOf (osmo:logical_entity osmo:section_entity osmo:workflow_graph).
 
-osmo:moda_section_entity a owl:Class;
-   rdfs:subClassOf osmo:moda_structure_entity;
-   rdfs:comment "MODA section entity, i.e., a MODA section or an aspect thereof"^^xs:string.
-osmo:op_moda_section_entity a owl:Class;
+osmo:section_entity a owl:Class;
+   rdfs:subClassOf osmo:workflow_entity;
+   rdfs:comment "section entity, i.e., an OSMO/MODA section or an aspect thereof"^^xs:string.
+osmo:op_section_entity a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_section_entity a owl:Class;
+osmo:dp_section_entity a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_structure_entity rdfs:subClassOf osmo:op_moda_section_entity.
-osmo:dp_moda_structure_entity rdfs:subClassOf osmo:dp_moda_section_entity.
+osmo:op_workflow_entity rdfs:subClassOf osmo:op_section_entity.
+osmo:dp_workflow_entity rdfs:subClassOf osmo:dp_section_entity.
 
-osmo:moda_section_entity owl:disjointUnionOf (osmo:moda_section osmo:moda_section_aspect).
+osmo:section_entity owl:disjointUnionOf (osmo:section osmo:section_aspect).
 
-osmo:moda_section a owl:Class;
-   rdfs:subClassOf osmo:moda_structure_entity, osmo:moda_section_entity;
-   rdfs:comment "MODA section, i.e., a user case, model, solver, or processor that can be represented by a section in MODA"^^xs:string.
-osmo:op_moda_section a owl:Class;
+osmo:section a owl:Class;
+   rdfs:subClassOf osmo:workflow_entity, osmo:section_entity;
+   rdfs:comment "section, i.e., a user case, model, solver, or processor (as in MODA)"^^xs:string.
+osmo:op_section a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_section a owl:Class;
+osmo:dp_section a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_structure_entity rdfs:subClassOf osmo:op_moda_section.
-osmo:dp_moda_structure_entity rdfs:subClassOf osmo:dp_moda_section.
-osmo:op_moda_section_entity rdfs:subClassOf osmo:op_moda_section.
-osmo:dp_moda_section_entity rdfs:subClassOf osmo:dp_moda_section.
+osmo:op_workflow_entity rdfs:subClassOf osmo:op_section.
+osmo:dp_workflow_entity rdfs:subClassOf osmo:dp_section.
+osmo:op_section_entity rdfs:subClassOf osmo:op_section.
+osmo:dp_section_entity rdfs:subClassOf osmo:dp_section.
 
-osmo:moda_section owl:disjointUnionOf (osmo:moda_usercase osmo:moda_model osmo:moda_solver osmo:moda_processor).
+osmo:section owl:disjointUnionOf (osmo:user_case osmo:materials_model osmo:solver osmo:processor).
 
-osmo:has_input_property a osmo:op_moda_section;
-   rdfs:domain osmo:moda_section;
+osmo:has_input_property a osmo:op_section;
+   rdfs:domain osmo:section;
    rdfs:range vivo:physical_property;
-   rdfs:comment "points to required physical (thermodynamic or mechanical) information, which needs to be provided, e.g., from the output of another MODA section"^^xs:string.
-osmo:has_internal_property a osmo:op_moda_section;
-   rdfs:domain osmo:moda_section;
+   rdfs:comment "points to required physical (thermodynamic or mechanical) information, which needs to be provided, e.g., from the output of another OSMO/MODA section"^^xs:string.
+osmo:has_internal_property a osmo:op_section;
+   rdfs:domain osmo:section;
    rdfs:range vivo:physical_property;
-   rdfs:comment "points to physical information that plays a role within the respective MODA section"^^xs:string.
-osmo:has_output_property a osmo:op_moda_section;
-   rdfs:domain osmo:moda_section;
+   rdfs:comment "points to physical information that plays a role within the respective OSMO/MODA section"^^xs:string.
+osmo:has_output_property a osmo:op_section;
+   rdfs:domain osmo:section;
    rdfs:range vivo:physical_property;
-   rdfs:comment "points to desired physical (thermodynamic or mechanical) information which is obtained as a result from the respective MODA section"^^xs:string.
+   rdfs:comment "points to desired physical (thermodynamic or mechanical) information which is obtained as a result from the respective OSMO/MODA section"^^xs:string.
 
-osmo:has_moda_aspect a osmo:op_moda_section;
-   rdfs:domain osmo:moda_section;
-   rdfs:range osmo:moda_section_aspect;
-   rdfs:comment "points to an aspect associated with the respective MODA section"^^xs:string;
+osmo:has_aspect a osmo:op_section;
+   rdfs:domain osmo:section;
+   rdfs:range osmo:section_aspect;
+   rdfs:comment "points to an aspect associated with the respective OSMO/MODA section"^^xs:string;
    rdfs:subPropertyOf evmpo:has_annotation.
 
-osmo:has_boundary_condition a osmo:op_moda_section;
-   rdfs:domain osmo:moda_section;
-   rdfs:range osmo:moda_boundary_condition;
-   rdfs:subPropertyOf osmo:has_moda_aspect.
-osmo:has_employed_software a osmo:op_moda_section;
-   rdfs:domain osmo:moda_section;
-   rdfs:range osmo:moda_software;
-   rdfs:subPropertyOf osmo:has_moda_aspect.
-osmo:has_error_statement a osmo:op_moda_section;
-   rdfs:domain osmo:moda_section;
-   rdfs:range osmo:moda_error_statement;
-   rdfs:subPropertyOf osmo:has_moda_aspect.
-osmo:has_geometry_information a osmo:op_moda_section;
-   rdfs:domain osmo:moda_section;
-   rdfs:range osmo:moda_geometry_information;
+osmo:has_boundary_condition a osmo:op_section;
+   rdfs:domain osmo:section;
+   rdfs:range osmo:boundary_condition;
+   rdfs:subPropertyOf osmo:has_aspect.
+osmo:has_employed_software a osmo:op_section;
+   rdfs:domain osmo:section;
+   rdfs:range osmo:software;
+   rdfs:subPropertyOf osmo:has_aspect.
+osmo:has_error_statement a osmo:op_section;
+   rdfs:domain osmo:section;
+   rdfs:range osmo:error_statement;
+   rdfs:subPropertyOf osmo:has_aspect.
+osmo:has_geometry_information a osmo:op_section;
+   rdfs:domain osmo:section;
+   rdfs:range osmo:geometry_information;
    rdfs:subPropertyOf osmo:has_boundary_condition.
-osmo:has_material_information a osmo:op_moda_section;
-   rdfs:domain osmo:moda_section;
-   rdfs:range osmo:moda_material_information;
-   rdfs:subPropertyOf osmo:has_moda_aspect.
-osmo:has_method_type a osmo:op_moda_section;
-   rdfs:domain osmo:moda_section;
-   rdfs:range osmo:moda_method_type;
-   rdfs:subPropertyOf osmo:has_moda_aspect.
-osmo:has_moda_section_description a osmo:op_moda_section;
-   rdfs:domain osmo:moda_section;
-   rdfs:range osmo:moda_section_description;
-   rdfs:subPropertyOf osmo:has_moda_aspect.
-osmo:has_section_literature a osmo:op_moda_section;
-   rdfs:domain osmo:moda_section;
-   rdfs:range osmo:moda_section_literature;
-   rdfs:subPropertyOf osmo:has_moda_aspect.
-osmo:has_section_parameter a osmo:op_moda_section;
-   rdfs:domain osmo:moda_section;
-   rdfs:range osmo:moda_parameter_aspect;
-   rdfs:subPropertyOf osmo:has_moda_aspect.
-osmo:has_temporal_discretization a osmo:op_moda_section;
-   rdfs:domain osmo:moda_section;
-   rdfs:range osmo:moda_temporal_discretization;
-   rdfs:subPropertyOf osmo:has_moda_aspect.
-osmo:has_timespan a osmo:op_moda_section;
-   rdfs:domain osmo:moda_section;
-   rdfs:range osmo:moda_timespan;
-   rdfs:subPropertyOf osmo:has_moda_aspect.
+osmo:has_material_information a osmo:op_section;
+   rdfs:domain osmo:section;
+   rdfs:range osmo:material_information;
+   rdfs:subPropertyOf osmo:has_aspect.
+osmo:has_method_type a osmo:op_section;
+   rdfs:domain osmo:section;
+   rdfs:range osmo:method_type;
+   rdfs:subPropertyOf osmo:has_aspect.
+osmo:has_section_description a osmo:op_section;
+   rdfs:domain osmo:section;
+   rdfs:range osmo:section_description;
+   rdfs:subPropertyOf osmo:has_aspect.
+osmo:has_section_literature a osmo:op_section;
+   rdfs:domain osmo:section;
+   rdfs:range osmo:section_literature;
+   rdfs:subPropertyOf osmo:has_aspect.
+osmo:has_section_parameter a osmo:op_section;
+   rdfs:domain osmo:section;
+   rdfs:range osmo:parameter_aspect;
+   rdfs:subPropertyOf osmo:has_aspect.
+osmo:has_temporal_discretization a osmo:op_section;
+   rdfs:domain osmo:section;
+   rdfs:range osmo:temporal_discretization;
+   rdfs:subPropertyOf osmo:has_aspect.
+osmo:has_timespan a osmo:op_section;
+   rdfs:domain osmo:section;
+   rdfs:range osmo:timespan_information;
+   rdfs:subPropertyOf osmo:has_aspect.
 
-osmo:moda_section_aspect a owl:Class;
-   rdfs:subClassOf osmo:moda_section_entity;
-   rdfs:comment "MODA section aspect, i.e., an aspect of a user case, model, solver, or processor that can be represented by a section in MODA"^^xs:string.
-osmo:op_moda_section_aspect a owl:Class;
+osmo:section_aspect a owl:Class;
+   rdfs:subClassOf osmo:section_entity;
+   rdfs:comment "section aspect, i.e., an aspect of a user case, model, solver, or processor that can be represented by a section"^^xs:string.
+osmo:op_section_aspect a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_section_aspect a owl:Class;
+osmo:dp_section_aspect a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_section_entity rdfs:subClassOf osmo:op_moda_section_aspect.
-osmo:dp_moda_section_entity rdfs:subClassOf osmo:dp_moda_section_aspect.
+osmo:op_section_entity rdfs:subClassOf osmo:op_section_aspect.
+osmo:dp_section_entity rdfs:subClassOf osmo:dp_section_aspect.
 
-osmo:has_aspect_text_content a osmo:dp_moda_section_aspect;
-   rdfs:domain osmo:moda_section_aspect;
+osmo:has_aspect_text_content a osmo:dp_section_aspect;
+   rdfs:domain osmo:section_aspect;
    rdfs:range xs:string;
-   rdfs:comment "plain-text description of an aspect/subsection according to MODA"^^xs:string.
+   rdfs:comment "plain-text description of an aspect/subsection (as in MODA)"^^xs:string.
 osmo:R_HAS_AN_ASPECT_TEXT_CONTENT a owl:Restriction;
    rdfs:subClassOf osmo:constrained_entity;
    owl:onProperty osmo:has_aspect_text_content;
    owl:someValuesFrom xs:string.
-osmo:has_aspect_scalar_content a osmo:dp_moda_section_aspect;
-   rdfs:domain osmo:moda_section_aspect;
+osmo:has_aspect_scalar_content a osmo:dp_section_aspect;
+   rdfs:domain osmo:section_aspect;
    rdfs:range xs:decimal;
-   rdfs:comment "numerical value associated with an aspect/subsection according to MODA"^^xs:string.
+   rdfs:comment "numerical value associated with an aspect/subsection (as in MODA)"^^xs:string.
 osmo:R_HAS_AN_ASPECT_SCALAR_CONTENT a owl:Restriction;
    rdfs:subClassOf osmo:constrained_entity;
    owl:onProperty osmo:has_aspect_scalar_content;
    owl:someValuesFrom xs:decimal.
 
-osmo:has_aspect_object_content a osmo:op_moda_section_aspect;
-   rdfs:domain osmo:moda_section_aspect;
+osmo:has_aspect_object_content a osmo:op_section_aspect;
+   rdfs:domain osmo:section_aspect;
    rdfs:range evmpo:marketplace_related_entity;
-   rdfs:comment "points to an object associated with an aspect/subsection according to MODA"^^xs:string;
+   rdfs:comment "points to an object associated with an aspect/subsection"^^xs:string;
    owl:inverseOf osmo:is_aspect_content_of.
-osmo:has_aspect_annotation_content a osmo:op_moda_section_aspect;
-   rdfs:domain osmo:moda_section_aspect;
+osmo:has_aspect_annotation_content a osmo:op_section_aspect;
+   rdfs:domain osmo:section_aspect;
    rdfs:range evmpo:annotation;
-   rdfs:comment "points to an annotation object (i.e., a non-paradigmatic object) associated with an aspect/subsection according to MODA"^^xs:string;
+   rdfs:comment "points to an annotation object (i.e., a non-paradigmatic object) associated with an aspect/subsection"^^xs:string;
    rdfs:subPropertyOf evmpo:has_meta_annotation, osmo:has_aspect_object_content.
-osmo:has_aspect_paradigmatic_content a osmo:op_moda_section_aspect;
-   rdfs:domain osmo:moda_section_aspect;
+osmo:has_aspect_paradigmatic_content a osmo:op_section_aspect;
+   rdfs:domain osmo:section_aspect;
    rdfs:range evmpo:paradigmatic_entity;
-   rdfs:comment "points to a paradigmatic object associated with an aspect/subsection according to MODA"^^xs:string;
+   rdfs:comment "points to a paradigmatic object associated with an aspect/subsection"^^xs:string;
    rdfs:subPropertyOf osmo:has_aspect_object_content.
 
 osmo:is_aspect_content_of a evmpo:op_marketplace_related_entity, owl:ObjectProperty;
    rdfs:domain evmpo:marketplace_related_entity;
-   rdfs:range osmo:moda_section_aspect;
+   rdfs:range osmo:section_aspect;
    owl:inverseOf osmo:has_aspect_object_content;
    rdfs:subPropertyOf evmpo:has_annotation.
 
-osmo:moda_boundary_condition a owl:Class;
-   rdfs:subClassOf osmo:moda_section_aspect;
-   rdfs:comment "MODA boundary condition, i.e., any given information that needs to be taken into account"^^xs:string.
-osmo:op_moda_boundary_condition a owl:Class;
+osmo:boundary_condition a owl:Class;
+   rdfs:subClassOf osmo:section_aspect;
+   rdfs:comment "boundary condition, i.e., any given information that needs to be taken into account"^^xs:string.
+osmo:op_boundary_condition a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_boundary_condition a owl:Class;
+osmo:dp_boundary_condition a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_section_aspect rdfs:subClassOf osmo:op_moda_boundary_condition.
-osmo:dp_moda_section_aspect rdfs:subClassOf osmo:dp_moda_boundary_condition.
-osmo:op_condition rdfs:subClassOf osmo:op_moda_boundary_condition.
-osmo:dp_condition rdfs:subClassOf osmo:dp_moda_boundary_condition.
+osmo:op_section_aspect rdfs:subClassOf osmo:op_boundary_condition.
+osmo:dp_section_aspect rdfs:subClassOf osmo:dp_boundary_condition.
+osmo:op_condition rdfs:subClassOf osmo:op_boundary_condition.
+osmo:dp_condition rdfs:subClassOf osmo:dp_boundary_condition.
 
 osmo:R_HAS_A_CONDITION_CONTENT a owl:Restriction;
    rdfs:subClassOf osmo:constrained_entity;
    owl:onProperty osmo:has_aspect_object_content;
    owl:someValuesFrom osmo:condition.
-osmo:moda_boundary_condition rdfs:subClassOf osmo:R_HAS_A_CONDITION_CONTENT.
+osmo:boundary_condition rdfs:subClassOf osmo:R_HAS_A_CONDITION_CONTENT.
 
-osmo:moda_error_statement a owl:Class;
-   rdfs:subClassOf osmo:moda_section_aspect;
-   rdfs:comment "MODA error statement, i.e., a statement on an uncertainty, error, or deviation from the most accurate possible value"^^xs:string.
-osmo:op_moda_error_statement a owl:Class;
+osmo:error_statement a owl:Class;
+   rdfs:subClassOf osmo:section_aspect;
+   rdfs:comment "error statement, i.e., a statement on an uncertainty, error, or deviation from the most accurate possible value"^^xs:string.
+osmo:op_error_statement a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_error_statement a owl:Class;
+osmo:dp_error_statement a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_section_aspect rdfs:subClassOf osmo:op_moda_error_statement.
-osmo:dp_moda_section_aspect rdfs:subClassOf osmo:dp_moda_error_statement.
-vivo:op_deviation_assertion rdfs:subClassOf osmo:op_moda_error_statement.
-vivo:dp_deviation_assertion rdfs:subClassOf osmo:dp_moda_error_statement.
+osmo:op_section_aspect rdfs:subClassOf osmo:op_error_statement.
+osmo:dp_section_aspect rdfs:subClassOf osmo:dp_error_statement.
+vivo:op_deviation_assertion rdfs:subClassOf osmo:op_error_statement.
+vivo:dp_deviation_assertion rdfs:subClassOf osmo:dp_error_statement.
 
 osmo:R_HAS_AN_ACCURACY_ASSESSMENT_CONTENT a owl:Restriction;
    rdfs:subClassOf osmo:constrained_entity;
    owl:onProperty osmo:has_aspect_paradigmatic_content;
    owl:someValuesFrom vivo:deviation_assertion.
-osmo:moda_error_statement rdfs:subClassOf osmo:R_HAS_AN_ACCURACY_ASSESSMENT_CONTENT.
+osmo:error_statement rdfs:subClassOf osmo:R_HAS_AN_ACCURACY_ASSESSMENT_CONTENT.
 
-osmo:moda_geometry_information a owl:Class;
-   rdfs:subClassOf osmo:moda_boundary_condition;
-   rdfs:comment "MODA geometry information, i.e., geometry considered by a MODA section"^^xs:string.
-osmo:op_moda_geometry_information a owl:Class;
+osmo:geometry_information a owl:Class;
+   rdfs:subClassOf osmo:boundary_condition;
+   rdfs:comment "geometry information, i.e., geometry considered by an OSMO/MODA section"^^xs:string.
+osmo:op_geometry_information a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_geometry_information a owl:Class;
+osmo:dp_geometry_information a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_boundary_condition rdfs:subClassOf osmo:op_moda_geometry_information.
-osmo:dp_moda_boundary_condition rdfs:subClassOf osmo:dp_moda_geometry_information.
+osmo:op_boundary_condition rdfs:subClassOf osmo:op_geometry_information.
+osmo:dp_boundary_condition rdfs:subClassOf osmo:dp_geometry_information.
 
-osmo:PERIODIC_BOUNDARY_CONDITION a osmo:moda_geometry_information.
+osmo:PERIODIC_BOUNDARY_CONDITION a osmo:geometry_information.
 
-osmo:moda_material_information a owl:Class;
-   rdfs:subClassOf osmo:moda_section_aspect;
-   rdfs:comment "MODA material information, i.e., aspect related to the material considered by a MODA section"^^xs:string.
-osmo:op_moda_material_information a owl:Class;
+osmo:material_information a owl:Class;
+   rdfs:subClassOf osmo:section_aspect;
+   rdfs:comment "material information, i.e., aspect related to the material considered by an OSMO/MODA section"^^xs:string.
+osmo:op_material_information a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_material_information a owl:Class;
+osmo:dp_material_information a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_section_aspect rdfs:subClassOf osmo:op_moda_material_information.
-osmo:dp_moda_section_aspect rdfs:subClassOf osmo:dp_moda_material_information.
+osmo:op_section_aspect rdfs:subClassOf osmo:op_material_information.
+osmo:dp_section_aspect rdfs:subClassOf osmo:dp_material_information.
 
-osmo:has_material_information_uf a osmo:op_moda_material_information;
-   rdfs:domain osmo:moda_material_information;
+osmo:has_material_information_uf a osmo:op_material_information;
+   rdfs:domain osmo:material_information;
    rdfs:range osmo:material_information_uf;
    rdfs:subPropertyOf osmo:has_aspect_annotation_content, osmo:has_unit_function;
-   rdfs:comment "points to the element function associated with the present material information (a MODA section can have multiple material informations, describing different units)"^^xs:string.
+   rdfs:comment "points to the element function associated with the present material information (an OSMO/MODA section can have multiple material informations, describing different units)"^^xs:string.
 
 osmo:R_HAS_A_MATERIAL_CONTENT a owl:Restriction;
    rdfs:subClassOf osmo:constrained_entity;
    owl:onProperty osmo:has_aspect_paradigmatic_content;
    owl:someValuesFrom osmo:material.
-osmo:moda_material_information rdfs:subClassOf osmo:R_HAS_A_MATERIAL_CONTENT.
+osmo:material_information rdfs:subClassOf osmo:R_HAS_A_MATERIAL_CONTENT.
 
-osmo:moda_method_type a owl:Class;
-   rdfs:subClassOf osmo:moda_section_aspect;
-   rdfs:comment "MODA method type, i.e., type and/or name information on a method employed by a MODA section"^^xs:string.
-osmo:op_moda_method_type a owl:Class;
+osmo:method_type a owl:Class;
+   rdfs:subClassOf osmo:section_aspect;
+   rdfs:comment "method type, i.e., type and/or name information on a method employed by an OSMO/MODA section"^^xs:string.
+osmo:op_method_type a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_method_type a owl:Class;
+osmo:dp_method_type a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_section_aspect rdfs:subClassOf osmo:op_moda_method_type.
-osmo:dp_moda_section_aspect rdfs:subClassOf osmo:dp_moda_method_type.
-evmpo:op_annotation rdfs:subClassOf osmo:op_moda_method_type.
-evmpo:dp_annotation rdfs:subClassOf osmo:dp_moda_method_type.
+osmo:op_section_aspect rdfs:subClassOf osmo:op_method_type.
+osmo:dp_section_aspect rdfs:subClassOf osmo:dp_method_type.
+evmpo:op_annotation rdfs:subClassOf osmo:op_method_type.
+evmpo:dp_annotation rdfs:subClassOf osmo:dp_method_type.
 
-osmo:moda_parameter_aspect a owl:Class;
-   rdfs:subClassOf osmo:moda_section_aspect;
-   rdfs:comment "MODA parameter aspect, i.e., an aspect characterizing a parameter associated with a MODA section"^^xs:string.
-osmo:op_moda_parameter_aspect a owl:Class;
+osmo:parameter_aspect a owl:Class;
+   rdfs:subClassOf osmo:section_aspect;
+   rdfs:comment "parameter aspect, i.e., an aspect characterizing a parameter associated with an OSMO/MODA section"^^xs:string.
+osmo:op_parameter_aspect a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_parameter_aspect a owl:Class;
+osmo:dp_parameter_aspect a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_section_aspect rdfs:subClassOf osmo:op_moda_parameter_aspect.
-osmo:dp_moda_section_aspect rdfs:subClassOf osmo:dp_moda_parameter_aspect.
-osmo:op_parameter rdfs:subClassOf osmo:op_moda_parameter_aspect.
-osmo:dp_parameter rdfs:subClassOf osmo:dp_moda_parameter_aspect.
+osmo:op_section_aspect rdfs:subClassOf osmo:op_parameter_aspect.
+osmo:dp_section_aspect rdfs:subClassOf osmo:dp_parameter_aspect.
+osmo:op_parameter rdfs:subClassOf osmo:op_parameter_aspect.
+osmo:dp_parameter rdfs:subClassOf osmo:dp_parameter_aspect.
 
 osmo:R_HAS_A_PARAMETER_CONTENT a owl:Restriction;
    rdfs:subClassOf osmo:constrained_entity;
    owl:onProperty osmo:has_aspect_annotation_content;
    owl:someValuesFrom osmo:parameter.
-osmo:moda_parameter_aspect rdfs:subClassOf osmo:R_HAS_A_PARAMETER_CONTENT.
+osmo:parameter_aspect rdfs:subClassOf osmo:R_HAS_A_PARAMETER_CONTENT.
 
-osmo:moda_section_description a owl:Class;
-   rdfs:subClassOf osmo:moda_section_aspect;
-   rdfs:comment "MODA section description, i.e., any descriptive-type information concerning a MODA section"^^xs:string.
-osmo:op_moda_section_description a owl:Class;
+osmo:section_description a owl:Class;
+   rdfs:subClassOf osmo:section_aspect;
+   rdfs:comment "section description, i.e., any descriptive-type information concerning an OSMO/MODA section"^^xs:string.
+osmo:op_section_description a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_section_description a owl:Class;
+osmo:dp_section_description a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_section_aspect rdfs:subClassOf osmo:op_moda_section_description.
-osmo:dp_moda_section_aspect rdfs:subClassOf osmo:dp_moda_section_description.
-evmpo:op_annotation rdfs:subClassOf osmo:op_moda_section_description.
-evmpo:dp_annotation rdfs:subClassOf osmo:dp_moda_section_description.
+osmo:op_section_aspect rdfs:subClassOf osmo:op_section_description.
+osmo:dp_section_aspect rdfs:subClassOf osmo:dp_section_description.
+evmpo:op_annotation rdfs:subClassOf osmo:op_section_description.
+evmpo:dp_annotation rdfs:subClassOf osmo:dp_section_description.
 
-osmo:moda_section_literature a owl:Class;
-   rdfs:subClassOf osmo:moda_section_aspect;
-   rdfs:comment "MODA section literature, i.e., a literature reference associated with a MODA section"^^xs:string.
-osmo:op_moda_section_literature a owl:Class;
+osmo:section_literature a owl:Class;
+   rdfs:subClassOf osmo:section_aspect;
+   rdfs:comment "section literature, i.e., a literature reference associated with an OSMO/MODA section"^^xs:string.
+osmo:op_section_literature a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_section_literature a owl:Class;
+osmo:dp_section_literature a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_section_aspect rdfs:subClassOf osmo:op_moda_section_literature.
-osmo:dp_moda_section_aspect rdfs:subClassOf osmo:dp_moda_section_literature.
+osmo:op_section_aspect rdfs:subClassOf osmo:op_section_literature.
+osmo:dp_section_aspect rdfs:subClassOf osmo:dp_section_literature.
 
 osmo:R_HAS_A_CITATION_CONTENT a owl:Restriction;
+   rdfs:subClassOf osmo:constrained_entity;
    owl:onProperty osmo:has_aspect_paradigmatic_content;
    owl:someValuesFrom otras:citation.
-osmo:moda_section_literature rdfs:subClassOf osmo:R_HAS_A_CITATION_CONTENT.
+osmo:section_literature rdfs:subClassOf osmo:R_HAS_A_CITATION_CONTENT.
 
-osmo:moda_software a owl:Class;
-   rdfs:subClassOf osmo:moda_section_aspect;
-   rdfs:comment "MODA software, i.e., software employed for a MODA section"^^xs:string.
-osmo:op_moda_software a owl:Class;
+osmo:software a owl:Class;
+   rdfs:subClassOf osmo:section_aspect;
+   rdfs:comment "software, i.e., an executable numerical artefact"^^xs:string.
+osmo:op_software a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_software a owl:Class;
+osmo:dp_software a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_section_aspect rdfs:subClassOf osmo:op_moda_software.
-osmo:dp_moda_section_aspect rdfs:subClassOf osmo:dp_moda_software.
+osmo:op_section_aspect rdfs:subClassOf osmo:op_software.
+osmo:dp_section_aspect rdfs:subClassOf osmo:dp_software.
 
-osmo:moda_temporal_discretization a owl:Class;
-   rdfs:subClassOf osmo:moda_section_aspect;
-   rdfs:comment "MODA temporal discretization, i.e., temporal discretization approach conceptually underlying a MODA section"^^xs:string.
-osmo:op_moda_temporal_discretization a owl:Class;
+osmo:temporal_discretization a owl:Class;
+   rdfs:subClassOf osmo:section_aspect;
+   rdfs:comment "temporal discretization, i.e., temporal discretization approach conceptually underlying an OSMO/MODA section"^^xs:string.
+osmo:op_temporal_discretization a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_temporal_discretization a owl:Class;
+osmo:dp_temporal_discretization a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_section_aspect rdfs:subClassOf osmo:op_moda_temporal_discretization.
-osmo:dp_moda_section_aspect rdfs:subClassOf osmo:dp_moda_temporal_discretization.
-evmpo:op_annotation rdfs:subClassOf osmo:op_moda_temporal_discretization.
-evmpo:dp_annotation rdfs:subClassOf osmo:dp_moda_temporal_discretization.
+osmo:op_section_aspect rdfs:subClassOf osmo:op_temporal_discretization.
+osmo:dp_section_aspect rdfs:subClassOf osmo:dp_temporal_discretization.
+evmpo:op_annotation rdfs:subClassOf osmo:op_temporal_discretization.
+evmpo:dp_annotation rdfs:subClassOf osmo:dp_temporal_discretization.
 
-osmo:moda_timespan a owl:Class;
-   rdfs:subClassOf osmo:moda_section_aspect;
-   rdfs:comment "MODA time span, i.e., time interval considered, modelled, or represented by a MODA section"^^xs:string.
-osmo:op_moda_timespan a owl:Class;
+osmo:timespan_information a owl:Class;
+   rdfs:subClassOf osmo:section_aspect;
+   rdfs:comment "time span information, i.e., statement on the time interval considered, modelled, or represented by an OSMO/MODA section"^^xs:string.
+osmo:op_timespan_information a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_timespan a owl:Class;
+osmo:dp_timespan_information a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_section_aspect rdfs:subClassOf osmo:op_moda_timespan.
-osmo:dp_moda_section_aspect rdfs:subClassOf osmo:dp_moda_timespan.
+osmo:op_section_aspect rdfs:subClassOf osmo:op_timespan_information.
+osmo:dp_section_aspect rdfs:subClassOf osmo:dp_timespan_information.
 
-osmo:moda_usercase_entity a owl:Class;
-   rdfs:subClassOf osmo:moda_section_entity;
-   rdfs:comment "MODA user case entity, i.e., a user case that can be described by MODA section 1, or an aspect thereof"^^xs:string.
-osmo:op_moda_usercase_entity a owl:Class;
+osmo:user_case_entity a owl:Class;
+   rdfs:subClassOf osmo:section_entity;
+   rdfs:comment "user case entity, i.e., a user case or an aspect thereof"^^xs:string.
+osmo:op_user_case_entity a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_usercase_entity a owl:Class;
+osmo:dp_user_case_entity a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_section_entity rdfs:subClassOf osmo:op_moda_usercase_entity.
-osmo:dp_moda_section_entity rdfs:subClassOf osmo:dp_moda_usercase_entity.
+osmo:op_section_entity rdfs:subClassOf osmo:op_user_case_entity.
+osmo:dp_section_entity rdfs:subClassOf osmo:dp_user_case_entity.
 
-osmo:moda_usercase_entity owl:disjointUnionOf (osmo:moda_usercase osmo:moda_usercase_aspect).
+osmo:user_case_entity owl:disjointUnionOf (osmo:user_case osmo:user_case_aspect).
 
-osmo:moda_usercase a owl:Class;
-   rdfs:subClassOf osmo:moda_section, osmo:moda_usercase_entity, evmpo:annotation;
-   rdfs:comment "MODA user case, i.e., a user case that can be described by MODA section 1"^^xs:string.
-osmo:op_moda_usercase a owl:Class;
+osmo:user_case a owl:Class;
+   rdfs:subClassOf osmo:section, osmo:user_case_entity, evmpo:annotation;
+   rdfs:comment "user case (as in MODA)"^^xs:string.
+osmo:op_user_case a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_usercase a owl:Class;
+osmo:dp_user_case a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_section rdfs:subClassOf osmo:op_moda_usercase.
-osmo:dp_moda_section rdfs:subClassOf osmo:dp_moda_usercase.
-osmo:op_moda_usercase_entity rdfs:subClassOf osmo:op_moda_usercase.
-osmo:dp_moda_usercase_entity rdfs:subClassOf osmo:dp_moda_usercase.
-evmpo:op_annotation rdfs:subClassOf osmo:op_moda_usercase.
-evmpo:dp_annotation rdfs:subClassOf osmo:dp_moda_usercase.
+osmo:op_section rdfs:subClassOf osmo:op_user_case.
+osmo:dp_section rdfs:subClassOf osmo:dp_user_case.
+osmo:op_user_case_entity rdfs:subClassOf osmo:op_user_case.
+osmo:dp_user_case_entity rdfs:subClassOf osmo:dp_user_case.
+evmpo:op_annotation rdfs:subClassOf osmo:op_user_case.
+evmpo:dp_annotation rdfs:subClassOf osmo:dp_user_case.
 
-osmo:has_moda_usercase_aspect a osmo:op_moda_usercase;
-   rdfs:domain osmo:moda_usercase;
-   rdfs:range osmo:moda_usercase_aspect;
-   rdfs:subPropertyOf osmo:has_moda_aspect, evmpo:has_meta_annotation;
-   rdfs:comment "points to an aspect associated with MODA section 1"^^xs:string.
+osmo:has_user_case_aspect a osmo:op_user_case;
+   rdfs:domain osmo:user_case;
+   rdfs:range osmo:user_case_aspect;
+   rdfs:subPropertyOf osmo:has_aspect, evmpo:has_meta_annotation;
+   rdfs:comment "points to a user-case aspect (as in MODA)"^^xs:string.
 
-osmo:has_moda_usercase_description a osmo:op_moda_usercase;
-   rdfs:domain osmo:moda_usercase;
-   rdfs:range osmo:moda_usercase_description;
-   rdfs:subPropertyOf osmo:has_moda_usercase_aspect, osmo:has_moda_section_description;
+osmo:has_user_case_description a osmo:op_user_case;
+   rdfs:domain osmo:user_case;
+   rdfs:range osmo:user_case_description;
+   rdfs:subPropertyOf osmo:has_user_case_aspect, osmo:has_section_description;
    rdfs:comment "MODA subsection 1.1"^^xs:string.
-osmo:has_moda_usercase_mi a osmo:op_moda_usercase;
-   rdfs:domain osmo:moda_usercase;
-   rdfs:range osmo:moda_usercase_mi;
-   rdfs:subPropertyOf osmo:has_moda_usercase_aspect, osmo:has_material_information;
+osmo:has_user_case_material a osmo:op_user_case;
+   rdfs:domain osmo:user_case;
+   rdfs:range osmo:user_case_material;
+   rdfs:subPropertyOf osmo:has_user_case_aspect, osmo:has_material_information;
    rdfs:comment "MODA subsection 1.2"^^xs:string.
-osmo:has_moda_usercase_gi a osmo:op_moda_usercase;
-   rdfs:domain osmo:moda_usercase;
-   rdfs:range osmo:moda_usercase_gi;
-   rdfs:subPropertyOf osmo:has_moda_usercase_boundary_condition, osmo:has_geometry_information;
+osmo:has_user_case_geometry a osmo:op_user_case;
+   rdfs:domain osmo:user_case;
+   rdfs:range osmo:user_case_geometry;
+   rdfs:subPropertyOf osmo:has_user_case_boundary_condition, osmo:has_geometry_information;
    rdfs:comment "MODA subsection 1.3"^^xs:string.
-osmo:has_moda_usercase_timespan a osmo:op_moda_usercase;
-   rdfs:domain osmo:moda_usercase;
-   rdfs:range osmo:moda_usercase_timespan;
-   rdfs:subPropertyOf osmo:has_moda_usercase_aspect, osmo:has_timespan;
+osmo:has_user_case_timespan a osmo:op_user_case;
+   rdfs:domain osmo:user_case;
+   rdfs:range osmo:user_case_timespan;
+   rdfs:subPropertyOf osmo:has_user_case_aspect, osmo:has_timespan;
    rdfs:comment "MODA subsection 1.4"^^xs:string.
-osmo:has_moda_usercase_boundary_condition a osmo:op_moda_usercase;
-   rdfs:domain osmo:moda_usercase;
-   rdfs:range osmo:moda_usercase_boundary_condition;
-   rdfs:subPropertyOf osmo:has_moda_usercase_aspect, osmo:has_boundary_condition;
+osmo:has_user_case_boundary_condition a osmo:op_user_case;
+   rdfs:domain osmo:user_case;
+   rdfs:range osmo:user_case_boundary_condition;
+   rdfs:subPropertyOf osmo:has_user_case_aspect, osmo:has_boundary_condition;
    rdfs:comment "MODA subsection 1.5"^^xs:string.
-osmo:has_moda_usercase_literature a osmo:op_moda_usercase;
-   rdfs:domain osmo:moda_usercase;
-   rdfs:range osmo:moda_usercase_literature;
-   rdfs:subPropertyOf osmo:has_moda_usercase_aspect, osmo:has_section_literature;
+osmo:has_user_case_literature a osmo:op_user_case;
+   rdfs:domain osmo:user_case;
+   rdfs:range osmo:user_case_literature;
+   rdfs:subPropertyOf osmo:has_user_case_aspect, osmo:has_section_literature;
    rdfs:comment "MODA subsection 1.6"^^xs:string.
 
 osmo:R_HAS_A_USERCASE_MI a owl:Restriction;
    rdfs:subClassOf osmo:constrained_entity;
-   owl:onProperty osmo:has_moda_usercase_mi;
-   owl:someValuesFrom osmo:moda_usercase_mi.
-osmo:moda_usercase rdfs:subClassOf osmo:R_HAS_A_USERCASE_MI.
+   owl:onProperty osmo:has_user_case_material;
+   owl:someValuesFrom osmo:user_case_material.
+osmo:user_case rdfs:subClassOf osmo:R_HAS_A_USERCASE_MI.
 
-osmo:moda_usercase_aspect a owl:Class;
-   rdfs:subClassOf osmo:moda_section_aspect, osmo:moda_usercase_entity;
-   rdfs:comment "MODA user case aspect, i.e., an aspect of a user case that can be described by MODA section 1"^^xs:string.
-osmo:op_moda_usercase_aspect a owl:Class;
+osmo:user_case_aspect a owl:Class;
+   rdfs:subClassOf osmo:section_aspect, osmo:user_case_entity;
+   rdfs:comment "user-case aspect (similar as in MODA)"^^xs:string.
+osmo:op_user_case_aspect a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_usercase_aspect a owl:Class;
+osmo:dp_user_case_aspect a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_section_aspect rdfs:subClassOf osmo:op_moda_usercase_aspect.
-osmo:op_moda_section_aspect rdfs:subClassOf osmo:dp_moda_usercase_aspect.
-osmo:op_moda_usercase_entity rdfs:subClassOf osmo:op_moda_usercase_aspect.
-osmo:op_moda_usercase_entity rdfs:subClassOf osmo:dp_moda_usercase_aspect.
+osmo:op_section_aspect rdfs:subClassOf osmo:op_user_case_aspect.
+osmo:op_section_aspect rdfs:subClassOf osmo:dp_user_case_aspect.
+osmo:op_user_case_entity rdfs:subClassOf osmo:op_user_case_aspect.
+osmo:op_user_case_entity rdfs:subClassOf osmo:dp_user_case_aspect.
 
-osmo:moda_usercase_aspect owl:intersectionOf (osmo:moda_section_aspect osmo:moda_usercase_entity).
+osmo:user_case_aspect owl:intersectionOf (osmo:section_aspect osmo:user_case_entity).
 
-osmo:moda_usercase_description a owl:Class;
-   rdfs:subClassOf osmo:moda_usercase_aspect, osmo:moda_section_description, osmo:R_HAS_AN_ASPECT_TEXT_CONTENT;
-   rdfs:comment "MODA user case description (MODA subsection 1.1), describes aspects of a user case textually"^^xs:string.
-osmo:op_moda_usercase_description a owl:Class;
+osmo:user_case_description a owl:Class;
+   rdfs:subClassOf osmo:user_case_aspect, osmo:section_description, osmo:R_HAS_AN_ASPECT_TEXT_CONTENT;
+   rdfs:comment "user-case description (MODA subsection 1.1), describes aspects of a user case textually"^^xs:string.
+osmo:op_user_case_description a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_usercase_description a owl:Class;
+osmo:dp_user_case_description a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_usercase_aspect rdfs:subClassOf osmo:op_moda_usercase_description.
-osmo:dp_moda_usercase_aspect rdfs:subClassOf osmo:dp_moda_usercase_description.
-osmo:op_moda_section_description rdfs:subClassOf osmo:op_moda_usercase_description.
-osmo:dp_moda_section_description rdfs:subClassOf osmo:dp_moda_usercase_description.
+osmo:op_user_case_aspect rdfs:subClassOf osmo:op_user_case_description.
+osmo:dp_user_case_aspect rdfs:subClassOf osmo:dp_user_case_description.
+osmo:op_section_description rdfs:subClassOf osmo:op_user_case_description.
+osmo:dp_section_description rdfs:subClassOf osmo:dp_user_case_description.
 
-osmo:moda_usercase_mi a owl:Class;
-   rdfs:subClassOf osmo:moda_usercase_aspect, osmo:moda_material_information;
-   rdfs:comment "MODA user case material information (MODA subsection 1.2), characterizes/describes the considered material"^^xs:string.
-osmo:op_moda_usercase_mi a owl:Class;
+osmo:user_case_material a owl:Class;
+   rdfs:subClassOf osmo:user_case_aspect, osmo:material_information;
+   rdfs:comment "user-case material information (MODA subsection 1.2), characterizes/describes the considered material"^^xs:string.
+osmo:op_user_case_material a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_usercase_mi a owl:Class;
+osmo:dp_user_case_material a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_usercase_aspect rdfs:subClassOf osmo:op_moda_usercase_mi.
-osmo:dp_moda_usercase_aspect rdfs:subClassOf osmo:dp_moda_usercase_mi.
-osmo:op_moda_material_information rdfs:subClassOf osmo:op_moda_usercase_mi.
-osmo:dp_moda_material_information rdfs:subClassOf osmo:dp_moda_usercase_mi.
+osmo:op_user_case_aspect rdfs:subClassOf osmo:op_user_case_material.
+osmo:dp_user_case_aspect rdfs:subClassOf osmo:dp_user_case_material.
+osmo:op_material_information rdfs:subClassOf osmo:op_user_case_material.
+osmo:dp_material_information rdfs:subClassOf osmo:dp_user_case_material.
 
-osmo:moda_usercase_gi a owl:Class;
-   rdfs:subClassOf osmo:moda_usercase_boundary_condition, osmo:moda_geometry_information;
-   rdfs:comment "MODA user case geometry information (MODA subsection 1.3), characterizes/describes the considered system geometry"^^xs:string.
-osmo:op_moda_usercase_gi a owl:Class;
+osmo:user_case_geometry a owl:Class;
+   rdfs:subClassOf osmo:user_case_boundary_condition, osmo:geometry_information;
+   rdfs:comment "user-case geometry information (MODA subsection 1.3), characterizes/describes the considered system geometry"^^xs:string.
+osmo:op_user_case_geometry a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_usercase_gi a owl:Class;
+osmo:dp_user_case_geometry a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_usercase_boundary_condition rdfs:subClassOf osmo:op_moda_usercase_gi.
-osmo:dp_moda_usercase_boundary_condition rdfs:subClassOf osmo:dp_moda_usercase_gi.
-osmo:op_moda_geometry_information rdfs:subClassOf osmo:op_moda_usercase_gi.
-osmo:dp_moda_geometry_information rdfs:subClassOf osmo:dp_moda_usercase_gi.
+osmo:op_user_case_boundary_condition rdfs:subClassOf osmo:op_user_case_geometry.
+osmo:dp_user_case_boundary_condition rdfs:subClassOf osmo:dp_user_case_geometry.
+osmo:op_geometry_information rdfs:subClassOf osmo:op_user_case_geometry.
+osmo:dp_geometry_information rdfs:subClassOf osmo:dp_user_case_geometry.
 
-osmo:moda_usercase_timespan a owl:Class;
-   rdfs:subClassOf osmo:moda_usercase_aspect, osmo:moda_timespan;
-   rdfs:comment "MODA user case time span (MODA subsection 1.4), characterizes/describes the considered time interval"^^xs:string.
-osmo:op_moda_usercase_timespan a owl:Class;
+osmo:user_case_timespan a owl:Class;
+   rdfs:subClassOf osmo:user_case_aspect, osmo:timespan_information;
+   rdfs:comment "user-case time span (MODA subsection 1.4), characterizes/describes the considered time interval"^^xs:string.
+osmo:op_user_case_timespan a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_usercase_timespan a owl:Class;
+osmo:dp_user_case_timespan a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_usercase_aspect rdfs:subClassOf osmo:op_moda_usercase_timespan.
-osmo:dp_moda_usercase_aspect rdfs:subClassOf osmo:dp_moda_usercase_timespan.
-osmo:op_moda_timespan rdfs:subClassOf osmo:op_moda_usercase_timespan.
-osmo:dp_moda_timespan rdfs:subClassOf osmo:dp_moda_usercase_timespan.
+osmo:op_user_case_aspect rdfs:subClassOf osmo:op_user_case_timespan.
+osmo:dp_user_case_aspect rdfs:subClassOf osmo:dp_user_case_timespan.
+osmo:op_timespan_information rdfs:subClassOf osmo:op_user_case_timespan.
+osmo:dp_timespan_information rdfs:subClassOf osmo:dp_user_case_timespan.
 
-osmo:moda_usercase_boundary_condition a owl:Class;
-   rdfs:subClassOf osmo:moda_usercase_aspect, osmo:moda_boundary_condition;
-   rdfs:comment "MODA user case boundary condition (MODA subsection 1.5), characterizes/describes a thermodynamic, spatio-temporal, or any other boundary condition"^^xs:string.
-osmo:op_moda_usercase_boundary_condition a owl:Class;
+osmo:user_case_boundary_condition a owl:Class;
+   rdfs:subClassOf osmo:user_case_aspect, osmo:boundary_condition;
+   rdfs:comment "user-case boundary condition (MODA subsection 1.5), characterizes/describes a thermodynamic, spatio-temporal, or any other boundary condition"^^xs:string.
+osmo:op_user_case_boundary_condition a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_usercase_boundary_condition a owl:Class;
+osmo:dp_user_case_boundary_condition a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_usercase_aspect rdfs:subClassOf osmo:op_moda_usercase_boundary_condition.
-osmo:dp_moda_usercase_aspect rdfs:subClassOf osmo:dp_moda_usercase_boundary_condition.
-osmo:op_moda_boundary_condition rdfs:subClassOf osmo:op_moda_usercase_boundary_condition.
-osmo:dp_moda_boundary_condition rdfs:subClassOf osmo:dp_moda_usercase_boundary_condition.
+osmo:op_user_case_aspect rdfs:subClassOf osmo:op_user_case_boundary_condition.
+osmo:dp_user_case_aspect rdfs:subClassOf osmo:dp_user_case_boundary_condition.
+osmo:op_boundary_condition rdfs:subClassOf osmo:op_user_case_boundary_condition.
+osmo:dp_boundary_condition rdfs:subClassOf osmo:dp_user_case_boundary_condition.
 
-osmo:moda_usercase_literature a owl:Class;
-   rdfs:subClassOf osmo:moda_usercase_aspect, osmo:moda_section_literature;
-   rdfs:comment "MODA user case literature (MODA subsection 1.6), cites a reference that is relevant or of interest for the user case"^^xs:string.
-osmo:op_moda_usercase_literature a owl:Class;
+osmo:user_case_literature a owl:Class;
+   rdfs:subClassOf osmo:user_case_aspect, osmo:section_literature;
+   rdfs:comment "user-case literature (MODA subsection 1.6), cites a reference that is relevant or of interest for the user case"^^xs:string.
+osmo:op_user_case_literature a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_usercase_literature a owl:Class;
+osmo:dp_user_case_literature a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_usercase_aspect rdfs:subClassOf osmo:op_moda_usercase_literature.
-osmo:dp_moda_usercase_aspect rdfs:subClassOf osmo:dp_moda_usercase_literature.
-osmo:op_moda_section_literature rdfs:subClassOf osmo:op_moda_usercase_literature.
-osmo:dp_moda_section_literature rdfs:subClassOf osmo:dp_moda_usercase_literature.
+osmo:op_user_case_aspect rdfs:subClassOf osmo:op_user_case_literature.
+osmo:dp_user_case_aspect rdfs:subClassOf osmo:dp_user_case_literature.
+osmo:op_section_literature rdfs:subClassOf osmo:op_user_case_literature.
+osmo:dp_section_literature rdfs:subClassOf osmo:dp_user_case_literature.
 
-osmo:moda_model_entity a owl:Class;
-   rdfs:subClassOf osmo:moda_section_entity;
-   rdfs:comment "MODA model entity, i.e., a model that can be described by MODA section 2, or an aspect thereof"^^xs:string.
-osmo:op_moda_model_entity a owl:Class;
+osmo:model_entity a owl:Class;
+   rdfs:subClassOf osmo:section_entity;
+   rdfs:comment "model entity, i.e., a materials model (as in MODA) or an aspect thereof"^^xs:string.
+osmo:op_model_entity a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_model_entity a owl:Class;
+osmo:dp_model_entity a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_section_entity rdfs:subClassOf osmo:op_moda_model_entity.
-osmo:dp_moda_section_entity rdfs:subClassOf osmo:dp_moda_model_entity.
+osmo:op_section_entity rdfs:subClassOf osmo:op_model_entity.
+osmo:dp_section_entity rdfs:subClassOf osmo:dp_model_entity.
 
-osmo:moda_model_entity owl:disjointUnionOf (osmo:moda_model osmo:moda_model_aspect).
+osmo:model_entity owl:disjointUnionOf (osmo:materials_model osmo:model_aspect).
 
-osmo:moda_model a owl:Class;
-   rdfs:subClassOf osmo:moda_section, osmo:model, osmo:moda_model_entity;
-   rdfs:comment "MODA model, i.e., a model that is described by a MODA section 2 instance"^^xs:string.
-osmo:op_moda_model a owl:Class;
+osmo:materials_model a owl:Class;
+   rdfs:subClassOf osmo:section, osmo:model, osmo:model_entity;
+   rdfs:comment "materials model (as in MODA)"^^xs:string.
+osmo:op_materials_model a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_model a owl:Class;
+osmo:dp_materials_model a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_section rdfs:subClassOf osmo:op_moda_model.
-osmo:dp_moda_section rdfs:subClassOf osmo:dp_moda_model.
-osmo:op_model rdfs:subClassOf osmo:op_moda_model.
-osmo:dp_model rdfs:subClassOf osmo:dp_moda_model.
-osmo:op_moda_model_entity rdfs:subClassOf osmo:op_moda_model.
-osmo:dp_moda_model_entity rdfs:subClassOf osmo:dp_moda_model.
+osmo:op_section rdfs:subClassOf osmo:op_materials_model.
+osmo:dp_section rdfs:subClassOf osmo:dp_materials_model.
+osmo:op_model rdfs:subClassOf osmo:op_materials_model.
+osmo:dp_model rdfs:subClassOf osmo:dp_materials_model.
+osmo:op_model_entity rdfs:subClassOf osmo:op_materials_model.
+osmo:dp_model_entity rdfs:subClassOf osmo:dp_materials_model.
 
-osmo:has_moda_model_aspect a osmo:op_moda_model;
-   rdfs:domain osmo:moda_model;
-   rdfs:range osmo:moda_model_aspect;
-   rdfs:subPropertyOf osmo:has_moda_aspect, evmpo:has_model_annotation;
-   rdfs:comment "points to an aspect associated with MODA section 2"^^xs:string.
-osmo:has_moda_model_ge a osmo:op_moda_model;
-   rdfs:domain osmo:moda_model;
+osmo:has_model_aspect a osmo:op_materials_model;
+   rdfs:domain osmo:materials_model;
+   rdfs:range osmo:model_aspect;
+   rdfs:subPropertyOf osmo:has_aspect, evmpo:has_model_annotation;
+   rdfs:comment "points to an aspect associated with a materials model (as in MODA)"^^xs:string.
+osmo:has_materials_model_ge a osmo:op_materials_model;
+   rdfs:domain osmo:materials_model;
    rdfs:range osmo:governing_equation;
-   rdfs:subPropertyOf osmo:has_moda_model_aspect.
+   rdfs:subPropertyOf osmo:has_model_aspect.
 
-osmo:has_moda_model_type a osmo:op_moda_model;
-   rdfs:domain osmo:moda_model;
-   rdfs:range osmo:moda_model_type;
-   rdfs:subPropertyOf osmo:has_moda_model_aspect, osmo:has_method_type;
+osmo:has_model_type a osmo:op_materials_model;
+   rdfs:domain osmo:materials_model;
+   rdfs:range osmo:model_type;
+   rdfs:subPropertyOf osmo:has_model_aspect, osmo:has_method_type;
    rdfs:comment "MODA subsection 2.1"^^xs:string.
-osmo:has_moda_model_granularity a osmo:op_moda_model;
-   rdfs:domain osmo:moda_model;
-   rdfs:range osmo:moda_model_granularity_aspect;
-   rdfs:subPropertyOf osmo:has_moda_model_aspect;
+osmo:has_model_granularity a osmo:op_materials_model;
+   rdfs:domain osmo:materials_model;
+   rdfs:range osmo:model_granularity;
+   rdfs:subPropertyOf osmo:has_model_aspect;
    rdfs:comment "MODA subsection 2.2"^^xs:string.
-osmo:has_moda_model_pe a osmo:op_moda_model;
-   rdfs:domain osmo:moda_model;
+osmo:has_physics_equation a osmo:op_materials_model;
+   rdfs:domain osmo:materials_model;
    rdfs:range osmo:physics_equation;
-   rdfs:subPropertyOf osmo:has_moda_model_ge;
+   rdfs:subPropertyOf osmo:has_materials_model_ge;
    rdfs:comment "MODA subsection 2.3"^^xs:string.
-osmo:has_moda_model_mr a osmo:op_moda_model;
-   rdfs:domain osmo:moda_model;
+osmo:has_materials_relation a osmo:op_materials_model;
+   rdfs:domain osmo:materials_model;
    rdfs:range osmo:materials_relation;
-   rdfs:subPropertyOf osmo:has_moda_model_ge;
+   rdfs:subPropertyOf osmo:has_materials_model_ge;
    rdfs:comment "MODA subsection 2.4"^^xs:string.
-osmo:has_moda_model_boundary_condition a osmo:op_moda_model;
-   rdfs:domain osmo:moda_model;
-   rdfs:range osmo:moda_model_boundary_condition;
-   rdfs:subPropertyOf osmo:has_moda_model_aspect, osmo:has_boundary_condition;
+osmo:has_model_boundary_condition a osmo:op_materials_model;
+   rdfs:domain osmo:materials_model;
+   rdfs:range osmo:model_boundary_condition;
+   rdfs:subPropertyOf osmo:has_model_aspect, osmo:has_boundary_condition;
    rdfs:comment "MODA subsection 2.5"^^xs:string.
 
 osmo:R_HAS_A_MODEL_TYPE a owl:Restriction;
    rdfs:subClassOf osmo:constrained_entity;
-   owl:onProperty osmo:has_moda_model_type;
-   owl:someValuesFrom osmo:moda_model_type.
+   owl:onProperty osmo:has_model_type;
+   owl:someValuesFrom osmo:model_type.
 osmo:R_HAS_A_MODEL_GRANULARITY a owl:Restriction;
    rdfs:subClassOf osmo:constrained_entity;
-   owl:onProperty osmo:has_moda_model_granularity;
-   owl:someValuesFrom osmo:moda_model_granularity_aspect.
+   owl:onProperty osmo:has_model_granularity;
+   owl:someValuesFrom osmo:model_granularity.
 osmo:R_HAS_A_MODEL_PE a owl:Restriction;
    rdfs:subClassOf osmo:constrained_entity;
-   owl:onProperty osmo:has_moda_model_pe;
+   owl:onProperty osmo:has_physics_equation;
    owl:someValuesFrom osmo:physics_equation.
 osmo:R_HAS_A_MODEL_MR a owl:Restriction;
    rdfs:subClassOf osmo:constrained_entity;
-   owl:onProperty osmo:has_moda_model_mr;
+   owl:onProperty osmo:has_materials_relation;
    owl:someValuesFrom osmo:materials_relation.
-osmo:moda_model rdfs:subClassOf osmo:R_HAS_A_MODEL_TYPE, osmo:R_HAS_A_MODEL_GRANULARITY, osmo:R_HAS_A_MODEL_PE, osmo:R_HAS_A_MODEL_MR.
+osmo:materials_model rdfs:subClassOf osmo:R_HAS_A_MODEL_TYPE, osmo:R_HAS_A_MODEL_GRANULARITY, osmo:R_HAS_A_MODEL_PE, osmo:R_HAS_A_MODEL_MR.
 
-osmo:moda_model_aspect a owl:Class;
-   rdfs:subClassOf osmo:moda_section_aspect, osmo:moda_model_entity;
-   rdfs:comment "MODA model aspect, i.e., an aspect of a model that can be described by MODA section 2"^^xs:string.
-osmo:op_moda_model_aspect a owl:Class;
+osmo:model_aspect a owl:Class;
+   rdfs:subClassOf osmo:section_aspect, osmo:model_entity;
+   rdfs:comment "model aspect, i.e., an aspect of a materials model"^^xs:string.
+osmo:op_model_aspect a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_model_aspect a owl:Class;
+osmo:dp_model_aspect a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_section_aspect rdfs:subClassOf osmo:op_moda_model_aspect.
-osmo:dp_moda_section_aspect rdfs:subClassOf osmo:dp_moda_model_aspect.
-osmo:op_moda_model_entity rdfs:subClassOf osmo:op_moda_model_aspect.
-osmo:dp_moda_model_entity rdfs:subClassOf osmo:dp_moda_model_aspect.
+osmo:op_section_aspect rdfs:subClassOf osmo:op_model_aspect.
+osmo:dp_section_aspect rdfs:subClassOf osmo:dp_model_aspect.
+osmo:op_model_entity rdfs:subClassOf osmo:op_model_aspect.
+osmo:dp_model_entity rdfs:subClassOf osmo:dp_model_aspect.
 
-osmo:moda_model_aspect owl:intersectionOf (osmo:moda_section_aspect osmo:moda_model_entity).
+osmo:model_aspect owl:intersectionOf (osmo:section_aspect osmo:model_entity).
 
-osmo:moda_model_type a owl:Class;
-   rdfs:subClassOf osmo:moda_model_aspect, osmo:moda_method_type;
-   rdfs:comment "MODA model type (MODA subsection 2.1), characterizes/describes the model type or class or the approach to modelling that is followed"^^xs:string.
-osmo:op_moda_model_type a owl:Class;
+osmo:model_type a owl:Class;
+   rdfs:subClassOf osmo:model_aspect, osmo:method_type;
+   rdfs:comment "model type (MODA subsection 2.1), characterizes/describes the model type or class or the approach to modelling that is followed"^^xs:string.
+osmo:op_model_type a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_model_type a owl:Class;
+osmo:dp_model_type a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_model_aspect rdfs:subClassOf osmo:op_moda_model_type.
-osmo:dp_moda_model_aspect rdfs:subClassOf osmo:dp_moda_model_type.
-osmo:op_moda_method_type rdfs:subClassOf osmo:op_moda_model_type.
-osmo:dp_moda_method_type rdfs:subClassOf osmo:dp_moda_model_type.
+osmo:op_model_aspect rdfs:subClassOf osmo:op_model_type.
+osmo:dp_model_aspect rdfs:subClassOf osmo:dp_model_type.
+osmo:op_method_type rdfs:subClassOf osmo:op_model_type.
+osmo:dp_method_type rdfs:subClassOf osmo:dp_model_type.
 
 osmo:R_HAS_A_ROMM_MODEL_TYPE_CONTENT a owl:Restriction;
    rdfs:subClassOf osmo:constrained_entity;
    owl:onProperty osmo:has_aspect_annotation_content;
-   owl:someValuesFrom osmo:romm_model_type.
-osmo:moda_model_type rdfs:subClassOf osmo:R_HAS_A_ROMM_MODEL_TYPE_CONTENT.
+   owl:someValuesFrom osmo:physics_equation_type.
+osmo:model_type rdfs:subClassOf osmo:R_HAS_A_ROMM_MODEL_TYPE_CONTENT.
 
-osmo:moda_model_granularity_aspect a owl:Class;
-   rdfs:subClassOf osmo:moda_model_aspect;
-   rdfs:comment "MODA model granularity aspect (MODA subsection 2.2), characterizes the RoMM granularity level corresponding to a MODA model"^^xs:string.
-osmo:op_moda_model_granularity_aspect a owl:Class;
+osmo:model_granularity a owl:Class;
+   rdfs:subClassOf osmo:model_aspect;
+   rdfs:comment "model granularity aspect (MODA subsection 2.2), characterizes the RoMM granularity level of a model"^^xs:string.
+osmo:op_model_granularity a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_model_granularity_aspect a owl:Class;
+osmo:dp_model_granularity a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_model_aspect rdfs:subClassOf osmo:op_moda_model_granularity_aspect.
-osmo:dp_moda_model_aspect rdfs:subClassOf osmo:dp_moda_model_granularity_aspect.
+osmo:op_model_aspect rdfs:subClassOf osmo:op_model_granularity.
+osmo:dp_model_aspect rdfs:subClassOf osmo:dp_model_granularity.
 
-osmo:R_HAS_A_ROMM_GRANULARITY_LEVEL_CONTENT a owl:Restriction;
+osmo:R_HAS_A_GRANULARITY_LEVEL_CONTENT a owl:Restriction;
    rdfs:subClassOf osmo:constrained_entity;
    owl:onProperty osmo:has_aspect_annotation_content;
-   owl:someValuesFrom osmo:romm_granularity_level.
-osmo:moda_model_granularity_aspect rdfs:subClassOf osmo:R_HAS_A_ROMM_GRANULARITY_LEVEL_CONTENT.
+   owl:someValuesFrom osmo:granularity_level.
+osmo:model_granularity rdfs:subClassOf osmo:R_HAS_A_GRANULARITY_LEVEL_CONTENT.
 
 osmo:governing_equation a owl:Class;
-   rdfs:subClassOf osmo:moda_model_aspect, osmo:R_HAS_A_CONDITION_CONTENT;
+   rdfs:subClassOf osmo:model_aspect, osmo:R_HAS_A_CONDITION_CONTENT;
    rdfs:comment "governing equation (GE) as defined by RoMM, i.e., a physics equation (PE) or materials relation (MR)"^^xs:string.
 osmo:op_governing_equation a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 osmo:dp_governing_equation a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_model_aspect rdfs:subClassOf osmo:op_governing_equation.
-osmo:dp_moda_model_aspect rdfs:subClassOf osmo:dp_governing_equation.
+osmo:op_model_aspect rdfs:subClassOf osmo:op_governing_equation.
+osmo:dp_model_aspect rdfs:subClassOf osmo:dp_governing_equation.
 osmo:op_condition rdfs:subClassOf osmo:op_governing_equation.
 osmo:dp_condition rdfs:subClassOf osmo:dp_governing_equation.
 
@@ -1148,466 +1163,466 @@ osmo:dp_materials_relation a owl:Class;
 osmo:op_governing_equation rdfs:subClassOf osmo:op_materials_relation.
 osmo:dp_governing_equation rdfs:subClassOf osmo:dp_materials_relation.
 
-osmo:moda_model_boundary_condition a owl:Class;
-   rdfs:subClassOf osmo:moda_model_aspect, osmo:moda_boundary_condition;
-   rdfs:comment "MODA model boundary condition (MODA subsection 2.5), characterizes/describes a boundary condition that is applied to the model"^^xs:string.
-osmo:op_moda_model_boundary_condition a owl:Class;
+osmo:model_boundary_condition a owl:Class;
+   rdfs:subClassOf osmo:model_aspect, osmo:boundary_condition;
+   rdfs:comment "model boundary condition (MODA subsection 2.5), characterizes/describes a boundary condition that is applied to the model"^^xs:string.
+osmo:op_model_boundary_condition a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_model_boundary_condition a owl:Class;
+osmo:dp_model_boundary_condition a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_model_aspect rdfs:subClassOf osmo:op_moda_model_boundary_condition.
-osmo:dp_moda_model_aspect rdfs:subClassOf osmo:dp_moda_model_boundary_condition.
-osmo:op_moda_boundary_condition rdfs:subClassOf osmo:op_moda_model_boundary_condition.
-osmo:dp_moda_boundary_condition rdfs:subClassOf osmo:dp_moda_model_boundary_condition.
+osmo:op_model_aspect rdfs:subClassOf osmo:op_model_boundary_condition.
+osmo:dp_model_aspect rdfs:subClassOf osmo:dp_model_boundary_condition.
+osmo:op_boundary_condition rdfs:subClassOf osmo:op_model_boundary_condition.
+osmo:dp_boundary_condition rdfs:subClassOf osmo:dp_model_boundary_condition.
 
-osmo:moda_solver_entity a owl:Class;
-   rdfs:subClassOf osmo:moda_section_entity;
-   rdfs:comment "MODA solver entity, i.e., a solver that can be described by MODA section 3, or an aspect thereof"^^xs:string.
-osmo:op_moda_solver_entity a owl:Class;
+osmo:solver_entity a owl:Class;
+   rdfs:subClassOf osmo:section_entity;
+   rdfs:comment "solver entity, i.e., a solver or an aspect thereof"^^xs:string.
+osmo:op_solver_entity a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_solver_entity a owl:Class;
+osmo:dp_solver_entity a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_section_entity rdfs:subClassOf osmo:op_moda_solver_entity.
-osmo:dp_moda_section_entity rdfs:subClassOf osmo:dp_moda_solver_entity.
+osmo:op_section_entity rdfs:subClassOf osmo:op_solver_entity.
+osmo:dp_section_entity rdfs:subClassOf osmo:dp_solver_entity.
 
-osmo:moda_solver_entity owl:disjointUnionOf (osmo:moda_solver osmo:moda_solver_aspect).
+osmo:solver_entity owl:disjointUnionOf (osmo:solver osmo:solver_aspect).
 
-osmo:moda_solver a owl:Class;
-   rdfs:subClassOf osmo:moda_section, evmpo:annotation, osmo:moda_solver_entity;
-   rdfs:comment "MODA solver, i.e., a solver that can be described by MODA section 3"^^xs:string.
-osmo:op_moda_solver a owl:Class;
+osmo:solver a owl:Class;
+   rdfs:subClassOf osmo:section, evmpo:annotation, osmo:solver_entity;
+   rdfs:comment "solver (as in MODA)"^^xs:string.
+osmo:op_solver a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_solver a owl:Class;
+osmo:dp_solver a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_section rdfs:subClassOf osmo:op_moda_solver.
-osmo:dp_moda_section rdfs:subClassOf osmo:dp_moda_solver.
-evmpo:op_annotation rdfs:subClassOf osmo:op_moda_solver.
-evmpo:dp_annotation rdfs:subClassOf osmo:dp_moda_solver.
-osmo:op_moda_solver_entity rdfs:subClassOf osmo:op_moda_solver.
-osmo:dp_moda_solver_entity rdfs:subClassOf osmo:dp_moda_solver.
+osmo:op_section rdfs:subClassOf osmo:op_solver.
+osmo:dp_section rdfs:subClassOf osmo:dp_solver.
+evmpo:op_annotation rdfs:subClassOf osmo:op_solver.
+evmpo:dp_annotation rdfs:subClassOf osmo:dp_solver.
+osmo:op_solver_entity rdfs:subClassOf osmo:op_solver.
+osmo:dp_solver_entity rdfs:subClassOf osmo:dp_solver.
 
-osmo:has_moda_solver_aspect a osmo:op_moda_solver;
-   rdfs:domain osmo:moda_solver;
-   rdfs:range osmo:moda_solver_aspect;
-   rdfs:subPropertyOf osmo:has_moda_aspect, evmpo:has_meta_annotation;
-   rdfs:comment "points to an aspect associated with MODA section 3"^^xs:string.
+osmo:has_solver_aspect a osmo:op_solver;
+   rdfs:domain osmo:solver;
+   rdfs:range osmo:solver_aspect;
+   rdfs:subPropertyOf osmo:has_aspect, evmpo:has_meta_annotation;
+   rdfs:comment "points to an aspect associated with a solver"^^xs:string.
 
-osmo:has_moda_solver_method_type a osmo:op_moda_solver;
-   rdfs:domain osmo:moda_solver;
-   rdfs:range osmo:moda_solver_method_type;
-   rdfs:subPropertyOf osmo:has_moda_solver_aspect, osmo:has_method_type;
+osmo:has_solver_method_type a osmo:op_solver;
+   rdfs:domain osmo:solver;
+   rdfs:range osmo:solver_method_type;
+   rdfs:subPropertyOf osmo:has_solver_aspect, osmo:has_method_type;
    rdfs:comment "MODA subsection 3.1"^^xs:string.
-osmo:has_moda_solver_software a osmo:op_moda_solver;
-   rdfs:domain osmo:moda_solver;
-   rdfs:range osmo:moda_solver_software;
-   rdfs:subPropertyOf osmo:has_moda_solver_aspect, osmo:has_employed_software;
+osmo:has_solver_software a osmo:op_solver;
+   rdfs:domain osmo:solver;
+   rdfs:range osmo:solver_software;
+   rdfs:subPropertyOf osmo:has_solver_aspect, osmo:has_employed_software;
    rdfs:comment "MODA subsection 3.2"^^xs:string.
-osmo:has_moda_solver_timestep a osmo:op_moda_solver;
-   rdfs:domain osmo:moda_solver;
-   rdfs:range osmo:moda_solver_timestep;
-   rdfs:subPropertyOf osmo:has_moda_solver_aspect, osmo:has_temporal_discretization;
+osmo:has_solver_timestep a osmo:op_solver;
+   rdfs:domain osmo:solver;
+   rdfs:range osmo:solver_timestep;
+   rdfs:subPropertyOf osmo:has_solver_aspect, osmo:has_temporal_discretization;
    rdfs:comment "MODA subsection 3.3"^^xs:string.
-osmo:has_moda_solver_cr a osmo:op_moda_solver;
-   rdfs:domain osmo:moda_solver;
-   rdfs:range osmo:moda_solver_cr;
-   rdfs:subPropertyOf osmo:has_moda_solver_aspect;
+osmo:has_computational_representation a osmo:op_solver;
+   rdfs:domain osmo:solver;
+   rdfs:range osmo:computational_representation;
+   rdfs:subPropertyOf osmo:has_solver_aspect;
    rdfs:comment "MODA subsection 3.4"^^xs:string.
-osmo:has_moda_solver_boundary_condition a osmo:op_moda_solver;
-   rdfs:domain osmo:moda_solver;
-   rdfs:range osmo:moda_solver_boundary_condition;
-   rdfs:subPropertyOf osmo:has_moda_solver_aspect, osmo:has_boundary_condition;
+osmo:has_solver_boundary_condition a osmo:op_solver;
+   rdfs:domain osmo:solver;
+   rdfs:range osmo:solver_boundary_condition;
+   rdfs:subPropertyOf osmo:has_solver_aspect, osmo:has_boundary_condition;
    rdfs:comment "MODA subsection 3.5"^^xs:string.
-osmo:has_moda_solver_parameter a osmo:op_moda_solver;
-   rdfs:domain osmo:moda_solver;
-   rdfs:range osmo:moda_solver_parameter;
-   rdfs:subPropertyOf osmo:has_moda_solver_aspect, osmo:has_section_parameter;
+osmo:has_solver_parameter a osmo:op_solver;
+   rdfs:domain osmo:solver;
+   rdfs:range osmo:solver_parameter;
+   rdfs:subPropertyOf osmo:has_solver_aspect, osmo:has_section_parameter;
    rdfs:comment "MODA subsection 3.6"^^xs:string.
 
 osmo:R_HAS_A_SOLVER_METHOD_TYPE a owl:Restriction;
    rdfs:subClassOf osmo:constrained_entity;
-   owl:onProperty osmo:has_moda_solver_method_type;
-   owl:someValuesFrom osmo:moda_solver_method_type.
+   owl:onProperty osmo:has_solver_method_type;
+   owl:someValuesFrom osmo:solver_method_type.
 osmo:R_HAS_A_SOLVER_SOFTWARE a owl:Restriction;
    rdfs:subClassOf osmo:constrained_entity;
-   owl:onProperty osmo:has_moda_solver_software;
-   owl:someValuesFrom osmo:moda_solver_software.
-osmo:moda_solver rdfs:subClassOf osmo:R_HAS_A_SOLVER_METHOD_TYPE, osmo:R_HAS_A_SOLVER_SOFTWARE.
+   owl:onProperty osmo:has_solver_software;
+   owl:someValuesFrom osmo:solver_software.
+osmo:solver rdfs:subClassOf osmo:R_HAS_A_SOLVER_METHOD_TYPE, osmo:R_HAS_A_SOLVER_SOFTWARE.
 
-osmo:moda_solver_aspect a owl:Class;
-   rdfs:subClassOf osmo:moda_section_aspect, osmo:moda_solver_entity;
-   rdfs:comment "MODA solver aspect, i.e., an aspect of a solver that can be described by MODA section 3"^^xs:string.
-osmo:op_moda_solver_aspect a owl:Class;
+osmo:solver_aspect a owl:Class;
+   rdfs:subClassOf osmo:section_aspect, osmo:solver_entity;
+   rdfs:comment "MODA solver aspect, i.e., an aspect of a solver (similar to MODA)"^^xs:string.
+osmo:op_solver_aspect a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_solver_aspect a owl:Class;
+osmo:dp_solver_aspect a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_section_aspect rdfs:subClassOf osmo:op_moda_solver_aspect.
-osmo:op_moda_section_aspect rdfs:subClassOf osmo:dp_moda_solver_aspect.
-osmo:op_moda_solver_entity rdfs:subClassOf osmo:op_moda_solver_aspect.
-osmo:op_moda_solver_entity rdfs:subClassOf osmo:dp_moda_solver_aspect.
+osmo:op_section_aspect rdfs:subClassOf osmo:op_solver_aspect.
+osmo:op_section_aspect rdfs:subClassOf osmo:dp_solver_aspect.
+osmo:op_solver_entity rdfs:subClassOf osmo:op_solver_aspect.
+osmo:op_solver_entity rdfs:subClassOf osmo:dp_solver_aspect.
 
-osmo:moda_solver_aspect owl:intersectionOf (osmo:moda_section_aspect osmo:moda_solver_entity).
+osmo:solver_aspect owl:intersectionOf (osmo:section_aspect osmo:solver_entity).
 
-osmo:moda_solver_method_type a owl:Class;
-   rdfs:subClassOf osmo:moda_solver_aspect, osmo:moda_method_type, osmo:R_HAS_AN_ASPECT_TEXT_CONTENT;
-   rdfs:comment "MODA solver method type (MODA subsection 3.1), characterizes/describes the name and type of the solver"^^xs:string.
-osmo:op_moda_solver_method_type a owl:Class;
+osmo:solver_method_type a owl:Class;
+   rdfs:subClassOf osmo:solver_aspect, osmo:method_type, osmo:R_HAS_AN_ASPECT_TEXT_CONTENT;
+   rdfs:comment "solver method type (MODA subsection 3.1), characterizes/describes the name and type of the solver"^^xs:string.
+osmo:op_solver_method_type a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_solver_method_type a owl:Class;
+osmo:dp_solver_method_type a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_solver_aspect rdfs:subClassOf osmo:op_moda_solver_method_type.
-osmo:dp_moda_solver_aspect rdfs:subClassOf osmo:dp_moda_solver_method_type.
-osmo:op_moda_method_type rdfs:subClassOf osmo:op_moda_solver_method_type.
-osmo:dp_moda_method_type rdfs:subClassOf osmo:dp_moda_solver_method_type.
+osmo:op_solver_aspect rdfs:subClassOf osmo:op_solver_method_type.
+osmo:dp_solver_aspect rdfs:subClassOf osmo:dp_solver_method_type.
+osmo:op_method_type rdfs:subClassOf osmo:op_solver_method_type.
+osmo:dp_method_type rdfs:subClassOf osmo:dp_solver_method_type.
 
-osmo:moda_solver_software a owl:Class;
-   rdfs:subClassOf osmo:moda_solver_aspect, osmo:moda_software;
-   rdfs:comment "MODA solver software (MODA subsection 3.2), characterizes/describes a code/package to be used as a solver"^^xs:string.
-osmo:op_moda_solver_software a owl:Class;
+osmo:solver_software a owl:Class;
+   rdfs:subClassOf osmo:solver_aspect, osmo:software;
+   rdfs:comment "solver software (MODA subsection 3.2), characterizes/describes a code/package to be used as a solver"^^xs:string.
+osmo:op_solver_software a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_solver_software a owl:Class;
+osmo:dp_solver_software a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_solver_aspect rdfs:subClassOf osmo:op_moda_solver_software.
-osmo:dp_moda_solver_aspect rdfs:subClassOf osmo:dp_moda_solver_software.
-osmo:op_moda_software rdfs:subClassOf osmo:op_moda_solver_software.
-osmo:dp_moda_software rdfs:subClassOf osmo:dp_moda_solver_software.
+osmo:op_solver_aspect rdfs:subClassOf osmo:op_solver_software.
+osmo:dp_solver_aspect rdfs:subClassOf osmo:dp_solver_software.
+osmo:op_software rdfs:subClassOf osmo:op_solver_software.
+osmo:dp_software rdfs:subClassOf osmo:dp_solver_software.
 
-osmo:EOS_SINGLE_PHASE_SOLVER a osmo:moda_solver_method_type;
+osmo:EOS_SINGLE_PHASE_SOLVER a osmo:solver_method_type;
    osmo:has_aspect_text_content "EOS single-phase solver"^^xs:string.
-osmo:EOS_PHASE_EQUILIBRIUM_SOLVER a osmo:moda_solver_method_type;
+osmo:EOS_PHASE_EQUILIBRIUM_SOLVER a osmo:solver_method_type;
    osmo:has_aspect_text_content "EOS phase-equilibrium solver"^^xs:string.
-osmo:MOLECULAR_DYNAMICS_SOLVER a osmo:moda_solver_method_type;
+osmo:MOLECULAR_DYNAMICS_SOLVER a osmo:solver_method_type;
    osmo:has_aspect_text_content "molecular dynamics solver"^^xs:string.
-osmo:MONTE_CARLO_SOLVER a osmo:moda_solver_method_type;
+osmo:MONTE_CARLO_SOLVER a osmo:solver_method_type;
    osmo:has_aspect_text_content "Monte Carlo solver"^^xs:string.
 
-osmo:moda_solver_timestep a owl:Class;
-   rdfs:subClassOf osmo:moda_solver_aspect, osmo:moda_temporal_discretization;
-   rdfs:comment "MODA solver time step (MODA subsection 3.3), numerical time step employed by the solver"^^xs:string.
-osmo:op_moda_solver_timestep a owl:Class;
+osmo:solver_timestep a owl:Class;
+   rdfs:subClassOf osmo:solver_aspect, osmo:temporal_discretization;
+   rdfs:comment "solver time step (MODA subsection 3.3), numerical time step employed by the solver"^^xs:string.
+osmo:op_solver_timestep a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_solver_timestep a owl:Class;
+osmo:dp_solver_timestep a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_solver_aspect rdfs:subClassOf osmo:op_moda_solver_timestep.
-osmo:dp_moda_solver_aspect rdfs:subClassOf osmo:dp_moda_solver_timestep.
-osmo:op_moda_temporal_discretization rdfs:subClassOf osmo:op_moda_solver_timestep.
-osmo:dp_moda_temporal_discretization rdfs:subClassOf osmo:dp_moda_solver_timestep.
+osmo:op_solver_aspect rdfs:subClassOf osmo:op_solver_timestep.
+osmo:dp_solver_aspect rdfs:subClassOf osmo:dp_solver_timestep.
+osmo:op_temporal_discretization rdfs:subClassOf osmo:op_solver_timestep.
+osmo:dp_temporal_discretization rdfs:subClassOf osmo:dp_solver_timestep.
 
-osmo:moda_solver_cr a owl:Class;
-   rdfs:subClassOf osmo:moda_solver_aspect, osmo:R_HAS_A_CONDITION_CONTENT;
-   rdfs:comment "MODA solver computational representation (MODA subsection 3.4), characterizes/describes how the solver numerically represents the model and/or the material"^^xs:string.
-osmo:op_moda_solver_cr a owl:Class;
+osmo:computational_representation a owl:Class;
+   rdfs:subClassOf osmo:solver_aspect, osmo:R_HAS_A_CONDITION_CONTENT;
+   rdfs:comment "solver computational representation (MODA subsection 3.4), characterizes/describes how the solver numerically represents the model and/or the material"^^xs:string.
+osmo:op_computational_representation a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_solver_cr a owl:Class;
+osmo:dp_computational_representation a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_solver_aspect rdfs:subClassOf osmo:op_moda_solver_cr.
-osmo:dp_moda_solver_aspect rdfs:subClassOf osmo:dp_moda_solver_cr.
-osmo:op_condition rdfs:subClassOf osmo:op_moda_solver_cr.
-osmo:dp_condition rdfs:subClassOf osmo:dp_moda_solver_cr.
+osmo:op_solver_aspect rdfs:subClassOf osmo:op_computational_representation.
+osmo:dp_solver_aspect rdfs:subClassOf osmo:dp_computational_representation.
+osmo:op_condition rdfs:subClassOf osmo:op_computational_representation.
+osmo:dp_condition rdfs:subClassOf osmo:dp_computational_representation.
 
-osmo:moda_solver_cr_model a owl:Class;
-   rdfs:subClassOf osmo:moda_solver_cr;
-   rdfs:comment "MODA solver CR of the model, i.e., a computational representation of (all or part of) the governing equations of the employed materials model"^^xs:string.
-osmo:op_moda_solver_cr_model a owl:Class;
+osmo:computational_representation_model a owl:Class;
+   rdfs:subClassOf osmo:computational_representation;
+   rdfs:comment "solver CR of the model, i.e., a computational representation of (all or part of) the governing equations of the employed materials model"^^xs:string.
+osmo:op_computational_representation_model a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_solver_cr_model a owl:Class;
+osmo:dp_computational_representation_model a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_solver_cr rdfs:subClassOf osmo:op_moda_solver_cr_model.
-osmo:dp_moda_solver_cr rdfs:subClassOf osmo:dp_moda_solver_cr_model.
+osmo:op_computational_representation rdfs:subClassOf osmo:op_computational_representation_model.
+osmo:dp_computational_representation rdfs:subClassOf osmo:dp_computational_representation_model.
 
-osmo:moda_solver_cr_pe a owl:Class;
-   rdfs:subClassOf osmo:moda_solver_cr_model;
-   rdfs:comment "MODA solver CR of PE, i.e., a computational representation specifically of one or multiple physics equations (PE)"^^xs:string.
-osmo:op_moda_solver_cr_pe a owl:Class;
+osmo:computational_representation_pe a owl:Class;
+   rdfs:subClassOf osmo:computational_representation_model;
+   rdfs:comment "solver CR of PE, i.e., a computational representation specifically of one or multiple physics equations (PE)"^^xs:string.
+osmo:op_computational_representation_pe a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_solver_cr_pe a owl:Class;
+osmo:dp_computational_representation_pe a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_solver_cr_model rdfs:subClassOf osmo:op_moda_solver_cr_pe.
-osmo:dp_moda_solver_cr_model rdfs:subClassOf osmo:dp_moda_solver_cr_pe.
+osmo:op_computational_representation_model rdfs:subClassOf osmo:op_computational_representation_pe.
+osmo:dp_computational_representation_model rdfs:subClassOf osmo:dp_computational_representation_pe.
 
-osmo:moda_solver_cr_mr a owl:Class;
-   rdfs:subClassOf osmo:moda_solver_cr_model;
-   rdfs:comment "MODA solver CR of MR, i.e., a computational representation specifically of one or multiple materials relations (MR)"^^xs:string.
-osmo:op_moda_solver_cr_mr a owl:Class;
+osmo:computational_representation_mr a owl:Class;
+   rdfs:subClassOf osmo:computational_representation_model;
+   rdfs:comment "solver CR of MR, i.e., a computational representation specifically of one or multiple materials relations (MR)"^^xs:string.
+osmo:op_computational_representation_mr a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_solver_cr_mr a owl:Class;
+osmo:dp_computational_representation_mr a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_solver_cr_model rdfs:subClassOf osmo:op_moda_solver_cr_mr.
-osmo:dp_moda_solver_cr_model rdfs:subClassOf osmo:dp_moda_solver_cr_mr.
+osmo:op_computational_representation_model rdfs:subClassOf osmo:op_computational_representation_mr.
+osmo:dp_computational_representation_model rdfs:subClassOf osmo:dp_computational_representation_mr.
 
-osmo:moda_solver_cr_material a owl:Class;
-   rdfs:subClassOf osmo:moda_solver_cr;
-   rdfs:comment "MODA solver CR of the material, i.e., a computational representation of the considered user case or material"^^xs:string.
-osmo:op_moda_solver_cr_material a owl:Class;
+osmo:computational_representation_material a owl:Class;
+   rdfs:subClassOf osmo:computational_representation;
+   rdfs:comment "solver CR of the material, i.e., a computational representation of the considered user case or material"^^xs:string.
+osmo:op_computational_representation_material a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_solver_cr_material a owl:Class;
+osmo:dp_computational_representation_material a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_solver_cr rdfs:subClassOf osmo:op_moda_solver_cr_material.
-osmo:dp_moda_solver_cr rdfs:subClassOf osmo:dp_moda_solver_cr_material.
+osmo:op_computational_representation rdfs:subClassOf osmo:op_computational_representation_material.
+osmo:dp_computational_representation rdfs:subClassOf osmo:dp_computational_representation_material.
 
-osmo:moda_solver_cr_hybrid a owl:Class;
-   rdfs:subClassOf osmo:moda_solver_cr;
-   rdfs:comment "MODA solver CR of the material, i.e., a computational representation that combines model and material (or user case) aspects"^^xs:string.
-osmo:op_moda_solver_cr_hybrid a owl:Class;
+osmo:computational_representation_hybrid a owl:Class;
+   rdfs:subClassOf osmo:computational_representation;
+   rdfs:comment "solver CR of the material, i.e., a computational representation that combines model and material (or user case) aspects"^^xs:string.
+osmo:op_computational_representation_hybrid a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_solver_cr_hybrid a owl:Class;
+osmo:dp_computational_representation_hybrid a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_solver_cr rdfs:subClassOf osmo:op_moda_solver_cr_hybrid.
-osmo:dp_moda_solver_cr rdfs:subClassOf osmo:dp_moda_solver_cr_hybrid.
+osmo:op_computational_representation rdfs:subClassOf osmo:op_computational_representation_hybrid.
+osmo:dp_computational_representation rdfs:subClassOf osmo:dp_computational_representation_hybrid.
 
-osmo:moda_solver_boundary_condition a owl:Class;
-   rdfs:subClassOf osmo:moda_solver_aspect, osmo:moda_boundary_condition;
-   rdfs:comment "MODA solver boundary condition (MODA subsection 3.5), characterizes/describes a computational boundary condition of a solver"^^xs:string.
-osmo:op_moda_solver_boundary_condition a owl:Class;
+osmo:solver_boundary_condition a owl:Class;
+   rdfs:subClassOf osmo:solver_aspect, osmo:boundary_condition;
+   rdfs:comment "solver boundary condition (MODA subsection 3.5), characterizes/describes a computational boundary condition of a solver"^^xs:string.
+osmo:op_solver_boundary_condition a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_solver_boundary_condition a owl:Class;
+osmo:dp_solver_boundary_condition a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_solver_aspect rdfs:subClassOf osmo:op_moda_solver_boundary_condition.
-osmo:dp_moda_solver_aspect rdfs:subClassOf osmo:dp_moda_solver_boundary_condition.
-osmo:op_moda_boundary_condition rdfs:subClassOf osmo:op_moda_solver_boundary_condition.
-osmo:dp_moda_boundary_condition rdfs:subClassOf osmo:dp_moda_solver_boundary_condition.
+osmo:op_solver_aspect rdfs:subClassOf osmo:op_solver_boundary_condition.
+osmo:dp_solver_aspect rdfs:subClassOf osmo:dp_solver_boundary_condition.
+osmo:op_boundary_condition rdfs:subClassOf osmo:op_solver_boundary_condition.
+osmo:dp_boundary_condition rdfs:subClassOf osmo:dp_solver_boundary_condition.
 
-osmo:moda_solver_parameter a owl:Class;
-   rdfs:subClassOf osmo:moda_solver_aspect, osmo:moda_parameter_aspect;
-   rdfs:comment "MODA solver parameter (MODA subsection 3.6), i.e., a parameter of a solver"^^xs:string.
-osmo:op_moda_solver_parameter a owl:Class;
+osmo:solver_parameter a owl:Class;
+   rdfs:subClassOf osmo:solver_aspect, osmo:parameter_aspect;
+   rdfs:comment "solver parameter (MODA subsection 3.6), i.e., a parameter of a solver"^^xs:string.
+osmo:op_solver_parameter a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_solver_parameter a owl:Class;
+osmo:dp_solver_parameter a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_solver_aspect rdfs:subClassOf osmo:op_moda_solver_parameter.
-osmo:dp_moda_solver_aspect rdfs:subClassOf osmo:dp_moda_solver_parameter.
-osmo:op_moda_parameter_aspect rdfs:subClassOf osmo:op_moda_solver_parameter.
-osmo:dp_moda_parameter_aspect rdfs:subClassOf osmo:dp_moda_solver_parameter.
+osmo:op_solver_aspect rdfs:subClassOf osmo:op_solver_parameter.
+osmo:dp_solver_aspect rdfs:subClassOf osmo:dp_solver_parameter.
+osmo:op_parameter_aspect rdfs:subClassOf osmo:op_solver_parameter.
+osmo:dp_parameter_aspect rdfs:subClassOf osmo:dp_solver_parameter.
 
-osmo:moda_processor_entity a owl:Class;
-   rdfs:subClassOf osmo:moda_section_entity;
-   rdfs:comment "MODA processor entity, i.e., a processor that can be described by MODA section 4, or an aspect thereof"^^xs:string.
-osmo:op_moda_processor_entity a owl:Class;
+osmo:processor_entity a owl:Class;
+   rdfs:subClassOf osmo:section_entity;
+   rdfs:comment "processor entity, i.e., a processor that can be described by MODA section 4, or an aspect thereof"^^xs:string.
+osmo:op_processor_entity a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_processor_entity a owl:Class;
+osmo:dp_processor_entity a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_section_entity rdfs:subClassOf osmo:op_moda_processor_entity.
-osmo:dp_moda_section_entity rdfs:subClassOf osmo:dp_moda_processor_entity.
+osmo:op_section_entity rdfs:subClassOf osmo:op_processor_entity.
+osmo:dp_section_entity rdfs:subClassOf osmo:dp_processor_entity.
 
-osmo:moda_processor_entity owl:disjointUnionOf (osmo:moda_processor osmo:moda_processor_aspect).
+osmo:processor_entity owl:disjointUnionOf (osmo:processor osmo:processor_aspect).
 
-osmo:moda_processor a owl:Class;
-   rdfs:subClassOf osmo:moda_section, evmpo:annotation, osmo:moda_processor_entity;
-   rdfs:comment "MODA processor, i.e., a processor that can be described by MODA section 4"^^xs:string.
-osmo:op_moda_processor a owl:Class;
+osmo:processor a owl:Class;
+   rdfs:subClassOf osmo:section, evmpo:annotation, osmo:processor_entity;
+   rdfs:comment "processor (like a MODA postprocessor, however, without implying execution subsequent to a solver)"^^xs:string.
+osmo:op_processor a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_processor a owl:Class;
+osmo:dp_processor a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_section rdfs:subClassOf osmo:op_moda_processor.
-osmo:dp_moda_section rdfs:subClassOf osmo:dp_moda_processor.
-evmpo:op_annotation rdfs:subClassOf osmo:op_moda_processor.
-evmpo:dp_annotation rdfs:subClassOf osmo:dp_moda_processor.
-osmo:op_moda_processor_entity rdfs:subClassOf osmo:op_moda_processor.
-osmo:dp_moda_processor_entity rdfs:subClassOf osmo:dp_moda_processor.
+osmo:op_section rdfs:subClassOf osmo:op_processor.
+osmo:dp_section rdfs:subClassOf osmo:dp_processor.
+evmpo:op_annotation rdfs:subClassOf osmo:op_processor.
+evmpo:dp_annotation rdfs:subClassOf osmo:dp_processor.
+osmo:op_processor_entity rdfs:subClassOf osmo:op_processor.
+osmo:dp_processor_entity rdfs:subClassOf osmo:dp_processor.
 
-osmo:has_moda_processor_aspect a osmo:op_moda_processor;
-   rdfs:domain osmo:moda_processor;
-   rdfs:range osmo:moda_processor_aspect;
-   rdfs:subPropertyOf osmo:has_moda_aspect, evmpo:has_meta_annotation;
-   rdfs:comment "points to an aspect associated with MODA section 4"^^xs:string.
+osmo:has_processor_aspect a osmo:op_processor;
+   rdfs:domain osmo:processor;
+   rdfs:range osmo:processor_aspect;
+   rdfs:subPropertyOf osmo:has_aspect, evmpo:has_meta_annotation;
+   rdfs:comment "points to an aspect associated with a processor"^^xs:string.
 
-osmo:has_moda_processor_method_type a osmo:op_moda_processor;
-   rdfs:domain osmo:moda_processor;
-   rdfs:range osmo:moda_processor_method_type;
-   rdfs:subPropertyOf osmo:has_moda_processor_aspect, osmo:has_method_type, evmpo:has_meta_annotation;
+osmo:has_processor_method_type a osmo:op_processor;
+   rdfs:domain osmo:processor;
+   rdfs:range osmo:processor_method_type;
+   rdfs:subPropertyOf osmo:has_processor_aspect, osmo:has_method_type, evmpo:has_meta_annotation;
    rdfs:comment "MODA subsection 4.2"^^xs:string.
-osmo:has_moda_processor_es a osmo:op_moda_processor;
-   rdfs:domain osmo:moda_processor;
-   rdfs:range osmo:moda_processor_es;
-   rdfs:subPropertyOf osmo:has_moda_processor_aspect, osmo:has_error_statement;
+osmo:has_processor_error_statement a osmo:op_processor;
+   rdfs:domain osmo:processor;
+   rdfs:range osmo:processor_error_statement;
+   rdfs:subPropertyOf osmo:has_processor_aspect, osmo:has_error_statement;
    rdfs:comment "MODA subsection 4.3"^^xs:string.
 
-osmo:R_HAS_A_MODA_PROCESSOR_METHOD_TYPE a owl:Restriction;
+osmo:R_HAS_A_PROCESSOR_METHOD_TYPE a owl:Restriction;
    rdfs:subClassOf osmo:constrained_entity;
-   owl:onProperty osmo:has_moda_processor_method_type;
-   owl:someValuesFrom osmo:moda_processor_method_type.
-osmo:moda_processor rdfs:subClassOf osmo:R_HAS_A_MODA_PROCESSOR_METHOD_TYPE.
+   owl:onProperty osmo:has_processor_method_type;
+   owl:someValuesFrom osmo:processor_method_type.
+osmo:processor rdfs:subClassOf osmo:R_HAS_A_PROCESSOR_METHOD_TYPE.
 
-osmo:moda_processor owl:disjointUnionOf (osmo:preprocessor osmo:coupled_processor osmo:postprocessor).
+osmo:processor owl:disjointUnionOf (osmo:preprocessor osmo:coupled_processor osmo:postprocessor).
 
 osmo:preprocessor a owl:Class;
-   rdfs:subClassOf osmo:moda_processor;
-   rdfs:comment "preprocessor, i.e., a MODA processor that operates before a solver or during solver initialization".
+   rdfs:subClassOf osmo:processor;
+   rdfs:comment "preprocessor, i.e., a processor that operates before a solver or during solver initialization".
 osmo:op_preprocessor a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 osmo:dp_preprocessor a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_processor rdfs:subClassOf osmo:op_preprocessor.
-osmo:dp_moda_processor rdfs:subClassOf osmo:dp_preprocessor.
+osmo:op_processor rdfs:subClassOf osmo:op_preprocessor.
+osmo:dp_processor rdfs:subClassOf osmo:dp_preprocessor.
 
 osmo:coupled_processor a owl:Class;
-   rdfs:subClassOf osmo:moda_processor;
-   rdfs:comment "coupled processor, i.e., a MODA processor that is synchronized with a solver and operates on the fly".
+   rdfs:subClassOf osmo:processor;
+   rdfs:comment "coupled processor, i.e., a processor that is synchronized with a solver and operates on the fly".
 osmo:op_coupled_processor a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 osmo:dp_coupled_processor a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_processor rdfs:subClassOf osmo:op_coupled_processor.
-osmo:dp_moda_processor rdfs:subClassOf osmo:dp_coupled_processor.
+osmo:op_processor rdfs:subClassOf osmo:op_coupled_processor.
+osmo:dp_processor rdfs:subClassOf osmo:dp_coupled_processor.
 
 osmo:postprocessor a owl:Class;
-   rdfs:subClassOf osmo:moda_processor;
-   rdfs:comment "postprocessor, i.e., a MODA processor that operates subsequent to a solver or during solver finalization".
+   rdfs:subClassOf osmo:processor;
+   rdfs:comment "postprocessor, i.e., a processor that operates subsequent to a solver or during solver finalization".
 osmo:op_postprocessor a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 osmo:dp_postprocessor a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_processor rdfs:subClassOf osmo:op_postprocessor.
-osmo:dp_moda_processor rdfs:subClassOf osmo:dp_postprocessor.
+osmo:op_processor rdfs:subClassOf osmo:op_postprocessor.
+osmo:dp_processor rdfs:subClassOf osmo:dp_postprocessor.
 
-osmo:moda_processor_aspect a owl:Class;
-   rdfs:subClassOf osmo:moda_section_aspect, osmo:moda_processor_entity;
-   rdfs:comment "MODA processor aspect, i.e., an aspect of a processor that can be described by MODA section 4"^^xs:string.
-osmo:op_moda_processor_aspect a owl:Class;
+osmo:processor_aspect a owl:Class;
+   rdfs:subClassOf osmo:section_aspect, osmo:processor_entity;
+   rdfs:comment "processor aspect, i.e., an aspect of a processor (as in MODA)"^^xs:string.
+osmo:op_processor_aspect a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_processor_aspect a owl:Class;
+osmo:dp_processor_aspect a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_section_aspect rdfs:subClassOf osmo:op_moda_processor_aspect.
-osmo:op_moda_section_aspect rdfs:subClassOf osmo:dp_moda_processor_aspect.
-osmo:op_moda_processor_entity rdfs:subClassOf osmo:op_moda_processor_aspect.
-osmo:op_moda_processor_entity rdfs:subClassOf osmo:dp_moda_processor_aspect.
+osmo:op_section_aspect rdfs:subClassOf osmo:op_processor_aspect.
+osmo:op_section_aspect rdfs:subClassOf osmo:dp_processor_aspect.
+osmo:op_processor_entity rdfs:subClassOf osmo:op_processor_aspect.
+osmo:op_processor_entity rdfs:subClassOf osmo:dp_processor_aspect.
 
-osmo:moda_processor_aspect owl:intersectionOf (osmo:moda_section_aspect osmo:moda_processor_entity).
+osmo:processor_aspect owl:intersectionOf (osmo:section_aspect osmo:processor_entity).
 
-osmo:moda_processor_method_type a owl:Class;
-   rdfs:subClassOf osmo:moda_processor_aspect, osmo:moda_method_type, osmo:R_HAS_AN_ASPECT_TEXT_CONTENT;
-   rdfs:comment "MODA processor method type (MODA subsection 4.2), characterizes/describes the methodology employed by a processor"^^xs:string.
-osmo:op_moda_processor_method_type a owl:Class;
+osmo:processor_method_type a owl:Class;
+   rdfs:subClassOf osmo:processor_aspect, osmo:method_type, osmo:R_HAS_AN_ASPECT_TEXT_CONTENT;
+   rdfs:comment "processor method type (MODA subsection 4.2), characterizes/describes the methodology employed by a processor"^^xs:string.
+osmo:op_processor_method_type a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_processor_method_type a owl:Class;
+osmo:dp_processor_method_type a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_processor_aspect rdfs:subClassOf osmo:op_moda_processor_method_type.
-osmo:dp_moda_processor_aspect rdfs:subClassOf osmo:dp_moda_processor_method_type.
-osmo:op_moda_method_type rdfs:subClassOf osmo:op_moda_processor_method_type.
-osmo:dp_moda_method_type rdfs:subClassOf osmo:dp_moda_processor_method_type.
+osmo:op_processor_aspect rdfs:subClassOf osmo:op_processor_method_type.
+osmo:dp_processor_aspect rdfs:subClassOf osmo:dp_processor_method_type.
+osmo:op_method_type rdfs:subClassOf osmo:op_processor_method_type.
+osmo:dp_method_type rdfs:subClassOf osmo:dp_processor_method_type.
 
-osmo:moda_preprocessor_method_type a owl:Class;
-   rdfs:subClassOf osmo:moda_processor_method_type;
-   rdfs:comment "MODA preprocessor method type, i.e., a method type associated with a preprocessor"^^xs:string.
-osmo:op_moda_preprocessor_method_type a owl:Class;
+osmo:preprocessor_method_type a owl:Class;
+   rdfs:subClassOf osmo:processor_method_type;
+   rdfs:comment "preprocessor method type, i.e., a method type associated with a preprocessor"^^xs:string.
+osmo:op_preprocessor_method_type a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_preprocessor_method_type a owl:Class;
+osmo:dp_preprocessor_method_type a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_processor_method_type rdfs:subClassOf osmo:op_moda_preprocessor_method_type.
-osmo:dp_moda_processor_method_type rdfs:subClassOf osmo:dp_moda_preprocessor_method_type.
+osmo:op_processor_method_type rdfs:subClassOf osmo:op_preprocessor_method_type.
+osmo:dp_processor_method_type rdfs:subClassOf osmo:dp_preprocessor_method_type.
 
-osmo:moda_coupled_processor_method_type a owl:Class;
-   rdfs:subClassOf osmo:moda_processor_method_type;
-   rdfs:comment "MODA coupled processor method type, i.e., a method type associated with a coupled processor"^^xs:string.
-osmo:op_moda_coupled_processor_method_type a owl:Class;
+osmo:coupled_processor_method_type a owl:Class;
+   rdfs:subClassOf osmo:processor_method_type;
+   rdfs:comment "coupled processor method type, i.e., a method type associated with a coupled processor"^^xs:string.
+osmo:op_coupled_processor_method_type a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_coupled_processor_method_type a owl:Class;
+osmo:dp_coupled_processor_method_type a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_processor_method_type rdfs:subClassOf osmo:op_moda_coupled_processor_method_type.
-osmo:dp_moda_processor_method_type rdfs:subClassOf osmo:dp_moda_coupled_processor_method_type.
+osmo:op_processor_method_type rdfs:subClassOf osmo:op_coupled_processor_method_type.
+osmo:dp_processor_method_type rdfs:subClassOf osmo:dp_coupled_processor_method_type.
 
-osmo:moda_postprocessor_method_type a owl:Class;
-   rdfs:subClassOf osmo:moda_processor_method_type;
-   rdfs:comment "MODA postprocessor method type, i.e., a method type associated with a postprocessor"^^xs:string.
-osmo:op_moda_postprocessor_method_type a owl:Class;
+osmo:postprocessor_method_type a owl:Class;
+   rdfs:subClassOf osmo:processor_method_type;
+   rdfs:comment "postprocessor method type, i.e., a method type associated with a postprocessor"^^xs:string.
+osmo:op_postprocessor_method_type a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_postprocessor_method_type a owl:Class;
+osmo:dp_postprocessor_method_type a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_processor_method_type rdfs:subClassOf osmo:op_moda_postprocessor_method_type.
-osmo:dp_moda_processor_method_type rdfs:subClassOf osmo:dp_moda_postprocessor_method_type.
+osmo:op_processor_method_type rdfs:subClassOf osmo:op_postprocessor_method_type.
+osmo:dp_processor_method_type rdfs:subClassOf osmo:dp_postprocessor_method_type.
 
-osmo:TRAJECTORY_ANALYSER a osmo:moda_postprocessor_method_type;
+osmo:TRAJECTORY_ANALYSER a osmo:postprocessor_method_type;
    osmo:has_aspect_text_content "trajectory analyser, i.e., a postprocessor that analyses simulation trajectory output"^^xs:string.
 
-osmo:moda_processor_es a owl:Class;
-   rdfs:subClassOf osmo:moda_processor_aspect, osmo:moda_error_statement;
-   rdfs:comment "MODA processor error statement (MODA subsection 4.3), characterizes/describes the error or uncertainty associated with a processor output"^^xs:string.
-osmo:op_moda_processor_es a owl:Class;
+osmo:processor_error_statement a owl:Class;
+   rdfs:subClassOf osmo:processor_aspect, osmo:error_statement;
+   rdfs:comment "processor error statement (MODA subsection 4.3), characterizes/describes the error or uncertainty associated with a processor output"^^xs:string.
+osmo:op_processor_error_statement a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_processor_es a owl:Class;
+osmo:dp_processor_error_statement a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_processor_aspect rdfs:subClassOf osmo:op_moda_processor_es.
-osmo:dp_moda_processor_aspect rdfs:subClassOf osmo:dp_moda_processor_es.
-osmo:op_moda_error_statement rdfs:subClassOf osmo:op_moda_processor_es.
-osmo:dp_moda_error_statement rdfs:subClassOf osmo:dp_moda_processor_es.
+osmo:op_processor_aspect rdfs:subClassOf osmo:op_processor_error_statement.
+osmo:dp_processor_aspect rdfs:subClassOf osmo:dp_processor_error_statement.
+osmo:op_error_statement rdfs:subClassOf osmo:op_processor_error_statement.
+osmo:dp_error_statement rdfs:subClassOf osmo:dp_processor_error_statement.
 
-osmo:moda_graph a owl:Class;
-   rdfs:subClassOf osmo:moda_structure_entity;
-   rdfs:comment "MODA graph, i.e., a model, simulation, or aspects thereof that can be represented in MODA by a combination of MODA sections"^^xs:string.
-osmo:op_moda_graph a owl:Class;
+osmo:workflow_graph a owl:Class;
+   rdfs:subClassOf osmo:workflow_entity;
+   rdfs:comment "workflow graph, i.e., a model, simulation, or aspects thereof that can be represented by a combination of OSMO/MODA sections"^^xs:string.
+osmo:op_workflow_graph a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_graph a owl:Class;
+osmo:dp_workflow_graph a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_structure_entity rdfs:subClassOf osmo:op_moda_graph.
-osmo:dp_moda_structure_entity rdfs:subClassOf osmo:dp_moda_graph.
+osmo:op_workflow_entity rdfs:subClassOf osmo:op_workflow_graph.
+osmo:dp_workflow_entity rdfs:subClassOf osmo:dp_workflow_graph.
 
-osmo:contains a osmo:op_moda_graph;
-   rdfs:domain osmo:moda_graph;
-   rdfs:range osmo:moda_section;
-   rdfs:comment "[G contains S] if the MODA section S occurs as a part/component of the MODA graph G"^^xs:string.
-osmo:has_cause a osmo:op_moda_graph, owl:TransitiveProperty;
-   rdfs:domain osmo:moda_graph;
-   rdfs:range osmo:moda_graph;
+osmo:contains a osmo:op_workflow_graph;
+   rdfs:domain osmo:workflow_graph;
+   rdfs:range osmo:section;
+   rdfs:comment "[G contains S] if section S occurs as a part/component of graph G"^^xs:string.
+osmo:has_cause a osmo:op_workflow_graph, owl:TransitiveProperty;
+   rdfs:domain osmo:workflow_graph;
+   rdfs:range osmo:workflow_graph;
    rdfs:comment "[G has_cause F] means that in every execution, F needs to finish before G can begin"^^xs:string.
-osmo:has_effect a osmo:op_moda_graph, owl:TransitiveProperty;
-   rdfs:domain osmo:moda_graph;
-   rdfs:range osmo:moda_graph;
+osmo:has_effect a osmo:op_workflow_graph, owl:TransitiveProperty;
+   rdfs:domain osmo:workflow_graph;
+   rdfs:range osmo:workflow_graph;
    owl:inverseOf osmo:has_cause.
-osmo:has_logical_resource a osmo:op_moda_graph;
-   rdfs:domain osmo:moda_graph;
+osmo:has_logical_resource a osmo:op_workflow_graph;
+   rdfs:domain osmo:workflow_graph;
    rdfs:range osmo:logical_resource;
    rdfs:subPropertyOf evmpo:has_annotation.
-osmo:is_coupled_with a osmo:op_moda_graph;
-   rdfs:domain osmo:moda_graph;
-   rdfs:range osmo:moda_graph;
+osmo:is_coupled_with a osmo:op_workflow_graph;
+   rdfs:domain osmo:workflow_graph;
+   rdfs:range osmo:workflow_graph;
    rdfs:comment "if [F is_coupled_with G] they must occur synchronously when a workflow that contains them is executed"^^xs:string.
-osmo:is_direct_cause_of a osmo:op_moda_graph;
-   rdfs:domain osmo:moda_graph;
-   rdfs:range osmo:moda_graph;
+osmo:is_direct_cause_of a osmo:op_workflow_graph;
+   rdfs:domain osmo:workflow_graph;
+   rdfs:range osmo:workflow_graph;
    rdfs:subPropertyOf osmo:is_linked_to, osmo:has_effect;
    rdfs:comment "if [F is direct cause of G] there is an immediate link by which G depends on the conclusion of F"^^xs:string.
-osmo:is_direct_effect_of a osmo:op_moda_graph;
-   rdfs:domain osmo:moda_graph;
-   rdfs:range osmo:moda_graph;
+osmo:is_direct_effect_of a osmo:op_workflow_graph;
+   rdfs:domain osmo:workflow_graph;
+   rdfs:range osmo:workflow_graph;
    owl:inverseOf osmo:is_direct_cause_of;
    rdfs:subPropertyOf osmo:is_linked_to, osmo:has_cause.
-osmo:is_linked_to a osmo:op_moda_graph;
-   rdfs:domain osmo:moda_graph;
-   rdfs:range osmo:moda_graph;
+osmo:is_linked_to a osmo:op_workflow_graph;
+   rdfs:domain osmo:workflow_graph;
+   rdfs:range osmo:workflow_graph;
    rdfs:comment "if [F is linked to G] they cannot be executed concurrently; one side depends on the completion of the other side"^^xs:string.
-osmo:is_part_of a osmo:op_moda_graph, owl:TransitiveProperty;
-   rdfs:domain osmo:moda_graph;
-   rdfs:range osmo:moda_graph;
+osmo:is_part_of a osmo:op_workflow_graph, owl:TransitiveProperty;
+   rdfs:domain osmo:workflow_graph;
+   rdfs:range osmo:workflow_graph;
    rdfs:comment "[F is_part_of G] if F is a subgraph of graph G"^^xs:string.
 
-osmo:moda_node a owl:Class;
-   rdfs:subClassOf osmo:moda_graph;
-   rdfs:comment "MODA node, i.e., a MODA graph that contains exactly one MODA section"^^xs:string.
-osmo:op_moda_node a owl:Class;
+osmo:workflow_node a owl:Class;
+   rdfs:subClassOf osmo:workflow_graph;
+   rdfs:comment "workflow node, i.e., a workflow graph that contains exactly one section"^^xs:string.
+osmo:op_workflow_node a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_node a owl:Class;
+osmo:dp_workflow_node a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_graph rdfs:subClassOf osmo:op_moda_node.
-osmo:dp_moda_graph rdfs:subClassOf osmo:dp_moda_node.
+osmo:op_workflow_graph rdfs:subClassOf osmo:op_workflow_node.
+osmo:dp_workflow_graph rdfs:subClassOf osmo:dp_workflow_node.
 
 osmo:R_CONTAINS_ONE_SECTION a owl:Restriction;
    rdfs:subClassOf osmo:constrained_entity;
    owl:onProperty osmo:contains;
    owl:cardinality 1.
-osmo:moda_node rdfs:subClassOf osmo:R_CONTAINS_ONE_SECTION.
+osmo:workflow_node rdfs:subClassOf osmo:R_CONTAINS_ONE_SECTION.
 
-osmo:moda_workflow a owl:Class;
-   rdfs:subClassOf osmo:moda_graph, osmo:simulation;
-   rdfs:comment "MODA workflow, i.e., an executable simulation (workflow) that can be represented in MODA"^^xs:string.
-osmo:op_moda_workflow a owl:Class;
+osmo:simulation_workflow a owl:Class;
+   rdfs:subClassOf osmo:workflow_graph, osmo:simulation;
+   rdfs:comment "simulation workflow, i.e., a (complete) workflow graph of an actually executable simulation workflow"^^xs:string.
+osmo:op_simulation_workflow a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_moda_workflow a owl:Class;
+osmo:dp_simulation_workflow a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_graph rdfs:subClassOf osmo:op_moda_workflow.
-osmo:dp_moda_graph rdfs:subClassOf osmo:dp_moda_workflow.
-osmo:op_simulation rdfs:subClassOf osmo:op_moda_workflow.
-osmo:dp_simulation rdfs:subClassOf osmo:dp_moda_workflow.
+osmo:op_workflow_graph rdfs:subClassOf osmo:op_simulation_workflow.
+osmo:dp_workflow_graph rdfs:subClassOf osmo:dp_simulation_workflow.
+osmo:op_simulation rdfs:subClassOf osmo:op_simulation_workflow.
+osmo:dp_simulation rdfs:subClassOf osmo:dp_simulation_workflow.
 
-osmo:moda_workflow owl:intersectionOf (osmo:moda_graph osmo:simulation).
+osmo:simulation_workflow owl:intersectionOf (osmo:workflow_graph osmo:simulation).
 
 
 osmo:parameter a owl:Class;
@@ -1654,14 +1669,14 @@ osmo:dp_condition rdfs:subClassOf osmo:dp_quantitative_condition.
 
 
 osmo:logical_entity a owl:Class;
-   rdfs:subClassOf osmo:moda_structure_entity, evmpo:annotation;
+   rdfs:subClassOf osmo:workflow_entity, evmpo:annotation;
    rdfs:comment "logical entity, i.e., a notational element of a simulation workflow related to data exchange and communication"^^xs:string.
 osmo:op_logical_entity a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 osmo:dp_logical_entity a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_moda_structure_entity rdfs:subClassOf osmo:op_logical_entity.
-osmo:dp_moda_structure_entity rdfs:subClassOf osmo:dp_logical_entity.
+osmo:op_workflow_entity rdfs:subClassOf osmo:op_logical_entity.
+osmo:dp_workflow_entity rdfs:subClassOf osmo:dp_logical_entity.
 evmpo:op_annotation rdfs:subClassOf osmo:op_logical_entity.
 evmpo:dp_annotation rdfs:subClassOf osmo:dp_logical_entity.
 
@@ -1686,7 +1701,7 @@ osmo:is_interactive a osmo:dp_logical_resource;
 
 osmo:logical_access a owl:Class;
    rdfs:subClassOf osmo:logical_entity;
-   rdfs:comment "logical access, i.e., a notational process/connection by which a MODA section accesses a logical resource"^^xs:string.
+   rdfs:comment "logical access, i.e., a notational process/connection by which an OSMO/MODA section accesses a logical resource"^^xs:string.
 osmo:op_logical_access a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 osmo:dp_logical_access a owl:Class;
@@ -1696,7 +1711,7 @@ osmo:dp_logical_entity rdfs:subClassOf osmo:dp_logical_access.
 
 osmo:has_access_point a osmo:op_logical_access;
    rdfs:domain osmo:logical_access;
-   rdfs:range osmo:moda_section.
+   rdfs:range osmo:section.
 osmo:has_resource a osmo:op_logical_access;
    rdfs:domain osmo:logical_access;
    rdfs:range osmo:logical_resource;
@@ -1715,7 +1730,7 @@ osmo:logical_access owl:disjointUnionOf (osmo:logical_read_access osmo:logical_w
 
 osmo:logical_read_access a owl:Class;
    rdfs:subClassOf osmo:logical_access;
-   rdfs:comment "logical read access, i.e., a notational process/connection by which a MODA section reads from a logical resource"^^xs:string.
+   rdfs:comment "logical read access, i.e., a notational process/connection by which an OSMO/MODA section reads from a logical resource"^^xs:string.
 osmo:op_logical_read_access a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 osmo:dp_logical_read_access a owl:Class;
@@ -1725,7 +1740,7 @@ osmo:dp_logical_access rdfs:subClassOf osmo:dp_logical_read_access.
 
 osmo:logical_write_access a owl:Class;
    rdfs:subClassOf osmo:logical_access;
-   rdfs:comment "logical write access, i.e., a notational process/connection by which a MODA section writes to a logical resource"^^xs:string.
+   rdfs:comment "logical write access, i.e., a notational process/connection by which an OSMO/MODA section writes to a logical resource"^^xs:string.
 osmo:op_logical_write_access a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 osmo:dp_logical_write_access a owl:Class;
