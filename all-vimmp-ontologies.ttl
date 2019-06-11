@@ -1220,9 +1220,9 @@ macro:MARKETPLACE_MARKETPLACE a macro:virtual_marketplace.
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 0.4.0 ###
+### VERSION 0.4.1 ###
 
-### DATED 31ST MAY 2019 ###
+### DATED 11TH JUNE 2019 ###
 
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -1768,6 +1768,103 @@ evmpo:dp_marketplace_related_entity rdfs:subClassOf osmo:dp_workflow_entity.
 
 osmo:workflow_entity owl:disjointUnionOf (osmo:logical_entity osmo:section_entity osmo:workflow_graph).
 
+osmo:workflow_resource a owl:Class;
+   rdfs:subClassOf osmo:workflow_entity;
+   rdfs:comment "workflow resource, i.e., a workflow entity that can be contained as a node-like element or as a subgraph by a workflow graph"^^xs:string.
+osmo:op_workflow_resource a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_workflow_resource a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_workflow_entity rdfs:subClassOf osmo:op_workflow_resource.
+osmo:dp_workflow_entity rdfs:subClassOf osmo:dp_workflow_resource.
+
+osmo:workflow_resource owl:disjointUnionOf (osmo:logical_resource osmo:section osmo:workflow_graph).
+
+osmo:workflow_resource owl:disjointUnionOf (osmo:concrete_resource osmo:virtual_resource).
+
+osmo:concrete_resource a owl:Class;
+   rdfs:subClassOf osmo:workflow_resource;
+   rdfs:comment "concrete resource, i.e., a workflow resource that exists in a single, particular, pre-defined way within a given simulation workflow"^^xs:string.
+osmo:op_concrete_resource a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_concrete_resource a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_workflow_entity rdfs:subClassOf osmo:op_concrete_resource.
+osmo:dp_workflow_entity rdfs:subClassOf osmo:dp_concrete_resource.
+
+osmo:virtual_resource a owl:Class;
+   rdfs:subClassOf osmo:workflow_resource;
+   rdfs:comment "virtual resource, i.e., a workflow resource which is variably instantiated based on workflow-dependent quantities; e.g., a virtual resource might be instantiated multiple times in parallel or sequentially, or the way in which it is instantiated might _qualitatively_ depend on input parameters in a significant way, going beyond the conventional role of an input parameter"^^xs:string.
+osmo:op_virtual_resource a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_virtual_resource a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_workflow_entity rdfs:subClassOf osmo:op_virtual_resource.
+osmo:dp_workflow_entity rdfs:subClassOf osmo:dp_virtual_resource.
+
+osmo:contingent_resource a owl:Class;
+   rdfs:subClassOf osmo:virtual_resource;
+   rdfs:comment "contingent resource, i.e., a virtual workflow resource that is only present/active if one or multiple conditions are fulfilled"^^xs:string.
+osmo:op_contingent_resource a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_contingent_resource a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_virtual_resource rdfs:subClassOf osmo:op_contingent_resource.
+osmo:dp_virtual_resource rdfs:subClassOf osmo:dp_contingent_resource.
+
+osmo:is_contingent_on a osmo:op_contingent_resource;
+   rdfs:domain osmo:contingent_resource;
+   rdfs:range osmo:condition;
+   rdfs:comment "whenever one or several conditions are not fulfilled, a resource that is contingent on them is absent/inactive"^^xs:string.
+
+osmo:R_IS_CONTINGENT_ON_A_CONDITION a owl:Restriction;
+   rdfs:subClassOf osmo:constrained_entity;
+   owl:onProperty osmo:is_contingent_on;
+   owl:someValuesFrom osmo:condition.
+osmo:contingent_resource rdfs:subClassOf osmo:R_IS_CONTINGENT_ON_A_CONDITION.
+
+osmo:indexed_resource a owl:Class;
+   rdfs:subClassOf osmo:virtual_resource;
+   rdfs:comment "indexed resource, i.e., a virtual workflow resource that is instantiated multiple times, with an index"^^xs:string.
+osmo:op_indexed_resource a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_indexed_resource a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_virtual_resource rdfs:subClassOf osmo:op_indexed_resource.
+osmo:dp_virtual_resource rdfs:subClassOf osmo:dp_indexed_resource.
+
+osmo:has_coupled_instances a osmo:dp_indexed_resource;
+   rdfs:domain osmo:indexed_resource;
+   rdfs:range xs:boolean;
+   rdfs:comment "indicates whether any of the multiple instantiations of this resource are coupled (synchronized) with each other"^^xs:string.
+osmo:has_linked_instances a osmo:dp_indexed_resource;
+   rdfs:domain osmo:indexed_resource;
+   rdfs:range xs:boolean;
+   rdfs:comment "indicates whether any of the multiple instantiations of this resource are sequentially linked to each other"^^xs:string.
+
+osmo:has_index a osmo:op_indexed_resource;
+   rdfs:domain osmo:indexed_resource;
+   rdfs:range osmo:parameter;
+   rdfs:comment "points to the parameter/index to which multiple values are assigned"^^xs:string.
+osmo:has_index_unit a osmo:op_indexed_resource, owl:FunctionalProperty;
+   rdfs:domain osmo:indexed_resource;
+   rdfs:range qudt:DecimalScaledUnit;
+   rdfs:comment "unit in which the index values are given (not required; in many typical cases, the index is dimensionless)"^^xs:string.
+osmo:has_index_value a osmo:dp_indexed_resource;
+   rdfs:domain osmo:indexed_resource;
+   rdfs:range xs:decimal;
+   rdfs:comment "points to each of the multiple values that are given to the index"^^xs:string.
+
+osmo:R_HAS_ONE_INDEX a owl:Restriction;
+   rdfs:subClassOf osmo:constrained_entity;
+   owl:onProperty osmo:has_index;
+   owl:cardinality 1.
+osmo:R_HAS_MULTIPLE_INDEX_VALUES a owl:Restriction;
+   rdfs:subClassOf osmo:constrained_entity;
+   owl:onProperty osmo:has_index_value;
+   owl:minCardinality 2.
+osmo:indexed_resource rdfs:subClassOf osmo:R_HAS_ONE_INDEX, osmo:R_HAS_MULTIPLE_INDEX_VALUES.
+
 osmo:section_entity a owl:Class;
    rdfs:subClassOf osmo:workflow_entity;
    rdfs:comment "section entity, i.e., an OSMO/MODA section or an aspect thereof"^^xs:string.
@@ -1781,18 +1878,20 @@ osmo:dp_workflow_entity rdfs:subClassOf osmo:dp_section_entity.
 osmo:section_entity owl:disjointUnionOf (osmo:section osmo:section_aspect).
 
 osmo:section a owl:Class;
-   rdfs:subClassOf osmo:workflow_entity, osmo:section_entity;
+   rdfs:subClassOf osmo:workflow_resource, osmo:section_entity;
    rdfs:comment "section, i.e., a user case, model, solver, or processor (as in MODA)"^^xs:string.
 osmo:op_section a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 osmo:dp_section a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_workflow_entity rdfs:subClassOf osmo:op_section.
-osmo:dp_workflow_entity rdfs:subClassOf osmo:dp_section.
+osmo:op_workflow_resource rdfs:subClassOf osmo:op_section.
+osmo:dp_workflow_resource rdfs:subClassOf osmo:dp_section.
 osmo:op_section_entity rdfs:subClassOf osmo:op_section.
 osmo:dp_section_entity rdfs:subClassOf osmo:dp_section.
 
 osmo:section owl:disjointUnionOf (osmo:user_case osmo:materials_model osmo:solver osmo:processor).
+
+osmo:section owl:disjointUnionOf (osmo:concrete_section osmo:virtual_section).
 
 osmo:has_input_property a osmo:op_section;
    rdfs:domain osmo:section;
@@ -1857,6 +1956,12 @@ osmo:has_timespan a osmo:op_section;
    rdfs:domain osmo:section;
    rdfs:range osmo:timespan_information;
    rdfs:subPropertyOf osmo:has_aspect.
+
+osmo:applies_to a osmo:op_section;
+   rdfs:domain osmo:section, [a owl:Class; owl:unionOf (osmo:user_case osmo:materials_model)];
+   rdfs:range osmo:workflow_graph;
+   rdfs:comment "points to the workflow (sub)graph to which a particular user case or materials model applies"^^xs:string;
+   owl:inverseOf osmo:considers.
 
 osmo:section_aspect a owl:Class;
    rdfs:subClassOf osmo:section_entity;
@@ -2003,7 +2108,7 @@ osmo:dp_parameter rdfs:subClassOf osmo:dp_parameter_aspect.
 
 osmo:R_HAS_A_PARAMETER_CONTENT a owl:Restriction;
    rdfs:subClassOf osmo:constrained_entity;
-   owl:onProperty osmo:has_aspect_annotation_content;
+   owl:onProperty osmo:has_aspect_object_content;
    owl:someValuesFrom osmo:parameter.
 osmo:parameter_aspect rdfs:subClassOf osmo:R_HAS_A_PARAMETER_CONTENT.
 
@@ -2764,20 +2869,74 @@ osmo:dp_processor_aspect rdfs:subClassOf osmo:dp_processor_error_statement.
 osmo:op_error_statement rdfs:subClassOf osmo:op_processor_error_statement.
 osmo:dp_error_statement rdfs:subClassOf osmo:dp_processor_error_statement.
 
+osmo:concrete_section a owl:Class;
+   rdfs:subClassOf osmo:concrete_resource, osmo:section;
+   owl:intersectionOf (osmo:concrete_resource osmo:section);
+   rdfs:comment "concrete section, i.e., a OSMO/MODA section that is a concrete (non-virtual) workflow resource"^^xs:string.
+osmo:op_concrete_section a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_concrete_section a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_concrete_resource rdfs:subClassOf osmo:op_concrete_section.
+osmo:dp_concrete_resource rdfs:subClassOf osmo:dp_concrete_section.
+osmo:op_section rdfs:subClassOf osmo:op_concrete_section.
+osmo:dp_section rdfs:subClassOf osmo:dp_concrete_section.
+
+osmo:virtual_section a owl:Class;
+   rdfs:subClassOf osmo:virtual_resource, osmo:section;
+   owl:intersectionOf (osmo:virtual_resource osmo:section);
+   rdfs:comment "virtual section, i.e., a OSMO/MODA section that is a virtual workflow resource"^^xs:string.
+osmo:op_virtual_section a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_virtual_section a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_virtual_resource rdfs:subClassOf osmo:op_virtual_section.
+osmo:dp_virtual_resource rdfs:subClassOf osmo:dp_virtual_section.
+osmo:op_section rdfs:subClassOf osmo:op_virtual_section.
+osmo:dp_section rdfs:subClassOf osmo:dp_virtual_section.
+
+
 osmo:workflow_graph a owl:Class;
-   rdfs:subClassOf osmo:workflow_entity;
+   rdfs:subClassOf osmo:workflow_resource;
    rdfs:comment "workflow graph, i.e., a model, simulation, or aspects thereof that can be represented by a combination of OSMO/MODA sections"^^xs:string.
 osmo:op_workflow_graph a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 osmo:dp_workflow_graph a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_workflow_entity rdfs:subClassOf osmo:op_workflow_graph.
-osmo:dp_workflow_entity rdfs:subClassOf osmo:dp_workflow_graph.
+osmo:op_workflow_resource rdfs:subClassOf osmo:op_workflow_graph.
+osmo:dp_workflow_resource rdfs:subClassOf osmo:dp_workflow_graph.
+
+osmo:workflow_graph owl:disjointUnionOf (osmo:concrete_graph osmo:virtual_graph).
+
+osmo:considers a osmo:op_workflow_graph;
+   rdfs:domain osmo:workflow_graph;
+   rdfs:range osmo:section, [a owl:Class; owl:unionOf (osmo:user_case osmo:materials_model)];
+   rdfs:comment "points to the user case or materials model considered by a workflow (sub)graph"^^xs:string;
+   owl:inverseOf osmo:applies_to.
+osmo:considers_model a osmo:op_workflow_graph;
+   rdfs:domain osmo:workflow_graph;
+   rdfs:range osmo:materials_model;
+   rdfs:comment "points to the materials model considered by a workflow (sub)graph"^^xs:string;
+   rdfs:subPropertyOf osmo:considers.
+osmo:considers_user_case a osmo:op_workflow_graph;
+   rdfs:domain osmo:workflow_graph;
+   rdfs:range osmo:user_case;
+   rdfs:comment "points to the user case considered by a workflow (sub)graph"^^xs:string;
+   rdfs:subPropertyOf osmo:considers, evmpo:has_annotation.
 
 osmo:contains a osmo:op_workflow_graph;
    rdfs:domain osmo:workflow_graph;
+   rdfs:range osmo:workflow_resource;
+   rdfs:comment "[G contains R] if R occurs as a part/component of graph G"^^xs:string.
+osmo:contains_logical a osmo:op_workflow_graph;
+   rdfs:domain osmo:workflow_graph;
+   rdfs:range osmo:logical_resource;
+   rdfs:subPropertyOf osmo:contains, evmpo:has_annotation.
+osmo:contains_section a osmo:op_workflow_graph;
+   rdfs:domain osmo:workflow_graph;
    rdfs:range osmo:section;
-   rdfs:comment "[G contains S] if section S occurs as a part/component of graph G"^^xs:string.
+   rdfs:subPropertyOf osmo:contains.
+
 osmo:has_cause a osmo:op_workflow_graph, owl:TransitiveProperty;
    rdfs:domain osmo:workflow_graph;
    rdfs:range osmo:workflow_graph;
@@ -2804,6 +2963,10 @@ osmo:is_direct_effect_of a osmo:op_workflow_graph;
    rdfs:range osmo:workflow_graph;
    owl:inverseOf osmo:is_direct_cause_of;
    rdfs:subPropertyOf osmo:is_linked_to, osmo:has_cause.
+osmo:is_independent_of a osmo:op_workflow_graph;
+   rdfs:domain osmo:workflow_graph;
+   rdfs:range osmo:workflow_graph;
+   rdfs:comment "two workflow graphs F and G are independent if they (and any of their subgraphs) are not coupled or linked to each other"^^xs:string.
 osmo:is_linked_to a osmo:op_workflow_graph;
    rdfs:domain osmo:workflow_graph;
    rdfs:range osmo:workflow_graph;
@@ -2823,11 +2986,11 @@ osmo:dp_workflow_node a owl:Class;
 osmo:op_workflow_graph rdfs:subClassOf osmo:op_workflow_node.
 osmo:dp_workflow_graph rdfs:subClassOf osmo:dp_workflow_node.
 
-osmo:R_CONTAINS_ONE_SECTION a owl:Restriction;
+osmo:R_CONTAINS_ONE_RESOURCE a owl:Restriction;
    rdfs:subClassOf osmo:constrained_entity;
    owl:onProperty osmo:contains;
    owl:cardinality 1.
-osmo:workflow_node rdfs:subClassOf osmo:R_CONTAINS_ONE_SECTION.
+osmo:workflow_node rdfs:subClassOf osmo:R_CONTAINS_ONE_RESOURCE.
 
 osmo:simulation_workflow a owl:Class;
    rdfs:subClassOf osmo:workflow_graph, osmo:simulation;
@@ -2843,16 +3006,63 @@ osmo:dp_simulation rdfs:subClassOf osmo:dp_simulation_workflow.
 
 osmo:simulation_workflow owl:intersectionOf (osmo:workflow_graph osmo:simulation).
 
+osmo:concrete_graph a owl:Class;
+   rdfs:subClassOf osmo:concrete_resource, osmo:workflow_graph;
+   owl:intersectionOf (osmo:concrete_resource osmo:workflow_graph);
+   rdfs:comment "concrete graph, i.e., a workflow graph that is a concrete (non-virtual) workflow resource"^^xs:string.
+osmo:op_concrete_graph a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_concrete_graph a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_concrete_resource rdfs:subClassOf osmo:op_concrete_graph.
+osmo:dp_concrete_resource rdfs:subClassOf osmo:dp_concrete_graph.
+osmo:op_workflow_graph rdfs:subClassOf osmo:op_concrete_graph.
+osmo:dp_workflow_graph rdfs:subClassOf osmo:dp_concrete_graph.
+
+osmo:virtual_graph a owl:Class;
+   rdfs:subClassOf osmo:virtual_resource, osmo:workflow_graph;
+   owl:intersectionOf (osmo:virtual_resource osmo:workflow_graph);
+   rdfs:comment "virtual graph, i.e., a workflow graph that is a virtual workflow resource"^^xs:string.
+osmo:op_virtual_graph a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_virtual_graph a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_virtual_resource rdfs:subClassOf osmo:op_virtual_graph.
+osmo:dp_virtual_resource rdfs:subClassOf osmo:dp_virtual_graph.
+osmo:op_workflow_graph rdfs:subClassOf osmo:op_virtual_graph.
+osmo:dp_workflow_graph rdfs:subClassOf osmo:dp_virtual_graph.
+
 
 osmo:parameter a owl:Class;
-   rdfs:subClassOf evmpo:annotation;
+   rdfs:subClassOf evmpo:marketplace_related_entity;
    rdfs:comment "parameter, i.e., adjustable quantity within a model or a simulation workflow, or a part or component thereof"^^xs:string.
 osmo:op_parameter a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 osmo:dp_parameter a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_annotation rdfs:subClassOf osmo:op_parameter.
-evmpo:dp_annotation rdfs:subClassOf osmo:dp_parameter.
+evmpo:op_marketplace_related_entity rdfs:subClassOf osmo:op_parameter.
+evmpo:dp_marketplace_related_entity rdfs:subClassOf osmo:dp_parameter.
+
+osmo:physical_parameter a owl:Class;
+   rdfs:subClassOf osmo:parameter, vivo:physical_property, evmpo:material_property;
+   rdfs:comment "physical parameter, i.e., a parameter defined in terms of a material property"^^xs:string.
+osmo:op_physical_parameter a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_physical_parameter a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_parameter rdfs:subClassOf osmo:op_physical_parameter.
+evmpo:dp_parameter rdfs:subClassOf osmo:dp_physical_parameter.
+vivo:op_physical_property rdfs:subClassOf osmo:op_physical_parameter.
+vivo:dp_physical_property rdfs:subClassOf osmo:dp_physical_parameter.
+evmpo:op_material_property rdfs:subClassOf osmo:op_physical_parameter.
+evmpo:dp_material_property rdfs:subClassOf osmo:dp_physical_parameter.
+
+osmo:is_quantity_kind a vivo:op_physical_property, owl:FunctionalProperty;
+   rdfs:domain osmo:op_physical_parameter;
+   rdfs:range quq:QuantityKind;
+   rdfs:subPropertyOf vivo:is_quantity_kind;
+   rdfs:comment "points to the physical property characterization following QUDT"^^xs:string.
+
 
 osmo:condition a owl:Class;
    rdfs:subClassOf evmpo:marketplace_related_entity;
@@ -2900,7 +3110,7 @@ evmpo:op_annotation rdfs:subClassOf osmo:op_logical_entity.
 evmpo:dp_annotation rdfs:subClassOf osmo:dp_logical_entity.
 
 osmo:logical_resource a owl:Class;
-   rdfs:subClassOf osmo:logical_entity;
+   rdfs:subClassOf osmo:logical_entity, osmo:workflow_resource;
    rdfs:comment "logical resource, i.e., a notational element of a simulation workflow to which data are formally written and/or from where they can be formally read"^^xs:string.
 osmo:op_logical_resource a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
@@ -2908,6 +3118,10 @@ osmo:dp_logical_resource a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 osmo:op_logical_entity rdfs:subClassOf osmo:op_logical_resource.
 osmo:dp_logical_entity rdfs:subClassOf osmo:dp_logical_resource.
+osmo:op_workflow_resource rdfs:subClassOf osmo:op_logical_resource.
+osmo:dp_workflow_resource rdfs:subClassOf osmo:dp_logical_resource.
+
+osmo:logical_resource owl:disjointUnionOf (osmo:concrete_logical osmo:virtual_logical).
 
 osmo:has_lrid a osmo:dp_logical_resource;
    rdfs:domain osmo:logical_resource;
@@ -2917,6 +3131,32 @@ osmo:is_interactive a osmo:dp_logical_resource;
    rdfs:domain osmo:logical_resource;
    rdfs:range xs:boolean;
    rdfs:comment "states whether an external entity (user interaction, or some process not represented in the workflow) has write access to this resource at execution time"^^xs:string.
+
+osmo:concrete_logical a owl:Class;
+   rdfs:subClassOf osmo:concrete_resource, osmo:logical_resource;
+   owl:intersectionOf (osmo:concrete_resource osmo:logical_resource);
+   rdfs:comment "concrete logical, i.e., a concrete (non-virtual) logical workflow resource"^^xs:string.
+osmo:op_concrete_logical a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_concrete_logical a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_concrete_resource rdfs:subClassOf osmo:op_concrete_logical.
+osmo:dp_concrete_resource rdfs:subClassOf osmo:dp_concrete_logical.
+osmo:op_logical_resource rdfs:subClassOf osmo:op_concrete_logical.
+osmo:dp_logical_resource rdfs:subClassOf osmo:dp_concrete_logical.
+
+osmo:virtual_logical a owl:Class;
+   rdfs:subClassOf osmo:virtual_resource, osmo:logical_resource;
+   owl:intersectionOf (osmo:virtual_resource osmo:logical_resource);
+   rdfs:comment "virtual logical, i.e., a virtual logical workflow resource"^^xs:string.
+osmo:op_virtual_logical a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_virtual_logical a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_virtual_resource rdfs:subClassOf osmo:op_virtual_logical.
+osmo:dp_virtual_resource rdfs:subClassOf osmo:dp_virtual_logical.
+osmo:op_logical_resource rdfs:subClassOf osmo:op_virtual_logical.
+osmo:dp_logical_resource rdfs:subClassOf osmo:dp_virtual_logical.
 
 osmo:logical_access a owl:Class;
    rdfs:subClassOf osmo:logical_entity;
@@ -3101,9 +3341,9 @@ osmo:dp_unit_function rdfs:subClassOf osmo:dp_material_information_uf.
 
 ### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
 
-### VERSION 0.3.0 ###
+### VERSION 0.3.1 ###
 
-### DATED 1ST MAY 2019 ###
+### DATED 11TH JUNE 2019 ###
 
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 
@@ -4228,7 +4468,7 @@ otras:has_publication_title a otras:dp_citation;
    rdfs:range xs:string.
 otras:has_publication_year a otras:dp_citation;
    rdfs:domain otras:citation;
-   rdfs:range xs:gYear.
+   rdfs:range xs:year.
 
 otras:is_about a evmpo:op_information_content_entity, owl:ObjectProperty;
    rdfs:domain evmpo:information_content_entity;
@@ -4889,9 +5129,9 @@ vico:dp_statement rdfs:subClassOf vico:dp_legal_statement.
 
 ### VIMMP VALIDATION ONTOLOGY (VIVO) ###
 
-### VERSION 0.1.11 ###
+### VERSION 0.1.12 ###
 
-### DATED 31ST MAY 2019 ###
+### DATED 11TH JUNE 2019 ###
 
 @prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
 
@@ -5196,32 +5436,32 @@ vivo:is_given_in a vivo:op_physical_property_information, owl:FunctionalProperty
    rdfs:domain vivo:physical_property_information;
    rdfs:range qudt:DecimalScaledUnit.
 
-vivo:moda_property_assertion a owl:Class;
+vivo:property_assertion a owl:Class;
    rdfs:subClassOf vivo:assertion, vivo:accuracy_entity.
-vivo:op_moda_property_assertion a owl:Class;
+vivo:op_property_assertion a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-vivo:dp_moda_property_assertion a owl:Class;
+vivo:dp_property_assertion a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-vivo:op_assertion rdfs:subClassOf vivo:op_moda_property_assertion.
-vivo:dp_assertion rdfs:subClassOf vivo:dp_moda_property_assertion.
-vivo:op_accuracy_entity rdfs:subClassOf vivo:op_moda_property_assertion.
-vivo:dp_accuracy_entity rdfs:subClassOf vivo:dp_moda_property_assertion.
+vivo:op_assertion rdfs:subClassOf vivo:op_property_assertion.
+vivo:dp_assertion rdfs:subClassOf vivo:dp_property_assertion.
+vivo:op_accuracy_entity rdfs:subClassOf vivo:op_property_assertion.
+vivo:dp_accuracy_entity rdfs:subClassOf vivo:dp_property_assertion.
 
-vivo:refers_to_material a vivo:op_moda_property_assertion, owl:FunctionalProperty;
-   rdfs:domain vivo:moda_property_assertion;
+vivo:refers_to_material a vivo:op_property_assertion, owl:FunctionalProperty;
+   rdfs:domain vivo:property_assertion;
    rdfs:range evmpo:material.
-vivo:refers_to_property a vivo:op_moda_property_assertion, owl:FunctionalProperty;
-   rdfs:domain vivo:moda_property_assertion;
+vivo:refers_to_property a vivo:op_property_assertion, owl:FunctionalProperty;
+   rdfs:domain vivo:property_assertion;
    rdfs:range vivo:physical_property.
 
 vivo:absolute_assertion a owl:Class;
-   rdfs:subClassOf vivo:moda_property_assertion.
+   rdfs:subClassOf vivo:property_assertion.
 vivo:op_absolute_assertion a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 vivo:dp_absolute_assertion a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-vivo:op_moda_property_assertion rdfs:subClassOf vivo:op_absolute_assertion.
-vivo:dp_moda_property_assertion rdfs:subClassOf vivo:dp_absolute_assertion.
+vivo:op_property_assertion rdfs:subClassOf vivo:op_absolute_assertion.
+vivo:dp_property_assertion rdfs:subClassOf vivo:dp_absolute_assertion.
 
 vivo:has_unit a vivo:op_absolute_assertion, owl:FunctionalProperty;
    rdfs:domain vivo:absolute_assertion;

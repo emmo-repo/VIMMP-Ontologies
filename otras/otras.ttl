@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
 
-### VERSION 0.3.0 ###
+### VERSION 0.3.1 ###
 
-### DATED 1ST MAY 2019 ###
+### DATED 11TH JUNE 2019 ###
 
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 
@@ -1128,7 +1128,7 @@ otras:has_publication_title a otras:dp_citation;
    rdfs:range xs:string.
 otras:has_publication_year a otras:dp_citation;
    rdfs:domain otras:citation;
-   rdfs:range xs:gYear.
+   rdfs:range xs:year.
 
 otras:is_about a evmpo:op_information_content_entity, owl:ObjectProperty;
    rdfs:domain evmpo:information_content_entity;

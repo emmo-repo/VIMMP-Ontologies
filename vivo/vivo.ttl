@@ -1,9 +1,9 @@
 
 ### VIMMP VALIDATION ONTOLOGY (VIVO) ###
 
-### VERSION 0.1.11 ###
+### VERSION 0.1.12 ###
 
-### DATED 31ST MAY 2019 ###
+### DATED 11TH JUNE 2019 ###
 
 @prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
 
@@ -308,32 +308,32 @@ vivo:is_given_in a vivo:op_physical_property_information, owl:FunctionalProperty
    rdfs:domain vivo:physical_property_information;
    rdfs:range qudt:DecimalScaledUnit.
 
-vivo:moda_property_assertion a owl:Class;
+vivo:property_assertion a owl:Class;
    rdfs:subClassOf vivo:assertion, vivo:accuracy_entity.
-vivo:op_moda_property_assertion a owl:Class;
+vivo:op_property_assertion a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-vivo:dp_moda_property_assertion a owl:Class;
+vivo:dp_property_assertion a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-vivo:op_assertion rdfs:subClassOf vivo:op_moda_property_assertion.
-vivo:dp_assertion rdfs:subClassOf vivo:dp_moda_property_assertion.
-vivo:op_accuracy_entity rdfs:subClassOf vivo:op_moda_property_assertion.
-vivo:dp_accuracy_entity rdfs:subClassOf vivo:dp_moda_property_assertion.
+vivo:op_assertion rdfs:subClassOf vivo:op_property_assertion.
+vivo:dp_assertion rdfs:subClassOf vivo:dp_property_assertion.
+vivo:op_accuracy_entity rdfs:subClassOf vivo:op_property_assertion.
+vivo:dp_accuracy_entity rdfs:subClassOf vivo:dp_property_assertion.
 
-vivo:refers_to_material a vivo:op_moda_property_assertion, owl:FunctionalProperty;
-   rdfs:domain vivo:moda_property_assertion;
+vivo:refers_to_material a vivo:op_property_assertion, owl:FunctionalProperty;
+   rdfs:domain vivo:property_assertion;
    rdfs:range evmpo:material.
-vivo:refers_to_property a vivo:op_moda_property_assertion, owl:FunctionalProperty;
-   rdfs:domain vivo:moda_property_assertion;
+vivo:refers_to_property a vivo:op_property_assertion, owl:FunctionalProperty;
+   rdfs:domain vivo:property_assertion;
    rdfs:range vivo:physical_property.
 
 vivo:absolute_assertion a owl:Class;
-   rdfs:subClassOf vivo:moda_property_assertion.
+   rdfs:subClassOf vivo:property_assertion.
 vivo:op_absolute_assertion a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 vivo:dp_absolute_assertion a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-vivo:op_moda_property_assertion rdfs:subClassOf vivo:op_absolute_assertion.
-vivo:dp_moda_property_assertion rdfs:subClassOf vivo:dp_absolute_assertion.
+vivo:op_property_assertion rdfs:subClassOf vivo:op_absolute_assertion.
+vivo:dp_property_assertion rdfs:subClassOf vivo:dp_absolute_assertion.
 
 vivo:has_unit a vivo:op_absolute_assertion, owl:FunctionalProperty;
    rdfs:domain vivo:absolute_assertion;
