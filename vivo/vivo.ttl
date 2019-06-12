@@ -263,7 +263,7 @@ vivo:REQUIRED_PER_SIMULATED_NANOSECOND a vivo:requirement_scope.
 
 
 vivo:physical_property a owl:Class;
-   rdfs:subClassOf vivo:property, evmpo:material_property;
+   rdfs:subClassOf vivo:property, osmo:logical_variable, evmpo:material_property;
    rdfs:comment "thermodynamic or mechanical behaviour of a material (referring either to the real material itself or a model thereof)"^^xs:string.
 vivo:op_physical_property a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
@@ -271,6 +271,8 @@ vivo:dp_physical_property a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 vivo:op_property rdfs:subClassOf vivo:op_physical_property.
 vivo:dp_property rdfs:subClassOf vivo:dp_physical_property.
+osmo:op_logical_variable rdfs:subClassOf vivo:op_physical_property.
+osmo:dp_logical_variable rdfs:subClassOf vivo:dp_physical_property.
 evmpo:op_material_property rdfs:subClassOf vivo:op_physical_property.
 evmpo:dp_material_property rdfs:subClassOf vivo:dp_physical_property.
 
