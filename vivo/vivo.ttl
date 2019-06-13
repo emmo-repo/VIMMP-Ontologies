@@ -1,9 +1,9 @@
 
 ### VIMMP VALIDATION ONTOLOGY (VIVO) ###
 
-### VERSION 0.1.12 ###
+### VERSION 0.1.13 ###
 
-### DATED 11TH JUNE 2019 ###
+### DATED 13TH JUNE 2019 ###
 
 @prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
 
@@ -342,7 +342,7 @@ vivo:has_unit a vivo:op_absolute_assertion, owl:FunctionalProperty;
    rdfs:range qudt:DecimalScaledUnit.
 
 vivo:deviation_assertion a owl:Class;
-   rdfs:subClassOf vivo:moda_property_assertion.
+   rdfs:subClassOf vivo:property_assertion.
 
 vivo:magnitude_assertion a owl:Class;
    rdfs:subClassOf vivo:absolute_assertion.

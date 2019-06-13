@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 0.4.2 ###
+### VERSION 0.4.3 ###
 
-### DATED 12TH JUNE 2019 ###
+### DATED 13TH JUNE 2019 ###
 
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -1767,19 +1767,6 @@ osmo:considers_user_case a osmo:op_workflow_graph;
    rdfs:comment "points to the user case considered by a workflow (sub)graph"^^xs:string;
    rdfs:subPropertyOf osmo:considers, evmpo:has_annotation.
 
-osmo:contains a osmo:op_workflow_graph;
-   rdfs:domain osmo:workflow_graph;
-   rdfs:range osmo:workflow_resource;
-   rdfs:comment "[G contains R] if R occurs as a part/component of graph G"^^xs:string.
-osmo:contains_logical a osmo:op_workflow_graph;
-   rdfs:domain osmo:workflow_graph;
-   rdfs:range osmo:logical_resource;
-   rdfs:subPropertyOf osmo:contains, evmpo:has_annotation.
-osmo:contains_section a osmo:op_workflow_graph;
-   rdfs:domain osmo:workflow_graph;
-   rdfs:range osmo:section;
-   rdfs:subPropertyOf osmo:contains.
-
 osmo:has_cause a osmo:op_workflow_graph, owl:TransitiveProperty;
    rdfs:domain osmo:workflow_graph;
    rdfs:range osmo:workflow_graph;
@@ -1788,10 +1775,6 @@ osmo:has_effect a osmo:op_workflow_graph, owl:TransitiveProperty;
    rdfs:domain osmo:workflow_graph;
    rdfs:range osmo:workflow_graph;
    owl:inverseOf osmo:has_cause.
-osmo:has_logical_resource a osmo:op_workflow_graph;
-   rdfs:domain osmo:workflow_graph;
-   rdfs:range osmo:logical_resource;
-   rdfs:subPropertyOf evmpo:has_annotation.
 osmo:is_coupled_with a osmo:op_workflow_graph;
    rdfs:domain osmo:workflow_graph;
    rdfs:range osmo:workflow_graph;
@@ -1816,7 +1799,8 @@ osmo:is_linked_to a osmo:op_workflow_graph;
    rdfs:comment "if [F is linked to G] they cannot be executed concurrently; one side depends on the completion of the other side"^^xs:string.
 osmo:is_part_of a osmo:op_workflow_graph, owl:TransitiveProperty;
    rdfs:domain osmo:workflow_graph;
-   rdfs:range osmo:workflow_graph;
+   rdfs:range osmo:concrete_graph;
+   owl:inverseOf osmo:has_subgraph;
    rdfs:comment "[F is_part_of G] if F is a subgraph of graph G"^^xs:string.
 
 osmo:workflow_node a owl:Class;
@@ -1862,6 +1846,29 @@ osmo:dp_concrete_resource rdfs:subClassOf osmo:dp_concrete_graph.
 osmo:op_workflow_graph rdfs:subClassOf osmo:op_concrete_graph.
 osmo:dp_workflow_graph rdfs:subClassOf osmo:dp_concrete_graph.
 
+osmo:contains a osmo:op_concrete_graph;
+   rdfs:domain osmo:concrete_graph;
+   rdfs:range osmo:workflow_resource;
+   rdfs:comment "[G contains R] if R occurs as a part/component of graph G"^^xs:string.
+osmo:contains_logical a osmo:op_concrete_graph;
+   rdfs:domain osmo:concrete_graph;
+   rdfs:range osmo:logical_resource;
+   rdfs:subPropertyOf osmo:contains, evmpo:has_annotation.
+osmo:contains_section a osmo:op_concrete_graph;
+   rdfs:domain osmo:concrete_graph;
+   rdfs:range osmo:section;
+   rdfs:subPropertyOf osmo:contains.
+
+osmo:has_subgraph a osmo:op_concrete_graph, owl:TransitiveProperty;
+   rdfs:domain osmo:concrete_graph;
+   rdfs:range osmo:workflow_graph;
+   rdfs:subPropertyOf osmo:contains;
+   owl:inverseOf osmo:is_part_of.
+osmo:has_virtual_subgraph a osmo:op_concrete_graph;
+   rdfs:domain osmo:concrete_graph;
+   rdfs:range osmo:virtual_graph;
+   rdfs:subPropertyOf osmo:has_subgraph.
+
 osmo:instantiates_graph a osmo:op_concrete_graph;
    rdfs:domain osmo:concrete_graph;
    rdfs:range osmo:virtual_graph;
@@ -1870,7 +1877,7 @@ osmo:instantiates_graph a osmo:op_concrete_graph;
 osmo:virtual_graph a owl:Class;
    rdfs:subClassOf osmo:virtual_resource, osmo:workflow_graph;
    owl:intersectionOf (osmo:virtual_resource osmo:workflow_graph);
-   rdfs:comment "virtual graph, i.e., a workflow graph that is a virtual workflow resource"^^xs:string.
+   rdfs:comment "virtual graph, i.e., a workflow graph that is a virtual workflow resource (n.b., virtual graphs do not contain anything; instead, they are instantiated by concrete graphs that contain further elements)"^^xs:string.
 osmo:op_virtual_graph a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 osmo:dp_virtual_graph a owl:Class;
