@@ -1,13 +1,14 @@
 
 ### VIMMP VALIDATION ONTOLOGY (VIVO) ###
 
-### VERSION 0.1.13 ###
+### VERSION 0.1.14 ###
 
-### DATED 13TH JUNE 2019 ###
+### DATED 16TH JUNE 2019 ###
 
 @prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
 
 @prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
+@prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
 @prefix qudt: <http://qudt.org/schema/qudt#>.
 @prefix quq: <http://purl.oclc.org/NET/ssnx/qu/quantity#>.
