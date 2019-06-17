@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 0.4.4 ###
+### VERSION 0.4.5 ###
 
-### DATED 16TH JUNE 2019 ###
+### DATED 17TH JUNE 2019 ###
 
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -559,6 +559,11 @@ osmo:dp_workflow_resource a owl:Class;
 osmo:op_workflow_entity rdfs:subClassOf osmo:op_workflow_resource.
 osmo:dp_workflow_entity rdfs:subClassOf osmo:dp_workflow_resource.
 
+osmo:has_resource_label a osmo:dp_workflow_resource;
+   rdfs:domain osmo:workflow_entity;
+   rdfs:range xs:string;
+   rdfs:comment "label to be used, e.g., in graph representations and for other visualization purposes"^^xs:string.
+
 osmo:is_concrete a osmo:dp_workflow_resource;
    rdfs:domain osmo:workflow_resource;
    rdfs:range xs:boolean.
@@ -703,6 +708,10 @@ osmo:has_internal_logical_variable a osmo:op_section;
    rdfs:domain osmo:section;
    rdfs:range osmo:logical_variable;
    rdfs:comment "points to information that plays a role within the respective OSMO/MODA section"^^xs:string.
+osmo:has_section_label a osmo:dp_section;
+   rdfs:domain osmo:section;
+   rdfs:range xs:string;
+   rdfs:subPropertyOf osmo:has_resource_label.
 osmo:has_output a osmo:op_section;
    rdfs:domain osmo:section;
    rdfs:range osmo:logical_variable;
@@ -2011,10 +2020,14 @@ evmpo:dp_annotation rdfs:subClassOf osmo:dp_logical_resource.
 
 osmo:logical_resource owl:disjointUnionOf (osmo:concrete_logical osmo:virtual_logical).
 
+osmo:has_logical_label a osmo:dp_logical_resource;
+   rdfs:domain osmo:logical_resource;
+   rdfs:range xs:string;
+   rdfs:subPropertyOf osmo:has_resource_label.
 osmo:has_lrid a osmo:dp_logical_resource;
    rdfs:domain osmo:logical_resource;
    rdfs:range xs:string;
-   rdfs:comment "points to the logical resource ID (LRID) associated with the present logical resource"^^xs:string.
+   rdfs:comment "points to the logical resource ID (LRID) associated with the present logical resource; n.b., this ID has technical purposes (for notational and visualization purposes, use osmo:has_logical_label)"^^xs:string.
 osmo:is_initial a osmo:dp_logical_resource;
    rdfs:domain osmo:logical_resource;
    rdfs:range xs:boolean;
@@ -2073,27 +2086,72 @@ osmo:dp_logical_variable a owl:Class;
 osmo:op_logical_entity rdfs:subClassOf osmo:op_logical_variable.
 osmo:dp_logical_entity rdfs:subClassOf osmo:dp_logical_variable.
 
-osmo:has_default_value a osmo:dp_logical_variable;
-   rdfs:domain osmo:logical_variable;
-   rdfs:range xs:decimal.
-osmo:has_initial_value a osmo:dp_logical_variable;
-   rdfs:domain osmo:logical_variable;
-   rdfs:range xs:decimal.
 osmo:has_variable_name a osmo:dp_logical_variable;
    rdfs:domain osmo:logical_variable;
    rdfs:range xs:string.
-osmo:has_variable_unit a osmo:op_logical_variable, owl:FunctionalProperty;
-   rdfs:domain osmo:indexed_resource;
-   rdfs:range qudt:DecimalScaledUnit;
-   rdfs:comment "unit in which any values are given (not needed if dimensionless)"^^xs:string.
-
-osmo:is_collection a osmo:dp_logical_variable;
-   rdfs:domain osmo:logical_variable;
-   rdfs:range xs:boolean;
-   rdfs:comment "true if the logical variable can carry multiple values (e.g., representing an array-like data set)".
 osmo:is_constant a osmo:dp_logical_variable;
    rdfs:domain osmo:logical_variable;
    rdfs:range xs:boolean.
+
+osmo:logical_variable owl:disjointUnionOf (osmo:elementary_logical osmo:logical_structure).
+
+osmo:elementary_logical a owl:Class;
+   rdfs:subClassOf osmo:logical_variable;
+   rdfs:comment "elementary logical, i.e., a logical variable that does not contain any (sub-)variables as structure elements"^^xs:string.
+osmo:op_elementary_logical a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_elementary_logical a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_logical_variable rdfs:subClassOf osmo:op_elementary_logical.
+osmo:dp_logical_variable rdfs:subClassOf osmo:dp_elementary_logical.
+
+osmo:has_default_value a osmo:dp_elementary_logical;
+   rdfs:domain osmo:elementary_logical;
+   rdfs:range xs:decimal.
+osmo:has_initial_value a osmo:dp_elementary_logical;
+   rdfs:domain osmo:elementary_logical;
+   rdfs:range xs:decimal.
+osmo:has_variable_unit a osmo:op_elementary_logical, owl:FunctionalProperty;
+   rdfs:domain osmo:elementary_logical;
+   rdfs:range qudt:DecimalScaledUnit;
+   rdfs:comment "unit in which any values are given (not needed if dimensionless)"^^xs:string.
+
+osmo:elementary_logical owl:disjointUnionOf (osmo:logical_scalar osmo:logical_collection).
+
+osmo:logical_scalar a owl:Class;
+   rdfs:subClassOf osmo:elementary_logical;
+   rdfs:comment "logical scalar, i.e., an elementary logical variable that can carry only one value at a time"^^xs:string.
+osmo:op_logical_scalar a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_logical_scalar a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_elementary_logical rdfs:subClassOf osmo:op_logical_scalar.
+osmo:dp_elementary_logical rdfs:subClassOf osmo:dp_logical_scalar.
+
+osmo:logical_collection a owl:Class;
+   rdfs:subClassOf osmo:elementary_logical;
+   rdfs:comment "logical collection, i.e., an elementary logical variable that can carry multiple values (e.g., representing a set, map, list, or array)"^^xs:string.
+osmo:op_logical_collection a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_logical_collection a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_elementary_logical rdfs:subClassOf osmo:op_logical_collection.
+osmo:dp_elementary_logical rdfs:subClassOf osmo:dp_logical_collection.
+
+osmo:logical_structure a owl:Class;
+   rdfs:subClassOf osmo:logical_variable;
+   rdfs:comment "logical structure, i.e., a logical variable that contains (sub-)variables as structure elements"^^xs:string.
+osmo:op_logical_structure a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_logical_structure a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_logical_variable rdfs:subClassOf osmo:op_logical_structure.
+osmo:dp_logical_variable rdfs:subClassOf osmo:dp_logical_structure.
+
+osmo:has_structure_element a osmo:op_logical_structure;
+   rdfs:domain osmo:logical_structure;
+   rdfs:range osmo:logical_variable;
+   rdfs:comment "points to an element of a logical structure variable"^^xs:string.
 
 osmo:logical_access a owl:Class;
    rdfs:subClassOf osmo:logical_entity, evmpo:annotation;
