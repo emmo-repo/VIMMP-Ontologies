@@ -1,9 +1,9 @@
 
 ### VIMMP COMMUNICATION ONTOLOGY (VICO) ###
 
-### VERSION 0.1.5 ###
+### VERSION 0.8.0 ###
 
-### DATED 2ND APRIL 2019 ###
+### DATED 20TH JUNE 2019 ###
 
 @prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
 

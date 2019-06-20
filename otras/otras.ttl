@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
 
-### VERSION 0.3.1 ###
+### VERSION 0.8.0 ###
 
-### DATED 11TH JUNE 2019 ###
+### DATED 20TH JUNE 2019 ###
 
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 
