@@ -3560,9 +3560,9 @@ osmo:dp_unit_function rdfs:subClassOf osmo:dp_material_information_uf.
 
 ### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
 
-### VERSION 0.8.0 ###
+### VERSION 0.8.1 ###
 
-### DATED 20TH JUNE 2019 ###
+### DATED 24TH JUNE 2019 ###
 
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 
@@ -3733,6 +3733,14 @@ otras:has_topic_descriptor a otras:dp_topic;
    rdfs:domain otras:topic;
    rdfs:range rdfs:Literal;
    rdfs:subPropertyOf otras:has_focus_descriptor.
+otras:is_broader_than a otras:op_topic, owl:TransitiveProperty;
+   rdfs:domain otras:topic;
+   rdfs:range otras:topic;
+   owl:inverseOf otras:is_narrower_than.
+otras:is_narrower_than a otras:op_topic, owl:TransitiveProperty;
+   rdfs:domain otras:topic;
+   rdfs:range otras:topic;
+   owl:inverseOf otras:is_broader_than.
 
 otras:specifier a owl:Class;
    rdfs:comment "specifier, i.e., a constitutive element of a learning outcome (acquired competency) description"^^xs:string;
@@ -3971,6 +3979,62 @@ otras:R_HAS_NO_TRAINING_UNIT a owl:Restriction;
    owl:cardinality 0.
 otras:training_unit owl:intersectionOf (otras:course otras:R_HAS_NO_TRAINING_UNIT).
 
+otras:physics_subject_heading a owl:Class;
+   rdfs:comment "physics subject heading, i.e., a topic included in the PhySH list developed by the APS"^^xs:string;
+   rdfs:subClassOf otras:topic.
+otras:op_physics_subject_heading a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_physics_subject_heading a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_topic rdfs:subClassOf otras:op_physics_subject_heading.
+evmpo:dp_topic rdfs:subClassOf otras:dp_physics_subject_heading.
+
+otras:has_physh_label a otras:dp_physics_subject_heading;
+   rdfs:domain otras:physics_subject_heading;
+   rdfs:range xs:string;
+   rdfs:subPropertyOf otras:has_topic_descriptor.
+otras:has_physh_id a otras:dp_physics_subject_heading;
+   rdfs:domain otras:physics_subject_heading;
+   rdfs:range xs:string.
+
+otras:R_HAS_A_PHYSH_LABEL a owl:Restriction;
+   rdfs:subClassOf otras:constrained_entity;
+   owl:onProperty otras:has_physh_label;
+   owl:someValuesFrom xs:string.
+otras:R_HAS_ONE_PHYSH_ID a owl:Restriction;
+   rdfs:subClassOf otras:constrained_entity;
+   owl:onProperty otras:has_physh_id;
+   owl:cardinality 1.
+otras:physics_subject_heading rdfs:subClassOf otras:R_HAS_A_PHYSH_LABEL, otras:R_HAS_ONE_PHYSH_ID.
+
+otras:ccs_concept a owl:Class;
+   rdfs:comment "CCS concept, i.e., a topic included in the 2012 ACM Computing Classification System developed by the ACM"^^xs:string;
+   rdfs:subClassOf otras:topic.
+otras:op_ccs_concept a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_ccs_concept a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_topic rdfs:subClassOf otras:op_ccs_concept.
+evmpo:dp_topic rdfs:subClassOf otras:dp_ccs_concept.
+
+otras:has_ccs_id a otras:dp_ccs_concept;
+   rdfs:domain otras:ccs_concept;
+   rdfs:range xs:string.
+otras:has_ccs_descriptor a otras:dp_ccs_concept;
+   rdfs:domain otras:ccs_concept;
+   rdfs:range xs:string;
+   rdfs:subPropertyOf otras:has_topic_descriptor.
+
+otras:R_HAS_A_CCS_DESCRIPTOR a owl:Restriction;
+   rdfs:subClassOf otras:constrained_entity;
+   owl:onProperty otras:has_ccs_descriptor;
+   owl:someValuesFrom xs:string.
+otras:R_HAS_ONE_CCS_ID a owl:Restriction;
+   rdfs:subClassOf otras:constrained_entity;
+   owl:onProperty otras:has_ccs_id;
+   owl:cardinality 1.
+otras:ccs_concept rdfs:subClassOf otras:R_HAS_A_CCS_DESCRIPTOR, otras:R_HAS_ONE_CCS_ID.
+
 otras:mm_topic a owl:Class;
    rdfs:comment "materials modelling topic, i.e., a topic related to the subject area of materials modelling, understood broadly"^^xs:string;
    rdfs:subClassOf otras:topic.
@@ -4129,186 +4193,234 @@ otras:MM_TOPIC_0000 a otras:mm_topic;
 
 otras:MM_TOPIC_1000 a otras:mm_topic_basic;
    otras:has_topic_code 1000;
+   otras:is_narrower_than otras:MM_TOPIC_0000;
    otras:has_topic_descriptor "Topic: Basic prerequisites (general)"^^xs:string.
 
 otras:MM_TOPIC_1100 a otras:mm_topic_basic_chemical;
    otras:has_topic_code 1100;
+   otras:is_narrower_than otras:MM_TOPIC_1000;
    otras:has_topic_descriptor "Topic: Basic prerequisites in chemical and process engineering, biotechnology, petrochemistry, and organic chemistry"^^xs:string.
 otras:MM_TOPIC_1110 a otras:mm_topic_basic_chemical;
    otras:has_topic_code 1110;
+   otras:is_narrower_than otras:MM_TOPIC_1100;
    otras:has_topic_descriptor "Topic: Foundations in biotechnology and nutritional chemistry"^^xs:string.
 otras:MM_TOPIC_1120 a otras:mm_topic_basic_chemical;
    otras:has_topic_code 1120;
+   otras:is_narrower_than otras:MM_TOPIC_1100;
    otras:has_topic_descriptor "Topic: Foundations in fluid process engineering"^^xs:string.
 otras:MM_TOPIC_1130 a otras:mm_topic_basic_chemical;
    otras:has_topic_code 1130;
+   otras:is_narrower_than otras:MM_TOPIC_1100;
    otras:has_topic_descriptor "Topic: Foundations in industrial and applied chemistry and chemical reaction technology"^^xs:string.
 otras:MM_TOPIC_1140 a otras:mm_topic_basic_chemical;
    otras:has_topic_code 1140;
+   otras:is_narrower_than otras:MM_TOPIC_1100;
    otras:has_topic_descriptor "Topic: Foundations in organic chemistry"^^xs:string.
 otras:MM_TOPIC_1150 a otras:mm_topic_basic_chemical;
    otras:has_topic_code 1150;
+   otras:is_narrower_than otras:MM_TOPIC_1100;
    otras:has_topic_descriptor "Topic: Foundations in petrochemical engineering"^^xs:string.
 otras:MM_TOPIC_1160 a otras:mm_topic_basic_chemical;
    otras:has_topic_code 1160;
+   otras:is_narrower_than otras:MM_TOPIC_1100;
    otras:has_topic_descriptor "Topic: Foundations in thermal and general process engineering"^^xs:string.
 otras:MM_TOPIC_1170 a otras:mm_topic_basic_chemical;
    otras:has_topic_code 1170;
+   otras:is_narrower_than otras:MM_TOPIC_1100;
    otras:has_topic_descriptor "Topic: Foundations in mechanical process engineering and particle technology"^^xs:string.
 otras:MM_TOPIC_1180 a otras:mm_topic_basic_chemical;
    otras:has_topic_code 1180;
+   otras:is_narrower_than otras:MM_TOPIC_1100;
    otras:has_topic_descriptor "Topic: Foundations in chemical engineering thermodynamics"^^xs:string.
 
 otras:MM_TOPIC_1200 a otras:mm_topic_basic_economics;
    otras:has_topic_code 1200;
+   otras:is_narrower_than otras:MM_TOPIC_1000;
    otras:has_topic_descriptor "Topic: Basic prerequisites in economics, marketing, and business administration"^^xs:string.
 
 otras:MM_TOPIC_1300 a otras:mm_topic_basic_information;
    otras:has_topic_code 1300;
+   otras:is_narrower_than otras:MM_TOPIC_1000;
    otras:has_topic_descriptor "Topic: Basic prerequisites in information technology, computer science, and progamming"^^xs:string.
 
 otras:MM_TOPIC_1400 a otras:mm_topic_basic_materials;
    otras:has_topic_code 1400;
+   otras:is_narrower_than otras:MM_TOPIC_1000;
    otras:has_topic_descriptor "Topic: Basic prerequisites in materials science and general or inorganic chemistry"^^xs:string.
 
 otras:MM_TOPIC_1500 a otras:mm_topic_basic_mathematics;
    otras:has_topic_code 1500;
+   otras:is_narrower_than otras:MM_TOPIC_1000;
    otras:has_topic_descriptor "Topic: Basic prerequisites in mathematics, statistics, and logic"^^xs:string.
 
 otras:MM_TOPIC_1600 a otras:mm_topic_basic_mechanical;
    otras:has_topic_code 1600;
+   otras:is_narrower_than otras:MM_TOPIC_1000;
    otras:has_topic_descriptor "Topic: Basic prerequisites in mechanical, aerospace, civil, electrical, and general engineering"^^xs:string.
 
 otras:MM_TOPIC_1700 a otras:mm_topic_basic_physics;
    otras:has_topic_code 1700;
+   otras:is_narrower_than otras:MM_TOPIC_1000;
    otras:has_topic_descriptor "Topic: Basic prerequisites in physics and theoretical or physical chemistry"^^xs:string.
 
 otras:MM_TOPIC_1800 a otras:mm_topic_basic_interdisciplinary;
    otras:has_topic_code 1800;
+   otras:is_narrower_than otras:MM_TOPIC_1000;
    otras:has_topic_descriptor "Topic: Interdisciplinary basic prerequisites"^^xs:string.
 
 otras:MM_TOPIC_1900 a otras:mm_topic_basic_interdisciplinary;
    otras:has_topic_code 1900;
+   otras:is_narrower_than otras:MM_TOPIC_1000;
    otras:has_topic_descriptor "Topic: Secondary or pre-undergraduate level education and general basic knowledge"^^xs:string.
 
 otras:MM_TOPIC_3000 a otras:mm_topic_computational;
    otras:has_topic_code 3000;
+   otras:is_narrower_than otras:MM_TOPIC_0000;
    otras:has_topic_descriptor "Topic: Computational or numerical (beyond basic prerequisites)"^^xs:string.
 
 otras:MM_TOPIC_4000 a otras:mm_topic_data;
    otras:has_topic_code 4000;
+   otras:is_narrower_than otras:MM_TOPIC_0000;
    otras:has_topic_descriptor "Topic: Data science and technology (beyond basic prerequisites)"^^xs:string.
 
 otras:MM_TOPIC_5000 a otras:mm_topic_materials;
    otras:has_topic_code 5000;
+   otras:is_narrower_than otras:MM_TOPIC_0000;
    otras:has_topic_descriptor "Topic: Materials (beyond basic prerequisites)"^^xs:string.
 
 otras:MM_TOPIC_6000 a otras:mm_topic_social;
    otras:has_topic_code 6000;
+   otras:is_narrower_than otras:MM_TOPIC_0000;
    otras:has_topic_descriptor "Topic: Social, economic, community (beyond basic prerequisites)"^^xs:string.
 
 otras:MM_TOPIC_7000 a otras:mm_topic_theoretical;
    otras:has_topic_code 7000;
+   otras:is_narrower_than otras:MM_TOPIC_0000;
    otras:has_topic_descriptor "Topic: Theoretical (beyond basic prerequisites; excluding computational and numerical aspects)"^^xs:string.
 
 otras:MM_TOPIC_7100 a otras:mm_topic_theoretical_electronic;
    otras:has_topic_code 7100;
+   otras:is_narrower_than otras:MM_TOPIC_7000;
    otras:has_topic_descriptor "Topic: Theoretical aspects of electronic modelling"^^xs:string.
 
 otras:MM_TOPIC_7200 a otras:mm_topic_theoretical_discrete;
    otras:has_topic_code 7200;
+   otras:is_narrower_than otras:MM_TOPIC_7000;
    otras:has_topic_descriptor "Topic: Theoretical aspects of discrete (atomistic and mesoscopic) modelling"^^xs:string.
 
 otras:MM_TOPIC_7300 a otras:mm_topic_theoretical_continuum;
    otras:has_topic_code 7300;
+   otras:is_narrower_than otras:MM_TOPIC_7000;
    otras:has_topic_descriptor "Topic: Theoretical aspects of (non-electronic, classical-mechanical) continuum modelling"^^xs:string.
 
 otras:MM_TOPIC_7400 a otras:mm_topic_theoretical_non_equilibrium;
    otras:has_topic_code 7400;
+   otras:is_narrower_than otras:MM_TOPIC_7000;
    otras:has_topic_descriptor "Topic: Theoretical aspects of non-equilibrium states and physical processes"^^xs:string.
 
 otras:MM_TOPIC_7500 a otras:mm_topic_theoretical_multiphase;
    otras:has_topic_code 7500;
+   otras:is_narrower_than otras:MM_TOPIC_7000;
    otras:has_topic_descriptor "Topic: Theoretical aspects of interfacial phenomena and multiphase or heterogeneous systems"^^xs:string.
 
 otras:MM_TOPIC_7600 a otras:mm_topic_theoretical_statistical;
    otras:has_topic_code 7600;
+   otras:is_narrower_than otras:MM_TOPIC_7000;
    otras:has_topic_descriptor "Topic: Theoretical aspects of statistical mechanics and statistical approaches to materials modelling"^^xs:string.
 
 otras:MM_TOPIC_7700 a otras:mm_topic_theoretical_thermodynamics;
    otras:has_topic_code 7700;
+   otras:is_narrower_than otras:MM_TOPIC_7000;
    otras:has_topic_descriptor "Topic: Theoretical aspects of phenomenological thermodynamics"^^xs:string.
 
 otras:MM_TOPIC_7800 a otras:mm_topic_theoretical_mechanics;
    otras:has_topic_code 7800;
+   otras:is_narrower_than otras:MM_TOPIC_7000;
    otras:has_topic_descriptor "Topic: Theoretical aspects of classical and/or quantum mechanics"^^xs:string.
 
 otras:MM_TOPIC_8000 a otras:mm_topic_interdisciplinary, otras:mm_topic_computational, otras:mm_topic_data, otras:mm_topic_materials, otras:mm_topic_social, otras:mm_topic_theoretical;
    otras:has_topic_code 8000;
+   otras:is_narrower_than otras:MM_TOPIC_0000;
    otras:has_topic_descriptor "Topic: Interdisciplinary (beyond basic prerequisites)"^^xs:string.
 
 otras:MM_TOPIC_8340 a otras:mm_topic_interdisciplinary_comp_data;
    otras:has_topic_code 8340;
+   otras:is_narrower_than otras:MM_TOPIC_8000;
    otras:has_topic_descriptor "Topic: Interdisciplinary studies with significant computational and data-science aspects"^^xs:string.
 
 otras:MM_TOPIC_8350 a otras:mm_topic_interdisciplinary_comp_materials;
    otras:has_topic_code 8350;
+   otras:is_narrower_than otras:MM_TOPIC_8000;
    otras:has_topic_descriptor "Topic: Interdisciplinary studies with significant computational and material-property aspects"^^xs:string.
 
 otras:MM_TOPIC_8360 a otras:mm_topic_interdisciplinary_comp_social;
    otras:has_topic_code 8360;
+   otras:is_narrower_than otras:MM_TOPIC_8000;
    otras:has_topic_descriptor "Topic: Interdisciplinary studies with significant computational and socio-economic aspects"^^xs:string.
 
 otras:MM_TOPIC_8370 a otras:mm_topic_interdisciplinary_comp_theoretical;
    otras:has_topic_code 8370;
+   otras:is_narrower_than otras:MM_TOPIC_8000;
    otras:has_topic_descriptor "Topic: Interdisciplinary studies with significant computational and theoretical aspects"^^xs:string.
 
 otras:MM_TOPIC_8390 a otras:mm_topic_interdisciplinary_comp_side;
    otras:has_topic_code 8390;
+   otras:is_narrower_than otras:MM_TOPIC_8000;
    otras:has_topic_descriptor "Topic: Interdisciplinary studies with significant computational and side-interest aspects"^^xs:string.
 
 otras:MM_TOPIC_8450 a otras:mm_topic_interdisciplinary_data_materials;
    otras:has_topic_code 8450;
+   otras:is_narrower_than otras:MM_TOPIC_8000;
    otras:has_topic_descriptor "Topic: Interdisciplinary studies with significant data-science and material-property aspects"^^xs:string.
 
 otras:MM_TOPIC_8460 a otras:mm_topic_interdisciplinary_data_social;
    otras:has_topic_code 8460;
+   otras:is_narrower_than otras:MM_TOPIC_8000;
    otras:has_topic_descriptor "Topic: Interdisciplinary studies with significant data-science and socio-economic aspects"^^xs:string.
 
 otras:MM_TOPIC_8470 a otras:mm_topic_interdisciplinary_data_theoretical;
    otras:has_topic_code 8470;
+   otras:is_narrower_than otras:MM_TOPIC_8000;
    otras:has_topic_descriptor "Topic: Interdisciplinary studies with significant data-science and theoretical aspects"^^xs:string.
 
 otras:MM_TOPIC_8490 a otras:mm_topic_interdisciplinary_data_side;
    otras:has_topic_code 8490;
+   otras:is_narrower_than otras:MM_TOPIC_8000;
    otras:has_topic_descriptor "Topic: Interdisciplinary studies with significant data-science and side-interest aspects"^^xs:string.
 
 otras:MM_TOPIC_8560 a otras:mm_topic_interdisciplinary_materials_social;
    otras:has_topic_code 8560;
+   otras:is_narrower_than otras:MM_TOPIC_8000;
    otras:has_topic_descriptor "Topic: Interdisciplinary studies with significant material-property and socio-economic aspects"^^xs:string.
 
 otras:MM_TOPIC_8570 a otras:mm_topic_interdisciplinary_materials_theoretical;
    otras:has_topic_code 8570;
+   otras:is_narrower_than otras:MM_TOPIC_8000;
    otras:has_topic_descriptor "Topic: Interdisciplinary studies with significant material-property and theoretical aspects"^^xs:string.
 
 otras:MM_TOPIC_8590 a otras:mm_topic_interdisciplinary_materials_side;
    otras:has_topic_code 8590;
+   otras:is_narrower_than otras:MM_TOPIC_8000;
    otras:has_topic_descriptor "Topic: Interdisciplinary studies with significant material-property and side-interest aspects"^^xs:string.
 
 otras:MM_TOPIC_8670 a otras:mm_topic_interdisciplinary_social_theoretical;
    otras:has_topic_code 8670;
+   otras:is_narrower_than otras:MM_TOPIC_8000;
    otras:has_topic_descriptor "Topic: Interdisciplinary studies with significant socio-economic and theoretical aspects"^^xs:string.
 
 otras:MM_TOPIC_8690 a otras:mm_topic_interdisciplinary_social_side;
    otras:has_topic_code 8690;
+   otras:is_narrower_than otras:MM_TOPIC_8000;
    otras:has_topic_descriptor "Topic: Interdisciplinary studies with significant socio-economic and side-interest aspects"^^xs:string.
 
 otras:MM_TOPIC_8790 a otras:mm_topic_interdisciplinary_theoretical_side;
    otras:has_topic_code 8790;
+   otras:is_narrower_than otras:MM_TOPIC_8000;
    otras:has_topic_descriptor "Topic: Interdisciplinary studies with significant theoretical and side-interest aspects"^^xs:string.
 
 otras:MM_TOPIC_9000 a otras:mm_topic_side;
    otras:has_topic_code 9000;
+   otras:is_narrower_than otras:MM_TOPIC_0000;
    otras:has_topic_descriptor "Topic: Side interests (general)"^^xs:string.
 
 
@@ -4345,6 +4457,8 @@ otras:R_IS_AT_ONE_NUMERICAL_LEVEL a owl:Restriction;
    owl:onProperty otras:is_at_numerical_level;
    owl:cardinality 1.
 otras:kmk_operator_level rdfs:subClassOf otras:R_IS_AT_ONE_NUMERICAL_LEVEL.
+
+otras:kmk_operator_level owl:oneOf (otras:KMK_LEVEL_I otras:KMK_LEVEL_II otras:KMK_LEVEL_III).
 
 otras:KMK_LEVEL_I a otras:kmk_operator_level;
    otras:is_at_numerical_level 1.
