@@ -1220,9 +1220,9 @@ macro:MARKETPLACE_MARKETPLACE a macro:virtual_marketplace.
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 1.0.0 ###
+### VERSION 1.0.1 ###
 
-### DATED 20TH JUNE 2019 ###
+### DATED 26TH JUNE 2019 ###
 
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -1782,7 +1782,6 @@ osmo:has_resource_label a osmo:dp_workflow_resource;
    rdfs:domain osmo:workflow_entity;
    rdfs:range xs:string;
    rdfs:comment "label to be used, e.g., in graph representations and for other visualization purposes"^^xs:string.
-
 osmo:is_concrete a osmo:dp_workflow_resource;
    rdfs:domain osmo:workflow_resource;
    rdfs:range xs:boolean.
@@ -2995,6 +2994,22 @@ osmo:considers_use_case a osmo:op_workflow_graph;
    rdfs:comment "points to the use case considered by a workflow (sub)graph"^^xs:string;
    rdfs:subPropertyOf osmo:considers, evmpo:has_annotation.
 
+osmo:has_subgraph a osmo:op_workflow_graph, owl:TransitiveProperty;
+   rdfs:domain osmo:workflow_graph;
+   rdfs:range osmo:workflow_graph;
+   rdfs:comment "points to a subgraph, i.e., a graph that is subordinate (to the present graph) by containment and/or instantiation"^^xs:string.
+
+osmo:has_starting_point a osmo:op_workflow_graph;
+   rdfs:domain osmo:workflow_graph;
+   rdfs:range osmo:workflow_node;
+   rdfs:comment "points to the position, or a position, where the workflow execution begins";
+   rdfs:subPropertyOf osmo:has_subgraph, evmpo:has_annotation.
+osmo:has_terminal_point a osmo:op_workflow_graph;
+   rdfs:domain osmo:workflow_graph;
+   rdfs:range osmo:workflow_node;
+   rdfs:comment "points to the position, or a position, where the workflow execution terminates";
+   rdfs:subPropertyOf osmo:has_subgraph, evmpo:has_annotation.
+
 osmo:has_cause a osmo:op_workflow_graph, owl:TransitiveProperty;
    rdfs:domain osmo:workflow_graph;
    rdfs:range osmo:workflow_graph;
@@ -3028,24 +3043,42 @@ osmo:is_linked_to a osmo:op_workflow_graph;
 osmo:is_part_of a osmo:op_workflow_graph, owl:TransitiveProperty;
    rdfs:domain osmo:workflow_graph;
    rdfs:range osmo:concrete_graph;
-   owl:inverseOf osmo:has_subgraph;
+   owl:inverseOf osmo:contains_graph;
    rdfs:comment "[F is_part_of G] if F is a subgraph of graph G"^^xs:string.
 
 osmo:workflow_node a owl:Class;
-   rdfs:subClassOf osmo:workflow_graph;
-   rdfs:comment "workflow node, i.e., a workflow graph that contains exactly one section"^^xs:string.
+   rdfs:subClassOf osmo:workflow_graph, evmpo:annotation;
+   rdfs:comment "workflow node, i.e., a workflow graph that contains exactly one workflow resource"^^xs:string.
 osmo:op_workflow_node a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 osmo:dp_workflow_node a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 osmo:op_workflow_graph rdfs:subClassOf osmo:op_workflow_node.
 osmo:dp_workflow_graph rdfs:subClassOf osmo:dp_workflow_node.
+evmpo:op_annotation rdfs:subClassOf osmo:op_workflow_node.
+evmpo:dp_annotation rdfs:subClassOf osmo:dp_workflow_node.
 
 osmo:R_CONTAINS_ONE_RESOURCE a owl:Restriction;
    rdfs:subClassOf osmo:constrained_entity;
    owl:onProperty osmo:contains;
    owl:cardinality 1.
 osmo:workflow_node rdfs:subClassOf osmo:R_CONTAINS_ONE_RESOURCE.
+
+osmo:logical_node a owl:Class;
+   rdfs:subClassOf osmo:workflow_node;
+   rdfs:comment "logical node, i.e., a workflow node that contains a logical resource"^^xs:string.
+osmo:op_logical_node a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_logical_node a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_workflow_node rdfs:subClassOf osmo:op_logical_node.
+osmo:dp_workflow_node rdfs:subClassOf osmo:dp_logical_node.
+
+osmo:R_CONTAINS_A_LOGICAL_RESOURCE a owl:Restriction;
+   rdfs:subClassOf osmo:constrained_entity;
+   owl:onProperty osmo:contains_logical;
+   owl:someValuesFrom osmo:logical_resource.
+osmo:logical_node rdfs:subClassOf osmo:R_CONTAINS_A_LOGICAL_RESOURCE.
 
 osmo:simulation_workflow a owl:Class;
    rdfs:subClassOf osmo:workflow_graph, osmo:simulation;
@@ -3060,6 +3093,17 @@ osmo:op_simulation rdfs:subClassOf osmo:op_simulation_workflow.
 osmo:dp_simulation rdfs:subClassOf osmo:dp_simulation_workflow.
 
 osmo:simulation_workflow owl:intersectionOf (osmo:workflow_graph osmo:simulation).
+
+osmo:has_simulation_outcome a osmo:op_simulation_workflow;
+   rdfs:domain osmo:simulation_workflow;
+   rdfs:range osmo:logical_node;
+   rdfs:comment "points to a node that contains a logical resource with (all or part of) the end outcome of the simulation workflow"^^xs:string;
+   rdfs:subPropertyOf osmo:has_subgraph, evmpo:has_simulation_annotation.
+osmo:R_HAS_A_SIMULATION_OUTCOME a owl:Restriction;
+   rdfs:subClassOf osmo:constrained_entity;
+   owl:onProperty osmo:has_simulation_outcome;
+   owl:someValuesFrom osmo:logical_node.
+osmo:simulation_workflow rdfs:subClassOf osmo:R_HAS_A_SIMULATION_OUTCOME.
 
 osmo:concrete_graph a owl:Class;
    rdfs:subClassOf osmo:concrete_resource, osmo:workflow_graph;
@@ -3087,20 +3131,15 @@ osmo:contains_section a osmo:op_concrete_graph;
    rdfs:range osmo:section;
    rdfs:subPropertyOf osmo:contains.
 
-osmo:has_subgraph a osmo:op_concrete_graph, owl:TransitiveProperty;
+osmo:contains_graph a osmo:op_concrete_graph, owl:TransitiveProperty;
    rdfs:domain osmo:concrete_graph;
    rdfs:range osmo:workflow_graph;
-   rdfs:subPropertyOf osmo:contains;
+   rdfs:subPropertyOf osmo:contains, osmo:has_subgraph;
    owl:inverseOf osmo:is_part_of.
-osmo:has_virtual_subgraph a osmo:op_concrete_graph;
-   rdfs:domain osmo:concrete_graph;
-   rdfs:range osmo:virtual_graph;
-   rdfs:subPropertyOf osmo:has_subgraph.
-
 osmo:instantiates_graph a osmo:op_concrete_graph;
    rdfs:domain osmo:concrete_graph;
    rdfs:range osmo:virtual_graph;
-   rdfs:subPropertyOf osmo:instantiates.
+   rdfs:subPropertyOf osmo:instantiates, osmo:has_subgraph.
 
 osmo:virtual_graph a owl:Class;
    rdfs:subClassOf osmo:virtual_resource, osmo:workflow_graph;
@@ -3247,18 +3286,10 @@ osmo:has_lrid a osmo:dp_logical_resource;
    rdfs:domain osmo:logical_resource;
    rdfs:range xs:string;
    rdfs:comment "points to the logical resource ID (LRID) associated with the present logical resource; n.b., this ID has technical purposes (for notational and visualization purposes, use osmo:has_logical_label)"^^xs:string.
-osmo:is_initial a osmo:dp_logical_resource;
-   rdfs:domain osmo:logical_resource;
-   rdfs:range xs:boolean;
-   rdfs:comment "states whether this resource indicates the position, or a position, where the workflow execution begins".
 osmo:is_interactive a osmo:dp_logical_resource;
    rdfs:domain osmo:logical_resource;
    rdfs:range xs:boolean;
    rdfs:comment "states whether an external entity (user interaction, or some process not represented in the workflow) has write access to this resource at execution time"^^xs:string.
-osmo:is_terminal a osmo:dp_logical_resource;
-   rdfs:domain osmo:logical_resource;
-   rdfs:range xs:boolean;
-   rdfs:comment "states whether this resource indicates the position, or a position, where the workflow execution terminates".
 
 osmo:has_stored_variable a osmo:op_logical_resource;
    rdfs:domain osmo:logical_resource;
@@ -3415,6 +3446,10 @@ osmo:dp_logical_read_access a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 osmo:op_logical_access rdfs:subClassOf osmo:op_logical_read_access.
 osmo:dp_logical_access rdfs:subClassOf osmo:dp_logical_read_access.
+
+osmo:is_parameterization a osmo:dp_logical_read_access;
+   rdfs:domain osmo:logical_read_access;
+   rdfs:range xs:boolean.
 
 osmo:logical_write_access a owl:Class;
    rdfs:subClassOf osmo:logical_access;
