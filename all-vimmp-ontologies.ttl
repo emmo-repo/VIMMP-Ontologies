@@ -1220,9 +1220,9 @@ macro:MARKETPLACE_MARKETPLACE a macro:virtual_marketplace.
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 1.0.3 ###
+### VERSION 1.0.4 ###
 
-### DATED 7TH JULY 2019 ###
+### DATED 12TH JULY 2019 ###
 
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -1317,6 +1317,9 @@ osmo:has_granularity_level a osmo:op_physical_equation_type;
 osmo:has_pe_type_descriptor a osmo:dp_physical_equation_type;
    rdfs:domain osmo:physical_equation_type;
    rdfs:range xs:string.
+osmo:has_pe_type_id a osmo:dp_physical_equation_type;
+   rdfs:domain osmo:physical_equation_type;
+   rdfs:range xs:string.
 
 osmo:R_HAS_ONE_GRANULARITY_LEVEL a owl:Restriction;
    rdfs:subClassOf osmo:constrained_entity;
@@ -1326,7 +1329,11 @@ osmo:R_HAS_A_PE_TYPE_DESCRIPTOR a owl:Restriction;
    rdfs:subClassOf osmo:constrained_entity;
    owl:onProperty osmo:has_pe_type_descriptor;
    owl:someValuesFrom xs:string.
-osmo:physical_equation_type rdfs:subClassOf osmo:R_HAS_ONE_GRANULARITY_LEVEL, osmo:R_HAS_A_PE_TYPE_DESCRIPTOR.
+osmo:R_HAS_ONE_PE_TYPE_ID a owl:Restriction;
+   rdfs:subClassOf osmo:constrained_entity;
+   owl:onProperty osmo:has_pe_type_id;
+   owl:cardinality 1.
+osmo:physical_equation_type rdfs:subClassOf osmo:R_HAS_ONE_GRANULARITY_LEVEL, osmo:R_HAS_A_PE_TYPE_DESCRIPTOR, osmo:R_HAS_A_PE_TYPE_ID.
 
 osmo:physical_equation_type owl:disjointUnionOf (osmo:pe_type_electronic osmo:pe_type_atomistic osmo:pe_type_mesoscopic osmo:pe_type_continuum).
 
@@ -1347,19 +1354,22 @@ osmo:R_HAS_ELECTRONIC_GRANULARITY_LEVEL a owl:Restriction;
 osmo:pe_type_electronic
    owl:intersectionOf (osmo:physical_equation_type osmo:R_HAS_ELECTRONIC_GRANULARITY_LEVEL);
    owl:disjointUnionOf (
-      osmo:pe_type_electronic_qm_abinitio         # RoMM category 1.1, OSMO PE type E.1
-      osmo:pe_type_electronic_manybody_effective  # RoMM category 1.2, OSMO PE type E.2
-      osmo:pe_type_electronic_time_dependent      # RoMM category 1.3, OSMO PE type E.3
-      osmo:pe_type_electronic_charge_transport    # RoMM category 1.4, OSMO PE type E.4
-      osmo:pe_type_electronic_spin_transport      # RoMM category 1.5, OSMO PE type E.5
+      osmo:pe_type_electronic_qm_abinitio         # RoMM category 1.1, OSMO PE type identifier EL.1
+      osmo:pe_type_electronic_manybody_effective  # RoMM category 1.2, OSMO PE type identifier EL.2
+      osmo:pe_type_electronic_time_dependent      # RoMM category 1.3, OSMO PE type identifier EL.3
+      osmo:pe_type_electronic_charge_transport    # RoMM category 1.4, OSMO PE type identifier EL.4
+      osmo:pe_type_electronic_spin_transport      # RoMM category 1.5, OSMO PE type identifier EL.5
    ).
 
 osmo:pe_type_electronic_qm_abinitio a owl:Class;
    rdfs:subClassOf osmo:pe_type_electronic;
    rdfs:subClassOf [a owl:Restriction;
       owl:onProperty osmo:has_pe_type_descriptor;
-      owl:hasValue "PE type E.1: Ab-initio quantum mechanical (or first principle) model"^^xs:string];
-   rdfs:comment "RoMM model vocabulary category 1.1, OSMO PE type E.1"^^xs:string.
+      owl:hasValue "PE type EL.1: Ab-initio quantum mechanical (or first principle) model"^^xs:string];
+   rdfs:subClassOf [a owl:Restriction;
+      owl:onProperty osmo:has_pe_type_id;
+      owl:hasValue "EL.1"^^xs:string];
+   rdfs:comment "RoMM model vocabulary category 1.1, OSMO PE type EL.1"^^xs:string.
 osmo:op_pe_type_electronic_qm_abinitio a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 osmo:dp_pe_type_electronic_qm_abinitio a owl:Class;
@@ -1371,8 +1381,11 @@ osmo:pe_type_electronic_manybody_effective a owl:Class;
    rdfs:subClassOf osmo:pe_type_electronic;
    rdfs:subClassOf [a owl:Restriction;
       owl:onProperty osmo:has_pe_type_descriptor;
-      owl:hasValue "PE type E.2: Electronic many-body and/or effective Hamiltonian model"^^xs:string];
-   rdfs:comment "RoMM model vocabulary category 1.2, OSMO PE type E.2"^^xs:string.
+      owl:hasValue "PE type EL.2: Electronic many-body and/or effective Hamiltonian model"^^xs:string];
+   rdfs:subClassOf [a owl:Restriction;
+      owl:onProperty osmo:has_pe_type_id;
+      owl:hasValue "EL.2"^^xs:string];
+   rdfs:comment "RoMM model vocabulary category 1.2, OSMO PE type EL.2"^^xs:string.
 osmo:op_pe_type_electronic_manybody_effective a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 osmo:dp_pe_type_electronic_manybody_effective a owl:Class;
@@ -1384,8 +1397,11 @@ osmo:pe_type_electronic_time_dependent a owl:Class;
    rdfs:subClassOf osmo:pe_type_electronic;
    rdfs:subClassOf [a owl:Restriction;
       owl:onProperty osmo:has_pe_type_descriptor;
-      owl:hasValue "PE type E.3: QM model of the response to time-dependent fields"^^xs:string];
-   rdfs:comment "RoMM model vocabulary category 1.3, OSMO PE type E.3"^^xs:string.
+      owl:hasValue "PE type EL.3: QM model of the response to time-dependent fields"^^xs:string];
+   rdfs:subClassOf [a owl:Restriction;
+      owl:onProperty osmo:has_pe_type_id;
+      owl:hasValue "EL.3"^^xs:string];
+   rdfs:comment "RoMM model vocabulary category 1.3, OSMO PE type EL.3"^^xs:string.
 osmo:op_pe_type_electronic_time_dependent a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 osmo:dp_pe_type_electronic_time_dependent a owl:Class;
@@ -1397,8 +1413,11 @@ osmo:pe_type_electronic_charge_transport a owl:Class;
    rdfs:subClassOf osmo:pe_type_electronic;
    rdfs:subClassOf [a owl:Restriction;
       owl:onProperty osmo:has_pe_type_descriptor;
-      owl:hasValue "PE type E.4: Statistical charge transport model"^^xs:string];
-   rdfs:comment "RoMM model vocabulary category 1.4, OSMO PE type E.4"^^xs:string.
+      owl:hasValue "PE type EL.4: Statistical charge transport model"^^xs:string];
+   rdfs:subClassOf [a owl:Restriction;
+      owl:onProperty osmo:has_pe_type_id;
+      owl:hasValue "EL.4"^^xs:string];
+   rdfs:comment "RoMM model vocabulary category 1.4, OSMO PE type EL.4"^^xs:string.
 osmo:op_pe_type_electronic_charge_transport a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 osmo:dp_pe_type_electronic_charge_transport a owl:Class;
@@ -1410,8 +1429,11 @@ osmo:pe_type_electronic_spin_transport a owl:Class;
    rdfs:subClassOf osmo:pe_type_electronic;
    rdfs:subClassOf [a owl:Restriction;
       owl:onProperty osmo:has_pe_type_descriptor;
-      owl:hasValue "PE type E.5: Statistical electron spin transport model"^^xs:string];
-   rdfs:comment "RoMM model vocabulary category 1.5, OSMO PE type E.5"^^xs:string.
+      owl:hasValue "PE type EL.5: Statistical electron spin transport model"^^xs:string];
+   rdfs:subClassOf [a owl:Restriction;
+      owl:onProperty osmo:has_pe_type_id;
+      owl:hasValue "EL.5"^^xs:string];
+   rdfs:comment "RoMM model vocabulary category 1.5, OSMO PE type EL.5"^^xs:string.
 osmo:op_pe_type_electronic_spin_transport a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 osmo:dp_pe_type_electronic_spin_transport a owl:Class;
@@ -1436,12 +1458,12 @@ osmo:R_HAS_ATOMISTIC_GRANULARITY_LEVEL a owl:Restriction;
 osmo:pe_type_atomistic
    owl:intersectionOf (osmo:physical_equation_type osmo:R_HAS_ATOMISTIC_GRANULARITY_LEVEL);
    owl:disjointUnionOf (
-      osmo:pe_type_atomistic_density_functional     # RoMM category 2.1, OSMO PE type A.1
-      osmo:pe_type_atomistic_molecular_statics      # RoMM category 2.2, OSMO PE type A.2
-      osmo:pe_type_atomistic_molecular_dynamics     # RoMM category 2.3, OSMO PE type A.3
-      osmo:pe_type_atomistic_partition_function     # RoMM category 2.4, OSMO PE type A.4
-      osmo:pe_type_atomistic_spin_model             # RoMM category 2.5, OSMO PE type A.5
-      osmo:pe_type_atomistic_statistical_transport  # RoMM categories 2.6 and 2.7, OSMO PE type A.6
+      osmo:pe_type_atomistic_density_functional     # RoMM category 2.1, OSMO PE type identifier A.1
+      osmo:pe_type_atomistic_molecular_statics      # RoMM category 2.2, OSMO PE type identifier A.2
+      osmo:pe_type_atomistic_molecular_dynamics     # RoMM category 2.3, OSMO PE type identifier A.3
+      osmo:pe_type_atomistic_partition_function     # RoMM category 2.4, OSMO PE type identifier A.4
+      osmo:pe_type_atomistic_spin_model             # RoMM category 2.5, OSMO PE type identifier A.5
+      osmo:pe_type_atomistic_statistical_transport  # RoMM categories 2.6 and 2.7, OSMO PE type identifier A.6
    ).
 
 osmo:pe_type_atomistic_density_functional a owl:Class;
@@ -1449,6 +1471,9 @@ osmo:pe_type_atomistic_density_functional a owl:Class;
    rdfs:subClassOf [a owl:Restriction;
       owl:onProperty osmo:has_pe_type_descriptor;
       owl:hasValue "PE type A.1: Classical-mechanical density functional theory (atomistic)"^^xs:string];
+   rdfs:subClassOf [a owl:Restriction;
+      owl:onProperty osmo:has_pe_type_id;
+      owl:hasValue "A.1"^^xs:string];
    rdfs:comment "RoMM model vocabulary category 2.1, OSMO PE type A.1"^^xs:string.
 osmo:op_pe_type_atomistic_density_functional a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
@@ -1462,6 +1487,9 @@ osmo:pe_type_atomistic_molecular_statics a owl:Class;
    rdfs:subClassOf [a owl:Restriction;
       owl:onProperty osmo:has_pe_type_descriptor;
       owl:hasValue "PE type A.2: Molecular statics (atomistic), energy minimization"^^xs:string];
+   rdfs:subClassOf [a owl:Restriction;
+      owl:onProperty osmo:has_pe_type_id;
+      owl:hasValue "A.2"^^xs:string];
    rdfs:comment "RoMM model vocabulary category 2.2, OSMO PE type A.2"^^xs:string.
 osmo:op_pe_type_atomistic_molecular_statics a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
@@ -1475,6 +1503,9 @@ osmo:pe_type_atomistic_molecular_dynamics a owl:Class;
    rdfs:subClassOf [a owl:Restriction;
       owl:onProperty osmo:has_pe_type_descriptor;
       owl:hasValue "PE type A.3: Molecular dynamics (atomistic)"^^xs:string];
+   rdfs:subClassOf [a owl:Restriction;
+      owl:onProperty osmo:has_pe_type_id;
+      owl:hasValue "A.3"^^xs:string];
    rdfs:comment "RoMM model vocabulary category 2.3, OSMO PE type A.3"^^xs:string.
 osmo:op_pe_type_atomistic_molecular_dynamics a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
@@ -1488,6 +1519,9 @@ osmo:pe_type_atomistic_partition_function a owl:Class;
    rdfs:subClassOf [a owl:Restriction;
       owl:onProperty osmo:has_pe_type_descriptor;
       owl:hasValue "PE type A.4: Partition function (atomistic), e.g., for a Monte Carlo solver"^^xs:string];
+   rdfs:subClassOf [a owl:Restriction;
+      owl:onProperty osmo:has_pe_type_id;
+      owl:hasValue "A.4"^^xs:string];
    rdfs:comment "RoMM model vocabulary category 2.4, OSMO PE type A.4"^^xs:string.
 osmo:op_pe_type_atomistic_partition_function a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
@@ -1501,6 +1535,9 @@ osmo:pe_type_atomistic_spin_model a owl:Class;
    rdfs:subClassOf [a owl:Restriction;
       owl:onProperty osmo:has_pe_type_descriptor;
       owl:hasValue "PE type A.5: Atomistic spin model"^^xs:string];
+   rdfs:subClassOf [a owl:Restriction;
+      owl:onProperty osmo:has_pe_type_id;
+      owl:hasValue "A.5"^^xs:string];
    rdfs:comment "RoMM model vocabulary category 2.5, OSMO PE type A.5"^^xs:string.
 osmo:op_pe_type_atomistic_spin_model a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
@@ -1514,6 +1551,9 @@ osmo:pe_type_atomistic_statistical_transport a owl:Class;
    rdfs:subClassOf [a owl:Restriction;
       owl:onProperty osmo:has_pe_type_descriptor;
       owl:hasValue "PE type A.6: Statistical transport model (atomistic)"^^xs:string];
+   rdfs:subClassOf [a owl:Restriction;
+      owl:onProperty osmo:has_pe_type_id;
+      owl:hasValue "A.6"^^xs:string];
    rdfs:comment "RoMM model vocabulary categories 2.6 and 2.7, OSMO PE type A.6"^^xs:string.
 osmo:op_pe_type_atomistic_statistical_transport a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
@@ -1539,12 +1579,12 @@ osmo:R_HAS_MESOSCOPIC_GRANULARITY_LEVEL a owl:Restriction;
 osmo:pe_type_mesoscopic
    owl:intersectionOf (osmo:physical_equation_type osmo:R_HAS_MESOSCOPIC_GRANULARITY_LEVEL);
    owl:disjointUnionOf (
-      osmo:pe_type_mesoscopic_density_functional     # RoMM category 3.1, OSMO PE type M.1
+      osmo:pe_type_mesoscopic_density_functional     # RoMM category 3.1, OSMO PE type identifier M.1
       osmo:pe_type_mesoscopic_molecular_statics      # OSMO PE type M.2
-      osmo:pe_type_mesoscopic_molecular_dynamics     # RoMM category 3.2, OSMO PE type M.3
-      osmo:pe_type_mesoscopic_partition_function     # RoMM category 3.3, OSMO PE type M.4
-      osmo:pe_type_mesoscopic_micromagnetism         # RoMM category 3.4, OSMO PE type M.5
-      osmo:pe_type_mesoscopic_statistical_transport  # RoMM category 3.5, OSMO PE type M.6
+      osmo:pe_type_mesoscopic_molecular_dynamics     # RoMM category 3.2, OSMO PE type identifier M.3
+      osmo:pe_type_mesoscopic_partition_function     # RoMM category 3.3, OSMO PE type identifier M.4
+      osmo:pe_type_mesoscopic_micromagnetism         # RoMM category 3.4, OSMO PE type identifier M.5
+      osmo:pe_type_mesoscopic_statistical_transport  # RoMM category 3.5, OSMO PE type identifier M.6
    ).
 
 osmo:pe_type_mesoscopic_density_functional a owl:Class;
@@ -1552,6 +1592,9 @@ osmo:pe_type_mesoscopic_density_functional a owl:Class;
    rdfs:subClassOf [a owl:Restriction;
       owl:onProperty osmo:has_pe_type_descriptor;
       owl:hasValue "PE type M.1: Classical-mechanical density functional theory (mesoscopic)"^^xs:string];
+   rdfs:subClassOf [a owl:Restriction;
+      owl:onProperty osmo:has_pe_type_id;
+      owl:hasValue "M.1"^^xs:string];
    rdfs:comment "RoMM model vocabulary category 3.1, OSMO PE type M.1"^^xs:string.
 osmo:op_pe_type_mesoscopic_density_functional a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
@@ -1565,6 +1608,9 @@ osmo:pe_type_mesoscopic_molecular_statics a owl:Class;
    rdfs:subClassOf [a owl:Restriction;
       owl:onProperty osmo:has_pe_type_descriptor;
       owl:hasValue "PE type M.2: Molecular statics (mesoscopic), i.e., energy minimization"^^xs:string];
+   rdfs:subClassOf [a owl:Restriction;
+      owl:onProperty osmo:has_pe_type_id;
+      owl:hasValue "M.2"^^xs:string];
    rdfs:comment "OSMO PE type M.2"^^xs:string.
 osmo:op_pe_type_mesoscopic_molecular_statics a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
@@ -1578,6 +1624,9 @@ osmo:pe_type_mesoscopic_molecular_dynamics a owl:Class;
    rdfs:subClassOf [a owl:Restriction;
       owl:onProperty osmo:has_pe_type_descriptor;
       owl:hasValue "PE type M.3: Molecular dynamics (mesoscopic), i.e., coarse-grained or united-atom modelling"^^xs:string];
+   rdfs:subClassOf [a owl:Restriction;
+      owl:onProperty osmo:has_pe_type_id;
+      owl:hasValue "M.3"^^xs:string];
    rdfs:comment "RoMM model vocabulary category 3.2, OSMO PE type M.3"^^xs:string.
 osmo:op_pe_type_mesoscopic_molecular_dynamics a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
@@ -1591,6 +1640,9 @@ osmo:pe_type_mesoscopic_partition_function a owl:Class;
    rdfs:subClassOf [a owl:Restriction;
       owl:onProperty osmo:has_pe_type_descriptor;
       owl:hasValue "PE type M.4: Partition function (mesoscopic), e.g., for a Monte Carlo solver"^^xs:string];
+   rdfs:subClassOf [a owl:Restriction;
+      owl:onProperty osmo:has_pe_type_id;
+      owl:hasValue "M.4"^^xs:string];
    rdfs:comment "RoMM model vocabulary category 3.3, OSMO PE type M.4"^^xs:string.
 osmo:op_pe_type_mesoscopic_partition_function a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
@@ -1604,6 +1656,9 @@ osmo:pe_type_mesoscopic_micromagnetism a owl:Class;
    rdfs:subClassOf [a owl:Restriction;
       owl:onProperty osmo:has_pe_type_descriptor;
       owl:hasValue "PE type M.5: Micromagnetism model"^^xs:string];
+   rdfs:subClassOf [a owl:Restriction;
+      owl:onProperty osmo:has_pe_type_id;
+      owl:hasValue "M.5"^^xs:string];
    rdfs:comment "RoMM model vocabulary category 3.4, OSMO PE type M.5"^^xs:string.
 osmo:op_pe_type_mesoscopic_micromagnetism a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
@@ -1617,6 +1672,9 @@ osmo:pe_type_mesoscopic_statistical_transport a owl:Class;
    rdfs:subClassOf [a owl:Restriction;
       owl:onProperty osmo:has_pe_type_descriptor;
       owl:hasValue "PE type M.6: Statistical transport model (mesoscopic)"^^xs:string];
+   rdfs:subClassOf [a owl:Restriction;
+      owl:onProperty osmo:has_pe_type_id;
+      owl:hasValue "M.6"^^xs:string];
    rdfs:comment "RoMM model vocabulary categories 3.5, OSMO PE type M.6"^^xs:string.
 osmo:op_pe_type_mesoscopic_statistical_transport a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
@@ -1642,22 +1700,25 @@ osmo:R_HAS_CONTINUUM_GRANULARITY_LEVEL a owl:Restriction;
 osmo:pe_type_continuum
    owl:intersectionOf (osmo:physical_equation_type osmo:R_HAS_CONTINUUM_GRANULARITY_LEVEL);
    owl:disjointUnionOf (
-      osmo:pe_type_continuum_solid_mechanics    # RoMM category 4.1, OSMO PE type C.1
-      osmo:pe_type_continuum_fluid_mechanics    # RoMM category 4.2, OSMO PE type C.2
-      osmo:pe_type_continuum_heat_transfer      # RoMM category 4.3, OSMO PE type C.3
-      osmo:pe_type_continuum_phase_field        # RoMM category 4.4.2, OSMO PE type C.4
-      osmo:pe_type_continuum_thermodynamics     # RoMM category 4.4.1, OSMO PE type C.5
-      osmo:pe_type_continuum_reaction_kinetics  # RoMM category 4.5, OSMO PE type C.6
-      osmo:pe_type_continuum_electromagnetism   # RoMM category 4.6, OSMO PE type C.7
-      osmo:pe_type_continuum_process_model      # RoMM category 4.7, OSMO PE type C.8
+      osmo:pe_type_continuum_solid_mechanics    # RoMM category 4.1, OSMO PE type identifier CO.1
+      osmo:pe_type_continuum_fluid_mechanics    # RoMM category 4.2, OSMO PE type identifier CO.2
+      osmo:pe_type_continuum_heat_transfer      # RoMM category 4.3, OSMO PE type identifier CO.3
+      osmo:pe_type_continuum_phase_field        # RoMM category 4.4.2, OSMO PE type identifier CO.4
+      osmo:pe_type_continuum_thermodynamics     # RoMM category 4.4.1, OSMO PE type identifier CO.5
+      osmo:pe_type_continuum_reaction_kinetics  # RoMM category 4.5, OSMO PE type identifier CO.6
+      osmo:pe_type_continuum_electromagnetism   # RoMM category 4.6, OSMO PE type identifier CO.7
+      osmo:pe_type_continuum_process_model      # RoMM category 4.7, OSMO PE type identifier CO.8
    ).
 
 osmo:pe_type_continuum_solid_mechanics a owl:Class;
    rdfs:subClassOf osmo:pe_type_continuum;
    rdfs:subClassOf [a owl:Restriction;
       owl:onProperty osmo:has_pe_type_descriptor;
-      owl:hasValue "PE type C.1: Continuum solid mechanics"^^xs:string];
-   rdfs:comment "RoMM model vocabulary category 4.1, OSMO PE type C.1"^^xs:string.
+      owl:hasValue "PE type CO.1: Continuum solid mechanics"^^xs:string];
+   rdfs:subClassOf [a owl:Restriction;
+      owl:onProperty osmo:has_pe_type_id;
+      owl:hasValue "CO.1"^^xs:string];
+   rdfs:comment "RoMM model vocabulary category 4.1, OSMO PE type CO.1"^^xs:string.
 osmo:op_pe_type_continuum_solid_mechanics a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 osmo:dp_pe_type_continuum_solid_mechanics a owl:Class;
@@ -1669,8 +1730,11 @@ osmo:pe_type_continuum_fluid_mechanics a owl:Class;
    rdfs:subClassOf osmo:pe_type_continuum;
    rdfs:subClassOf [a owl:Restriction;
       owl:onProperty osmo:has_pe_type_descriptor;
-      owl:hasValue "PE type C.2: Continuum fluid mechanics"^^xs:string];
-   rdfs:comment "RoMM model vocabulary category 4.2, OSMO PE type C.2"^^xs:string.
+      owl:hasValue "PE type CO.2: Continuum fluid mechanics"^^xs:string];
+   rdfs:subClassOf [a owl:Restriction;
+      owl:onProperty osmo:has_pe_type_id;
+      owl:hasValue "CO.2"^^xs:string];
+   rdfs:comment "RoMM model vocabulary category 4.2, OSMO PE type CO.2"^^xs:string.
 osmo:op_pe_type_continuum_fluid_mechanics a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 osmo:dp_pe_type_continuum_fluid_mechanics a owl:Class;
@@ -1682,8 +1746,11 @@ osmo:pe_type_continuum_heat_transfer a owl:Class;
    rdfs:subClassOf osmo:pe_type_continuum;
    rdfs:subClassOf [a owl:Restriction;
       owl:onProperty osmo:has_pe_type_descriptor;
-      owl:hasValue "PE type C.3: Continuum modelling of heat transfer and thermomechanics"^^xs:string];
-   rdfs:comment "RoMM model vocabulary category 4.3, OSMO PE type C.3"^^xs:string.
+      owl:hasValue "PE type CO.3: Continuum modelling of heat transfer and thermomechanics"^^xs:string];
+   rdfs:subClassOf [a owl:Restriction;
+      owl:onProperty osmo:has_pe_type_id;
+      owl:hasValue "CO.3"^^xs:string];
+   rdfs:comment "RoMM model vocabulary category 4.3, OSMO PE type CO.3"^^xs:string.
 osmo:op_pe_type_continuum_heat_transfer a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 osmo:dp_pe_type_continuum_heat_transfer a owl:Class;
@@ -1695,8 +1762,11 @@ osmo:pe_type_continuum_phase_field a owl:Class;
    rdfs:subClassOf osmo:pe_type_continuum;
    rdfs:subClassOf [a owl:Restriction;
       owl:onProperty osmo:has_pe_type_descriptor;
-      owl:hasValue "PE type C.4: Phase field model or continuum density gradient theory"^^xs:string];
-   rdfs:comment "RoMM model vocabulary category 4.4.2, OSMO PE type C.4"^^xs:string.
+      owl:hasValue "PE type CO.4: Phase field model or continuum density gradient theory"^^xs:string];
+   rdfs:subClassOf [a owl:Restriction;
+      owl:onProperty osmo:has_pe_type_id;
+      owl:hasValue "CO.4"^^xs:string];
+   rdfs:comment "RoMM model vocabulary category 4.4.2, OSMO PE type CO.4"^^xs:string.
 osmo:op_pe_type_continuum_phase_field a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 osmo:dp_pe_type_continuum_phase_field a owl:Class;
@@ -1708,8 +1778,11 @@ osmo:pe_type_continuum_thermodynamics a owl:Class;
    rdfs:subClassOf osmo:pe_type_continuum;
    rdfs:subClassOf [a owl:Restriction;
       owl:onProperty osmo:has_pe_type_descriptor;
-      owl:hasValue "PE type C.5: Continuum thermodynamics"^^xs:string];
-   rdfs:comment "RoMM model vocabulary category 4.4.1, OSMO PE type C.5"^^xs:string.
+      owl:hasValue "PE type CO.5: Continuum thermodynamics"^^xs:string];
+   rdfs:subClassOf [a owl:Restriction;
+      owl:onProperty osmo:has_pe_type_id;
+      owl:hasValue "CO.5"^^xs:string];
+   rdfs:comment "RoMM model vocabulary category 4.4.1, OSMO PE type CO.5"^^xs:string.
 osmo:op_pe_type_continuum_thermodynamics a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 osmo:dp_pe_type_continuum_thermodynamics a owl:Class;
@@ -1721,8 +1794,11 @@ osmo:pe_type_continuum_reaction_kinetics a owl:Class;
    rdfs:subClassOf osmo:pe_type_continuum;
    rdfs:subClassOf [a owl:Restriction;
       owl:onProperty osmo:has_pe_type_descriptor;
-      owl:hasValue "OSMO PE type C.6: Continuum modelling of chemical reaction kinetics"^^xs:string];
-   rdfs:comment "RoMM model vocabulary category 4.5, OSMO PE type C.6"^^xs:string.
+      owl:hasValue "OSMO PE type CO.6: Continuum modelling of chemical reaction kinetics"^^xs:string];
+   rdfs:subClassOf [a owl:Restriction;
+      owl:onProperty osmo:has_pe_type_id;
+      owl:hasValue "CO.6"^^xs:string];
+   rdfs:comment "RoMM model vocabulary category 4.5, OSMO PE type CO.6"^^xs:string.
 osmo:op_pe_type_continuum_reaction_kinetics a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 osmo:dp_pe_type_continuum_reaction_kinetics a owl:Class;
@@ -1734,8 +1810,11 @@ osmo:pe_type_continuum_electromagnetism a owl:Class;
    rdfs:subClassOf osmo:pe_type_continuum;
    rdfs:subClassOf [a owl:Restriction;
       owl:onProperty osmo:has_pe_type_descriptor;
-      owl:hasValue "PE type C.7: Continuum electromagnetism model (including optics, magnetism, etc.)"^^xs:string];
-   rdfs:comment "RoMM model vocabulary category 4.6, OSMO PE type C.7"^^xs:string.
+      owl:hasValue "PE type CO.7: Continuum electromagnetism model (including optics, magnetism, etc.)"^^xs:string];
+   rdfs:subClassOf [a owl:Restriction;
+      owl:onProperty osmo:has_pe_type_id;
+      owl:hasValue "CO.7"^^xs:string];
+   rdfs:comment "RoMM model vocabulary category 4.6, OSMO PE type CO.7"^^xs:string.
 osmo:op_pe_type_continuum_electromagnetism a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 osmo:dp_pe_type_continuum_electromagnetism a owl:Class;
@@ -1747,8 +1826,11 @@ osmo:pe_type_continuum_process_model a owl:Class;
    rdfs:subClassOf osmo:pe_type_continuum;
    rdfs:subClassOf [a owl:Restriction;
       owl:onProperty osmo:has_pe_type_descriptor;
-      owl:hasValue "PE type C.8: Continuum process model (including devices and components of chemical/mechanical processes, flow-chart models, etc.)"^^xs:string];
-   rdfs:comment "RoMM model vocabulary category 4.7, OSMO PE type C.8"^^xs:string.
+      owl:hasValue "PE type CO.8: Continuum process model (including devices and components of chemical/mechanical processes, flow-chart models, etc.)"^^xs:string];
+   rdfs:subClassOf [a owl:Restriction;
+      owl:onProperty osmo:has_pe_type_id;
+      owl:hasValue "CO.8"^^xs:string];
+   rdfs:comment "RoMM model vocabulary category 4.7, OSMO PE type CO.8"^^xs:string.
 osmo:op_pe_type_continuum_process_model a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 osmo:dp_pe_type_continuum_process_model a owl:Class;
