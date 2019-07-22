@@ -1,0 +1,365 @@
+
+### VIMMP VALIDATION ONTOLOGY (VIVO) ###
+
+### VERSION 0.1.15 ###
+
+### DATED 22ND JULY 2019 ###
+
+@prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
+
+@prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
+@prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix qudt: <http://qudt.org/schema/qudt#>.
+@prefix quq: <http://purl.oclc.org/NET/ssnx/qu/quantity#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xs: <http://www.w3.org/2001/XMLSchema#>.
+
+<http://www.vimmp.eu/semantics/vivo/vivo.ttl#> a owl:Ontology.
+
+vivo:validation_entity a owl:Class;
+   rdfs:comment "validation entity, i.e., an entity related to validation"^^xs:string;
+   rdfs:subClassOf evmpo:marketplace_related_entity.
+vivo:op_validation_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vivo:dp_validation_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_marketplace_related_entity rdfs:subClassOf vivo:op_validation_entity.
+evmpo:dp_marketplace_related_entity rdfs:subClassOf vivo:dp_validation_entity.
+
+vivo:assessment a owl:Class;
+   rdfs:subClassOf evmpo:paradigmatic_entity;
+   owl:equivalentClass evmpo:assessment.
+vivo:op_assessment a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty;
+   owl:equivalentClass evmpo:op_assessment.
+vivo:dp_assessment a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty;
+   owl:equivalentClass evmpo:dp_assessment.
+evmpo:op_paradigmatic_entity rdfs:subClassOf vivo:op_assessment.
+evmpo:dp_paradigmatic_entity rdfs:subClassOf vivo:dp_assessment.
+
+vivo:property a owl:Class;
+   rdfs:subClassOf evmpo:paradigmatic_entity;
+   owl:equivalentClass evmpo:property;
+   rdfs:comment "property as defined by the EVMPO"^^xs:string.
+vivo:op_property a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty;
+   owl:equivalentClass evmpo:op_property.
+vivo:dp_property a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty;
+   owl:equivalentClass evmpo:dp_property.
+evmpo:op_paradigmatic_entity rdfs:subClassOf vivo:op_property.
+evmpo:dp_paradigmatic_entity rdfs:subClassOf vivo:dp_property.
+
+
+vivo:endorsement_entity a owl:Class;
+   rdfs:subClassOf vivo:validation_entity.
+vivo:op_endorsement_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vivo:dp_endorsement_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vivo:op_validation_entity rdfs:subClassOf vivo:op_endorsement_entity.
+vivo:dp_validation_entity rdfs:subClassOf vivo:dp_endorsement_entity.
+
+vivo:endorsement_assessment a owl:Class;
+   rdfs:subClassOf vivo:endorsement_entity, vivo:assessment;
+   owl:equivalentClass evmpo:endorsement_assessment.
+vivo:op_endorsement_assessment a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty;
+   owl:equivalentClass evmpo:op_endorsement_assessment.
+vivo:dp_endorsement_assessment a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty;
+   owl:equivalentClass evmpo:dp_endorsement_assessment.
+vivo:op_endorsement_entity rdfs:subClassOf vivo:op_endorsement_assessment.
+vivo:dp_endorsement_entity rdfs:subClassOf vivo:dp_endorsement_assessment.
+vivo:op_assessment rdfs:subClassOf vivo:op_endorsement_assessment.
+vivo:dp_assessment rdfs:subClassOf vivo:dp_endorsement_assessment.
+
+vivo:has_text_content a vivo:dp_endorsement_assessment;
+   rdfs:domain vivo:endorsement_assessment;
+   rdfs:range xs:string.
+vivo:has_stars a vivo:dp_endorsement_assessment;
+   rdfs:domain vivo:endorsement_assessment;
+   rdfs:range xs:nonNegativeInteger.
+
+vivo:requirement_entity a owl:Class;
+   rdfs:subClassOf vivo:validation_entity.
+vivo:op_requirement_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vivo:dp_requirement_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vivo:op_validation_entity rdfs:subClassOf vivo:op_requirement_entity.
+vivo:dp_validation_entity rdfs:subClassOf vivo:dp_requirement_entity.
+
+vivo:requirement_assessment a owl:Class;
+   rdfs:subClassOf vivo:requirement_entity, vivo:assessment;
+   owl:equivalentClass evmpo:requirement_assessment.
+vivo:op_requirement_assessment a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty;
+   owl:equivalentClass evmpo:op_requirement_assessment.
+vivo:dp_requirement_assessment a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty;
+   owl:equivalentClass evmpo:dp_requirement_assessment.
+vivo:op_requirement_entity rdfs:subClassOf vivo:op_requirement_assessment.
+vivo:dp_requirement_entity rdfs:subClassOf vivo:dp_requirement_assessment.
+vivo:op_assessment rdfs:subClassOf vivo:op_requirement_assessment.
+vivo:dp_assessment rdfs:subClassOf vivo:dp_requirement_assessment.
+
+vivo:accuracy_entity a owl:Class;
+   rdfs:subClassOf vivo:validation_entity.
+vivo:op_accuracy_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vivo:dp_accuracy_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vivo:op_validation_entity rdfs:subClassOf vivo:op_accuracy_entity.
+vivo:dp_validation_entity rdfs:subClassOf vivo:dp_accuracy_entity.
+
+vivo:accuracy_assessment a owl:Class;
+   rdfs:subClassOf vivo:accuracy_entity, vivo:assessment;
+   owl:equivalentClass evmpo:accuracy_assessment.
+vivo:op_accuracy_assessment a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty;
+   owl:equivalentClass evmpo:op_accuracy_assessment.
+vivo:dp_accuracy_assessment a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty;
+   owl:equivalentClass evmpo:dp_accuracy_assessment.
+vivo:op_accuracy_entity rdfs:subClassOf vivo:op_accuracy_assessment.
+vivo:dp_accuracy_entity rdfs:subClassOf vivo:dp_accuracy_assessment.
+vivo:op_assessment rdfs:subClassOf vivo:op_accuracy_assessment.
+vivo:dp_assessment rdfs:subClassOf vivo:dp_accuracy_assessment.
+
+
+vivo:has_qualification a vivo:op_accuracy_assessment;
+   rdfs:domain vivo:accuracy_assessment;
+   rdfs:range vivo:qualification;
+   rdfs:subPropertyOf evmpo:has_assessment_annotation.
+vivo:has_confidence a vivo:op_accuracy_assessment;
+   rdfs:domain vivo:accuracy_assessment;
+   rdfs:range vivo:confidence;
+   rdfs:subPropertyOf evmpo:has_assessment_annotation.
+vivo:has_content a vivo:op_accuracy_assessment;
+   rdfs:domain vivo:accuracy_assessment;
+   rdfs:range vivo:assertion.
+
+
+vivo:qualification a owl:Class;
+   rdfs:subClassOf evmpo:annotation.
+vivo:op_qualification a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vivo:dp_qualification a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_annotation rdfs:subClassOf vivo:op_qualification.
+evmpo:dp_annotation rdfs:subClassOf vivo:dp_qualification.
+
+vivo:EXPECTATION a vivo:qualification.
+vivo:UNSPECIFIED a vivo:qualification.
+
+vivo:quantification a owl:Class;
+   rdfs:subClassOf vivo:qualification.
+vivo:op_quantification a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vivo:dp_quantification a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vivo:op_qualification rdfs:subClassOf vivo:op_quantification.
+vivo:dp_qualification rdfs:subClassOf vivo:dp_quantification.
+
+vivo:is_relative_rank a vivo:dp_quantification, owl:FunctionalProperty;
+   rdfs:domain vivo:quantification;
+   rdfs:range xs:decimal.
+vivo:MEDIAN_CASE a vivo:quantification;
+   vivo:is_relative_rank 0.5.
+
+vivo:scalar_order_quantification a owl:Class;
+   rdfs:subClassOf vivo:quantification.
+vivo:HIGHEST_CASE a vivo:scalar_order_quantification;
+   vivo:is_relative_rank 1.0.
+vivo:LOWEST_CASE a vivo:scalar_order_quantification;
+   vivo:is_relative_rank 0.0.
+
+vivo:judgement_order_quantification a owl:Class;
+   rdfs:subClassOf vivo:quantification.
+vivo:BEST_CASE a vivo:judgement_order_quantification;
+   vivo:is_relative_rank 1.0.
+vivo:WORST_CASE a vivo:judgement_order_quantification;
+   vivo:is_relative_rank 0.0.
+
+
+vivo:confidence a owl:Class;
+   rdfs:subClassOf evmpo:annotation.
+vivo:op_confidence a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vivo:dp_confidence a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_annotation rdfs:subClassOf vivo:op_confidence.
+evmpo:dp_annotation rdfs:subClassOf vivo:dp_confidence.
+
+vivo:ESTIMATE_FROM_CORRELATION a vivo:confidence.
+vivo:ESTIMATE_FROM_EXPERIENCE a vivo:confidence.
+vivo:STATEMENT_OF_BELIEF a vivo:confidence.
+vivo:STATEMENT_OF_KNOWLEDGE a vivo:confidence.
+
+vivo:data_item a owl:Class;
+   rdfs:subClassOf evmpo:information_content_entity;
+   owl:equivalentClass evmpo:data_item.
+vivo:op_data_item a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty;
+   owl:equivalentClass evmpo:op_data_item.
+vivo:dp_data_item a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty;
+   owl:equivalentClass evmpo:dp_data_item.
+evmpo:op_information_content_entity rdfs:subClassOf vivo:op_data_item.
+evmpo:dp_information_content_entity rdfs:subClassOf vivo:dp_data_item.
+
+vivo:assertion a owl:Class;
+   rdfs:subClassOf vivo:data_item.
+vivo:op_assertion a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vivo:dp_assertion a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vivo:op_data_item rdfs:subClassOf vivo:op_assertion.
+vivo:dp_data_item rdfs:subClassOf vivo:dp_assertion.
+
+vivo:asserts_magnitude a vivo:dp_assertion, owl:FunctionalProperty;
+   rdfs:domain vivo:assertion;
+   rdfs:range xs:decimal.
+
+
+vivo:requirement_assertion a owl:Class;
+   rdfs:subClassOf vivo:assertion, vivo:requirement_entity.
+vivo:op_requirement_assertion a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vivo:dp_requirement_assertion a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vivo:op_assertion rdfs:subClassOf vivo:op_requirement_assertion.
+vivo:dp_assertion rdfs:subClassOf vivo:dp_requirement_assertion.
+vivo:op_requirement_entity rdfs:subClassOf vivo:op_requirement_assertion.
+vivo:dp_requirement_entity rdfs:subClassOf vivo:dp_requirement_assertion.
+
+vivo:has_requirement_type a vivo:op_requirement_assertion, owl:FunctionalProperty;
+   rdfs:domain vivo:requirement_assertion;
+   rdfs:range vivo:requirement_type;
+   rdfs:subPropertyOf evmpo:has_information_content_entity_annotation.
+vivo:has_requirement_scope a vivo:op_requirement_assertion, owl:FunctionalProperty;
+   rdfs:domain vivo:requirement_assertion;
+   rdfs:range vivo:requirement_scope;
+   rdfs:subPropertyOf evmpo:has_information_content_entity_annotation.
+
+vivo:requirement_type a owl:Class;
+   rdfs:subClassOf vivo:requirement_entity, evmpo:annotation.
+
+vivo:REQUIRED_CORE_HOUR a vivo:requirement_type.
+vivo:REQUIRED_IO_CAPACITY_MEGABYTE a vivo:requirement_type.
+vivo:REQUIRED_MEMORY_MEGABYTE a vivo:requirement_type.
+vivo:REQUIRED_RUNTIME_HOUR a vivo:requirement_type.
+
+vivo:requirement_scope a owl:Class;
+   rdfs:subClassOf vivo:requirement_entity, evmpo:annotation.
+
+vivo:REQUIRED_OVERALL a vivo:requirement_scope.
+vivo:REQUIRED_PER_DATA_POINT a vivo:requirement_scope.
+vivo:REQUIRED_PER_SIMULATION_RUN a vivo:requirement_scope.
+vivo:REQUIRED_PER_SIMULATED_NANOSECOND a vivo:requirement_scope.
+
+
+vivo:physical_property a owl:Class;
+   rdfs:subClassOf vivo:property, osmo:logical_variable, evmpo:material_property;
+   rdfs:comment "thermodynamic or mechanical behaviour of a material (referring either to the real material itself or a model thereof)"^^xs:string.
+vivo:op_physical_property a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vivo:dp_physical_property a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vivo:op_property rdfs:subClassOf vivo:op_physical_property.
+vivo:dp_property rdfs:subClassOf vivo:dp_physical_property.
+osmo:op_logical_variable rdfs:subClassOf vivo:op_physical_property.
+osmo:dp_logical_variable rdfs:subClassOf vivo:dp_physical_property.
+evmpo:op_material_property rdfs:subClassOf vivo:op_physical_property.
+evmpo:dp_material_property rdfs:subClassOf vivo:dp_physical_property.
+
+vivo:is_quantity_kind a vivo:op_physical_property, owl:FunctionalProperty;
+   rdfs:domain vivo:physical_property;
+   rdfs:range quq:QuantityKind;
+   rdfs:comment "points to the physical property characterization following QUDT"^^xs:string.
+
+vivo:physical_property_information a owl:Class;
+   rdfs:subClassOf vivo:data_item;
+   rdfs:comment "physical property information, i.e., a condition/datum referring to a physical (thermodynamic or mechanical) property"^^xs:string.
+vivo:op_physical_property_information a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vivo:dp_physical_property_information a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vivo:op_data_item rdfs:subClassOf vivo:op_physical_property_information.
+vivo:dp_data_item rdfs:subClassOf vivo:dp_physical_property_information.
+
+vivo:has_error_statement a vivo:op_physical_property_information;
+   rdfs:domain vivo:physical_property_information;
+   rdfs:range vivo:deviation_assertion.
+vivo:has_given_property a vivo:op_physical_property_information;
+   rdfs:domain vivo:physical_property_information;
+   rdfs:range vivo:physical_property.
+vivo:has_lower_bound a vivo:dp_physical_property_information;
+   rdfs:domain vivo:physical_property_information;
+   rdfs:range xs:decimal.
+vivo:has_upper_bound a vivo:dp_physical_property_information;
+   rdfs:domain vivo:physical_property_information;
+   rdfs:range xs:decimal.
+vivo:has_value a vivo:dp_physical_property_information, owl:FunctionalProperty;
+   rdfs:domain vivo:physical_property_information;
+   rdfs:range xs:decimal.
+vivo:is_given_in a vivo:op_physical_property_information, owl:FunctionalProperty;
+   rdfs:domain vivo:physical_property_information;
+   rdfs:range qudt:DecimalScaledUnit.
+
+vivo:property_assertion a owl:Class;
+   rdfs:subClassOf vivo:assertion, vivo:accuracy_entity.
+vivo:op_property_assertion a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vivo:dp_property_assertion a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vivo:op_assertion rdfs:subClassOf vivo:op_property_assertion.
+vivo:dp_assertion rdfs:subClassOf vivo:dp_property_assertion.
+vivo:op_accuracy_entity rdfs:subClassOf vivo:op_property_assertion.
+vivo:dp_accuracy_entity rdfs:subClassOf vivo:dp_property_assertion.
+
+vivo:refers_to_material a vivo:op_property_assertion, owl:FunctionalProperty;
+   rdfs:domain vivo:property_assertion;
+   rdfs:range evmpo:material.
+vivo:refers_to_property a vivo:op_property_assertion, owl:FunctionalProperty;
+   rdfs:domain vivo:property_assertion;
+   rdfs:range vivo:physical_property.
+
+vivo:absolute_assertion a owl:Class;
+   rdfs:subClassOf vivo:property_assertion.
+vivo:op_absolute_assertion a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vivo:dp_absolute_assertion a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vivo:op_property_assertion rdfs:subClassOf vivo:op_absolute_assertion.
+vivo:dp_property_assertion rdfs:subClassOf vivo:dp_absolute_assertion.
+
+vivo:has_unit a vivo:op_absolute_assertion, owl:FunctionalProperty;
+   rdfs:domain vivo:absolute_assertion;
+   rdfs:range qudt:DecimalScaledUnit.
+
+vivo:deviation_assertion a owl:Class;
+   rdfs:subClassOf vivo:property_assertion;
+   owl:equivalentClass osmo:deviation_assertion;
+   rdfs:comment "deviation assertion, i.e., statement on an uncertainty, error, or deviation from the most accurate possible value"^^xs:string.
+vivo:op_deviation_assertion a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vivo:dp_deviation_assertion a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vivo:op_property_assertion rdfs:subClassOf vivo:op_deviation_assertion.
+vivo:dp_property_assertion rdfs:subClassOf vivo:dp_deviation_assertion.
+osmo:op_deviation_assertion owl:equivalentClass vivo:op_deviation_assertion.
+osmo:dp_deviation_assertion owl:equivalentClass vivo:dp_deviation_assertion.
+
+vivo:magnitude_assertion a owl:Class;
+   rdfs:subClassOf vivo:absolute_assertion.
+
+vivo:absolute_deviation_assertion a owl:Class;
+   rdfs:subClassOf vivo:absolute_assertion, vivo:deviation_assertion.
+vivo:relative_deviation_assertion a owl:Class;
+   rdfs:subClassOf vivo:deviation_assertion.
+
