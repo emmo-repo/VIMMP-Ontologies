@@ -1,9 +1,9 @@
 
 ### VIMMP VALIDATION ONTOLOGY (VIVO) ###
 
-### VERSION 0.1.14 ###
+### VERSION 0.1.15 ###
 
-### DATED 16TH JUNE 2019 ###
+### DATED 22ND JULY 2019 ###
 
 @prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
 
@@ -343,7 +343,17 @@ vivo:has_unit a vivo:op_absolute_assertion, owl:FunctionalProperty;
    rdfs:range qudt:DecimalScaledUnit.
 
 vivo:deviation_assertion a owl:Class;
-   rdfs:subClassOf vivo:property_assertion.
+   rdfs:subClassOf vivo:property_assertion;
+   owl:equivalentClass osmo:deviation_assertion;
+   rdfs:comment "deviation assertion, i.e., statement on an uncertainty, error, or deviation from the most accurate possible value"^^xs:string.
+vivo:op_deviation_assertion a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vivo:dp_deviation_assertion a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vivo:op_property_assertion rdfs:subClassOf vivo:op_deviation_assertion.
+vivo:dp_property_assertion rdfs:subClassOf vivo:dp_deviation_assertion.
+osmo:op_deviation_assertion owl:equivalentClass vivo:op_deviation_assertion.
+osmo:dp_deviation_assertion owl:equivalentClass vivo:dp_deviation_assertion.
 
 vivo:magnitude_assertion a owl:Class;
    rdfs:subClassOf vivo:absolute_assertion.
