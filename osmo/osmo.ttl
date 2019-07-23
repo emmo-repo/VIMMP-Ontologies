@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 1.0.4 ###
+### VERSION 1.0.5 ###
 
-### DATED 12TH JULY 2019 ###
+### DATED 22ND JULY 2019 ###
 
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -14,6 +14,7 @@
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix viso: <http://www.vimmp.eu/semantics/viso/viso-general.ttl#>.
 @prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
@@ -114,7 +115,7 @@ osmo:R_HAS_ONE_PE_TYPE_ID a owl:Restriction;
    rdfs:subClassOf osmo:constrained_entity;
    owl:onProperty osmo:has_pe_type_id;
    owl:cardinality 1.
-osmo:physical_equation_type rdfs:subClassOf osmo:R_HAS_ONE_GRANULARITY_LEVEL, osmo:R_HAS_A_PE_TYPE_DESCRIPTOR, osmo:R_HAS_A_PE_TYPE_ID.
+osmo:physical_equation_type rdfs:subClassOf osmo:R_HAS_ONE_GRANULARITY_LEVEL, osmo:R_HAS_A_PE_TYPE_DESCRIPTOR, osmo:R_HAS_ONE_PE_TYPE_ID.
 
 osmo:physical_equation_type owl:disjointUnionOf (osmo:pe_type_electronic osmo:pe_type_atomistic osmo:pe_type_mesoscopic osmo:pe_type_continuum).
 
@@ -792,17 +793,17 @@ osmo:has_output a osmo:op_section;
 
 osmo:has_physical_input a osmo:op_section;
    rdfs:domain osmo:section;
-   rdfs:range vivo:physical_property;
+   rdfs:range vivo:physical_property, osmo:logical_variable, evmpo:material_property;
    rdfs:subPropertyOf osmo:has_input;
    rdfs:comment "points to required physical (thermodynamic or mechanical) information, which needs to be provided, e.g., from the output of another OSMO/MODA section"^^xs:string.
 osmo:has_internal_physical_property a osmo:op_section;
    rdfs:domain osmo:section;
-   rdfs:range vivo:physical_property;
+   rdfs:range vivo:physical_property, osmo:logical_variable, evmpo:material_property;
    rdfs:subPropertyOf osmo:has_internal_logical_variable;
    rdfs:comment "points to physical information that plays a role within the respective OSMO/MODA section"^^xs:string.
 osmo:has_physical_output a osmo:op_section;
    rdfs:domain osmo:section;
-   rdfs:range vivo:physical_property;
+   rdfs:range vivo:physical_property, osmo:logical_variable, evmpo:material_property;
    rdfs:subPropertyOf osmo:has_output;
    rdfs:comment "points to desired physical (thermodynamic or mechanical) information which is obtained as a result from the respective OSMO/MODA section"^^xs:string.
 
@@ -822,8 +823,7 @@ osmo:has_employed_software a osmo:op_section;
    rdfs:subPropertyOf osmo:has_aspect.
 osmo:has_error_statement a osmo:op_section;
    rdfs:domain osmo:section;
-   rdfs:range osmo:error_statement;
-   rdfs:subPropertyOf osmo:has_aspect.
+   rdfs:range osmo:error_statement.
 osmo:has_geometry_information a osmo:op_section;
    rdfs:domain osmo:section;
    rdfs:range osmo:geometry_information;
@@ -932,21 +932,19 @@ osmo:boundary_condition rdfs:subClassOf osmo:R_HAS_A_CONDITION_CONTENT.
 
 osmo:error_statement a owl:Class;
    rdfs:subClassOf osmo:section_aspect;
-   rdfs:comment "error statement, i.e., a statement on an uncertainty, error, or deviation from the most accurate possible value"^^xs:string.
+   rdfs:comment "error statement, i.e., an aspect that contains a deviation assertion"^^xs:string.
 osmo:op_error_statement a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 osmo:dp_error_statement a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 osmo:op_section_aspect rdfs:subClassOf osmo:op_error_statement.
 osmo:dp_section_aspect rdfs:subClassOf osmo:dp_error_statement.
-vivo:op_deviation_assertion rdfs:subClassOf osmo:op_error_statement.
-vivo:dp_deviation_assertion rdfs:subClassOf osmo:dp_error_statement.
 
-osmo:R_HAS_AN_ACCURACY_ASSESSMENT_CONTENT a owl:Restriction;
+osmo:R_HAS_A_DEVIATION_ASSERTION_CONTENT a owl:Restriction;
    rdfs:subClassOf osmo:constrained_entity;
    owl:onProperty osmo:has_aspect_paradigmatic_content;
-   owl:someValuesFrom vivo:deviation_assertion.
-osmo:error_statement rdfs:subClassOf osmo:R_HAS_AN_ACCURACY_ASSESSMENT_CONTENT.
+   owl:someValuesFrom osmo:deviation_assertion.
+osmo:error_statement rdfs:subClassOf osmo:R_HAS_A_DEVIATION_ASSERTION_CONTENT.
 
 osmo:geometry_information a owl:Class;
    rdfs:subClassOf osmo:boundary_condition;
@@ -991,8 +989,6 @@ osmo:dp_method_type a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 osmo:op_section_aspect rdfs:subClassOf osmo:op_method_type.
 osmo:dp_section_aspect rdfs:subClassOf osmo:dp_method_type.
-evmpo:op_annotation rdfs:subClassOf osmo:op_method_type.
-evmpo:dp_annotation rdfs:subClassOf osmo:dp_method_type.
 
 osmo:parameter_aspect a owl:Class;
    rdfs:subClassOf osmo:section_aspect;
@@ -1021,8 +1017,6 @@ osmo:dp_section_description a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 osmo:op_section_aspect rdfs:subClassOf osmo:op_section_description.
 osmo:dp_section_aspect rdfs:subClassOf osmo:dp_section_description.
-evmpo:op_annotation rdfs:subClassOf osmo:op_section_description.
-evmpo:dp_annotation rdfs:subClassOf osmo:dp_section_description.
 
 osmo:section_literature a owl:Class;
    rdfs:subClassOf osmo:section_aspect;
@@ -1059,8 +1053,6 @@ osmo:dp_temporal_discretization a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 osmo:op_section_aspect rdfs:subClassOf osmo:op_temporal_discretization.
 osmo:dp_section_aspect rdfs:subClassOf osmo:dp_temporal_discretization.
-evmpo:op_annotation rdfs:subClassOf osmo:op_temporal_discretization.
-evmpo:dp_annotation rdfs:subClassOf osmo:dp_temporal_discretization.
 
 osmo:timespan_information a owl:Class;
    rdfs:subClassOf osmo:section_aspect;
@@ -1288,6 +1280,10 @@ osmo:has_model_boundary_condition a osmo:op_materials_model;
    rdfs:range osmo:model_boundary_condition;
    rdfs:subPropertyOf osmo:has_model_aspect, osmo:has_boundary_condition;
    rdfs:comment "MODA subsection 2.5"^^xs:string.
+osmo:has_model_error_statement a osmo:op_model;
+   rdfs:domain osmo:model;
+   rdfs:range osmo:model_error_statement;
+   rdfs:subPropertyOf osmo:has_error_statement.
 
 osmo:R_HAS_A_MODEL_TYPE a owl:Restriction;
    rdfs:subClassOf osmo:constrained_entity;
@@ -1399,6 +1395,16 @@ osmo:dp_model_aspect rdfs:subClassOf osmo:dp_model_boundary_condition.
 osmo:op_boundary_condition rdfs:subClassOf osmo:op_model_boundary_condition.
 osmo:dp_boundary_condition rdfs:subClassOf osmo:dp_model_boundary_condition.
 
+osmo:model_error_statement a owl:Class;
+   rdfs:subClassOf osmo:error_statement;
+   rdfs:comment "model error statement, characterizes/describes the error or uncertainty associated with a model"^^xs:string.
+osmo:op_model_error_statement a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_model_error_statement a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_error_statement rdfs:subClassOf osmo:op_model_error_statement.
+osmo:dp_error_statement rdfs:subClassOf osmo:dp_model_error_statement.
+
 osmo:solver_entity a owl:Class;
    rdfs:subClassOf osmo:section_entity;
    rdfs:comment "solver entity, i.e., a solver or an aspect thereof"^^xs:string.
@@ -1461,6 +1467,10 @@ osmo:has_solver_parameter a osmo:op_solver;
    rdfs:range osmo:solver_parameter;
    rdfs:subPropertyOf osmo:has_solver_aspect, osmo:has_section_parameter;
    rdfs:comment "MODA subsection 3.6"^^xs:string.
+osmo:has_solver_error_statement a osmo:op_solver;
+   rdfs:domain osmo:solver;
+   rdfs:range osmo:solver_error_statement;
+   rdfs:subPropertyOf osmo:has_error_statement.
 
 osmo:R_HAS_A_SOLVER_METHOD_TYPE a owl:Restriction;
    rdfs:subClassOf osmo:constrained_entity;
@@ -1487,7 +1497,7 @@ osmo:op_solver_entity rdfs:subClassOf osmo:dp_solver_aspect.
 osmo:solver_aspect owl:intersectionOf (osmo:section_aspect osmo:solver_entity).
 
 osmo:solver_method_type a owl:Class;
-   rdfs:subClassOf osmo:solver_aspect, osmo:method_type, osmo:R_HAS_AN_ASPECT_TEXT_CONTENT;
+   rdfs:subClassOf osmo:solver_aspect, osmo:method_type;
    rdfs:comment "solver method type (MODA subsection 3.1), characterizes/describes the name and type of the solver"^^xs:string.
 osmo:op_solver_method_type a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
@@ -1497,6 +1507,15 @@ osmo:op_solver_aspect rdfs:subClassOf osmo:op_solver_method_type.
 osmo:dp_solver_aspect rdfs:subClassOf osmo:dp_solver_method_type.
 osmo:op_method_type rdfs:subClassOf osmo:op_solver_method_type.
 osmo:dp_method_type rdfs:subClassOf osmo:dp_solver_method_type.
+
+osmo:EOS_SINGLE_PHASE_SOLVER a osmo:solver_method_type;
+   osmo:has_aspect_text_content "EOS single-phase solver"^^xs:string.
+osmo:EOS_PHASE_EQUILIBRIUM_SOLVER a osmo:solver_method_type;
+   osmo:has_aspect_text_content "EOS phase-equilibrium solver"^^xs:string.
+osmo:MOLECULAR_DYNAMICS_SOLVER a osmo:solver_method_type;
+   osmo:has_aspect_text_content "molecular dynamics solver"^^xs:string.
+osmo:MONTE_CARLO_SOLVER a osmo:solver_method_type;
+   osmo:has_aspect_text_content "Monte Carlo solver"^^xs:string.
 
 osmo:solver_software a owl:Class;
    rdfs:subClassOf osmo:solver_aspect, osmo:software;
@@ -1510,14 +1529,11 @@ osmo:dp_solver_aspect rdfs:subClassOf osmo:dp_solver_software.
 osmo:op_software rdfs:subClassOf osmo:op_solver_software.
 osmo:dp_software rdfs:subClassOf osmo:dp_solver_software.
 
-osmo:EOS_SINGLE_PHASE_SOLVER a osmo:solver_method_type;
-   osmo:has_aspect_text_content "EOS single-phase solver"^^xs:string.
-osmo:EOS_PHASE_EQUILIBRIUM_SOLVER a osmo:solver_method_type;
-   osmo:has_aspect_text_content "EOS phase-equilibrium solver"^^xs:string.
-osmo:MOLECULAR_DYNAMICS_SOLVER a osmo:solver_method_type;
-   osmo:has_aspect_text_content "molecular dynamics solver"^^xs:string.
-osmo:MONTE_CARLO_SOLVER a osmo:solver_method_type;
-   osmo:has_aspect_text_content "Monte Carlo solver"^^xs:string.
+osmo:R_HAS_A_SOFTWARE_TOOL_CONTENT a owl:Restriction;
+   rdfs:subClassOf osmo:constrained_entity;
+   owl:onProperty osmo:has_aspect_object_content;
+   owl:someValuesFrom viso:software_tool.
+osmo:solver_software rdfs:subClassOf osmo:R_HAS_A_SOFTWARE_TOOL_CONTENT.
 
 osmo:solver_timestep a owl:Class;
    rdfs:subClassOf osmo:solver_aspect, osmo:temporal_discretization;
@@ -1616,6 +1632,16 @@ osmo:op_solver_aspect rdfs:subClassOf osmo:op_solver_parameter.
 osmo:dp_solver_aspect rdfs:subClassOf osmo:dp_solver_parameter.
 osmo:op_parameter_aspect rdfs:subClassOf osmo:op_solver_parameter.
 osmo:dp_parameter_aspect rdfs:subClassOf osmo:dp_solver_parameter.
+
+osmo:solver_error_statement a owl:Class;
+   rdfs:subClassOf osmo:error_statement;
+   rdfs:comment "solver error statement, characterizes/describes the error or uncertainty associated with a solver output"^^xs:string.
+osmo:op_solver_error_statement a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_solver_error_statement a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_error_statement rdfs:subClassOf osmo:op_solver_error_statement.
+osmo:dp_error_statement rdfs:subClassOf osmo:dp_solver_error_statement.
 
 osmo:processor_entity a owl:Class;
    rdfs:subClassOf osmo:section_entity;
@@ -1982,21 +2008,25 @@ osmo:has_parameter_name a osmo:dp_parameter;
    rdfs:range xs:string.
 
 osmo:physical_parameter a owl:Class;
-   rdfs:subClassOf osmo:parameter, vivo:physical_property, evmpo:material_property;
+   rdfs:subClassOf osmo:parameter, vivo:physical_property, osmo:logical_variable, evmpo:material_property, evmpo:paradigmatic_entity;
    rdfs:comment "physical parameter, i.e., a parameter defined in terms of a material property"^^xs:string.
 osmo:op_physical_parameter a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 osmo:dp_physical_parameter a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_parameter rdfs:subClassOf osmo:op_physical_parameter.
-evmpo:dp_parameter rdfs:subClassOf osmo:dp_physical_parameter.
+osmo:op_parameter rdfs:subClassOf osmo:op_physical_parameter.
+osmo:dp_parameter rdfs:subClassOf osmo:dp_physical_parameter.
+osmo:op_logical_variable rdfs:subClassOf osmo:op_physical_parameter.
+osmo:dp_logical_variable rdfs:subClassOf osmo:dp_physical_parameter.
 vivo:op_physical_property rdfs:subClassOf osmo:op_physical_parameter.
 vivo:dp_physical_property rdfs:subClassOf osmo:dp_physical_parameter.
 evmpo:op_material_property rdfs:subClassOf osmo:op_physical_parameter.
 evmpo:dp_material_property rdfs:subClassOf osmo:dp_physical_parameter.
+evmpo:op_paradigmatic_entity rdfs:subClassOf osmo:op_physical_parameter.
+evmpo:dp_paradigmatic_entity rdfs:subClassOf osmo:dp_physical_parameter.
 
-osmo:is_quantity_kind a vivo:op_physical_property, owl:FunctionalProperty;
-   rdfs:domain osmo:op_physical_parameter;
+osmo:is_quantity_kind a osmo:op_physical_parameter, owl:FunctionalProperty;
+   rdfs:domain osmo:physical_parameter;
    rdfs:range quq:QuantityKind;
    rdfs:subPropertyOf vivo:is_quantity_kind;
    rdfs:comment "points to the physical property characterization following QUDT"^^xs:string.
@@ -2424,3 +2454,39 @@ osmo:dp_material_information_uf a owl:Class;
 osmo:op_unit_function rdfs:subClassOf osmo:op_material_information_uf.
 osmo:dp_unit_function rdfs:subClassOf osmo:dp_material_information_uf.
 
+osmo:deviation_assertion a owl:Class;
+   rdfs:subClassOf evmpo:data_item, evmpo:paradigmatic_entity;
+   owl:equivalentClass vivo:deviation_assertion;
+   rdfs:comment "deviation assertion, i.e., statement on an uncertainty, error, or deviation from the most accurate possible value"^^xs:string.
+osmo:op_deviation_assertion a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_deviation_assertion a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_data_item rdfs:subClassOf osmo:op_deviation_assertion.
+evmpo:dp_data_item rdfs:subClassOf osmo:dp_deviation_assertion.
+evmpo:op_paradigmatic_entity rdfs:subClassOf osmo:op_deviation_assertion.
+evmpo:dp_paradigmatic_entity rdfs:subClassOf osmo:dp_deviation_assertion.
+vivo:op_deviation_assertion owl:equivalentClass osmo:op_deviation_assertion.
+vivo:dp_deviation_assertion owl:equivalentClass osmo:dp_deviation_assertion.
+
+osmo:has_deviation_magnitude a osmo:dp_deviation_assertion, owl:FunctionalProperty;
+   rdfs:domain osmo:deviation_assertion;
+   rdfs:range xs:decimal;
+   rdfs:subPropertyOf vivo:asserts_magnitude.
+osmo:has_deviation_unit a osmo:dp_deviation_assertion, owl:FunctionalProperty;
+   rdfs:domain osmo:deviation_assertion;
+   rdfs:range qudt:DecimalScaledUnit.
+osmo:has_reference_material a osmo:op_deviation_assertion;
+   rdfs:domain osmo:deviation_assertion;
+   rdfs:range osmo:material;
+   rdfs:subPropertyOf vivo:refers_to_material.
+osmo:has_reference_property a osmo:op_deviation_assertion, owl:FunctionalProperty;
+   rdfs:domain osmo:deviation_assertion;
+   rdfs:range vivo:physical_property, evmpo:material_property;
+   rdfs:subPropertyOf vivo:refers_to_property.
+osmo:is_absolute_deviation a osmo:dp_deviation_assertion, owl:FunctionalProperty;
+   rdfs:domain osmo:deviation_assertion;
+   rdfs:range xs:boolean.
+osmo:is_relative_deviation a osmo:dp_deviation_assertion, owl:FunctionalProperty;
+   rdfs:domain osmo:deviation_assertion;
+   rdfs:range xs:boolean.
