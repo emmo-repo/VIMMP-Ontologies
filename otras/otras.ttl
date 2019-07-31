@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
 
-### VERSION 0.8.1 ###
+### VERSION 0.8.2 ###
 
-### DATED 24TH JUNE 2019 ###
+### DATED 31ST JULY 2019 ###
 
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 
@@ -140,8 +140,7 @@ otras:dp_tradeable_object rdfs:subClassOf otras:dp_training_service.
 
 otras:has_offered_course a otras:op_training_service;
    rdfs:domain otras:training_service;
-   rdfs:range otras:course;
-   rdfs:subPropertyOf evmpo:has_product_annotation.
+   rdfs:range otras:course.
 
 otras:focus a owl:Class;
    rdfs:comment "focus, i.e., a studied object or topic or training objective (or an aspect or constitutive part thereof)";
@@ -365,7 +364,7 @@ otras:has_syllabus_resource a otras:op_syllabus;
 
 otras:course a owl:Class;
    rdfs:comment "a course as defined by CCSO"^^xs:string;
-   rdfs:subClassOf otras:training_entity, evmpo:annotation;
+   rdfs:subClassOf otras:training_entity;
    owl:equivalentClass ccso:Course.
 otras:op_course a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
@@ -373,8 +372,6 @@ otras:dp_course a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 otras:op_training_entity rdfs:subClassOf otras:op_course.
 otras:dp_training_entity rdfs:subClassOf otras:dp_course.
-evmpo:op_annotation rdfs:subClassOf otras:op_course.
-evmpo:dp_annotation rdfs:subClassOf otras:dp_course.
 
 otras:has_carrier a otras:op_course;
    rdfs:domain otras:course;
@@ -387,7 +384,7 @@ otras:has_event a otras:op_course;
    rdfs:domain otras:course;
    rdfs:range otras:training_event;
    rdfs:subPropertyOf otras:has_carrier.
-otras:has_syllabus a otras:op_course, owl:FunctionalProperty;
+otras:has_syllabus a otras:op_course;
    rdfs:domain otras:course;
    rdfs:range otras:syllabus;
    owl:equivalentProperty ccso:hasSyllabus.
@@ -412,7 +409,6 @@ otras:is_part_of_course a otras:op_training_unit, owl:FunctionalProperty;
 otras:has_training_unit a otras:op_course;
    rdfs:domain otras:course;
    rdfs:range otras:training_unit;
-   rdfs:subPropertyOf evmpo:has_meta_annotation;
    owl:inverseOf otras:is_part_of_course.
 otras:R_HAS_NO_TRAINING_UNIT a owl:Restriction;
    rdfs:subClassOf otras:constrained_entity;
