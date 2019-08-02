@@ -1,13 +1,14 @@
 
 ### CATEGORIZATION OF VIMMP INSTITUTIONS AND INDIVIDUALS (CVIII) ###
 
-### VERSION 0.1.0 ###
+### VERSION 0.2.0 ###
 
-### DATED 16TH APRIL 2019 ###
+### DATED 2ND AUGUST 2019 ###
 
 @prefix cviii: <http://www.vimmp.eu/semantics/cviii/cviii.ttl#>.
 
 @prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
+@prefix lcc-cr: <https://www.omg.org/spec/LCC/Countries/CountryRepresentation/>.
 @prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
@@ -52,6 +53,10 @@ cviii:acts_at a cviii:op_agent;
    rdfs:domain cviii:agent;
    rdfs:range macro:virtual_marketplace;
    owl:inverseOf macro:has_stakeholder.
+cviii:has_address a cviii:op_agent;
+   rdfs:domain cviii:agent;
+   rdfs:range vico:address;
+   rdfs:subPropertyOf evmpo:has_role_annotation.
 cviii:has_agentid a cviii:dp_agent;
    rdfs:domain cviii:agent;
    rdfs:range xs:nonNegativeInteger.
@@ -103,6 +108,11 @@ cviii:dp_institution a owl:Class;
 cviii:op_agent rdfs:subClassOf cviii:op_institution.
 cviii:dp_agent rdfs:subClassOf cviii:dp_institution.
 
+cviii:has_institutional_address a cviii:op_institution;
+   rdfs:domain cviii:institution;
+   rdfs:range vico:address;
+   rdfs:subPropertyOf cviii:has_address.
+
 cviii:person a owl:Class;
    rdfs:subClassOf cviii:agent;
    rdfs:comment "person, i.e., a stand-alone agent that does not have multiple constituent parts or components that could by themselves act at a virtual marketplace"^^xs:string.
@@ -114,6 +124,14 @@ cviii:op_agent rdfs:subClassOf cviii:op_person.
 cviii:dp_agent rdfs:subClassOf cviii:dp_person.
 
 cviii:person owl:disjointUnionOf (cviii:human_agent cviii:virtual_agent).
+
+cviii:has_affiliation a cviii:op_person;
+   rdfs:domain cviii:person;
+   rdfs:range cviii:institution.
+cviii:has_personal_address a cviii:op_person;
+   rdfs:domain cviii:person;
+   rdfs:range vico:address;
+   rdfs:subPropertyOf cviii:has_address.
 
 cviii:human_agent a owl:Class;
    rdfs:subClassOf cviii:person;
@@ -127,6 +145,14 @@ cviii:dp_human_agent a owl:Class;
    owl:equivalentClass evmpo:dp_human_agent.
 cviii:op_person rdfs:subClassOf cviii:op_human_agent.
 cviii:dp_person rdfs:subClassOf cviii:dp_human_agent.
+
+cviii:has_first_name a cviii:dp_human_agent;
+   rdfs:domain cviii:human_agent;
+   rdfs:range xs:string.
+cviii:has_last_name a cviii:dp_human_agent;
+   rdfs:domain cviii:human_agent;
+   rdfs:range xs:string;
+   rdfs:subPropertyOf cviii:has_name.
 
 cviii:virtual_agent a owl:Class;
    rdfs:subClassOf cviii:person;
@@ -397,13 +423,13 @@ cviii:has_interlocutor_tag a cviii:op_interlocutor;
    rdfs:range cviii:interlocutor_tag;
    rdfs:subPropertyOf evmpo:has_role_annotation.
 
+cviii:is_based_in a cviii:op_interlocutor_tag;
+   rdfs:domain cviii:interlocutor_tag;
+   rdfs:range cviii:country.
 cviii:is_in_group a cviii:op_interlocutor_tag;
    rdfs:domain cviii:interlocutor_tag;
    rdfs:range cviii:interlocutor_group;
    rdfs:subPropertyOf evmpo:has_meta_annotation.
-cviii:is_in_country a cviii:dp_interlocutor_tag;
-   rdfs:domain cviii:interlocutor_tag;
-   rdfs:range xs:string.
 cviii:is_academic a cviii:dp_interlocutor_tag;
    rdfs:domain cviii:interlocutor_tag;
    rdfs:range xs:boolean.
@@ -419,3 +445,17 @@ cviii:is_nuclear a cviii:dp_interlocutor_tag;
 cviii:is_sme a cviii:dp_interlocutor_tag;
    rdfs:domain cviii:interlocutor_tag;
    rdfs:range xs:boolean.
+
+
+cviii:country a owl:Class;
+   rdfs:subClassOf cviii:role;
+   owl:equivalentClass lcc-cr:Country;
+   rdfs:comment "country defined following ISO 3166 as implemented by the LCR ontology"^^xs:string.
+cviii:op_country a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+cviii:dp_country a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_role rdfs:subClassOf cviii:op_country.
+evmpo:dp_role rdfs:subClassOf cviii:dp_country.
+cviii:op_role rdfs:subClassOf cviii:op_country.
+cviii:dp_role rdfs:subClassOf cviii:dp_country.

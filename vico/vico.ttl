@@ -1,9 +1,9 @@
 
 ### VIMMP COMMUNICATION ONTOLOGY (VICO) ###
 
-### VERSION 0.8.0 ###
+### VERSION 0.8.1 ###
 
-### DATED 20TH JUNE 2019 ###
+### DATED 2ND AUGUST 2019 ###
 
 @prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
 
@@ -470,3 +470,101 @@ vico:op_legal_communication rdfs:subClassOf vico:op_legal_statement.
 vico:dp_legal_communication rdfs:subClassOf vico:dp_legal_statement.
 vico:op_statement rdfs:subClassOf vico:op_legal_statement.
 vico:dp_statement rdfs:subClassOf vico:dp_legal_statement.
+
+
+vico:address_entity a owl:Class;
+   rdfs:subClassOf evmpo:annotation.
+vico:op_address_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vico:dp_address_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_annotation rdfs:subClassOf vico:op_address_entity.
+evmpo:dp_annotation rdfs:subClassOf vico:dp_address_entity.
+
+vico:has_address_content a vico:op_address_entity;
+   rdfs:domain vico:address_entity, [owl:complementOf vico:address_token];
+   rdfs:range vico:address_content;
+   rdfs:subPropertyOf evmpo:has_meta_annotation.
+
+vico:address a owl:Class;
+   rdfs:subClassOf vico:address_entity.
+vico:op_address a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vico:dp_address a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vico:op_address_entity rdfs:subClassOf vico:op_address.
+vico:dp_address_entity rdfs:subClassOf vico:dp_address.
+
+vico:has_address_qualifier a vico:op_postal_address;
+   rdfs:domain vico:address;
+   rdfs:range vico:address_content;
+   rdfs:comment "content that needs to be added to an address, e.g., additional address lines"^^xs:string;
+   rdfs:subPropertyOf vico:has_address_content.
+vico:is_in_country a vico:op_address;
+   rdfs:domain vico:address;
+   rdfs:range cviii:country.
+
+vico:address_content a owl:Class;
+   rdfs:subClassOf vico:address_entity.
+vico:op_address_content a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vico:dp_address_content a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vico:op_address_entity rdfs:subClassOf vico:op_address_content.
+vico:dp_address_entity rdfs:subClassOf vico:dp_address_content.
+
+vico:address_token a owl:Class;
+   rdfs:subClassOf vico:address_content.
+vico:op_address_token a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vico:dp_address_token a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vico:op_address_content rdfs:subClassOf vico:op_address_token.
+vico:dp_address_content rdfs:subClassOf vico:dp_address_token.
+
+vico:has_number_representation a vico:dp_address_token;
+   rdfs:domain vico:address_token;
+   rdfs:range xs:nonNegativeInteger.
+vico:has_textual_representation a vico:dp_address_token;
+   rdfs:domain vico:address_token;
+   rdfs:range xs:string.
+vico:has_token_index a vico:dp_address_token;
+   rdfs:domain vico:address_token;
+   rdfs:range xs:nonNegativeInteger.
+
+vico:postal_address a owl:Class;
+   rdfs:subClassOf vico:address.
+vico:op_postal_address a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vico:dp_postal_address a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vico:op_address rdfs:subClassOf vico:op_postal_address.
+vico:dp_address rdfs:subClassOf vico:dp_postal_address.
+
+vico:is_po_box a vico:dp_postal_address;
+   rdfs:domain vico:postal_address;
+   rdfs:range xs:boolean.
+vico:has_city_name a vico:op_postal_address;
+   rdfs:domain vico:postal_address;
+   rdfs:range vico:address_token;
+   rdfs:subPropertyOf vico:has_address_content.
+vico:has_house_no a vico:op_postal_address;
+   rdfs:domain vico:postal_address;
+   rdfs:range vico:address_token;
+   rdfs:subPropertyOf vico:has_address_content.
+vico:has_po_box_no a vico:op_postal_address;
+   rdfs:domain vico:postal_address;
+   rdfs:range vico:address_token;
+   rdfs:subPropertyOf vico:has_address_content.
+vico:has_postal_code a vico:op_postal_address;
+   rdfs:domain vico:postal_address;
+   rdfs:range vico:address_token;
+   rdfs:subPropertyOf vico:has_address_content.
+vico:has_region_name a vico:op_postal_address;
+   rdfs:domain vico:postal_address;
+   rdfs:range vico:address_token;
+   rdfs:subPropertyOf vico:has_address_content.
+vico:has_street_name a vico:op_postal_address;
+   rdfs:domain vico:postal_address;
+   rdfs:range vico:address_token;
+   rdfs:subPropertyOf vico:has_address_content.
