@@ -1,7 +1,7 @@
 
 ### MARKETPLACE-ACCESSIBLE COMPUTATIONAL RESOURCE ONTOLOGY (MACRO) ###
 
-### VERSION 0.0.5 ###
+### VERSION 0.0.6 ###
 
 ### DATED 7TH AUGUST 2019 ###
 
@@ -106,13 +106,13 @@ macro:op_channel rdfs:subClassOf macro:op_bidirectional_channel.
 macro:dp_channel rdfs:subClassOf macro:dp_bidirectional_channel.
 
 macro:virtual_marketplace a owl:Class;
-   rdfs:subClassOf macro:channel.
+   rdfs:subClassOf macro:bidirectional_channel.
 macro:op_virtual_marketplace a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 macro:dp_virtual_marketplace a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-macro:op_channel rdfs:subClassOf macro:op_virtual_marketplace.
-macro:dp_channel rdfs:subClassOf macro:dp_virtual_marketplace.
+macro:op_bidirectional_channel rdfs:subClassOf macro:op_virtual_marketplace.
+macro:dp_bidirectional_channel rdfs:subClassOf macro:dp_virtual_marketplace.
 
 macro:has_stakeholder a macro:op_virtual_marketplace;
    rdfs:domain macro:virtual_marketplace;

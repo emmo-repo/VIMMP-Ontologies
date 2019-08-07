@@ -1225,7 +1225,7 @@ evmpo:has_meta_annotation a evmpo:op_annotation;
 
 ### MARKETPLACE-ACCESSIBLE COMPUTATIONAL RESOURCE ONTOLOGY (MACRO) ###
 
-### VERSION 0.0.5 ###
+### VERSION 0.0.6 ###
 
 ### DATED 7TH AUGUST 2019 ###
 
@@ -1330,13 +1330,13 @@ macro:op_channel rdfs:subClassOf macro:op_bidirectional_channel.
 macro:dp_channel rdfs:subClassOf macro:dp_bidirectional_channel.
 
 macro:virtual_marketplace a owl:Class;
-   rdfs:subClassOf macro:channel.
+   rdfs:subClassOf macro:bidirectional_channel.
 macro:op_virtual_marketplace a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 macro:dp_virtual_marketplace a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-macro:op_channel rdfs:subClassOf macro:op_virtual_marketplace.
-macro:dp_channel rdfs:subClassOf macro:dp_virtual_marketplace.
+macro:op_bidirectional_channel rdfs:subClassOf macro:op_virtual_marketplace.
+macro:dp_bidirectional_channel rdfs:subClassOf macro:dp_virtual_marketplace.
 
 macro:has_stakeholder a macro:op_virtual_marketplace;
    rdfs:domain macro:virtual_marketplace;
@@ -5268,7 +5268,7 @@ otras:author_map_element rdfs:subClassOf otras:R_HAS_ONE_AME_IDENTIFIER, otras:R
 
 ### VIMMP COMMUNICATION ONTOLOGY (VICO) ###
 
-### VERSION 0.8.2 ###
+### VERSION 0.8.3 ###
 
 ### DATED 7TH AUGUST 2019 ###
 
@@ -5878,13 +5878,31 @@ vico:has_local_number a vico:op_phone_number;
    rdfs:subPropertyOf vico:has_address_content.
 
 vico:fax_number a owl:Class;
-   rdfs:subClassOf vico:address.
+   rdfs:subClassOf vico:phone_number.
 vico:op_fax_number a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 vico:dp_fax_number a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 vico:op_phone_number rdfs:subClassOf vico:op_fax_number.
 vico:dp_phone_number rdfs:subClassOf vico:dp_fax_number.
+
+vico:landline_number a owl:Class;
+   rdfs:subClassOf vico:phone_number.
+vico:op_landline_number a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vico:dp_landline_number a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vico:op_phone_number rdfs:subClassOf vico:op_landline_number.
+vico:dp_phone_number rdfs:subClassOf vico:dp_landline_number.
+
+vico:mobile_number a owl:Class;
+   rdfs:subClassOf vico:phone_number.
+vico:op_mobile_number a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vico:dp_mobile_number a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vico:op_phone_number rdfs:subClassOf vico:op_mobile_number.
+vico:dp_phone_number rdfs:subClassOf vico:dp_mobile_number.
 
 ### VIMMP VALIDATION ONTOLOGY (VIVO) ###
 
