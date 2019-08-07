@@ -13,9 +13,9 @@
 
 ### CATEGORIZATION OF VIMMP INSTITUTIONS AND INDIVIDUALS (CVIII) ###
 
-### VERSION 0.2.0 ###
+### VERSION 0.2.1 ###
 
-### DATED 2ND AUGUST 2019 ###
+### DATED 7TH AUGUST 2019 ###
 
 @prefix cviii: <http://www.vimmp.eu/semantics/cviii/cviii.ttl#>.
 
@@ -64,7 +64,12 @@ cviii:dp_role rdfs:subClassOf cviii:dp_agent.
 cviii:acts_at a cviii:op_agent;
    rdfs:domain cviii:agent;
    rdfs:range macro:virtual_marketplace;
-   owl:inverseOf macro:has_stakeholder.
+   owl:inverseOf macro:has_stakeholder;
+   rdfs:subPropertyOf cviii:has_access_to.
+cviii:has_access_to a cviii:op_agent;
+   rdfs:domain cviii:agent;
+   rdfs:range macro:channel;
+   owl:inverseOf macro:has_channel_member.
 cviii:has_address a cviii:op_agent;
    rdfs:domain cviii:agent;
    rdfs:range vico:address;
@@ -91,6 +96,16 @@ cviii:is_recipient_of a cviii:op_agent;
    rdfs:domain cviii:agent;
    rdfs:range vico:interlocution;
    owl:inverseOf vico:has_recipient.
+cviii:is_subscribed_to a cviii:op_agent;
+   rdfs:domain cviii:agent;
+   rdfs:range macro:unidirectional_channel;
+   owl:inverseOf macro:has_channel_subscriber;
+   rdfs:subPropertyOf cviii:has_access_to.
+cviii:is_owner_of a cviii:op_agent;
+   rdfs:domain cviii:agent;
+   rdfs:range macro:unidirectional_channel;
+   owl:inverseOf macro:has_channel_owner;
+   rdfs:subPropertyOf cviii:has_access_to.
 
 cviii:agent owl:disjointUnionOf (cviii:agent_group cviii:institution cviii:person).
 
@@ -140,10 +155,17 @@ cviii:person owl:disjointUnionOf (cviii:human_agent cviii:virtual_agent).
 cviii:has_affiliation a cviii:op_person;
    rdfs:domain cviii:person;
    rdfs:range cviii:institution.
+cviii:has_business_address a cviii:op_person;
+   rdfs:domain cviii:person;
+   rdfs:range vico:address;
+   rdfs:subPropertyOf cviii:has_personal_address.
 cviii:has_personal_address a cviii:op_person;
    rdfs:domain cviii:person;
    rdfs:range vico:address;
    rdfs:subPropertyOf cviii:has_address.
+cviii:has_role_label a cviii:dp_person;
+   rdfs:domain cviii:person;
+   rdfs:range xs:string.
 
 cviii:human_agent a owl:Class;
    rdfs:subClassOf cviii:person;
@@ -165,6 +187,10 @@ cviii:has_last_name a cviii:dp_human_agent;
    rdfs:domain cviii:human_agent;
    rdfs:range xs:string;
    rdfs:subPropertyOf cviii:has_name.
+cviii:has_private_address a cviii:op_human_agent;
+   rdfs:domain cviii:human_agent;
+   rdfs:range vico:address;
+   rdfs:subPropertyOf cviii:has_personal_address.
 
 cviii:virtual_agent a owl:Class;
    rdfs:subClassOf cviii:person;
@@ -1199,9 +1225,9 @@ evmpo:has_meta_annotation a evmpo:op_annotation;
 
 ### MARKETPLACE-ACCESSIBLE COMPUTATIONAL RESOURCE ONTOLOGY (MACRO) ###
 
-### VERSION 0.0.4 ###
+### VERSION 0.0.5 ###
 
-### DATED 16TH APRIL 2019 ###
+### DATED 7TH AUGUST 2019 ###
 
 @prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
 
@@ -1239,24 +1265,88 @@ cviii:dp_agent rdfs:subClassOf macro:dp_repository.
 
 macro:VIMMP_CERTIFICATE_REGISTRY a macro:repository;
    cviii:acts_on macro:VIMMP_MARKETPLACE;
-   cviii:has_name "VIMMP Marketplace Certificate Registry".
+   cviii:has_name "VIMMP Marketplace Certificate Registry"^^xs:string.
+
+macro:channel a owl:Class;
+   rdfs:subClassOf macro:infrastructure.
+macro:op_channel a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+macro:dp_channel a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+macro:op_infrastructure rdfs:subClassOf macro:op_channel.
+macro:dp_infrastructure rdfs:subClassOf macro:dp_channel.
+
+macro:has_channel_member a macro:op_channel;
+   rdfs:domain macro:channel;
+   rdfs:range cviii:agent;
+   owl:inverseOf cviii:has_access_to.
+macro:has_channel_name a macro:dp_channel;
+   rdfs:domain macro:channel;
+   rdfs:range xs:string.
+
+macro:channel owl:disjointUnionOf (macro:unidirectional_channel macro:bidirectional_channel).
+
+macro:unidirectional_channel a owl:Class;
+   rdfs:subClassOf macro:channel.
+macro:op_unidirectional_channel a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+macro:dp_unidirectional_channel a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+macro:op_channel rdfs:subClassOf macro:op_unidirectional_channel.
+macro:dp_channel rdfs:subClassOf macro:dp_unidirectional_channel.
+
+macro:has_channel_owner a macro:op_unidirectional_channel;
+   rdfs:domain macro:unidirectional_channel;
+   rdfs:range cviii:agent;
+   rdfs:subPropertyOf macro:has_channel_member;
+   owl:inverseOf cviii:is_owner_of.
+macro:has_channel_subscriber a macro:op_unidirectional_channel;
+   rdfs:domain macro:unidirectional_channel;
+   rdfs:range cviii:agent;
+   rdfs:subPropertyOf macro:has_channel_member;
+   owl:inverseOf cviii:is_subscribed_to.
+
+macro:newsletter a owl:Class;
+   rdfs:subClassOf macro:unidirectional_channel.
+macro:op_newsletter a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+macro:dp_newsletter a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+macro:op_unidirectional_channel rdfs:subClassOf macro:op_newsletter.
+macro:dp_unidirectional_channel rdfs:subClassOf macro:dp_newsletter.
+
+macro:EMMC_NEWSLETTER a macro:newsletter;
+   macro:has_channel_name "EMMC Newsletter"^^xs:string.
+macro:VIMMP_NEWSLETTER a macro:newsletter;
+   macro:has_channel_name "VIMMP Newsletter"^^xs:string.
+
+macro:bidirectional_channel a owl:Class;
+   rdfs:subClassOf macro:channel.
+macro:op_bidirectional_channel a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+macro:dp_bidirectional_channel a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+macro:op_channel rdfs:subClassOf macro:op_bidirectional_channel.
+macro:dp_channel rdfs:subClassOf macro:dp_bidirectional_channel.
 
 macro:virtual_marketplace a owl:Class;
-   rdfs:subClassOf macro:infrastructure.
+   rdfs:subClassOf macro:channel.
 macro:op_virtual_marketplace a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 macro:dp_virtual_marketplace a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-macro:op_infrastructure rdfs:subClassOf macro:op_virtual_marketplace.
-macro:dp_infrastructure rdfs:subClassOf macro:dp_virtual_marketplace.
+macro:op_channel rdfs:subClassOf macro:op_virtual_marketplace.
+macro:dp_channel rdfs:subClassOf macro:dp_virtual_marketplace.
 
 macro:has_stakeholder a macro:op_virtual_marketplace;
    rdfs:domain macro:virtual_marketplace;
    rdfs:range cviii:agent;
-   owl:inverseOf cviii:acts_at.
+   owl:inverseOf cviii:acts_at;
+   rdfs:subPropertyOf macro:has_channel_member.
 
 macro:VIMMP_MARKETPLACE a macro:virtual_marketplace.
 macro:MARKETPLACE_MARKETPLACE a macro:virtual_marketplace.
+macro:MARKET40_MARKETPLACE a macro:virtual_marketplace.
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
@@ -5178,9 +5268,9 @@ otras:author_map_element rdfs:subClassOf otras:R_HAS_ONE_AME_IDENTIFIER, otras:R
 
 ### VIMMP COMMUNICATION ONTOLOGY (VICO) ###
 
-### VERSION 0.8.1 ###
+### VERSION 0.8.2 ###
 
-### DATED 2ND AUGUST 2019 ###
+### DATED 7TH AUGUST 2019 ###
 
 @prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
 
@@ -5203,7 +5293,7 @@ vico:constrained_entity a owl:Class;
 vico:communication a owl:Class;
    rdfs:subClassOf evmpo:paradigmatic_entity;
    owl:equivalentClass evmpo:communication;
-   rdfs:comment "communication, i.e., a statement or collection of statements that is communicated by a on a virtual marketplace by a stakeholder"^^xs:string.
+   rdfs:comment "communication, i.e., a statement or collection of statements that is communicated by a stakeholder on a (communication) channel"^^xs:string.
 vico:op_communication a owl:Class;
    rdfs:subClassOf owl:ObjectProperty;
    owl:equivalentClass evmpo:op_communication.
@@ -5243,9 +5333,14 @@ vico:has_submission_date a vico:op_communication, owl:FunctionalProperty;
 vico:has_text a vico:dp_communication;
    rdfs:domain vico:communication;
    rdfs:range xs:string.
-vico:is_on_marketplace a vico:op_interlocution;
+
+vico:is_on_channel a vico:op_communication;
    rdfs:domain vico:communication;
-   rdfs:range macro:virtual_marketplace.
+   rdfs:range macro:channel.
+vico:is_on_marketplace a vico:op_communication;
+   rdfs:domain vico:communication;
+   rdfs:range macro:virtual_marketplace;
+   rdfs:subPropertyOf vico:is_on_channel.
 
 vico:R_HAS_AN_AUTHOR a owl:Restriction;
    rdfs:subClassOf vico:constrained_entity;
@@ -5745,6 +5840,51 @@ vico:has_street_name a vico:op_postal_address;
    rdfs:domain vico:postal_address;
    rdfs:range vico:address_token;
    rdfs:subPropertyOf vico:has_address_content.
+
+vico:email_address a owl:Class;
+   rdfs:subClassOf vico:address.
+vico:op_email_address a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vico:dp_email_address a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vico:op_address rdfs:subClassOf vico:op_email_address.
+vico:dp_address rdfs:subClassOf vico:dp_email_address.
+
+vico:has_email_domain_label a vico:op_email_address;
+   rdfs:domain vico:email_address;
+   rdfs:range vico:address_token;
+   rdfs:subPropertyOf vico:has_address_content.
+vico:has_email_prefix a vico:op_email_address;
+   rdfs:domain vico:email_address;
+   rdfs:range vico:address_token;
+   rdfs:subPropertyOf vico:has_address_content.
+
+vico:phone_number a owl:Class;
+   rdfs:subClassOf vico:address.
+vico:op_phone_number a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vico:dp_phone_number a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vico:op_address rdfs:subClassOf vico:op_phone_number.
+vico:dp_address rdfs:subClassOf vico:dp_phone_number.
+
+vico:has_area_code a vico:op_phone_number;
+   rdfs:domain vico:phone_number;
+   rdfs:range vico:address_token;
+   rdfs:subPropertyOf vico:has_address_content.
+vico:has_local_number a vico:op_phone_number;
+   rdfs:domain vico:phone_number;
+   rdfs:range vico:address_token;
+   rdfs:subPropertyOf vico:has_address_content.
+
+vico:fax_number a owl:Class;
+   rdfs:subClassOf vico:address.
+vico:op_fax_number a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vico:dp_fax_number a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vico:op_phone_number rdfs:subClassOf vico:op_fax_number.
+vico:dp_phone_number rdfs:subClassOf vico:dp_fax_number.
 
 ### VIMMP VALIDATION ONTOLOGY (VIVO) ###
 

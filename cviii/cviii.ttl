@@ -1,9 +1,9 @@
 
 ### CATEGORIZATION OF VIMMP INSTITUTIONS AND INDIVIDUALS (CVIII) ###
 
-### VERSION 0.2.0 ###
+### VERSION 0.2.1 ###
 
-### DATED 2ND AUGUST 2019 ###
+### DATED 7TH AUGUST 2019 ###
 
 @prefix cviii: <http://www.vimmp.eu/semantics/cviii/cviii.ttl#>.
 
@@ -52,7 +52,12 @@ cviii:dp_role rdfs:subClassOf cviii:dp_agent.
 cviii:acts_at a cviii:op_agent;
    rdfs:domain cviii:agent;
    rdfs:range macro:virtual_marketplace;
-   owl:inverseOf macro:has_stakeholder.
+   owl:inverseOf macro:has_stakeholder;
+   rdfs:subPropertyOf cviii:has_access_to.
+cviii:has_access_to a cviii:op_agent;
+   rdfs:domain cviii:agent;
+   rdfs:range macro:channel;
+   owl:inverseOf macro:has_channel_member.
 cviii:has_address a cviii:op_agent;
    rdfs:domain cviii:agent;
    rdfs:range vico:address;
@@ -79,6 +84,16 @@ cviii:is_recipient_of a cviii:op_agent;
    rdfs:domain cviii:agent;
    rdfs:range vico:interlocution;
    owl:inverseOf vico:has_recipient.
+cviii:is_subscribed_to a cviii:op_agent;
+   rdfs:domain cviii:agent;
+   rdfs:range macro:unidirectional_channel;
+   owl:inverseOf macro:has_channel_subscriber;
+   rdfs:subPropertyOf cviii:has_access_to.
+cviii:is_owner_of a cviii:op_agent;
+   rdfs:domain cviii:agent;
+   rdfs:range macro:unidirectional_channel;
+   owl:inverseOf macro:has_channel_owner;
+   rdfs:subPropertyOf cviii:has_access_to.
 
 cviii:agent owl:disjointUnionOf (cviii:agent_group cviii:institution cviii:person).
 
@@ -128,10 +143,17 @@ cviii:person owl:disjointUnionOf (cviii:human_agent cviii:virtual_agent).
 cviii:has_affiliation a cviii:op_person;
    rdfs:domain cviii:person;
    rdfs:range cviii:institution.
+cviii:has_business_address a cviii:op_person;
+   rdfs:domain cviii:person;
+   rdfs:range vico:address;
+   rdfs:subPropertyOf cviii:has_personal_address.
 cviii:has_personal_address a cviii:op_person;
    rdfs:domain cviii:person;
    rdfs:range vico:address;
    rdfs:subPropertyOf cviii:has_address.
+cviii:has_role_label a cviii:dp_person;
+   rdfs:domain cviii:person;
+   rdfs:range xs:string.
 
 cviii:human_agent a owl:Class;
    rdfs:subClassOf cviii:person;
@@ -153,6 +175,10 @@ cviii:has_last_name a cviii:dp_human_agent;
    rdfs:domain cviii:human_agent;
    rdfs:range xs:string;
    rdfs:subPropertyOf cviii:has_name.
+cviii:has_private_address a cviii:op_human_agent;
+   rdfs:domain cviii:human_agent;
+   rdfs:range vico:address;
+   rdfs:subPropertyOf cviii:has_personal_address.
 
 cviii:virtual_agent a owl:Class;
    rdfs:subClassOf cviii:person;

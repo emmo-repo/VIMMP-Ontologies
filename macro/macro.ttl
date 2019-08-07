@@ -1,9 +1,9 @@
 
 ### MARKETPLACE-ACCESSIBLE COMPUTATIONAL RESOURCE ONTOLOGY (MACRO) ###
 
-### VERSION 0.0.4 ###
+### VERSION 0.0.5 ###
 
-### DATED 16TH APRIL 2019 ###
+### DATED 7TH AUGUST 2019 ###
 
 @prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
 
@@ -41,21 +41,85 @@ cviii:dp_agent rdfs:subClassOf macro:dp_repository.
 
 macro:VIMMP_CERTIFICATE_REGISTRY a macro:repository;
    cviii:acts_on macro:VIMMP_MARKETPLACE;
-   cviii:has_name "VIMMP Marketplace Certificate Registry".
+   cviii:has_name "VIMMP Marketplace Certificate Registry"^^xs:string.
+
+macro:channel a owl:Class;
+   rdfs:subClassOf macro:infrastructure.
+macro:op_channel a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+macro:dp_channel a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+macro:op_infrastructure rdfs:subClassOf macro:op_channel.
+macro:dp_infrastructure rdfs:subClassOf macro:dp_channel.
+
+macro:has_channel_member a macro:op_channel;
+   rdfs:domain macro:channel;
+   rdfs:range cviii:agent;
+   owl:inverseOf cviii:has_access_to.
+macro:has_channel_name a macro:dp_channel;
+   rdfs:domain macro:channel;
+   rdfs:range xs:string.
+
+macro:channel owl:disjointUnionOf (macro:unidirectional_channel macro:bidirectional_channel).
+
+macro:unidirectional_channel a owl:Class;
+   rdfs:subClassOf macro:channel.
+macro:op_unidirectional_channel a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+macro:dp_unidirectional_channel a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+macro:op_channel rdfs:subClassOf macro:op_unidirectional_channel.
+macro:dp_channel rdfs:subClassOf macro:dp_unidirectional_channel.
+
+macro:has_channel_owner a macro:op_unidirectional_channel;
+   rdfs:domain macro:unidirectional_channel;
+   rdfs:range cviii:agent;
+   rdfs:subPropertyOf macro:has_channel_member;
+   owl:inverseOf cviii:is_owner_of.
+macro:has_channel_subscriber a macro:op_unidirectional_channel;
+   rdfs:domain macro:unidirectional_channel;
+   rdfs:range cviii:agent;
+   rdfs:subPropertyOf macro:has_channel_member;
+   owl:inverseOf cviii:is_subscribed_to.
+
+macro:newsletter a owl:Class;
+   rdfs:subClassOf macro:unidirectional_channel.
+macro:op_newsletter a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+macro:dp_newsletter a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+macro:op_unidirectional_channel rdfs:subClassOf macro:op_newsletter.
+macro:dp_unidirectional_channel rdfs:subClassOf macro:dp_newsletter.
+
+macro:EMMC_NEWSLETTER a macro:newsletter;
+   macro:has_channel_name "EMMC Newsletter"^^xs:string.
+macro:VIMMP_NEWSLETTER a macro:newsletter;
+   macro:has_channel_name "VIMMP Newsletter"^^xs:string.
+
+macro:bidirectional_channel a owl:Class;
+   rdfs:subClassOf macro:channel.
+macro:op_bidirectional_channel a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+macro:dp_bidirectional_channel a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+macro:op_channel rdfs:subClassOf macro:op_bidirectional_channel.
+macro:dp_channel rdfs:subClassOf macro:dp_bidirectional_channel.
 
 macro:virtual_marketplace a owl:Class;
-   rdfs:subClassOf macro:infrastructure.
+   rdfs:subClassOf macro:channel.
 macro:op_virtual_marketplace a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 macro:dp_virtual_marketplace a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-macro:op_infrastructure rdfs:subClassOf macro:op_virtual_marketplace.
-macro:dp_infrastructure rdfs:subClassOf macro:dp_virtual_marketplace.
+macro:op_channel rdfs:subClassOf macro:op_virtual_marketplace.
+macro:dp_channel rdfs:subClassOf macro:dp_virtual_marketplace.
 
 macro:has_stakeholder a macro:op_virtual_marketplace;
    rdfs:domain macro:virtual_marketplace;
    rdfs:range cviii:agent;
-   owl:inverseOf cviii:acts_at.
+   owl:inverseOf cviii:acts_at;
+   rdfs:subPropertyOf macro:has_channel_member.
 
 macro:VIMMP_MARKETPLACE a macro:virtual_marketplace.
 macro:MARKETPLACE_MARKETPLACE a macro:virtual_marketplace.
+macro:MARKET40_MARKETPLACE a macro:virtual_marketplace.

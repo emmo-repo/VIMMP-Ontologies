@@ -1,9 +1,9 @@
 
 ### VIMMP COMMUNICATION ONTOLOGY (VICO) ###
 
-### VERSION 0.8.1 ###
+### VERSION 0.8.2 ###
 
-### DATED 2ND AUGUST 2019 ###
+### DATED 7TH AUGUST 2019 ###
 
 @prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
 
@@ -26,7 +26,7 @@ vico:constrained_entity a owl:Class;
 vico:communication a owl:Class;
    rdfs:subClassOf evmpo:paradigmatic_entity;
    owl:equivalentClass evmpo:communication;
-   rdfs:comment "communication, i.e., a statement or collection of statements that is communicated by a on a virtual marketplace by a stakeholder"^^xs:string.
+   rdfs:comment "communication, i.e., a statement or collection of statements that is communicated by a stakeholder on a (communication) channel"^^xs:string.
 vico:op_communication a owl:Class;
    rdfs:subClassOf owl:ObjectProperty;
    owl:equivalentClass evmpo:op_communication.
@@ -66,9 +66,14 @@ vico:has_submission_date a vico:op_communication, owl:FunctionalProperty;
 vico:has_text a vico:dp_communication;
    rdfs:domain vico:communication;
    rdfs:range xs:string.
-vico:is_on_marketplace a vico:op_interlocution;
+
+vico:is_on_channel a vico:op_communication;
    rdfs:domain vico:communication;
-   rdfs:range macro:virtual_marketplace.
+   rdfs:range macro:channel.
+vico:is_on_marketplace a vico:op_communication;
+   rdfs:domain vico:communication;
+   rdfs:range macro:virtual_marketplace;
+   rdfs:subPropertyOf vico:is_on_channel.
 
 vico:R_HAS_AN_AUTHOR a owl:Restriction;
    rdfs:subClassOf vico:constrained_entity;
@@ -568,3 +573,48 @@ vico:has_street_name a vico:op_postal_address;
    rdfs:domain vico:postal_address;
    rdfs:range vico:address_token;
    rdfs:subPropertyOf vico:has_address_content.
+
+vico:email_address a owl:Class;
+   rdfs:subClassOf vico:address.
+vico:op_email_address a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vico:dp_email_address a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vico:op_address rdfs:subClassOf vico:op_email_address.
+vico:dp_address rdfs:subClassOf vico:dp_email_address.
+
+vico:has_email_domain_label a vico:op_email_address;
+   rdfs:domain vico:email_address;
+   rdfs:range vico:address_token;
+   rdfs:subPropertyOf vico:has_address_content.
+vico:has_email_prefix a vico:op_email_address;
+   rdfs:domain vico:email_address;
+   rdfs:range vico:address_token;
+   rdfs:subPropertyOf vico:has_address_content.
+
+vico:phone_number a owl:Class;
+   rdfs:subClassOf vico:address.
+vico:op_phone_number a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vico:dp_phone_number a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vico:op_address rdfs:subClassOf vico:op_phone_number.
+vico:dp_address rdfs:subClassOf vico:dp_phone_number.
+
+vico:has_area_code a vico:op_phone_number;
+   rdfs:domain vico:phone_number;
+   rdfs:range vico:address_token;
+   rdfs:subPropertyOf vico:has_address_content.
+vico:has_local_number a vico:op_phone_number;
+   rdfs:domain vico:phone_number;
+   rdfs:range vico:address_token;
+   rdfs:subPropertyOf vico:has_address_content.
+
+vico:fax_number a owl:Class;
+   rdfs:subClassOf vico:address.
+vico:op_fax_number a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vico:dp_fax_number a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vico:op_phone_number rdfs:subClassOf vico:op_fax_number.
+vico:dp_phone_number rdfs:subClassOf vico:dp_fax_number.
