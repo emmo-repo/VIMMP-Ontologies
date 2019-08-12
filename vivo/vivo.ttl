@@ -1,14 +1,16 @@
 
 ### VIMMP VALIDATION ONTOLOGY (VIVO) ###
 
-### VERSION 0.2.0 ###
+### VERSION 0.3.0 ###
 
-### DATED 9TH AUGUST 2019 ###
+### DATED 12TH AUGUST 2019 ###
 
 @prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
 
 @prefix cviii: <http://www.vimmp.eu/semantics/cviii/cviii.ttl#>.
 @prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
+@prefix iao: <http://purl.obolibrary.org/obo/iao.owl#>.
+@prefix ical: <https://www.w3.org/2002/12/cal/icaltzd#>.
 @prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
@@ -16,6 +18,7 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
+@prefix vto: <http://www.vimmp.eu/semantics/vto/vto.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
 <http://www.vimmp.eu/semantics/vivo/vivo.ttl#> a owl:Ontology.
@@ -257,6 +260,9 @@ vivo:dp_assessment a owl:Class;
 vivo:op_validation_entity rdfs:subClassOf vivo:op_assessment.
 vivo:dp_validation_entity rdfs:subClassOf vivo:dp_assessment.
 
+vivo:evaluates a vivo:op_assessment;
+   rdfs:domain vivo:assessment;
+   rdfs:range evmpo:marketplace_related_entity.
 vivo:has_assertion a vivo:op_assessment;
    rdfs:domain vivo:assessment;
    rdfs:range vivo:assertion.
@@ -267,6 +273,134 @@ vivo:has_text_content a vivo:dp_assessment;
 vivo:assessment owl:disjointWith vivo:assertion, vivo:property, vivo:validation_infrastructure.
 
 vivo:assessment owl:disjointUnionOf (vivo:accuracy_assessment vivo:requirement_assessment vivo:review_assessment).
+
+vivo:assessment owl:disjointUnionOf (vivo:agent_assessment vivo:document_assessment vivo:event_assessment vivo:infrastructure_assessment vivo:meta_assessment vivo:model_assessment vivo:project_assessment vivo:service_assessment vivo:workflow_assessment).
+
+vivo:agent_assessment a owl:Class;
+   rdfs:subClassOf vivo:assessment.
+vivo:op_agent_assessment a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vivo:dp_agent_assessment a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vivo:op_assessment rdfs:subClassOf vivo:op_agent_assessment.
+vivo:dp_assessment rdfs:subClassOf vivo:dp_agent_assessment.
+
+vivo:evaluates_agent a vivo:op_agent_assessment;
+   rdfs:domain vivo:agent_assessment;
+   rdfs:range evmpo:agent, cviii:agent;
+   rdfs:subPropertyOf vivo:evaluates.
+
+vivo:document_assessment a owl:Class;
+   rdfs:subClassOf vivo:assessment.
+vivo:op_document_assessment a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vivo:dp_document_assessment a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vivo:op_assessment rdfs:subClassOf vivo:op_document_assessment.
+vivo:dp_assessment rdfs:subClassOf vivo:dp_document_assessment.
+
+vivo:evaluates_document a vivo:op_document_assessment;
+   rdfs:domain vivo:document_assessment;
+   rdfs:range evmpo:document, iao:IAO_0000310;  # iao label "document"
+   rdfs:subPropertyOf vivo:evaluates.
+
+vivo:event_assessment a owl:Class;
+   rdfs:subClassOf vivo:assessment.
+vivo:op_event_assessment a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vivo:dp_event_assessment a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vivo:op_assessment rdfs:subClassOf vivo:op_event_assessment.
+vivo:dp_assessment rdfs:subClassOf vivo:dp_event_assessment.
+
+vivo:evaluates_event a vivo:op_event_assessment;
+   rdfs:domain vivo:event_assessment;
+   rdfs:range evmpo:calendar_event, ical:Vevent;
+   rdfs:subPropertyOf vivo:evaluates.
+
+vivo:infrastructure_assessment a owl:Class;
+   rdfs:subClassOf vivo:assessment.
+vivo:op_infrastructure_assessment a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vivo:dp_infrastructure_assessment a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vivo:op_assessment rdfs:subClassOf vivo:op_infrastructure_assessment.
+vivo:dp_assessment rdfs:subClassOf vivo:dp_infrastructure_assessment.
+
+vivo:evaluates_infrastructure a vivo:op_infrastructure_assessment;
+   rdfs:domain vivo:infrastructure_assessment;
+   rdfs:range evmpo:infrastructure, macro:infrastructure;
+   rdfs:subPropertyOf vivo:evaluates.
+
+vivo:meta_assessment a owl:Class;
+   rdfs:subClassOf vivo:assessment.
+vivo:op_meta_assessment a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vivo:dp_meta_assessment a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vivo:op_assessment rdfs:subClassOf vivo:op_meta_assessment.
+vivo:dp_assessment rdfs:subClassOf vivo:dp_meta_assessment.
+
+vivo:evaluates_assessment a vivo:op_meta_assessment;
+   rdfs:domain vivo:meta_assessment;
+   rdfs:range vivo:assessment;
+   rdfs:subPropertyOf vivo:evaluates.
+
+vivo:model_assessment a owl:Class;
+   rdfs:subClassOf vivo:assessment.
+vivo:op_model_assessment a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vivo:dp_model_assessment a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vivo:op_assessment rdfs:subClassOf vivo:op_model_assessment.
+vivo:dp_assessment rdfs:subClassOf vivo:dp_model_assessment.
+
+vivo:evaluates_model a vivo:op_model_assessment;
+   rdfs:domain vivo:model_assessment;
+   rdfs:range evmpo:model, osmo:model;
+   rdfs:subPropertyOf vivo:evaluates.
+
+vivo:project_assessment a owl:Class;
+   rdfs:subClassOf vivo:assessment.
+vivo:op_project_assessment a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vivo:dp_project_assessment a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vivo:op_assessment rdfs:subClassOf vivo:op_project_assessment.
+vivo:dp_assessment rdfs:subClassOf vivo:dp_project_assessment.
+
+vivo:evaluates_project a vivo:op_model_assessment;
+   rdfs:domain vivo:project_assessment;
+   rdfs:range vto:project;
+   rdfs:subPropertyOf vivo:evaluates.
+
+vivo:service_assessment a owl:Class;
+   rdfs:subClassOf vivo:assessment.
+vivo:op_service_assessment a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vivo:dp_service_assessment a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vivo:op_assessment rdfs:subClassOf vivo:op_service_assessment.
+vivo:dp_assessment rdfs:subClassOf vivo:dp_service_assessment.
+
+vivo:evaluates_service a vivo:op_service_assessment;
+   rdfs:domain vivo:service_assessment;
+   rdfs:range evmpo:service;
+   rdfs:subPropertyOf vivo:evaluates.
+
+vivo:workflow_assessment a owl:Class;
+   rdfs:subClassOf vivo:assessment.
+vivo:op_workflow_assessment a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vivo:dp_workflow_assessment a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vivo:op_assessment rdfs:subClassOf vivo:op_workflow_assessment.
+vivo:dp_assessment rdfs:subClassOf vivo:dp_workflow_assessment.
+
+vivo:evaluates_workflow a vivo:op_workflow_assessment;
+   rdfs:domain vivo:workflow_assessment;
+   rdfs:range osmo:workflow_graph;
+   rdfs:subPropertyOf vivo:evaluates.
 
 vivo:accuracy_assessment a owl:Class;
    rdfs:subClassOf vivo:accuracy_entity, vivo:assessment;
