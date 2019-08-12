@@ -1,9 +1,9 @@
 
 ### VIMMP COMMUNICATION ONTOLOGY (VICO) ###
 
-### VERSION 0.8.4 ###
+### VERSION 0.8.5 ###
 
-### DATED 9TH AUGUST 2019 ###
+### DATED 12TH AUGUST 2019 ###
 
 @prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
 
@@ -628,6 +628,15 @@ vico:has_email_prefix a vico:op_email_address;
    rdfs:domain vico:email_address;
    rdfs:range vico:address_token;
    rdfs:subPropertyOf vico:has_address_content.
+
+vico:internet_address a owl:Class;
+   rdfs:subClassOf vico:address.
+vico:op_internet_address a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vico:dp_internet_address a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vico:op_address rdfs:subClassOf vico:op_internet_address.
+vico:dp_address rdfs:subClassOf vico:dp_internet_address.
 
 vico:phone_number a owl:Class;
    rdfs:subClassOf vico:address.

@@ -13,15 +13,16 @@
 
 ### CATEGORIZATION OF VIMMP INSTITUTIONS AND INDIVIDUALS (CVIII) ###
 
-### VERSION 0.2.1 ###
+### VERSION 0.2.2 ###
 
-### DATED 7TH AUGUST 2019 ###
+### DATED 12TH AUGUST 2019 ###
 
 @prefix cviii: <http://www.vimmp.eu/semantics/cviii/cviii.ttl#>.
 
 @prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
 @prefix lcc-cr: <https://www.omg.org/spec/LCC/Countries/CountryRepresentation/>.
 @prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
+@prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
@@ -77,6 +78,9 @@ cviii:has_address a cviii:op_agent;
 cviii:has_agentid a cviii:dp_agent;
    rdfs:domain cviii:agent;
    rdfs:range xs:nonNegativeInteger.
+cviii:has_interest a cviii:op_agent;
+   rdfs:domain cviii:agent;
+   rdfs:range otras:topic.
 cviii:has_name a cviii:dp_agent;
    rdfs:domain cviii:agent;
    rdfs:range xs:string.
@@ -92,6 +96,10 @@ cviii:is_listener_of a cviii:op_agent;
    rdfs:domain cviii:agent;
    rdfs:range vico:message;
    owl:inverseOf vico:has_listener.
+cviii:is_member_of a cviii:op_agent;
+   rdfs:domain cviii:agent;
+   rdfs:range cviii:agent_assembly;
+   owl:inverseOf cviii:has_member.
 cviii:is_recipient_of a cviii:op_agent;
    rdfs:domain cviii:agent;
    rdfs:range vico:interlocution;
@@ -109,9 +117,24 @@ cviii:is_owner_of a cviii:op_agent;
 
 cviii:agent owl:disjointUnionOf (cviii:agent_group cviii:institution cviii:person).
 
-cviii:agent_group a owl:Class;
+cviii:agent_assembly a owl:Class;
    rdfs:subClassOf cviii:agent;
-   rdfs:comment "agent group, i.e., an agent entity that, in a non-institutionalized way, assembles multiple constituent agents"^^xs:string;
+   rdfs:comment "agent assembly, i.e., an agent entity that can have other agents as temporary or permanent constituent members"^^xs:string.
+cviii:op_agent_assembly a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+cviii:dp_agent_assembly a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+cviii:op_agent rdfs:subClassOf cviii:op_agent_assembly.
+cviii:dp_agent rdfs:subClassOf cviii:dp_agent_assembly.
+
+cviii:has_member a cviii:op_agent_assembly;
+   rdfs:domain cviii:agent_assembly;
+   rdfs:range cviii:agent;
+   owl:inverseOf cviii:is_member_of.
+
+cviii:agent_group a owl:Class;
+   rdfs:subClassOf cviii:agent_assembly;
+   rdfs:comment "agent group, i.e., a non-institutionalized agent assembly"^^xs:string;
    owl:equivalentClass evmpo:agent_group.
 cviii:op_agent_group a owl:Class;
    rdfs:subClassOf owl:ObjectProperty;
@@ -119,11 +142,11 @@ cviii:op_agent_group a owl:Class;
 cviii:dp_agent_group a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty;
    owl:equivalentClass evmpo:dp_agent_group.
-cviii:op_agent rdfs:subClassOf cviii:op_agent_group.
-cviii:dp_agent rdfs:subClassOf cviii:dp_agent_group.
+cviii:op_agent_assembly rdfs:subClassOf cviii:op_agent_group.
+cviii:dp_agent_assembly rdfs:subClassOf cviii:dp_agent_group.
 
 cviii:institution a owl:Class;
-   rdfs:subClassOf cviii:agent;
+   rdfs:subClassOf cviii:agent_assembly;
    rdfs:comment "institution, i.e., any permanent association, organization, office, or comparable entity that has the capability of acting at a virtual marketplace"^^xs:string;
    owl:equivalentClass evmpo:institution.
 cviii:op_institution a owl:Class;
@@ -132,8 +155,8 @@ cviii:op_institution a owl:Class;
 cviii:dp_institution a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty;
    owl:equivalentClass evmpo:dp_institution.
-cviii:op_agent rdfs:subClassOf cviii:op_institution.
-cviii:dp_agent rdfs:subClassOf cviii:dp_institution.
+cviii:op_agent_assembly rdfs:subClassOf cviii:op_institution.
+cviii:dp_agent_assembly rdfs:subClassOf cviii:dp_institution.
 
 cviii:has_institutional_address a cviii:op_institution;
    rdfs:domain cviii:institution;
@@ -154,7 +177,8 @@ cviii:person owl:disjointUnionOf (cviii:human_agent cviii:virtual_agent).
 
 cviii:has_affiliation a cviii:op_person;
    rdfs:domain cviii:person;
-   rdfs:range cviii:institution.
+   rdfs:range cviii:institution;
+   rdfs:subPropertyOf cviii:is_member_of.
 cviii:has_business_address a cviii:op_person;
    rdfs:domain cviii:person;
    rdfs:range vico:address;
@@ -163,6 +187,12 @@ cviii:has_personal_address a cviii:op_person;
    rdfs:domain cviii:person;
    rdfs:range vico:address;
    rdfs:subPropertyOf cviii:has_address.
+cviii:has_profile_image a cviii:dp_person;
+   rdfs:domain cviii:person;
+   rdfs:range xs:anyURI.
+cviii:has_profile_text a cviii:dp_person;
+   rdfs:domain cviii:person;
+   rdfs:range xs:string.
 cviii:has_role_label a cviii:dp_person;
    rdfs:domain cviii:person;
    rdfs:range xs:string.
@@ -269,9 +299,9 @@ cviii:dp_certifying_resource a owl:Class;
 cviii:op_certifier rdfs:subClassOf cviii:op_certifying_resource.
 cviii:dp_certifier rdfs:subClassOf cviii:dp_certifying_resource.
 
-cviii:is_at_uri a cviii:op_certifying_resource;
+cviii:is_at_uri a cviii:dp_certifying_resource;
    rdfs:domain cviii:certifying_resource;
-   rdfs:range rdfs:Resource.
+   rdfs:range xs:anyURI.
 
 cviii:certifying_journal_article a owl:Class;
    rdfs:subClassOf cviii:certifying_resource.
@@ -5269,9 +5299,9 @@ otras:author_map_element rdfs:subClassOf otras:R_HAS_ONE_AME_IDENTIFIER, otras:R
 
 ### VIMMP COMMUNICATION ONTOLOGY (VICO) ###
 
-### VERSION 0.8.4 ###
+### VERSION 0.8.5 ###
 
-### DATED 9TH AUGUST 2019 ###
+### DATED 12TH AUGUST 2019 ###
 
 @prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
 
@@ -5896,6 +5926,15 @@ vico:has_email_prefix a vico:op_email_address;
    rdfs:domain vico:email_address;
    rdfs:range vico:address_token;
    rdfs:subPropertyOf vico:has_address_content.
+
+vico:internet_address a owl:Class;
+   rdfs:subClassOf vico:address.
+vico:op_internet_address a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vico:dp_internet_address a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vico:op_address rdfs:subClassOf vico:op_internet_address.
+vico:dp_address rdfs:subClassOf vico:dp_internet_address.
 
 vico:phone_number a owl:Class;
    rdfs:subClassOf vico:address.
@@ -6529,9 +6568,9 @@ vivo:is_quantity_kind a vivo:op_material_property, owl:FunctionalProperty;
 
 ### VIMMP TRANSLATION ONTOLOGY (VTO) ###
 
-### VERSION 0.4.7 ###
+### VERSION 0.4.8 ###
 
-### DATED 31ST MAY 2019 ###
+### DATED 12TH AUGUST 2019 ###
 
 @prefix vto: <http://www.vimmp.eu/semantics/vto/vto.ttl#>.
 
@@ -6609,39 +6648,39 @@ vico:dp_translation_communication rdfs:subClassOf vico:dp_translation_statement.
 evmpo:op_statement rdfs:subClassOf vico:op_translation_statement.
 evmpo:dp_statement rdfs:subClassOf vico:dp_translation_statement.
 
-vto:translation_statement owl:disjointUnionOf (vto:moda_statement vto:negotiation_statement vto:project_statement).
+vto:translation_statement owl:disjointUnionOf (vto:modelling_statement vto:negotiation_statement vto:project_statement).
 
-vto:moda_statement a owl:Class;
+vto:modelling_statement a owl:Class;
    rdfs:subClassOf vto:translation_statement;
-   rdfs:comment "MODA statement, i.e., a translation statement that relates to a MODA graph and/or user case (following OSMO)"^^xs:string.
-vto:op_moda_statement a owl:Class;
+   rdfs:comment "modelling statement, i.e., a translation statement that relates to a MODA graph and/or user case (following OSMO)"^^xs:string.
+vto:op_modelling_statement a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-vto:dp_moda_statement a owl:Class;
+vto:dp_modelling_statement a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-vto:op_translation_statement rdfs:subClassOf vto:op_moda_statement.
-vto:dp_translation_statement rdfs:subClassOf vto:dp_moda_statement.
+vto:op_translation_statement rdfs:subClassOf vto:op_modelling_statement.
+vto:dp_translation_statement rdfs:subClassOf vto:dp_modelling_statement.
 
-vto:moda_statement owl:disjointUnionOf (vto:problem_statement vto:solution_statement).
+vto:modelling_statement owl:disjointUnionOf (vto:problem_statement vto:solution_statement).
 
 vto:problem_statement a owl:Class;
-   rdfs:subClassOf vto:moda_statement;
+   rdfs:subClassOf vto:modelling_statement;
    rdfs:comment "problem statement, i.e., a MODA statement that discusses a user case from the user-side point of view, in terms of MODA section 1"^^xs:string.
 vto:op_problem_statement a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 vto:dp_problem_statement a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-vto:op_moda_statement rdfs:subClassOf vto:op_problem_statement.
-vto:dp_moda_statement rdfs:subClassOf vto:dp_problem_statement.
+vto:op_modelling_statement rdfs:subClassOf vto:op_problem_statement.
+vto:dp_modelling_statement rdfs:subClassOf vto:dp_problem_statement.
 
 vto:solution_statement a owl:Class;
-   rdfs:subClassOf vto:moda_statement;
+   rdfs:subClassOf vto:modelling_statement;
    rdfs:comment "solution statement, i.e., a MODA statement by which a modelling and simulation solution is provided in response to a problem statement"^^xs:string.
 vto:op_solution_statement a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 vto:dp_solution_statement a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-vto:op_moda_statement rdfs:subClassOf vto:op_solution_statement.
-vto:dp_moda_statement rdfs:subClassOf vto:dp_solution_statement.
+vto:op_modelling_statement rdfs:subClassOf vto:op_solution_statement.
+vto:dp_modelling_statement rdfs:subClassOf vto:dp_solution_statement.
 
 vto:negotiation_statement a owl:Class;
    rdfs:subClassOf vto:translation_statement, evmpo:interlocution;

@@ -1,9 +1,9 @@
 
 ### VIMMP TRANSLATION ONTOLOGY (VTO) ###
 
-### VERSION 0.4.7 ###
+### VERSION 0.4.8 ###
 
-### DATED 31ST MAY 2019 ###
+### DATED 12TH AUGUST 2019 ###
 
 @prefix vto: <http://www.vimmp.eu/semantics/vto/vto.ttl#>.
 
@@ -81,39 +81,39 @@ vico:dp_translation_communication rdfs:subClassOf vico:dp_translation_statement.
 evmpo:op_statement rdfs:subClassOf vico:op_translation_statement.
 evmpo:dp_statement rdfs:subClassOf vico:dp_translation_statement.
 
-vto:translation_statement owl:disjointUnionOf (vto:moda_statement vto:negotiation_statement vto:project_statement).
+vto:translation_statement owl:disjointUnionOf (vto:modelling_statement vto:negotiation_statement vto:project_statement).
 
-vto:moda_statement a owl:Class;
+vto:modelling_statement a owl:Class;
    rdfs:subClassOf vto:translation_statement;
-   rdfs:comment "MODA statement, i.e., a translation statement that relates to a MODA graph and/or user case (following OSMO)"^^xs:string.
-vto:op_moda_statement a owl:Class;
+   rdfs:comment "modelling statement, i.e., a translation statement that relates to a MODA graph and/or user case (following OSMO)"^^xs:string.
+vto:op_modelling_statement a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-vto:dp_moda_statement a owl:Class;
+vto:dp_modelling_statement a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-vto:op_translation_statement rdfs:subClassOf vto:op_moda_statement.
-vto:dp_translation_statement rdfs:subClassOf vto:dp_moda_statement.
+vto:op_translation_statement rdfs:subClassOf vto:op_modelling_statement.
+vto:dp_translation_statement rdfs:subClassOf vto:dp_modelling_statement.
 
-vto:moda_statement owl:disjointUnionOf (vto:problem_statement vto:solution_statement).
+vto:modelling_statement owl:disjointUnionOf (vto:problem_statement vto:solution_statement).
 
 vto:problem_statement a owl:Class;
-   rdfs:subClassOf vto:moda_statement;
+   rdfs:subClassOf vto:modelling_statement;
    rdfs:comment "problem statement, i.e., a MODA statement that discusses a user case from the user-side point of view, in terms of MODA section 1"^^xs:string.
 vto:op_problem_statement a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 vto:dp_problem_statement a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-vto:op_moda_statement rdfs:subClassOf vto:op_problem_statement.
-vto:dp_moda_statement rdfs:subClassOf vto:dp_problem_statement.
+vto:op_modelling_statement rdfs:subClassOf vto:op_problem_statement.
+vto:dp_modelling_statement rdfs:subClassOf vto:dp_problem_statement.
 
 vto:solution_statement a owl:Class;
-   rdfs:subClassOf vto:moda_statement;
+   rdfs:subClassOf vto:modelling_statement;
    rdfs:comment "solution statement, i.e., a MODA statement by which a modelling and simulation solution is provided in response to a problem statement"^^xs:string.
 vto:op_solution_statement a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 vto:dp_solution_statement a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-vto:op_moda_statement rdfs:subClassOf vto:op_solution_statement.
-vto:dp_moda_statement rdfs:subClassOf vto:dp_solution_statement.
+vto:op_modelling_statement rdfs:subClassOf vto:op_solution_statement.
+vto:dp_modelling_statement rdfs:subClassOf vto:dp_solution_statement.
 
 vto:negotiation_statement a owl:Class;
    rdfs:subClassOf vto:translation_statement, evmpo:interlocution;
