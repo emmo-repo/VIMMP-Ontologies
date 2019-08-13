@@ -1,0 +1,124 @@
+########################################
+##                                    ##
+##  EXAMPLE: INGEST OF PERSONAL DATA  ##
+##                                    ##
+##   LAST UPDATED: 13TH AUGUST 2019   ##
+##                                    ##
+########################################
+
+<http://www.vimmp.eu/semantics/scenario/self-descriptions/self-descriptions.ttl#> a owl:Ontology.
+
+@prefix self-descriptions: <http://www.vimmp.eu/semantics/scenario/self-descriptions/self-descriptions.ttl#>.
+
+
+################################
+# IMPORTED EXTERNAL ONTOLOGIES #
+################################
+
+@prefix lcc-codes: <https://www.omg.org/spec/LCC/Countries/ISO3166-1-CountryCodes/>.
+@prefix xs: <http://www.w3.org/2001/XMLSchema#>.
+
+
+#############################
+# IMPORTED VIMMP ONTOLOGIES #
+#############################
+
+@prefix cviii: <http://www.vimmp.eu/semantics/cviii/cviii.ttl#>.
+@prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
+@prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
+@prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
+
+
+################
+# PROFILE DATA #
+################
+
+self-descriptions:MARTIN_THOMAS_HORSCH a cviii:human_agent, cviii:marketplace_subject, cviii:model_provider, cviii:translator;
+   cviii:has_first_name "Martin Thomas"^^xs:string;
+   cviii:has_last_name "Horsch"^^xs:string;
+   cviii:has_affiliation self-descriptions:STFC_DARESBURY_LABORATORY;
+   cviii:has_business_address [
+      a vico:email_address;
+      vico:has_email_prefix [
+         vico:has_token_index 1;
+         vico:has_textual_representation "martin.horsch"^^xs:string
+      ];
+      vico:has_email_domain_label [
+         vico:has_token_index 2;
+         vico:has_textual_representation "stfc"^^xs:string
+      ], [
+         vico:has_token_index 3;
+         vico:has_textual_representation "ac"^^xs:string
+      ];
+      vico:is_in_country lcc-codes:UnitedKingdomOfGreatBritainAndNorthernIreland
+   ], [
+      a vico:landline_number;
+      vico:is_in_country lcc-codes:UnitedKingdomOfGreatBritainAndNorthernIreland;
+      vico:has_area_code [
+         vico:has_token_index 1;
+         vico:has_textual_representation "01925"^^xs:string
+      ];
+      vico:has_local_number [
+         vico:has_token_index 2;
+         vico:has_textual_representation "864318"^^xs:string
+      ]
+   ], [
+      a vico:internet_address;
+      vico:is_in_country lcc-codes:UnitedKingdomOfGreatBritainAndNorthernIreland;
+      vico:has_textual_representation "http://www.scd.stfc.ac.uk/Pages/Martin-Thomas-Horsch.aspx"^^xs:string
+   ], self-descriptions:DARESBURY_ADDRESS;
+   cviii:has_interest otras:MM_TOPIC_4000, otras:MM_TOPIC_7500, otras:MM_TOPIC_8570;
+   cviii:has_interlocutor_tag [
+      cviii:is_academic "true"^^xs:boolean;
+      cviii:is_based_in lcc-codes:UnitedKingdomOfGreatBritainAndNorthernIreland;
+      cviii:is_in_group cviii:IG_MODEL_PROVIDER, cviii:IG_TRANSLATOR;
+      cviii:is_for_profit "false"^^xs:boolean;
+      cviii:is_military "false"^^xs:boolean;
+      cviii:is_nuclear "false"^^xs:boolean
+   ];
+   cviii:has_private_address [
+      a vico:internet_address;
+      vico:is_in_country lcc-codes:Germany;
+      vico:has_textual_representation "http://home.bawue.de/~horsch/pdt/"^^xs:string
+   ];
+   cviii:has_profile_image "https://i2.wp.com/emmc.info/wp-content/uploads/avatars/242/5ae3f1c5a17b1-bpfull.jpg"^^xs:anyURI;
+   cviii:has_profile_text "Here, there would be some biographic or other relevant description provided by the user."^^xs:string;
+   cviii:has_role_label "computational data scientist"^^xs:string;
+   cviii:is_subscribed_to macro:EMMC_NEWSLETTER, macro:VIMMP_NEWSLETTER.
+
+self-descriptions:STFC_DARESBURY_LABORATORY a cviii:institution, cviii:model_provider, cviii:software_owner, cviii:training_provider, cviii:translator;
+   cviii:has_name "STFC Daresbury Laboratory"^^xs:string;
+   cviii:has_institutional_address self-descriptions:DARESBURY_ADDRESS;
+   cviii:has_interest otras:MM_TOPIC_3000, otras:MM_TOPIC_7200, otras:MM_TOPIC_8350;
+   cviii:has_interlocutor_tag [
+      cviii:is_academic "true"^^xs:boolean;
+      cviii:is_based_in lcc-codes:UnitedKingdomOfGreatBritainAndNorthernIreland;
+      cviii:is_in_group cviii:IG_MODEL_PROVIDER, cviii:IG_SOFTWARE_OWNER, cviii:IG_TRAINING_PROVIDER, cviii:IG_TRANSLATOR;
+      cviii:is_for_profit "false"^^xs:boolean;
+      cviii:is_nuclear "true"^^xs:boolean;
+      cviii:is_sme "false"^^xs:boolean
+   ].
+
+
+#############
+# ADDRESSES #
+#############
+
+self-descriptions:DARESBURY_ADDRESS a vico:postal_address;
+   vico:has_street_name [
+      vico:has_token_index 1;
+      vico:has_textual_representation "Keckwick Ln"^^xs:string
+   ];
+   vico:has_city_name [
+      vico:has_token_index 2;
+      vico:has_textual_representation "Daresbury"^^xs:string
+   ];
+   vico:has_region_name [
+      vico:has_token_index 3;
+      vico:has_textual_representation "Cheshire"^^xs:string
+   ];
+   vico:has_postal_code [
+      vico:has_token_index 4;
+      vico:has_textual_representation "WA4 4AD"^^xs:string
+   ];
+   vico:is_in_country lcc-codes:UnitedKingdomOfGreatBritainAndNorthernIreland.
