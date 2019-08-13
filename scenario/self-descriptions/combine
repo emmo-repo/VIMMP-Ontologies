@@ -1,1 +1,0 @@
-cat self-descriptions.ttl ../../all-vimmp-ontologies.ttl > ./self-descriptions_combined.ttl
