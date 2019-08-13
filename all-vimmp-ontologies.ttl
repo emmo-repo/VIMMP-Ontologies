@@ -13,9 +13,9 @@
 
 ### CATEGORIZATION OF VIMMP INSTITUTIONS AND INDIVIDUALS (CVIII) ###
 
-### VERSION 0.2.2 ###
+### VERSION 0.8.0 ###
 
-### DATED 12TH AUGUST 2019 ###
+### DATED 13TH AUGUST 2019 ###
 
 @prefix cviii: <http://www.vimmp.eu/semantics/cviii/cviii.ttl#>.
 
@@ -253,7 +253,8 @@ cviii:stakeholder owl:intersectionOf (cviii:agent cviii:R_ACTS_AT_A_VMP).
 
 cviii:expert a owl:Class;
    rdfs:subClassOf cviii:human_agent;
-   owl:equivalentClass evmpo:expert.
+   owl:equivalentClass evmpo:expert;
+   rdfs:comment "expert, i.e., a human agent who can provide competencies and expertise"^^xs:string.
 cviii:op_expert a owl:Class;
    rdfs:subClassOf owl:ObjectProperty;
    owl:equivalentClass evmpo:op_expert.
@@ -263,8 +264,18 @@ cviii:dp_expert a owl:Class;
 cviii:op_human_agent rdfs:subClassOf cviii:op_expert.
 cviii:dp_human_agent rdfs:subClassOf cviii:dp_expert.
 
+cviii:has_competency a cviii:op_expert;
+   rdfs:domain cviii:expert;
+   rdfs:range otras:expert_competency;
+   rdfs:subPropertyOf evmpo:has_role_annotation.
+cviii:has_expertise_in a cviii:op_expert;
+   rdfs:domain cviii:expert;
+   rdfs:range otras:topic;
+   rdfs:subPropertyOf evmpo:has_role_annotation.
+
 cviii:certifier a owl:Class;
-   rdfs:subClassOf cviii:agent.
+   rdfs:subClassOf cviii:agent;
+   rdfs:comment "certifier, i.e., an agent who can issue certificates (communications hat contain assessments)"^^xs:string.
 cviii:op_certifier a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 cviii:dp_certifier a owl:Class;
@@ -280,7 +291,9 @@ cviii:is_certifier_of a cviii:op_certifier;
 cviii:certifier owl:disjointUnionOf (cviii:certifying_expert cviii:certifying_resource).
 
 cviii:certifying_expert a owl:Class;
-   rdfs:subClassOf cviii:certifier, cviii:expert.
+   rdfs:subClassOf cviii:certifier, cviii:expert;
+   owl:intersectionOf (cviii:certifier cviii:expert);
+   rdfs:comment "certifying expert, i.e., a certifier who is also an expert"^^xs:string.
 cviii:op_certifying_expert a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 cviii:dp_certifying_expert a owl:Class;
@@ -291,7 +304,9 @@ cviii:op_expert rdfs:subClassOf cviii:op_certifying_expert.
 cviii:dp_expert rdfs:subClassOf cviii:dp_certifying_expert.
 
 cviii:certifying_resource a owl:Class;
-   rdfs:subClassOf cviii:certifier.
+   rdfs:subClassOf cviii:certifier;
+   owl:intersectionOf (cviii:certifier [owl:complementOf cviii:human_agent]);
+   rdfs:comment "certifying resource, i.e., a certifier who is not a human agent"^^xs:string.
 cviii:op_certifying_resource a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 cviii:dp_certifying_resource a owl:Class;
@@ -302,6 +317,8 @@ cviii:dp_certifier rdfs:subClassOf cviii:dp_certifying_resource.
 cviii:is_at_uri a cviii:dp_certifying_resource;
    rdfs:domain cviii:certifying_resource;
    rdfs:range xs:anyURI.
+
+cviii:certifying_resource owl:disjointWith cviii:human_agent.
 
 cviii:certifying_journal_article a owl:Class;
    rdfs:subClassOf cviii:certifying_resource.
@@ -3873,9 +3890,9 @@ osmo:is_relative_deviation a osmo:dp_deviation_assertion, owl:FunctionalProperty
 
 ### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
 
-### VERSION 0.8.2 ###
+### VERSION 0.8.3 ###
 
-### DATED 31ST JULY 2019 ###
+### DATED 13TH AUGUST 2019 ###
 
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 
@@ -4163,7 +4180,7 @@ otras:has_example_topic a otras:op_example_specifier;
    rdfs:subPropertyOf evmpo:has_meta_annotation.
 
 otras:learning_outcome a owl:Class;
-   rdfs:comment "a learning outcome, equivalent to LearningOutcome from CCSO, further characterized by OTRAS"^^xs:string;
+   rdfs:comment "a learning outcome (i.e., competency), equivalent to LearningOutcome from CCSO, further characterized by OTRAS"^^xs:string;
    rdfs:subClassOf otras:focus;
    owl:equivalentClass ccso:LearningOutcome.
 otras:op_learning_outcome a owl:Class;
@@ -4208,6 +4225,22 @@ otras:has_example_specifier a otras:op_learning_outcome;
    rdfs:domain otras:learning_outcome;
    rdfs:range otras:example_specifier;
    rdfs:subPropertyOf otras:has_specifier.
+
+otras:expert_competency a owl:Class;
+   rdfs:comment "an expert competency, i.e., an expert-level learning outcome"^^xs:string;
+   rdfs:subClassOf otras:learning_outcome.
+otras:op_expert_competency a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_expert_competency a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_learning_outcome rdfs:subClassOf otras:op_expert_competency.
+evmpo:dp_learning_outcome rdfs:subClassOf otras:dp_expert_competency.
+
+otras:R_HAS_AN_EXPERT_OPERATOR_SPECIFIER a owl:Restriction;
+   rdfs:subClassOf otras:constrained_entity;
+   owl:onProperty otras:has_operator_specifier;
+   owl:someValuesFrom otras:expert_operator_specifier.
+otras:expert_competency rdfs:subClassOf otras:R_HAS_AN_EXPERT_OPERATOR_SPECIFIER.
 
 otras:syllabus a owl:Class;
    rdfs:comment "a syllabus as defined by CCSO"^^xs:string;

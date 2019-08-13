@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
 
-### VERSION 0.8.2 ###
+### VERSION 0.8.3 ###
 
-### DATED 31ST JULY 2019 ###
+### DATED 13TH AUGUST 2019 ###
 
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 
@@ -291,7 +291,7 @@ otras:has_example_topic a otras:op_example_specifier;
    rdfs:subPropertyOf evmpo:has_meta_annotation.
 
 otras:learning_outcome a owl:Class;
-   rdfs:comment "a learning outcome, equivalent to LearningOutcome from CCSO, further characterized by OTRAS"^^xs:string;
+   rdfs:comment "a learning outcome (i.e., competency), equivalent to LearningOutcome from CCSO, further characterized by OTRAS"^^xs:string;
    rdfs:subClassOf otras:focus;
    owl:equivalentClass ccso:LearningOutcome.
 otras:op_learning_outcome a owl:Class;
@@ -336,6 +336,22 @@ otras:has_example_specifier a otras:op_learning_outcome;
    rdfs:domain otras:learning_outcome;
    rdfs:range otras:example_specifier;
    rdfs:subPropertyOf otras:has_specifier.
+
+otras:expert_competency a owl:Class;
+   rdfs:comment "an expert competency, i.e., an expert-level learning outcome"^^xs:string;
+   rdfs:subClassOf otras:learning_outcome.
+otras:op_expert_competency a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_expert_competency a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_learning_outcome rdfs:subClassOf otras:op_expert_competency.
+evmpo:dp_learning_outcome rdfs:subClassOf otras:dp_expert_competency.
+
+otras:R_HAS_AN_EXPERT_OPERATOR_SPECIFIER a owl:Restriction;
+   rdfs:subClassOf otras:constrained_entity;
+   owl:onProperty otras:has_operator_specifier;
+   owl:someValuesFrom otras:expert_operator_specifier.
+otras:expert_competency rdfs:subClassOf otras:R_HAS_AN_EXPERT_OPERATOR_SPECIFIER.
 
 otras:syllabus a owl:Class;
    rdfs:comment "a syllabus as defined by CCSO"^^xs:string;
