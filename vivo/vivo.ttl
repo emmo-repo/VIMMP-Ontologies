@@ -1,9 +1,9 @@
 
 ### VIMMP VALIDATION ONTOLOGY (VIVO) ###
 
-### VERSION 0.3.0 ###
+### VERSION 0.3.1 ###
 
-### DATED 12TH AUGUST 2019 ###
+### DATED 15TH AUGUST 2019 ###
 
 @prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
 
@@ -87,7 +87,7 @@ vivo:review_entity owl:disjointUnionOf (vivo:review_assertion vivo:review_assess
 
 vivo:data_item a owl:Class;
    rdfs:subClassOf evmpo:information_content_entity;
-   owl:equivalentClass evmpo:data_item.
+   owl:equivalentClass evmpo:data_item, iao:IAO_0000027.  # iao label "data item"
 vivo:op_data_item a owl:Class;
    rdfs:subClassOf owl:ObjectProperty;
    owl:equivalentClass evmpo:op_data_item.
@@ -274,24 +274,42 @@ vivo:assessment owl:disjointWith vivo:assertion, vivo:property, vivo:validation_
 
 vivo:assessment owl:disjointUnionOf (vivo:accuracy_assessment vivo:requirement_assessment vivo:review_assessment).
 
-vivo:assessment owl:disjointUnionOf (vivo:agent_assessment vivo:document_assessment vivo:event_assessment vivo:infrastructure_assessment vivo:meta_assessment vivo:model_assessment vivo:project_assessment vivo:service_assessment vivo:workflow_assessment).
+vivo:assessment owl:disjointUnionOf (vivo:agent_assessment vivo:data_item_assessment vivo:document_assessment vivo:event_assessment vivo:infrastructure_assessment vivo:meta_assessment vivo:model_assessment vivo:project_assessment vivo:service_assessment vivo:workflow_assessment).
 
 vivo:agent_assessment a owl:Class;
-   rdfs:subClassOf vivo:assessment.
+   rdfs:subClassOf vivo:review_assessment.
 vivo:op_agent_assessment a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 vivo:dp_agent_assessment a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-vivo:op_assessment rdfs:subClassOf vivo:op_agent_assessment.
-vivo:dp_assessment rdfs:subClassOf vivo:dp_agent_assessment.
+vivo:op_review_assessment rdfs:subClassOf vivo:op_agent_assessment.
+vivo:dp_review_assessment rdfs:subClassOf vivo:dp_agent_assessment.
 
 vivo:evaluates_agent a vivo:op_agent_assessment;
    rdfs:domain vivo:agent_assessment;
    rdfs:range evmpo:agent, cviii:agent;
    rdfs:subPropertyOf vivo:evaluates.
 
+vivo:agent_assessment owl:disjointWith vivo:accuracy_assessment, vivo:requirement_assessment.
+
+vivo:data_item_assessment a owl:Class;
+   rdfs:subClassOf vivo:assessment, [owl:unionOf (vivo:accuracy_assessment vivo:review_assessment)].
+vivo:op_data_item_assessment a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vivo:dp_data_item_assessment a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vivo:op_assessment rdfs:subClassOf vivo:op_data_item_assessment.
+vivo:dp_assessment rdfs:subClassOf vivo:dp_data_item_assessment.
+
+vivo:evaluates_data_item a vivo:op_data_item_assessment;
+   rdfs:domain vivo:data_item_assessment;
+   rdfs:range vivo:data_item;
+   rdfs:subPropertyOf vivo:evaluates.
+
+vivo:data_item_assessment owl:disjointWith vivo:requirement_assessment.
+
 vivo:document_assessment a owl:Class;
-   rdfs:subClassOf vivo:assessment.
+   rdfs:subClassOf vivo:assessment, [owl:unionOf (vivo:accuracy_assessment vivo:review_assessment)].
 vivo:op_document_assessment a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 vivo:dp_document_assessment a owl:Class;
@@ -304,8 +322,10 @@ vivo:evaluates_document a vivo:op_document_assessment;
    rdfs:range evmpo:document, iao:IAO_0000310;  # iao label "document"
    rdfs:subPropertyOf vivo:evaluates.
 
+vivo:document_assessment owl:disjointWith vivo:accuracy_assessment.
+
 vivo:event_assessment a owl:Class;
-   rdfs:subClassOf vivo:assessment.
+   rdfs:subClassOf vivo:assessment, [owl:unionOf (vivo:review_assessment vivo:requirement_assessment)].
 vivo:op_event_assessment a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 vivo:dp_event_assessment a owl:Class;
@@ -317,6 +337,8 @@ vivo:evaluates_event a vivo:op_event_assessment;
    rdfs:domain vivo:event_assessment;
    rdfs:range evmpo:calendar_event, ical:Vevent;
    rdfs:subPropertyOf vivo:evaluates.
+
+vivo:event_assessment owl:disjointWith vivo:accuracy_assessment.
 
 vivo:infrastructure_assessment a owl:Class;
    rdfs:subClassOf vivo:assessment.
@@ -333,18 +355,20 @@ vivo:evaluates_infrastructure a vivo:op_infrastructure_assessment;
    rdfs:subPropertyOf vivo:evaluates.
 
 vivo:meta_assessment a owl:Class;
-   rdfs:subClassOf vivo:assessment.
+   rdfs:subClassOf vivo:review_assessment.
 vivo:op_meta_assessment a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 vivo:dp_meta_assessment a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-vivo:op_assessment rdfs:subClassOf vivo:op_meta_assessment.
-vivo:dp_assessment rdfs:subClassOf vivo:dp_meta_assessment.
+vivo:op_review_assessment rdfs:subClassOf vivo:op_meta_assessment.
+vivo:dp_review_assessment rdfs:subClassOf vivo:dp_meta_assessment.
 
 vivo:evaluates_assessment a vivo:op_meta_assessment;
    rdfs:domain vivo:meta_assessment;
    rdfs:range vivo:assessment;
    rdfs:subPropertyOf vivo:evaluates.
+
+vivo:meta_assessment owl:disjointWith vivo:accuracy_assessment, vivo:requirement_assessment.
 
 vivo:model_assessment a owl:Class;
    rdfs:subClassOf vivo:assessment.
@@ -361,7 +385,7 @@ vivo:evaluates_model a vivo:op_model_assessment;
    rdfs:subPropertyOf vivo:evaluates.
 
 vivo:project_assessment a owl:Class;
-   rdfs:subClassOf vivo:assessment.
+   rdfs:subClassOf vivo:assessment, [owl:unionOf (vivo:requirement_assessment vivo:review_assessment)].
 vivo:op_project_assessment a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 vivo:dp_project_assessment a owl:Class;
@@ -374,19 +398,23 @@ vivo:evaluates_project a vivo:op_model_assessment;
    rdfs:range vto:project;
    rdfs:subPropertyOf vivo:evaluates.
 
+vivo:project_assessment owl:disjointWith vivo:accuracy_assessment.
+
 vivo:service_assessment a owl:Class;
-   rdfs:subClassOf vivo:assessment.
+   rdfs:subClassOf vivo:review_assessment.
 vivo:op_service_assessment a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 vivo:dp_service_assessment a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-vivo:op_assessment rdfs:subClassOf vivo:op_service_assessment.
-vivo:dp_assessment rdfs:subClassOf vivo:dp_service_assessment.
+vivo:op_review_assessment rdfs:subClassOf vivo:op_service_assessment.
+vivo:dp_review_assessment rdfs:subClassOf vivo:dp_service_assessment.
 
 vivo:evaluates_service a vivo:op_service_assessment;
    rdfs:domain vivo:service_assessment;
    rdfs:range evmpo:service;
    rdfs:subPropertyOf vivo:evaluates.
+
+vivo:service_assessment owl:disjointWith vivo:accuracy_assessment, vivo:requirement_assessment.
 
 vivo:workflow_assessment a owl:Class;
    rdfs:subClassOf vivo:assessment.
@@ -403,7 +431,7 @@ vivo:evaluates_workflow a vivo:op_workflow_assessment;
    rdfs:subPropertyOf vivo:evaluates.
 
 vivo:accuracy_assessment a owl:Class;
-   rdfs:subClassOf vivo:accuracy_entity, vivo:assessment;
+   rdfs:subClassOf vivo:accuracy_entity, vivo:assessment, [owl:unionOf (vivo:data_item_assessment vivo:document_assessment vivo:infrastructure_assessment vivo:model_assessment vivo:workflow_assessment)];
    owl:intersectionOf (vivo:accuracy_entity vivo:assessment);
    owl:equivalentClass evmpo:accuracy_assessment.
 vivo:op_accuracy_assessment a owl:Class;
@@ -423,7 +451,7 @@ vivo:has_accuracy_assertion a vivo:op_accuracy_assessment;
    rdfs:subPropertyOf vivo:has_assertion.
 
 vivo:requirement_assessment a owl:Class;
-   rdfs:subClassOf vivo:requirement_entity, vivo:assessment;
+   rdfs:subClassOf vivo:requirement_entity, vivo:assessment, [owl:unionOf (vivo:event_assessment vivo:infrastructure_assessment vivo:model_assessment vivo:project_assessment vivo:workflow_assessment)];
    owl:intersectionOf (vivo:requirement_entity vivo:assessment);
    owl:equivalentClass evmpo:requirement_assessment.
 vivo:op_requirement_assessment a owl:Class;
