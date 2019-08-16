@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 1.0.6 ###
+### VERSION 1.0.7 ###
 
-### DATED 9TH AUGUST 2019 ###
+### DATED 16TH AUGUST 2019 ###
 
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -730,8 +730,9 @@ osmo:has_index a osmo:op_indexed_graph;
    rdfs:comment "points to the parameter/index to which multiple values are assigned"^^xs:string.
 osmo:has_index_unit a osmo:op_indexed_graph, owl:FunctionalProperty;
    rdfs:domain osmo:indexed_graph;
-   rdfs:range qudt:DecimalScaledUnit;
-   rdfs:comment "unit in which the index values are given (not required; in many typical cases, the index is dimensionless)"^^xs:string.
+   rdfs:range qudt:Unit, vivo:unit;
+   rdfs:comment "unit in which the index values are given (not required; in many typical cases, the index is dimensionless)"^^xs:string;
+   rdfs:subPropertyOf evmpo:has_annotation.
 osmo:has_index_value a osmo:dp_indexed_graph;
    rdfs:domain osmo:indexed_graph;
    rdfs:range xs:decimal;
@@ -2174,8 +2175,9 @@ osmo:has_initial_elementary_value a osmo:dp_elementary_logical;
    rdfs:range xs:decimal.
 osmo:has_variable_unit a osmo:op_elementary_logical, owl:FunctionalProperty;
    rdfs:domain osmo:elementary_logical;
-   rdfs:range qudt:DecimalScaledUnit;
-   rdfs:comment "unit in which any values are given"^^xs:string.
+   rdfs:range qudt:Unit, vivo:unit;
+   rdfs:comment "unit in which any values are given"^^xs:string;
+   rdfs:subPropertyOf evmpo:has_annotation.
 
 osmo:logical_structure a owl:Class;
    rdfs:subClassOf osmo:logical_variable;
@@ -2475,8 +2477,8 @@ osmo:has_deviation_magnitude a osmo:dp_deviation_assertion, owl:FunctionalProper
    owl:equivalentProperty vivo:has_deviation_magnitude.
 osmo:has_deviation_unit a osmo:dp_deviation_assertion, owl:FunctionalProperty;
    rdfs:domain osmo:deviation_assertion;
-   rdfs:range qudt:DecimalScaledUnit;
-   rdfs:subPropertyOf vivo:has_unit.
+   rdfs:range qudt:Unit, vivo:unit;
+   rdfs:subPropertyOf vivo:has_unit, evmpo:has_information_content_entity_annotation.
 osmo:has_reference_material a osmo:op_deviation_assertion;
    rdfs:domain osmo:deviation_assertion;
    rdfs:range osmo:material;

@@ -1,9 +1,9 @@
 
 ### MARKETPLACE-ACCESSIBLE COMPUTATIONAL RESOURCE ONTOLOGY (MACRO) ###
 
-### VERSION 0.0.6 ###
+### VERSION 0.0.7 ###
 
-### DATED 7TH AUGUST 2019 ###
+### DATED 16TH AUGUST 2019 ###
 
 @prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
 
@@ -42,6 +42,21 @@ cviii:dp_agent rdfs:subClassOf macro:dp_repository.
 macro:VIMMP_CERTIFICATE_REGISTRY a macro:repository;
    cviii:acts_on macro:VIMMP_MARKETPLACE;
    cviii:has_name "VIMMP Marketplace Certificate Registry"^^xs:string.
+
+macro:model_database a owl:Class;
+   rdfs:subClassOf macro:repository, cviii:model_provider.
+macro:op_model_database a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+macro:dp_model_database a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+macro:op_repository rdfs:subClassOf macro:op_model_database.
+macro:dp_repository rdfs:subClassOf macro:dp_model_database.
+cviii:op_model_provider rdfs:subClassOf macro:op_model_database.
+cviii:dp_model_provider rdfs:subClassOf macro:dp_model_database.
+
+macro:BOTTLED_SAFT a macro:model_database;
+   cviii:acts_on macro:VIMMP_MARKETPLACE;
+   cviii:has_name "Bottled SAFT"^^xs:string.
 
 macro:channel a owl:Class;
    rdfs:subClassOf macro:infrastructure.

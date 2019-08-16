@@ -1272,9 +1272,9 @@ evmpo:has_meta_annotation a evmpo:op_annotation;
 
 ### MARKETPLACE-ACCESSIBLE COMPUTATIONAL RESOURCE ONTOLOGY (MACRO) ###
 
-### VERSION 0.0.6 ###
+### VERSION 0.0.7 ###
 
-### DATED 7TH AUGUST 2019 ###
+### DATED 16TH AUGUST 2019 ###
 
 @prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
 
@@ -1313,6 +1313,21 @@ cviii:dp_agent rdfs:subClassOf macro:dp_repository.
 macro:VIMMP_CERTIFICATE_REGISTRY a macro:repository;
    cviii:acts_on macro:VIMMP_MARKETPLACE;
    cviii:has_name "VIMMP Marketplace Certificate Registry"^^xs:string.
+
+macro:model_database a owl:Class;
+   rdfs:subClassOf macro:repository, cviii:model_provider.
+macro:op_model_database a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+macro:dp_model_database a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+macro:op_repository rdfs:subClassOf macro:op_model_database.
+macro:dp_repository rdfs:subClassOf macro:dp_model_database.
+cviii:op_model_provider rdfs:subClassOf macro:op_model_database.
+cviii:dp_model_provider rdfs:subClassOf macro:dp_model_database.
+
+macro:BOTTLED_SAFT a macro:model_database;
+   cviii:acts_on macro:VIMMP_MARKETPLACE;
+   cviii:has_name "Bottled SAFT"^^xs:string.
 
 macro:channel a owl:Class;
    rdfs:subClassOf macro:infrastructure.
@@ -1397,9 +1412,9 @@ macro:MARKET40_MARKETPLACE a macro:virtual_marketplace.
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 1.0.6 ###
+### VERSION 1.0.7 ###
 
-### DATED 9TH AUGUST 2019 ###
+### DATED 16TH AUGUST 2019 ###
 
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -2126,8 +2141,9 @@ osmo:has_index a osmo:op_indexed_graph;
    rdfs:comment "points to the parameter/index to which multiple values are assigned"^^xs:string.
 osmo:has_index_unit a osmo:op_indexed_graph, owl:FunctionalProperty;
    rdfs:domain osmo:indexed_graph;
-   rdfs:range qudt:DecimalScaledUnit;
-   rdfs:comment "unit in which the index values are given (not required; in many typical cases, the index is dimensionless)"^^xs:string.
+   rdfs:range qudt:Unit, vivo:unit;
+   rdfs:comment "unit in which the index values are given (not required; in many typical cases, the index is dimensionless)"^^xs:string;
+   rdfs:subPropertyOf evmpo:has_annotation.
 osmo:has_index_value a osmo:dp_indexed_graph;
    rdfs:domain osmo:indexed_graph;
    rdfs:range xs:decimal;
@@ -3570,8 +3586,9 @@ osmo:has_initial_elementary_value a osmo:dp_elementary_logical;
    rdfs:range xs:decimal.
 osmo:has_variable_unit a osmo:op_elementary_logical, owl:FunctionalProperty;
    rdfs:domain osmo:elementary_logical;
-   rdfs:range qudt:DecimalScaledUnit;
-   rdfs:comment "unit in which any values are given"^^xs:string.
+   rdfs:range qudt:Unit, vivo:unit;
+   rdfs:comment "unit in which any values are given"^^xs:string;
+   rdfs:subPropertyOf evmpo:has_annotation.
 
 osmo:logical_structure a owl:Class;
    rdfs:subClassOf osmo:logical_variable;
@@ -3871,8 +3888,8 @@ osmo:has_deviation_magnitude a osmo:dp_deviation_assertion, owl:FunctionalProper
    owl:equivalentProperty vivo:has_deviation_magnitude.
 osmo:has_deviation_unit a osmo:dp_deviation_assertion, owl:FunctionalProperty;
    rdfs:domain osmo:deviation_assertion;
-   rdfs:range qudt:DecimalScaledUnit;
-   rdfs:subPropertyOf vivo:has_unit.
+   rdfs:range qudt:Unit, vivo:unit;
+   rdfs:subPropertyOf vivo:has_unit, evmpo:has_information_content_entity_annotation.
 osmo:has_reference_material a osmo:op_deviation_assertion;
    rdfs:domain osmo:deviation_assertion;
    rdfs:range osmo:material;
@@ -6016,9 +6033,9 @@ vico:dp_phone_number rdfs:subClassOf vico:dp_mobile_number.
 
 ### VIMMP VALIDATION ONTOLOGY (VIVO) ###
 
-### VERSION 0.3.1 ###
+### VERSION 0.3.2 ###
 
-### DATED 15TH AUGUST 2019 ###
+### DATED 16TH AUGUST 2019 ###
 
 @prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
 
@@ -6126,8 +6143,9 @@ vivo:asserts_magnitude a vivo:dp_assertion, owl:FunctionalProperty;
    rdfs:range xs:decimal.
 vivo:has_unit a vivo:op_assertion, owl:FunctionalProperty;
    rdfs:domain vivo:assertion;
-   rdfs:range qudt:DecimalScaledUnit;
-   rdfs:comment "unit in which any values are given"^^xs:string.
+   rdfs:range vivo:unit;
+   rdfs:comment "unit in which any values are given"^^xs:string;
+   rdfs:subPropertyOf evmpo:has_information_content_entity_annotation.
 vivo:refers_to_property a vivo:op_assertion;
    rdfs:domain vivo:assertion;
    rdfs:range vivo:property.
@@ -6190,7 +6208,8 @@ vivo:has_value a vivo:dp_material_property_information, owl:FunctionalProperty;
    rdfs:range xs:decimal.
 vivo:is_given_in a vivo:op_material_property_information, owl:FunctionalProperty;
    rdfs:domain vivo:material_property_information;
-   rdfs:range qudt:DecimalScaledUnit.
+   rdfs:range vivo:unit;
+   rdfs:subPropertyOf evmpo:has_information_content_entity_annotation.
 
 vivo:accuracy_assertion a owl:Class;
    rdfs:subClassOf vivo:assertion, vivo:accuracy_entity;
@@ -6670,6 +6689,37 @@ vivo:is_quantity_kind a vivo:op_material_property, owl:FunctionalProperty;
    rdfs:range qudt:QuantityKind;
    rdfs:comment "points to the physical property characterization following QUDT"^^xs:string.
 
+
+################################################################
+# ANNOTATION: ADDITIONAL UNITS DEFINED IN ACCORDANCE WITH QUDT #
+################################################################
+
+vivo:unit a owl:Class;
+   rdfs:subClassOf evmpo:annotation;
+   owl:equivalentClass qudt:Unit;
+   rdfs:comment "this class will be used to define units (individuals of the unit class) that are absent from qudt-unit"^^xs:string.
+vivo:op_unit a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vivo:dp_unit a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_annotation rdfs:subClassOf vivo:op_unit.
+evmpo:dp_annotation rdfs:subClassOf vivo:dp_unit.
+
+vivo:UNIT_DEBYE_ANGSTROM a vivo:unit, qudt:ElectricityAndMagnetismUnit;
+   qudt:conversionMultiplier 3.33564e-40;
+   qudt:conversionOffset 0.0;
+   qudt:symbol "DA"^^xs:string;
+   qudt:description "Debye Angstrom, i.e., a quadrupole-moment unit, corresponding to 3.33564e-40 C m^2, also referred to as Buckingham"^^xs:string.
+vivo:UNIT_KELVIN_BOLTZMANN a vivo:unit, qudt:EnergyAndWorkUnit;
+   qudt:conversionMultiplier 1.38065e-23;
+   qudt:conversionOffset 0.0;
+   qudt:symbol "K k_B"^^xs:string;
+   qudt:description "Kelvin x Boltzmann constant, i.e., an energy unit, corresponding to 1.38065e-23 J"^^xs:string.
+vivo:UNIT_U a vivo:unit, qudt:MassUnit;  # note: this exists within qudt, but there is a bug in the definition
+   qudt:conversionMultiplier 1.660539e-27;
+   qudt:conversionOffset 0.0;
+   qudt:symbol "u"^^xs:string;
+   qudt:description "Unit of mass corresponding to 1 g/mol, also referred to as Dalton"^^xs:string.
 
 
 # NOTE: THIS BRANCH IS OBSOLETE, NEEDS TO BE REPLACED WITH APPROPRIATE STRUCTURES.

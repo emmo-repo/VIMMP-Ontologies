@@ -1,9 +1,9 @@
 
 ### VIMMP VALIDATION ONTOLOGY (VIVO) ###
 
-### VERSION 0.3.1 ###
+### VERSION 0.3.2 ###
 
-### DATED 15TH AUGUST 2019 ###
+### DATED 16TH AUGUST 2019 ###
 
 @prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
 
@@ -111,8 +111,9 @@ vivo:asserts_magnitude a vivo:dp_assertion, owl:FunctionalProperty;
    rdfs:range xs:decimal.
 vivo:has_unit a vivo:op_assertion, owl:FunctionalProperty;
    rdfs:domain vivo:assertion;
-   rdfs:range qudt:DecimalScaledUnit;
-   rdfs:comment "unit in which any values are given"^^xs:string.
+   rdfs:range vivo:unit;
+   rdfs:comment "unit in which any values are given"^^xs:string;
+   rdfs:subPropertyOf evmpo:has_information_content_entity_annotation.
 vivo:refers_to_property a vivo:op_assertion;
    rdfs:domain vivo:assertion;
    rdfs:range vivo:property.
@@ -175,7 +176,8 @@ vivo:has_value a vivo:dp_material_property_information, owl:FunctionalProperty;
    rdfs:range xs:decimal.
 vivo:is_given_in a vivo:op_material_property_information, owl:FunctionalProperty;
    rdfs:domain vivo:material_property_information;
-   rdfs:range qudt:DecimalScaledUnit.
+   rdfs:range vivo:unit;
+   rdfs:subPropertyOf evmpo:has_information_content_entity_annotation.
 
 vivo:accuracy_assertion a owl:Class;
    rdfs:subClassOf vivo:assertion, vivo:accuracy_entity;
@@ -655,6 +657,37 @@ vivo:is_quantity_kind a vivo:op_material_property, owl:FunctionalProperty;
    rdfs:range qudt:QuantityKind;
    rdfs:comment "points to the physical property characterization following QUDT"^^xs:string.
 
+
+################################################################
+# ANNOTATION: ADDITIONAL UNITS DEFINED IN ACCORDANCE WITH QUDT #
+################################################################
+
+vivo:unit a owl:Class;
+   rdfs:subClassOf evmpo:annotation;
+   owl:equivalentClass qudt:Unit;
+   rdfs:comment "this class will be used to define units (individuals of the unit class) that are absent from qudt-unit"^^xs:string.
+vivo:op_unit a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vivo:dp_unit a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_annotation rdfs:subClassOf vivo:op_unit.
+evmpo:dp_annotation rdfs:subClassOf vivo:dp_unit.
+
+vivo:UNIT_DEBYE_ANGSTROM a vivo:unit, qudt:ElectricityAndMagnetismUnit;
+   qudt:conversionMultiplier 3.33564e-40;
+   qudt:conversionOffset 0.0;
+   qudt:symbol "DA"^^xs:string;
+   qudt:description "Debye Angstrom, i.e., a quadrupole-moment unit, corresponding to 3.33564e-40 C m^2, also referred to as Buckingham"^^xs:string.
+vivo:UNIT_KELVIN_BOLTZMANN a vivo:unit, qudt:EnergyAndWorkUnit;
+   qudt:conversionMultiplier 1.38065e-23;
+   qudt:conversionOffset 0.0;
+   qudt:symbol "K k_B"^^xs:string;
+   qudt:description "Kelvin x Boltzmann constant, i.e., an energy unit, corresponding to 1.38065e-23 J"^^xs:string.
+vivo:UNIT_U a vivo:unit, qudt:MassUnit;  # note: this exists within qudt, but there is a bug in the definition
+   qudt:conversionMultiplier 1.660539e-27;
+   qudt:conversionOffset 0.0;
+   qudt:symbol "u"^^xs:string;
+   qudt:description "Unit of mass corresponding to 1 g/mol, also referred to as Dalton"^^xs:string.
 
 
 # NOTE: THIS BRANCH IS OBSOLETE, NEEDS TO BE REPLACED WITH APPROPRIATE STRUCTURES.
