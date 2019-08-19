@@ -6813,9 +6813,9 @@ vivo:UNIT_U a vivo:unit, qudt:MassUnit;  # note: this exists within qudt, but th
 
 ### VIMMP TRANSLATION ONTOLOGY (VTO) ###
 
-### VERSION 0.4.8 ###
+### VERSION 0.4.9 ###
 
-### DATED 12TH AUGUST 2019 ###
+### DATED 19TH AUGUST 2019 ###
 
 @prefix vto: <http://www.vimmp.eu/semantics/vto/vto.ttl#>.
 
@@ -6829,14 +6829,14 @@ vivo:UNIT_U a vivo:unit, qudt:MassUnit;  # note: this exists within qudt, but th
 <http://www.vimmp.eu/semantics/vto/vto.ttl#> a owl:Ontology.
 
 vto:translation_entity a owl:Class;
-   rdfs:subClassOf evmpo:marketplace_related_entity;
-   rdfs:comment "translation entity, i.e., an entity related to translating materials modelling problems to appropriate solutions"^^xs:string.
+   rdfs:subClassOf evmpo:paradigmatic_entity;
+   rdfs:comment "translation entity, i.e., a paradigmatic entity related to translating materials modelling problems to appropriate solutions"^^xs:string.
 vto:op_translation_entity a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 vto:dp_translation_entity a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_marketplace_related_entity rdfs:subClassOf vto:op_translation_entity.
-evmpo:dp_marketplace_related_entity rdfs:subClassOf vto:dp_translation_entity.
+evmpo:op_paradigmatic_entity rdfs:subClassOf vto:op_translation_entity.
+evmpo:dp_paradigmatic_entity rdfs:subClassOf vto:dp_translation_entity.
 
 vto:project a owl:Class;
    rdfs:subClassOf vto:translation_entity, evmpo:process;
