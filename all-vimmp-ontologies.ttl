@@ -13,9 +13,9 @@
 
 ### CATEGORIZATION OF VIMMP INSTITUTIONS AND INDIVIDUALS (CVIII) ###
 
-### VERSION 0.8.0 ###
+### VERSION 0.9.0 ###
 
-### DATED 13TH AUGUST 2019 ###
+### DATED 28TH AUGUST 2019 ###
 
 @prefix cviii: <http://www.vimmp.eu/semantics/cviii/cviii.ttl#>.
 
@@ -24,6 +24,7 @@
 @prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix owl2: <http://www.w3.org/2006/12/owl2#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
@@ -210,6 +211,10 @@ cviii:dp_human_agent a owl:Class;
 cviii:op_person rdfs:subClassOf cviii:op_human_agent.
 cviii:dp_person rdfs:subClassOf cviii:dp_human_agent.
 
+cviii:has_academic_title a cviii:op_human_agent;
+   rdfs:domain cviii:human_agent;
+   rdfs:range cviii:academic_title;
+   rdfs:subPropertyOf cviii:has_personal_title.
 cviii:has_first_name a cviii:dp_human_agent;
    rdfs:domain cviii:human_agent;
    rdfs:range xs:string.
@@ -221,6 +226,10 @@ cviii:has_private_address a cviii:op_human_agent;
    rdfs:domain cviii:human_agent;
    rdfs:range vico:address;
    rdfs:subPropertyOf cviii:has_personal_address.
+cviii:has_personal_title a cviii:op_human_agent;
+   rdfs:domain cviii:human_agent;
+   rdfs:range cviii:personal_title;
+   rdfs:subPropertyOf evmpo:has_role_annotation.
 
 cviii:virtual_agent a owl:Class;
    rdfs:subClassOf cviii:person;
@@ -544,6 +553,179 @@ evmpo:op_role rdfs:subClassOf cviii:op_country.
 evmpo:dp_role rdfs:subClassOf cviii:dp_country.
 cviii:op_role rdfs:subClassOf cviii:op_country.
 cviii:dp_role rdfs:subClassOf cviii:dp_country.
+
+
+cviii:personal_title a owl:Class;
+   rdfs:subClassOf evmpo:annotation;
+   rdfs:comment "personal title, i.e., a title that can be carried by a human agent in association with the name"^^xs:string.
+cviii:op_personal_title a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+cviii:dp_personal_title a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_annotation rdfs:subClassOf cviii:op_personal_title.
+evmpo:dp_annotation rdfs:subClassOf cviii:dp_personal_title.
+
+cviii:corresponds_to a cviii:op_personal_title, owl:TransitiveProperty, owl:SymmetricProperty;
+   rdfs:domain cviii:personal_title;
+   rdfs:range cviii:personal_title;
+   rdfs:comment "relation that connects equivalent or approximately equivalent titles (e.g., versions in different languages or from different countries)"^^xs:string;
+   rdfs:subPropertyOf evmpo:has_meta_annotation.
+cviii:is_extended_form_of a cviii:op_personal_title, owl:TransitiveProperty;
+   rdfs:domain cviii:personal_title;
+   rdfs:range cviii:personal_title;
+   rdfs:comment "the two titles refer to the same degree, only that this one is a longer written form of it than the other"^^xs:string;
+   rdfs:subPropertyOf cviii:corresponds_to;
+   owl:inverseOf cviii:is_shortened_form_of.
+cviii:is_gendered_form_of a cviii:op_personal_title, owl:TransitiveProperty, owl:SymmetricProperty;
+   rdfs:domain cviii:personal_title;
+   rdfs:range cviii:personal_title;
+   rdfs:comment "this relation applies if the difference between the two given titles essentially reduces to gender (n.b., this also holds if one of the two forms does not denote gender explicitly)"^^xs:string;
+   rdfs:subPropertyOf cviii:corresponds_to.
+cviii:is_shortened_form_of a cviii:op_personal_title, owl:TransitiveProperty;
+   rdfs:domain cviii:personal_title;
+   rdfs:range cviii:personal_title;
+   rdfs:comment "the two titles refer to the same degree, only that this one is a shorter written form of it than the other"^^xs:string;
+   rdfs:subPropertyOf cviii:corresponds_to;
+   owl:inverseOf cviii:is_extended_form_of.
+cviii:is_translated_form_of a cviii:op_personal_title, owl:TransitiveProperty, owl:SymmetricProperty;
+   rdfs:domain cviii:personal_title;
+   rdfs:range cviii:personal_title;
+   rdfs:comment "this relation applies if the difference between the two given titles essentially reduces to a choice of language or country"^^xs:string;
+   rdfs:subPropertyOf cviii:corresponds_to.
+
+cviii:has_prefix_element a cviii:dp_personal_title;
+   rdfs:domain cviii:personal_title;
+   rdfs:range xs:boolean;
+   rdfs:comment "is true if there is a part of the title that goes before the name, such as Dr."^^xs:string.
+cviii:has_prefix_text a cviii:dp_personal_title;
+   rdfs:domain cviii:personal_title;
+   rdfs:range xs:string;
+   rdfs:comment "title (or part of it) that goes before the name"^^xs:string.
+cviii:has_suffix_element a cviii:dp_personal_title;
+   rdfs:domain cviii:personal_title;
+   rdfs:range xs:boolean;
+   rdfs:comment "is true if there is a part of the title that goes after the name, such as jr."^^xs:string.
+cviii:has_suffix_text a cviii:dp_personal_title;
+   rdfs:domain cviii:personal_title;
+   rdfs:range xs:string;
+   rdfs:comment "title (or part of it) that goes after the name"^^xs:string.
+cviii:is_local_to a cviii:op_personal_title;
+   rdfs:domain cviii:personal_title;
+   rdfs:range cviii:country;
+   rdfs:comment "points to a country where this title is recognized and used in the given form"^^xs:string.
+cviii:prefix_is_prior_to a cviii:op_personal_title, owl:TransitiveProperty;
+   rdfs:domain cviii:personal_title;
+   rdfs:range cviii:personal_title;
+   rdfs:comment "relation that determines the order in which title prefixes are written down"^^xs:string;
+   owl:inverseOf cviii:prefix_is_posterior_to.
+cviii:prefix_is_posterior_to a cviii:op_personal_title, owl:TransitiveProperty;
+   rdfs:domain cviii:personal_title;
+   rdfs:range cviii:personal_title;
+   rdfs:comment "relation that determines the order in which title prefixes are written down"^^xs:string;
+   owl:inverseOf cviii:prefix_is_prior_to;
+   rdfs:subPropertyOf evmpo:has_meta_annotation.
+cviii:suffix_is_prior_to a cviii:op_personal_title, owl:TransitiveProperty;
+   rdfs:domain cviii:personal_title;
+   rdfs:range cviii:personal_title;
+   rdfs:comment "relation that determines the order in which title suffixes are written down"^^xs:string;
+   owl:inverseOf cviii:suffix_is_posterior_to.
+cviii:suffix_is_posterior_to a cviii:op_personal_title, owl:TransitiveProperty;
+   rdfs:domain cviii:personal_title;
+   rdfs:range cviii:personal_title;
+   rdfs:comment "relation that determines the order in which title suffixes are written down"^^xs:string;
+   owl:inverseOf cviii:suffix_is_prior_to;
+   rdfs:subPropertyOf evmpo:has_meta_annotation.
+
+cviii:titular_rank a owl:Class;
+   rdfs:subClassOf cviii:personal_title;
+   rdfs:comment "titular rank, i.e., a personal title that is part of a hierarchy of titles"^^xs:string.
+cviii:op_titular_rank a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+cviii:dp_titular_rank a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+cviii:op_personal_title rdfs:subClassOf cviii:op_titular_rank.
+cviii:dp_personal_title rdfs:subClassOf cviii:dp_titular_rank.
+
+cviii:is_inferior_to a cviii:op_titular_rank, owl:TransitiveProperty;
+   rdfs:domain cviii:titular_rank;
+   rdfs:range cviii:titular_rank;
+   rdfs:comment "relation corresponding to the hierarchical order of titles"^^xs:string;
+   owl:inverseOf cviii:is_superior_to.
+cviii:is_superior_to a cviii:op_titular_rank, owl:TransitiveProperty;
+   rdfs:domain cviii:titular_rank;
+   rdfs:range cviii:titular_rank;
+   rdfs:comment "relation corresponding to the hierarchical order of titles"^^xs:string;
+   owl:inverseOf cviii:is_inferior_to;
+   rdfs:subPropertyOf evmpo:has_meta_annotation.
+
+cviii:academic_title a owl:Class;
+   rdfs:subClassOf cviii:titular_rank;
+   rdfs:comment "academic title, i.e., a titular rank that signifies possession of an academic degree"^^xs:string.
+cviii:op_academic_title a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+cviii:dp_academic_title a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+cviii:op_titular_rank rdfs:subClassOf cviii:op_academic_title.
+cviii:dp_titular_rank rdfs:subClassOf cviii:dp_academic_title.
+
+cviii:academic_title owl:disjointUnionOf (cviii:nondoctoral_title cviii:doctoral_title cviii:postdoctoral_title).
+
+cviii:postdoctoral_title a owl:Class;
+   rdfs:subClassOf cviii:academic_title;
+   rdfs:comment "postdoctoral title, i.e., an academic title that is usually only conferred on people with a doctorate"^^xs:string.
+cviii:op_postdoctoral_title a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+cviii:dp_postdoctoral_title a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+cviii:op_academic_title rdfs:subClassOf cviii:op_postdoctoral_title.
+cviii:dp_academic_title rdfs:subClassOf cviii:dp_postdoctoral_title.
+
+cviii:doctoral_title a owl:Class;
+   rdfs:subClassOf cviii:academic_title;
+   rdfs:comment "doctoral title, i.e., an academic title that signifies the possession of a doctorate degree"^^xs:string.
+cviii:op_doctoral_title a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+cviii:dp_doctoral_title a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+cviii:op_academic_title rdfs:subClassOf cviii:op_doctoral_title.
+cviii:dp_academic_title rdfs:subClassOf cviii:dp_doctoral_title.
+
+cviii:nondoctoral_title a owl:Class;
+   rdfs:subClassOf cviii:academic_title;
+   rdfs:comment "nondoctoral title, i.e., an academic title which does not confer a doctorate and also usually does not require a doctorate"^^xs:string.
+cviii:op_nondoctoral_title a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+cviii:dp_nondoctoral_title a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+cviii:op_academic_title rdfs:subClassOf cviii:op_nondoctoral_title.
+cviii:dp_academic_title rdfs:subClassOf cviii:dp_nondoctoral_title.
+
+cviii:TITLE_FEMALE_GENERIC a cviii:personal_title;
+   cviii:has_prefix_element "true"^^xs:boolean;
+   cviii:has_prefix_text "Ms"^^xs:string;
+   cviii:has_suffix_element "false"^^xs:boolean;
+   cviii:is_gendered_form_of cviii:TITLE_MALE_GENERIC.
+cviii:TITLE_MALE_GENERIC a cviii:personal_title;
+   cviii:has_prefix_element "true"^^xs:boolean;
+   cviii:has_prefix_text "Mr"^^xs:string;
+   cviii:has_suffix_element "false"^^xs:boolean;
+   cviii:is_gendered_form_of cviii:TITLE_FEMALE_GENERIC.
+
+cviii:TITLE_DOCTOR_GENERIC a cviii:doctoral_title;
+   cviii:has_prefix_element "true"^^xs:boolean;
+   cviii:has_prefix_text "Dr"^^xs:string;
+   cviii:has_suffix_element "false"^^xs:boolean.
+
+cviii:TITLE_PROFESSOR_GENERIC_LONG a cviii:postdoctoral_title;
+   cviii:has_prefix_element "true"^^xs:boolean;
+   cviii:has_prefix_text "Professor"^^xs:string;
+   cviii:has_suffix_element "false"^^xs:boolean;
+   cviii:is_extended_form_of cviii:TITLE_PROFESSOR_GENERIC_SHORT.
+cviii:TITLE_PROFESSOR_GENERIC_SHORT a cviii:postdoctoral_title;
+   cviii:has_prefix_element "true"^^xs:boolean;
+   cviii:has_prefix_text "Prof"^^xs:string;
+   cviii:has_suffix_element "false"^^xs:boolean;
+   cviii:is_shortened_form_of cviii:TITLE_PROFESSOR_GENERIC_LONG.
 
 ### EUROPEAN VIRTUAL MARKETPLACE ONTOLOGY (EVMPO) ###
 
@@ -3907,9 +4089,9 @@ osmo:is_relative_deviation a osmo:dp_deviation_assertion, owl:FunctionalProperty
 
 ### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
 
-### VERSION 0.8.3 ###
+### VERSION 0.8.4 ###
 
-### DATED 13TH AUGUST 2019 ###
+### DATED 28TH AUGUST 2019 ###
 
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 
@@ -5346,6 +5528,21 @@ otras:R_HAS_ONE_AME_INDEX a owl:Restriction;
    owl:onProperty otras:has_ame_index;
    owl:cardinality 1.
 otras:author_map_element rdfs:subClassOf otras:R_HAS_ONE_AME_IDENTIFIER, otras:R_HAS_ONE_AME_INDEX.
+
+
+otras:instructor a owl:Class;
+   rdfs:subClassOf cviii:expert, cviii:training_provider, ccso:Professor;
+   rdfs:comment "instructor, i.e., an individual human agent with expertise who can take responsibility for courses, training units, or training services"^^xs:string.
+otras:op_instructor a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_instructor a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+cviii:op_expert rdfs:subClassOf otras:op_instructor.
+cviii:dp_expert rdfs:subClassOf otras:dp_instructor.
+cviii:op_training_provider rdfs:subClassOf otras:op_instructor.
+cviii:dp_training_provider rdfs:subClassOf otras:dp_instructor.
+cviii:op_human_agent rdfs:subClassOf otras:op_instructor.
+cviii:dp_human_agent rdfs:subClassOf otras:dp_instructor.
 
 ### VIMMP COMMUNICATION ONTOLOGY (VICO) ###
 
