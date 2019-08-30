@@ -4,7 +4,7 @@
 ##  EXAMPLE: PHOSGENE EOS PARAMETERIZATION  ##
 ##  BY NVT ENSEMBLE MONTE CARLO SIMULATION  ##
 ##                                          ##
-##       LAST UPDATED: 25TH JULY 2019       ##
+##      LAST UPDATED: 30TH AUGUST 2019      ##
 ##                                          ##
 ##############################################
 
@@ -762,35 +762,35 @@ scenario-eosmd:M2
    ].
 
 scenario-eosmd:ISOTHERMAL_ISOCHORIC a osmo:quantitative_condition;
-   osmo:has_precomputed_parameter [
-      a osmo:physical_parameter, osmo:elementary_logical;
+   osmo:contains_precomputed_variable [
+      a osmo:physical_variable, osmo:elementary_logical;
       osmo:has_variable_name "M1_M2_given_density"^^xs:string;
       osmo:has_variable_unit [a qudt:MolarConcentrationUnit]
    ], [
-      a osmo:physical_parameter, osmo:elementary_logical;
+      a osmo:physical_variable, osmo:elementary_logical;
       osmo:has_variable_name "M1_M2_given_temperature"^^xs:string;
       osmo:has_variable_unit [a qudt:TemperatureUnit]
    ].
 scenario-eosmd:ISOTHERMAL_VLE a osmo:quantitative_condition;
-   osmo:has_precomputed_parameter [
-      a osmo:physical_parameter, osmo:elementary_logical;
+   osmo:contains_precomputed_variable [
+      a osmo:physical_variable, osmo:elementary_logical;
       osmo:has_variable_name "M2_given_temperature"^^xs:string;
       osmo:has_variable_unit [a qudt:TemperatureUnit]
    ];
-   osmo:has_runtime_parameter [
-      a osmo:physical_parameter, osmo:elementary_logical;
+   osmo:contains_runtime_variable [
+      a osmo:physical_variable, osmo:elementary_logical;
       osmo:has_variable_name "M2_p_liq"^^xs:string;
       osmo:has_variable_unit [a qudt:PressureUnit]
    ], [
-      a osmo:physical_parameter, osmo:elementary_logical;
+      a osmo:physical_variable, osmo:elementary_logical;
       osmo:has_variable_name "M2_p_vap"^^xs:string;
       osmo:has_variable_unit [a qudt:PressureUnit]
    ], [
-      a osmo:physical_parameter, osmo:elementary_logical;
+      a osmo:physical_variable, osmo:elementary_logical;
       osmo:has_variable_name "M2_mu_liq"^^xs:string;
       osmo:has_variable_unit [a qudt:MolarEnergyUnit]
    ], [
-      a osmo:physical_parameter, osmo:elementary_logical;
+      a osmo:physical_variable, osmo:elementary_logical;
       osmo:has_variable_name "M2_mu_vap"^^xs:string;
       osmo:has_variable_unit [a qudt:MolarEnergyUnit]
    ].

@@ -1,9 +1,9 @@
 
 ### CATEGORIZATION OF VIMMP INSTITUTIONS AND INDIVIDUALS (CVIII) ###
 
-### VERSION 0.9.0 ###
+### VERSION 0.9.1 ###
 
-### DATED 28TH AUGUST 2019 ###
+### DATED 30TH AUGUST 2019 ###
 
 @prefix cviii: <http://www.vimmp.eu/semantics/cviii/cviii.ttl#>.
 
@@ -714,3 +714,40 @@ cviii:TITLE_PROFESSOR_GENERIC_SHORT a cviii:postdoctoral_title;
    cviii:has_prefix_text "Prof"^^xs:string;
    cviii:has_suffix_element "false"^^xs:boolean;
    cviii:is_shortened_form_of cviii:TITLE_PROFESSOR_GENERIC_LONG.
+
+# "no doctoral title is superior to any postdoctoral title"
+#
+cviii:is_superior_to_any a cviii:op_titular_rank;
+   rdfs:domain cviii:titular_rank;
+   rdfs:range owl:Class;
+   owl:propertyChainAxiom (cviii:is_superior_to rdf:type).
+cviii:R_IS_SUPERIOR_TO_ANY_POSTDOCTORAL_TITLE a owl:Restriction;
+   rdfs:subClassOf cviii:constrained_entity;
+   owl:onProperty cviii:is_superior_to_any;
+   owl:hasValue cviii:postdoctoral_title.
+cviii:doctoral_title owl:disjointWith cviii:R_IS_SUPERIOR_TO_ANY_POSTDOCTORAL_TITLE.
+
+# "all nondoctoral titles are inferior to all doctoral titles"
+#
+cviii:R_IS_ON_INFERIORITY a owl:Restriction;
+   owl:onProperty owl:onProperty;
+   owl:hasValue cviii:is_inferior_to.
+cviii:inferiority_set a owl:Class;
+   rdfs:subClassOf owl:Restriction, cviii:R_IS_ON_INFERIORITY.
+cviii:is_inferiority_set_of a owl:ObjectProperty;
+   rdfs:domain cviii:inferiority_set;
+   rdfs:range cviii:titular_rank;
+   rdfs:subPropertyOf owl:hasValue.
+cviii:is_noninferior_to a cviii:op_titular_rank;
+   rdfs:domain cviii:titular_rank;
+   rdfs:range cviii:titular_rank;
+   owl:propertyChainAxiom (rdf:type owl:complementOf cviii:is_inferiority_set_of).
+cviii:is_noninferior_to_any a cviii:op_titular_rank;
+   rdfs:domain cviii:titular_rank;
+   rdfs:range owl:Class;
+   owl:propertyChainAxiom (cviii:is_noninferior_to rdf:type).
+cviii:R_IS_NONINFERIOR_TO_ANY_DOCTORAL_TITLE a owl:Restriction;
+   rdfs:subClassOf cviii:constrained_entity;
+   owl:onProperty cviii:is_noninferior_to_any;
+   owl:hasValue cviii:doctoral_title.
+cviii:nondoctoral_title owl:disjointWith cviii:R_IS_NONINFERIOR_TO_ANY_DOCTORAL_TITLE.

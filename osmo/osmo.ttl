@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 1.0.7 ###
+### VERSION 1.1.0 ###
 
-### DATED 16TH AUGUST 2019 ###
+### DATED 30TH AUGUST 2019 ###
 
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -726,8 +726,8 @@ osmo:has_linked_instances a osmo:dp_indexed_graph;
 
 osmo:has_index a osmo:op_indexed_graph;
    rdfs:domain osmo:indexed_graph;
-   rdfs:range osmo:parameter;
-   rdfs:comment "points to the parameter/index to which multiple values are assigned"^^xs:string.
+   rdfs:range osmo:logical_variable;
+   rdfs:comment "points to the logical variable/index to which multiple values are assigned"^^xs:string.
 osmo:has_index_unit a osmo:op_indexed_graph, owl:FunctionalProperty;
    rdfs:domain osmo:indexed_graph;
    rdfs:range qudt:Unit, vivo:unit;
@@ -1002,11 +1002,11 @@ osmo:dp_section_aspect rdfs:subClassOf osmo:dp_parameter_aspect.
 osmo:op_parameter rdfs:subClassOf osmo:op_parameter_aspect.
 osmo:dp_parameter rdfs:subClassOf osmo:dp_parameter_aspect.
 
-osmo:R_HAS_A_PARAMETER_CONTENT a owl:Restriction;
+osmo:R_HAS_A_LOGICAL_VARIABLE_CONTENT a owl:Restriction;
    rdfs:subClassOf osmo:constrained_entity;
    owl:onProperty osmo:has_aspect_object_content;
-   owl:someValuesFrom osmo:parameter.
-osmo:parameter_aspect rdfs:subClassOf osmo:R_HAS_A_PARAMETER_CONTENT.
+   owl:someValuesFrom osmo:logical_variable.
+osmo:parameter_aspect rdfs:subClassOf osmo:R_HAS_A_LOGICAL_VARIABLE_CONTENT.
 
 osmo:section_description a owl:Class;
    rdfs:subClassOf osmo:section_aspect;
@@ -1990,47 +1990,41 @@ osmo:instantiates a osmo:op_concrete_graph;
    rdfs:comment "use of this relation: a virtual resource can be defined by describing a concrete resource that instantiates it (e.g., a single loop iteration), i.e., which is relates to the corresponding virtual resource by osmo:instantiates"^^xs:string;
    rdfs:subPropertyOf osmo:has_subgraph.
 
-
-osmo:parameter a owl:Class;
-   rdfs:subClassOf osmo:logical_variable, evmpo:marketplace_related_entity;
-   rdfs:comment "parameter, i.e., given or adjustable quantity within a model or a simulation workflow, or a part or component thereof"^^xs:string.
-osmo:op_parameter a owl:Class;
+osmo:physical_variable a owl:Class;
+   rdfs:subClassOf vivo:material_property, osmo:logical_variable, evmpo:material_property, evmpo:paradigmatic_entity;
+   rdfs:comment "physical variable, i.e., a logical variable defined in terms of a material property"^^xs:string.
+osmo:op_physical_variable a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_parameter a owl:Class;
+osmo:dp_physical_variable a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_logical_variable rdfs:subClassOf osmo:op_parameter.
-osmo:dp_logical_variable rdfs:subClassOf osmo:dp_parameter.
-evmpo:op_marketplace_related_entity rdfs:subClassOf osmo:op_parameter.
-evmpo:dp_marketplace_related_entity rdfs:subClassOf osmo:dp_parameter.
+osmo:op_logical_variable rdfs:subClassOf osmo:op_physical_variable.
+osmo:dp_logical_variable rdfs:subClassOf osmo:dp_physical_variable.
+vivo:op_material_property rdfs:subClassOf osmo:op_physical_variable.
+vivo:dp_material_property rdfs:subClassOf osmo:dp_physical_variable.
+evmpo:op_material_property rdfs:subClassOf osmo:op_physical_variable.
+evmpo:dp_material_property rdfs:subClassOf osmo:dp_physical_variable.
+evmpo:op_paradigmatic_entity rdfs:subClassOf osmo:op_physical_variable.
+evmpo:dp_paradigmatic_entity rdfs:subClassOf osmo:dp_physical_variable.
 
-osmo:has_parameter_name a osmo:dp_parameter;
-   rdfs:domain osmo:parameter;
-   rdfs:range xs:string.
-
-osmo:physical_parameter a owl:Class;
-   rdfs:subClassOf osmo:parameter, vivo:material_property, osmo:logical_variable, evmpo:material_property, evmpo:paradigmatic_entity;
-   rdfs:comment "physical parameter, i.e., a parameter defined in terms of a material property"^^xs:string.
-osmo:op_physical_parameter a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_physical_parameter a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_parameter rdfs:subClassOf osmo:op_physical_parameter.
-osmo:dp_parameter rdfs:subClassOf osmo:dp_physical_parameter.
-osmo:op_logical_variable rdfs:subClassOf osmo:op_physical_parameter.
-osmo:dp_logical_variable rdfs:subClassOf osmo:dp_physical_parameter.
-vivo:op_material_property rdfs:subClassOf osmo:op_physical_parameter.
-vivo:dp_material_property rdfs:subClassOf osmo:dp_physical_parameter.
-evmpo:op_material_property rdfs:subClassOf osmo:op_physical_parameter.
-evmpo:dp_material_property rdfs:subClassOf osmo:dp_physical_parameter.
-evmpo:op_paradigmatic_entity rdfs:subClassOf osmo:op_physical_parameter.
-evmpo:dp_paradigmatic_entity rdfs:subClassOf osmo:dp_physical_parameter.
-
-osmo:is_quantity_kind a osmo:op_physical_parameter, owl:FunctionalProperty;
-   rdfs:domain osmo:physical_parameter;
+osmo:is_quantity_kind a osmo:op_physical_variable, owl:FunctionalProperty;
+   rdfs:domain osmo:physical_variable;
    rdfs:range qudt:QuantityKind;
    rdfs:subPropertyOf vivo:is_quantity_kind;
    rdfs:comment "points to the physical property characterization following QUDT"^^xs:string.
 
+osmo:unique_physical_constant a owl:Class;
+   rdfs:subClassOf osmo:logical_constant, osmo:unique_elementary, osmo:physical_variable;
+   rdfs:comment "unique physical constant, i.e., a physical variable with a unique constant value"^^xs:string.
+osmo:op_unique_physical_constant a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_unique_physical_constant a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_logical_constant rdfs:subClassOf osmo:op_unique_physical_constant.
+osmo:dp_logical_constant rdfs:subClassOf osmo:dp_unique_physical_constant.
+osmo:op_unique_elementary rdfs:subClassOf osmo:op_unique_physical_constant.
+osmo:dp_unique_elementary rdfs:subClassOf osmo:dp_unique_physical_constant.
+osmo:op_physical_variable rdfs:subClassOf osmo:op_unique_physical_constant.
+osmo:dp_physical_variable rdfs:subClassOf osmo:dp_unique_physical_constant.
 
 osmo:condition a owl:Class;
    rdfs:subClassOf evmpo:marketplace_related_entity;
@@ -2042,29 +2036,29 @@ osmo:dp_condition a owl:Class;
 evmpo:op_marketplace_related_entity rdfs:subClassOf osmo:op_condition.
 evmpo:dp_marketplace_related_entity rdfs:subClassOf osmo:dp_condition.
 
-osmo:has_parameter a osmo:op_condition;
+osmo:contains_variable a osmo:op_condition;
    rdfs:domain osmo:condition;
-   rdfs:range osmo:parameter;
+   rdfs:range osmo:logical_variable;
    rdfs:comment "points to a parameter (e.g., variable or input value) occurring in a condition"^^xs:string.
-osmo:has_predetermined_parameter a osmo:op_condition;
+osmo:contains_predetermined_variable a osmo:op_condition;
    rdfs:domain osmo:condition;
-   rdfs:range osmo:parameter;
-   rdfs:subPropertyOf osmo:has_parameter;
+   rdfs:range osmo:logical_variable;
+   rdfs:subPropertyOf osmo:contains_variable;
    rdfs:comment "points to a parameter that is determined before workflow execution begins, i.e., an input parameter that is not specified by the user"^^xs:string.
-osmo:has_precomputed_parameter a osmo:op_condition;
+osmo:contains_precomputed_variable a osmo:op_condition;
    rdfs:domain osmo:condition;
-   rdfs:range osmo:parameter;
-   rdfs:subPropertyOf osmo:has_parameter;
+   rdfs:range osmo:logical_variable;
+   rdfs:subPropertyOf osmo:contains_variable;
    rdfs:comment "points to a parameter that is computed within the workflow, but available and fixed at run time (of the element associate with the present condition), i.e., an input parameter that is not specified by the user"^^xs:string.
-osmo:has_runtime_parameter a osmo:op_condition;
+osmo:contains_runtime_variable a osmo:op_condition;
    rdfs:domain osmo:condition;
-   rdfs:range osmo:parameter;
-   rdfs:subPropertyOf osmo:has_parameter;
+   rdfs:range osmo:logical_variable;
+   rdfs:subPropertyOf osmo:contains_variable;
    rdfs:comment "points to a parameter that is only determined at run time (of the element associate with the present condition) or that is varied at run time"^^xs:string.
-osmo:has_undetermined_parameter a osmo:op_condition;
+osmo:contains_undetermined_variable a osmo:op_condition;
    rdfs:domain osmo:condition;
-   rdfs:range osmo:parameter;
-   rdfs:subPropertyOf osmo:has_parameter;
+   rdfs:range osmo:logical_variable;
+   rdfs:subPropertyOf osmo:contains_variable;
    rdfs:comment "points to a parameter for which no value can be obtained (in an executable simulation workflow, undetermined parameters can only be present in conditions associated with elements that are never executed)"^^xs:string.
 
 osmo:condition owl:disjointUnionOf (osmo:qualitative_condition osmo:quantitative_condition).
@@ -2149,6 +2143,23 @@ osmo:has_variable_name a osmo:dp_logical_variable;
 osmo:is_constant a osmo:dp_logical_variable;
    rdfs:domain osmo:logical_variable;
    rdfs:range xs:boolean.
+
+osmo:logical_constant a owl:Class;
+   rdfs:subClassOf osmo:logical_variable;
+   rdfs:comment "logical constant, i.e., a logical variable with constant value"^^xs:string.
+osmo:op_logical_constant a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_logical_constant a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_logical_variable rdfs:subClassOf osmo:op_logical_constant.
+osmo:dp_logical_variable rdfs:subClassOf osmo:dp_logical_constant.
+
+osmo:R_IS_CONSTANT a owl:Restriction;
+   rdfs:subClassOf osmo:constrained_entity;
+   owl:onProperty osmo:is_constant;
+   owl:hasValue "true"^^xs:boolean.
+osmo:logical_constant rdfs:subClassOf osmo:R_IS_CONSTANT;
+   owl:intersectionOf (osmo:logical_variable osmo:R_IS_CONSTANT).
 
 osmo:logical_variable owl:disjointUnionOf (osmo:elementary_logical osmo:logical_structure).
 
