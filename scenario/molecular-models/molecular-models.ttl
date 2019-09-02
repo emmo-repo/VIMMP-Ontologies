@@ -1,0 +1,719 @@
+###############################################
+##                                           ##
+##  EXAMPLE: INTERMOLECULAR PAIR POTENTIALS  ##
+##                                           ##
+##     LAST UPDATED: 2ND SEPTEMBER 2019      ##
+##                                           ##
+###############################################
+
+<http://www.vimmp.eu/semantics/scenario/molecular-models/molecular-models.ttl#> a owl:Ontology.
+
+@prefix potex: <http://www.vimmp.eu/semantics/scenario/molecular-models/molecular-models.ttl#>.
+
+
+################################
+# IMPORTED EXTERNAL ONTOLOGIES #
+################################
+
+@prefix qudt-qk: <http://qudt.org/vocab/quantitykind#>.
+@prefix qudt-unit: <http://qudt.org/vocab/unit#>.
+@prefix xs: <http://www.w3.org/2001/XMLSchema#>.
+
+
+#############################
+# IMPORTED VIMMP ONTOLOGIES #
+#############################
+
+@prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
+@prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
+@prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
+@prefix viso: <http://www.vimmp.eu/semantics/viso/viso-general.ttl#>.
+@prefix viso-am: <http://www.vimmp.eu/semantics/viso/viso-atomistic-mesoscopic.ttl#>.
+@prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
+
+
+############################################
+# AVENDAÑO ET AL. (2013) MODEL FOR R1234YF #
+############################################
+
+potex:R1234YF a osmo:cas_listed_material, osmo:einecs_listed_material;
+   osmo:has_cas_number "754-12-1"^^xs:string;
+   osmo:has_ec_number "468-710-7"^^xs:string.
+
+potex:R1234YF_RIGID_UNIT a viso-am:rigid_object;
+      viso:has_part potex:R1234YF_SITE_A, potex:R1234YF_SITE_B, potex:R1234YF_SITE_COM.
+potex:R1234YF_POTENTIAL a osmo:materials_relation, viso-am:two_body_potential;
+   osmo:has_aspect_paradigmatic_content potex:R1234YF, potex:AVENDANO_ET_AL_2013;
+   viso-am:involves potex:R1234YF_RIGID_UNIT;
+   osmo:has_aspect_object_content potex:R1234YF_POTENTIAL_SITE_A, potex:R1234YF_MASS_SITE_A, potex:R1234YF_CONSTRAINT_SITE_A, potex:R1234YF_POTENTIAL_SITE_B, potex:R1234YF_MASS_SITE_B, potex:R1234YF_CONSTRAINT_SITE_B.
+
+potex:R1234YF_SITE_COM a viso-am:structureless_object.  # centre of mass
+
+potex:R1234YF_SITE_A a viso-am:mie_site, viso-am:mass_site.
+potex:R1234YF_SITE_B a viso-am:mie_site, viso-am:mass_site.
+potex:R1234YF_POTENTIAL_SITE_A a osmo:materials_relation, viso-am:two_body_potential;
+   osmo:has_aspect_object_content [
+      a osmo:quantitative_condition;
+      osmo:contains_predetermined_variable potex:R1234YF_PARAMETER_SIG, potex:R1234YF_PARAMETER_EPS, potex:R1234YF_PARAMETER_M, potex:R1234YF_PARAMETER_N
+   ];
+   viso-am:involves potex:R1234YF_SITE_A.
+potex:R1234YF_POTENTIAL_SITE_B a osmo:materials_relation, viso-am:two_body_potential;
+   osmo:has_aspect_object_content [
+      a osmo:quantitative_condition;
+      osmo:contains_predetermined_variable potex:R1234YF_PARAMETER_SIG, potex:R1234YF_PARAMETER_EPS, potex:R1234YF_PARAMETER_M, potex:R1234YF_PARAMETER_N
+   ];
+   viso-am:involves potex:R1234YF_SITE_B.
+potex:R1234YF_MASS_SITE_A a osmo:materials_relation;
+   osmo:has_aspect_object_content [
+      a osmo:quantitative_condition;
+      osmo:contains_predetermined_variable potex:HALF_MASS_R1234YF
+   ];
+   viso-am:involves potex:R1234YF_SITE_A.
+potex:R1234YF_MASS_SITE_B a osmo:materials_relation;
+   osmo:has_aspect_object_content [
+      a osmo:quantitative_condition;
+      osmo:contains_predetermined_variable potex:HALF_MASS_R1234YF
+   ];
+   viso-am:involves potex:R1234YF_SITE_A.
+potex:R1234YF_CONSTRAINT_SITE_A a osmo:materials_relation, viso-am:two_body_potential, viso-am:bonding_potential;
+   osmo:has_aspect_object_content [
+      a osmo:quantitative_condition;
+      osmo:contains_predetermined_variable potex:R1234YF_PARAMETER_SITE_A_RAD
+   ];
+   viso-am:involves potex:R1234YF_RIGID_UNIT, potex:R1234YF_SITE_COM, potex:R1234YF_SITE_A.
+potex:R1234YF_CONSTRAINT_SITE_B a osmo:materials_relation, viso-am:two_body_potential, viso-am:bonding_potential;
+   osmo:has_aspect_object_content [
+      a osmo:quantitative_condition;
+      osmo:contains_predetermined_variable potex:R1234YF_PARAMETER_SITE_B_RAD
+   ];
+   viso-am:involves potex:R1234YF_RIGID_UNIT, potex:R1234YF_SITE_COM, potex:R1234YF_SITE_B.
+potex:R1234YF_PARAMETER_SIG a osmo:unique_elementary, osmo:logical_constant;
+   osmo:has_variable_name "sigma"^^xs:string;
+   osmo:has_initial_elementary_value 3.900;
+   osmo:has_variable_unit qudt-unit:Angstrom.
+potex:R1234YF_PARAMETER_EPS a osmo:unique_elementary, osmo:logical_constant;
+   osmo:has_variable_name "epsilon"^^xs:string;
+   osmo:has_initial_elementary_value 257.39;
+   osmo:has_variable_unit vivo:UNIT_KELVIN_BOLTZMANN.
+potex:R1234YF_PARAMETER_M a osmo:unique_elementary, osmo:logical_constant;
+   osmo:has_variable_name "m"^^xs:string;
+   osmo:has_initial_elementary_value 6;
+   osmo:has_variable_unit qudt-unit:Unitless.
+potex:R1234YF_PARAMETER_N a osmo:unique_elementary, osmo:logical_constant;
+   osmo:has_variable_name "n"^^xs:string;
+   osmo:has_initial_elementary_value 16.54;
+   osmo:has_variable_unit qudt-unit:Unitless.
+potex:R1234YF_PARAMETER_SITE_A_RAD a osmo:unique_structure, osmo:logical_constant;
+   osmo:has_variable_name "radius"^^xs:string;
+   osmo:has_structure_element [
+      a osmo:unique_elementary;
+      osmo:has_variable_name "x"^^xs:string;
+      osmo:has_initial_elementary_value 0.0;
+      osmo:has_variable_unit qudt-unit:Angstrom
+   ], [
+      a osmo:unique_elementary;
+      osmo:has_variable_name "y"^^xs:string;
+      osmo:has_initial_elementary_value 1.95;
+      osmo:has_variable_unit qudt-unit:Angstrom
+   ], [
+      a osmo:unique_elementary;
+      osmo:has_variable_name "z"^^xs:string;
+      osmo:has_initial_elementary_value 0.0;
+      osmo:has_variable_unit qudt-unit:Angstrom
+   ].
+potex:R1234YF_PARAMETER_SITE_B_RAD a osmo:unique_structure, osmo:logical_constant;
+   osmo:has_variable_name "radius"^^xs:string;
+   osmo:has_structure_element [
+      a osmo:unique_elementary;
+      osmo:has_variable_name "x"^^xs:string;
+      osmo:has_initial_elementary_value 0.0;
+      osmo:has_variable_unit qudt-unit:Angstrom
+   ], [
+      a osmo:unique_elementary;
+      osmo:has_variable_name "y"^^xs:string;
+      osmo:has_initial_elementary_value -1.95;
+      osmo:has_variable_unit qudt-unit:Angstrom
+   ], [
+      a osmo:unique_elementary;
+      osmo:has_variable_name "z"^^xs:string;
+      osmo:has_initial_elementary_value 0.0;
+      osmo:has_variable_unit qudt-unit:Angstrom
+   ].
+
+
+###########################################
+# BOTTLED SAFT ADJUSTED MODEL FOR AMMONIA #
+###########################################
+
+# Note on ammonia model design at the Bottled SAFT web frontend
+#
+# The user guidance here was: Two Mie segments, and rho'(0.7 T_c) = 36.626 mol/l.
+
+potex:AMMONIA a osmo:cas_listed_material, osmo:einecs_listed_material;
+   osmo:has_cas_number "7664-41-7"^^xs:string;
+   osmo:has_ec_number "231-635-3"^^xs:string.
+
+potex:AMMONIA_RIGID_UNIT a viso-am:rigid_object;
+      viso:has_part potex:AMMONIA_SITE_A, potex:AMMONIA_SITE_B, potex:AMMONIA_SITE_COM.
+potex:AMMONIA_POTENTIAL a osmo:materials_relation, viso-am:two_body_potential;
+   osmo:has_aspect_paradigmatic_content potex:AMMONIA, potex:ERVIK_ET_AL_2016;
+   viso-am:involves potex:AMMONIA_RIGID_UNIT;
+   osmo:has_aspect_object_content potex:AMMONIA_POTENTIAL_SITE_A, potex:AMMONIA_MASS_SITE_A, potex:AMMONIA_CONSTRAINT_SITE_A, potex:AMMONIA_POTENTIAL_SITE_B, potex:AMMONIA_MASS_SITE_B, potex:AMMONIA_CONSTRAINT_SITE_B.
+
+potex:AMMONIA_SITE_COM a viso-am:structureless_object.  # centre of mass
+
+potex:AMMONIA_SITE_A a viso-am:mie_site, viso-am:mass_site.
+potex:AMMONIA_SITE_B a viso-am:mie_site, viso-am:mass_site.
+potex:AMMONIA_POTENTIAL_SITE_A a osmo:materials_relation, viso-am:two_body_potential;
+   osmo:has_aspect_object_content [
+      a osmo:quantitative_condition;
+      osmo:contains_predetermined_variable potex:AMMONIA_PARAMETER_SIG, potex:AMMONIA_PARAMETER_EPS, potex:AMMONIA_PARAMETER_M, potex:AMMONIA_PARAMETER_N
+   ];
+   viso-am:involves potex:AMMONIA_SITE_A.
+potex:AMMONIA_POTENTIAL_SITE_B a osmo:materials_relation, viso-am:two_body_potential;
+   osmo:has_aspect_object_content [
+      a osmo:quantitative_condition;
+      osmo:contains_predetermined_variable potex:AMMONIA_PARAMETER_SIG, potex:AMMONIA_PARAMETER_EPS, potex:AMMONIA_PARAMETER_M, potex:AMMONIA_PARAMETER_N
+   ];
+   viso-am:involves potex:AMMONIA_SITE_B.
+potex:AMMONIA_MASS_SITE_A a osmo:materials_relation;
+   osmo:has_aspect_object_content [
+      a osmo:quantitative_condition;
+      osmo:contains_predetermined_variable potex:HALF_MASS_NH3
+   ];
+   viso-am:involves potex:AMMONIA_SITE_A.
+potex:AMMONIA_MASS_SITE_B a osmo:materials_relation;
+   osmo:has_aspect_object_content [
+      a osmo:quantitative_condition;
+      osmo:contains_predetermined_variable potex:HALF_MASS_NH3
+   ];
+   viso-am:involves potex:AMMONIA_SITE_A.
+potex:AMMONIA_CONSTRAINT_SITE_A a osmo:materials_relation, viso-am:two_body_potential, viso-am:bonding_potential;
+   osmo:has_aspect_object_content [
+      a osmo:quantitative_condition;
+      osmo:contains_predetermined_variable potex:AMMONIA_PARAMETER_SITE_A_RAD
+   ];
+   viso-am:involves potex:AMMONIA_RIGID_UNIT, potex:AMMONIA_SITE_COM, potex:AMMONIA_SITE_A.
+potex:AMMONIA_CONSTRAINT_SITE_B a osmo:materials_relation, viso-am:two_body_potential, viso-am:bonding_potential;
+   osmo:has_aspect_object_content [
+      a osmo:quantitative_condition;
+      osmo:contains_predetermined_variable potex:AMMONIA_PARAMETER_SITE_B_RAD
+   ];
+   viso-am:involves potex:AMMONIA_RIGID_UNIT, potex:AMMONIA_SITE_COM, potex:AMMONIA_SITE_B.
+potex:AMMONIA_PARAMETER_SIG a osmo:unique_elementary, osmo:logical_constant;
+   osmo:has_variable_name "sigma"^^xs:string;
+   osmo:has_initial_elementary_value 2.5764;
+   osmo:has_variable_unit qudt-unit:Angstrom.
+potex:AMMONIA_PARAMETER_EPS a osmo:unique_elementary, osmo:logical_constant;
+   osmo:has_variable_name "epsilon"^^xs:string;
+   osmo:has_initial_elementary_value 275.06;
+   osmo:has_variable_unit vivo:UNIT_KELVIN_BOLTZMANN.
+potex:AMMONIA_PARAMETER_M a osmo:unique_elementary, osmo:logical_constant;
+   osmo:has_variable_name "m"^^xs:string;
+   osmo:has_initial_elementary_value 6;
+   osmo:has_variable_unit qudt-unit:Unitless.
+potex:AMMONIA_PARAMETER_N a osmo:unique_elementary, osmo:logical_constant;
+   osmo:has_variable_name "n"^^xs:string;
+   osmo:has_initial_elementary_value 16.151;
+   osmo:has_variable_unit qudt-unit:Unitless.
+potex:AMMONIA_PARAMETER_SITE_A_RAD a osmo:unique_structure, osmo:logical_constant;
+   osmo:has_variable_name "radius"^^xs:string;
+   osmo:has_structure_element [
+      a osmo:unique_elementary;
+      osmo:has_variable_name "x"^^xs:string;
+      osmo:has_initial_elementary_value 0.0;
+      osmo:has_variable_unit qudt-unit:Angstrom
+   ], [
+      a osmo:unique_elementary;
+      osmo:has_variable_name "y"^^xs:string;
+      osmo:has_initial_elementary_value 1.2882;
+      osmo:has_variable_unit qudt-unit:Angstrom
+   ], [
+      a osmo:unique_elementary;
+      osmo:has_variable_name "z"^^xs:string;
+      osmo:has_initial_elementary_value 0.0;
+      osmo:has_variable_unit qudt-unit:Angstrom
+   ].
+potex:AMMONIA_PARAMETER_SITE_B_RAD a osmo:unique_structure, osmo:logical_constant;
+   osmo:has_variable_name "radius"^^xs:string;
+   osmo:has_structure_element [
+      a osmo:unique_elementary;
+      osmo:has_variable_name "x"^^xs:string;
+      osmo:has_initial_elementary_value 0.0;
+      osmo:has_variable_unit qudt-unit:Angstrom
+   ], [
+      a osmo:unique_elementary;
+      osmo:has_variable_name "y"^^xs:string;
+      osmo:has_initial_elementary_value -1.2882;
+      osmo:has_variable_unit qudt-unit:Angstrom
+   ], [
+      a osmo:unique_elementary;
+      osmo:has_variable_name "z"^^xs:string;
+      osmo:has_initial_elementary_value 0.0;
+      osmo:has_variable_unit qudt-unit:Angstrom
+   ].
+
+
+##########################################
+# HUANG ET AL. (2011) MODEL FOR PHOSGENE #
+##########################################
+
+potex:PHOSGENE a osmo:cas_listed_material, osmo:einecs_listed_material;
+   osmo:has_cas_number "75-44-5"^^xs:string;
+   osmo:has_ec_number "200-870-3"^^xs:string.
+
+potex:PHOSGENE_RIGID_UNIT a viso-am:rigid_object;
+      viso:has_part potex:PHOSGENE_SITE_C, potex:PHOSGENE_SITE_O, potex:PHOSGENE_SITE_CL_A, potex:PHOSGENE_SITE_CL_B, potex:PHOSGENE_SITE_DPL, potex:PHOSGENE_SITE_QPL, potex:PHOSGENE_SITE_COM.
+potex:PHOSGENE_POTENTIAL a osmo:materials_relation, viso-am:two_body_potential;
+   osmo:has_aspect_paradigmatic_content potex:PHOSGENE, potex:HUANG_ET_AL_2011;
+   viso-am:involves potex:PHOSGENE_RIGID_UNIT;
+   osmo:has_aspect_object_content potex:PHOSGENE_POTENTIAL_C, potex:PHOSGENE_MASS_C, potex:PHOSGENE_CONSTRAINT_C, potex:PHOSGENE_POTENTIAL_O, potex:PHOSGENE_MASS_O, potex:PHOSGENE_CONSTRAINT_O, potex:PHOSGENE_POTENTIAL_CL_A, potex:PHOSGENE_MASS_CL_A, potex:PHOSGENE_CONSTRAINT_CL_A, potex:PHOSGENE_POTENTIAL_CL_B, potex:PHOSGENE_MASS_CL_B, potex:PHOSGENE_CONSTRAINT_CL_B, potex:PHOSGENE_POTENTIAL_DPL, potex:PHOSGENE_CONSTRAINT_DPL, potex:PHOSGENE_POTENTIAL_QPL, potex:PHOSGENE_CONSTRAINT_QPL.
+
+potex:PHOSGENE_SITE_COM a viso-am:structureless_object.  # centre of mass
+
+potex:PHOSGENE_SITE_C a viso-am:lj_site, viso-am:mass_site.
+potex:PHOSGENE_POTENTIAL_C a osmo:materials_relation, viso-am:two_body_potential;
+   osmo:has_aspect_object_content [
+      a osmo:quantitative_condition;
+      osmo:contains_predetermined_variable potex:PHOSGENE_PARAMETER_C_SIG, potex:PHOSGENE_PARAMETER_C_EPS
+   ];
+   viso-am:involves potex:PHOSGENE_SITE_C.
+potex:PHOSGENE_MASS_C a osmo:materials_relation;
+   osmo:has_aspect_object_content [
+      a osmo:quantitative_condition;
+      osmo:contains_predetermined_variable potex:SITE_MASS_C
+   ];
+   viso-am:involves potex:PHOSGENE_SITE_C.
+potex:PHOSGENE_CONSTRAINT_C a osmo:materials_relation, viso-am:two_body_potential, viso-am:bonding_potential;
+   osmo:has_aspect_object_content [
+      a osmo:quantitative_condition;
+      osmo:contains_predetermined_variable potex:PHOSGENE_PARAMETER_C_RAD
+   ];
+   viso-am:involves potex:PHOSGENE_RIGID_UNIT, potex:PHOSGENE_SITE_COM, potex:PHOSGENE_SITE_C.
+potex:PHOSGENE_PARAMETER_C_SIG a osmo:unique_elementary, osmo:logical_constant;
+   osmo:has_variable_name "sigma"^^xs:string;
+   osmo:has_initial_elementary_value 2.815;
+   osmo:has_variable_unit qudt-unit:Angstrom.
+potex:PHOSGENE_PARAMETER_C_EPS a osmo:unique_elementary, osmo:logical_constant;
+   osmo:has_variable_name "epsilon"^^xs:string;
+   osmo:has_initial_elementary_value 10.62;
+   osmo:has_variable_unit vivo:UNIT_KELVIN_BOLTZMANN.
+potex:PHOSGENE_PARAMETER_C_RAD a osmo:unique_structure, osmo:logical_constant;
+   osmo:has_variable_name "radius"^^xs:string;
+   osmo:has_structure_element [
+      a osmo:unique_elementary;
+      osmo:has_variable_name "x"^^xs:string;
+      osmo:has_initial_elementary_value 0.0;
+      osmo:has_variable_unit qudt-unit:Angstrom
+   ], [
+      a osmo:unique_elementary;
+      osmo:has_variable_name "y"^^xs:string;
+      osmo:has_initial_elementary_value 0.5049;
+      osmo:has_variable_unit qudt-unit:Angstrom
+   ], [
+      a osmo:unique_elementary;
+      osmo:has_variable_name "z"^^xs:string;
+      osmo:has_initial_elementary_value 0.0;
+      osmo:has_variable_unit qudt-unit:Angstrom
+   ].
+
+potex:PHOSGENE_SITE_O a viso-am:lj_site, viso-am:mass_site.
+potex:PHOSGENE_POTENTIAL_O a osmo:materials_relation, viso-am:two_body_potential;
+   osmo:has_aspect_object_content [
+      a osmo:quantitative_condition;
+      osmo:contains_predetermined_variable potex:PHOSGENE_PARAMETER_O_SIG, potex:PHOSGENE_PARAMETER_O_EPS
+   ];
+   viso-am:involves potex:PHOSGENE_SITE_O.
+potex:PHOSGENE_MASS_O a osmo:materials_relation;
+   osmo:has_aspect_object_content [
+      a osmo:quantitative_condition;
+      osmo:contains_predetermined_variable potex:SITE_MASS_O
+   ];
+   viso-am:involves potex:PHOSGENE_SITE_O.
+potex:PHOSGENE_CONSTRAINT_O a osmo:materials_relation, viso-am:two_body_potential, viso-am:bonding_potential;
+   osmo:has_aspect_object_content [
+      a osmo:quantitative_condition;
+      osmo:contains_predetermined_variable potex:PHOSGENE_PARAMETER_O_RAD
+   ];
+   viso-am:involves potex:PHOSGENE_RIGID_UNIT, potex:PHOSGENE_SITE_COM, potex:PHOSGENE_SITE_O.
+potex:PHOSGENE_PARAMETER_O_SIG a osmo:unique_elementary, osmo:logical_constant;
+   osmo:has_variable_name "sigma"^^xs:string;
+   osmo:has_initial_elementary_value 3.195;
+   osmo:has_variable_unit qudt-unit:Angstrom.
+potex:PHOSGENE_PARAMETER_O_EPS a osmo:unique_elementary, osmo:logical_constant;
+   osmo:has_variable_name "epsilon"^^xs:string;
+   osmo:has_initial_elementary_value 132.66;
+   osmo:has_variable_unit vivo:UNIT_KELVIN_BOLTZMANN.
+potex:PHOSGENE_PARAMETER_O_RAD a osmo:unique_structure, osmo:logical_constant;
+   osmo:has_variable_name "radius"^^xs:string;
+   osmo:has_structure_element [
+      a osmo:unique_elementary;
+      osmo:has_variable_name "x"^^xs:string;
+      osmo:has_initial_elementary_value 0.0;
+      osmo:has_variable_unit qudt-unit:Angstrom
+   ], [
+      a osmo:unique_elementary;
+      osmo:has_variable_name "y"^^xs:string;
+      osmo:has_initial_elementary_value 1.7018;
+      osmo:has_variable_unit qudt-unit:Angstrom
+   ], [
+      a osmo:unique_elementary;
+      osmo:has_variable_name "z"^^xs:string;
+      osmo:has_initial_elementary_value 0.0;
+      osmo:has_variable_unit qudt-unit:Angstrom
+   ].
+
+potex:PHOSGENE_SITE_CL_A a viso-am:lj_site, viso-am:mass_site.
+potex:PHOSGENE_SITE_CL_B a viso-am:lj_site, viso-am:mass_site.
+potex:PHOSGENE_POTENTIAL_CL_A a osmo:materials_relation, viso-am:two_body_potential;
+   osmo:has_aspect_object_content [
+      a osmo:quantitative_condition;
+      osmo:contains_predetermined_variable potex:PHOSGENE_PARAMETER_CL_SIG, potex:PHOSGENE_PARAMETER_CL_EPS
+   ];
+   viso-am:involves potex:PHOSGENE_SITE_CL_A.
+potex:PHOSGENE_POTENTIAL_CL_B a osmo:materials_relation, viso-am:two_body_potential;
+   osmo:has_aspect_object_content [
+      a osmo:quantitative_condition;
+      osmo:contains_predetermined_variable potex:PHOSGENE_PARAMETER_CL_SIG, potex:PHOSGENE_PARAMETER_CL_EPS
+   ];
+   viso-am:involves potex:PHOSGENE_SITE_CL_B.
+potex:PHOSGENE_MASS_CL_A a osmo:materials_relation;
+   osmo:has_aspect_object_content [
+      a osmo:quantitative_condition;
+      osmo:contains_predetermined_variable potex:SITE_MASS_CL
+   ];
+   viso-am:involves potex:PHOSGENE_SITE_CL_A.
+potex:PHOSGENE_MASS_CL_B a osmo:materials_relation;
+   osmo:has_aspect_object_content [
+      a osmo:quantitative_condition;
+      osmo:contains_predetermined_variable potex:SITE_MASS_CL
+   ];
+   viso-am:involves potex:PHOSGENE_SITE_CL_B.
+potex:PHOSGENE_CONSTRAINT_CL_A a osmo:materials_relation, viso-am:two_body_potential, viso-am:bonding_potential;
+   osmo:has_aspect_object_content [
+      a osmo:quantitative_condition;
+      osmo:contains_predetermined_variable potex:PHOSGENE_PARAMETER_CL_A_RAD
+   ];
+   viso-am:involves potex:PHOSGENE_RIGID_UNIT, potex:PHOSGENE_SITE_COM, potex:PHOSGENE_SITE_CL_A.
+potex:PHOSGENE_CONSTRAINT_CL_B a osmo:materials_relation, viso-am:two_body_potential, viso-am:bonding_potential;
+   osmo:has_aspect_object_content [
+      a osmo:quantitative_condition;
+      osmo:contains_predetermined_variable potex:PHOSGENE_PARAMETER_CL_B_RAD
+   ];
+   viso-am:involves potex:PHOSGENE_RIGID_UNIT, potex:PHOSGENE_SITE_COM, potex:PHOSGENE_SITE_CL_B.
+potex:PHOSGENE_PARAMETER_CL_SIG a osmo:unique_elementary, osmo:logical_constant;
+   osmo:has_variable_name "sigma"^^xs:string;
+   osmo:has_initial_elementary_value 3.366;
+   osmo:has_variable_unit qudt-unit:Angstrom.
+potex:PHOSGENE_PARAMETER_CL_EPS a osmo:unique_elementary, osmo:logical_constant;
+   osmo:has_variable_name "epsilon"^^xs:string;
+   osmo:has_initial_elementary_value 157.63;
+   osmo:has_variable_unit vivo:UNIT_KELVIN_BOLTZMANN.
+potex:PHOSGENE_PARAMETER_CL_A_RAD a osmo:unique_structure, osmo:logical_constant;
+   osmo:has_variable_name "radius"^^xs:string;
+   osmo:has_structure_element [
+      a osmo:unique_elementary;
+      osmo:has_variable_name "x"^^xs:string;
+      osmo:has_initial_elementary_value 0.0;
+      osmo:has_variable_unit qudt-unit:Angstrom
+   ], [
+      a osmo:unique_elementary;
+      osmo:has_variable_name "y"^^xs:string;
+      osmo:has_initial_elementary_value -0.4695;
+      osmo:has_variable_unit qudt-unit:Angstrom
+   ], [
+      a osmo:unique_elementary;
+      osmo:has_variable_name "z"^^xs:string;
+      osmo:has_initial_elementary_value -1.4509;
+      osmo:has_variable_unit qudt-unit:Angstrom
+   ].
+potex:PHOSGENE_PARAMETER_CL_B_RAD a osmo:unique_structure, osmo:logical_constant;
+   osmo:has_variable_name "radius"^^xs:string;
+   osmo:has_structure_element [
+      a osmo:unique_elementary;
+      osmo:has_variable_name "x"^^xs:string;
+      osmo:has_initial_elementary_value 0.0;
+      osmo:has_variable_unit qudt-unit:Angstrom
+   ], [
+      a osmo:unique_elementary;
+      osmo:has_variable_name "y"^^xs:string;
+      osmo:has_initial_elementary_value -0.4695;
+      osmo:has_variable_unit qudt-unit:Angstrom
+   ], [
+      a osmo:unique_elementary;
+      osmo:has_variable_name "z"^^xs:string;
+      osmo:has_initial_elementary_value 1.4509;
+      osmo:has_variable_unit qudt-unit:Angstrom
+   ].
+
+potex:PHOSGENE_SITE_DPL a viso-am:charge_dipole_site.
+potex:PHOSGENE_POTENTIAL_DPL a osmo:materials_relation, viso-am:two_body_potential;
+   osmo:has_aspect_object_content [
+      a osmo:quantitative_condition;
+      osmo:contains_predetermined_variable potex:PHOSGENE_PARAMETER_DPL_MAGN, potex:PHOSGENE_PARAMETER_DPL_ORI
+   ];
+   viso-am:involves potex:PHOSGENE_SITE_DPL.
+potex:PHOSGENE_CONSTRAINT_DPL a osmo:materials_relation, viso-am:two_body_potential, viso-am:bonding_potential;
+   osmo:has_aspect_object_content [
+      a osmo:quantitative_condition;
+      osmo:contains_predetermined_variable potex:PHOSGENE_PARAMETER_DPL_RAD
+   ];
+   viso-am:involves potex:PHOSGENE_RIGID_UNIT, potex:PHOSGENE_SITE_COM, potex:PHOSGENE_SITE_DPL.
+potex:PHOSGENE_PARAMETER_DPL_MAGN a osmo:unique_elementary, osmo:logical_constant;
+   osmo:has_variable_name "magnitude"^^xs:string;
+   osmo:has_initial_elementary_value 1.002;
+   osmo:has_variable_unit qudt-unit:Debye.
+potex:PHOSGENE_PARAMETER_DPL_ORI a osmo:unique_structure, osmo:logical_constant;
+   osmo:has_variable_name "orientation"^^xs:string;
+   osmo:has_structure_element [
+      a osmo:unique_elementary;
+      osmo:has_variable_name "theta"^^xs:string;
+      osmo:has_initial_elementary_value 90.0;
+      osmo:has_variable_unit qudt-unit:DegreeAngle
+   ], [
+      a osmo:unique_elementary;
+      osmo:has_variable_name "phi"^^xs:string;
+      osmo:has_initial_elementary_value 90.0;
+      osmo:has_variable_unit qudt-unit:DegreeAngle
+   ].
+potex:PHOSGENE_PARAMETER_DPL_RAD a osmo:unique_structure, osmo:logical_constant;
+   osmo:has_variable_name "radius"^^xs:string;
+   osmo:has_structure_element [
+      a osmo:unique_elementary;
+      osmo:has_variable_name "x"^^xs:string;
+      osmo:has_initial_elementary_value 0.0;
+      osmo:has_variable_unit qudt-unit:Angstrom
+   ], [
+      a osmo:unique_elementary;
+      osmo:has_variable_name "y"^^xs:string;
+      osmo:has_initial_elementary_value 0.0845;
+      osmo:has_variable_unit qudt-unit:Angstrom
+   ], [
+      a osmo:unique_elementary;
+      osmo:has_variable_name "z"^^xs:string;
+      osmo:has_initial_elementary_value 0.0;
+      osmo:has_variable_unit qudt-unit:Angstrom
+   ].
+
+potex:PHOSGENE_SITE_QPL a viso-am:charge_quadrupole_site.
+potex:PHOSGENE_POTENTIAL_QPL a osmo:materials_relation, viso-am:two_body_potential;
+   osmo:has_aspect_object_content [
+      a osmo:quantitative_condition;
+      osmo:contains_predetermined_variable potex:PHOSGENE_PARAMETER_QPL_MAGN, potex:PHOSGENE_PARAMETER_QPL_ORI
+   ];
+   viso-am:involves potex:PHOSGENE_SITE_QPL.
+potex:PHOSGENE_CONSTRAINT_QPL a osmo:materials_relation, viso-am:two_body_potential, viso-am:bonding_potential;
+   osmo:has_aspect_object_content [
+      a osmo:quantitative_condition;
+      osmo:contains_predetermined_variable potex:PHOSGENE_PARAMETER_QPL_RAD
+   ];
+   viso-am:involves potex:PHOSGENE_RIGID_UNIT, potex:PHOSGENE_SITE_COM, potex:PHOSGENE_SITE_QPL.
+potex:PHOSGENE_PARAMETER_QPL_MAGN a osmo:unique_elementary, osmo:logical_constant;
+   osmo:has_variable_name "magnitude"^^xs:string;
+   osmo:has_initial_elementary_value -3.627;
+   osmo:has_variable_unit vivo:UNIT_DEBYE_ANGSTROM.
+potex:PHOSGENE_PARAMETER_QPL_ORI a osmo:unique_structure, osmo:logical_constant;
+   osmo:has_variable_name "orientation"^^xs:string;
+   osmo:has_structure_element [
+      a osmo:unique_elementary;
+      osmo:has_variable_name "theta"^^xs:string;
+      osmo:has_initial_elementary_value 90.0;
+      osmo:has_variable_unit qudt-unit:DegreeAngle
+   ], [
+      a osmo:unique_elementary;
+      osmo:has_variable_name "phi"^^xs:string;
+      osmo:has_initial_elementary_value 90.0;
+      osmo:has_variable_unit qudt-unit:DegreeAngle
+   ].
+potex:PHOSGENE_PARAMETER_QPL_RAD a osmo:unique_structure, osmo:logical_constant;
+   osmo:has_variable_name "radius"^^xs:string;
+   osmo:has_structure_element [
+      a osmo:unique_elementary;
+      osmo:has_variable_name "x"^^xs:string;
+      osmo:has_initial_elementary_value 0.0;
+      osmo:has_variable_unit qudt-unit:Angstrom
+   ], [
+      a osmo:unique_elementary;
+      osmo:has_variable_name "y"^^xs:string;
+      osmo:has_initial_elementary_value 0.0;
+      osmo:has_variable_unit qudt-unit:Angstrom
+   ], [
+      a osmo:unique_elementary;
+      osmo:has_variable_name "z"^^xs:string;
+      osmo:has_initial_elementary_value 0.0;
+      osmo:has_variable_unit qudt-unit:Angstrom
+   ].
+
+
+##########################################
+# MASS ASSOCIATED WITH INTERACTION SITES #
+##########################################
+
+potex:HALF_MASS_NH3 a osmo:unique_physical_constant;
+   osmo:is_constant "true"^^xs:boolean;
+   osmo:has_variable_name "mass"^^xs:string;
+   osmo:has_initial_elementary_value 8.515;
+   osmo:is_quantity_kind qudt-qk:Mass;
+   osmo:has_variable_unit vivo:UNIT_U.
+potex:HALF_MASS_R1234YF a osmo:unique_physical_constant;
+   osmo:is_constant "true"^^xs:boolean;
+   osmo:has_variable_name "mass"^^xs:string;
+   osmo:has_initial_elementary_value 57.02;
+   osmo:is_quantity_kind qudt-qk:Mass;
+   osmo:has_variable_unit vivo:UNIT_U.
+
+potex:SITE_MASS_C a osmo:unique_physical_constant;
+   osmo:is_constant "true"^^xs:boolean;
+   osmo:has_variable_name "mass"^^xs:string;
+   osmo:has_initial_elementary_value 12.011;
+   osmo:is_quantity_kind qudt-qk:Mass;
+   osmo:has_variable_unit vivo:UNIT_U.
+potex:SITE_MASS_O a osmo:unique_physical_constant;
+   osmo:is_constant "true"^^xs:boolean;
+   osmo:has_variable_name "mass"^^xs:string;
+   osmo:has_initial_elementary_value 15.999;
+   osmo:is_quantity_kind qudt-qk:Mass;
+   osmo:has_variable_unit vivo:UNIT_U.
+potex:SITE_MASS_CL a osmo:unique_physical_constant;
+   osmo:is_constant "true"^^xs:boolean;
+   osmo:has_variable_name "mass"^^xs:string;
+   osmo:has_initial_elementary_value 35.458;
+   osmo:is_quantity_kind qudt-qk:Mass;
+   osmo:has_variable_unit vivo:UNIT_U.
+
+
+#########################
+# LITERATURE REFERENCES #
+#########################
+
+# molecular model of R1234yf
+#
+potex:AVENDANO_ET_AL_2013 a otras:citation;
+   otras:has_first_author_surname "Avendaño"^^xs:string;
+   otras:has_publication_year 2013;
+   otras:has_author_map [
+      otras:has_author_map_element [
+         otras:has_ame_index 1;
+         otras:has_ame_identifier [
+            otras:has_identified_given_name_initials "C."^^xs:string;
+            otras:has_identified_surname "Avendaño"^^xs:string
+         ]
+      ], [
+         otras:has_ame_index 2;
+         otras:has_ame_identifier [
+            otras:has_identified_given_name_initials "T."^^xs:string;
+            otras:has_identified_surname "Lafitte"^^xs:string
+         ]
+      ], [
+         otras:has_ame_index 3;
+         otras:has_ame_identifier [
+            otras:has_identified_given_name_initials "C. S."^^xs:string;
+            otras:has_identified_surname "Adjiman"^^xs:string
+         ]
+      ], [
+         otras:has_ame_index 4;
+         otras:has_ame_identifier [
+            otras:has_identified_given_name_initials "A."^^xs:string;
+            otras:has_identified_surname "Galindo"^^xs:string
+         ]
+      ], [
+         otras:has_ame_index 5;
+         otras:has_ame_identifier [
+            otras:has_identified_given_name_initials "E. A."^^xs:string;
+            otras:has_identified_surname "Müller"^^xs:string
+         ]
+      ], [
+         otras:has_ame_index 6;
+         otras:has_ame_identifier [
+            otras:has_identified_given_name_initials "G."^^xs:string;
+            otras:has_identified_surname "Jackson"^^xs:string
+         ]
+      ]
+   ];
+   otras:has_publication_title "SAFT-γ force field for the simulation of molecular fluids: 2. Coarse-grained models of greenhouse gases, refrigerants, and long alkanes"^^xs:string;
+   otras:has_publication_journal_name "Journal of Physical Chemistry B"^^xs:string;
+   otras:has_publication_journal_abbreviation "J. Phys. Chem. B"^^xs:string;
+   otras:has_publication_journal_issn "1520-6106"^^xs:string;
+   otras:has_publication_journal_volume 117;
+   otras:has_publication_journal_issue 9;
+   otras:has_publication_journal_pages "2717-2733"^^xs:string;
+   otras:has_doi "10.1021/jp306442b"^^xs:string;
+   otras:is_about potex:R1234YF, potex:R1234YF_POTENTIAL.
+
+# SAFT bottled
+#
+potex:ERVIK_ET_AL_2016 a otras:citation;
+   otras:has_first_author_surname "Ervik"^^xs:string;
+   otras:has_publication_year 2016;
+   otras:has_author_map [
+      otras:has_author_map_element [
+         otras:has_ame_index 1;
+         otras:has_ame_identifier [
+            otras:has_identified_given_name_initials "Å."^^xs:string;
+            otras:has_identified_surname "Ervik"^^xs:string
+         ]
+      ], [
+         otras:has_ame_index 2;
+         otras:has_ame_identifier [
+            otras:has_identified_given_name_initials "A."^^xs:string;
+            otras:has_identified_surname "Mejía"^^xs:string
+         ]
+      ], [
+         otras:has_ame_index 3;
+         otras:has_ame_identifier [
+            otras:has_identified_given_name_initials "E. A."^^xs:string;
+            otras:has_identified_surname "Müller"^^xs:string
+         ]
+      ]
+   ];
+   otras:has_publication_title "Bottled SAFT: A web app providing SAFT-γ Mie force field parameters for thousands of molecular fluids"^^xs:string;
+   otras:has_publication_journal_name "Journal of Chemical Information and Modeling"^^xs:string;
+   otras:has_publication_journal_abbreviation "J. Chem. Inf. Model."^^xs:string;
+   otras:has_publication_journal_issn "1549-9596"^^xs:string;
+   otras:has_publication_journal_volume 56;
+   otras:has_publication_journal_issue 9;
+   otras:has_publication_journal_pages "1609-1614"^^xs:string;
+   otras:has_doi "10.1021/acs.jcim.6b00149"^^xs:string;
+   otras:is_about macro:BOTTLED_SAFT.
+
+# molecular model of phosgene
+#
+potex:HUANG_ET_AL_2011 a otras:citation;
+   otras:has_first_author_surname "Huang"^^xs:string;
+   otras:has_publication_year 2011;
+   otras:has_author_map [
+      otras:has_author_map_element [
+         otras:has_ame_index 1;
+         otras:has_ame_identifier [
+            otras:has_identified_given_name_initials "Y.-L."^^xs:string;
+            otras:has_identified_surname "Huang"^^xs:string
+         ]
+      ], [
+         otras:has_ame_index 2;
+         otras:has_ame_identifier [
+            otras:has_identified_given_name_initials "M."^^xs:string;
+            otras:has_identified_surname "Heilig"^^xs:string
+         ]
+      ], [
+         otras:has_ame_index 3;
+         otras:has_ame_identifier [
+            otras:has_identified_given_name_initials "H."^^xs:string;
+            otras:has_identified_surname "Hasse"^^xs:string
+         ]
+      ], [
+         otras:has_ame_index 4;
+         otras:has_ame_identifier [
+            otras:has_identified_given_name_initials "J."^^xs:string;
+            otras:has_identified_surname "Vrabec"^^xs:string
+         ]
+      ]
+   ];
+   otras:has_publication_title "Vapor-liquid equilibria of hydrogen chloride, phosgene, benzene, chlorobenzene, ortho‐dichlorobenzene, and toluene by molecular simulation"^^xs:string;
+   otras:has_publication_journal_name "AIChE Journal"^^xs:string;
+   otras:has_publication_journal_abbreviation "AIChE J."^^xs:string;
+   otras:has_publication_journal_issn "1547-5905"^^xs:string;
+   otras:has_publication_journal_volume 57;
+   otras:has_publication_journal_issue 4;
+   otras:has_publication_journal_pages "1043-1060"^^xs:string;
+   otras:has_doi "10.1002/aic.12329"^^xs:string;
+   otras:is_about potex:PHOSGENE, potex:PHOSGENE_POTENTIAL.
