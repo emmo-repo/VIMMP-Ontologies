@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 1.1.0 ###
+### VERSION 1.1.1 ###
 
-### DATED 30TH AUGUST 2019 ###
+### DATED 4TH SEPTEMBER 2019 ###
 
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -2137,6 +2137,10 @@ osmo:dp_logical_variable a owl:Class;
 osmo:op_logical_entity rdfs:subClassOf osmo:op_logical_variable.
 osmo:dp_logical_entity rdfs:subClassOf osmo:dp_logical_variable.
 
+osmo:has_variable_index a osmo:dp_logical_variable;
+   rdfs:domain osmo:logical_variable;
+   rdfs:range xs:nonNegativeInteger;
+   rdfs:comment "identifies a variable by a non-negative integer number; in particular, use for logical arrays (numbering convention: from 0 to array size minus 1)"^^xs:string.
 osmo:has_variable_name a osmo:dp_logical_variable;
    rdfs:domain osmo:logical_variable;
    rdfs:range xs:string.
@@ -2204,6 +2208,49 @@ osmo:has_structure_element a osmo:op_logical_structure;
    rdfs:domain osmo:logical_structure;
    rdfs:range osmo:logical_variable;
    rdfs:comment "points to an element of a logical structure variable"^^xs:string.
+
+osmo:logical_array a owl:Class;
+   rdfs:subClassOf osmo:unique_structure;
+   rdfs:comment "logical array, i.e., a unique structure with indexed elements (n.b., for indexing, use has_variable_index, starting from 0)"^^xs:string.
+osmo:op_logical_array a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_logical_array a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_unique_structure rdfs:subClassOf osmo:op_logical_array.
+osmo:dp_unique_structure rdfs:subClassOf osmo:dp_logical_array.
+
+osmo:has_array_element a osmo:op_logical_array;
+   rdfs:domain osmo:logical_array;
+   rdfs:range osmo:logical_variable;
+   rdfs:subPropertyOf osmo:has_structure_element;
+   rdfs:comment "points to an array element"^^xs:string.
+osmo:has_dynamic_array_size a osmo:op_logical_array;
+   rdfs:domain osmo:logical_array;
+   rdfs:range osmo:unique_elementary;
+   rdfs:comment "points to a variable that contains the (dynamic) array size; convention: element indices run from 0 to the array size minus one"^^xs:string.
+osmo:has_element_unit a osmo:op_logical_array, owl:FunctionalProperty;
+   rdfs:domain osmo:logical_array;
+   rdfs:range qudt:Unit, vivo:unit;
+   rdfs:comment "unit in which values of array elements are given (does not apply if the array elements are logical structures)"^^xs:string;
+   rdfs:subPropertyOf evmpo:has_annotation.
+osmo:has_generic_element a osmo:op_logical_array;
+   rdfs:domain osmo:logical_array;
+   rdfs:range osmo:logical_variable;
+   rdfs:subPropertyOf osmo:has_array_element;
+   rdfs:comment "points to the generic representation of the array elements (which is the same for all index values)"^^xs:string.
+osmo:has_index_name a osmo:logical_array;
+   rdfs:domain osmo:logical_array;
+   rdfs:range xs:string;
+   rdfs:comment "this property can be used to assign a variable name to the array index"^^xs:string.
+osmo:has_specific_element a osmo:op_logical_array;
+   rdfs:domain osmo:logical_array;
+   rdfs:range osmo:logical_variable;
+   rdfs:subPropertyOf osmo:has_array_element;
+   rdfs:comment "points to one particular array element (identified by a specific index value)"^^xs:string.
+osmo:has_static_array_size a osmo:dp_logical_array;
+   rdfs:domain osmo:logical_array;
+   rdfs:range xs:nonNegativeInteger;
+   rdfs:comment "value that gives the array size; convention: element indices run from 0 to the array size minus one"^^xs:string.
 
 osmo:unique_logical a owl:Class;
    rdfs:subClassOf osmo:logical_variable;

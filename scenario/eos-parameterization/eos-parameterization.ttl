@@ -4,7 +4,7 @@
 ##  EXAMPLE: PHOSGENE EOS PARAMETERIZATION  ##
 ##  BY NVT ENSEMBLE MONTE CARLO SIMULATION  ##
 ##                                          ##
-##      LAST UPDATED: 30TH AUGUST 2019      ##
+##     LAST UPDATED: 4TH SEPTEMBER 2019     ##
 ##                                          ##
 ##############################################
 
@@ -168,7 +168,7 @@ scenario-eosmd:L2_T_RHO_PAIRS a osmo:structure_collection, osmo:parameter;
 scenario-eosmd:L3 a osmo:logical_resource;
    osmo:has_logical_label "L_3"^^xs:string;
    osmo:is_interactive "false"^^xs:boolean;
-   osmo:has_stored_variable scenario-eosmd:L3_BOUNDARY_CONDITIONS, scenario-eosmd:L3_INITIAL_COORDINATES.
+   osmo:has_stored_variable scenario-eosmd:L3_BOUNDARY_CONDITIONS, scenario-eosmd:L3_INITIAL_CONFIGURATION.
 
 scenario-eosmd:L3_BOUNDARY_CONDITIONS a osmo:unique_structure;
    osmo:has_variable_name "L3_NVT"^^xs:string;
@@ -185,58 +185,42 @@ scenario-eosmd:L3_BOUNDARY_CONDITIONS a osmo:unique_structure;
       osmo:has_variable_name "L3_T"^^xs:string;
       osmo:has_variable_unit [a qudt:TemperatureUnit]
    ].
-scenario-eosmd:L3_INITIAL_COORDINATES a osmo:structure_collection;
-   osmo:has_variable_name "L3_q_init"^^xs:string;
-   osmo:has_structure_element [
-      a osmo:unique_elementary;
-      osmo:has_variable_name "L3_i"^^xs:string;  # index of the interaction site
-      osmo:has_variable_unit [a qudt:CountingUnit]
-   ], [
-      a osmo:unique_elementary;
-      osmo:has_variable_name "L3_qix_init"^^xs:string;
-      osmo:has_variable_unit [a qudt:LengthUnit]
-   ], [
-      a osmo:unique_elementary;
-      osmo:has_variable_name "L3_qiy_init"^^xs:string;
-      osmo:has_variable_unit [a qudt:LengthUnit]
-   ], [
-      a osmo:unique_elementary;
-      osmo:has_variable_name "L3_qiz_init"^^xs:string;
-      osmo:has_variable_unit [a qudt:LengthUnit]
+scenario-eosmd:L3_INITIAL_CONFIGURATION a osmo:logical_array;
+   osmo:has_variable_name "L3_q_0"^^xs:string;
+   osmo:has_dynamic_array_size [osmo:has_variable_name "L3_N"^^xs:string];
+   osmo:has_index_name "L3_i"^^xs:string;  # index of the interaction site
+   osmo:has_generic_element [
+      a osmo:logical_array;
+      osmo:has_variable_name "L3_qi_0"^^xs:string;
+      osmo:has_index_name "L3_d"^^xs:string;
+      osmo:has_static_array_size 3;
+      osmo:has_generic_element [osmo:has_variable_name "L3_qid_0"^^xs:string];
+      osmo:has_element_unit [a qudt:LengthUnit]
    ].
 
-# logical resource 4: microstates accumulated during an MC simulation run
+# logical resource 4: configurations accumulated during an MC simulation run
 #
 scenario-eosmd:L4 a osmo:logical_resource;
    osmo:has_logical_label "L_4"^^xs:string;
    osmo:is_interactive "false"^^xs:boolean;
-   osmo:has_stored_variable scenario-eosmd:L4_MICROSTATES, scenario-eosmd:L3_BOUNDARY_CONDITIONS.
+   osmo:has_stored_variable scenario-eosmd:L4_CONFIGURATIONS, scenario-eosmd:L3_BOUNDARY_CONDITIONS.
 
-scenario-eosmd:L4_MICROSTATES a osmo:structure_collection;
-   osmo:has_variable_name "L4_microstates_acc"^^xs:string;
-   osmo:has_structure_element [
-      a osmo:unique_elementary;
-      osmo:has_variable_name "L4_k"^^xs:string;  # index of the microstate
-      osmo:has_variable_unit [a qudt:CountingUnit]
-   ], [
-      a osmo:structure_collection;
-      osmo:has_variable_name "L4_positions"^^xs:string;
-      osmo:has_structure_element [
-         a osmo:unique_elementary;
-         osmo:has_variable_name "L4_i"^^xs:string;  # index of the interaction site
-         osmo:has_variable_unit [a qudt:CountingUnit]
-      ], [
-         a osmo:unique_elementary;
-         osmo:has_variable_name "L4_qixk"^^xs:string;
-         osmo:has_variable_unit [a qudt:LengthUnit]
-      ], [
-         a osmo:unique_elementary;
-         osmo:has_variable_name "L4_qiyk"^^xs:string;
-         osmo:has_variable_unit [a qudt:LengthUnit]
-      ], [
-         a osmo:unique_elementary;
-         osmo:has_variable_name "L4_qizk"^^xs:string;
-         osmo:has_variable_unit [a qudt:LengthUnit]
+scenario-eosmd:L4_CONFIGURATIONS a osmo:logical_array;
+   osmo:has_variable_name "L4_configurations_acc"^^xs:string;
+   osmo:has_dynamic_array_size [osmo:has_variable_name "L4_n_config"^^xs:string];
+   osmo:has_index_name "L4_k"^^xs:string;  # index of the configuration
+   osmo:has_generic_element [
+      a osmo:logical_array;
+      osmo:has_variable_name "L4_q_k"^^xs:string;
+      osmo:has_dynamic_array_size [osmo:has_variable_name "L3_N"^^xs:string];
+      osmo:has_index_name "L4_i"^^xs:string;  # index of the interaction site
+      osmo:has_generic_element [
+         a osmo:logical_array;
+         osmo:has_variable_name "L4_qi_k"^^xs:string;
+         osmo:has_index_name "L4_d"^^xs:string;
+         osmo:has_static_array_size 3;
+         osmo:has_generic_element [osmo:has_variable_name "L4_qid_k"^^xs:string];
+         osmo:has_element_unit [a qudt:LengthUnit]
       ]
    ].
 
@@ -330,64 +314,70 @@ scenario-eosmd:L7_EOS_AND_MASSIEU a osmo:structure_collection;
 scenario-eosmd:L7_EOS_PARAMETERIZATION a osmo:unique_structure;
    osmo:has_variable_name "L7_EOS_parameterization"^^xs:string;
    osmo:has_structure_element [
-      a osmo:structure_collection;
+      a osmo:logical_array;
       osmo:has_variable_name "L7_ideal"^^xs:string;
-      osmo:has_structure_element [
-         a osmo:unique_elementary;
-         osmo:has_variable_name "L7_k_id"^^xs:string;
-         osmo:has_variable_unit [a qudt:CountingUnit]
-      ], [
-         a osmo:unique_elementary;
-         osmo:has_variable_name "L7_u_k_id"^^xs:string;
-         osmo:has_variable_unit [a qudt:DimensionlessUnit]
-      ], [
-         a osmo:unique_elementary;
-         osmo:has_variable_name "L7_v_k_id"^^xs:string;
-         osmo:has_variable_unit [a qudt:DimensionlessUnit]
+      osmo:has_index_name "L7_k_id"^^xs:string;
+      osmo:has_static_array_size 3;
+      osmo:has_generic_element [
+         a osmo:unique_structure;
+         osmo:has_variable_name "L7_param_k_id"^^xs:string;
+         osmo:has_structure_element [
+            a osmo:unique_elementary;
+            osmo:has_variable_name "L7_u_k_id"^^xs:string;
+            osmo:has_variable_unit [a qudt:DimensionlessUnit]
+         ], [
+            a osmo:unique_elementary;
+            osmo:has_variable_name "L7_v_k_id"^^xs:string;
+            osmo:has_variable_unit [a qudt:DimensionlessUnit]
+         ]
       ]
    ], [
-      a osmo:structure_collection;
+      a osmo:logical_array;
       osmo:has_variable_name "L7_residual_polynomial"^^xs:string;
-      osmo:has_structure_element [
-         a osmo:unique_elementary;
-         osmo:has_variable_name "L7_k_res_poly"^^xs:string;
-         osmo:has_variable_unit [a qudt:CountingUnit]
-      ], [
-         a osmo:unique_elementary;
-         osmo:has_variable_name "L7_n_k_res_poly"^^xs:string;
-         osmo:has_variable_unit [a qudt:DimensionlessUnit]
-      ], [
-         a osmo:unique_elementary;
-         osmo:has_variable_name "L7_t_k_res_poly"^^xs:string;
-         osmo:has_variable_unit [a qudt:DimensionlessUnit]
-      ], [
-         a osmo:unique_elementary;
-         osmo:has_variable_name "L7_d_k_res_poly"^^xs:string;
-         osmo:has_variable_unit [a qudt:CountingUnit]
+      osmo:has_index_name "L7_k_res_poly"^^xs:string;
+      osmo:has_static_array_size 22;
+      osmo:has_generic_element [
+         a osmo:unique_structure;
+         osmo:has_variable_name "L7_param_k_res_poly"^^xs:string;
+         osmo:has_structure_element [
+            a osmo:unique_elementary;
+            osmo:has_variable_name "L7_n_k_res_poly"^^xs:string;
+            osmo:has_variable_unit [a qudt:DimensionlessUnit]
+         ], [
+            a osmo:unique_elementary;
+            osmo:has_variable_name "L7_t_k_res_poly"^^xs:string;
+            osmo:has_variable_unit [a qudt:DimensionlessUnit]
+         ], [
+            a osmo:unique_elementary;
+            osmo:has_variable_name "L7_d_k_res_poly"^^xs:string;
+            osmo:has_variable_unit [a qudt:CountingUnit]
+         ]
       ]
    ], [
-      a osmo:structure_collection;
+      a osmo:logical_array;
       osmo:has_variable_name "L7_residual_exponential"^^xs:string;
-      osmo:has_structure_element [
-         a osmo:unique_elementary;
-         osmo:has_variable_name "L7_k_res_exp"^^xs:string;
-         osmo:has_variable_unit [a qudt:CountingUnit]
-      ], [
-         a osmo:unique_elementary;
-         osmo:has_variable_name "L7_n_k_res_exp"^^xs:string;
-         osmo:has_variable_unit [a qudt:DimensionlessUnit]
-      ], [
-         a osmo:unique_elementary;
-         osmo:has_variable_name "L7_t_k_res_exp"^^xs:string;
-         osmo:has_variable_unit [a qudt:CountingUnit]
-      ], [
-         a osmo:unique_elementary;
-         osmo:has_variable_name "L7_d_k_res_exp"^^xs:string;
-         osmo:has_variable_unit [a qudt:CountingUnit]
-      ], [
-         a osmo:unique_elementary;
-         osmo:has_variable_name "L7_l_k_res_exp"^^xs:string;
-         osmo:has_variable_unit [a qudt:CountingUnit]
+      osmo:has_index_name "L7_k_res_exp"^^xs:string;
+      osmo:has_static_array_size 18;
+      osmo:has_generic_element [
+         a osmo:unique_structure;
+         osmo:has_variable_name "L7_param_k_res_exp"^^xs:string;
+         osmo:has_structure_element [
+            a osmo:unique_elementary;
+            osmo:has_variable_name "L7_n_k_res_exp"^^xs:string;
+            osmo:has_variable_unit [a qudt:DimensionlessUnit]
+         ], [
+            a osmo:unique_elementary;
+            osmo:has_variable_name "L7_t_k_res_exp"^^xs:string;
+            osmo:has_variable_unit [a qudt:CountingUnit]
+         ], [
+            a osmo:unique_elementary;
+            osmo:has_variable_name "L7_d_k_res_exp"^^xs:string;
+            osmo:has_variable_unit [a qudt:CountingUnit]
+         ], [
+            a osmo:unique_elementary;
+            osmo:has_variable_name "L7_l_k_res_exp"^^xs:string;
+            osmo:has_variable_unit [a qudt:CountingUnit]
+         ]
       ]
    ].
 
@@ -428,64 +418,70 @@ scenario-eosmd:L8 a osmo:logical_resource;
 scenario-eosmd:L8_EOS_PARAMETERIZATION a osmo:unique_structure;
    osmo:has_variable_name "L8_EOS_parameterization"^^xs:string;
    osmo:has_structure_element [
-      a osmo:structure_collection;
+      a osmo:logical_array;
       osmo:has_variable_name "L8_ideal"^^xs:string;
-      osmo:has_structure_element [
-         a osmo:unique_elementary;
-         osmo:has_variable_name "L8_k_id"^^xs:string;
-         osmo:has_variable_unit [a qudt:CountingUnit]
-      ], [
-         a osmo:unique_elementary;
-         osmo:has_variable_name "L8_u_k_id"^^xs:string;
-         osmo:has_variable_unit [a qudt:DimensionlessUnit]
-      ], [
-         a osmo:unique_elementary;
-         osmo:has_variable_name "L8_v_k_id"^^xs:string;
-         osmo:has_variable_unit [a qudt:DimensionlessUnit]
+      osmo:has_index_name "L8_k_id"^^xs:string;
+      osmo:has_static_array_size 3;
+      osmo:has_generic_element [
+         a osmo:unique_structure;
+         osmo:has_variable_name "L8_param_k_id"^^xs:string;
+         osmo:has_structure_element [
+            a osmo:unique_elementary;
+            osmo:has_variable_name "L8_u_k_id"^^xs:string;
+            osmo:has_variable_unit [a qudt:DimensionlessUnit]
+         ], [
+            a osmo:unique_elementary;
+            osmo:has_variable_name "L8_v_k_id"^^xs:string;
+            osmo:has_variable_unit [a qudt:DimensionlessUnit]
+         ]
       ]
    ], [
-      a osmo:structure_collection;
+      a osmo:logical_array;
       osmo:has_variable_name "L8_residual_polynomial"^^xs:string;
-      osmo:has_structure_element [
-         a osmo:unique_elementary;
-         osmo:has_variable_name "L8_k_res_poly"^^xs:string;
-         osmo:has_variable_unit [a qudt:CountingUnit]
-      ], [
-         a osmo:unique_elementary;
-         osmo:has_variable_name "L8_n_k_res_poly"^^xs:string;
-         osmo:has_variable_unit [a qudt:DimensionlessUnit]
-      ], [
-         a osmo:unique_elementary;
-         osmo:has_variable_name "L8_t_k_res_poly"^^xs:string;
-         osmo:has_variable_unit [a qudt:DimensionlessUnit]
-      ], [
-         a osmo:unique_elementary;
-         osmo:has_variable_name "L8_d_k_res_poly"^^xs:string;
-         osmo:has_variable_unit [a qudt:CountingUnit]
+      osmo:has_index_name "L8_k_res_poly"^^xs:string;
+      osmo:has_static_array_size 22;
+      osmo:has_generic_element [
+         a osmo:unique_structure;
+         osmo:has_variable_name "L8_param_k_res_poly"^^xs:string;
+         osmo:has_structure_element [
+            a osmo:unique_elementary;
+            osmo:has_variable_name "L8_n_k_res_poly"^^xs:string;
+            osmo:has_variable_unit [a qudt:DimensionlessUnit]
+         ], [
+            a osmo:unique_elementary;
+            osmo:has_variable_name "L8_t_k_res_poly"^^xs:string;
+            osmo:has_variable_unit [a qudt:DimensionlessUnit]
+         ], [
+            a osmo:unique_elementary;
+            osmo:has_variable_name "L8_d_k_res_poly"^^xs:string;
+            osmo:has_variable_unit [a qudt:CountingUnit]
+         ]
       ]
    ], [
-      a osmo:structure_collection;
+      a osmo:logical_array;
       osmo:has_variable_name "L8_residual_exponential"^^xs:string;
-      osmo:has_structure_element [
-         a osmo:unique_elementary;
-         osmo:has_variable_name "L8_k_res_exp"^^xs:string;
-         osmo:has_variable_unit [a qudt:CountingUnit]
-      ], [
-         a osmo:unique_elementary;
-         osmo:has_variable_name "L8_n_k_res_exp"^^xs:string;
-         osmo:has_variable_unit [a qudt:DimensionlessUnit]
-      ], [
-         a osmo:unique_elementary;
-         osmo:has_variable_name "L8_t_k_res_exp"^^xs:string;
-         osmo:has_variable_unit [a qudt:CountingUnit]
-      ], [
-         a osmo:unique_elementary;
-         osmo:has_variable_name "L8_d_k_res_exp"^^xs:string;
-         osmo:has_variable_unit [a qudt:CountingUnit]
-      ], [
-         a osmo:unique_elementary;
-         osmo:has_variable_name "L8_l_k_res_exp"^^xs:string;
-         osmo:has_variable_unit [a qudt:CountingUnit]
+      osmo:has_index_name "L8_k_res_exp"^^xs:string;
+      osmo:has_static_array_size 18;
+      osmo:has_generic_element [
+         a osmo:unique_structure;
+         osmo:has_variable_name "L8_param_k_res_exp"^^xs:string;
+         osmo:has_structure_element [
+            a osmo:unique_elementary;
+            osmo:has_variable_name "L8_n_k_res_exp"^^xs:string;
+            osmo:has_variable_unit [a qudt:DimensionlessUnit]
+         ], [
+            a osmo:unique_elementary;
+            osmo:has_variable_name "L8_t_k_res_exp"^^xs:string;
+            osmo:has_variable_unit [a qudt:CountingUnit]
+         ], [
+            a osmo:unique_elementary;
+            osmo:has_variable_name "L8_d_k_res_exp"^^xs:string;
+            osmo:has_variable_unit [a qudt:CountingUnit]
+         ], [
+            a osmo:unique_elementary;
+            osmo:has_variable_name "L8_l_k_res_exp"^^xs:string;
+            osmo:has_variable_unit [a qudt:CountingUnit]
+         ]
       ]
    ], [
       a osmo:unique_elementary;
@@ -535,24 +531,24 @@ scenario-eosmd:P2_TO_L3 a osmo:logical_write_access;
    osmo:is_final "true"^^xs:boolean;
    osmo:has_access_point scenario-eosmd:P2;
    osmo:has_resource scenario-eosmd:L3;
-   osmo:has_carried_variable scenario-eosmd:L3_BOUNDARY_CONDITIONS, scenario-eosmd:L3_INITIAL_COORDINATES.
+   osmo:has_carried_variable scenario-eosmd:L3_BOUNDARY_CONDITIONS, scenario-eosmd:L3_INITIAL_CONFIGURATION.
 scenario-eosmd:L3_TO_S1 a osmo:logical_read_access;
    osmo:is_initial "true"^^xs:boolean;
    osmo:has_resource scenario-eosmd:L3;
    osmo:has_access_point scenario-eosmd:S1;
-   osmo:has_carried_variable scenario-eosmd:L3_BOUNDARY_CONDITIONS, scenario-eosmd:L3_INITIAL_COORDINATES.
+   osmo:has_carried_variable scenario-eosmd:L3_BOUNDARY_CONDITIONS, scenario-eosmd:L3_INITIAL_CONFIGURATION.
 scenario-eosmd:S1_TO_L4 a osmo:logical_write_access;
    osmo:is_at_runtime "true"^^xs:boolean;
    osmo:is_final "false"^^xs:boolean;
    osmo:has_access_point scenario-eosmd:S1;
    osmo:has_resource scenario-eosmd:L4;
-   osmo:has_carried_variable scenario-eosmd:L4_MICROSTATES, scenario-eosmd:L3_BOUNDARY_CONDITIONS.
+   osmo:has_carried_variable scenario-eosmd:L4_CONFIGURATIONS, scenario-eosmd:L3_BOUNDARY_CONDITIONS.
 scenario-eosmd:L4_TO_P3 a osmo:logical_read_access;
    osmo:is_at_runtime "true"^^xs:boolean;
    osmo:is_initial "false"^^xs:boolean;
    osmo:has_resource scenario-eosmd:L4;
    osmo:has_access_point scenario-eosmd:P3;
-   osmo:has_carried_variable scenario-eosmd:L4_MICROSTATES, scenario-eosmd:L3_BOUNDARY_CONDITIONS.
+   osmo:has_carried_variable scenario-eosmd:L4_CONFIGURATIONS, scenario-eosmd:L3_BOUNDARY_CONDITIONS.
 scenario-eosmd:P3_TO_L5 a osmo:logical_write_access;
    osmo:is_final "true"^^xs:boolean;
    osmo:has_access_point scenario-eosmd:P3;
@@ -796,8 +792,8 @@ scenario-eosmd:ISOTHERMAL_VLE a osmo:quantitative_condition;
    ].
 
 scenario-eosmd:S1
-   osmo:has_input scenario-eosmd:L3_BOUNDARY_CONDITIONS, scenario-eosmd:L3_INITIAL_COORDINATES;
-   osmo:has_output scenario-eosmd:L4_MICROSTATES, scenario-eosmd:L3_BOUNDARY_CONDITIONS;
+   osmo:has_input scenario-eosmd:L3_BOUNDARY_CONDITIONS, scenario-eosmd:L3_INITIAL_CONFIGURATION;
+   osmo:has_output scenario-eosmd:L4_CONFIGURATIONS, scenario-eosmd:L3_BOUNDARY_CONDITIONS;
    osmo:has_section_literature [
       osmo:has_aspect_paradigmatic_content scenario-eosmd:RUTKAI_ET_AL_2017
    ].
@@ -810,9 +806,9 @@ scenario-eosmd:P1
    osmo:has_output scenario-eosmd:L2_T_RHO_PAIRS.
 scenario-eosmd:P2
    osmo:has_input scenario-eosmd:L2_T_RHO_PAIRS;
-   osmo:has_output scenario-eosmd:L3_BOUNDARY_CONDITIONS, scenario-eosmd:L3_INITIAL_COORDINATES.
+   osmo:has_output scenario-eosmd:L3_BOUNDARY_CONDITIONS, scenario-eosmd:L3_INITIAL_CONFIGURATION.
 scenario-eosmd:P3
-   osmo:has_input scenario-eosmd:L4_MICROSTATES, scenario-eosmd:L3_BOUNDARY_CONDITIONS;
+   osmo:has_input scenario-eosmd:L4_CONFIGURATIONS, scenario-eosmd:L3_BOUNDARY_CONDITIONS;
    osmo:has_output scenario-eosmd:L5_MASSIEU_DERIVATIVES_MC.
 scenario-eosmd:P4
    osmo:has_input scenario-eosmd:L5_MASSIEU_DERIVATIVES_MC;
