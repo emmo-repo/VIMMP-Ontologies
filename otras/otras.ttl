@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
 
-### VERSION 0.8.4 ###
+### VERSION 0.8.5 ###
 
-### DATED 28TH AUGUST 2019 ###
+### DATED 5TH SEPTEMBER 2019 ###
 
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 
@@ -374,9 +374,22 @@ otras:covers_topic a otras:op_syllabus;
    rdfs:range otras:topic;
    rdfs:subPropertyOf evmpo:has_information_content_entity_annotation;
    owl:equivalentProperty ccso:coversTopic.
-otras:has_syllabus_resource a otras:op_syllabus;
+otras:has_learning_material a otras:op_syllabus;
    rdfs:domain otras:syllabus;
-   rdfs:range rdfs:Resource.
+   rdfs:range evmpo:marketplace_related_entity;
+   rdfs:subPropertyOf ccso:hasLM.
+otras:has_literature a otras:op_syllabus;
+   rdfs:domain otras:syllabus;
+   rdfs:range evmpo:marketplace_related_entity;
+   rdfs:subPropertyOf otras:has_learning_material.
+otras:has_mandatory_literature a otras:op_syllabus;
+   rdfs:domain otras:syllabus;
+   rdfs:range otras:citation;
+   rdfs:subPropertyOf otras:has_literature.
+otras:has_recommended_literature a otras:op_syllabus;
+   rdfs:domain otras:syllabus;
+   rdfs:range otras:citation;
+   rdfs:subPropertyOf otras:has_literature.
 
 otras:course a owl:Class;
    rdfs:comment "a course as defined by CCSO"^^xs:string;
@@ -1255,6 +1268,9 @@ otras:has_publication_title a otras:dp_citation;
 otras:has_publication_year a otras:dp_citation;
    rdfs:domain otras:citation;
    rdfs:range xs:year.
+otras:has_url a otras:dp_citation;
+   rdfs:domain otras:citation;
+   rdfs:range xs:string.
 
 otras:is_about a evmpo:op_information_content_entity, owl:ObjectProperty;
    rdfs:domain evmpo:information_content_entity;
