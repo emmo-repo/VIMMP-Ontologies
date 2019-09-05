@@ -2,7 +2,7 @@
 ##                                    ##
 ##  EXAMPLE: INGEST OF PERSONAL DATA  ##
 ##                                    ##
-##   LAST UPDATED: 13TH AUGUST 2019   ##
+##  LAST UPDATED: 5TH SEPTEMBER 2019  ##
 ##                                    ##
 ########################################
 
@@ -36,6 +36,7 @@
 self-descriptions:MARTIN_THOMAS_HORSCH a cviii:human_agent, cviii:marketplace_subject, cviii:model_provider, cviii:translator;
    cviii:has_first_name "Martin Thomas"^^xs:string;
    cviii:has_last_name "Horsch"^^xs:string;
+   cviii:has_academic_title cviii:TITLE_DOCTOR_GENERIC;
    cviii:has_affiliation self-descriptions:STFC_DARESBURY_LABORATORY;
    cviii:has_business_address [
       a vico:email_address;
@@ -45,10 +46,7 @@ self-descriptions:MARTIN_THOMAS_HORSCH a cviii:human_agent, cviii:marketplace_su
       ];
       vico:has_email_domain_label [
          vico:has_token_index 2;
-         vico:has_textual_representation "stfc"^^xs:string
-      ], [
-         vico:has_token_index 3;
-         vico:has_textual_representation "ac"^^xs:string
+         vico:has_textual_representation "stfc.ac.uk"^^xs:string
       ];
       vico:is_in_country lcc-codes:UnitedKingdomOfGreatBritainAndNorthernIreland
    ], [
