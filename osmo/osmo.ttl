@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 1.1.1 ###
+### VERSION 1.1.2 ###
 
-### DATED 4TH SEPTEMBER 2019 ###
+### DATED 28TH SEPTEMBER 2019 ###
 
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -2085,7 +2085,7 @@ osmo:dp_condition rdfs:subClassOf osmo:dp_quantitative_condition.
 
 
 osmo:logical_entity a owl:Class;
-   rdfs:subClassOf osmo:workflow_entity, evmpo:marketplace_related_entity;
+   rdfs:subClassOf osmo:workflow_entity;
    rdfs:comment "logical entity, i.e., a notational element of a simulation workflow related to data exchange and communication"^^xs:string.
 osmo:op_logical_entity a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
@@ -2093,8 +2093,6 @@ osmo:dp_logical_entity a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 osmo:op_workflow_entity rdfs:subClassOf osmo:op_logical_entity.
 osmo:dp_workflow_entity rdfs:subClassOf osmo:dp_logical_entity.
-evmpo:op_marketplace_related_entity rdfs:subClassOf osmo:op_logical_entity.
-evmpo:dp_marketplace_related_entity rdfs:subClassOf osmo:dp_logical_entity.
 
 osmo:logical_resource a owl:Class;
    rdfs:subClassOf osmo:logical_entity, osmo:workflow_resource, evmpo:annotation, osmo:R_IS_CONCRETE;
@@ -2127,22 +2125,143 @@ osmo:has_stored_variable a osmo:op_logical_resource;
    rdfs:domain osmo:logical_resource;
    rdfs:range osmo:logical_variable.
 
-osmo:logical_variable a owl:Class;
+osmo:logical_term a owl:Class;
    rdfs:subClassOf osmo:logical_entity;
+   rdfs:comment "logical term, i.e., a logical variable or a value that can be assigned to a logical variable"^^xs:string.
+osmo:op_logical_variable a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_logical_variable a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_logical_entity rdfs:subClassOf osmo:op_logical_term.
+osmo:dp_logical_entity rdfs:subClassOf osmo:dp_logical_term.
+
+osmo:has_term_index a osmo:dp_logical_term;
+   rdfs:domain osmo:logical_term;
+   rdfs:range xs:nonNegativeInteger;
+   rdfs:comment "identifies a term by a non-negative integer number; in particular, use for array terms (numbering convention: from 0 to array size minus 1)"^^xs:string.
+osmo:has_term_name a osmo:dp_logical_term;
+   rdfs:domain osmo:logical_term;
+   rdfs:range xs:string.
+
+osmo:logical_term owl:disjointUnionOf (osmo:logical_variable osmo:logical_value).
+
+osmo:logical_term owl:disjointUnionOf (osmo:elementary_term osmo:structure_term).
+
+osmo:elementary_term a owl:Class;
+   rdfs:subClassOf osmo:logical_term;
+   rdfs:comment "elementary term, i.e., a logical term without any internal structure"^^xs:string.
+osmo:op_elementary_term a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_elementary_term a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_logical_term rdfs:subClassOf osmo:op_elementary_term.
+osmo:dp_logical_term rdfs:subClassOf osmo:dp_elementary_term.
+
+osmo:has_term_unit a osmo:op_elementary_term, owl:FunctionalProperty;
+   rdfs:domain osmo:elementary_term;
+   rdfs:range qudt:Unit, vivo:unit;
+   rdfs:comment "unit associated with any assigned decimal values"^^xs:string;
+   rdfs:subPropertyOf evmpo:has_annotation.
+
+osmo:elementary_term owl:disjointUnionOf (osmo:elementary_logical osmo:elementary_value).
+
+osmo:structure_term a owl:Class;
+   rdfs:subClassOf osmo:logical_term;
+   rdfs:comment "structure term, i.e., a logical term with an internal structure"^^xs:string.
+osmo:op_structure_term a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_structure_term a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_logical_term rdfs:subClassOf osmo:op_structure_term.
+osmo:dp_logical_term rdfs:subClassOf osmo:dp_structure_term.
+
+osmo:has_structure_element a osmo:op_structure_term;
+   rdfs:domain osmo:structure_term;
+   rdfs:range osmo:logical_term;
+   rdfs:comment "points to an element of a structure"^^xs:string.
+
+osmo:structure_term owl:disjointUnionOf (osmo:logical_structure osmo:structure_value).
+
+osmo:logical_value a owl:Class;
+   rdfs:subClassOf osmo:logical_term, evmpo:annotation;
+   rdfs:comment "logical value, i.e., an entity that can be assigned to a logical variable as its value"^^xs:string.
+osmo:op_logical_value a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_logical_value a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_logical_term rdfs:subClassOf osmo:op_logical_value.
+osmo:dp_logical_term rdfs:subClassOf osmo:dp_logical_value.
+
+osmo:logical_value owl:disjointUnionOf (osmo:elementary_value osmo:structure_value).
+
+osmo:elementary_value a owl:Class;
+   rdfs:subClassOf osmo:logical_value, osmo:elementary_term;
+   owl:intersectionOf (osmo:logical_value osmo:elementary_term);
+   rdfs:comment "elementary value, i.e., an entity that can be assigned to an elementary logical (variable) as its value"^^xs:string.
+osmo:op_elementary_value a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_elementary_value a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_logical_value rdfs:subClassOf osmo:op_elementary_value.
+osmo:dp_logical_value rdfs:subClassOf osmo:dp_elementary_value.
+osmo:op_elementary_term rdfs:subClassOf osmo:op_elementary_value.
+osmo:dp_elementary_term rdfs:subClassOf osmo:dp_elementary_value.
+
+osmo:is_decimal a osmo:dp_elementary_value;
+   rdfs:domain osmo:elementary_value;
+   rdfs:range xs:decimal.
+osmo:is_string a osmo:dp_elementary_value;
+   rdfs:domain osmo:elementary_value;
+   rdfs:range xs:string.
+
+osmo:structure_value a owl:Class;
+   rdfs:subClassOf osmo:logical_value, osmo:structure_term;
+   owl:intersectionOf (osmo:logical_value osmo:structure_term);
+   rdfs:comment "structure value, i.e., an entity that can be assigned to a logical structure as its value"^^xs:string.
+osmo:op_structure_value a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_structure_value a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_logical_value rdfs:subClassOf osmo:op_structure_value.
+osmo:dp_logical_value rdfs:subClassOf osmo:dp_structure_value.
+osmo:op_structure_term rdfs:subClassOf osmo:op_structure_value.
+osmo:dp_structure_term rdfs:subClassOf osmo:dp_structure_value.
+
+osmo:logical_variable a owl:Class;
+   rdfs:subClassOf osmo:logical_term;
    rdfs:comment "logical variable, i.e., property which can be exchanged between logical resources"^^xs:string.
 osmo:op_logical_variable a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 osmo:dp_logical_variable a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_logical_entity rdfs:subClassOf osmo:op_logical_variable.
-osmo:dp_logical_entity rdfs:subClassOf osmo:dp_logical_variable.
+osmo:op_logical_term rdfs:subClassOf osmo:op_logical_variable.
+osmo:dp_logical_term rdfs:subClassOf osmo:dp_logical_variable.
+
+osmo:has_value a osmo:op_logical_variable;
+   rdfs:domain osmo:logical_variable;
+   rdfs:range osmo:logical_value;
+   rdfs:subPropertyOf evmpo:has_annotation.
+osmo:has_current_value a osmo:op_logical_variable;
+   rdfs:domain osmo:elementary_logical;
+   rdfs:range osmo:logical_value;
+   rdfs:subPropertyOf osmo:has_value.
+osmo:has_default_value a osmo:op_logical_variable;
+   rdfs:domain osmo:elementary_logical;
+   rdfs:range osmo:logical_value;
+   rdfs:subPropertyOf osmo:has_value.
+osmo:has_initial_value a osmo:op_logical_variable;
+   rdfs:domain osmo:elementary_logical;
+   rdfs:range osmo:logical_value;
+   rdfs:subPropertyOf osmo:has_value.
 
 osmo:has_variable_index a osmo:dp_logical_variable;
    rdfs:domain osmo:logical_variable;
    rdfs:range xs:nonNegativeInteger;
+   rdfs:subPropertyOf osmo:has_term_index;
    rdfs:comment "identifies a variable by a non-negative integer number; in particular, use for logical arrays (numbering convention: from 0 to array size minus 1)"^^xs:string.
 osmo:has_variable_name a osmo:dp_logical_variable;
    rdfs:domain osmo:logical_variable;
+   rdfs:subPropertyOf osmo:has_term_name;
    rdfs:range xs:string.
 osmo:is_constant a osmo:dp_logical_variable;
    rdfs:domain osmo:logical_variable;
@@ -2170,7 +2289,8 @@ osmo:logical_variable owl:disjointUnionOf (osmo:elementary_logical osmo:logical_
 osmo:logical_variable owl:disjointUnionOf (osmo:unique_logical osmo:logical_collection).
 
 osmo:elementary_logical a owl:Class;
-   rdfs:subClassOf osmo:logical_variable;
+   rdfs:subClassOf osmo:logical_variable, osmo:elementary_term;
+   owl:intersectionOf (osmo:logical_variable osmo:elementary_term);
    rdfs:comment "elementary logical, i.e., a logical variable that does not contain any (sub-)variables as structure elements"^^xs:string.
 osmo:op_elementary_logical a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
@@ -2178,24 +2298,35 @@ osmo:dp_elementary_logical a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 osmo:op_logical_variable rdfs:subClassOf osmo:op_elementary_logical.
 osmo:dp_logical_variable rdfs:subClassOf osmo:dp_elementary_logical.
+osmo:op_elementary_term rdfs:subClassOf osmo:op_elementary_logical.
+osmo:dp_lelementary_term rdfs:subClassOf osmo:dp_elementary_logical.
 
-osmo:has_current_elementary_value a osmo:dp_elementary_logical;
+osmo:has_elementary_value a osmo:op_elementary_logical;
    rdfs:domain osmo:elementary_logical;
-   rdfs:range xs:decimal.
-osmo:has_default_elementary_value a osmo:dp_elementary_logical;
+   rdfs:range osmo:elementary_value;
+   rdfs:subPropertyOf osmo:has_value.
+osmo:has_current_elementary_value a osmo:op_elementary_logical;
    rdfs:domain osmo:elementary_logical;
-   rdfs:range xs:decimal.
-osmo:has_initial_elementary_value a osmo:dp_elementary_logical;
+   rdfs:range osmo:elementary_value;
+   rdfs:subPropertyOf osmo:has_elementary_value, osmo:has_current_value.
+osmo:has_default_elementary_value a osmo:op_elementary_logical;
    rdfs:domain osmo:elementary_logical;
-   rdfs:range xs:decimal.
+   rdfs:range osmo:elementary_value;
+   rdfs:subPropertyOf osmo:has_elementary_value, osmo:has_default_value.
+osmo:has_initial_elementary_value a osmo:op_elementary_logical;
+   rdfs:domain osmo:elementary_logical;
+   rdfs:range osmo:elementary_value;
+   rdfs:subPropertyOf osmo:has_elementary_value, osmo:has_initial_value.
+
 osmo:has_variable_unit a osmo:op_elementary_logical, owl:FunctionalProperty;
    rdfs:domain osmo:elementary_logical;
    rdfs:range qudt:Unit, vivo:unit;
-   rdfs:comment "unit in which any values are given"^^xs:string;
-   rdfs:subPropertyOf evmpo:has_annotation.
+   rdfs:comment "unit associated with any assigned decimal values"^^xs:string;
+   rdfs:subPropertyOf osmo:has_term_unit.
 
 osmo:logical_structure a owl:Class;
-   rdfs:subClassOf osmo:logical_variable;
+   rdfs:subClassOf osmo:logical_variable, osmo:structure_term;
+   owl:intersectionOf (osmo:logical_variable osmo:structure_term);
    rdfs:comment "logical structure, i.e., a logical variable that contains (sub-)variables as structure elements"^^xs:string.
 osmo:op_logical_structure a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
@@ -2203,11 +2334,25 @@ osmo:dp_logical_structure a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 osmo:op_logical_variable rdfs:subClassOf osmo:op_logical_structure.
 osmo:dp_logical_variable rdfs:subClassOf osmo:dp_logical_structure.
+osmo:op_structure_term rdfs:subClassOf osmo:op_logical_structure.
+osmo:dp_structure_term rdfs:subClassOf osmo:dp_logical_structure.
 
-osmo:has_structure_element a osmo:op_logical_structure;
+osmo:has_structure_value a osmo:op_logical_structure;
    rdfs:domain osmo:logical_structure;
-   rdfs:range osmo:logical_variable;
-   rdfs:comment "points to an element of a logical structure variable"^^xs:string.
+   rdfs:range osmo:structure_value;
+   rdfs:subPropertyOf osmo:has_value.
+osmo:has_current_structure_value a osmo:op_logical_structure;
+   rdfs:domain osmo:logical_structure;
+   rdfs:range osmo:structure_value;
+   rdfs:subPropertyOf osmo:has_structure_value, osmo:has_current_value.
+osmo:has_default_structure_value a osmo:op_logical_structure;
+   rdfs:domain osmo:logical_structure;
+   rdfs:range osmo:structure_value;
+   rdfs:subPropertyOf osmo:has_structure_value, osmo:has_default_value.
+osmo:has_initial_structure_value a osmo:op_logical_structure;
+   rdfs:domain osmo:logical_structure;
+   rdfs:range osmo:structure_value;
+   rdfs:subPropertyOf osmo:has_structure_value, osmo:has_initial_value.
 
 osmo:logical_array a owl:Class;
    rdfs:subClassOf osmo:unique_structure;
@@ -2323,6 +2468,8 @@ osmo:op_logical_structure rdfs:subClassOf osmo:op_structure_collection.
 osmo:dp_logical_structure rdfs:subClassOf osmo:dp_structure_collection.
 osmo:op_logical_collection rdfs:subClassOf osmo:op_structure_collection.
 osmo:dp_logical_collection rdfs:subClassOf osmo:dp_structure_collection.
+
+
 
 osmo:logical_access a owl:Class;
    rdfs:subClassOf osmo:logical_entity, evmpo:annotation;

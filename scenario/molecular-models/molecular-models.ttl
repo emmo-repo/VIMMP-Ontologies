@@ -2,7 +2,7 @@
 ##                                           ##
 ##  EXAMPLE: INTERMOLECULAR PAIR POTENTIALS  ##
 ##                                           ##
-##     LAST UPDATED: 4TH SEPTEMBER 2019      ##
+##     LAST UPDATED: 28TH SEPTEMBER 2019     ##
 ##                                           ##
 ###############################################
 
@@ -89,19 +89,19 @@ potex:R1234YF_CONSTRAINT_SITE_B a osmo:materials_relation, viso-am:two_body_pote
    viso-am:involves potex:R1234YF_RIGID_UNIT, potex:R1234YF_SITE_COM, potex:R1234YF_SITE_B.
 potex:R1234YF_PARAMETER_SIG a osmo:unique_elementary, osmo:logical_constant;
    osmo:has_variable_name "sigma"^^xs:string;
-   osmo:has_initial_elementary_value 3.900;
+   osmo:has_initial_elementary_value [osmo:is_decimal 3.900];
    osmo:has_variable_unit qudt-unit:Angstrom.
 potex:R1234YF_PARAMETER_EPS a osmo:unique_elementary, osmo:logical_constant;
    osmo:has_variable_name "epsilon"^^xs:string;
-   osmo:has_initial_elementary_value 257.39;
+   osmo:has_initial_elementary_value [osmo:is_decimal 257.39];
    osmo:has_variable_unit vivo:UNIT_KELVIN_BOLTZMANN.
 potex:R1234YF_PARAMETER_M a osmo:unique_elementary, osmo:logical_constant;
    osmo:has_variable_name "m"^^xs:string;
-   osmo:has_initial_elementary_value 6;
+   osmo:has_initial_elementary_value [osmo:is_decimal 6];
    osmo:has_variable_unit qudt-unit:Unitless.
 potex:R1234YF_PARAMETER_N a osmo:unique_elementary, osmo:logical_constant;
    osmo:has_variable_name "n"^^xs:string;
-   osmo:has_initial_elementary_value 16.54;
+   osmo:has_initial_elementary_value [osmo:is_decimal 16.54];
    osmo:has_variable_unit qudt-unit:Unitless.
 potex:R1234YF_PARAMETER_SITE_A_RAD a osmo:logical_array, osmo:logical_constant;
    osmo:has_variable_name "radius"^^xs:string;
@@ -110,13 +110,13 @@ potex:R1234YF_PARAMETER_SITE_A_RAD a osmo:logical_array, osmo:logical_constant;
    osmo:has_element_unit qudt-unit:Angstrom;
    osmo:has_specific_element [
       osmo:has_variable_index 0;
-      osmo:has_initial_elementary_value 0.0
+      osmo:has_initial_elementary_value [osmo:is_decimal 0.0]
    ], [
       osmo:has_variable_index 1;
-      osmo:has_initial_elementary_value 1.95
+      osmo:has_initial_elementary_value [osmo:is_decimal 1.95]
    ], [
       osmo:has_variable_index 2;
-      osmo:has_initial_elementary_value 0.0
+      osmo:has_initial_elementary_value [osmo:is_decimal 0.0]
    ].
 potex:R1234YF_PARAMETER_SITE_B_RAD a osmo:logical_array, osmo:logical_constant;
    osmo:has_variable_name "radius"^^xs:string;
@@ -125,13 +125,13 @@ potex:R1234YF_PARAMETER_SITE_B_RAD a osmo:logical_array, osmo:logical_constant;
    osmo:has_element_unit qudt-unit:Angstrom;
    osmo:has_specific_element [
       osmo:has_variable_index 0;
-      osmo:has_initial_elementary_value 0.0
+      osmo:has_initial_elementary_value [osmo:is_decimal 0.0]
    ], [
       osmo:has_variable_index 1;
-      osmo:has_initial_elementary_value -1.95
+      osmo:has_initial_elementary_value [osmo:is_decimal -1.95]
    ], [
       osmo:has_variable_index 2;
-      osmo:has_initial_elementary_value 0.0
+      osmo:has_initial_elementary_value [osmo:is_decimal 0.0]
    ].
 
 
@@ -196,19 +196,19 @@ potex:AMMONIA_CONSTRAINT_SITE_B a osmo:materials_relation, viso-am:two_body_pote
    viso-am:involves potex:AMMONIA_RIGID_UNIT, potex:AMMONIA_SITE_COM, potex:AMMONIA_SITE_B.
 potex:AMMONIA_PARAMETER_SIG a osmo:unique_elementary, osmo:logical_constant;
    osmo:has_variable_name "sigma"^^xs:string;
-   osmo:has_initial_elementary_value 2.5764;
+   osmo:has_initial_elementary_value [osmo:is_decimal 2.5764];
    osmo:has_variable_unit qudt-unit:Angstrom.
 potex:AMMONIA_PARAMETER_EPS a osmo:unique_elementary, osmo:logical_constant;
    osmo:has_variable_name "epsilon"^^xs:string;
-   osmo:has_initial_elementary_value 275.06;
+   osmo:has_initial_elementary_value [osmo:is_decimal 275.06];
    osmo:has_variable_unit vivo:UNIT_KELVIN_BOLTZMANN.
 potex:AMMONIA_PARAMETER_M a osmo:unique_elementary, osmo:logical_constant;
    osmo:has_variable_name "m"^^xs:string;
-   osmo:has_initial_elementary_value 6;
+   osmo:has_initial_elementary_value [osmo:is_decimal 6];
    osmo:has_variable_unit qudt-unit:Unitless.
 potex:AMMONIA_PARAMETER_N a osmo:unique_elementary, osmo:logical_constant;
    osmo:has_variable_name "n"^^xs:string;
-   osmo:has_initial_elementary_value 16.151;
+   osmo:has_initial_elementary_value [osmo:is_decimal 16.151];
    osmo:has_variable_unit qudt-unit:Unitless.
 potex:AMMONIA_PARAMETER_SITE_A_RAD a osmo:logical_array, osmo:logical_constant;
    osmo:has_variable_name "radius"^^xs:string;
@@ -217,13 +217,13 @@ potex:AMMONIA_PARAMETER_SITE_A_RAD a osmo:logical_array, osmo:logical_constant;
    osmo:has_element_unit qudt-unit:Angstrom;
    osmo:has_specific_element [
       osmo:has_variable_index 0;
-      osmo:has_initial_elementary_value 0.0
+      osmo:has_initial_elementary_value [osmo:is_decimal 0.0]
    ], [
       osmo:has_variable_index 1;
-      osmo:has_initial_elementary_value 1.2882
+      osmo:has_initial_elementary_value [osmo:is_decimal 1.2882]
    ], [
       osmo:has_variable_index 2;
-      osmo:has_initial_elementary_value 0.0
+      osmo:has_initial_elementary_value [osmo:is_decimal 0.0]
    ].
 potex:AMMONIA_PARAMETER_SITE_B_RAD a osmo:logical_array, osmo:logical_constant;
    osmo:has_variable_name "radius"^^xs:string;
@@ -232,13 +232,13 @@ potex:AMMONIA_PARAMETER_SITE_B_RAD a osmo:logical_array, osmo:logical_constant;
    osmo:has_element_unit qudt-unit:Angstrom;
    osmo:has_specific_element [
       osmo:has_variable_index 0;
-      osmo:has_initial_elementary_value 0.0
+      osmo:has_initial_elementary_value [osmo:is_decimal 0.0]
    ], [
       osmo:has_variable_index 1;
-      osmo:has_initial_elementary_value -1.2882
+      osmo:has_initial_elementary_value [osmo:is_decimal -1.2882]
    ], [
       osmo:has_variable_index 2;
-      osmo:has_initial_elementary_value 0.0
+      osmo:has_initial_elementary_value [osmo:is_decimal 0.0]
    ].
 
 
@@ -280,11 +280,11 @@ potex:PHOSGENE_CONSTRAINT_C a osmo:materials_relation, viso-am:two_body_potentia
    viso-am:involves potex:PHOSGENE_RIGID_UNIT, potex:PHOSGENE_SITE_COM, potex:PHOSGENE_SITE_C.
 potex:PHOSGENE_PARAMETER_C_SIG a osmo:unique_elementary, osmo:logical_constant;
    osmo:has_variable_name "sigma"^^xs:string;
-   osmo:has_initial_elementary_value 2.815;
+   osmo:has_initial_elementary_value [osmo:is_decimal 2.815];
    osmo:has_variable_unit qudt-unit:Angstrom.
 potex:PHOSGENE_PARAMETER_C_EPS a osmo:unique_elementary, osmo:logical_constant;
    osmo:has_variable_name "epsilon"^^xs:string;
-   osmo:has_initial_elementary_value 10.62;
+   osmo:has_initial_elementary_value [osmo:is_decimal 10.62];
    osmo:has_variable_unit vivo:UNIT_KELVIN_BOLTZMANN.
 potex:PHOSGENE_PARAMETER_C_RAD a osmo:logical_array, osmo:logical_constant;
    osmo:has_variable_name "radius"^^xs:string;
@@ -293,13 +293,13 @@ potex:PHOSGENE_PARAMETER_C_RAD a osmo:logical_array, osmo:logical_constant;
    osmo:has_element_unit qudt-unit:Angstrom;
    osmo:has_specific_element [
       osmo:has_variable_index 0;
-      osmo:has_initial_elementary_value 0.0
+      osmo:has_initial_elementary_value [osmo:is_decimal 0.0]
    ], [
       osmo:has_variable_index 1;
-      osmo:has_initial_elementary_value 0.5049
+      osmo:has_initial_elementary_value [osmo:is_decimal 0.5049]
    ], [
       osmo:has_variable_index 2;
-      osmo:has_initial_elementary_value 0.0
+      osmo:has_initial_elementary_value [osmo:is_decimal 0.0]
    ].
 
 potex:PHOSGENE_SITE_O a viso-am:lj_site, viso-am:mass_site.
@@ -323,11 +323,11 @@ potex:PHOSGENE_CONSTRAINT_O a osmo:materials_relation, viso-am:two_body_potentia
    viso-am:involves potex:PHOSGENE_RIGID_UNIT, potex:PHOSGENE_SITE_COM, potex:PHOSGENE_SITE_O.
 potex:PHOSGENE_PARAMETER_O_SIG a osmo:unique_elementary, osmo:logical_constant;
    osmo:has_variable_name "sigma"^^xs:string;
-   osmo:has_initial_elementary_value 3.195;
+   osmo:has_initial_elementary_value [osmo:is_decimal 3.195];
    osmo:has_variable_unit qudt-unit:Angstrom.
 potex:PHOSGENE_PARAMETER_O_EPS a osmo:unique_elementary, osmo:logical_constant;
    osmo:has_variable_name "epsilon"^^xs:string;
-   osmo:has_initial_elementary_value 132.66;
+   osmo:has_initial_elementary_value [osmo:is_decimal 132.66];
    osmo:has_variable_unit vivo:UNIT_KELVIN_BOLTZMANN.
 potex:PHOSGENE_PARAMETER_O_RAD a osmo:logical_array, osmo:logical_constant;
    osmo:has_variable_name "radius"^^xs:string;
@@ -336,13 +336,13 @@ potex:PHOSGENE_PARAMETER_O_RAD a osmo:logical_array, osmo:logical_constant;
    osmo:has_element_unit qudt-unit:Angstrom;
    osmo:has_specific_element [
       osmo:has_variable_index 0;
-      osmo:has_initial_elementary_value 0.0
+      osmo:has_initial_elementary_value [osmo:is_decimal 0.0]
    ], [
       osmo:has_variable_index 1;
-      osmo:has_initial_elementary_value 1.7018
+      osmo:has_initial_elementary_value [osmo:is_decimal 1.7018]
    ], [
       osmo:has_variable_index 2;
-      osmo:has_initial_elementary_value 0.0
+      osmo:has_initial_elementary_value [osmo:is_decimal 0.0]
    ].
 
 potex:PHOSGENE_SITE_CL_A a viso-am:lj_site, viso-am:mass_site.
@@ -385,11 +385,11 @@ potex:PHOSGENE_CONSTRAINT_CL_B a osmo:materials_relation, viso-am:two_body_poten
    viso-am:involves potex:PHOSGENE_RIGID_UNIT, potex:PHOSGENE_SITE_COM, potex:PHOSGENE_SITE_CL_B.
 potex:PHOSGENE_PARAMETER_CL_SIG a osmo:unique_elementary, osmo:logical_constant;
    osmo:has_variable_name "sigma"^^xs:string;
-   osmo:has_initial_elementary_value 3.366;
+   osmo:has_initial_elementary_value [osmo:is_decimal 3.366];
    osmo:has_variable_unit qudt-unit:Angstrom.
 potex:PHOSGENE_PARAMETER_CL_EPS a osmo:unique_elementary, osmo:logical_constant;
    osmo:has_variable_name "epsilon"^^xs:string;
-   osmo:has_initial_elementary_value 157.63;
+   osmo:has_initial_elementary_value [osmo:is_decimal 157.63];
    osmo:has_variable_unit vivo:UNIT_KELVIN_BOLTZMANN.
 potex:PHOSGENE_PARAMETER_CL_A_RAD a osmo:logical_array, osmo:logical_constant;
    osmo:has_variable_name "radius"^^xs:string;
@@ -398,13 +398,13 @@ potex:PHOSGENE_PARAMETER_CL_A_RAD a osmo:logical_array, osmo:logical_constant;
    osmo:has_element_unit qudt-unit:Angstrom;
    osmo:has_specific_element [
       osmo:has_variable_index 0;
-      osmo:has_initial_elementary_value 0.0
+      osmo:has_initial_elementary_value [osmo:is_decimal 0.0]
    ], [
       osmo:has_variable_index 1;
-      osmo:has_initial_elementary_value -0.4695
+      osmo:has_initial_elementary_value [osmo:is_decimal -0.4695]
    ], [
       osmo:has_variable_index 2;
-      osmo:has_initial_elementary_value -1.4509
+      osmo:has_initial_elementary_value [osmo:is_decimal -1.4509]
    ].
 potex:PHOSGENE_PARAMETER_CL_B_RAD a osmo:logical_array, osmo:logical_constant;
    osmo:has_variable_name "radius"^^xs:string;
@@ -413,13 +413,13 @@ potex:PHOSGENE_PARAMETER_CL_B_RAD a osmo:logical_array, osmo:logical_constant;
    osmo:has_element_unit qudt-unit:Angstrom;
    osmo:has_specific_element [
       osmo:has_variable_index 0;
-      osmo:has_initial_elementary_value 0.0
+      osmo:has_initial_elementary_value [osmo:is_decimal 0.0]
    ], [
       osmo:has_variable_index 1;
-      osmo:has_initial_elementary_value -0.4695
+      osmo:has_initial_elementary_value [osmo:is_decimal -0.4695]
    ], [
       osmo:has_variable_index 2;
-      osmo:has_initial_elementary_value 1.4509
+      osmo:has_initial_elementary_value [osmo:is_decimal 1.4509]
    ].
 
 potex:PHOSGENE_SITE_DPL a viso-am:charge_dipole_site.
@@ -437,19 +437,19 @@ potex:PHOSGENE_CONSTRAINT_DPL a osmo:materials_relation, viso-am:two_body_potent
    viso-am:involves potex:PHOSGENE_RIGID_UNIT, potex:PHOSGENE_SITE_COM, potex:PHOSGENE_SITE_DPL.
 potex:PHOSGENE_PARAMETER_DPL_MAGN a osmo:unique_elementary, osmo:logical_constant;
    osmo:has_variable_name "magnitude"^^xs:string;
-   osmo:has_initial_elementary_value 1.002;
+   osmo:has_initial_elementary_value [osmo:is_decimal 1.002];
    osmo:has_variable_unit qudt-unit:Debye.
 potex:PHOSGENE_PARAMETER_DPL_ORI a osmo:unique_structure, osmo:logical_constant;
    osmo:has_variable_name "orientation"^^xs:string;
    osmo:has_structure_element [
       a osmo:unique_elementary;
       osmo:has_variable_name "theta"^^xs:string;
-      osmo:has_initial_elementary_value 90.0;
+      osmo:has_initial_elementary_value [osmo:is_decimal 90.0];
       osmo:has_variable_unit qudt-unit:DegreeAngle
    ], [
       a osmo:unique_elementary;
       osmo:has_variable_name "phi"^^xs:string;
-      osmo:has_initial_elementary_value 90.0;
+      osmo:has_initial_elementary_value [osmo:is_decimal 90.0];
       osmo:has_variable_unit qudt-unit:DegreeAngle
    ].
 potex:PHOSGENE_PARAMETER_DPL_RAD a osmo:logical_array, osmo:logical_constant;
@@ -459,13 +459,13 @@ potex:PHOSGENE_PARAMETER_DPL_RAD a osmo:logical_array, osmo:logical_constant;
    osmo:has_element_unit qudt-unit:Angstrom;
    osmo:has_specific_element [
       osmo:has_variable_index 0;
-      osmo:has_initial_elementary_value 0.0
+      osmo:has_initial_elementary_value [osmo:is_decimal 0.0]
    ], [
       osmo:has_variable_index 1;
-      osmo:has_initial_elementary_value 0.0845
+      osmo:has_initial_elementary_value [osmo:is_decimal 0.0845]
    ], [
       osmo:has_variable_index 2;
-      osmo:has_initial_elementary_value 0.0
+      osmo:has_initial_elementary_value [osmo:is_decimal 0.0]
    ].
 
 potex:PHOSGENE_SITE_QPL a viso-am:charge_quadrupole_site.
@@ -483,19 +483,19 @@ potex:PHOSGENE_CONSTRAINT_QPL a osmo:materials_relation, viso-am:two_body_potent
    viso-am:involves potex:PHOSGENE_RIGID_UNIT, potex:PHOSGENE_SITE_COM, potex:PHOSGENE_SITE_QPL.
 potex:PHOSGENE_PARAMETER_QPL_MAGN a osmo:unique_elementary, osmo:logical_constant;
    osmo:has_variable_name "magnitude"^^xs:string;
-   osmo:has_initial_elementary_value -3.627;
+   osmo:has_initial_elementary_value [osmo:is_decimal -3.627];
    osmo:has_variable_unit vivo:UNIT_DEBYE_ANGSTROM.
 potex:PHOSGENE_PARAMETER_QPL_ORI a osmo:unique_structure, osmo:logical_constant;
    osmo:has_variable_name "orientation"^^xs:string;
    osmo:has_structure_element [
       a osmo:unique_elementary;
       osmo:has_variable_name "theta"^^xs:string;
-      osmo:has_initial_elementary_value 90.0;
+      osmo:has_initial_elementary_value [osmo:is_decimal 90.0];
       osmo:has_variable_unit qudt-unit:DegreeAngle
    ], [
       a osmo:unique_elementary;
       osmo:has_variable_name "phi"^^xs:string;
-      osmo:has_initial_elementary_value 90.0;
+      osmo:has_initial_elementary_value [osmo:is_decimal 90.0];
       osmo:has_variable_unit qudt-unit:DegreeAngle
    ].
 potex:PHOSGENE_PARAMETER_QPL_RAD a osmo:logical_array, osmo:logical_constant;
@@ -505,13 +505,13 @@ potex:PHOSGENE_PARAMETER_QPL_RAD a osmo:logical_array, osmo:logical_constant;
    osmo:has_element_unit qudt-unit:Angstrom;
    osmo:has_specific_element [
       osmo:has_variable_index 0;
-      osmo:has_initial_elementary_value 0.0
+      osmo:has_initial_elementary_value [osmo:is_decimal 0.0]
    ], [
       osmo:has_variable_index 1;
-      osmo:has_initial_elementary_value 0.0
+      osmo:has_initial_elementary_value [osmo:is_decimal 0.0]
    ], [
       osmo:has_variable_index 2;
-      osmo:has_initial_elementary_value 0.0
+      osmo:has_initial_elementary_value [osmo:is_decimal 0.0]
    ].
 
 
@@ -522,32 +522,32 @@ potex:PHOSGENE_PARAMETER_QPL_RAD a osmo:logical_array, osmo:logical_constant;
 potex:HALF_MASS_NH3 a osmo:unique_physical_constant;
    osmo:is_constant "true"^^xs:boolean;
    osmo:has_variable_name "mass"^^xs:string;
-   osmo:has_initial_elementary_value 8.515;
+   osmo:has_initial_elementary_value [osmo:is_decimal 8.515];
    osmo:is_quantity_kind qudt-qk:Mass;
    osmo:has_variable_unit vivo:UNIT_U.
 potex:HALF_MASS_R1234YF a osmo:unique_physical_constant;
    osmo:is_constant "true"^^xs:boolean;
    osmo:has_variable_name "mass"^^xs:string;
-   osmo:has_initial_elementary_value 57.02;
+   osmo:has_initial_elementary_value [osmo:is_decimal 57.02];
    osmo:is_quantity_kind qudt-qk:Mass;
    osmo:has_variable_unit vivo:UNIT_U.
 
 potex:SITE_MASS_C a osmo:unique_physical_constant;
    osmo:is_constant "true"^^xs:boolean;
    osmo:has_variable_name "mass"^^xs:string;
-   osmo:has_initial_elementary_value 12.011;
+   osmo:has_initial_elementary_value [osmo:is_decimal 12.011];
    osmo:is_quantity_kind qudt-qk:Mass;
    osmo:has_variable_unit vivo:UNIT_U.
 potex:SITE_MASS_O a osmo:unique_physical_constant;
    osmo:is_constant "true"^^xs:boolean;
    osmo:has_variable_name "mass"^^xs:string;
-   osmo:has_initial_elementary_value 15.999;
+   osmo:has_initial_elementary_value [osmo:is_decimal 15.999];
    osmo:is_quantity_kind qudt-qk:Mass;
    osmo:has_variable_unit vivo:UNIT_U.
 potex:SITE_MASS_CL a osmo:unique_physical_constant;
    osmo:is_constant "true"^^xs:boolean;
    osmo:has_variable_name "mass"^^xs:string;
-   osmo:has_initial_elementary_value 35.458;
+   osmo:has_initial_elementary_value [osmo:is_decimal 35.458];
    osmo:is_quantity_kind qudt-qk:Mass;
    osmo:has_variable_unit vivo:UNIT_U.
 
