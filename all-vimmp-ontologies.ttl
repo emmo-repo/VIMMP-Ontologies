@@ -1605,9 +1605,9 @@ macro:MARKET40_MARKETPLACE a macro:virtual_marketplace.
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 1.1.2 ###
+### VERSION 1.1.3 ###
 
-### DATED 28TH SEPTEMBER 2019 ###
+### DATED 3RD OCTOBER 2019 ###
 
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -1619,6 +1619,7 @@ macro:MARKET40_MARKETPLACE a macro:virtual_marketplace.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix viso: <http://www.vimmp.eu/semantics/viso/viso-general.ttl#>.
 @prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
+@prefix vto: <http://www.vimmp.eu/semantics/vto/vto.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
 <http://www.vimmp.eu/semantics/osmo/osmo.ttl#> a owl:Ontology.
@@ -2681,18 +2682,23 @@ osmo:dp_section_entity rdfs:subClassOf osmo:dp_use_case_entity.
 osmo:use_case_entity owl:disjointUnionOf (osmo:use_case osmo:use_case_aspect).
 
 osmo:use_case a owl:Class;
-   rdfs:subClassOf osmo:section, osmo:use_case_entity, evmpo:annotation;
+   rdfs:subClassOf osmo:section, osmo:use_case_entity, evmpo:annotation, vto:application_case;
+   owl:equivalentClass vto:use_case;
    rdfs:comment "use case (i.e., in MODA: user case)"^^xs:string.
 osmo:op_use_case a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
+   rdfs:subClassOf owl:ObjectProperty;
+   owl:equivalentClass vto:op_use_case.
 osmo:dp_use_case a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
+   rdfs:subClassOf owl:DatatypeProperty;
+   owl:equivalentClass vto:dp_use_case.
 osmo:op_section rdfs:subClassOf osmo:op_use_case.
 osmo:dp_section rdfs:subClassOf osmo:dp_use_case.
 osmo:op_use_case_entity rdfs:subClassOf osmo:op_use_case.
 osmo:dp_use_case_entity rdfs:subClassOf osmo:dp_use_case.
 evmpo:op_annotation rdfs:subClassOf osmo:op_use_case.
 evmpo:dp_annotation rdfs:subClassOf osmo:dp_use_case.
+vto:op_application_case rdfs:subClassOf osmo:op_use_case.
+vto:dp_application_case rdfs:subClassOf osmo:dp_use_case.
 
 osmo:has_use_case_aspect a osmo:op_use_case;
    rdfs:domain osmo:use_case;
@@ -7242,13 +7248,14 @@ vivo:UNIT_U a vivo:unit, qudt:MassUnit;  # note: this exists within qudt, but th
 
 ### VIMMP TRANSLATION ONTOLOGY (VTO) ###
 
-### VERSION 0.4.9 ###
+### VERSION 0.5.0 ###
 
-### DATED 19TH AUGUST 2019 ###
+### DATED 3RD OCTOBER 2019 ###
 
 @prefix vto: <http://www.vimmp.eu/semantics/vto/vto.ttl#>.
 
 @prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
+@prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
@@ -7258,14 +7265,14 @@ vivo:UNIT_U a vivo:unit, qudt:MassUnit;  # note: this exists within qudt, but th
 <http://www.vimmp.eu/semantics/vto/vto.ttl#> a owl:Ontology.
 
 vto:translation_entity a owl:Class;
-   rdfs:subClassOf evmpo:paradigmatic_entity;
+   rdfs:subClassOf evmpo:marketplace_related_entity;
    rdfs:comment "translation entity, i.e., a paradigmatic entity related to translating materials modelling problems to appropriate solutions"^^xs:string.
 vto:op_translation_entity a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 vto:dp_translation_entity a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_paradigmatic_entity rdfs:subClassOf vto:op_translation_entity.
-evmpo:dp_paradigmatic_entity rdfs:subClassOf vto:dp_translation_entity.
+evmpo:op_marketplace_related_entity rdfs:subClassOf vto:op_translation_entity.
+evmpo:dp_marketplace_related_entity rdfs:subClassOf vto:dp_translation_entity.
 
 vto:project a owl:Class;
    rdfs:subClassOf vto:translation_entity, evmpo:process;
@@ -7280,16 +7287,72 @@ evmpo:op_process rdfs:subClassOf vto:op_project.
 evmpo:dp_process rdfs:subClassOf vto:dp_project.
 
 vto:mm_project a owl:Class;
-   rdfs:subClassOf vto:project, vto:translation_entity;
-   rdfs:comment "materials modelling project, i.e., a project specifically on materials modelling, aiming at realizing an agreed workflow that can be represented by MODA/OSMO"^^xs:string.
+   rdfs:subClassOf vto:project;
+   rdfs:comment "materials modelling project, i.e., a project that aims at realizing a materials modelling workflow that can be represented by MODA/OSMO"^^xs:string.
 vto:op_mm_project a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 vto:dp_mm_project a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 vto:op_project rdfs:subClassOf vto:op_mm_project.
 vto:dp_project rdfs:subClassOf vto:dp_mm_project.
-vto:op_translation_entity rdfs:subClassOf vto:op_mm_project.
-vto:dp_translation_entity rdfs:subClassOf vto:dp_mm_project.
+
+vto:application_case a owl:Class;
+   rdfs:subClassOf vto:translation_entity, evmpo:annotation;
+   rdfs:comment "application case, i.e., a scenario, point of view, or subjective or negotiated set of aims"^^xs:string.
+vto:op_application_case a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vto:dp_application_case a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vto:op_translation_entity rdfs:subClassOf vto:op_application_case.
+vto:dp_translation_entity rdfs:subClassOf vto:dp_application_case.
+evmpo:op_annotation rdfs:subClassOf vto:op_application_case.
+evmpo:dp_annotation rdfs:subClassOf vto:dp_application_case.
+
+vto:business_case a owl:Class;
+   rdfs:subClassOf vto:application_case;
+   rdfs:comment "business case, i.e., an application case with a focus on economic/business aspects"^^xs:string.
+vto:op_business_case a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vto:dp_business_case a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vto:op_application_case rdfs:subClassOf vto:op_business_case.
+vto:dp_application_case rdfs:subClassOf vto:dp_business_case.
+
+vto:industrial_case a owl:Class;
+   rdfs:subClassOf vto:application_case;
+   rdfs:comment "industrial case, i.e., an application case with a focus on industrial/manufacturing aspects"^^xs:string.
+vto:op_industrial_case a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vto:dp_industrial_case a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vto:op_application_case rdfs:subClassOf vto:op_industrial_case.
+vto:dp_application_case rdfs:subClassOf vto:dp_industrial_case.
+
+vto:translation_case a owl:Class;
+   rdfs:subClassOf vto:application_case;
+   rdfs:comment "translation case, i.e., an application case that can be described as specified by the EMMC Translation Case template"^^xs:string.
+vto:op_translation_case a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vto:dp_translation_case a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vto:op_application_case rdfs:subClassOf vto:op_translation_case.
+vto:dp_application_case rdfs:subClassOf vto:dp_translation_case.
+
+vto:use_case a owl:Class;
+   rdfs:subClassOf vto:application_case, osmo:section;
+   owl:intersectionOf (vto:application_case osmo:section);
+   owl:equivalentClass osmo:use_case;
+   rdfs:comment "use case as defined by MODA and OSMO"^^xs:string.
+vto:op_use_case a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty;
+   owl:equivalentClass osmo:op_use_case.
+vto:dp_use_case a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty;
+   owl:equivalentClass osmo:dp_use_case.
+vto:op_application_case rdfs:subClassOf vto:op_use_case.
+vto:dp_application_case rdfs:subClassOf vto:dp_use_case.
+osmo:op_section rdfs:subClassOf vto:op_use_case.
+osmo:dp_section rdfs:subClassOf vto:dp_use_case.
 
 vto:translation_communication a owl:Class;
    rdfs:subClassOf vto:translation_entity, evmpo:communication;

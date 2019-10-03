@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 1.1.2 ###
+### VERSION 1.1.3 ###
 
-### DATED 28TH SEPTEMBER 2019 ###
+### DATED 3RD OCTOBER 2019 ###
 
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -15,6 +15,7 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix viso: <http://www.vimmp.eu/semantics/viso/viso-general.ttl#>.
 @prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
+@prefix vto: <http://www.vimmp.eu/semantics/vto/vto.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
 <http://www.vimmp.eu/semantics/osmo/osmo.ttl#> a owl:Ontology.
@@ -1077,18 +1078,23 @@ osmo:dp_section_entity rdfs:subClassOf osmo:dp_use_case_entity.
 osmo:use_case_entity owl:disjointUnionOf (osmo:use_case osmo:use_case_aspect).
 
 osmo:use_case a owl:Class;
-   rdfs:subClassOf osmo:section, osmo:use_case_entity, evmpo:annotation;
+   rdfs:subClassOf osmo:section, osmo:use_case_entity, evmpo:annotation, vto:application_case;
+   owl:equivalentClass vto:use_case;
    rdfs:comment "use case (i.e., in MODA: user case)"^^xs:string.
 osmo:op_use_case a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
+   rdfs:subClassOf owl:ObjectProperty;
+   owl:equivalentClass vto:op_use_case.
 osmo:dp_use_case a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
+   rdfs:subClassOf owl:DatatypeProperty;
+   owl:equivalentClass vto:dp_use_case.
 osmo:op_section rdfs:subClassOf osmo:op_use_case.
 osmo:dp_section rdfs:subClassOf osmo:dp_use_case.
 osmo:op_use_case_entity rdfs:subClassOf osmo:op_use_case.
 osmo:dp_use_case_entity rdfs:subClassOf osmo:dp_use_case.
 evmpo:op_annotation rdfs:subClassOf osmo:op_use_case.
 evmpo:dp_annotation rdfs:subClassOf osmo:dp_use_case.
+vto:op_application_case rdfs:subClassOf osmo:op_use_case.
+vto:dp_application_case rdfs:subClassOf osmo:dp_use_case.
 
 osmo:has_use_case_aspect a osmo:op_use_case;
    rdfs:domain osmo:use_case;
