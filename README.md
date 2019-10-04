@@ -1,1 +1,0 @@
-## eu/vimmp/vimmp-marketplace-ontologies

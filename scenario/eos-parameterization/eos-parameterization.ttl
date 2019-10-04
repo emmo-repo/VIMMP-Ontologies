@@ -4,7 +4,7 @@
 ##  EXAMPLE: PHOSGENE EOS PARAMETERIZATION  ##
 ##  BY NVT ENSEMBLE MONTE CARLO SIMULATION  ##
 ##                                          ##
-##     LAST UPDATED: 4TH SEPTEMBER 2019     ##
+##      LAST UPDATED: 4TH OCTOBER 2019      ##
 ##                                          ##
 ##############################################
 
@@ -792,30 +792,30 @@ scenario-eosmd:ISOTHERMAL_VLE a osmo:quantitative_condition;
    ].
 
 scenario-eosmd:S1
-   osmo:has_input scenario-eosmd:L3_BOUNDARY_CONDITIONS, scenario-eosmd:L3_INITIAL_CONFIGURATION;
-   osmo:has_output scenario-eosmd:L4_CONFIGURATIONS, scenario-eosmd:L3_BOUNDARY_CONDITIONS;
+   osmo:has_logical_input scenario-eosmd:L3_BOUNDARY_CONDITIONS, scenario-eosmd:L3_INITIAL_CONFIGURATION;
+   osmo:has_logical_output scenario-eosmd:L4_CONFIGURATIONS, scenario-eosmd:L3_BOUNDARY_CONDITIONS;
    osmo:has_section_literature [
       osmo:has_aspect_paradigmatic_content scenario-eosmd:RUTKAI_ET_AL_2017
    ].
 scenario-eosmd:S2
-   osmo:has_input scenario-eosmd:L6_T_RHO_MASSIEU_MC_SELECTED;
-   osmo:has_output scenario-eosmd:L7_EOS_AND_MASSIEU, scenario-eosmd:L1_CRITICAL_POINT, scenario-eosmd:L1_T_RHO_LIQ, scenario-eosmd:L1_T_RHO_VAP.
+   osmo:has_logical_input scenario-eosmd:L6_T_RHO_MASSIEU_MC_SELECTED;
+   osmo:has_logical_output scenario-eosmd:L7_EOS_AND_MASSIEU, scenario-eosmd:L1_CRITICAL_POINT, scenario-eosmd:L1_T_RHO_LIQ, scenario-eosmd:L1_T_RHO_VAP.
 
 scenario-eosmd:P1
-   osmo:has_input scenario-eosmd:L1_CRITICAL_POINT, scenario-eosmd:L1_T_RHO_LIQ, scenario-eosmd:L1_T_RHO_VAP;
-   osmo:has_output scenario-eosmd:L2_T_RHO_PAIRS.
+   osmo:has_logical_input scenario-eosmd:L1_CRITICAL_POINT, scenario-eosmd:L1_T_RHO_LIQ, scenario-eosmd:L1_T_RHO_VAP;
+   osmo:has_logical_output scenario-eosmd:L2_T_RHO_PAIRS.
 scenario-eosmd:P2
-   osmo:has_input scenario-eosmd:L2_T_RHO_PAIRS;
-   osmo:has_output scenario-eosmd:L3_BOUNDARY_CONDITIONS, scenario-eosmd:L3_INITIAL_CONFIGURATION.
+   osmo:has_logical_input scenario-eosmd:L2_T_RHO_PAIRS;
+   osmo:has_logical_output scenario-eosmd:L3_BOUNDARY_CONDITIONS, scenario-eosmd:L3_INITIAL_CONFIGURATION.
 scenario-eosmd:P3
-   osmo:has_input scenario-eosmd:L4_CONFIGURATIONS, scenario-eosmd:L3_BOUNDARY_CONDITIONS;
-   osmo:has_output scenario-eosmd:L5_MASSIEU_DERIVATIVES_MC.
+   osmo:has_logical_input scenario-eosmd:L4_CONFIGURATIONS, scenario-eosmd:L3_BOUNDARY_CONDITIONS;
+   osmo:has_logical_output scenario-eosmd:L5_MASSIEU_DERIVATIVES_MC.
 scenario-eosmd:P4
-   osmo:has_input scenario-eosmd:L5_MASSIEU_DERIVATIVES_MC;
-   osmo:has_output scenario-eosmd:L6_T_RHO_MASSIEU_MC_SELECTED.
+   osmo:has_logical_input scenario-eosmd:L5_MASSIEU_DERIVATIVES_MC;
+   osmo:has_logical_output scenario-eosmd:L6_T_RHO_MASSIEU_MC_SELECTED.
 scenario-eosmd:P5
-   osmo:has_input scenario-eosmd:L6_T_RHO_MASSIEU_MC_SELECTED, scenario-eosmd:L7_EOS_AND_MASSIEU;
-   osmo:has_output scenario-eosmd:L8_EOS_PARAMETERIZATION.
+   osmo:has_logical_input scenario-eosmd:L6_T_RHO_MASSIEU_MC_SELECTED, scenario-eosmd:L7_EOS_AND_MASSIEU;
+   osmo:has_logical_output scenario-eosmd:L8_EOS_PARAMETERIZATION.
 
 
 #####################################

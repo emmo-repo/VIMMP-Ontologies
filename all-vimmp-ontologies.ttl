@@ -1465,14 +1465,16 @@ evmpo:has_meta_annotation a evmpo:op_annotation;
 
 ### MARKETPLACE-ACCESSIBLE COMPUTATIONAL RESOURCE ONTOLOGY (MACRO) ###
 
-### VERSION 0.0.7 ###
+### VERSION 0.1.0 ###
 
-### DATED 16TH AUGUST 2019 ###
+### DATED 4TH OCTOBER 2019 ###
 
 @prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
 
 @prefix cviii: <http://www.vimmp.eu/semantics/cviii/cviii.ttl#>.
+@prefix edam: <http://edamontology.org/>.
 @prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
+@prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
@@ -1492,14 +1494,80 @@ macro:dp_infrastructure a owl:Class;
 evmpo:op_paradigmatic_entity rdfs:subClassOf macro:op_infrastructure.
 evmpo:dp_paradigmatic_entity rdfs:subClassOf macro:dp_infrastructure.
 
+macro:computational_entity a owl:Class;
+   rdfs:subClassOf evmpo:marketplace_related_entity;
+   owl:equivalentClass osmo:computational_entity;
+   rdfs:comment "computational entity, i.e., a computational resource or a pheonomenon or attribute associated with a computational resource"^^xs:string.
+macro:op_computational_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty;
+   owl:equivalentClass osmo:op_computational_entity.
+macro:dp_computational_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty;
+   owl:equivalentClass osmo:dp_computational_entity.
+evmpo:op_marketplace_related_entity rdfs:subClassOf macro:op_computational_entity.
+evmpo:dp_marketplace_related_entity rdfs:subClassOf macro:dp_computational_entity.
+
+macro:computational_resource a owl:Class;
+   rdfs:subClassOf macro:infrastructure, macro:computational_entity;
+   rdfs:comment "computational resource, i.e., an infrastructure that is a computational entity"^^xs:string;
+   owl:intersectionOf (macro:infrastructure macro:computational_entity).
+macro:op_computational_resource a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+macro:dp_computational_resource a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+macro:op_infrastructure rdfs:subClassOf macro:op_computational_resource.
+macro:dp_infrastructure rdfs:subClassOf macro:dp_computational_resource.
+macro:op_computational_entity rdfs:subClassOf macro:op_computational_resource.
+macro:dp_computational_entity rdfs:subClassOf macro:dp_computational_resource.
+
+macro:computational_resource owl:unionOf (macro:data_infrastructure macro:hardware_infrastructure macro:software_infrastructure).
+
+macro:data_infrastructure a owl:Class;
+   rdfs:subClassOf macro:computational_resource;
+   owl:equivalentClass evmpo:data_infrastructure.
+macro:op_data_infrastructure a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty;
+   owl:equivalentClass evmpo:op_data_infrastructure.
+macro:dp_data_infrastructure a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty;
+   owl:equivalentClass evmpo:dp_data_infrastructure.
+macro:op_computational_resource rdfs:subClassOf macro:op_data_infrastructure.
+macro:dp_computational_resource rdfs:subClassOf macro:dp_data_infrastructure.
+
+macro:hardware_infrastructure a owl:Class;
+   rdfs:subClassOf macro:computational_resource;
+   owl:equivalentClass evmpo:hardware_infrastructure.
+macro:op_hardware_infrastructure a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty;
+   owl:equivalentClass evmpo:op_hardware_infrastructure.
+macro:dp_hardware_infrastructure a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty;
+   owl:equivalentClass evmpo:dp_hardware_infrastructure.
+macro:op_computational_resource rdfs:subClassOf macro:op_hardware_infrastructure.
+macro:dp_computational_resource rdfs:subClassOf macro:dp_hardware_infrastructure.
+
+macro:software_infrastructure a owl:Class;
+   rdfs:subClassOf macro:computational_resource;
+   owl:equivalentClass evmpo:software_infrastructure.
+macro:op_software_infrastructure a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty;
+   owl:equivalentClass evmpo:op_software_infrastructure.
+macro:dp_software_infrastructure a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty;
+   owl:equivalentClass evmpo:dp_software_infrastructure.
+macro:op_computational_resource rdfs:subClassOf macro:op_software_infrastructure.
+macro:dp_computational_resource rdfs:subClassOf macro:dp_software_infrastructure.
+
 macro:repository a owl:Class;
-   rdfs:subClassOf macro:infrastructure, cviii:agent.
+   rdfs:subClassOf macro:data_infrastructure, macro:hardware_infrastructure, cviii:agent.
 macro:op_repository a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 macro:dp_repository a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-macro:op_infrastructure rdfs:subClassOf macro:op_repository.
-macro:dp_infrastructure rdfs:subClassOf macro:dp_repository.
+macro:op_data_infrastructure rdfs:subClassOf macro:op_repository.
+macro:dp_data_infrastructure rdfs:subClassOf macro:dp_repository.
+macro:op_hardware_infrastructure rdfs:subClassOf macro:op_repository.
+macro:dp_hardware_infrastructure rdfs:subClassOf macro:dp_repository.
 cviii:op_agent rdfs:subClassOf macro:op_repository.
 cviii:dp_agent rdfs:subClassOf macro:dp_repository.
 
@@ -1523,13 +1591,13 @@ macro:BOTTLED_SAFT a macro:model_database;
    cviii:has_name "Bottled SAFT"^^xs:string.
 
 macro:channel a owl:Class;
-   rdfs:subClassOf macro:infrastructure.
+   rdfs:subClassOf macro:data_infrastructure.
 macro:op_channel a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 macro:dp_channel a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-macro:op_infrastructure rdfs:subClassOf macro:op_channel.
-macro:dp_infrastructure rdfs:subClassOf macro:dp_channel.
+macro:op_data_infrastructure rdfs:subClassOf macro:op_channel.
+macro:dp_data_infrastructure rdfs:subClassOf macro:dp_channel.
 
 macro:has_channel_member a macro:op_channel;
    rdfs:domain macro:channel;
@@ -1603,15 +1671,81 @@ macro:VIMMP_MARKETPLACE a macro:virtual_marketplace.
 macro:MARKETPLACE_MARKETPLACE a macro:virtual_marketplace.
 macro:MARKET40_MARKETPLACE a macro:virtual_marketplace.
 
+macro:io_format a owl:Class;
+   rdfs:subClassOf macro:computational_entity, evmpo:annotation, edam:format_1915;  # Format in EDAM
+   owl:equivalentClass osmo:io_format;
+   rdfs:comment "I/O format, i.e., syntactical convention to which a technical I/O implementation can adhere"^^xs:string.
+macro:op_io_format a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty;
+   owl:equivalentClass osmo:op_io_format.
+macro:dp_io_format a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty;
+   owl:equivalentClass osmo:dp_io_format.
+macro:op_computational_entity rdfs:subClassOf macro:op_io_format.
+macro:dp_computational_entity rdfs:subClassOf macro:dp_io_format.
+evmpo:op_annotation rdfs:subClassOf macro:op_io_format.
+evmpo:dp_annotation rdfs:subClassOf macro:dp_io_format.
+
+macro:has_definition_uri a macro:dp_io_format;
+   rdfs:domain macro:io_format;
+   rdfs:range xs:string;
+   owl:equivalentProperty osmo:has_definition_uri.
+macro:has_format_abbreviation a macro:dp_io_format;
+   rdfs:domain macro:io_format;
+   rdfs:range xs:string;
+   owl:equivalentProperty osmo:has_format_abbreviation.
+macro:has_format_name a macro:dp_io_format;
+   rdfs:domain macro:io_format;
+   rdfs:range xs:string;
+   owl:equivalentProperty osmo:has_format_name.
+macro:has_format_version a macro:dp_io_format;
+   rdfs:domain macro:io_format;
+   rdfs:range xs:string;
+   owl:equivalentProperty osmo:has_format_version.
+
+macro:io_format owl:unionOf (macro:file_format macro:memory_format macro:stream_format).
+
+macro:file_format a owl:Class;
+   rdfs:subClassOf macro:io_format;
+   rdfs:comment "file format, i.e., a syntactical standard for files"^^xs:string.
+macro:op_file_format a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+macro:dp_file_format a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+macro:op_io_format rdfs:subClassOf macro:op_file_format.
+macro:dp_io_format rdfs:subClassOf macro:op_file_format.
+
+macro:memory_format a owl:Class;
+   rdfs:subClassOf macro:io_format;
+   rdfs:comment "memory format, i.e., an agreed way of representing information technically in memory"^^xs:string.
+macro:op_memory_format a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+macro:dp_memory_format a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+macro:op_io_format rdfs:subClassOf macro:op_memory_format.
+macro:dp_io_format rdfs:subClassOf macro:op_memory_format.
+
+macro:stream_format a owl:Class;
+   rdfs:subClassOf macro:io_format;
+   rdfs:comment "stream format, i.e., a syntactical standard for streams"^^xs:string.
+macro:op_stream_format a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+macro:dp_stream_format a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+macro:op_io_format rdfs:subClassOf macro:op_stream_format.
+macro:dp_io_format rdfs:subClassOf macro:op_stream_format.
+
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 1.1.3 ###
+### VERSION 1.1.4 ###
 
-### DATED 3RD OCTOBER 2019 ###
+### DATED 4TH OCTOBER 2019 ###
 
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
+@prefix edam: <http://edamontology.org/>.
 @prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
+@prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
 @prefix qudt: <http://qudt.org/schema/qudt/>.
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
@@ -2379,27 +2513,49 @@ osmo:dp_section_entity rdfs:subClassOf osmo:dp_section.
 
 osmo:section owl:disjointUnionOf (osmo:use_case osmo:materials_model osmo:solver osmo:processor).
 
-osmo:has_input a osmo:op_section;
-   rdfs:domain osmo:section;
-   rdfs:range osmo:logical_variable;
-   rdfs:comment "points to information that needs to be provided"^^xs:string.
 osmo:has_internal_lv a osmo:op_section;
    rdfs:domain osmo:section;
    rdfs:range osmo:logical_variable;
    rdfs:comment "points to information that plays a role within the respective OSMO/MODA section"^^xs:string.
+osmo:has_input_format a osmo:op_section;
+   rdfs:domain osmo:section;
+   rdfs:range osmo:io_format;
+   rdfs:subPropertyOf osmo:has_io_format;
+   owl:propertyChainAxiom (osmo:has_logical_input osmo:is_encoded_by).
+osmo:has_io_format a osmo:op_section;
+   rdfs:domain osmo:section;
+   rdfs:range osmo:io_format;
+   rdfs:comment "points to a format employed for I/O in the technical implementation of the respective OSMO/MODA section"^^xs:string;
+   rdfs:subPropertyOf evmpo:has_annotation;
+   owl:propertyChainAxiom (osmo:has_logical_io osmo:is_encoded_by).
+osmo:has_logical_input a osmo:op_section;
+   rdfs:domain osmo:section;
+   rdfs:range osmo:logical_variable;
+   rdfs:comment "points to information that needs to be provided"^^xs:string;
+   rdfs:subPropertyOf osmo:has_logical_io.
+osmo:has_logical_io a osmo:op_section;
+   rdfs:domain osmo:section;
+   rdfs:range osmo:logical_variable;
+   rdfs:comment "points to information required or produced by a OSMO/MODA section"^^xs:string.
+osmo:has_logical_output a osmo:op_section;
+   rdfs:domain osmo:section;
+   rdfs:range osmo:logical_variable;
+   rdfs:comment "points to information that is obtained as a result from the respective OSMO/MODA section"^^xs:string;
+   rdfs:subPropertyOf osmo:has_logical_io.
+osmo:has_output_format a osmo:op_section;
+   rdfs:domain osmo:section;
+   rdfs:range osmo:io_format;
+   rdfs:subPropertyOf osmo:has_io_format;
+   owl:propertyChainAxiom (osmo:has_logical_output osmo:is_encoded_by).
 osmo:has_section_label a osmo:dp_section;
    rdfs:domain osmo:section;
    rdfs:range xs:string;
    rdfs:subPropertyOf osmo:has_resource_label.
-osmo:has_output a osmo:op_section;
-   rdfs:domain osmo:section;
-   rdfs:range osmo:logical_variable;
-   rdfs:comment "points to information that is obtained as a result from the respective OSMO/MODA section"^^xs:string.
 
 osmo:has_physical_input a osmo:op_section;
    rdfs:domain osmo:section;
    rdfs:range vivo:material_property, osmo:logical_variable, evmpo:material_property;
-   rdfs:subPropertyOf osmo:has_input;
+   rdfs:subPropertyOf osmo:has_logical_input;
    rdfs:comment "points to required physical (thermodynamic or mechanical) information, which needs to be provided, e.g., from the output of another OSMO/MODA section"^^xs:string.
 osmo:has_internal_mp a osmo:op_section;
    rdfs:domain osmo:section;
@@ -2409,7 +2565,7 @@ osmo:has_internal_mp a osmo:op_section;
 osmo:has_physical_output a osmo:op_section;
    rdfs:domain osmo:section;
    rdfs:range vivo:material_property, osmo:logical_variable, evmpo:material_property;
-   rdfs:subPropertyOf osmo:has_output;
+   rdfs:subPropertyOf osmo:has_logical_output;
    rdfs:comment "points to desired physical (thermodynamic or mechanical) information which is obtained as a result from the respective OSMO/MODA section"^^xs:string.
 
 osmo:has_aspect a osmo:op_section;
@@ -3876,6 +4032,11 @@ osmo:has_variable_name a osmo:dp_logical_variable;
 osmo:is_constant a osmo:dp_logical_variable;
    rdfs:domain osmo:logical_variable;
    rdfs:range xs:boolean.
+osmo:is_encoded_by a osmo:op_logical_variable;
+   rdfs:domain osmo:logical_variable;
+   rdfs:range osmo:io_format;
+   rdfs:comment "format by which the present logical variable is represented in the technical implementation of a simulation workflow"^^xs:string;
+   rdfs:subPropertyOf evmpo:has_annotation.
 
 osmo:logical_constant a owl:Class;
    rdfs:subClassOf osmo:logical_variable;
@@ -4308,6 +4469,51 @@ osmo:is_absolute_deviation a osmo:dp_deviation_assertion, owl:FunctionalProperty
 osmo:is_relative_deviation a osmo:dp_deviation_assertion, owl:FunctionalProperty;
    rdfs:domain osmo:deviation_assertion;
    rdfs:range xs:boolean.
+
+osmo:computational_entity a owl:Class;
+   rdfs:subClassOf evmpo:marketplace_related_entity;
+   owl:equivalentClass macro:computational_entity;
+   rdfs:comment "computational entity, i.e., a computational resource or a pheonomenon or attribute associated with a computational resource"^^xs:string.
+osmo:op_computational_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty;
+   owl:equivalentClass macro:op_computational_entity.
+osmo:dp_computational_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty;
+   owl:equivalentClass macro:dp_computational_entity.
+evmpo:op_marketplace_related_entity rdfs:subClassOf osmo:op_computational_entity.
+evmpo:dp_marketplace_related_entity rdfs:subClassOf osmo:dp_computational_entity.
+
+osmo:io_format a owl:Class;
+   rdfs:subClassOf osmo:computational_entity, evmpo:annotation, edam:format_1915;  # Format in EDAM
+   owl:equivalentClass macro:io_format;
+   rdfs:comment "I/O format, i.e., syntactical convention to which a technical I/O implementation can adhere"^^xs:string.
+osmo:op_io_format a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty;
+   owl:equivalentClass macro:op_io_format.
+osmo:dp_io_format a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty;
+   owl:equivalentClass macro:dp_io_format.
+osmo:op_computational_entity rdfs:subClassOf osmo:op_io_format.
+osmo:dp_computational_entity rdfs:subClassOf osmo:dp_io_format.
+evmpo:op_annotation rdfs:subClassOf osmo:op_io_format.
+evmpo:dp_annotation rdfs:subClassOf osmo:dp_io_format.
+
+osmo:has_definition_uri a macro:dp_io_format;
+   rdfs:domain osmo:io_format;
+   rdfs:range xs:string;
+   owl:equivalentProperty macro:has_definition_uri.
+osmo:has_format_abbreviation a osmo:dp_io_format;
+   rdfs:domain osmo:io_format;
+   rdfs:range xs:string;
+   owl:equivalentProperty macro:has_format_abbreviation.
+osmo:has_format_name a osmo:dp_io_format;
+   rdfs:domain osmo:io_format;
+   rdfs:range xs:string;
+   owl:equivalentProperty macro:has_format_name.
+osmo:has_format_version a osmo:dp_io_format;
+   rdfs:domain osmo:io_format;
+   rdfs:range xs:string;
+   owl:equivalentProperty macro:has_format_version.
 
 ### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
 
