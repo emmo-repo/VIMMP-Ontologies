@@ -2,7 +2,7 @@
 ##                                    ##
 ##  EXAMPLE: INGEST OF PERSONAL DATA  ##
 ##                                    ##
-##  LAST UPDATED: 5TH SEPTEMBER 2019  ##
+##   LAST UPDATED: 6TH OCTOBER 2019   ##
 ##                                    ##
 ########################################
 
@@ -33,7 +33,7 @@
 # PROFILE DATA #
 ################
 
-self-descriptions:MARTIN_THOMAS_HORSCH a cviii:human_agent, cviii:marketplace_subject, cviii:model_provider, cviii:translator;
+self-descriptions:MARTIN_THOMAS_HORSCH a cviii:expert, cviii:human_agent, cviii:marketplace_subject, cviii:model_provider, cviii:translator;
    cviii:has_first_name "Martin Thomas"^^xs:string;
    cviii:has_last_name "Horsch"^^xs:string;
    cviii:has_academic_title cviii:TITLE_DOCTOR_GENERIC;
@@ -65,7 +65,7 @@ self-descriptions:MARTIN_THOMAS_HORSCH a cviii:human_agent, cviii:marketplace_su
       vico:is_in_country lcc-codes:UnitedKingdomOfGreatBritainAndNorthernIreland;
       vico:has_textual_representation "http://www.scd.stfc.ac.uk/Pages/Martin-Thomas-Horsch.aspx"^^xs:string
    ], self-descriptions:DARESBURY_ADDRESS;
-   cviii:has_interest otras:MM_TOPIC_4000, otras:MM_TOPIC_7500, otras:MM_TOPIC_8570;
+   cviii:has_expertise_in otras:MM_TOPIC_4000, otras:MM_TOPIC_5200, otras:MM_TOPIC_7500, otras:MM_TOPIC_8570;
    cviii:has_interlocutor_tag [
       cviii:is_academic "true"^^xs:boolean;
       cviii:is_based_in lcc-codes:UnitedKingdomOfGreatBritainAndNorthernIreland;
@@ -87,7 +87,7 @@ self-descriptions:MARTIN_THOMAS_HORSCH a cviii:human_agent, cviii:marketplace_su
 self-descriptions:STFC_DARESBURY_LABORATORY a cviii:institution, cviii:model_provider, cviii:software_owner, cviii:training_provider, cviii:translator;
    cviii:has_name "STFC Daresbury Laboratory"^^xs:string;
    cviii:has_institutional_address self-descriptions:DARESBURY_ADDRESS;
-   cviii:has_interest otras:MM_TOPIC_3000, otras:MM_TOPIC_7200, otras:MM_TOPIC_8350;
+   cviii:has_interest otras:MM_TOPIC_3000, otras:MM_TOPIC_6120, otras:MM_TOPIC_7200, otras:MM_TOPIC_8350;
    cviii:has_interlocutor_tag [
       cviii:is_academic "true"^^xs:boolean;
       cviii:is_based_in lcc-codes:UnitedKingdomOfGreatBritainAndNorthernIreland;

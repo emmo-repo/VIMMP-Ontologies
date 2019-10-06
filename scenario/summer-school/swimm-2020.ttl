@@ -3,7 +3,7 @@
 ##                                          ##
 ##  EXAMPLE: SWiMM 2020 SCHOOL DESCRIPTION  ##
 ##                                          ##
-##     LAST UPDATED: 5TH SEPTEMBER 2019     ##
+##      LAST UPDATED: 6TH OCTOBER 2019      ##
 ##                                          ##
 ##############################################
 
@@ -50,7 +50,7 @@ swimm:SYLLABUS_WHOLE a otras:syllabus;
    ccso:academicYear "2019-2020"^^xs:string;
    ccso:hasInstructor swimm:SILVIA_CHIACCHIERA, swimm:JOSHUA_D_ELLIOTT, swimm:ERIC_FAYOLLE, swimm:MARTIN_THOMAS_HORSCH, swimm:JAN_JANSSEN, swimm:JAMES_R_KERMODE, swimm:JEAN_PIERRE_MINIER, swimm:JOERG_NEUGEBAUER, swimm:PHILIPP_NEUMANN, swimm:PASCALE_NOYRET, swimm:ARDITA_SHKURTI, swimm:KRISTIAN_SOMMER_THYGESEN, swimm:JADRAN_VRABEC;
    ccso:language "en"^^xs:language;
-   otras:covers_topic otras:MM_TOPIC_3000, otras:MM_TOPIC_4000, otras:MM_TOPIC_7700, otras:MM_TOPIC_8340, otras:MM_TOPIC_8350, otras:MM_TOPIC_8370, otras:MM_TOPIC_8450;
+   otras:covers_topic otras:MM_TOPIC_3000, otras:MM_TOPIC_4000, otras:MM_TOPIC_6120, otras:MM_TOPIC_7700, otras:MM_TOPIC_8340, otras:MM_TOPIC_8350, otras:MM_TOPIC_8370, otras:MM_TOPIC_8450;
    otras:has_recommended_literature swimm:EDF_2019, swimm:JANSSEN_ET_AL_2019, swimm:THOL_ET_AL_2017.
 
 swimm:UNIT_1 a otras:training_unit;
@@ -137,7 +137,7 @@ swimm:SYLLABUS_UNIT_6 a otras:syllabus;
    ccso:academicYear "2019-2020"^^xs:string;
    ccso:hasInstructor swimm:JADRAN_VRABEC;
    ccso:language "en"^^xs:language;
-   otras:covers_topic otras:MM_TOPIC_7700, otras:MM_TOPIC_8340;
+   otras:covers_topic otras:MM_TOPIC_6120, otras:MM_TOPIC_7700;
    otras:has_recommended_literature swimm:THOL_ET_AL_2017.
 
 swimm:UNIT_7 a otras:training_unit;

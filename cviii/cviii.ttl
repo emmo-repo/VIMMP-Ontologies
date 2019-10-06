@@ -1,9 +1,9 @@
 
 ### CATEGORIZATION OF VIMMP INSTITUTIONS AND INDIVIDUALS (CVIII) ###
 
-### VERSION 0.9.2 ###
+### VERSION 0.9.3 ###
 
-### DATED 3RD SEPTEMBER 2019 ###
+### DATED 6TH OCTOBER 2019 ###
 
 @prefix cviii: <http://www.vimmp.eu/semantics/cviii/cviii.ttl#>.
 
@@ -68,7 +68,8 @@ cviii:has_agentid a cviii:dp_agent;
    rdfs:range xs:nonNegativeInteger.
 cviii:has_interest a cviii:op_agent;
    rdfs:domain cviii:agent;
-   rdfs:range otras:topic.
+   rdfs:range otras:topic;
+   rdfs:subPropertyOf evmpo:has_role_annotation.
 cviii:has_name a cviii:dp_agent;
    rdfs:domain cviii:agent;
    rdfs:range xs:string.
@@ -267,7 +268,7 @@ cviii:has_competency a cviii:op_expert;
 cviii:has_expertise_in a cviii:op_expert;
    rdfs:domain cviii:expert;
    rdfs:range otras:topic;
-   rdfs:subPropertyOf evmpo:has_role_annotation.
+   rdfs:subPropertyOf cviii:has_interest.
 
 cviii:certifier a owl:Class;
    rdfs:subClassOf cviii:agent;

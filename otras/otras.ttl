@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
 
-### VERSION 0.8.5 ###
+### VERSION 0.8.6 ###
 
-### DATED 5TH SEPTEMBER 2019 ###
+### DATED 6TH OCTOBER 2019 ###
 
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 
@@ -567,10 +567,88 @@ otras:mm_topic_data a owl:Class;
 otras:mm_topic_materials a owl:Class;
    rdfs:comment "a topic related to materials, including but not limited to fluids, and their properties (code 5XXX if unique, 8XXX if interdisciplinary)"^^xs:string;
    rdfs:subClassOf otras:mm_topic.
+otras:mm_topic_materials_general a owl:Class;
+   rdfs:comment "a topic that relates to multiple or all fields of materials science and engineering (code 51XX)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_materials.
+otras:mm_topic_materials_fluid a owl:Class;
+   rdfs:comment "a topic that relates to soft-matter science and engineering and fluid materials (code 52XX)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_materials.
+otras:mm_topic_materials_bio a owl:Class;
+   rdfs:comment "a topic that relates to biomaterials (codes 5300 to 5349)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_materials.
+otras:mm_topic_materials_ceramic a owl:Class;
+   rdfs:comment "a topic that relates to ceramic materials (codes 5350 to 5399)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_materials.
+otras:mm_topic_materials_composite a owl:Class;
+   rdfs:comment "a topic that relates to composite materials (codes 5400 to 5449)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_materials.
+otras:mm_topic_materials_electrolyte a owl:Class;
+   rdfs:comment "a topic that relates to electrolyte materials (codes 5450 to 5499)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_materials.
+otras:mm_topic_materials_metal a owl:Class;
+   rdfs:comment "a topic that relates to metals (codes 5500 to 5549)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_materials.
+otras:mm_topic_materials_mineral a owl:Class;
+   rdfs:comment "a topic that relates to minerals (codes 5550 to 5599)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_materials.
+otras:mm_topic_materials_nano a owl:Class;
+   rdfs:comment "a topic that relates to nanostructured, dispersed, or nanoscopic materials (codes 5600 to 5649)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_materials.
+otras:mm_topic_materials_organic a owl:Class;
+   rdfs:comment "a topic that relates to organic matter in materials science and engineering (codes 5650 to 5699)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_materials.
+otras:mm_topic_materials_polymer a owl:Class;
+   rdfs:comment "a topic that relates to electrolyte materials (codes 5700 to 5749)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_materials.
+otras:mm_topic_materials_semiconductor a owl:Class;
+   rdfs:comment "a topic that relates to semiconductor materials (codes 5750 to 5799)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_materials.
+otras:mm_topic_materials_ultracold a owl:Class;
+   rdfs:comment "a topic that relates to ultracold materials science and engineering (codes 5800 to 5849)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_materials.
+otras:mm_topic_materials_unstable a owl:Class;
+   rdfs:comment "a topic that relates to unstable, metastable, and transition states of materials (codes 5850 to 5899)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_materials.
+otras:mm_topic_materials_special a owl:Class;
+   rdfs:comment "a topic that relates to specific phenomena in materials science and engineering (code 59XX)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_materials.
 
 otras:mm_topic_social a owl:Class;
    rdfs:comment "a topic related to social, economic, and community aspects of materials modelling (code 6XXX if unique, 8XXX if interdisciplinary)"^^xs:string;
    rdfs:subClassOf otras:mm_topic.
+otras:mm_topic_social_industrial a owl:Class;
+   rdfs:comment "a topic that relates to industrial manufacturing (code 61XX)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_social.
+otras:mm_topic_social_industrial_chemical a owl:Class;
+   rdfs:comment "a topic that relates to manufacturing in the chemical industry, including the petrochemical industry and polymers (codes 612X and 613X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_social_industrial.
+otras:mm_topic_social_industrial_transport a owl:Class;
+   rdfs:comment "a topic that relates to manufacturing in transportation-related industries, e.g., automotive, aerospace, and railways (code 614X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_social_industrial.
+otras:mm_topic_social_industrial_biotechnology a owl:Class;
+   rdfs:comment "a topic that relates to manufacturing in biotechnology, excluding pharmaceutical applications (codes 6150 to 6154)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_social_industrial.
+otras:mm_topic_social_industrial_food a owl:Class;
+   rdfs:comment "a topic that relates to manufacturing in food-related industries, including beverages and tobacco (codes 6155 to 6159)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_social_industrial.
+otras:mm_topic_social_industrial_medicine a owl:Class;
+   rdfs:comment "a topic that relates to manufacturing in industries related to pharmaceutical and medical applications (codes 6160 to 6164)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_social_industrial.
+otras:mm_topic_social_industrial_paper a owl:Class;
+   rdfs:comment "a topic that relates to manufacturing of wood and paper based products, including printing (codes 6165 to 6169)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_social_industrial.
+otras:mm_topic_social_industrial_electrical a owl:Class;
+   rdfs:comment "a topic that relates to manufacturing of electrical products and equipment (codes 6170 to 6174)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_social_industrial.
+otras:mm_topic_social_industrial_machinery a owl:Class;
+   rdfs:comment "a topic that relates to manufacturing of industrial machinery and equipment (codes 6175 to 6179)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_social_industrial.
+otras:mm_topic_social_industrial_metal a owl:Class;
+   rdfs:comment "a topic that relates to the production of basic and fabricated metal (code 618X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_social_industrial.
+otras:mm_topic_social_industrial_special a owl:Class;
+   rdfs:comment "a topic that relates to specific aspects or fields of industrial manufacturing (code 619X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_social_industrial.
 
 otras:mm_topic_theoretical a owl:Class;
    rdfs:comment "a topic related to (non-computational) theoretical aspects of materials modelling (code 7XXX if unique, 8XXX if interdisciplinary)"^^xs:string;
@@ -754,10 +832,140 @@ otras:MM_TOPIC_5000 a otras:mm_topic_materials;
    otras:is_narrower_than otras:MM_TOPIC_0000;
    otras:has_topic_descriptor "Topic: Materials (beyond basic prerequisites)"^^xs:string.
 
+otras:MM_TOPIC_5100 a otras:mm_topic_materials_general;
+   otras:has_topic_code 5100;
+   otras:is_narrower_than otras:MM_TOPIC_5000;
+   otras:has_topic_descriptor "Topic: Materials science and engineering (combining multiple or all fields)"^^xs:string.
+
+otras:MM_TOPIC_5200 a otras:mm_topic_materials_fluid;
+   otras:has_topic_code 5200;
+   otras:is_narrower_than otras:MM_TOPIC_5000;
+   otras:has_topic_descriptor "Topic: Fluids"^^xs:string.
+
+otras:MM_TOPIC_5300 a otras:mm_topic_materials_bio;
+   otras:has_topic_code 5300;
+   otras:is_narrower_than otras:MM_TOPIC_5000;
+   otras:has_topic_descriptor "Topic: Biomaterials"^^xs:string.
+
+otras:MM_TOPIC_5350 a otras:mm_topic_materials_ceramic;
+   otras:has_topic_code 5350;
+   otras:is_narrower_than otras:MM_TOPIC_5000;
+   otras:has_topic_descriptor "Topic: Ceramics"^^xs:string.
+
+otras:MM_TOPIC_5400 a otras:mm_topic_materials_composite;
+   otras:has_topic_code 5400;
+   otras:is_narrower_than otras:MM_TOPIC_5000;
+   otras:has_topic_descriptor "Topic: Composites"^^xs:string.
+
+otras:MM_TOPIC_5450 a otras:mm_topic_materials_electrolyte;
+   otras:has_topic_code 5450;
+   otras:is_narrower_than otras:MM_TOPIC_5000;
+   otras:has_topic_descriptor "Topic: Electrolytes"^^xs:string.
+
+otras:MM_TOPIC_5500 a otras:mm_topic_materials_metal;
+   otras:has_topic_code 5500;
+   otras:is_narrower_than otras:MM_TOPIC_5000;
+   otras:has_topic_descriptor "Topic: Metals"^^xs:string.
+
+otras:MM_TOPIC_5550 a otras:mm_topic_materials_mineral;
+   otras:has_topic_code 5550;
+   otras:is_narrower_than otras:MM_TOPIC_5000;
+   otras:has_topic_descriptor "Topic: Minerals"^^xs:string.
+
+otras:MM_TOPIC_5600 a otras:mm_topic_materials_nano;
+   otras:has_topic_code 5600;
+   otras:is_narrower_than otras:MM_TOPIC_5000;
+   otras:has_topic_descriptor "Topic: Nanomaterials"^^xs:string.
+
+otras:MM_TOPIC_5650 a otras:mm_topic_materials_organic;
+   otras:has_topic_code 5650;
+   otras:is_narrower_than otras:MM_TOPIC_5000;
+   otras:has_topic_descriptor "Topic: Organic chemistry and related materials science and engineering"^^xs:string.
+
+otras:MM_TOPIC_5700 a otras:mm_topic_materials_polymer;
+   otras:has_topic_code 5700;
+   otras:is_narrower_than otras:MM_TOPIC_5000;
+   otras:has_topic_descriptor "Topic: Polymers"^^xs:string.
+
+otras:MM_TOPIC_5750 a otras:mm_topic_materials_semiconductor;
+   otras:has_topic_code 5750;
+   otras:is_narrower_than otras:MM_TOPIC_5000;
+   otras:has_topic_descriptor "Topic: Semiconductors"^^xs:string.
+
+otras:MM_TOPIC_5800 a otras:mm_topic_materials_ultracold;
+   otras:has_topic_code 5800;
+   otras:is_narrower_than otras:MM_TOPIC_5000;
+   otras:has_topic_descriptor "Topic: Low-temperature materials science and engineering"^^xs:string.
+
+otras:MM_TOPIC_5800 a otras:mm_topic_materials_unstable;
+   otras:has_topic_code 5800;
+   otras:is_narrower_than otras:MM_TOPIC_5000;
+   otras:has_topic_descriptor "Topic: Unstable, metastable, and transition states of materials"^^xs:string.
+
+otras:MM_TOPIC_5900 a otras:mm_topic_materials_special;
+   otras:has_topic_code 5900;
+   otras:is_narrower_than otras:MM_TOPIC_5000;
+   otras:has_topic_descriptor "Topic: Specific phenomena in materials science and engineering"^^xs:string.
+
 otras:MM_TOPIC_6000 a otras:mm_topic_social;
    otras:has_topic_code 6000;
    otras:is_narrower_than otras:MM_TOPIC_0000;
    otras:has_topic_descriptor "Topic: Social, economic, community (beyond basic prerequisites)"^^xs:string.
+
+otras:MM_TOPIC_6100 a otras:mm_topic_social_industrial;
+   otras:has_topic_code 6100;
+   otras:is_narrower_than otras:MM_TOPIC_6000;
+   otras:has_topic_descriptor "Topic: Industrial manufacturing"^^xs:string.
+
+otras:MM_TOPIC_6120 a otras:mm_topic_social_industrial_chemical;
+   otras:has_topic_code 6120;
+   otras:is_narrower_than otras:MM_TOPIC_6100;
+   otras:has_topic_descriptor "Topic: Manufacturing in the chemical industry (including the petrochemical industry and polymers)"^^xs:string.
+
+otras:MM_TOPIC_6140 a otras:mm_topic_social_industrial_transport;
+   otras:has_topic_code 6140;
+   otras:is_narrower_than otras:MM_TOPIC_6100;
+   otras:has_topic_descriptor "Topic: Manufacturing in transportation-related industries (e.g., automotive, aerospace, and railway related manufacturing)"^^xs:string.
+
+otras:MM_TOPIC_6150 a otras:mm_topic_social_industrial_biotechnology;
+   otras:has_topic_code 6150;
+   otras:is_narrower_than otras:MM_TOPIC_6100;
+   otras:has_topic_descriptor "Topic: Manufacturing in biotechnology (excluding pharmaceutical applications)"^^xs:string.
+
+otras:MM_TOPIC_6155 a otras:mm_topic_social_industrial_food;
+   otras:has_topic_code 6155;
+   otras:is_narrower_than otras:MM_TOPIC_6100;
+   otras:has_topic_descriptor "Topic: Manufacturing in food-related industries (including beverages and tobacco)"^^xs:string.
+
+otras:MM_TOPIC_6160 a otras:mm_topic_social_industrial_medicine;
+   otras:has_topic_code 6160;
+   otras:is_narrower_than otras:MM_TOPIC_6100;
+   otras:has_topic_descriptor "Topic: Manufacturing in industries related to pharmaceutical and medical applications"^^xs:string.
+
+otras:MM_TOPIC_6165 a otras:mm_topic_social_industrial_paper;
+   otras:has_topic_code 6165;
+   otras:is_narrower_than otras:MM_TOPIC_6100;
+   otras:has_topic_descriptor "Topic: Manufacturing of wood and paper based products (including printing)"^^xs:string.
+
+otras:MM_TOPIC_6170 a otras:mm_topic_social_industrial_electrical;
+   otras:has_topic_code 6170;
+   otras:is_narrower_than otras:MM_TOPIC_6100;
+   otras:has_topic_descriptor "Topic: Manufacturing of electrical products and equipment"^^xs:string.
+
+otras:MM_TOPIC_6175 a otras:mm_topic_social_industrial_machinery;
+   otras:has_topic_code 6175;
+   otras:is_narrower_than otras:MM_TOPIC_6100;
+   otras:has_topic_descriptor "Topic: Manufacturing of industrial machinery and equipment"^^xs:string.
+
+otras:MM_TOPIC_6180 a otras:mm_topic_social_industrial_metal;
+   otras:has_topic_code 6180;
+   otras:is_narrower_than otras:MM_TOPIC_6100;
+   otras:has_topic_descriptor "Topic: Production of basic and fabricated metal"^^xs:string.
+
+otras:MM_TOPIC_6190 a otras:mm_topic_social_industrial_special;
+   otras:has_topic_code 6190;
+   otras:is_narrower_than otras:MM_TOPIC_6100;
+   otras:has_topic_descriptor "Topic: Specific aspects or fields of industrial manufacturing"^^xs:string.
 
 otras:MM_TOPIC_7000 a otras:mm_topic_theoretical;
    otras:has_topic_code 7000;
