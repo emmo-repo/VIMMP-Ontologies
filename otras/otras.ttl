@@ -181,7 +181,7 @@ otras:is_narrower_than a otras:op_topic, owl:TransitiveProperty;
 
 otras:specifier a owl:Class;
    rdfs:comment "specifier, i.e., a constitutive element of a learning outcome (acquired competency) description"^^xs:string;
-   rdfs:subClassOf otras:focus, otras:HAS_A_SPECIFIER_DESCRIPTOR.
+   rdfs:subClassOf otras:focus, [a owl:Restriction; owl:onProperty otras:has_specifier_descriptor; owl:someValuesFrom rdfs:Literal].
 otras:op_specifier a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 otras:dp_specifier a owl:Class;
@@ -193,10 +193,6 @@ otras:has_specifier_descriptor a otras:dp_specifier;
    rdfs:domain otras:specifier;
    rdfs:range rdfs:Literal;
    rdfs:subPropertyOf otras:has_focus_descriptor.
-otras:HAS_A_SPECIFIER_DESCRIPTOR a owl:Restriction;
-   rdfs:subClassOf otras:constrained_entity;
-   owl:onProperty otras:has_specifier_descriptor;
-   owl:someValuesFrom rdfs:Literal.
 
 otras:operator_specifier a owl:Class;
    rdfs:comment "operator specifier, i.e., the type of activity facilitated by an acquisition of the specified competency"^^xs:string;
