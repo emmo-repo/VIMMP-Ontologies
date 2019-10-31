@@ -1,9 +1,9 @@
 
 ### VIMMP COMMUNICATION ONTOLOGY (VICO) ###
 
-### VERSION 0.8.5 ###
+### VERSION 0.8.6 ###
 
-### DATED 12TH AUGUST 2019 ###
+### DATED 31ST OCTOBER 2019 ###
 
 @prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
 
@@ -19,9 +19,6 @@
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
 <http://www.vimmp.eu/semantics/vico/vico.ttl#> a owl:Ontology.
-
-vico:constrained_entity a owl:Class;
-   rdfs:subClassOf evmpo:marketplace_related_entity.
 
 vico:communication a owl:Class;
    rdfs:subClassOf evmpo:paradigmatic_entity;
@@ -75,13 +72,13 @@ vico:is_on_marketplace a vico:op_communication;
    rdfs:range macro:virtual_marketplace;
    rdfs:subPropertyOf vico:is_on_channel.
 
-vico:R_HAS_AN_AUTHOR a owl:Restriction;
-   rdfs:subClassOf vico:constrained_entity;
-   owl:onProperty vico:has_author;
-   owl:someValuesFrom cviii:agent.
 vico:communication
    owl:disjointUnionOf (vico:message vico:appendix);
-   rdfs:subClassOf vico:R_HAS_AN_AUTHOR.
+   rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty vico:has_author;
+      owl:someValuesFrom cviii:agent
+   ].
 
 vico:statement a owl:Class;
    rdfs:subClassOf vico:communication;
@@ -96,11 +93,7 @@ vico:dp_statement a owl:Class;
 vico:op_communication rdfs:subClassOf vico:op_statement.
 vico:dp_communication rdfs:subClassOf vico:dp_statement.
 
-vico:R_CONTAINS_NO_COMMUNICATION a owl:Restriction;
-   rdfs:subClassOf vico:constrained_entity;
-   owl:onProperty vico:contains;
-   owl:cardinality 0.
-vico:statement owl:intersectionOf (vico:communication vico:R_CONTAINS_NO_COMMUNICATION).
+vico:statement owl:intersectionOf (vico:communication [a owl:Restriction; owl:onProperty vico:contains; owl:cardinality 0]).
 
 vico:appendix a owl:Class;
    rdfs:subClassOf vico:communication;
@@ -112,11 +105,11 @@ vico:dp_appendix a owl:Class;
 vico:op_communication rdfs:subClassOf vico:op_appendix.
 vico:dp_communication rdfs:subClassOf vico:dp_appendix.
 
-vico:R_CONTAINS_NO_MESSAGE a owl:Restriction;
-   rdfs:subClassOf vico:constrained_entity;
+vico:appendix rdfs:subClassOf [
+   a owl:Restriction;
    owl:onProperty vico:contains;
-   owl:cardinality 0.
-vico:appendix rdfs:subClassOf vico:R_CONTAINS_NO_MESSAGE.
+   owl:cardinality 0
+].
 
 vico:appendix_statement a owl:Class;
    rdfs:subClassOf vico:appendix, vico:statement;
@@ -186,15 +179,15 @@ vico:states_assessment a vico:op_certificate;
    rdfs:range vivo:assessment;
    owl:equivalentProperty vivo:states_assessment.
 
-vico:R_HAS_A_CERTIFIER a owl:Restriction;
-   rdfs:subClassOf vico:constrained_entity;
-   owl:onProperty vico:has_certifier;
-   owl:someValuesFrom cviii:certifier.
-vico:R_STATES_AN_ASSESSMENT a owl:Restriction;
-   rdfs:subClassOf vico:constrained_entity;
-   owl:onProperty vico:states_assessment;
-   owl:someValuesFrom vivo:assessment.
-vico:certificate rdfs:subClassOf vico:R_HAS_A_CERTIFIER, vico:R_STATES_AN_ASSESSMENT.
+vico:certificate rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty vico:has_certifier;
+      owl:someValuesFrom cviii:certifier
+   ], [
+      a owl:Restriction;
+      owl:onProperty vico:states_assessment;
+      owl:someValuesFrom vivo:assessment
+   ].
 
 vico:access_rule a owl:Class;
    rdfs:subClassOf evmpo:annotation;
@@ -328,16 +321,15 @@ vico:is_followed_by a vico:op_message;
    rdfs:range vico:message;
    owl:inverseOf vico:follows.
 
-vico:R_HAS_ONE_ACCESS_RULE a owl:Restriction;
-   rdfs:subClassOf vico:constrained_entity;
-   owl:onProperty vico:has_access_rule;
-   owl:cardinality 1.
-vico:R_IS_ON_A_MARKETPLACE a owl:Restriction;
-   rdfs:subClassOf vico:constrained_entity;
-   owl:onProperty vico:is_on_marketplace;
-   owl:someValuesFrom macro:virtual_marketplace.
-vico:message rdfs:subClassOf vico:R_HAS_ONE_ACCESS_RULE, vico:R_IS_ON_A_MARKETPLACE.
-
+vico:message rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty vico:has_access_rule;
+      owl:cardinality 1
+   ], [
+      a owl:Restriction;
+      owl:onProperty vico:is_on_marketplace;
+      owl:someValuesFrom macro:virtual_marketplace
+   ].
 vico:message owl:disjointUnionOf (vico:declaration vico:interlocution).
 
 vico:task a owl:Class;
@@ -350,11 +342,7 @@ vico:dp_task a owl:Class;
 vico:op_message rdfs:subClassOf vico:op_task.
 vico:dp_message rdfs:subClassOf vico:dp_task.
 
-vico:R_HAS_AN_ASSIGNEE a owl:Restriction;
-   rdfs:subClassOf vico:constrained_entity;
-   owl:onProperty vico:has_assignee;
-   owl:someValuesFrom cviii:agent.
-vico:task owl:intersectionOf (vico:message vico:R_HAS_AN_ASSIGNEE).
+vico:task owl:intersectionOf (vico:message [a owl:Restriction; owl:onProperty vico:has_assignee; owl:someValuesFrom cviii:agent]).
 
 vico:declaration a owl:Class;
    rdfs:subClassOf vico:message;
@@ -369,11 +357,7 @@ vico:dp_declaration a owl:Class;
 vico:op_message rdfs:subClassOf vico:op_declaration.
 vico:dp_message rdfs:subClassOf vico:dp_declaration.
 
-vico:R_HAS_NO_RECIPIENT a owl:Restriction;
-   rdfs:subClassOf vico:constrained_entity;
-   owl:onProperty vico:has_recipient;
-   owl:cardinality 0.
-vico:declaration owl:intersectionOf (vico:message vico:R_HAS_NO_RECIPIENT).
+vico:declaration owl:intersectionOf (vico:message [a owl:Restriction; owl:onProperty vico:has_recipient; owl:cardinality 0]).
 
 vico:interlocution a owl:Class;
    rdfs:subClassOf vico:message;
@@ -391,11 +375,7 @@ vico:has_recipient a vico:op_interlocution;
    rdfs:range cviii:agent;
    owl:inverseOf cviii:is_recipient_of.
 
-vico:R_HAS_A_RECIPIENT a owl:Restriction;
-   rdfs:subClassOf vico:constrained_entity;
-   owl:onProperty vico:has_recipient;
-   owl:someValuesFrom cviii:agent.
-vico:interlocution owl:intersectionOf (vico:message vico:R_HAS_A_RECIPIENT).
+vico:interlocution owl:intersectionOf (vico:message [a owl:Restriction; owl:onProperty vico:has_recipient; owl:someValuesFrom cviii:agent]).
 
 vico:collocution a owl:Class;
    rdfs:subClassOf vico:interlocution;
@@ -407,11 +387,7 @@ vico:dp_collocution a owl:Class;
 vico:op_interlocution rdfs:subClassOf vico:op_collocution.
 vico:dp_interlocution rdfs:subClassOf vico:dp_collocution.
 
-vico:R_FOLLOWS_A_MESSAGE a owl:Restriction;
-   rdfs:subClassOf vico:constrained_entity;
-   owl:onProperty vico:follows;
-   owl:someValuesFrom vico:message.
-vico:collocution rdfs:subClassOf vico:R_FOLLOWS_A_MESSAGE.
+vico:collocution rdfs:subClassOf [a owl:Restriction; owl:onProperty vico:follows; owl:someValuesFrom vico:message].
 
 vico:comment a owl:Class;
    rdfs:subClassOf vico:collocution;
@@ -429,15 +405,15 @@ vico:has_commented_message a vico:op_comment;
    rdfs:subPropertyOf vico:follows;
    owl:inverseOf vico:has_comment.
 
-vico:R_HAS_A_COMMENTED_MESSAGE a owl:Restriction;
-   rdfs:subClassOf vico:constrained_entity;
-   owl:onProperty vico:has_commented_message;
-   owl:someValuesFrom vico:message.
-vico:R_HAS_A_TEXT a owl:Restriction;
-   rdfs:subClassOf vico:constrained_entity;
-   owl:onProperty vico:has_text;
-   owl:someValuesFrom xs:string.
-vico:comment rdfs:subClassOf vico:R_HAS_A_COMMENTED_MESSAGE, vico:R_HAS_A_TEXT.
+vico:comment rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty vico:has_commented_message;
+      owl:someValuesFrom vico:message
+   ], [
+      a owl:Restriction;
+      owl:onProperty vico:has_text;
+      owl:someValuesFrom xs:string
+   ].
 
 vico:signal_statement a owl:Class;
    rdfs:subClassOf vico:collocution, vico:statement;
@@ -451,11 +427,11 @@ vico:dp_collocution rdfs:subClassOf vico:dp_signal_statement.
 vico:op_statement rdfs:subClassOf vico:op_signal_statement.
 vico:dp_statement rdfs:subClassOf vico:dp_signal_statement.
 
-vico:R_FOLLOWS_ONE_MESSAGE a owl:Restriction;
-   rdfs:subClassOf vico:constrained_entity;
-   owl:onProperty vico:follows;
-   owl:cardinality 1.
-vico:signal_statement rdfs:subClassOf vico:R_FOLLOWS_ONE_MESSAGE.
+vico:signal_statement rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty vico:follows;
+      owl:cardinality 1
+   ].
 
 vico:signal_i_like a owl:Class;
    rdfs:subClassOf vico:signal_statement;

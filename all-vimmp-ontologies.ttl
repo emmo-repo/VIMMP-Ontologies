@@ -13,9 +13,9 @@
 
 ### CATEGORIZATION OF VIMMP INSTITUTIONS AND INDIVIDUALS (CVIII) ###
 
-### VERSION 0.9.3 ###
+### VERSION 0.9.4 ###
 
-### DATED 6TH OCTOBER 2019 ###
+### DATED 31ST OCTOBER 2019 ###
 
 @prefix cviii: <http://www.vimmp.eu/semantics/cviii/cviii.ttl#>.
 
@@ -30,9 +30,6 @@
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
 <http://www.vimmp.eu/semantics/cviii/cviii.ttl#> a owl:Ontology.
-
-cviii:constrained_entity a owl:Class;
-   rdfs:subClassOf evmpo:marketplace_related_entity.
 
 cviii:role a owl:Class;
    rdfs:subClassOf evmpo:paradigmatic_entity;
@@ -254,11 +251,7 @@ cviii:dp_stakeholder a owl:Class;
 cviii:op_agent rdfs:subClassOf cviii:op_stakeholder.
 cviii:dp_agent rdfs:subClassOf cviii:dp_stakeholder.
 
-cviii:R_ACTS_AT_A_VMP a owl:Restriction;
-   rdfs:subClassOf cviii:constrained_entity;
-   owl:onProperty cviii:acts_at;
-   owl:someValuesFrom macro:virtual_marketplace.
-cviii:stakeholder owl:intersectionOf (cviii:agent cviii:R_ACTS_AT_A_VMP).
+cviii:stakeholder owl:intersectionOf (cviii:agent [a owl:Restriction; owl:onProperty cviii:acts_at; owl:someValuesFrom macro:virtual_marketplace]).
 
 cviii:expert a owl:Class;
    rdfs:subClassOf cviii:human_agent;
@@ -733,11 +726,11 @@ cviii:is_superior_to_any a cviii:op_titular_rank;
    rdfs:domain cviii:titular_rank;
    rdfs:range owl:Class;
    owl:propertyChainAxiom (cviii:is_superior_to rdf:type).
-cviii:R_IS_SUPERIOR_TO_ANY_POSTDOCTORAL_TITLE a owl:Restriction;
-   rdfs:subClassOf cviii:constrained_entity;
+cviii:nondoctoral_title owl:disjointWith [
+   a owl:Restriction;
    owl:onProperty cviii:is_superior_to_any;
-   owl:hasValue cviii:postdoctoral_title.
-cviii:nondoctoral_title owl:disjointWith cviii:R_IS_SUPERIOR_TO_ANY_POSTDOCTORAL_TITLE.
+   owl:hasValue cviii:postdoctoral_title
+].
 
 ### EUROPEAN VIRTUAL MARKETPLACE ONTOLOGY (EVMPO) ###
 
@@ -4518,9 +4511,9 @@ osmo:has_format_version a osmo:dp_io_format;
 
 ### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
 
-### VERSION 0.8.6 ###
+### VERSION 0.8.7 ###
 
-### DATED 6TH OCTOBER 2019 ###
+### DATED 31ST OCTOBER 2019 ###
 
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 
@@ -4545,9 +4538,6 @@ otras:dp_training_entity a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 evmpo:op_marketplace_related_entity rdfs:subClassOf otras:op_training_entity.
 evmpo:dp_marketplace_related_entity rdfs:subClassOf otras:dp_training_entity.
-
-otras:constrained_entity a owl:Class;
-   rdfs:subClassOf otras:training_entity.
 
 otras:carrier a owl:Class;
    rdfs:comment "carrier, e.g, material, activity, event that carries the contents of a course"^^xs:string;
@@ -4588,11 +4578,11 @@ otras:dp_scientific_publication a owl:Class;
 evmpo:op_document rdfs:subClassOf otras:op_scientific_publication.
 evmpo:dp_document rdfs:subClassOf otras:dp_scientific_publication.
 
-otras:R_HAS_A_CITATION_REPRESENTATION a owl:Restriction;
-   rdfs:subClassOf otras:constrained_entity;
-   owl:onProperty otras:has_citation_representation;
-   owl:someValuesFrom otras:citation.
-otras:scientific_publication rdfs:subClassOf otras:R_HAS_A_CITATION_REPRESENTATION.
+otras:scientific_publication rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty otras:has_citation_representation;
+      owl:someValuesFrom otras:citation
+   ].
 
 otras:journal_article a owl:Class;
    rdfs:subClassOf otras:scientific_publication;
@@ -4748,11 +4738,11 @@ otras:has_operator_level a otras:op_operator_specifier;
    rdfs:range otras:operator_level;
    rdfs:subPropertyOf evmpo:has_meta_annotation.
 
-otras:R_IS_EXPRESSED a owl:Restriction;
-   rdfs:subClassOf otras:constrained_entity;
-   owl:onProperty otras:is_expressed_by;
-   owl:someValuesFrom rdfs:Literal.
-otras:operator_specifier rdfs:subClassOf otras:R_IS_EXPRESSED.
+otras:operator_specifier rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty otras:is_expressed_by;
+      owl:someValuesFrom rdfs:Literal
+   ].
 
 otras:operand_specifier a owl:Class;
    rdfs:comment "operand specifier, i.e., an entity acted upon by an operator specifier"^^xs:string;
@@ -4831,20 +4821,20 @@ otras:has_operator_specifier a otras:op_learning_outcome;
    rdfs:domain otras:learning_outcome;
    rdfs:range otras:operator_specifier;
    rdfs:subPropertyOf otras:has_specifier.
-otras:R_HAS_AN_OPERATOR_SPECIFIER a owl:Restriction;
-   rdfs:subClassOf otras:constrained_entity;
-   owl:onProperty otras:has_operator_specifier;
-   owl:someValuesFrom otras:operator_specifier.
-otras:learning_outcome rdfs:subClassOf otras:R_HAS_AN_OPERATOR_SPECIFIER.
+otras:learning_outcome rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty otras:has_operator_specifier;
+      owl:someValuesFrom otras:operator_specifier
+   ].
 otras:has_operand_specifier a otras:op_learning_outcome;
    rdfs:domain otras:learning_outcome;
    rdfs:range otras:operand_specifier;
    rdfs:subPropertyOf otras:has_specifier.
-otras:R_HAS_AN_OPERAND_SPECIFIER a owl:Restriction;
-   rdfs:subClassOf otras:constrained_entity;
-   owl:onProperty otras:has_operand_specifier;
-   owl:someValuesFrom otras:operand_specifier.
-otras:learning_outcome rdfs:subClassOf otras:R_HAS_AN_OPERAND_SPECIFIER.
+otras:learning_outcome rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty otras:has_operand_specifier;
+      owl:someValuesFrom otras:operand_specifier
+   ].
 otras:has_implementation_specifier a otras:op_learning_outcome;
    rdfs:domain otras:learning_outcome;
    rdfs:range otras:implementation_specifier;
@@ -4864,11 +4854,11 @@ otras:dp_expert_competency a owl:Class;
 evmpo:op_learning_outcome rdfs:subClassOf otras:op_expert_competency.
 evmpo:dp_learning_outcome rdfs:subClassOf otras:dp_expert_competency.
 
-otras:R_HAS_AN_EXPERT_OPERATOR_SPECIFIER a owl:Restriction;
-   rdfs:subClassOf otras:constrained_entity;
-   owl:onProperty otras:has_operator_specifier;
-   owl:someValuesFrom otras:expert_operator_specifier.
-otras:expert_competency rdfs:subClassOf otras:R_HAS_AN_EXPERT_OPERATOR_SPECIFIER.
+otras:expert_competency rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty otras:has_operator_specifier;
+      owl:someValuesFrom otras:expert_operator_specifier
+   ].
 
 otras:syllabus a owl:Class;
    rdfs:comment "a syllabus as defined by CCSO"^^xs:string;
@@ -4956,11 +4946,7 @@ otras:has_training_unit a otras:op_course;
    rdfs:domain otras:course;
    rdfs:range otras:training_unit;
    owl:inverseOf otras:is_part_of_course.
-otras:R_HAS_NO_TRAINING_UNIT a owl:Restriction;
-   rdfs:subClassOf otras:constrained_entity;
-   owl:onProperty otras:has_training_unit;
-   owl:cardinality 0.
-otras:training_unit owl:intersectionOf (otras:course otras:R_HAS_NO_TRAINING_UNIT).
+otras:training_unit owl:intersectionOf (otras:course [a owl:Restriction; owl:onProperty otras:has_training_unit; owl:cardinality 0]).
 
 otras:physics_subject_heading a owl:Class;
    rdfs:comment "physics subject heading, i.e., a topic included in the PhySH list developed by the APS"^^xs:string;
@@ -4980,15 +4966,15 @@ otras:has_physh_id a otras:dp_physics_subject_heading;
    rdfs:domain otras:physics_subject_heading;
    rdfs:range xs:string.
 
-otras:R_HAS_A_PHYSH_LABEL a owl:Restriction;
-   rdfs:subClassOf otras:constrained_entity;
-   owl:onProperty otras:has_physh_label;
-   owl:someValuesFrom xs:string.
-otras:R_HAS_ONE_PHYSH_ID a owl:Restriction;
-   rdfs:subClassOf otras:constrained_entity;
-   owl:onProperty otras:has_physh_id;
-   owl:cardinality 1.
-otras:physics_subject_heading rdfs:subClassOf otras:R_HAS_A_PHYSH_LABEL, otras:R_HAS_ONE_PHYSH_ID.
+otras:physics_subject_heading rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty otras:has_physh_label;
+      owl:someValuesFrom xs:string
+   ], [
+      a owl:Restriction;
+      owl:onProperty otras:has_physh_id;
+      owl:cardinality 1
+   ].
 
 otras:ccs_concept a owl:Class;
    rdfs:comment "CCS concept, i.e., a topic included in the 2012 ACM Computing Classification System developed by the ACM"^^xs:string;
@@ -5008,15 +4994,15 @@ otras:has_ccs_descriptor a otras:dp_ccs_concept;
    rdfs:range xs:string;
    rdfs:subPropertyOf otras:has_topic_descriptor.
 
-otras:R_HAS_A_CCS_DESCRIPTOR a owl:Restriction;
-   rdfs:subClassOf otras:constrained_entity;
-   owl:onProperty otras:has_ccs_descriptor;
-   owl:someValuesFrom xs:string.
-otras:R_HAS_ONE_CCS_ID a owl:Restriction;
-   rdfs:subClassOf otras:constrained_entity;
-   owl:onProperty otras:has_ccs_id;
-   owl:cardinality 1.
-otras:ccs_concept rdfs:subClassOf otras:R_HAS_A_CCS_DESCRIPTOR, otras:R_HAS_ONE_CCS_ID.
+otras:ccs_concept rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty otras:has_ccs_descriptor;
+      owl:someValuesFrom xs:string
+   ], [
+      a owl:Restriction;
+      owl:onProperty otras:has_ccs_id;
+      owl:cardinality 1
+   ].
 
 otras:mm_topic a owl:Class;
    rdfs:comment "materials modelling topic, i.e., a topic related to the subject area of materials modelling, understood broadly"^^xs:string;
@@ -5031,16 +5017,16 @@ evmpo:dp_topic rdfs:subClassOf otras:dp_mm_topic.
 otras:has_topic_code a otras:dp_mm_topic;
    rdfs:domain otras:mm_topic;
    rdfs:range xs:nonNegativeInteger.
-otras:R_HAS_EXACTLY_ONE_TOPIC_CODE a owl:Restriction;
-   rdfs:subClassOf otras:constrained_entity;
-   owl:onProperty otras:has_topic_code;
-   owl:cardinality 1.
-otras:mm_topic rdfs:subClassOf otras:R_HAS_EXACTLY_ONE_TOPIC_CODE.
-otras:R_HAS_A_TOPIC_DESCRIPTOR a owl:Restriction;
-   rdfs:subClassOf otras:constrained_entity;
-   owl:onProperty otras:has_topic_descriptor;
-   owl:someValuesFrom rdfs:Literal.
-otras:mm_topic rdfs:subClassOf otras:R_HAS_A_TOPIC_DESCRIPTOR.
+
+otras:mm_topic rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty otras:has_topic_code;
+      owl:cardinality 1
+   ], [
+      a owl:Restriction;
+      owl:onProperty otras:has_topic_descriptor;
+      owl:someValuesFrom rdfs:Literal
+   ].
 
 otras:mm_topic_basic a owl:Class;
    rdfs:comment "basic prerequisites for materials modelling studies (codes 1XXX and 2XXX)"^^xs:string;
@@ -5643,11 +5629,11 @@ otras:dp_kmk_operator_level a owl:Class;
 otras:op_operator_level rdfs:subClassOf otras:op_kmk_operator_level.
 otras:dp_operator_level rdfs:subClassOf otras:dp_kmk_operator_level.
 
-otras:R_IS_AT_ONE_NUMERICAL_LEVEL a owl:Restriction;
-   rdfs:subClassOf otras:constrained_entity;
-   owl:onProperty otras:is_at_numerical_level;
-   owl:cardinality 1.
-otras:kmk_operator_level rdfs:subClassOf otras:R_IS_AT_ONE_NUMERICAL_LEVEL.
+otras:kmk_operator_level rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty otras:is_at_numerical_level;
+      owl:cardinality 1
+   ].
 
 otras:kmk_operator_level owl:oneOf (otras:KMK_LEVEL_I otras:KMK_LEVEL_II otras:KMK_LEVEL_III).
 
@@ -5673,19 +5659,19 @@ otras:has_kmk_level a otras:op_kmk_operator_specifier;
    rdfs:range otras:kmk_operator_level;
    rdfs:subPropertyOf otras:has_operator_level.
 
-otras:R_HAS_A_KMK_LEVEL a owl:Restriction;
-   rdfs:subClassOf otras:constrained_entity;
-   owl:onProperty otras:has_kmk_level;
-   owl:someValuesFrom otras:kmk_operator_level.
-otras:R_HAS_ONE_OPERATOR_CODE a owl:Restriction;
-   rdfs:subClassOf otras:constrained_entity;
-   owl:onProperty otras:has_operator_code;
-   owl:cardinality 1.
-otras:R_IS_DEFINED_BY_A_STRING a owl:Restriction;
-   rdfs:subClassOf otras:constrained_entity;
-   owl:onProperty otras:is_defined_by;
-   owl:someValuesFrom xs:string.
-otras:kmk_operator_specifier rdfs:subClassOf otras:R_HAS_A_KMK_LEVEL, otras:R_HAS_ONE_OPERATOR_CODE, otras:R_IS_DEFINED_BY_A_STRING.
+otras:kmk_operator_specifier rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty otras:has_kmk_level;
+      owl:someValuesFrom otras:kmk_operator_level
+   ], [
+      a owl:Restriction;
+      owl:onProperty otras:has_operator_code;
+      owl:cardinality 1
+   ], [
+      a owl:Restriction;
+      owl:onProperty otras:has_kmk_level;
+      owl:someValuesFrom otras:kmk_operator_level
+   ].
 
 otras:expert_operator_specifier a owl:Class;
    rdfs:comment "expert operator specifier, i.e., an competency statement operator specifier for expert-level competencies"^^xs:string;
@@ -5697,11 +5683,15 @@ otras:dp_expert_operator_specifier a owl:Class;
 otras:op_operator_specifier rdfs:subClassOf otras:op_expert_operator_specifier.
 otras:dp_operator_specifier rdfs:subClassOf otras:dp_expert_operator_specifier.
 
-otras:R_HAS_EXPERT_LEVEL a owl:Restriction;
-   rdfs:subClassOf otras:constrained_entity;
-   owl:onProperty otras:has_operator_level;
-   owl:hasValue otras:EXPERT_LEVEL.
-otras:expert_operator_specifier rdfs:subClassOf otras:R_HAS_EXPERT_LEVEL, otras:R_HAS_ONE_OPERATOR_CODE.
+otras:expert_operator_specifier rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty otras:has_operator_level;
+      owl:hasValue otras:EXPERT_LEVEL
+   ], [
+      a owl:Restriction;
+      owl:onProperty otras:has_operator_code;
+      owl:cardinality 1
+   ].
 
 otras:KMK_OPERATOR_100 a otras:kmk_operator_specifier;
    otras:has_operator_code 100;
@@ -6007,19 +5997,19 @@ otras:is_citation_about_document a otras:op_citation;
    rdfs:subPropertyOf otras:is_about;
    owl:inverseOf otras:is_cited_as.
 
-otras:R_HAS_ONE_FIRST_AUTHOR_SURNAME a owl:Restriction;  # important to ensure that any set of citations can be sorted by first-author surname
-   rdfs:subClassOf otras:constrained_entity;
-   owl:onProperty otras:has_first_author_surname;
-   owl:cardinality 1.
-otras:R_HAS_ONE_PUBLICATION_YEAR a owl:Restriction;  # important to ensure that any set of citations can be sorted by year
-   rdfs:subClassOf otras:constrained_entity;
-   owl:onProperty otras:has_publication_year;
-   owl:cardinality 1.
-otras:R_IS_CITATION_ABOUT_A_DOCUMENT a owl:Restriction;
-   rdfs:subClassOf otras:constrained_entity;
-   owl:onProperty otras:is_citation_about_document;
-   owl:someValuesFrom otras:document.
-otras:citation rdfs:subClassOf otras:R_HAS_ONE_PUBLICATION_YEAR, otras:R_IS_CITATION_ABOUT_A_DOCUMENT.
+otras:citation rdfs:subClassOf [
+      a owl:Restriction;  # important to ensure that any set of citations can be sorted by first-author surname
+      owl:onProperty otras:has_first_author_surname;
+      owl:cardinality 1
+   ], [
+      a owl:Restriction;  # important to ensure that any set of citations can be sorted by year
+      owl:onProperty otras:has_publication_year;
+      owl:cardinality 1
+   ], [
+      a owl:Restriction;
+      owl:onProperty otras:is_citation_about_document;
+      owl:someValuesFrom otras:document
+   ].
 
 otras:doi_citation a owl:Class;
    rdfs:subClassOf otras:citation;
@@ -6031,17 +6021,13 @@ otras:dp_doi_citation a owl:Class;
 evmpo:op_citation rdfs:subClassOf otras:op_doi_citation.
 evmpo:dp_citation rdfs:subClassOf otras:dp_doi_citation.
 
-otras:R_IS_ABOUT_ONE_ENTITY a owl:Restriction;
-   rdfs:subClassOf otras:constrained_entity;
-   owl:onProperty otras:is_about;
-   owl:cardinality 1.
-otras:R_HAS_A_DOI a owl:Restriction;
-   rdfs:subClassOf otras:constrained_entity;
-   owl:onProperty otras:has_doi;
-   owl:someValuesFrom xs:string.
 otras:doi_citation
-   rdfs:subClassOf otras:R_IS_ABOUT_ONE_ENTITY;
-   owl:intersectionOf (otras:citation otras:R_HAS_A_DOI).
+   rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty otras:is_about;
+      owl:cardinality 1
+   ];
+   owl:intersectionOf (otras:citation [a owl:Restriction; owl:onProperty otras:has_doi; owl:someValuesFrom xs:string]).
 
 otras:journal_article_citation a owl:Class;
    rdfs:subClassOf otras:doi_citation;
@@ -6053,11 +6039,7 @@ otras:dp_journal_article_citation a owl:Class;
 evmpo:op_doi_citation rdfs:subClassOf otras:op_journal_article_citation.
 evmpo:dp_doi_citation rdfs:subClassOf otras:dp_journal_article_citation.
 
-otras:R_IS_CITATION_ABOUT_A_JOURNAL_ARTICLE a owl:Restriction;
-   rdfs:subClassOf otras:constrained_entity;
-   owl:onProperty otras:is_citation_about_document;
-   owl:someValuesFrom otras:journal_article.
-otras:journal_article_citation owl:intersectionOf (otras:doi_citation otras:R_IS_CITATION_ABOUT_A_JOURNAL_ARTICLE).
+otras:journal_article_citation owl:intersectionOf (otras:doi_citation [a owl:Restriction; owl:onProperty otras:is_citation_about_document; owl:someValuesFrom otras:journal_article]).
 
 otras:has_publication_journal_identifier a otras:dp_journal_article_citation;
    rdfs:domain otras:journal_article_citation;
@@ -6085,19 +6067,19 @@ otras:has_publication_journal_pages a otras:dp_journal_article_citation;
    rdfs:domain otras:journal_article_citation;
    rdfs:range xs:string.
 
-otras:R_HAS_A_PUBLICATION_JOURNAL_IDENTIFIER a owl:Restriction;
-   rdfs:subClassOf otras:constrained_entity;
-   owl:onProperty otras:has_publication_journal_identifier;
-   owl:someValuesFrom xs:string.
-otras:R_HAS_A_PUBLICATION_JOURNAL_VOLUME a owl:Restriction;
-   rdfs:subClassOf otras:constrained_entity;
-   owl:onProperty otras:has_publication_journal_volume;
-   owl:someValuesFrom xs:positiveInteger.
-otras:R_HAS_PUBLICATION_JOURNAL_PAGES a owl:Restriction;
-   rdfs:subClassOf otras:constrained_entity;
-   owl:onProperty otras:has_publication_journal_pages;
-   owl:someValuesFrom xs:string.
-otras:journal_article_citation rdfs:subClassOf otras:R_HAS_A_PUBLICATION_JOURNAL_IDENTIFIER, otras:R_HAS_A_PUBLICATION_JOURNAL_VOLUME, otras:R_HAS_PUBLICATION_JOURNAL_PAGES.
+otras:journal_article_citation rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty otras:has_publication_journal_identifier;
+      owl:someValuesFrom xs:string
+   ], [
+      a owl:Restriction;
+      owl:onProperty otras:has_publication_journal_volume;
+      owl:someValuesFrom xs:positiveInteger
+   ], [
+      a owl:Restriction;
+      owl:onProperty otras:has_publication_journal_pages;
+      owl:someValuesFrom xs:string
+   ].
 
 otras:author_identification_entity a owl:Class;
    rdfs:subClassOf otras:training_entity, evmpo:annotation;
@@ -6134,10 +6116,11 @@ otras:has_identified_surname a otras:dp_author_identifier, owl:FunctionalPropert
    rdfs:domain otras:author_identifier;
    rdfs:range xs:string.
 
-otras:R_HAS_ONE_IDENTIFIED_SURNAME a owl:Restriction;
-   rdfs:subClassOf otras:constrained_entity;
-   owl:onProperty otras:has_identified_surname;
-   owl:cardinality 1.
+otras:author_identifier rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty otras:has_identified_surname;
+      owl:cardinality 1
+   ].
 
 otras:author_map a owl:Class;
    rdfs:subClassOf otras:author_identification_entity;
@@ -6172,16 +6155,15 @@ otras:has_ame_index a otras:dp_author_map_element, owl:FunctionalProperty;
    rdfs:domain otras:author_map_element;
    rdfs:range xs:nonNegativeInteger.
 
-otras:R_HAS_ONE_AME_IDENTIFIER a owl:Restriction;
-   rdfs:subClassOf otras:constrained_entity;
-   owl:onProperty otras:has_ame_identifier;
-   owl:cardinality 1.
-otras:R_HAS_ONE_AME_INDEX a owl:Restriction;
-   rdfs:subClassOf otras:constrained_entity;
-   owl:onProperty otras:has_ame_index;
-   owl:cardinality 1.
-otras:author_map_element rdfs:subClassOf otras:R_HAS_ONE_AME_IDENTIFIER, otras:R_HAS_ONE_AME_INDEX.
-
+otras:author_map_element rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty otras:has_ame_identifier;
+      owl:cardinality 1
+   ], [
+      a owl:Restriction;
+      owl:onProperty otras:has_ame_index;
+      owl:cardinality 1
+   ].
 
 otras:instructor a owl:Class;
    rdfs:subClassOf cviii:expert, cviii:training_provider, ccso:Professor;
@@ -6199,9 +6181,9 @@ cviii:dp_human_agent rdfs:subClassOf otras:dp_instructor.
 
 ### VIMMP COMMUNICATION ONTOLOGY (VICO) ###
 
-### VERSION 0.8.5 ###
+### VERSION 0.8.6 ###
 
-### DATED 12TH AUGUST 2019 ###
+### DATED 31ST OCTOBER 2019 ###
 
 @prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
 
@@ -6217,9 +6199,6 @@ cviii:dp_human_agent rdfs:subClassOf otras:dp_instructor.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
 <http://www.vimmp.eu/semantics/vico/vico.ttl#> a owl:Ontology.
-
-vico:constrained_entity a owl:Class;
-   rdfs:subClassOf evmpo:marketplace_related_entity.
 
 vico:communication a owl:Class;
    rdfs:subClassOf evmpo:paradigmatic_entity;
@@ -6273,13 +6252,13 @@ vico:is_on_marketplace a vico:op_communication;
    rdfs:range macro:virtual_marketplace;
    rdfs:subPropertyOf vico:is_on_channel.
 
-vico:R_HAS_AN_AUTHOR a owl:Restriction;
-   rdfs:subClassOf vico:constrained_entity;
-   owl:onProperty vico:has_author;
-   owl:someValuesFrom cviii:agent.
 vico:communication
    owl:disjointUnionOf (vico:message vico:appendix);
-   rdfs:subClassOf vico:R_HAS_AN_AUTHOR.
+   rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty vico:has_author;
+      owl:someValuesFrom cviii:agent
+   ].
 
 vico:statement a owl:Class;
    rdfs:subClassOf vico:communication;
@@ -6294,11 +6273,7 @@ vico:dp_statement a owl:Class;
 vico:op_communication rdfs:subClassOf vico:op_statement.
 vico:dp_communication rdfs:subClassOf vico:dp_statement.
 
-vico:R_CONTAINS_NO_COMMUNICATION a owl:Restriction;
-   rdfs:subClassOf vico:constrained_entity;
-   owl:onProperty vico:contains;
-   owl:cardinality 0.
-vico:statement owl:intersectionOf (vico:communication vico:R_CONTAINS_NO_COMMUNICATION).
+vico:statement owl:intersectionOf (vico:communication [a owl:Restriction; owl:onProperty vico:contains; owl:cardinality 0]).
 
 vico:appendix a owl:Class;
    rdfs:subClassOf vico:communication;
@@ -6310,11 +6285,11 @@ vico:dp_appendix a owl:Class;
 vico:op_communication rdfs:subClassOf vico:op_appendix.
 vico:dp_communication rdfs:subClassOf vico:dp_appendix.
 
-vico:R_CONTAINS_NO_MESSAGE a owl:Restriction;
-   rdfs:subClassOf vico:constrained_entity;
+vico:appendix rdfs:subClassOf [
+   a owl:Restriction;
    owl:onProperty vico:contains;
-   owl:cardinality 0.
-vico:appendix rdfs:subClassOf vico:R_CONTAINS_NO_MESSAGE.
+   owl:cardinality 0
+].
 
 vico:appendix_statement a owl:Class;
    rdfs:subClassOf vico:appendix, vico:statement;
@@ -6384,15 +6359,15 @@ vico:states_assessment a vico:op_certificate;
    rdfs:range vivo:assessment;
    owl:equivalentProperty vivo:states_assessment.
 
-vico:R_HAS_A_CERTIFIER a owl:Restriction;
-   rdfs:subClassOf vico:constrained_entity;
-   owl:onProperty vico:has_certifier;
-   owl:someValuesFrom cviii:certifier.
-vico:R_STATES_AN_ASSESSMENT a owl:Restriction;
-   rdfs:subClassOf vico:constrained_entity;
-   owl:onProperty vico:states_assessment;
-   owl:someValuesFrom vivo:assessment.
-vico:certificate rdfs:subClassOf vico:R_HAS_A_CERTIFIER, vico:R_STATES_AN_ASSESSMENT.
+vico:certificate rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty vico:has_certifier;
+      owl:someValuesFrom cviii:certifier
+   ], [
+      a owl:Restriction;
+      owl:onProperty vico:states_assessment;
+      owl:someValuesFrom vivo:assessment
+   ].
 
 vico:access_rule a owl:Class;
    rdfs:subClassOf evmpo:annotation;
@@ -6526,16 +6501,15 @@ vico:is_followed_by a vico:op_message;
    rdfs:range vico:message;
    owl:inverseOf vico:follows.
 
-vico:R_HAS_ONE_ACCESS_RULE a owl:Restriction;
-   rdfs:subClassOf vico:constrained_entity;
-   owl:onProperty vico:has_access_rule;
-   owl:cardinality 1.
-vico:R_IS_ON_A_MARKETPLACE a owl:Restriction;
-   rdfs:subClassOf vico:constrained_entity;
-   owl:onProperty vico:is_on_marketplace;
-   owl:someValuesFrom macro:virtual_marketplace.
-vico:message rdfs:subClassOf vico:R_HAS_ONE_ACCESS_RULE, vico:R_IS_ON_A_MARKETPLACE.
-
+vico:message rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty vico:has_access_rule;
+      owl:cardinality 1
+   ], [
+      a owl:Restriction;
+      owl:onProperty vico:is_on_marketplace;
+      owl:someValuesFrom macro:virtual_marketplace
+   ].
 vico:message owl:disjointUnionOf (vico:declaration vico:interlocution).
 
 vico:task a owl:Class;
@@ -6548,11 +6522,7 @@ vico:dp_task a owl:Class;
 vico:op_message rdfs:subClassOf vico:op_task.
 vico:dp_message rdfs:subClassOf vico:dp_task.
 
-vico:R_HAS_AN_ASSIGNEE a owl:Restriction;
-   rdfs:subClassOf vico:constrained_entity;
-   owl:onProperty vico:has_assignee;
-   owl:someValuesFrom cviii:agent.
-vico:task owl:intersectionOf (vico:message vico:R_HAS_AN_ASSIGNEE).
+vico:task owl:intersectionOf (vico:message [a owl:Restriction; owl:onProperty vico:has_assignee; owl:someValuesFrom cviii:agent]).
 
 vico:declaration a owl:Class;
    rdfs:subClassOf vico:message;
@@ -6567,11 +6537,7 @@ vico:dp_declaration a owl:Class;
 vico:op_message rdfs:subClassOf vico:op_declaration.
 vico:dp_message rdfs:subClassOf vico:dp_declaration.
 
-vico:R_HAS_NO_RECIPIENT a owl:Restriction;
-   rdfs:subClassOf vico:constrained_entity;
-   owl:onProperty vico:has_recipient;
-   owl:cardinality 0.
-vico:declaration owl:intersectionOf (vico:message vico:R_HAS_NO_RECIPIENT).
+vico:declaration owl:intersectionOf (vico:message [a owl:Restriction; owl:onProperty vico:has_recipient; owl:cardinality 0]).
 
 vico:interlocution a owl:Class;
    rdfs:subClassOf vico:message;
@@ -6589,11 +6555,7 @@ vico:has_recipient a vico:op_interlocution;
    rdfs:range cviii:agent;
    owl:inverseOf cviii:is_recipient_of.
 
-vico:R_HAS_A_RECIPIENT a owl:Restriction;
-   rdfs:subClassOf vico:constrained_entity;
-   owl:onProperty vico:has_recipient;
-   owl:someValuesFrom cviii:agent.
-vico:interlocution owl:intersectionOf (vico:message vico:R_HAS_A_RECIPIENT).
+vico:interlocution owl:intersectionOf (vico:message [a owl:Restriction; owl:onProperty vico:has_recipient; owl:someValuesFrom cviii:agent]).
 
 vico:collocution a owl:Class;
    rdfs:subClassOf vico:interlocution;
@@ -6605,11 +6567,7 @@ vico:dp_collocution a owl:Class;
 vico:op_interlocution rdfs:subClassOf vico:op_collocution.
 vico:dp_interlocution rdfs:subClassOf vico:dp_collocution.
 
-vico:R_FOLLOWS_A_MESSAGE a owl:Restriction;
-   rdfs:subClassOf vico:constrained_entity;
-   owl:onProperty vico:follows;
-   owl:someValuesFrom vico:message.
-vico:collocution rdfs:subClassOf vico:R_FOLLOWS_A_MESSAGE.
+vico:collocution rdfs:subClassOf [a owl:Restriction; owl:onProperty vico:follows; owl:someValuesFrom vico:message].
 
 vico:comment a owl:Class;
    rdfs:subClassOf vico:collocution;
@@ -6627,15 +6585,15 @@ vico:has_commented_message a vico:op_comment;
    rdfs:subPropertyOf vico:follows;
    owl:inverseOf vico:has_comment.
 
-vico:R_HAS_A_COMMENTED_MESSAGE a owl:Restriction;
-   rdfs:subClassOf vico:constrained_entity;
-   owl:onProperty vico:has_commented_message;
-   owl:someValuesFrom vico:message.
-vico:R_HAS_A_TEXT a owl:Restriction;
-   rdfs:subClassOf vico:constrained_entity;
-   owl:onProperty vico:has_text;
-   owl:someValuesFrom xs:string.
-vico:comment rdfs:subClassOf vico:R_HAS_A_COMMENTED_MESSAGE, vico:R_HAS_A_TEXT.
+vico:comment rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty vico:has_commented_message;
+      owl:someValuesFrom vico:message
+   ], [
+      a owl:Restriction;
+      owl:onProperty vico:has_text;
+      owl:someValuesFrom xs:string
+   ].
 
 vico:signal_statement a owl:Class;
    rdfs:subClassOf vico:collocution, vico:statement;
@@ -6649,11 +6607,11 @@ vico:dp_collocution rdfs:subClassOf vico:dp_signal_statement.
 vico:op_statement rdfs:subClassOf vico:op_signal_statement.
 vico:dp_statement rdfs:subClassOf vico:dp_signal_statement.
 
-vico:R_FOLLOWS_ONE_MESSAGE a owl:Restriction;
-   rdfs:subClassOf vico:constrained_entity;
-   owl:onProperty vico:follows;
-   owl:cardinality 1.
-vico:signal_statement rdfs:subClassOf vico:R_FOLLOWS_ONE_MESSAGE.
+vico:signal_statement rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty vico:follows;
+      owl:cardinality 1
+   ].
 
 vico:signal_i_like a owl:Class;
    rdfs:subClassOf vico:signal_statement;
@@ -6883,9 +6841,9 @@ vico:dp_phone_number rdfs:subClassOf vico:dp_mobile_number.
 
 ### VIMMP VALIDATION ONTOLOGY (VIVO) ###
 
-### VERSION 0.3.2 ###
+### VERSION 0.3.3 ###
 
-### DATED 16TH AUGUST 2019 ###
+### DATED 31ST OCTOBER 2019 ###
 
 @prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
 
@@ -6916,15 +6874,6 @@ evmpo:op_paradigmatic_entity rdfs:subClassOf vivo:op_validation_entity.
 evmpo:dp_paradigmatic_entity rdfs:subClassOf vivo:dp_validation_entity.
 
 vivo:validation_entity owl:unionOf (vivo:assertion vivo:assessment vivo:validation_communication vivo:validation_infrastructure vivo:property).
-
-vivo:constrained_entity a owl:Class;
-   rdfs:subClassOf vivo:validation_entity.
-vivo:op_constrained_entity a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-vivo:dp_constrained_entity a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-vivo:op_validation_entity rdfs:subClassOf vivo:op_constrained_entity.
-vivo:dp_validation_entity rdfs:subClassOf vivo:dp_constrained_entity.
 
 vivo:accuracy_entity a owl:Class;
    rdfs:subClassOf vivo:validation_entity.
@@ -7443,11 +7392,11 @@ vivo:states_assessment a vivo:op_certificate;
    rdfs:range vivo:assessment;
    owl:equivalentProperty vico:states_assessment.
 
-vivo:R_STATES_AN_ASSESSMENT a owl:Restriction;
-   rdfs:subClassOf vivo:constrained_entity;
+vivo:certificate rdfs:subClassOf [
+   a owl:Restriction;
    owl:onProperty vivo:states_assessment;
-   owl:someValuesFrom vivo:assessment.
-vivo:certificate rdfs:subClassOf vivo:R_STATES_AN_ASSESSMENT.
+   owl:someValuesFrom vivo:assessment
+].
 
 
 #################################

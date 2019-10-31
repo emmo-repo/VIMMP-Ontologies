@@ -1,9 +1,9 @@
 
 ### VIMMP VALIDATION ONTOLOGY (VIVO) ###
 
-### VERSION 0.3.2 ###
+### VERSION 0.3.3 ###
 
-### DATED 16TH AUGUST 2019 ###
+### DATED 31ST OCTOBER 2019 ###
 
 @prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
 
@@ -34,15 +34,6 @@ evmpo:op_paradigmatic_entity rdfs:subClassOf vivo:op_validation_entity.
 evmpo:dp_paradigmatic_entity rdfs:subClassOf vivo:dp_validation_entity.
 
 vivo:validation_entity owl:unionOf (vivo:assertion vivo:assessment vivo:validation_communication vivo:validation_infrastructure vivo:property).
-
-vivo:constrained_entity a owl:Class;
-   rdfs:subClassOf vivo:validation_entity.
-vivo:op_constrained_entity a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-vivo:dp_constrained_entity a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-vivo:op_validation_entity rdfs:subClassOf vivo:op_constrained_entity.
-vivo:dp_validation_entity rdfs:subClassOf vivo:dp_constrained_entity.
 
 vivo:accuracy_entity a owl:Class;
    rdfs:subClassOf vivo:validation_entity.
@@ -561,11 +552,11 @@ vivo:states_assessment a vivo:op_certificate;
    rdfs:range vivo:assessment;
    owl:equivalentProperty vico:states_assessment.
 
-vivo:R_STATES_AN_ASSESSMENT a owl:Restriction;
-   rdfs:subClassOf vivo:constrained_entity;
+vivo:certificate rdfs:subClassOf [
+   a owl:Restriction;
    owl:onProperty vivo:states_assessment;
-   owl:someValuesFrom vivo:assessment.
-vivo:certificate rdfs:subClassOf vivo:R_STATES_AN_ASSESSMENT.
+   owl:someValuesFrom vivo:assessment
+].
 
 
 #################################

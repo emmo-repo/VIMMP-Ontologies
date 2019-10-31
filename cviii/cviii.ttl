@@ -1,9 +1,9 @@
 
 ### CATEGORIZATION OF VIMMP INSTITUTIONS AND INDIVIDUALS (CVIII) ###
 
-### VERSION 0.9.3 ###
+### VERSION 0.9.4 ###
 
-### DATED 6TH OCTOBER 2019 ###
+### DATED 31ST OCTOBER 2019 ###
 
 @prefix cviii: <http://www.vimmp.eu/semantics/cviii/cviii.ttl#>.
 
@@ -18,9 +18,6 @@
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
 <http://www.vimmp.eu/semantics/cviii/cviii.ttl#> a owl:Ontology.
-
-cviii:constrained_entity a owl:Class;
-   rdfs:subClassOf evmpo:marketplace_related_entity.
 
 cviii:role a owl:Class;
    rdfs:subClassOf evmpo:paradigmatic_entity;
@@ -242,11 +239,7 @@ cviii:dp_stakeholder a owl:Class;
 cviii:op_agent rdfs:subClassOf cviii:op_stakeholder.
 cviii:dp_agent rdfs:subClassOf cviii:dp_stakeholder.
 
-cviii:R_ACTS_AT_A_VMP a owl:Restriction;
-   rdfs:subClassOf cviii:constrained_entity;
-   owl:onProperty cviii:acts_at;
-   owl:someValuesFrom macro:virtual_marketplace.
-cviii:stakeholder owl:intersectionOf (cviii:agent cviii:R_ACTS_AT_A_VMP).
+cviii:stakeholder owl:intersectionOf (cviii:agent [a owl:Restriction; owl:onProperty cviii:acts_at; owl:someValuesFrom macro:virtual_marketplace]).
 
 cviii:expert a owl:Class;
    rdfs:subClassOf cviii:human_agent;
@@ -721,8 +714,8 @@ cviii:is_superior_to_any a cviii:op_titular_rank;
    rdfs:domain cviii:titular_rank;
    rdfs:range owl:Class;
    owl:propertyChainAxiom (cviii:is_superior_to rdf:type).
-cviii:R_IS_SUPERIOR_TO_ANY_POSTDOCTORAL_TITLE a owl:Restriction;
-   rdfs:subClassOf cviii:constrained_entity;
+cviii:nondoctoral_title owl:disjointWith [
+   a owl:Restriction;
    owl:onProperty cviii:is_superior_to_any;
-   owl:hasValue cviii:postdoctoral_title.
-cviii:nondoctoral_title owl:disjointWith cviii:R_IS_SUPERIOR_TO_ANY_POSTDOCTORAL_TITLE.
+   owl:hasValue cviii:postdoctoral_title
+].
