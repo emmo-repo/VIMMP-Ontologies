@@ -1,7 +1,7 @@
 
 ### MATERIALS MODELLING TRANSLATION ONTOLOGY (MMTO) ###
 
-### VERSION 0.6.0 ###
+### VERSION 0.6.1 ###
 
 ### DATED 1ST NOVEMBER 2019 ###
 
@@ -49,6 +49,13 @@ mmto:dp_mm_project a owl:Class;
 mmto:op_project rdfs:subClassOf mmto:op_mm_project.
 mmto:dp_project rdfs:subClassOf mmto:dp_mm_project.
 
+mmto:addresses a mmto:op_mm_project;
+   rdfs:domain mmto:mm_project;
+   rdfs:range mmto:application_case;
+   owl:inverseOf mmto:is_addressed_by;
+   rdfs:subPropertyOf evmpo:has_process_annotation;
+   rdfs:comment "points to an application case that is addressed by the present materials modelling project"^^xs:string.
+
 mmto:application_case a owl:Class;
    rdfs:subClassOf mmto:translation_entity, evmpo:annotation;
    rdfs:comment "application case, i.e., a scenario, point of view, or subjective or negotiated set of aims"^^xs:string.
@@ -61,6 +68,25 @@ mmto:dp_translation_entity rdfs:subClassOf mmto:dp_application_case.
 evmpo:op_annotation rdfs:subClassOf mmto:op_application_case.
 evmpo:dp_annotation rdfs:subClassOf mmto:dp_application_case.
 
+mmto:is_addressed_by a mmto:op_application_case;
+   rdfs:domain mmto:application_case;
+   rdfs:range mmto:mm_project;
+   owl:inverseOf mmto:addresses;
+   rdfs:comment "points to a materials modelling project that addresses the present application case"^^xs:string.
+
+mmto:has_ac_summary a mmto:dp_application_case;
+   rdfs:domain mmto:application_case;
+   rdfs:range xs:string;
+   rdfs:comment "plain-text summary of the application case"^^xs:string.
+mmto:has_uc_summary a osmo:dp_use_case;
+   rdfs:domain osmo:use_case;
+   rdfs:range xs:string;
+   rdfs:subPropertyOf mmto:has_ac_summary;
+   owl:propertyChainAxiom (osmo:has_use_case_description osmo:has_aspect_text_content);
+   rdfs:comment "plain-text summary of the MODA/OSMO use case"^^xs:string.
+
+mmto:application_case owl:disjointUnionOf (mmto:business_case mmto:industrial_case mmto:translation_case osmo:use_case).
+
 mmto:business_case a owl:Class;
    rdfs:subClassOf mmto:application_case;
    rdfs:comment "business case, i.e., an application case with a focus on economic/business aspects"^^xs:string.
@@ -70,6 +96,12 @@ mmto:dp_business_case a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 mmto:op_application_case rdfs:subClassOf mmto:op_business_case.
 mmto:dp_application_case rdfs:subClassOf mmto:dp_business_case.
+
+mmto:has_bc_summary a mmto:dp_business_case;
+   rdfs:domain mmto:business_case;
+   rdfs:range xs:string;
+   rdfs:subPropertyOf mmto:has_ac_summary;
+   rdfs:comment "plain-text summary of the business case"^^xs:string.
 
 mmto:industrial_case a owl:Class;
    rdfs:subClassOf mmto:application_case;
@@ -81,15 +113,59 @@ mmto:dp_industrial_case a owl:Class;
 mmto:op_application_case rdfs:subClassOf mmto:op_industrial_case.
 mmto:dp_application_case rdfs:subClassOf mmto:dp_industrial_case.
 
+mmto:has_ic_summary a mmto:dp_industrial_case;
+   rdfs:domain mmto:industrial_case;
+   rdfs:range xs:string;
+   rdfs:subPropertyOf mmto:has_ac_summary;
+   rdfs:comment "plain-text summary of the industrial case"^^xs:string.
+
 mmto:translation_case a owl:Class;
    rdfs:subClassOf mmto:application_case;
-   rdfs:comment "translation case, i.e., an application case that can be described as specified by the EMMC Translation Case template"^^xs:string.
+   rdfs:comment "translation case, i.e., an application case that can be described as specified by the EMMC Translation Case Template"^^xs:string.
 mmto:op_translation_case a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 mmto:dp_translation_case a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 mmto:op_application_case rdfs:subClassOf mmto:op_translation_case.
 mmto:dp_application_case rdfs:subClassOf mmto:dp_translation_case.
+
+mmto:has_tc_summary a mmto:dp_translation_case;
+   rdfs:domain mmto:translation_case;
+   rdfs:range xs:string;
+   rdfs:subPropertyOf mmto:has_ac_summary;
+   rdfs:comment "plain-text summary of the translation case"^^xs:string.
+mmto:has_emmc_tc_attribute a mmto:op_translation_case;
+   rdfs:domain mmto:translation_case;
+   rdfs:range evmpo:marketplace_related_entity;
+   rdfs:comment "attribute related to a translation case according to the EMMC Translation Case Template"^^xs:string.
+
+# EMMC Translation Case Template: Introduction
+#
+###
+
+# EMMC Translation Case Template: Industrial/business Case
+#
+###
+
+# EMMC Translation Case Template: Translation to modelling solution
+#
+###
+
+# EMMC Translation Case Template: Evaluation of the translation case
+#
+###
+
+# EMMC Translation Case Template: Client benefits
+#
+###
+
+# EMMC Translation Case Template: Economic impact of the modelling project
+#
+###
+
+# EMMC Translation Case Template: Return on investment
+#
+###
 
 mmto:translation_statement a owl:Class;
    rdfs:subClassOf evmpo:statement, vico:translation_communication;
@@ -237,3 +313,7 @@ mmto:dp_closing_statement a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 mmto:op_project_statement rdfs:subClassOf mmto:op_closing_statement.
 mmto:dp_project_statement rdfs:subClassOf mmto:dp_closing_statement.
+
+# Translation stages following the EMMC Translators' Guide
+#
+###
