@@ -91,52 +91,18 @@ mmto:dp_translation_case a owl:Class;
 mmto:op_application_case rdfs:subClassOf mmto:op_translation_case.
 mmto:dp_application_case rdfs:subClassOf mmto:dp_translation_case.
 
-mmto:use_case a owl:Class;
-   rdfs:subClassOf mmto:application_case, osmo:section;
-   owl:intersectionOf (mmto:application_case osmo:section);
-   owl:equivalentClass osmo:use_case;
-   rdfs:comment "use case as defined by MODA and OSMO"^^xs:string.
-mmto:op_use_case a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty;
-   owl:equivalentClass osmo:op_use_case.
-mmto:dp_use_case a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty;
-   owl:equivalentClass osmo:dp_use_case.
-mmto:op_application_case rdfs:subClassOf mmto:op_use_case.
-mmto:dp_application_case rdfs:subClassOf mmto:dp_use_case.
-osmo:op_section rdfs:subClassOf mmto:op_use_case.
-osmo:dp_section rdfs:subClassOf mmto:dp_use_case.
-
-mmto:translation_communication a owl:Class;
-   rdfs:subClassOf mmto:translation_entity, evmpo:communication;
-   owl:equivalentClass vico:translation_communication;
-   rdfs:comment "translation communication, i.e., a EVMPO/VICO communication which, as its main feature or purpose, relates to translation"^^xs:string.
-mmto:op_translation_communication a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty;
-   owl:equivalentClass vico:op_translation_communication.
-mmto:dp_translation_communication a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty;
-   owl:equivalentClass vico:dp_translation_communication.
-mmto:op_translation_entity rdfs:subClassOf mmto:op_translation_communication.
-mmto:dp_translation_entity rdfs:subClassOf mmto:dp_translation_communication.
-mmto:op_communication rdfs:subClassOf mmto:op_translation_communication.
-mmto:dp_communication rdfs:subClassOf mmto:dp_translation_communication.
-
 mmto:translation_statement a owl:Class;
-   rdfs:subClassOf evmpo:statement, mmto:translation_communication;
-   owl:equivalentClass vico:translation_statement;
-   owl:intersection (mmto:translation_communication evmpo:statement);
+   rdfs:subClassOf evmpo:statement, vico:translation_communication;
+   owl:intersection (vico:translation_communication evmpo:statement);
    rdfs:comment "translation statement, i.e., a EVMPO/VICO statement which, as its main feature or purpose, relates to translation"^^xs:string.
 mmto:op_translation_statement a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty;
-   owl:equivalentClass vico:op_translation_statement.
+   rdfs:subClassOf owl:ObjectProperty.
 vico:dp_translation_statement a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty;
-   owl:equivalentClass vico:op_translation_statement.
-vico:op_translation_communication rdfs:subClassOf vico:op_translation_statement.
-vico:dp_translation_communication rdfs:subClassOf vico:dp_translation_statement.
-evmpo:op_statement rdfs:subClassOf vico:op_translation_statement.
-evmpo:dp_statement rdfs:subClassOf vico:dp_translation_statement.
+   rdfs:subClassOf owl:DatatypeProperty.
+vico:op_translation_communication rdfs:subClassOf mmto:op_translation_statement.
+vico:dp_translation_communication rdfs:subClassOf mmto:dp_translation_statement.
+evmpo:op_statement rdfs:subClassOf mmto:op_translation_statement.
+evmpo:dp_statement rdfs:subClassOf mmto:dp_translation_statement.
 
 mmto:translation_statement owl:disjointUnionOf (mmto:modelling_statement mmto:negotiation_statement mmto:project_statement).
 

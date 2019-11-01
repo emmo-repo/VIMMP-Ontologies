@@ -1,16 +1,15 @@
 
 ### MARKETPLACE-ACCESSIBLE COMPUTATIONAL RESOURCE ONTOLOGY (MACRO) ###
 
-### VERSION 0.1.0 ###
+### VERSION 0.1.1 ###
 
-### DATED 4TH OCTOBER 2019 ###
+### DATED 1ST NOVEMBER 2019 ###
 
 @prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
 
 @prefix cviii: <http://www.vimmp.eu/semantics/cviii/cviii.ttl#>.
 @prefix edam: <http://edamontology.org/>.
 @prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
-@prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
@@ -32,14 +31,11 @@ evmpo:dp_paradigmatic_entity rdfs:subClassOf macro:dp_infrastructure.
 
 macro:computational_entity a owl:Class;
    rdfs:subClassOf evmpo:marketplace_related_entity;
-   owl:equivalentClass osmo:computational_entity;
    rdfs:comment "computational entity, i.e., a computational resource or a pheonomenon or attribute associated with a computational resource"^^xs:string.
 macro:op_computational_entity a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty;
-   owl:equivalentClass osmo:op_computational_entity.
+   rdfs:subClassOf owl:ObjectProperty.
 macro:dp_computational_entity a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty;
-   owl:equivalentClass osmo:dp_computational_entity.
+   rdfs:subClassOf owl:DatatypeProperty.
 evmpo:op_marketplace_related_entity rdfs:subClassOf macro:op_computational_entity.
 evmpo:dp_marketplace_related_entity rdfs:subClassOf macro:dp_computational_entity.
 
@@ -209,14 +205,11 @@ macro:MARKET40_MARKETPLACE a macro:virtual_marketplace.
 
 macro:io_format a owl:Class;
    rdfs:subClassOf macro:computational_entity, evmpo:annotation, edam:format_1915;  # Format in EDAM
-   owl:equivalentClass osmo:io_format;
    rdfs:comment "I/O format, i.e., syntactical convention to which a technical I/O implementation can adhere"^^xs:string.
 macro:op_io_format a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty;
-   owl:equivalentClass osmo:op_io_format.
+   rdfs:subClassOf owl:ObjectProperty.
 macro:dp_io_format a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty;
-   owl:equivalentClass osmo:dp_io_format.
+   rdfs:subClassOf owl:DatatypeProperty.
 macro:op_computational_entity rdfs:subClassOf macro:op_io_format.
 macro:dp_computational_entity rdfs:subClassOf macro:dp_io_format.
 evmpo:op_annotation rdfs:subClassOf macro:op_io_format.
@@ -224,20 +217,16 @@ evmpo:dp_annotation rdfs:subClassOf macro:dp_io_format.
 
 macro:has_definition_uri a macro:dp_io_format;
    rdfs:domain macro:io_format;
-   rdfs:range xs:string;
-   owl:equivalentProperty osmo:has_definition_uri.
+   rdfs:range xs:string.
 macro:has_format_abbreviation a macro:dp_io_format;
    rdfs:domain macro:io_format;
-   rdfs:range xs:string;
-   owl:equivalentProperty osmo:has_format_abbreviation.
+   rdfs:range xs:string.
 macro:has_format_name a macro:dp_io_format;
    rdfs:domain macro:io_format;
-   rdfs:range xs:string;
-   owl:equivalentProperty osmo:has_format_name.
+   rdfs:range xs:string.
 macro:has_format_version a macro:dp_io_format;
    rdfs:domain macro:io_format;
-   rdfs:range xs:string;
-   owl:equivalentProperty osmo:has_format_version.
+   rdfs:range xs:string.
 
 macro:io_format owl:unionOf (macro:file_format macro:memory_format macro:stream_format).
 

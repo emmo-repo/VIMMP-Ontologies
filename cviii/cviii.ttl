@@ -15,6 +15,7 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
+@prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
 <http://www.vimmp.eu/semantics/cviii/cviii.ttl#> a owl:Ontology.
@@ -275,8 +276,8 @@ cviii:dp_agent rdfs:subClassOf cviii:dp_certifier.
 
 cviii:is_certifier_of a cviii:op_certifier;
    rdfs:domain cviii:certifier;
-   rdfs:range vico:certificate;
-   owl:inverseOf vico:has_certifier.
+   rdfs:range vivo:certificate;
+   owl:inverseOf vivo:has_certifier.
 
 cviii:certifier owl:disjointUnionOf (cviii:certifying_expert cviii:certifying_resource).
 

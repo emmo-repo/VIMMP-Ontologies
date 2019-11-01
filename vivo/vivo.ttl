@@ -1,7 +1,7 @@
 
 ### VIMMP VALIDATION ONTOLOGY (VIVO) ###
 
-### VERSION 0.3.4 ###
+### VERSION 0.3.5 ###
 
 ### DATED 1ST NOVEMBER 2019 ###
 
@@ -33,7 +33,7 @@ vivo:dp_validation_entity a owl:Class;
 evmpo:op_paradigmatic_entity rdfs:subClassOf vivo:op_validation_entity.
 evmpo:dp_paradigmatic_entity rdfs:subClassOf vivo:dp_validation_entity.
 
-vivo:validation_entity owl:unionOf (vivo:assertion vivo:assessment vivo:validation_communication vivo:validation_infrastructure vivo:property).
+vivo:validation_entity owl:unionOf (vivo:assertion vivo:assessment vico:validation_communication vivo:validation_infrastructure vivo:property).
 
 vivo:accuracy_entity a owl:Class;
    rdfs:subClassOf vivo:validation_entity.
@@ -173,7 +173,6 @@ vivo:is_given_in a vivo:op_material_property_information, owl:FunctionalProperty
 vivo:accuracy_assertion a owl:Class;
    rdfs:subClassOf vivo:assertion, vivo:accuracy_entity;
    owl:intersectionOf (vivo:assertion vivo:accuracy_entity);
-   owl:equivalentClass osmo:deviation_assertion;
    rdfs:comment "accuracy assertion, i.e., statement on an uncertainty, error, or deviation from the most accurate possible value"^^xs:string.
 vivo:op_accuracy_assertion a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
@@ -183,14 +182,11 @@ vivo:op_assertion rdfs:subClassOf vivo:op_accuracy_assertion.
 vivo:dp_assertion rdfs:subClassOf vivo:dp_accuracy_assertion.
 vivo:op_accuracy_entity rdfs:subClassOf vivo:op_accuracy_assertion.
 vivo:dp_accuracy_entity rdfs:subClassOf vivo:dp_accuracy_assertion.
-osmo:op_deviation_assertion owl:equivalentClass vivo:op_accuracy_assertion.
-osmo:dp_deviation_assertion owl:equivalentClass vivo:dp_accuracy_assertion.
 
 vivo:has_deviation_magnitude a vivo:dp_accuracy_assertion, owl:FunctionalProperty;
    rdfs:domain vivo:accuracy_assertion;
    rdfs:range xs:decimal;
-   rdfs:subPropertyOf vivo:asserts_magnitude;
-   owl:equivalentProperty osmo:has_deviation_magnitude.
+   rdfs:subPropertyOf vivo:asserts_magnitude.
 
 vivo:accuracy_assertion owl:disjointUnionOf (vivo:absolute_deviation vivo:relative_deviation).
 
@@ -374,7 +370,7 @@ vivo:dp_assessment rdfs:subClassOf vivo:dp_model_assessment.
 
 vivo:evaluates_model a vivo:op_model_assessment;
    rdfs:domain vivo:model_assessment;
-   rdfs:range evmpo:model, osmo:model;
+   rdfs:range evmpo:model;
    rdfs:subPropertyOf vivo:evaluates.
 
 vivo:project_assessment a owl:Class;
@@ -501,62 +497,49 @@ vivo:dp_review_assessment rdfs:subClassOf vivo:dp_endorsement_assessment.
 # COMMUNICATION BRANCH OF VIVO #
 ################################
 
-vivo:validation_communication a owl:Class;
-   rdfs:subClassOf vivo:validation_entity, evmpo:communication;
-   owl:intersectionOf (vivo:validation_entity evmpo:communication);
-   owl:equivalentClass vico:validation_communication;
-   rdfs:comment "validation communication, i.e., a communication which, as its main feature or purpose, relates to validation"^^xs:string.
-vivo:op_validation_communication a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty;
-   owl:equivalentClass vico:op_validation_communication.
-vivo:dp_validation_communication a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty;
-   owl:equivalentClass vico:dp_validation_communication.
-vivo:op_validation_entity rdfs:subClassOf vivo:op_validation_communication.
-vivo:dp_validation_entity rdfs:subClassOf vivo:dp_validation_communication.
-evmpo:op_communication rdfs:subClassOf vivo:op_validation_communication.
-evmpo:dp_communication rdfs:subClassOf vivo:dp_validation_communication.
-
-vivo:validation_communication owl:disjointWith vivo:property, vivo:validation_infrastructure.
+vico:validation_communication owl:disjointWith vivo:property, vivo:validation_infrastructure.
 
 vivo:validation_statement a owl:Class;
-   rdfs:subClassOf vico:statement, vivo:validation_communication;
-   owl:equivalentClass vivo:validation_statement;
+   rdfs:subClassOf vico:statement, vico:validation_communication;
+   owl:intersection (vico:validation_communication vico:statement);
    rdfs:comment "validation statement, i.e., a statement which, as its main feature or purpose, relates to validation"^^xs:string.
 vivo:op_validation_statement a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty;
-   owl:equivalentClass vico:op_validation_statement.
+   rdfs:subClassOf owl:ObjectProperty.
 vivo:dp_validation_statement a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty;
-   owl:equivalentClass vico:op_validation_statement.
-vivo:op_validation_communication rdfs:subClassOf vivo:op_validation_statement.
+   rdfs:subClassOf owl:DatatypeProperty.
+vico:op_validation_communication rdfs:subClassOf vivo:op_validation_statement.
 vivo:dp_validation_communication rdfs:subClassOf vivo:dp_validation_statement.
 vico:op_statement rdfs:subClassOf vivo:op_validation_statement.
 vico:dp_statement rdfs:subClassOf vivo:dp_validation_statement.
 
 vivo:certificate a owl:Class;
    rdfs:subClassOf vivo:validation_statement;
-   owl:equivalentClass vico:certificate;
    rdfs:comment "certificate, i.e., a validation statement by which an assessment is stated"^^xs:string.
 vivo:op_certificate a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty;
-   owl:equivalentClass vico:op_certificate.
+   rdfs:subClassOf owl:ObjectProperty.
 vivo:dp_certificate a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty;
-   owl:equivalentClass vico:dp_certificate.
+   rdfs:subClassOf owl:DatatypeProperty.
 vivo:op_validation_statement rdfs:subClassOf vivo:op_certificate.
 vivo:dp_validation_statement rdfs:subClassOf vivo:dp_certificate.
 
+vivo:has_certifier a vivo:op_certificate;
+   rdfs:domain vivo:certificate;
+   rdfs:range cviii:certifier;
+   owl:inverseOf cviii:is_certifier_of;
+   rdfs:comment "connects a certificate to the certifier who is responsible for the included assessment (not necessarily identical with the author who communicates the certificate)"^^xs:string.
 vivo:states_assessment a vivo:op_certificate;
    rdfs:domain vivo:certificate;
-   rdfs:range vivo:assessment;
-   owl:equivalentProperty vico:states_assessment.
+   rdfs:range vivo:assessment.
 
 vivo:certificate rdfs:subClassOf [
-   a owl:Restriction;
-   owl:onProperty vivo:states_assessment;
-   owl:someValuesFrom vivo:assessment
-].
+      a owl:Restriction;
+      owl:onProperty vivo:has_certifier;
+      owl:someValuesFrom cviii:certifier
+   ], [
+      a owl:Restriction;
+      owl:onProperty vico:states_assessment;
+      owl:someValuesFrom vivo:assessment
+   ].
 
 
 #################################
@@ -578,7 +561,7 @@ evmpo:dp_infrastructure rdfs:subClassOf vivo:dp_validation_infrastructure.
 macro:op_infrastructure rdfs:subClassOf vivo:op_validation_infrastructure.
 macro:dp_infrastructure rdfs:subClassOf vivo:dp_validation_infrastructure.
 
-vivo:validation_infrastructure owl:disjointWith vivo:assertion, vivo:assessment, vivo:property, vivo:validation_communication.
+vivo:validation_infrastructure owl:disjointWith vivo:assertion, vivo:assessment, vivo:property, vico:validation_communication.
 
 vivo:validation_channel a owl:Class;
    rdfs:subClassOf vivo:validation_infrastructure, macro:channel;
@@ -626,7 +609,7 @@ vivo:dp_property a owl:Class;
 evmpo:op_paradigmatic_entity rdfs:subClassOf vivo:op_property.
 evmpo:dp_paradigmatic_entity rdfs:subClassOf vivo:dp_property.
 
-vivo:property owl:disjointWith vivo:assertion, vivo:assessment, vivo:validation_communication, vivo:validation_infrastructure.
+vivo:property owl:disjointWith vivo:assertion, vivo:assessment, vico:validation_communication, vivo:validation_infrastructure.
 
 vivo:material_property a owl:Class;
    rdfs:subClassOf vivo:property, osmo:logical_variable;

@@ -1,13 +1,12 @@
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 1.1.5 ###
+### VERSION 1.1.6 ###
 
 ### DATED 1ST NOVEMBER 2019 ###
 
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
-@prefix edam: <http://edamontology.org/>.
 @prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
 @prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
 @prefix mmto: <http://www.vimmp.eu/semantics/mmto/mmto.ttl#>.
@@ -783,12 +782,12 @@ osmo:has_internal_lv a osmo:op_section;
    rdfs:comment "points to information that plays a role within the respective OSMO/MODA section"^^xs:string.
 osmo:has_input_format a osmo:op_section;
    rdfs:domain osmo:section;
-   rdfs:range osmo:io_format;
+   rdfs:range macro:io_format;
    rdfs:subPropertyOf osmo:has_io_format;
    owl:propertyChainAxiom (osmo:has_logical_input osmo:is_encoded_by).
 osmo:has_io_format a osmo:op_section;
    rdfs:domain osmo:section;
-   rdfs:range osmo:io_format;
+   rdfs:range macro:io_format;
    rdfs:comment "points to a format employed for I/O in the technical implementation of the respective OSMO/MODA section"^^xs:string;
    rdfs:subPropertyOf evmpo:has_annotation;
    owl:propertyChainAxiom (osmo:has_logical_io osmo:is_encoded_by).
@@ -808,7 +807,7 @@ osmo:has_logical_output a osmo:op_section;
    rdfs:subPropertyOf osmo:has_logical_io.
 osmo:has_output_format a osmo:op_section;
    rdfs:domain osmo:section;
-   rdfs:range osmo:io_format;
+   rdfs:range macro:io_format;
    rdfs:subPropertyOf osmo:has_io_format;
    owl:propertyChainAxiom (osmo:has_logical_output osmo:is_encoded_by).
 osmo:has_section_label a osmo:dp_section;
@@ -968,7 +967,7 @@ osmo:dp_section_aspect rdfs:subClassOf osmo:dp_error_statement.
 osmo:R_HAS_A_DEVIATION_ASSERTION_CONTENT a owl:Restriction;
    rdfs:subClassOf osmo:constrained_entity;
    owl:onProperty osmo:has_aspect_paradigmatic_content;
-   owl:someValuesFrom osmo:deviation_assertion.
+   owl:someValuesFrom vivo:accuracy_assertion.
 osmo:error_statement rdfs:subClassOf osmo:R_HAS_A_DEVIATION_ASSERTION_CONTENT.
 
 osmo:geometry_information a owl:Class;
@@ -1103,14 +1102,12 @@ osmo:use_case_entity owl:disjointUnionOf (osmo:use_case osmo:use_case_aspect).
 
 osmo:use_case a owl:Class;
    rdfs:subClassOf osmo:section, osmo:use_case_entity, evmpo:annotation, mmto:application_case;
-   owl:equivalentClass mmto:use_case;
-   rdfs:comment "use case (i.e., in MODA: user case)"^^xs:string.
+   owl:intersectionOf (mmto:application_case osmo:section);
+   rdfs:comment "use case (i.e., in MODA: 'user case')"^^xs:string.
 osmo:op_use_case a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty;
-   owl:equivalentClass mmto:op_use_case.
+   rdfs:subClassOf owl:ObjectProperty.
 osmo:dp_use_case a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty;
-   owl:equivalentClass mmto:dp_use_case.
+   rdfs:subClassOf owl:DatatypeProperty.
 osmo:op_section rdfs:subClassOf osmo:op_use_case.
 osmo:dp_section rdfs:subClassOf osmo:dp_use_case.
 osmo:op_use_case_entity rdfs:subClassOf osmo:op_use_case.
@@ -2298,7 +2295,7 @@ osmo:is_constant a osmo:dp_logical_variable;
    rdfs:range xs:boolean.
 osmo:is_encoded_by a osmo:op_logical_variable;
    rdfs:domain osmo:logical_variable;
-   rdfs:range osmo:io_format;
+   rdfs:range macro:io_format;
    rdfs:comment "format by which the present logical variable is represented in the technical implementation of a simulation workflow"^^xs:string;
    rdfs:subPropertyOf evmpo:has_annotation.
 
@@ -2694,87 +2691,3 @@ osmo:dp_material_information_uf a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 osmo:op_unit_function rdfs:subClassOf osmo:op_material_information_uf.
 osmo:dp_unit_function rdfs:subClassOf osmo:dp_material_information_uf.
-
-osmo:deviation_assertion a owl:Class;
-   rdfs:subClassOf evmpo:data_item, evmpo:paradigmatic_entity;
-   owl:equivalentClass vivo:accuracy_assertion;
-   rdfs:comment "deviation assertion, i.e., statement on an uncertainty, error, or deviation from the most accurate possible value"^^xs:string.
-osmo:op_deviation_assertion a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_deviation_assertion a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_data_item rdfs:subClassOf osmo:op_deviation_assertion.
-evmpo:dp_data_item rdfs:subClassOf osmo:dp_deviation_assertion.
-evmpo:op_paradigmatic_entity rdfs:subClassOf osmo:op_deviation_assertion.
-evmpo:dp_paradigmatic_entity rdfs:subClassOf osmo:dp_deviation_assertion.
-vivo:op_accuracy_assertion owl:equivalentClass osmo:op_deviation_assertion.
-vivo:dp_accuracy_assertion owl:equivalentClass osmo:dp_deviation_assertion.
-
-osmo:has_deviation_magnitude a osmo:dp_deviation_assertion, owl:FunctionalProperty;
-   rdfs:domain osmo:deviation_assertion;
-   rdfs:range xs:decimal;
-   rdfs:subPropertyOf vivo:asserts_magnitude;
-   owl:equivalentProperty vivo:has_deviation_magnitude.
-osmo:has_deviation_unit a osmo:dp_deviation_assertion, owl:FunctionalProperty;
-   rdfs:domain osmo:deviation_assertion;
-   rdfs:range qudt:Unit, vivo:unit;
-   rdfs:subPropertyOf vivo:has_unit, evmpo:has_information_content_entity_annotation.
-osmo:has_reference_material a osmo:op_deviation_assertion;
-   rdfs:domain osmo:deviation_assertion;
-   rdfs:range osmo:material;
-   rdfs:subPropertyOf vivo:refers_to_material.
-osmo:has_reference_property a osmo:op_deviation_assertion, owl:FunctionalProperty;
-   rdfs:domain osmo:deviation_assertion;
-   rdfs:range vivo:property, evmpo:property;
-   rdfs:subPropertyOf vivo:refers_to_property.
-osmo:is_absolute_deviation a osmo:dp_deviation_assertion, owl:FunctionalProperty;
-   rdfs:domain osmo:deviation_assertion;
-   rdfs:range xs:boolean.
-osmo:is_relative_deviation a osmo:dp_deviation_assertion, owl:FunctionalProperty;
-   rdfs:domain osmo:deviation_assertion;
-   rdfs:range xs:boolean.
-
-osmo:computational_entity a owl:Class;
-   rdfs:subClassOf evmpo:marketplace_related_entity;
-   owl:equivalentClass macro:computational_entity;
-   rdfs:comment "computational entity, i.e., a computational resource or a pheonomenon or attribute associated with a computational resource"^^xs:string.
-osmo:op_computational_entity a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty;
-   owl:equivalentClass macro:op_computational_entity.
-osmo:dp_computational_entity a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty;
-   owl:equivalentClass macro:dp_computational_entity.
-evmpo:op_marketplace_related_entity rdfs:subClassOf osmo:op_computational_entity.
-evmpo:dp_marketplace_related_entity rdfs:subClassOf osmo:dp_computational_entity.
-
-osmo:io_format a owl:Class;
-   rdfs:subClassOf osmo:computational_entity, evmpo:annotation, edam:format_1915;  # Format in EDAM
-   owl:equivalentClass macro:io_format;
-   rdfs:comment "I/O format, i.e., syntactical convention to which a technical I/O implementation can adhere"^^xs:string.
-osmo:op_io_format a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty;
-   owl:equivalentClass macro:op_io_format.
-osmo:dp_io_format a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty;
-   owl:equivalentClass macro:dp_io_format.
-osmo:op_computational_entity rdfs:subClassOf osmo:op_io_format.
-osmo:dp_computational_entity rdfs:subClassOf osmo:dp_io_format.
-evmpo:op_annotation rdfs:subClassOf osmo:op_io_format.
-evmpo:dp_annotation rdfs:subClassOf osmo:dp_io_format.
-
-osmo:has_definition_uri a macro:dp_io_format;
-   rdfs:domain osmo:io_format;
-   rdfs:range xs:string;
-   owl:equivalentProperty macro:has_definition_uri.
-osmo:has_format_abbreviation a osmo:dp_io_format;
-   rdfs:domain osmo:io_format;
-   rdfs:range xs:string;
-   owl:equivalentProperty macro:has_format_abbreviation.
-osmo:has_format_name a osmo:dp_io_format;
-   rdfs:domain osmo:io_format;
-   rdfs:range xs:string;
-   owl:equivalentProperty macro:has_format_name.
-osmo:has_format_version a osmo:dp_io_format;
-   rdfs:domain osmo:io_format;
-   rdfs:range xs:string;
-   owl:equivalentProperty macro:has_format_version.

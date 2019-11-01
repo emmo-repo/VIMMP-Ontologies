@@ -1,9 +1,9 @@
 
 ### VIMMP COMMUNICATION ONTOLOGY (VICO) ###
 
-### VERSION 0.8.7 ###
+### VERSION 0.8.8 ###
 
-### DATED 31ST OCTOBER 2019 ###
+### DATED 1ST NOVEMBER 2019 ###
 
 @prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
 
@@ -124,70 +124,17 @@ vico:op_statement rdfs:subClassOf vico:op_appendix_statement.
 vico:dp_statement rdfs:subClassOf vico:dp_appendix_statement.
 
 vico:validation_communication a owl:Class;
-   rdfs:subClassOf vico:communication, vivo:validation_entity;
-   owl:equivalentClass vivo:validation_communication;
+   rdfs:subClassOf evmpo:communication, vivo:validation_entity;
+   owl:intersectionOf (evmpo:communication vivo:validation_entity);
    rdfs:comment "validation communication, i.e., a communication which, as its main feature or purpose, relates to validation"^^xs:string.
 vico:op_validation_communication a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty;
-   owl:equivalentClass vivo:op_validation_communication.
+   rdfs:subClassOf owl:ObjectProperty.
 vico:dp_translation_communication a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty;
-   owl:equivalentClass vivo:dp_validation_communication.
-vico:op_communication rdfs:subClassOf vico:op_validation_communication.
-vico:dp_communication rdfs:subClassOf vico:dp_validation_communication.
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_communication rdfs:subClassOf vico:op_validation_communication.
+evmpo:dp_communication rdfs:subClassOf vico:dp_validation_communication.
 vivo:op_validation_entity rdfs:subClassOf vico:op_validation_communication.
 vivo:dp_validation_entity rdfs:subClassOf vico:dp_validation_communication.
-
-vico:validation_statement a owl:Class;
-   rdfs:subClassOf vico:statement, vico:validation_communication;
-   owl:equivalentClass vivo:validation_statement;
-   owl:intersection (vico:validation_communication vico:statement);
-   rdfs:comment "validation statement, i.e., a statement which, as its main feature or purpose, relates to validation"^^xs:string.
-vico:op_validation_statement a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty;
-   owl:equivalentClass vivo:op_validation_statement.
-vico:dp_validation_statement a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty;
-   owl:equivalentClass vivo:op_validation_statement.
-vico:op_validation_communication rdfs:subClassOf vico:op_validation_statement.
-vico:dp_validation_communication rdfs:subClassOf vico:dp_validation_statement.
-vico:op_statement rdfs:subClassOf vico:op_validation_statement.
-vico:dp_statement rdfs:subClassOf vico:dp_validation_statement.
-
-vico:certificate a owl:Class;
-   rdfs:subClassOf vico:appendix_statement, vico:validation_statement;
-   owl:equivalentClass vivo:certificate;
-   rdfs:comment "certificate, i.e., an appendix statement by which an assessment is stated"^^xs:string.
-vico:op_certificate a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty;
-   owl:equivalentClass vivo:op_certificate.
-vico:dp_certificate a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty;
-   owl:equivalentClass vivo:dp_certificate.
-vico:op_appendix_statement rdfs:subClassOf vico:op_certificate.
-vico:dp_appendix_statement rdfs:subClassOf vico:dp_certificate.
-vico:op_validation_statement rdfs:subClassOf vico:op_certificate.
-vico:dp_validation_statement rdfs:subClassOf vico:dp_certificate.
-
-vico:has_certifier a vico:op_certificate;
-   rdfs:domain vico:certificate;
-   rdfs:range cviii:certifier;
-   owl:inverseOf cviii:is_certifier_of;
-   rdfs:comment "connects a certificate to the certifier who is responsible for the included assessment (not necessarily identical with the author who communicates the certificate)"^^xs:string.
-vico:states_assessment a vico:op_certificate;
-   rdfs:domain vico:certificate;
-   rdfs:range vivo:assessment;
-   owl:equivalentProperty vivo:states_assessment.
-
-vico:certificate rdfs:subClassOf [
-      a owl:Restriction;
-      owl:onProperty vico:has_certifier;
-      owl:someValuesFrom cviii:certifier
-   ], [
-      a owl:Restriction;
-      owl:onProperty vico:states_assessment;
-      owl:someValuesFrom vivo:assessment
-   ].
 
 vico:access_rule a owl:Class;
    rdfs:subClassOf evmpo:annotation;
@@ -298,7 +245,7 @@ vico:has_assignee a vico:op_message;
    owl:inverseOf cviii:is_assignee_of.
 vico:has_certificate a vico:op_message;
    rdfs:domain vico:message;
-   rdfs:range vico:certificate;
+   rdfs:range vivo:certificate;
    rdfs:subPropertyOf vico:has_appendix.
 vico:has_comment a vico:op_message;
    rdfs:domain vico:message;
@@ -439,32 +386,13 @@ vico:signal_i_like a owl:Class;
 
 vico:translation_communication a owl:Class;
    rdfs:subClassOf vico:communication;
-   owl:equivalentClass mmto:translation_communication;
    rdfs:comment "translation communication, i.e., a communication which, as its main feature or purpose, relates to translation"^^xs:string.
 vico:op_translation_communication a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty;
-   owl:equivalentClass mmto:op_translation_communication.
+   rdfs:subClassOf owl:ObjectProperty.
 vico:dp_translation_communication a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty;
-   owl:equivalentClass mmto:dp_translation_communication.
+   rdfs:subClassOf owl:DatatypeProperty.
 vico:op_communication rdfs:subClassOf vico:op_translation_communication.
 vico:dp_communication rdfs:subClassOf vico:dp_translation_communication.
-
-vico:translation_statement a owl:Class;
-   rdfs:subClassOf vico:statement, vico:translation_communication;
-   owl:equivalentClass mmto:translation_statement;
-   owl:intersection (vico:translation_communication vico:statement);
-   rdfs:comment "translation statement, i.e., a statement which, as its main feature or purpose, relates to translation"^^xs:string.
-vico:op_translation_statement a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty;
-   owl:equivalentClass mmto:op_translation_statement.
-vico:dp_translation_statement a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty;
-   owl:equivalentClass mmto:op_translation_statement.
-vico:op_translation_communication rdfs:subClassOf vico:op_translation_statement.
-vico:dp_translation_communication rdfs:subClassOf vico:dp_translation_statement.
-vico:op_statement rdfs:subClassOf vico:op_translation_statement.
-vico:dp_statement rdfs:subClassOf vico:dp_translation_statement.
 
 vico:legal_communication a owl:Class;
    rdfs:subClassOf vico:communication;
