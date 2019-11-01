@@ -1,7 +1,7 @@
 
 ### VIMMP VALIDATION ONTOLOGY (VIVO) ###
 
-### VERSION 0.3.5 ###
+### VERSION 0.3.6 ###
 
 ### DATED 1ST NOVEMBER 2019 ###
 
@@ -33,7 +33,7 @@ vivo:dp_validation_entity a owl:Class;
 evmpo:op_paradigmatic_entity rdfs:subClassOf vivo:op_validation_entity.
 evmpo:dp_paradigmatic_entity rdfs:subClassOf vivo:dp_validation_entity.
 
-vivo:validation_entity owl:unionOf (vivo:assertion vivo:assessment vico:validation_communication vivo:validation_infrastructure vivo:property).
+vivo:validation_entity owl:unionOf (vivo:assertion vivo:assessment vivo:validation_statement vivo:validation_infrastructure vivo:property).
 
 vivo:accuracy_entity a owl:Class;
    rdfs:subClassOf vivo:validation_entity.
@@ -497,8 +497,6 @@ vivo:dp_review_assessment rdfs:subClassOf vivo:dp_endorsement_assessment.
 # COMMUNICATION BRANCH OF VIVO #
 ################################
 
-vico:validation_communication owl:disjointWith vivo:property, vivo:validation_infrastructure.
-
 vivo:validation_statement a owl:Class;
    rdfs:subClassOf vico:statement, vico:validation_communication;
    owl:intersection (vico:validation_communication vico:statement);
@@ -511,6 +509,8 @@ vico:op_validation_communication rdfs:subClassOf vivo:op_validation_statement.
 vivo:dp_validation_communication rdfs:subClassOf vivo:dp_validation_statement.
 vico:op_statement rdfs:subClassOf vivo:op_validation_statement.
 vico:dp_statement rdfs:subClassOf vivo:dp_validation_statement.
+
+vivo:validation_statement owl:disjointWith vivo:property, vivo:validation_infrastructure.
 
 vivo:certificate a owl:Class;
    rdfs:subClassOf vivo:validation_statement;
@@ -561,7 +561,7 @@ evmpo:dp_infrastructure rdfs:subClassOf vivo:dp_validation_infrastructure.
 macro:op_infrastructure rdfs:subClassOf vivo:op_validation_infrastructure.
 macro:dp_infrastructure rdfs:subClassOf vivo:dp_validation_infrastructure.
 
-vivo:validation_infrastructure owl:disjointWith vivo:assertion, vivo:assessment, vivo:property, vico:validation_communication.
+vivo:validation_infrastructure owl:disjointWith vivo:assertion, vivo:assessment, vivo:property, vivo:validation_statement.
 
 vivo:validation_channel a owl:Class;
    rdfs:subClassOf vivo:validation_infrastructure, macro:channel;
@@ -609,7 +609,7 @@ vivo:dp_property a owl:Class;
 evmpo:op_paradigmatic_entity rdfs:subClassOf vivo:op_property.
 evmpo:dp_paradigmatic_entity rdfs:subClassOf vivo:dp_property.
 
-vivo:property owl:disjointWith vivo:assertion, vivo:assessment, vico:validation_communication, vivo:validation_infrastructure.
+vivo:property owl:disjointWith vivo:assertion, vivo:assessment, vivo:validation_statement, vivo:validation_infrastructure.
 
 vivo:material_property a owl:Class;
    rdfs:subClassOf vivo:property, osmo:logical_variable;
