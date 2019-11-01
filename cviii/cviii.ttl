@@ -1,9 +1,9 @@
 
 ### CATEGORIZATION OF VIMMP INSTITUTIONS AND INDIVIDUALS (CVIII) ###
 
-### VERSION 0.9.4 ###
+### VERSION 0.9.5 ###
 
-### DATED 31ST OCTOBER 2019 ###
+### DATED 1ST NOVEMBER 2019 ###
 
 @prefix cviii: <http://www.vimmp.eu/semantics/cviii/cviii.ttl#>.
 
@@ -443,7 +443,8 @@ cviii:dp_interlocutor rdfs:subClassOf cviii:dp_training_provider.
 
 cviii:translator a owl:Class;
    rdfs:subClassOf cviii:interlocutor;
-   owl:equivalentClass evmpo:translator.
+   owl:equivalentClass evmpo:translator;
+   rdfs:comment "translator as characterized by the EMMC Translators' Guide and the EMMC Translation Case Template"^^xs:string.
 cviii:op_translator a owl:Class;
    rdfs:subClassOf owl:ObjectProperty;
    owl:equivalentClass evmpo:op_translator.
@@ -452,6 +453,20 @@ cviii:dp_translator a owl:Class;
    owl:equivalentClass evmpo:dp_translator.
 cviii:op_interlocutor rdfs:subClassOf cviii:op_translator.
 cviii:dp_interlocutor rdfs:subClassOf cviii:dp_translator.
+
+cviii:technology_transfer_institute a owl:Class;
+   rdfs:subClassOf cviii:translator, cviii:institution;
+   rdfs:comment "Technology Transfer Institute (TTI), cf. the EMMC Translation Case Template"^^xs:string.
+cviii:op_technology_transfer_institute a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty;
+   owl:equivalentClass evmpo:op_translator.
+cviii:dp_technology_transfer_institute a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty;
+   owl:equivalentClass evmpo:dp_translator.
+cviii:op_translator rdfs:subClassOf cviii:op_technology_transfer_institute.
+cviii:dp_translator rdfs:subClassOf cviii:dp_technology_transfer_institute.
+cviii:op_institution rdfs:subClassOf cviii:op_technology_transfer_institute.
+cviii:dp_institution rdfs:subClassOf cviii:dp_technology_transfer_institute.
 
 cviii:pseudonym a owl:Class;
    rdfs:subClassOf cviii:marketplace_subject, cviii:virtual_agent.

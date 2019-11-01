@@ -1,9 +1,9 @@
 
 ### VIMMP VALIDATION ONTOLOGY (VIVO) ###
 
-### VERSION 0.3.3 ###
+### VERSION 0.3.4 ###
 
-### DATED 31ST OCTOBER 2019 ###
+### DATED 1ST NOVEMBER 2019 ###
 
 @prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
 
@@ -12,13 +12,13 @@
 @prefix iao: <http://purl.obolibrary.org/obo/iao.owl#>.
 @prefix ical: <https://www.w3.org/2002/12/cal/icaltzd#>.
 @prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
+@prefix mmto: <http://www.vimmp.eu/semantics/mmto/mmto.ttl#>.
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
 @prefix qudt: <http://qudt.org/schema/qudt/>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
-@prefix vto: <http://www.vimmp.eu/semantics/vto/vto.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
 <http://www.vimmp.eu/semantics/vivo/vivo.ttl#> a owl:Ontology.
@@ -388,7 +388,7 @@ vivo:dp_assessment rdfs:subClassOf vivo:dp_project_assessment.
 
 vivo:evaluates_project a vivo:op_model_assessment;
    rdfs:domain vivo:project_assessment;
-   rdfs:range vto:project;
+   rdfs:range mmto:project;
    rdfs:subPropertyOf vivo:evaluates.
 
 vivo:project_assessment owl:disjointWith vivo:accuracy_assessment.

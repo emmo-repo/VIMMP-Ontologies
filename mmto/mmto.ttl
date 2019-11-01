@@ -1,0 +1,273 @@
+
+### MATERIALS MODELLING TRANSLATION ONTOLOGY (MMTO) ###
+
+### VERSION 0.6.0 ###
+
+### DATED 1ST NOVEMBER 2019 ###
+
+@prefix mmto: <http://www.vimmp.eu/semantics/mmto/mmto.ttl#>.
+
+@prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
+@prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
+@prefix xs: <http://www.w3.org/2001/XMLSchema#>.
+
+<http://www.vimmp.eu/semantics/mmto/mmto.ttl#> a owl:Ontology.
+
+mmto:translation_entity a owl:Class;
+   rdfs:subClassOf evmpo:marketplace_related_entity;
+   rdfs:comment "translation entity, i.e., a paradigmatic entity related to translating materials modelling problems to appropriate solutions"^^xs:string.
+mmto:op_translation_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_translation_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_marketplace_related_entity rdfs:subClassOf mmto:op_translation_entity.
+evmpo:dp_marketplace_related_entity rdfs:subClassOf mmto:dp_translation_entity.
+
+mmto:project a owl:Class;
+   rdfs:subClassOf mmto:translation_entity, evmpo:process;
+   rdfs:comment "project, i.e., an undertaking of one or several stakeholders aiming at reaching a pre-specified objective within limited time"^^xs:string.
+mmto:op_project a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_project a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_translation_entity rdfs:subClassOf mmto:op_project.
+mmto:dp_translation_entity rdfs:subClassOf mmto:dp_project.
+evmpo:op_process rdfs:subClassOf mmto:op_project.
+evmpo:dp_process rdfs:subClassOf mmto:dp_project.
+
+mmto:mm_project a owl:Class;
+   rdfs:subClassOf mmto:project;
+   rdfs:comment "materials modelling project, i.e., a project that aims at realizing a materials modelling workflow that can be represented by MODA/OSMO"^^xs:string.
+mmto:op_mm_project a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_mm_project a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_project rdfs:subClassOf mmto:op_mm_project.
+mmto:dp_project rdfs:subClassOf mmto:dp_mm_project.
+
+mmto:application_case a owl:Class;
+   rdfs:subClassOf mmto:translation_entity, evmpo:annotation;
+   rdfs:comment "application case, i.e., a scenario, point of view, or subjective or negotiated set of aims"^^xs:string.
+mmto:op_application_case a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_application_case a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_translation_entity rdfs:subClassOf mmto:op_application_case.
+mmto:dp_translation_entity rdfs:subClassOf mmto:dp_application_case.
+evmpo:op_annotation rdfs:subClassOf mmto:op_application_case.
+evmpo:dp_annotation rdfs:subClassOf mmto:dp_application_case.
+
+mmto:business_case a owl:Class;
+   rdfs:subClassOf mmto:application_case;
+   rdfs:comment "business case, i.e., an application case with a focus on economic/business aspects"^^xs:string.
+mmto:op_business_case a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_business_case a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_application_case rdfs:subClassOf mmto:op_business_case.
+mmto:dp_application_case rdfs:subClassOf mmto:dp_business_case.
+
+mmto:industrial_case a owl:Class;
+   rdfs:subClassOf mmto:application_case;
+   rdfs:comment "industrial case, i.e., an application case with a focus on industrial/manufacturing aspects"^^xs:string.
+mmto:op_industrial_case a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_industrial_case a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_application_case rdfs:subClassOf mmto:op_industrial_case.
+mmto:dp_application_case rdfs:subClassOf mmto:dp_industrial_case.
+
+mmto:translation_case a owl:Class;
+   rdfs:subClassOf mmto:application_case;
+   rdfs:comment "translation case, i.e., an application case that can be described as specified by the EMMC Translation Case template"^^xs:string.
+mmto:op_translation_case a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_translation_case a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_application_case rdfs:subClassOf mmto:op_translation_case.
+mmto:dp_application_case rdfs:subClassOf mmto:dp_translation_case.
+
+mmto:use_case a owl:Class;
+   rdfs:subClassOf mmto:application_case, osmo:section;
+   owl:intersectionOf (mmto:application_case osmo:section);
+   owl:equivalentClass osmo:use_case;
+   rdfs:comment "use case as defined by MODA and OSMO"^^xs:string.
+mmto:op_use_case a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty;
+   owl:equivalentClass osmo:op_use_case.
+mmto:dp_use_case a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty;
+   owl:equivalentClass osmo:dp_use_case.
+mmto:op_application_case rdfs:subClassOf mmto:op_use_case.
+mmto:dp_application_case rdfs:subClassOf mmto:dp_use_case.
+osmo:op_section rdfs:subClassOf mmto:op_use_case.
+osmo:dp_section rdfs:subClassOf mmto:dp_use_case.
+
+mmto:translation_communication a owl:Class;
+   rdfs:subClassOf mmto:translation_entity, evmpo:communication;
+   owl:equivalentClass vico:translation_communication;
+   rdfs:comment "translation communication, i.e., a EVMPO/VICO communication which, as its main feature or purpose, relates to translation"^^xs:string.
+mmto:op_translation_communication a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty;
+   owl:equivalentClass vico:op_translation_communication.
+mmto:dp_translation_communication a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty;
+   owl:equivalentClass vico:dp_translation_communication.
+mmto:op_translation_entity rdfs:subClassOf mmto:op_translation_communication.
+mmto:dp_translation_entity rdfs:subClassOf mmto:dp_translation_communication.
+mmto:op_communication rdfs:subClassOf mmto:op_translation_communication.
+mmto:dp_communication rdfs:subClassOf mmto:dp_translation_communication.
+
+mmto:translation_statement a owl:Class;
+   rdfs:subClassOf evmpo:statement, mmto:translation_communication;
+   owl:equivalentClass vico:translation_statement;
+   owl:intersection (mmto:translation_communication evmpo:statement);
+   rdfs:comment "translation statement, i.e., a EVMPO/VICO statement which, as its main feature or purpose, relates to translation"^^xs:string.
+mmto:op_translation_statement a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty;
+   owl:equivalentClass vico:op_translation_statement.
+vico:dp_translation_statement a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty;
+   owl:equivalentClass vico:op_translation_statement.
+vico:op_translation_communication rdfs:subClassOf vico:op_translation_statement.
+vico:dp_translation_communication rdfs:subClassOf vico:dp_translation_statement.
+evmpo:op_statement rdfs:subClassOf vico:op_translation_statement.
+evmpo:dp_statement rdfs:subClassOf vico:dp_translation_statement.
+
+mmto:translation_statement owl:disjointUnionOf (mmto:modelling_statement mmto:negotiation_statement mmto:project_statement).
+
+mmto:modelling_statement a owl:Class;
+   rdfs:subClassOf mmto:translation_statement;
+   rdfs:comment "modelling statement, i.e., a translation statement that relates to a MODA graph and/or user case (following OSMO)"^^xs:string.
+mmto:op_modelling_statement a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_modelling_statement a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_translation_statement rdfs:subClassOf mmto:op_modelling_statement.
+mmto:dp_translation_statement rdfs:subClassOf mmto:dp_modelling_statement.
+
+mmto:modelling_statement owl:disjointUnionOf (mmto:problem_statement mmto:solution_statement).
+
+mmto:problem_statement a owl:Class;
+   rdfs:subClassOf mmto:modelling_statement;
+   rdfs:comment "problem statement, i.e., a MODA statement that discusses a user case from the user-side point of view, in terms of MODA section 1"^^xs:string.
+mmto:op_problem_statement a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_problem_statement a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_modelling_statement rdfs:subClassOf mmto:op_problem_statement.
+mmto:dp_modelling_statement rdfs:subClassOf mmto:dp_problem_statement.
+
+mmto:solution_statement a owl:Class;
+   rdfs:subClassOf mmto:modelling_statement;
+   rdfs:comment "solution statement, i.e., a MODA statement by which a modelling and simulation solution is provided in response to a problem statement"^^xs:string.
+mmto:op_solution_statement a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_solution_statement a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_modelling_statement rdfs:subClassOf mmto:op_solution_statement.
+mmto:dp_modelling_statement rdfs:subClassOf mmto:dp_solution_statement.
+
+mmto:negotiation_statement a owl:Class;
+   rdfs:subClassOf mmto:translation_statement, evmpo:interlocution;
+   rdfs:comment "negotiation statement, i.e., a translation statement that relates to negotiations on a materials modelling project"^^xs:string.
+mmto:op_negotiation_statement a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_negotiation_statement a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_translation_statement rdfs:subClassOf mmto:op_negotiation_statement.
+mmto:dp_translation_statement rdfs:subClassOf mmto:dp_negotiation_statement.
+evmpo:op_interlocution rdfs:subClassOf mmto:op_negotiation_statement.
+evmpo:dp_interlocution rdfs:subClassOf mmto:dp_negotiation_statement.
+
+mmto:negotiation_statement owl:disjointUnionOf (mmto:interest_statement mmto:decision_statement).
+
+mmto:interest_statement a owl:Class;
+   rdfs:subClassOf mmto:negotiation_statement;
+   rdfs:comment "interest statement, i.e., a negotiation statement by which a translator or model provider announces that he will propose a solution to a problem statement"^^xs:string.
+mmto:op_interest_statement a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_interest_statement a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_negotiation_statement rdfs:subClassOf mmto:op_interest_statement.
+mmto:dp_negotiation_statement rdfs:subClassOf mmto:dp_interest_statement.
+
+mmto:decision_statement a owl:Class;
+   rdfs:subClassOf mmto:negotiation_statement;
+   rdfs:comment "decision statement, i.e., a negotiation statement by which an end user communicates a final decision on a proposed solution statement"^^xs:string.
+mmto:op_decision_statement a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_decision_statement a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_negotiation_statement rdfs:subClassOf mmto:op_decision_statement.
+mmto:dp_negotiation_statement rdfs:subClassOf mmto:dp_decision_statement.
+
+mmto:decision_statement owl:disjointUnionOf (mmto:acceptance_statement mmto:rejection_statement).
+
+mmto:acceptance_statement a owl:Class;
+   rdfs:subClassOf mmto:decision_statement;
+   rdfs:comment "acceptance statement, i.e., a decision statement by which a solution statement is accepted, so that a materials modelling project can begin"^^xs:string.
+mmto:op_acceptance_statement a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_acceptance_statement a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_decision_statement rdfs:subClassOf mmto:op_acceptance_statement.
+mmto:dp_decision_statement rdfs:subClassOf mmto:dp_acceptance_statement.
+
+mmto:rejection_statement a owl:Class;
+   rdfs:subClassOf mmto:decision_statement;
+   rdfs:comment "acceptance statement, i.e., a decision statement by which a solution statement is rejected (not leading to a materials modelling project)"^^xs:string.
+mmto:op_acceptance_statement a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_acceptance_statement a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_decision_statement rdfs:subClassOf mmto:op_acceptance_statement.
+mmto:dp_decision_statement rdfs:subClassOf mmto:dp_acceptance_statement.
+
+mmto:project_statement a owl:Class;
+   rdfs:subClassOf mmto:translation_statement, evmpo:declaration;
+   rdfs:comment "project statement, i.e., a translation statement that relates to an agreed materials modelling project"^^xs:string.
+mmto:op_project_statement a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_project_statement a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_translation_statement rdfs:subClassOf mmto:op_project_statement.
+mmto:dp_translation_statement rdfs:subClassOf mmto:dp_project_statement.
+evmpo:op_declaration rdfs:subClassOf mmto:op_project_statement.
+evmpo:dp_declaration rdfs:subClassOf mmto:dp_project_statement.
+
+mmto:project_statement owl:disjointUnionOf (mmto:opening_statement mmto:status_statement mmto:closing_statement).
+
+mmto:opening_statement a owl:Class;
+   rdfs:subClassOf mmto:project_statement;
+   rdfs:comment "opening statement, i.e., a project statement by which a materials modelling project is initialized"^^xs:string.
+mmto:op_opening_statement a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_opening_statement a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_project_statement rdfs:subClassOf mmto:op_opening_statement.
+mmto:dp_project_statement rdfs:subClassOf mmto:dp_opening_statement.
+
+mmto:status_statement a owl:Class;
+   rdfs:subClassOf mmto:project_statement;
+   rdfs:comment "status statement, i.e., a project statement by which the status of an ongoing materials modelling project is communicated"^^xs:string.
+mmto:op_status_statement a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_status_statement a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_project_statement rdfs:subClassOf mmto:op_status_statement.
+mmto:dp_project_statement rdfs:subClassOf mmto:dp_status_statement.
+
+mmto:closing_statement a owl:Class;
+   rdfs:subClassOf mmto:project_statement;
+   rdfs:comment "closing statement, i.e., a project statement by which a materials modelling project is finalized"^^xs:string.
+mmto:op_closing_statement a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_closing_statement a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_project_statement rdfs:subClassOf mmto:op_closing_statement.
+mmto:dp_project_statement rdfs:subClassOf mmto:dp_closing_statement.
