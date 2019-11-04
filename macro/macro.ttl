@@ -1,15 +1,17 @@
 
 ### MARKETPLACE-ACCESSIBLE COMPUTATIONAL RESOURCE ONTOLOGY (MACRO) ###
 
-### VERSION 0.1.1 ###
+### VERSION 0.2.0 ###
 
-### DATED 1ST NOVEMBER 2019 ###
+### DATED 4TH NOVEMBER 2019 ###
 
 @prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
 
 @prefix cviii: <http://www.vimmp.eu/semantics/cviii/cviii.ttl#>.
 @prefix edam: <http://edamontology.org/>.
 @prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
+@prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
+@prefix viso: <http://www.vimmp.eu/semantics/viso/viso.ttl#>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
@@ -204,7 +206,7 @@ macro:MARKETPLACE_MARKETPLACE a macro:virtual_marketplace.
 macro:MARKET40_MARKETPLACE a macro:virtual_marketplace.
 
 macro:io_format a owl:Class;
-   rdfs:subClassOf macro:computational_entity, evmpo:annotation, edam:format_1915;  # Format in EDAM
+   rdfs:subClassOf macro:computational_entity, evmpo:annotation;
    rdfs:comment "I/O format, i.e., syntactical convention to which a technical I/O implementation can adhere"^^xs:string.
 macro:op_io_format a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
@@ -227,28 +229,63 @@ macro:has_format_name a macro:dp_io_format;
 macro:has_format_version a macro:dp_io_format;
    rdfs:domain macro:io_format;
    rdfs:range xs:string.
+macro:is_supported_by a macro:op_io_format;
+   rdfs:domain macro:io_format;
+   rdfs:range viso:software.
 
 macro:io_format owl:unionOf (macro:file_format macro:memory_format macro:stream_format).
 
 macro:file_format a owl:Class;
    rdfs:subClassOf macro:io_format;
+   owl:equivalentClass edam:format_1915;  # "Format" in EDAM
    rdfs:comment "file format, i.e., a syntactical standard for files"^^xs:string.
 macro:op_file_format a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 macro:dp_file_format a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 macro:op_io_format rdfs:subClassOf macro:op_file_format.
-macro:dp_io_format rdfs:subClassOf macro:op_file_format.
+macro:dp_io_format rdfs:subClassOf macro:dp_file_format.
 
-macro:memory_format a owl:Class;
-   rdfs:subClassOf macro:io_format;
-   rdfs:comment "memory format, i.e., an agreed way of representing information technically in memory"^^xs:string.
-macro:op_memory_format a owl:Class;
+macro:has_file_ending a macro:dp_file_format;
+   rdfs:domain macro:file_format;
+   rdfs:range xs:string.
+
+macro:file_format owl:disjointUnionOf (macro:binary_file_format macro:textual_file_format).
+
+macro:binary_file_format a owl:Class;
+   rdfs:subClassOf macro:file_format;
+   owl:equivalentClass edam:format_2333;  # "Binary format" in EDAM
+   rdfs:comment "binary file format, i.e., any file format not encoded in ASCII, Unicode, or comparable"^^xs:string.
+macro:op_binary_file_format a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-macro:dp_memory_format a owl:Class;
+macro:dp_binary_file_format a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-macro:op_io_format rdfs:subClassOf macro:op_memory_format.
-macro:dp_io_format rdfs:subClassOf macro:op_memory_format.
+macro:op_file_format rdfs:subClassOf macro:op_binary_file_format.
+macro:dp_file_format rdfs:subClassOf macro:dp_binary_file_format.
+
+macro:textual_file_format a owl:Class;
+   rdfs:subClassOf macro:file_format;
+   owl:equivalentClass edam:format_2330;  # "Textual format" in EDAM
+   rdfs:comment "textual file format, i.e., any file format encoded in ASCII, Unicode, or comparable"^^xs:string.
+macro:op_textual_file_format a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+macro:dp_textual_file_format a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+macro:op_file_format rdfs:subClassOf macro:op_textual_file_format.
+macro:dp_file_format rdfs:subClassOf macro:dp_textual_file_format.
+
+edam:format_2332 a owl:Class;  # "XML" in EDAM
+   rdfs:subClassOf macro:file_format.
+
+macro:textual_xml_format a owl:Class;
+   rdfs:subClassOf macro:textual_file_format, edam:format_2332;  # "XML" in EDAM
+   rdfs:comment "textual XML format, i.e., an XML-based textual file format"^^xs:string.
+macro:op_textual_xml_format a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+macro:dp_textual_xml_format a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+macro:op_textual_file_format rdfs:subClassOf macro:op_textual_xml_format.
+macro:dp_textual_file_format rdfs:subClassOf macro:dp_textual_xml_format.
 
 macro:stream_format a owl:Class;
    rdfs:subClassOf macro:io_format;
@@ -258,4 +295,129 @@ macro:op_stream_format a owl:Class;
 macro:dp_stream_format a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 macro:op_io_format rdfs:subClassOf macro:op_stream_format.
-macro:dp_io_format rdfs:subClassOf macro:op_stream_format.
+macro:dp_io_format rdfs:subClassOf macro:dp_stream_format.
+
+macro:materials_modelling_format a owl:Class;
+   rdfs:subClassOf macro:io_format;
+   rdfs:comment "materials modelling format, i.e., an I/O format that represents entities occurring within a model, solver, processor, or workflow in materials modelling"^^xs:string.
+macro:op_materials_modelling_format a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+macro:dp_materials_modelling_format a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+macro:op_io_format rdfs:subClassOf macro:op_materials_modelling_format.
+macro:dp_io_format rdfs:subClassOf macro:dp_materials_modelling_format.
+
+macro:has_granularity a macro:op_materials_modelling_format;
+   rdfs:domain macro:materials_modelling_format;
+   rdfs:range osmo:granularity_level;
+   rdfs:comment "points to the granularity level to which the entities represented in the file format belong"^^xs:string.
+
+macro:materials_relation_format a owl:Class;
+   rdfs:subClassOf macro:materials_modelling_format;
+   rdfs:comment "materials relation format, i.e., an I/O format that encodes a materials relation or part of a materials relation"^^xs:string.
+macro:op_materials_relation_format a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+macro:dp_materials_relation_format a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+macro:op_materials_modelling_format rdfs:subClassOf macro:op_materials_relation_format.
+macro:dp_materials_modelling_format rdfs:subClassOf macro:dp_materials_relation_format.
+
+macro:force_field_format a owl:Class;
+   rdfs:subClassOf macro:materials_relation_format;
+   rdfs:comment "force field format, i.e., a format representing an atomistic or mesoscopic materials relation (force field)"^^xs:string.
+macro:op_force_field_format a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+macro:dp_force_field_format a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+macro:op_materials_relation_format rdfs:subClassOf macro:op_force_field_format.
+macro:dp_materials_relation_format rdfs:subClassOf macro:dp_force_field_format.
+
+macro:force_field_format owl:disjointWith [
+      a owl:Restriction;
+      owl:onProperty macro:has_granularity;
+      owl:hasValue osmo:ATOMISTIC
+   ], [
+      a owl:Restriction;
+      owl:onProperty macro:has_granularity;
+      owl:hasValue osmo:CONTINUUM
+   ].
+
+macro:vocta_data_format a owl:Class;
+   rdfs:subClassOf macro:force_field_format, macro:textual_file_format;
+   rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty macro:has_file_ending;
+      owl:hasValue "data"^^xs:string
+   ], [
+      a owl:Restriction;
+      owl:onProperty macro:has_format_abbreviation;
+      owl:hasValue "VOCTA"^^xs:string
+   ], [
+      a owl:Restriction;
+      owl:onProperty macro:has_format_name;
+      owl:hasValue "VOCTA potential/force format"^^xs:string
+   ], [
+      a owl:Restriction;
+      owl:onProperty macro:has_granularity;
+      owl:hasValue osmo:MESOSCOPIC
+   ];
+   rdfs:comment "VOCTA potential/force format, used by the VOCTA code"^^xs:string.
+macro:op_vocta_data_format a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+macro:dp_vocta_data_format a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+macro:op_force_field_format rdfs:subClassOf macro:op_vocta_data_format.
+macro:dp_force_field_format rdfs:subClassOf macro:dp_vocta_data_format.
+macro:op_textual_file_format rdfs:subClassOf macro:op_vocta_data_format.
+macro:dp_textual_file_format rdfs:subClassOf macro:dp_vocta_data_format.
+
+macro:VOCTA_DATA_FORMAT_1 a macro:vocta_data_format;
+   macro:has_format_version "1.0"^^xs:string;
+   macro:is_supported_by macro:SOFTWARE_VOCTA.
+
+macro:solver_parameter_format a owl:Class;
+   rdfs:subClassOf macro:materials_modelling_format;
+   rdfs:comment "solver parameter format, i.e., an I/O format that is used to steer or parameterize a solver"^^xs:string.
+macro:op_solver_parameter_format a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+macro:dp_solver_parameter_format a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+macro:op_materials_modelling_format rdfs:subClassOf macro:op_solver_parameter_format.
+macro:dp_materials_modelling_format rdfs:subClassOf macro:dp_solver_parameter_format.
+
+macro:vocta_xml_format a owl:Class;
+   rdfs:subClassOf macro:solver_parameter_format, macro:textual_xml_format;
+   rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty macro:has_file_ending;
+      owl:hasValue "xml"^^xs:string
+   ], [
+      a owl:Restriction;
+      owl:onProperty macro:has_format_abbreviation;
+      owl:hasValue "VOCTA"^^xs:string
+   ], [
+      a owl:Restriction;
+      owl:onProperty macro:has_format_name;
+      owl:hasValue "VOCTA control/settings format"^^xs:string
+   ], [
+      a owl:Restriction;
+      owl:onProperty macro:has_granularity;
+      owl:hasValue osmo:MESOSCOPIC
+   ];
+   rdfs:comment "VOCTA control/settings format, used by the VOCTA code"^^xs:string.
+macro:op_vocta_xml_format a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+macro:dp_vocta_xml_format a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+macro:op_solver_parameter_format rdfs:subClassOf macro:op_vocta_xml_format.
+macro:dp_solver_parameter_format rdfs:subClassOf macro:dp_vocta_xml_format.
+macro:op_textual_xml_format rdfs:subClassOf macro:op_vocta_xml_format.
+macro:dp_textual_xml_format rdfs:subClassOf macro:dp_vocta_xml_format.
+
+macro:VOCTA_XML_FORMAT_1 a macro:vocta_xml_format;
+   macro:has_format_version "1.0"^^xs:string;
+   macro:is_supported_by macro:SOFTWARE_VOCTA.
+
+# software package individuals - details to be sorted out within VISO
+#
+macro:SOFTWARE_VOCTA a viso:software.
