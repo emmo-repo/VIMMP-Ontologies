@@ -1,9 +1,9 @@
 
 ### VIMMP COMMUNICATION ONTOLOGY (VICO) ###
 
-### VERSION 0.8.8 ###
+### VERSION 0.8.9 ###
 
-### DATED 1ST NOVEMBER 2019 ###
+### DATED 5TH NOVEMBER 2019 ###
 
 @prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
 
@@ -406,7 +406,7 @@ vico:dp_communication rdfs:subClassOf vico:dp_legal_communication.
 
 vico:legal_statement a owl:Class;
    rdfs:subClassOf vico:statement, vico:legal_communication;
-   owl:intersection (vico:legal_communication vico:statement);
+   owl:intersectionOf (vico:legal_communication vico:statement);
    rdfs:comment "legal statement, i.e., a statement which, as its main feature or purpose, relates to legal, financial, or contractual issues"^^xs:string.
 vico:op_legal_statement a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.

@@ -1,9 +1,9 @@
 
 ### MATERIALS MODELLING TRANSLATION ONTOLOGY (MMTO) ###
 
-### VERSION 0.6.1 ###
+### VERSION 0.6.2 ###
 
-### DATED 1ST NOVEMBER 2019 ###
+### DATED 5TH NOVEMBER 2019 ###
 
 @prefix mmto: <http://www.vimmp.eu/semantics/mmto/mmto.ttl#>.
 
@@ -169,7 +169,7 @@ mmto:has_emmc_tc_attribute a mmto:op_translation_case;
 
 mmto:translation_statement a owl:Class;
    rdfs:subClassOf evmpo:statement, vico:translation_communication;
-   owl:intersection (vico:translation_communication evmpo:statement);
+   owl:intersectionOf (vico:translation_communication evmpo:statement);
    rdfs:comment "translation statement, i.e., a EVMPO/VICO statement which, as its main feature or purpose, relates to translation"^^xs:string.
 mmto:op_translation_statement a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.

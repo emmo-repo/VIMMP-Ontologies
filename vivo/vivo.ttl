@@ -1,9 +1,9 @@
 
 ### VIMMP VALIDATION ONTOLOGY (VIVO) ###
 
-### VERSION 0.3.6 ###
+### VERSION 0.3.7 ###
 
-### DATED 1ST NOVEMBER 2019 ###
+### DATED 5TH NOVEMBER 2019 ###
 
 @prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
 
@@ -499,14 +499,14 @@ vivo:dp_review_assessment rdfs:subClassOf vivo:dp_endorsement_assessment.
 
 vivo:validation_statement a owl:Class;
    rdfs:subClassOf vico:statement, vico:validation_communication;
-   owl:intersection (vico:validation_communication vico:statement);
+   owl:intersectionOf (vico:validation_communication vico:statement);
    rdfs:comment "validation statement, i.e., a statement which, as its main feature or purpose, relates to validation"^^xs:string.
 vivo:op_validation_statement a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 vivo:dp_validation_statement a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 vico:op_validation_communication rdfs:subClassOf vivo:op_validation_statement.
-vivo:dp_validation_communication rdfs:subClassOf vivo:dp_validation_statement.
+vico:dp_validation_communication rdfs:subClassOf vivo:dp_validation_statement.
 vico:op_statement rdfs:subClassOf vivo:op_validation_statement.
 vico:dp_statement rdfs:subClassOf vivo:dp_validation_statement.
 
@@ -598,8 +598,8 @@ cviii:dp_agent rdfs:subClassOf vivo:dp_validation_repository.
 
 vivo:property a owl:Class;
    rdfs:subClassOf vivo:validation_entity;
-   owl:equivalentClass evmpo:property;
-   rdfs:comment "property as defined by the EVMPO"^^xs:string.
+   owl:equivalentClass evmpo:property, emmo:EMMO_a6876b60_21b9_48cf_beed_b9ae7c8f5c98;  # emmo property;
+   rdfs:comment "property as defined by the EVMPO and the EMMO"^^xs:string.
 vivo:op_property a owl:Class;
    rdfs:subClassOf owl:ObjectProperty;
    owl:equivalentClass evmpo:op_property.
@@ -652,16 +652,19 @@ vivo:UNIT_DEBYE_ANGSTROM a vivo:unit, qudt:ElectricityAndMagnetismUnit;
    qudt:conversionOffset 0.0;
    qudt:symbol "DA"^^xs:string;
    qudt:description "Debye Angstrom, i.e., a quadrupole-moment unit, corresponding to 3.33564e-40 C m^2, also referred to as Buckingham"^^xs:string.
+qudt:ElectricityAndMagnetismUnit rdfs:subClassOf vivo:unit.
 vivo:UNIT_KELVIN_BOLTZMANN a vivo:unit, qudt:EnergyAndWorkUnit;
    qudt:conversionMultiplier 1.38065e-23;
    qudt:conversionOffset 0.0;
    qudt:symbol "K k_B"^^xs:string;
    qudt:description "Kelvin x Boltzmann constant, i.e., an energy unit, corresponding to 1.38065e-23 J"^^xs:string.
+qudt:EnergyAndWorkUnit rdfs:subClassOf vivo:unit.
 vivo:UNIT_U a vivo:unit, qudt:MassUnit;  # note: this exists within qudt, but there is a bug in the definition
    qudt:conversionMultiplier 1.660539e-27;
    qudt:conversionOffset 0.0;
    qudt:symbol "u"^^xs:string;
    qudt:description "Unit of mass corresponding to 1 g/mol, also referred to as Dalton"^^xs:string.
+qudt:MassUnit rdfs:subClassOf vivo:unit.
 
 
 # NOTE: THIS BRANCH IS OBSOLETE, NEEDS TO BE REPLACED WITH APPROPRIATE STRUCTURES.

@@ -1654,6 +1654,7 @@ otras:author_map_element rdfs:subClassOf [
 otras:instructor a owl:Class;
    rdfs:subClassOf cviii:expert, cviii:training_provider, ccso:Professor;
    rdfs:comment "instructor, i.e., an individual human agent with expertise who can take responsibility for courses, training units, or training services"^^xs:string.
+ccso:Professor rdfs:subClassOf cviii:agent.
 otras:op_instructor a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 otras:dp_instructor a owl:Class;

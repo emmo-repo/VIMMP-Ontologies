@@ -1,9 +1,9 @@
 
 ### MARKETPLACE-ACCESSIBLE COMPUTATIONAL RESOURCE ONTOLOGY (MACRO) ###
 
-### VERSION 0.2.0 ###
+### VERSION 0.2.1 ###
 
-### DATED 4TH NOVEMBER 2019 ###
+### DATED 5TH NOVEMBER 2019 ###
 
 @prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
 
@@ -11,7 +11,7 @@
 @prefix edam: <http://edamontology.org/>.
 @prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
-@prefix viso: <http://www.vimmp.eu/semantics/viso/viso.ttl#>.
+@prefix viso: <http://www.vimmp.eu/semantics/viso/viso-general.ttl#>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
@@ -91,6 +91,8 @@ macro:dp_software_infrastructure a owl:Class;
    owl:equivalentClass evmpo:dp_software_infrastructure.
 macro:op_computational_resource rdfs:subClassOf macro:op_software_infrastructure.
 macro:dp_computational_resource rdfs:subClassOf macro:dp_software_infrastructure.
+
+viso:software_tool rdfs:subClassOf macro:software_infrastructure.
 
 macro:repository a owl:Class;
    rdfs:subClassOf macro:data_infrastructure, macro:hardware_infrastructure, cviii:agent.
@@ -231,7 +233,7 @@ macro:has_format_version a macro:dp_io_format;
    rdfs:range xs:string.
 macro:is_supported_by a macro:op_io_format;
    rdfs:domain macro:io_format;
-   rdfs:range viso:software.
+   rdfs:range viso:software_tool.
 
 macro:io_format owl:unionOf (macro:file_format macro:memory_format macro:stream_format).
 
@@ -373,7 +375,7 @@ macro:dp_textual_file_format rdfs:subClassOf macro:dp_vocta_data_format.
 
 macro:VOCTA_DATA_FORMAT_1 a macro:vocta_data_format;
    macro:has_format_version "1.0"^^xs:string;
-   macro:is_supported_by macro:SOFTWARE_VOCTA.
+   macro:is_supported_by macro:SOFTWARE_TOOL_VOCTA.
 
 macro:solver_parameter_format a owl:Class;
    rdfs:subClassOf macro:materials_modelling_format;
@@ -416,8 +418,8 @@ macro:dp_textual_xml_format rdfs:subClassOf macro:dp_vocta_xml_format.
 
 macro:VOCTA_XML_FORMAT_1 a macro:vocta_xml_format;
    macro:has_format_version "1.0"^^xs:string;
-   macro:is_supported_by macro:SOFTWARE_VOCTA.
+   macro:is_supported_by macro:SOFTWARE_TOOL_VOCTA.
 
-# software package individuals - details to be sorted out within VISO
+# software tool individuals - details to be sorted out within VISO
 #
-macro:SOFTWARE_VOCTA a viso:software.
+macro:SOFTWARE_TOOL_VOCTA a viso:software_tool.
