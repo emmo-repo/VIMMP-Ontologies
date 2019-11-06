@@ -4,7 +4,7 @@
 ##  EXAMPLE: PHOSGENE EOS PARAMETERIZATION  ##
 ##  BY NVT ENSEMBLE MONTE CARLO SIMULATION  ##
 ##                                          ##
-##      LAST UPDATED: 4TH OCTOBER 2019      ##
+##     LAST UPDATED: 6TH NOVEMBER 2019      ##
 ##                                          ##
 ##############################################
 
@@ -151,7 +151,7 @@ scenario-eosmd:L2 a osmo:logical_resource;
    osmo:is_interactive "false"^^xs:boolean;
    osmo:has_stored_variable scenario-eosmd:L2_T_RHO_PAIRS.
 
-scenario-eosmd:L2_T_RHO_PAIRS a osmo:structure_collection, osmo:parameter;
+scenario-eosmd:L2_T_RHO_PAIRS a osmo:structure_collection;
    osmo:has_variable_name "L2_T_rho_pairs"^^xs:string;
    osmo:has_structure_element [
       a osmo:unique_elementary;
