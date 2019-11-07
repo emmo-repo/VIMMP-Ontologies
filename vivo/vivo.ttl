@@ -1,9 +1,9 @@
 
 ### VIMMP VALIDATION ONTOLOGY (VIVO) ###
 
-### VERSION 0.3.7 ###
+### VERSION 0.3.8 ###
 
-### DATED 5TH NOVEMBER 2019 ###
+### DATED 7TH NOVEMBER 2019 ###
 
 @prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
 
@@ -598,7 +598,7 @@ cviii:dp_agent rdfs:subClassOf vivo:dp_validation_repository.
 
 vivo:property a owl:Class;
    rdfs:subClassOf vivo:validation_entity;
-   owl:equivalentClass evmpo:property, emmo:EMMO_a6876b60_21b9_48cf_beed_b9ae7c8f5c98;  # emmo property;
+   owl:equivalentClass evmpo:property;  # EVMPO/EMMO property;
    rdfs:comment "property as defined by the EVMPO and the EMMO"^^xs:string.
 vivo:op_property a owl:Class;
    rdfs:subClassOf owl:ObjectProperty;
