@@ -1,9 +1,9 @@
 
 ### CATEGORIZATION OF VIMMP INSTITUTIONS AND INDIVIDUALS (CVIII) ###
 
-### VERSION 0.9.5 ###
+### VERSION 0.9.6 ###
 
-### DATED 1ST NOVEMBER 2019 ###
+### DATED 7TH NOVEMBER 2019 ###
 
 @prefix cviii: <http://www.vimmp.eu/semantics/cviii/cviii.ttl#>.
 
@@ -723,6 +723,9 @@ cviii:TITLE_PROFESSOR_GENERIC_SHORT a cviii:postdoctoral_title;
    cviii:has_prefix_text "Prof"^^xs:string;
    cviii:has_suffix_element "false"^^xs:boolean;
    cviii:is_shortened_form_of cviii:TITLE_PROFESSOR_GENERIC_LONG.
+
+_:C_PERSONAL_TITLE a owl:AllDifferent;
+   owl:members (cviii:TITLE_FEMALE_GENERIC cviii:TITLE_MALE_GENERIC cviii:TITLE_DOCTOR_GENERIC cviii:TITLE_PROFESSOR_GENERIC_LONG cviii:TITLE_PROFESSOR_GENERIC_SHORT).
 
 # "no nondoctoral title is superior to any postdoctoral title"
 #

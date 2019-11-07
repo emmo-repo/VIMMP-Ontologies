@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
 
-### VERSION 0.8.7 ###
+### VERSION 0.8.8 ###
 
-### DATED 31ST OCTOBER 2019 ###
+### DATED 7TH NOVEMBER 2019 ###
 
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 
@@ -500,7 +500,7 @@ otras:dp_mm_topic a owl:Class;
 evmpo:op_topic rdfs:subClassOf otras:op_mm_topic.
 evmpo:dp_topic rdfs:subClassOf otras:dp_mm_topic.
 
-otras:has_topic_code a otras:dp_mm_topic;
+otras:has_topic_code a otras:dp_mm_topic, owl:FunctionalProperty;
    rdfs:domain otras:mm_topic;
    rdfs:range xs:nonNegativeInteger.
 
@@ -720,10 +720,6 @@ otras:mm_topic_side a owl:Class;
    rdfs:comment "a topic from other disciplines that can be a side interest from the point of view of materials modelling (code 9XXX)"^^xs:string;
    rdfs:subClassOf otras:mm_topic.
 
-otras:MM_TOPIC_0000 a otras:mm_topic;
-   otras:has_topic_code 0;
-   otras:has_topic_descriptor "Topic (general)"^^xs:string.
-
 otras:MM_TOPIC_1000 a otras:mm_topic_basic;
    otras:has_topic_code 1000;
    otras:is_narrower_than otras:MM_TOPIC_0000;
@@ -886,8 +882,8 @@ otras:MM_TOPIC_5800 a otras:mm_topic_materials_ultracold;
    otras:is_narrower_than otras:MM_TOPIC_5000;
    otras:has_topic_descriptor "Topic: Low-temperature materials science and engineering"^^xs:string.
 
-otras:MM_TOPIC_5800 a otras:mm_topic_materials_unstable;
-   otras:has_topic_code 5800;
+otras:MM_TOPIC_5850 a otras:mm_topic_materials_unstable;
+   otras:has_topic_code 5850;
    otras:is_narrower_than otras:MM_TOPIC_5000;
    otras:has_topic_descriptor "Topic: Unstable, metastable, and transition states of materials"^^xs:string.
 
@@ -1001,7 +997,7 @@ otras:MM_TOPIC_7800 a otras:mm_topic_theoretical_mechanics;
    otras:is_narrower_than otras:MM_TOPIC_7000;
    otras:has_topic_descriptor "Topic: Theoretical aspects of classical and/or quantum mechanics"^^xs:string.
 
-otras:MM_TOPIC_8000 a otras:mm_topic_interdisciplinary, otras:mm_topic_computational, otras:mm_topic_data, otras:mm_topic_materials, otras:mm_topic_social, otras:mm_topic_theoretical;
+otras:MM_TOPIC_8000 a otras:mm_topic_interdisciplinary;
    otras:has_topic_code 8000;
    otras:is_narrower_than otras:MM_TOPIC_0000;
    otras:has_topic_descriptor "Topic: Interdisciplinary (beyond basic prerequisites)"^^xs:string.
@@ -1097,7 +1093,7 @@ otras:dp_operator_level a owl:Class;
 otras:op_focus rdfs:subClassOf otras:op_operator_level.
 otras:dp_focus rdfs:subClassOf otras:dp_operator_level.
 
-otras:is_at_numerical_level a otras:dp_operator_level;
+otras:is_at_numerical_level a otras:dp_operator_level, owl:FunctionalProperty;
    rdfs:domain otras:operator_level;
    rdfs:range xs:nonNegativeInteger;
    rdfs:comment "value which is 0 (special case: below basic), 1 (basic), 2 (intermediate), 3 (advanced), 4 (expert), or 5 (special case: exceptional distinction or unique skill)".
@@ -1129,6 +1125,9 @@ otras:KMK_LEVEL_II a otras:kmk_operator_level;
    otras:is_at_numerical_level 2.
 otras:KMK_LEVEL_III a otras:kmk_operator_level;
    otras:is_at_numerical_level 3.
+
+_:C_OPERATOR_LEVEL a owl:AllDifferent;
+   owl:members (otras:KMK_LEVEL_I otras:KMK_LEVEL_II otras:KMK_LEVEL_III otras:EXPERT_LEVEL).
 
 otras:kmk_operator_specifier a owl:Class;
    rdfs:comment "KMK operator specifier, i.e., an operator from the catalogue for natural-science subjects agreed upon by the German Federal Conference of State Cultural Ministries (KMK)"^^xs:string;
@@ -1220,6 +1219,9 @@ otras:KMK_OPERATOR_170 a otras:kmk_operator_specifier;
    otras:has_kmk_level otras:KMK_LEVEL_I;
    otras:is_expressed_by "draw"^^xs:string;
    otras:is_defined_by "create an exact graphical representation"^^xs:string.
+
+_:C_LEVEL_I a owl:AllDifferent;
+   owl:members (otras:KMK_OPERATOR_100 otras:KMK_OPERATOR_120 otras:KMK_OPERATOR_130 otras:KMK_OPERATOR_140 otras:KMK_OPERATOR_150 otras:KMK_OPERATOR_160 otras:KMK_OPERATOR_170).
 
 otras:KMK_OPERATOR_200 a otras:kmk_operator_specifier;
    otras:has_operator_code 200;
@@ -1329,6 +1331,9 @@ otras:KMK_OPERATOR_295 a otras:kmk_operator_specifier;
    otras:is_expressed_by "summarize"^^xs:string;
    otras:is_defined_by "give a brief account or summary"^^xs:string.
 
+_:C_LEVEL_II a owl:AllDifferent;
+   owl:members (otras:KMK_OPERATOR_200 otras:KMK_OPERATOR_215 otras:KMK_OPERATOR_220 otras:KMK_OPERATOR_225 otras:KMK_OPERATOR_230 otras:KMK_OPERATOR_235 otras:KMK_OPERATOR_240 otras:KMK_OPERATOR_245 otras:KMK_OPERATOR_250 otras:KMK_OPERATOR_255 otras:KMK_OPERATOR_260 otras:KMK_OPERATOR_265 otras:KMK_OPERATOR_270 otras:KMK_OPERATOR_275 otras:KMK_OPERATOR_280 otras:KMK_OPERATOR_285 otras:KMK_OPERATOR_290 otras:KMK_OPERATOR_295).
+
 otras:KMK_OPERATOR_300 a otras:kmk_operator_specifier;
    otras:has_operator_code 300;
    otras:has_kmk_level otras:KMK_LEVEL_III;
@@ -1382,6 +1387,9 @@ otras:KMK_OPERATOR_390 a otras:kmk_operator_specifier;
    otras:has_kmk_level otras:KMK_LEVEL_III;
    otras:is_expressed_by "plan"^^xs:string;
    otras:is_defined_by "come up with a design for an experiment or a structured approach to investigate a problem"^^xs:string.
+
+_:C_LEVEL_III a owl:AllDifferent;
+   owl:members (otras:KMK_OPERATOR_300 otras:KMK_OPERATOR_320 otras:KMK_OPERATOR_330 otras:KMK_OPERATOR_340 otras:KMK_OPERATOR_350 otras:KMK_OPERATOR_360 otras:KMK_OPERATOR_370 otras:KMK_OPERATOR_380 otras:KMK_OPERATOR_390).
 
 otras:EXP_OPERATOR_400 a otras:expert_operator_specifier;
    otras:has_operator_code 400;
@@ -1439,6 +1447,9 @@ otras:EXP_OPERATOR_475 a otras:expert_operator_specifier;
 otras:EXP_OPERATOR_480 a otras:expert_operator_specifier;
    otras:has_operator_code 480;
    otras:is_expressed_by "to innovate/develop"^^xs:string.
+
+_:C_LEVEL_IV a owl:AllDifferent;
+   owl:members (otras:EXP_OPERATOR_400 otras:EXP_OPERATOR_420 otras:EXP_OPERATOR_425 otras:EXP_OPERATOR_430 otras:EXP_OPERATOR_435 otras:EXP_OPERATOR_440 otras:EXP_OPERATOR_445 otras:EXP_OPERATOR_450 otras:EXP_OPERATOR_455 otras:EXP_OPERATOR_460 otras:EXP_OPERATOR_465 otras:EXP_OPERATOR_470 otras:EXP_OPERATOR_475 otras:EXP_OPERATOR_480).
 
 
 otras:citation a owl:Class;

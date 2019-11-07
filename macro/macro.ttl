@@ -1,9 +1,9 @@
 
 ### MARKETPLACE-ACCESSIBLE COMPUTATIONAL RESOURCE ONTOLOGY (MACRO) ###
 
-### VERSION 0.2.1 ###
+### VERSION 0.2.2 ###
 
-### DATED 5TH NOVEMBER 2019 ###
+### DATED 7TH NOVEMBER 2019 ###
 
 @prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
 
@@ -179,6 +179,9 @@ macro:EMMC_NEWSLETTER a macro:newsletter;
 macro:VIMMP_NEWSLETTER a macro:newsletter;
    macro:has_channel_name "VIMMP Newsletter"^^xs:string.
 
+_:C_NEWSLETTER a owl:AllDifferent;
+   owl:members (macro:EMMC_NEWSLETTER macro:VIMMP_NEWSLETTER).
+
 macro:bidirectional_channel a owl:Class;
    rdfs:subClassOf macro:channel.
 macro:op_bidirectional_channel a owl:Class;
@@ -206,6 +209,9 @@ macro:has_stakeholder a macro:op_virtual_marketplace;
 macro:VIMMP_MARKETPLACE a macro:virtual_marketplace.
 macro:MARKETPLACE_MARKETPLACE a macro:virtual_marketplace.
 macro:MARKET40_MARKETPLACE a macro:virtual_marketplace.
+
+_:C_VIRTUAL_MARKETPLACE a owl:AllDifferent;
+   owl:members (macro:VIMMP_MARKETPLACE macro:MARKETPLACE_MARKETPLACE macro:MARKET40_MARKETPLACE).
 
 macro:io_format a owl:Class;
    rdfs:subClassOf macro:computational_entity, evmpo:annotation;
