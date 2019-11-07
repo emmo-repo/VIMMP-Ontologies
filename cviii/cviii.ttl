@@ -1,7 +1,7 @@
 
 ### CATEGORIZATION OF VIMMP INSTITUTIONS AND INDIVIDUALS (CVIII) ###
 
-### VERSION 0.9.6 ###
+### VERSION 0.9.7 ###
 
 ### DATED 7TH NOVEMBER 2019 ###
 
@@ -20,21 +20,8 @@
 
 <http://www.vimmp.eu/semantics/cviii/cviii.ttl#> a owl:Ontology.
 
-cviii:role a owl:Class;
-   rdfs:subClassOf evmpo:paradigmatic_entity;
-   owl:equivalentClass evmpo:role;
-   rdfs:comment "role, i.e., a role as characterized by the EMMO"^^xs:string.
-cviii:op_role a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty;
-   owl:equivalentClass evmpo:op_role.
-cviii:dp_role a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty;
-   owl:equivalentClass evmpo:dp_role.
-evmpo:op_paradigmatic_entity rdfs:subClassOf cviii:op_role.
-evmpo:dp_paradigmatic_entity rdfs:subClassOf cviii:dp_role.
-
 cviii:agent a owl:Class;
-   rdfs:subClassOf evmpo:role, cviii:role;
+   rdfs:subClassOf evmpo:interpreter;
    rdfs:comment "agent, i.e., an entity that has (in principle) the potential of acting at a virtual marketplace, whether that capability is exercised or not"^^xs:string;
    owl:equivalentClass evmpo:agent.
 cviii:op_agent a owl:Class;
@@ -43,10 +30,8 @@ cviii:op_agent a owl:Class;
 cviii:dp_agent a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty;
    owl:equivalentClass evmpo:dp_agent.
-evmpo:op_role rdfs:subClassOf cviii:op_agent.
-evmpo:dp_role rdfs:subClassOf cviii:dp_agent.
-cviii:op_role rdfs:subClassOf cviii:op_agent.
-cviii:dp_role rdfs:subClassOf cviii:dp_agent.
+evmpo:op_interpreter rdfs:subClassOf cviii:op_agent.
+evmpo:dp_interpreter rdfs:subClassOf cviii:dp_agent.
 
 cviii:acts_at a cviii:op_agent;
    rdfs:domain cviii:agent;
@@ -60,14 +45,14 @@ cviii:has_access_to a cviii:op_agent;
 cviii:has_address a cviii:op_agent;
    rdfs:domain cviii:agent;
    rdfs:range vico:address;
-   rdfs:subPropertyOf evmpo:has_role_annotation.
+   rdfs:subPropertyOf evmpo:has_interpreter_annotation.
 cviii:has_agentid a cviii:dp_agent;
    rdfs:domain cviii:agent;
    rdfs:range xs:nonNegativeInteger.
 cviii:has_interest a cviii:op_agent;
    rdfs:domain cviii:agent;
    rdfs:range otras:topic;
-   rdfs:subPropertyOf evmpo:has_role_annotation.
+   rdfs:subPropertyOf evmpo:has_interpreter_annotation.
 cviii:has_name a cviii:dp_agent;
    rdfs:domain cviii:agent;
    rdfs:range xs:string.
@@ -77,7 +62,7 @@ cviii:is_assignee_of a cviii:op_agent;
    owl:inverseOf vico:has_assignee.
 cviii:is_author_of a cviii:op_agent;
    rdfs:domain cviii:agent;
-   rdfs:range vico:communication;
+   rdfs:range evmpo:communication;
    owl:inverseOf vico:has_author.
 cviii:is_listener_of a cviii:op_agent;
    rdfs:domain cviii:agent;
@@ -102,7 +87,7 @@ cviii:is_owner_of a cviii:op_agent;
    owl:inverseOf macro:has_channel_owner;
    rdfs:subPropertyOf cviii:has_access_to.
 
-cviii:agent owl:disjointUnionOf (cviii:agent_group cviii:institution cviii:person).
+cviii:agent owl:disjointUnionOf (evmpo:agent_group evmpo:institution cviii:person).
 
 cviii:agent_assembly a owl:Class;
    rdfs:subClassOf cviii:agent;
@@ -119,34 +104,8 @@ cviii:has_member a cviii:op_agent_assembly;
    rdfs:range cviii:agent;
    owl:inverseOf cviii:is_member_of.
 
-cviii:agent_group a owl:Class;
-   rdfs:subClassOf cviii:agent_assembly;
-   rdfs:comment "agent group, i.e., a non-institutionalized agent assembly"^^xs:string;
-   owl:equivalentClass evmpo:agent_group.
-cviii:op_agent_group a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty;
-   owl:equivalentClass evmpo:op_agent_group.
-cviii:dp_agent_group a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty;
-   owl:equivalentClass evmpo:dp_agent_group.
-cviii:op_agent_assembly rdfs:subClassOf cviii:op_agent_group.
-cviii:dp_agent_assembly rdfs:subClassOf cviii:dp_agent_group.
-
-cviii:institution a owl:Class;
-   rdfs:subClassOf cviii:agent_assembly;
-   rdfs:comment "institution, i.e., any permanent association, organization, office, or comparable entity that has the capability of acting at a virtual marketplace"^^xs:string;
-   owl:equivalentClass evmpo:institution.
-cviii:op_institution a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty;
-   owl:equivalentClass evmpo:op_institution.
-cviii:dp_institution a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty;
-   owl:equivalentClass evmpo:dp_institution.
-cviii:op_agent_assembly rdfs:subClassOf cviii:op_institution.
-cviii:dp_agent_assembly rdfs:subClassOf cviii:dp_institution.
-
-cviii:has_institutional_address a cviii:op_institution;
-   rdfs:domain cviii:institution;
+cviii:has_institutional_address a evmpo:op_institution;
+   rdfs:domain evmpo:institution;
    rdfs:range vico:address;
    rdfs:subPropertyOf cviii:has_address.
 
@@ -160,11 +119,11 @@ cviii:dp_person a owl:Class;
 cviii:op_agent rdfs:subClassOf cviii:op_person.
 cviii:dp_agent rdfs:subClassOf cviii:dp_person.
 
-cviii:person owl:disjointUnionOf (cviii:human_agent cviii:virtual_agent).
+cviii:person owl:disjointUnionOf (evmpo:human_agent cviii:virtual_agent).
 
 cviii:has_affiliation a cviii:op_person;
    rdfs:domain cviii:person;
-   rdfs:range cviii:institution;
+   rdfs:range evmpo:institution;
    rdfs:subPropertyOf cviii:is_member_of.
 cviii:has_business_address a cviii:op_person;
    rdfs:domain cviii:person;
@@ -180,42 +139,29 @@ cviii:has_profile_image a cviii:dp_person;
 cviii:has_profile_text a cviii:dp_person;
    rdfs:domain cviii:person;
    rdfs:range xs:string.
-cviii:has_role_label a cviii:dp_person;
+cviii:has_interpreter_label a cviii:dp_person;
    rdfs:domain cviii:person;
    rdfs:range xs:string.
 
-cviii:human_agent a owl:Class;
-   rdfs:subClassOf cviii:person;
-   rdfs:comment "human agent, i.e., a single human being whose identity is disclosed and who has the potential/ability to act at a virtual marketplace"^^xs:string;
-   owl:equivalentClass evmpo:human_agent.
-cviii:op_human_agent a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty;
-   owl:equivalentClass evmpo:op_human_agent.
-cviii:dp_human_agent a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty;
-   owl:equivalentClass evmpo:dp_human_agent.
-cviii:op_person rdfs:subClassOf cviii:op_human_agent.
-cviii:dp_person rdfs:subClassOf cviii:dp_human_agent.
-
-cviii:has_academic_title a cviii:op_human_agent;
-   rdfs:domain cviii:human_agent;
+cviii:has_academic_title a evmpo:op_human_agent;
+   rdfs:domain evmpo:human_agent;
    rdfs:range cviii:academic_title;
    rdfs:subPropertyOf cviii:has_personal_title.
-cviii:has_first_name a cviii:dp_human_agent;
-   rdfs:domain cviii:human_agent;
+cviii:has_first_name a evmpo:dp_human_agent;
+   rdfs:domain evmpo:human_agent;
    rdfs:range xs:string.
-cviii:has_last_name a cviii:dp_human_agent;
-   rdfs:domain cviii:human_agent;
+cviii:has_last_name a evmpo:dp_human_agent;
+   rdfs:domain evmpo:human_agent;
    rdfs:range xs:string;
    rdfs:subPropertyOf cviii:has_name.
-cviii:has_private_address a cviii:op_human_agent;
-   rdfs:domain cviii:human_agent;
+cviii:has_private_address a evmpo:op_human_agent;
+   rdfs:domain evmpo:human_agent;
    rdfs:range vico:address;
    rdfs:subPropertyOf cviii:has_personal_address.
-cviii:has_personal_title a cviii:op_human_agent;
-   rdfs:domain cviii:human_agent;
+cviii:has_personal_title a evmpo:op_human_agent;
+   rdfs:domain evmpo:human_agent;
    rdfs:range cviii:personal_title;
-   rdfs:subPropertyOf evmpo:has_role_annotation.
+   rdfs:subPropertyOf evmpo:has_interpreter_annotation.
 
 cviii:virtual_agent a owl:Class;
    rdfs:subClassOf cviii:person;
@@ -227,40 +173,14 @@ cviii:dp_virtual_agent a owl:Class;
 cviii:op_person rdfs:subClassOf cviii:op_virtual_agent.
 cviii:dp_person rdfs:subClassOf cviii:dp_virtual_agent.
 
-cviii:stakeholder a owl:Class;
-   rdfs:subClassOf cviii:agent;
-   rdfs:comment "stakeholder, i.e., an agent that acts at one or multiple virtual marketplaces"^^xs:string;
-   owl:equivalentClass evmpo:stakeholder.
-cviii:op_stakeholder a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty;
-   owl:equivalentClass evmpo:op_stakeholder.
-cviii:dp_stakeholder a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty;
-   owl:equivalentClass evmpo:dp_stakeholder.
-cviii:op_agent rdfs:subClassOf cviii:op_stakeholder.
-cviii:dp_agent rdfs:subClassOf cviii:dp_stakeholder.
+evmpo:stakeholder owl:intersectionOf (cviii:agent [a owl:Restriction; owl:onProperty cviii:acts_at; owl:someValuesFrom macro:virtual_marketplace]).
 
-cviii:stakeholder owl:intersectionOf (cviii:agent [a owl:Restriction; owl:onProperty cviii:acts_at; owl:someValuesFrom macro:virtual_marketplace]).
-
-cviii:expert a owl:Class;
-   rdfs:subClassOf cviii:human_agent;
-   owl:equivalentClass evmpo:expert;
-   rdfs:comment "expert, i.e., a human agent who can provide competencies and expertise"^^xs:string.
-cviii:op_expert a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty;
-   owl:equivalentClass evmpo:op_expert.
-cviii:dp_expert a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty;
-   owl:equivalentClass evmpo:dp_expert.
-cviii:op_human_agent rdfs:subClassOf cviii:op_expert.
-cviii:dp_human_agent rdfs:subClassOf cviii:dp_expert.
-
-cviii:has_competency a cviii:op_expert;
-   rdfs:domain cviii:expert;
+cviii:has_competency a evmpo:op_expert;
+   rdfs:domain evmpo:expert;
    rdfs:range otras:expert_competency;
-   rdfs:subPropertyOf evmpo:has_role_annotation.
-cviii:has_expertise_in a cviii:op_expert;
-   rdfs:domain cviii:expert;
+   rdfs:subPropertyOf evmpo:has_interpreter_annotation.
+cviii:has_expertise_in a evmpo:op_expert;
+   rdfs:domain evmpo:expert;
    rdfs:range otras:topic;
    rdfs:subPropertyOf cviii:has_interest.
 
@@ -282,8 +202,8 @@ cviii:is_certifier_of a cviii:op_certifier;
 cviii:certifier owl:disjointUnionOf (cviii:certifying_expert cviii:certifying_resource).
 
 cviii:certifying_expert a owl:Class;
-   rdfs:subClassOf cviii:certifier, cviii:expert;
-   owl:intersectionOf (cviii:certifier cviii:expert);
+   rdfs:subClassOf cviii:certifier, evmpo:expert;
+   owl:intersectionOf (cviii:certifier evmpo:expert);
    rdfs:comment "certifying expert, i.e., a certifier who is also an expert"^^xs:string.
 cviii:op_certifying_expert a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
@@ -291,12 +211,12 @@ cviii:dp_certifying_expert a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 cviii:op_certifier rdfs:subClassOf cviii:op_certifying_expert.
 cviii:dp_certifier rdfs:subClassOf cviii:dp_certifying_expert.
-cviii:op_expert rdfs:subClassOf cviii:op_certifying_expert.
-cviii:dp_expert rdfs:subClassOf cviii:dp_certifying_expert.
+evmpo:op_expert rdfs:subClassOf cviii:op_certifying_expert.
+evmpo:dp_expert rdfs:subClassOf cviii:dp_certifying_expert.
 
 cviii:certifying_resource a owl:Class;
    rdfs:subClassOf cviii:certifier;
-   owl:intersectionOf (cviii:certifier [owl:complementOf cviii:human_agent]);
+   owl:intersectionOf (cviii:certifier [owl:complementOf evmpo:human_agent]);
    rdfs:comment "certifying resource, i.e., a certifier who is not a human agent"^^xs:string.
 cviii:op_certifying_resource a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
@@ -309,7 +229,7 @@ cviii:is_at_uri a cviii:dp_certifying_resource;
    rdfs:domain cviii:certifying_resource;
    rdfs:range xs:anyURI.
 
-cviii:certifying_resource owl:disjointWith cviii:human_agent.
+cviii:certifying_resource owl:disjointWith evmpo:human_agent.
 
 cviii:certifying_journal_article a owl:Class;
    rdfs:subClassOf cviii:certifying_resource.
@@ -456,18 +376,16 @@ cviii:op_interlocutor rdfs:subClassOf cviii:op_translator.
 cviii:dp_interlocutor rdfs:subClassOf cviii:dp_translator.
 
 cviii:technology_transfer_institute a owl:Class;
-   rdfs:subClassOf cviii:translator, cviii:institution;
+   rdfs:subClassOf cviii:translator, evmpo:institution;
    rdfs:comment "Technology Transfer Institute (TTI), cf. the EMMC Translation Case Template"^^xs:string.
 cviii:op_technology_transfer_institute a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty;
-   owl:equivalentClass evmpo:op_translator.
+   rdfs:subClassOf owl:ObjectProperty.
 cviii:dp_technology_transfer_institute a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty;
-   owl:equivalentClass evmpo:dp_translator.
+   rdfs:subClassOf owl:DatatypeProperty.
 cviii:op_translator rdfs:subClassOf cviii:op_technology_transfer_institute.
 cviii:dp_translator rdfs:subClassOf cviii:dp_technology_transfer_institute.
-cviii:op_institution rdfs:subClassOf cviii:op_technology_transfer_institute.
-cviii:dp_institution rdfs:subClassOf cviii:dp_technology_transfer_institute.
+evmpo:op_institution rdfs:subClassOf cviii:op_technology_transfer_institute.
+evmpo:dp_institution rdfs:subClassOf cviii:dp_technology_transfer_institute.
 
 cviii:pseudonym a owl:Class;
    rdfs:subClassOf cviii:marketplace_subject, cviii:virtual_agent.
@@ -512,7 +430,7 @@ cviii:dp_interlocutor_type rdfs:subClassOf cviii:dp_interlocutor_tag.
 cviii:has_interlocutor_tag a cviii:op_interlocutor;
    rdfs:domain cviii:interlocutor;
    rdfs:range cviii:interlocutor_tag;
-   rdfs:subPropertyOf evmpo:has_role_annotation.
+   rdfs:subPropertyOf evmpo:has_interpreter_annotation.
 
 cviii:is_based_in a cviii:op_interlocutor_tag;
    rdfs:domain cviii:interlocutor_tag;
@@ -539,17 +457,15 @@ cviii:is_sme a cviii:dp_interlocutor_tag;
 
 
 cviii:country a owl:Class;
-   rdfs:subClassOf cviii:role;
+   rdfs:subClassOf evmpo:interpreter;
    owl:equivalentClass lcc-cr:Country;
    rdfs:comment "country defined following ISO 3166 as implemented by the LCR ontology"^^xs:string.
 cviii:op_country a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 cviii:dp_country a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_role rdfs:subClassOf cviii:op_country.
-evmpo:dp_role rdfs:subClassOf cviii:dp_country.
-cviii:op_role rdfs:subClassOf cviii:op_country.
-cviii:dp_role rdfs:subClassOf cviii:dp_country.
+evmpo:op_interpreter rdfs:subClassOf cviii:op_country.
+evmpo:dp_interpreter rdfs:subClassOf cviii:dp_country.
 
 
 cviii:personal_title a owl:Class;

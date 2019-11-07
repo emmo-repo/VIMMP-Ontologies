@@ -1,7 +1,7 @@
 
 ### MARKETPLACE-ACCESSIBLE COMPUTATIONAL RESOURCE ONTOLOGY (MACRO) ###
 
-### VERSION 0.2.2 ###
+### VERSION 0.2.3 ###
 
 ### DATED 7TH NOVEMBER 2019 ###
 
@@ -19,18 +19,6 @@
 
 <http://www.vimmp.eu/semantics/macro/macro.ttl#> a owl:Ontology.
 
-macro:infrastructure a owl:Class;
-   rdfs:subClassOf evmpo:paradigmatic_entity;
-   owl:equivalentClass evmpo:infrastructure.
-macro:op_infrastructure a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty;
-   owl:equivalentClass evmpo:op_infrastructure.
-macro:dp_infrastructure a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty;
-   owl:equivalentClass evmpo:dp_infrastructure.
-evmpo:op_paradigmatic_entity rdfs:subClassOf macro:op_infrastructure.
-evmpo:dp_paradigmatic_entity rdfs:subClassOf macro:dp_infrastructure.
-
 macro:computational_entity a owl:Class;
    rdfs:subClassOf evmpo:marketplace_related_entity;
    rdfs:comment "computational entity, i.e., a computational resource or a pheonomenon or attribute associated with a computational resource"^^xs:string.
@@ -42,15 +30,15 @@ evmpo:op_marketplace_related_entity rdfs:subClassOf macro:op_computational_entit
 evmpo:dp_marketplace_related_entity rdfs:subClassOf macro:dp_computational_entity.
 
 macro:computational_resource a owl:Class;
-   rdfs:subClassOf macro:infrastructure, macro:computational_entity;
+   rdfs:subClassOf evmpo:infrastructure, macro:computational_entity;
    rdfs:comment "computational resource, i.e., an infrastructure that is a computational entity"^^xs:string;
-   owl:intersectionOf (macro:infrastructure macro:computational_entity).
+   owl:intersectionOf (evmpo:infrastructure macro:computational_entity).
 macro:op_computational_resource a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 macro:dp_computational_resource a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-macro:op_infrastructure rdfs:subClassOf macro:op_computational_resource.
-macro:dp_infrastructure rdfs:subClassOf macro:dp_computational_resource.
+evmpo:op_infrastructure rdfs:subClassOf macro:op_computational_resource.
+evmpo:dp_infrastructure rdfs:subClassOf macro:dp_computational_resource.
 macro:op_computational_entity rdfs:subClassOf macro:op_computational_resource.
 macro:dp_computational_entity rdfs:subClassOf macro:dp_computational_resource.
 
@@ -241,7 +229,7 @@ macro:is_supported_by a macro:op_io_format;
    rdfs:domain macro:io_format;
    rdfs:range viso:software_tool.
 
-macro:io_format owl:unionOf (macro:file_format macro:memory_format macro:stream_format).
+macro:io_format owl:unionOf (macro:file_format macro:stream_format).
 
 macro:file_format a owl:Class;
    rdfs:subClassOf macro:io_format;

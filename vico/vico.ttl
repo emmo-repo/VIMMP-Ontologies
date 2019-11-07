@@ -1,9 +1,9 @@
 
 ### VIMMP COMMUNICATION ONTOLOGY (VICO) ###
 
-### VERSION 0.8.9 ###
+### VERSION 0.8.10 ###
 
-### DATED 5TH NOVEMBER 2019 ###
+### DATED 7TH NOVEMBER 2019 ###
 
 @prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
 
@@ -20,59 +20,46 @@
 
 <http://www.vimmp.eu/semantics/vico/vico.ttl#> a owl:Ontology.
 
-vico:communication a owl:Class;
-   rdfs:subClassOf evmpo:paradigmatic_entity;
-   owl:equivalentClass evmpo:communication;
-   rdfs:comment "communication, i.e., a statement or collection of statements that is communicated by a stakeholder on a (communication) channel"^^xs:string.
-vico:op_communication a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty;
-   owl:equivalentClass evmpo:op_communication.
-vico:dp_communication a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty;
-   owl:equivalentClass evmpo:dp_communication.
-evmpo:op_paradigmatic_entity rdfs:subClassOf vico:op_communication.
-evmpo:dp_paradigmatic_entity rdfs:subClassOf vico:dp_communication.
-
-vico:contains a vico:op_communication, owl:TransitiveProperty;
-   rdfs:domain vico:communication;
-   rdfs:range vico:communication;
+vico:contains a evmpo:op_communication, owl:TransitiveProperty;
+   rdfs:domain evmpo:communication;
+   rdfs:range evmpo:communication;
    rdfs:comment "The expression [A contains B] means that B is a proper part of A, where A and B are both communications"^^xs:string.
-vico:has_access_rule a vico:op_communication, owl:FunctionalProperty;
-   rdfs:domain vico:communication;
+vico:has_access_rule a evmpo:op_communication, owl:FunctionalProperty;
+   rdfs:domain evmpo:communication;
    rdfs:range vico:access_rule;
    rdfs:subPropertyOf evmpo:has_communication_annotation;
    rdfs:comment "regulates (read) access to the communicated content"^^xs:string.
-vico:has_author a vico:op_communication, owl:FunctionalProperty;
-   rdfs:domain vico:communication;
+vico:has_author a evmpo:op_communication, owl:FunctionalProperty;
+   rdfs:domain evmpo:communication;
    rdfs:range cviii:agent;
    owl:inverseOf cviii:is_author_of.
 vico:has_expiry_date a vico:op_interlocution, owl:FunctionalProperty;
-   rdfs:domain vico:communication;
+   rdfs:domain evmpo:communication;
    rdfs:range dcterms:W3C-DTF.
-vico:has_label a vico:op_communication;
-   rdfs:domain vico:communication;
+vico:has_label a evmpo:op_communication;
+   rdfs:domain evmpo:communication;
    rdfs:range vico:label;
    rdfs:subPropertyOf evmpo:has_communication_annotation.
-vico:has_status a vico:op_communication;
-   rdfs:domain vico:communication;
+vico:has_status a evmpo:op_communication;
+   rdfs:domain evmpo:communication;
    rdfs:range vico:status;
    rdfs:subPropertyOf vico:has_label.
-vico:has_submission_date a vico:op_communication, owl:FunctionalProperty;
-   rdfs:domain vico:communication;
+vico:has_submission_date a evmpo:op_communication, owl:FunctionalProperty;
+   rdfs:domain evmpo:communication;
    rdfs:range dcterms:W3C-DTF.
-vico:has_text a vico:dp_communication;
-   rdfs:domain vico:communication;
+vico:has_text a evmpo:dp_communication;
+   rdfs:domain evmpo:communication;
    rdfs:range xs:string.
 
-vico:is_on_channel a vico:op_communication;
-   rdfs:domain vico:communication;
+vico:is_on_channel a evmpo:op_communication;
+   rdfs:domain evmpo:communication;
    rdfs:range macro:channel.
-vico:is_on_marketplace a vico:op_communication;
-   rdfs:domain vico:communication;
+vico:is_on_marketplace a evmpo:op_communication;
+   rdfs:domain evmpo:communication;
    rdfs:range macro:virtual_marketplace;
    rdfs:subPropertyOf vico:is_on_channel.
 
-vico:communication
+evmpo:communication
    owl:disjointUnionOf (vico:message vico:appendix);
    rdfs:subClassOf [
       a owl:Restriction;
@@ -80,30 +67,17 @@ vico:communication
       owl:someValuesFrom cviii:agent
    ].
 
-vico:statement a owl:Class;
-   rdfs:subClassOf vico:communication;
-   owl:equivalentClass evmpo:statement;
-   rdfs:comment "statement, i.e., a communication that does not contain any further communication"^^xs:string.
-vico:op_statement a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty;
-   owl:equivalentClass evmpo:op_statement.
-vico:dp_statement a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty;
-   owl:equivalentClass evmpo:dp_statement.
-vico:op_communication rdfs:subClassOf vico:op_statement.
-vico:dp_communication rdfs:subClassOf vico:dp_statement.
-
-vico:statement owl:intersectionOf (vico:communication [a owl:Restriction; owl:onProperty vico:contains; owl:cardinality 0]).
+evmpo:statement owl:intersectionOf (evmpo:communication [a owl:Restriction; owl:onProperty vico:contains; owl:cardinality 0]).
 
 vico:appendix a owl:Class;
-   rdfs:subClassOf vico:communication;
+   rdfs:subClassOf evmpo:communication;
    rdfs:comment "appendix, i.e., a communication which cannot stand alone and needs to be combined with a communication body"^^xs:string.
 vico:op_appendix a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 vico:dp_appendix a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-vico:op_communication rdfs:subClassOf vico:op_appendix.
-vico:dp_communication rdfs:subClassOf vico:dp_appendix.
+evmpo:op_communication rdfs:subClassOf vico:op_appendix.
+evmpo:dp_communication rdfs:subClassOf vico:dp_appendix.
 
 vico:appendix rdfs:subClassOf [
    a owl:Restriction;
@@ -112,16 +86,16 @@ vico:appendix rdfs:subClassOf [
 ].
 
 vico:appendix_statement a owl:Class;
-   rdfs:subClassOf vico:appendix, vico:statement;
-   owl:intersectionOf (vico:appendix vico:statement).
+   rdfs:subClassOf vico:appendix, evmpo:statement;
+   owl:intersectionOf (vico:appendix evmpo:statement).
 vico:op_appendix_statement a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 vico:dp_appendix_statement a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 vico:op_appendix rdfs:subClassOf vico:op_appendix_statement.
 vico:dp_appendix rdfs:subClassOf vico:dp_appendix_statement.
-vico:op_statement rdfs:subClassOf vico:op_appendix_statement.
-vico:dp_statement rdfs:subClassOf vico:dp_appendix_statement.
+evmpo:op_statement rdfs:subClassOf vico:op_appendix_statement.
+evmpo:dp_statement rdfs:subClassOf vico:dp_appendix_statement.
 
 vico:validation_communication a owl:Class;
    rdfs:subClassOf evmpo:communication, vivo:validation_entity;
@@ -226,14 +200,14 @@ evmpo:op_status rdfs:subClassOf vico:op_sent_status.
 evmpo:dp_status rdfs:subClassOf vico:dp_sent_status.
 
 vico:message a owl:Class;
-   rdfs:subClassOf vico:communication;
+   rdfs:subClassOf evmpo:communication;
    rdfs:comment "message, i.e., a stand-alone communication (as opposed to an appendix)"^^xs:string.
 vico:op_message a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 vico:dp_message a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-vico:op_communication rdfs:subClassOf vico:op_message.
-vico:dp_communication rdfs:subClassOf vico:dp_message.
+evmpo:op_communication rdfs:subClassOf vico:op_message.
+evmpo:dp_communication rdfs:subClassOf vico:dp_message.
 
 vico:has_appendix a vico:op_message;
    rdfs:domain vico:message;
@@ -363,7 +337,7 @@ vico:comment rdfs:subClassOf [
    ].
 
 vico:signal_statement a owl:Class;
-   rdfs:subClassOf vico:collocution, vico:statement;
+   rdfs:subClassOf vico:collocution, evmpo:statement;
    rdfs:comment "signal statement, i.e., a standardized shorthand reaction to another message"^^xs:string.
 vico:op_signal_statement a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
@@ -371,8 +345,8 @@ vico:dp_signal_statement a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 vico:op_collocution rdfs:subClassOf vico:op_signal_statement.
 vico:dp_collocution rdfs:subClassOf vico:dp_signal_statement.
-vico:op_statement rdfs:subClassOf vico:op_signal_statement.
-vico:dp_statement rdfs:subClassOf vico:dp_signal_statement.
+evmpo:op_statement rdfs:subClassOf vico:op_signal_statement.
+evmpo:dp_statement rdfs:subClassOf vico:dp_signal_statement.
 
 vico:signal_statement rdfs:subClassOf [
       a owl:Restriction;
@@ -385,28 +359,28 @@ vico:signal_i_like a owl:Class;
    rdfs:comment "signal i like, communicating that the author approves of the followed message"^^xs:string.
 
 vico:translation_communication a owl:Class;
-   rdfs:subClassOf vico:communication;
+   rdfs:subClassOf evmpo:communication;
    rdfs:comment "translation communication, i.e., a communication which, as its main feature or purpose, relates to translation"^^xs:string.
 vico:op_translation_communication a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 vico:dp_translation_communication a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-vico:op_communication rdfs:subClassOf vico:op_translation_communication.
-vico:dp_communication rdfs:subClassOf vico:dp_translation_communication.
+evmpo:op_communication rdfs:subClassOf vico:op_translation_communication.
+evmpo:dp_communication rdfs:subClassOf vico:dp_translation_communication.
 
 vico:legal_communication a owl:Class;
-   rdfs:subClassOf vico:communication;
+   rdfs:subClassOf evmpo:communication;
    rdfs:comment "legal communication, i.e., a communication which, as its main feature or purpose, relates to legal, financial, or contractual issues"^^xs:string.
 vico:op_legal_communication a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 vico:dp_legal_communication a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-vico:op_communication rdfs:subClassOf vico:op_legal_communication.
-vico:dp_communication rdfs:subClassOf vico:dp_legal_communication.
+evmpo:op_communication rdfs:subClassOf vico:op_legal_communication.
+evmpo:dp_communication rdfs:subClassOf vico:dp_legal_communication.
 
 vico:legal_statement a owl:Class;
-   rdfs:subClassOf vico:statement, vico:legal_communication;
-   owl:intersectionOf (vico:legal_communication vico:statement);
+   rdfs:subClassOf evmpo:statement, vico:legal_communication;
+   owl:intersectionOf (vico:legal_communication evmpo:statement);
    rdfs:comment "legal statement, i.e., a statement which, as its main feature or purpose, relates to legal, financial, or contractual issues"^^xs:string.
 vico:op_legal_statement a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
@@ -414,8 +388,8 @@ vico:dp_legal_statement a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 vico:op_legal_communication rdfs:subClassOf vico:op_legal_statement.
 vico:dp_legal_communication rdfs:subClassOf vico:dp_legal_statement.
-vico:op_statement rdfs:subClassOf vico:op_legal_statement.
-vico:dp_statement rdfs:subClassOf vico:dp_legal_statement.
+evmpo:op_statement rdfs:subClassOf vico:op_legal_statement.
+evmpo:dp_statement rdfs:subClassOf vico:dp_legal_statement.
 
 
 vico:address_entity a owl:Class;

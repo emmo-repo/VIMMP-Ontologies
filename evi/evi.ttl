@@ -56,10 +56,10 @@ evi:model a owl:Class;
    rdfs:subClassOf evi:sign;
    rdfs:comment "model, i.e., a 'sign' that represents a 'physical' or a 'process' by direct similitude (e.g., small-scale replica) or by capturing the relations between its properties in a logical or mathematical framework"^^xs:string.
 
-# EMMO process
+# EMMO process, to be distinguished from EVMPO process which is more general
 #
-evi:emmo_process a owl:Class;  # "emmo_process" is distinct from "evmpo:process" due to a discussion with MarketPlace/Access e.V. some time ago
-   owl:equivalentClass emmo-process:EMMO_43e9a05d_98af_41b4_92f6_00f79a09bfce;  # "process" in EMMO
+evi:process a owl:Class;
+   owl:equivalentClass emmo-process:EMMO_43e9a05d_98af_41b4_92f6_00f79a09bfce;
    rdfs:subClassOf evi:physical;
    rdfs:comment "process, i.e., a temporal part of a 'physical' that is categorized in a primitive process subclass; or, equivalently, something that has a meaning and unfolds in time"^^xs:string.
 
@@ -151,7 +151,7 @@ evmpo:model owl:equivalentClass evi:model.
 
 # category (9): process
 #
-evmpo:physical_process rdfs:subClassOf evi:emmo_process.
+evmpo:physical_process rdfs:subClassOf evi:process.
 
 # category (10): product
 #
