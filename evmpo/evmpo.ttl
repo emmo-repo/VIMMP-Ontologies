@@ -1,7 +1,7 @@
 
 ### EUROPEAN VIRTUAL MARKETPLACE ONTOLOGY (EVMPO) ###
 
-### VERSION 1.1.0, DATED 7TH NOVEMBER 2019 ###
+### VERSION 1.1.1, DATED 8TH NOVEMBER 2019 ###
 
 @prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
 
@@ -25,7 +25,7 @@ evmpo:marketplace_related_entity owl:disjointUnionOf (evmpo:paradigmatic_entity 
 
 evmpo:paradigmatic_entity a owl:Class;
    rdfs:subClassOf evmpo:marketplace_related_entity;
-   rdfs:comment "entity the definition, characterization, processing, or handling of which contitutes an element of the paradigm under which virtual marketplaces for materials models exist; defined below, by agreement between VIMMP, MarketPlace, and EMMO developers, as any of the following categories: (1) assessment, (2) calendar_event, (3) communication, (4) information_content_entity, (5) infrastructure, (6) interpreter, (7) material, (8) model, (9) process, (10) product, (11) property, (12) simulation"^^xs:string.
+   rdfs:comment "entity the definition, characterization, processing, or handling of which contitutes an element of the paradigm under which virtual marketplaces for materials models exist; defined below, by agreement between VIMMP, MarketPlace, and EMMO developers, as any of the following categories: (1) assessment, (2) calendar_event, (3) communication, (4) information_content_entity, (5) infrastructure, (6) interpreter, (7) material, (8) model, (9) process, (10) product, (11) property"^^xs:string.
 evmpo:op_marketplace_related_entity a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 evmpo:dp_marketplace_related_entity a owl:Class;
@@ -554,6 +554,15 @@ evmpo:dp_physical_process a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 evmpo:op_process rdfs:subClassOf evmpo:op_physical_process.
 evmpo:dp_process rdfs:subClassOf evmpo:dp_physical_process.
+evmpo:simulation a owl:Class;
+   rdfs:subClassOf evmpo:process;
+   rdfs:comment "simulation, i.e., a simulation workflow (including a single simulation as special case)"^^xs:string.
+evmpo:op_simulation a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+evmpo:dp_simulation a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_process rdfs:subClassOf evmpo:op_simulation.
+evmpo:dp_process rdfs:subClassOf evmpo:dp_simulation.
 
 ### annotations to the fundamental class ###
 
@@ -561,6 +570,10 @@ evmpo:has_process_annotation a evmpo:op_process;
    rdfs:domain evmpo:process;
    rdfs:range evmpo:annotation;
    rdfs:subPropertyOf evmpo:has_annotation.
+evmpo:has_simulation_annotation a evmpo:op_simulation;
+   rdfs:domain evmpo:simulation;
+   rdfs:range evmpo:annotation;
+   rdfs:subPropertyOf evmpo:has_process_annotation.
 
 
 #########################################################
@@ -658,30 +671,6 @@ evmpo:dp_property rdfs:subClassOf evmpo:dp_physical_process_property.
 
 evmpo:has_property_annotation a evmpo:op_property;
    rdfs:domain evmpo:property;
-   rdfs:range evmpo:annotation;
-   rdfs:subPropertyOf evmpo:has_annotation.
-
-
-############################################################
-###  paradigmatic fundamental category (12): simulation  ###
-############################################################
-
-### fundamental class ###
-
-evmpo:simulation a owl:Class;
-   rdfs:subClassOf evmpo:paradigmatic_entity;
-   rdfs:comment "simulation, i.e., a simulation workflow (including a single simulation as special case)"^^xs:string.
-evmpo:op_simulation a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-evmpo:dp_simulation a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_paradigmatic_entity rdfs:subClassOf evmpo:op_simulation.
-evmpo:dp_paradigmatic_entity rdfs:subClassOf evmpo:dp_simulation.
-
-### annotations to the fundamental class ###
-
-evmpo:has_simulation_annotation a evmpo:op_simulation;
-   rdfs:domain evmpo:simulation;
    rdfs:range evmpo:annotation;
    rdfs:subPropertyOf evmpo:has_annotation.
 

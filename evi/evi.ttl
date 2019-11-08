@@ -1,14 +1,15 @@
 
 ### EMMO-VIMMP INTEGRATION (EVI) ###
 
-### VERSION 0.1.0 ###
+### VERSION 0.1.1 ###
 
-### DATED 7TH NOVEMBER 2019 ###
+### DATED 8TH NOVEMBER 2019 ###
 
 @prefix evi: <http://www.vimmp.eu/semantics/evi/evi.ttl#>.
 
 @prefix emmo-core: <http://emmc.info/emmo-core#>.
 @prefix emmo-direct: <http://emmc.info/emmo-direct#>.
+@prefix emmo-math: <http://emmc.info/emmo-math#>.
 @prefix emmo-models: <http://emmc.info/emmo-models#>.
 @prefix emmo-process: <http://emmc.info/emmo-process#>.
 @prefix emmo-properties: <http://emmc.info/emmo-properties#>.
@@ -19,9 +20,9 @@
 @prefix viso: <http://www.vimmp.eu/semantics/viso/viso-general.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
-######################
-# EMMO CLASS ALIASES #
-######################
+###########################
+# REFERENCED EMMO CLASSES #
+###########################
 
 # EMMO core
 #
@@ -34,9 +35,8 @@ evi:item a owl:Class;
    rdfs:subClassOf evi:emmo;
    rdfs:comment "item, i.e., a fundamental mereotopological entity"^^xs:string.
 evi:set a owl:Class;
-   owl:equivalentClass emmo-core:EMMO_2d2ecd97_067f_4d0e_950c_d746b7700a31;
-   rdfs:subClassOf evi:emmo;
-   rdfs:comment "set, i.e., an entity that 'has_member' some 'item' (i.e. that stand for a collection of 'item' individuals)"^^xs:string.
+   # owl:equivalentClass emmo-core:EMMO_2d2ecd97_067f_4d0e_950c_d746b7700a31;
+   rdfs:subClassOf evi:emmo.
 evi:physical a owl:Class;
    owl:equivalentClass emmo-core:EMMO_c5ddfdba_c074_4aa4_ad6b_1ac4942d300d;
    rdfs:subClassOf evi:item;
@@ -56,9 +56,18 @@ evi:model a owl:Class;
    rdfs:subClassOf evi:sign;
    rdfs:comment "model, i.e., a 'sign' that represents a 'physical' or a 'process' by direct similitude (e.g., small-scale replica) or by capturing the relations between its properties in a logical or mathematical framework"^^xs:string.
 
-# EMMO process, to be distinguished from EVMPO process which is more general
+# EMMO process
 #
-evi:process a owl:Class;
+evi:participant a owl:Class;
+   owl:equivalentClass emmo-process:EMMO_49804605_c0fe_4538_abda_f70ba1dc8a5d;
+   rdfs:subClassOf evi:item;
+   rdfs:comment "participant, i.e., an item that participates (or can participate) in a process with a specific role"^^xs:string.
+#
+# "emmo-process:process" is called "evi:physical_process" here,
+# since it corresponds to "evmpo:physical_process", which is to
+# be distinguished from the more general class "evmpo:process".
+#
+evi:physical_process a owl:Class;
    owl:equivalentClass emmo-process:EMMO_43e9a05d_98af_41b4_92f6_00f79a09bfce;
    rdfs:subClassOf evi:physical;
    rdfs:comment "process, i.e., a temporal part of a 'physical' that is categorized in a primitive process subclass; or, equivalently, something that has a meaning and unfolds in time"^^xs:string.
@@ -85,10 +94,14 @@ evi:quantitative_property a owl:Class;
 
 # EMMO semiotics
 #
+evi:semiosis a owl:Class;
+   owl:equivalentClass emmo-semiotics:EMMO_008fd3b2_4013_451f_8827_52bceab11841;
+   rdfs:subClassOf evi:physical_process;
+   rdfs:comment "semiosis, i.e., a process by which an object, an interpreter, and a sign relate to each other"^^xs:string.
 evi:semiotic a owl:Class;
    owl:equivalentClass emmo-semiotics:EMMO_b803f122_4acb_4064_9d71_c1e5fd091fc9;
-   rdfs:subClassOf evi:item;
-   rdfs:comment "semiotic, i.e., an entity that occurs or can occur in a semiotic triad following Peirce, containing an object, an interpreter, and a sign"^^xs:string.
+   rdfs:subClassOf evi:participant;
+   rdfs:comment "semiotic, i.e., an entity that participates or can participate in semiosis following Peirce, containing an object, an interpreter, and a sign"^^xs:string.
 evi:interpreter a owl:Class;
    owl:equivalentClass emmo-semiotics:EMMO_0527413c_b286_4e9c_b2d0_03fb2a038dee;
    rdfs:subClassOf evi:semiotic;
@@ -97,6 +110,10 @@ evi:sign a owl:Class;
    owl:equivalentClass emmo-semiotics:EMMO_b21a56ed_f969_4612_a6ec_cb7766f7f31d;
    rdfs:subClassOf evi:semiotic;
    rdfs:comment "sign, e.g., a character, word, sentence, paragraph, or chapter, etc."^^xs:string.
+evi:object a owl:Class;
+   owl:equivalentClass emmo-semiotics:EMMO_6f5af708_f825_4feb_a0d1_a8d813d3022b;
+   rdfs:subClassOf evi:semiotic;
+   rdfs:comment "object, e.g., an entity that can be referred to using a sign"^^xs:string.
 evi:symbolic a owl:Class;
    owl:equivalentClass emmo-semiotics:EMMO_057e7d57_aff0_49de_911a_8861d85cef40;
    rdfs:subClassOf evi:physical;
@@ -112,14 +129,18 @@ evi:engineered_entity a owl:Class;
    rdfs:subClassOf evi:existent;
    rdfs:comment "engineered entity, i.e., an existent that has been produced for a particular purpose"^^xs:string.
 
-#########################
-# EMMO RELATION ALIASES #
-#########################
 
-evi:is_related_to a owl:ObjectProperty;
+#############################
+# REFERENCED EMMO RELATIONS #
+#############################
+
+# EMMO top relation
+#
+evi:relation a owl:ObjectProperty, owl:SymmetricProperty;
+   owl:equivalentProperty emmo-core:EMMO_ec2472ae_cf4a_46a5_8555_1556f5a6c3c5;
    rdfs:domain evi:emmo;
    rdfs:range evi:emmo;
-   rdfs:comment "top relation for EMMO integration"^^xs:string.
+   rdfs:comment "EMMO top relation"^^xs:string.
 
 # EMMO set theory
 #
@@ -127,36 +148,198 @@ evi:has_member a owl:ObjectProperty;
    owl:equivalentProperty emmo-core:EMMO_6b7276a4_4b9d_440a_b577_0277539c0fc4;
    rdfs:domain evi:set;
    rdfs:range evi:item;
-   rdfs:subPropertyOf evi:is_related_to.
+   rdfs:subPropertyOf evi:relation;
+   owl:inverseOf evi:is_member_of.
+evi:is_member_of a owl:ObjectProperty, owl:IrreflexiveProperty;
+   owl:equivalentProperty emmo-core:emmo-core:EMMO_e55ff268_c351_4caf_8a8a_2899e50e2a46;
+   rdfs:domain evi:item;
+   rdfs:range evi:set;
+   rdfs:subProperty evi:relation;
+   owl:inverseOf evi:has_member.
+
+# EMMO mereotopology
+#
+evi:connected a owl:ObjectProperty, owl:TransitiveProperty, owl:SymmetricProperty;
+   owl:equivalentProperty emmo-core:EMMO_6703954e_34c4_4a15_a9e7_f313760ae1a8;
+   rdfs:domain evi:item;
+   rdfs:range evi:item;
+   rdfs:subPropertyOf rdfs:relation;
+   rdfs:comment "any mereotopological connection between items"^^xs:string.
+evi:encloses a owl:ObjectProperty, owl:TransitiveProperty;
+   owl:equivalentProperty emmo-core:EMMO_8c898653_1118_4682_9bbf_6cc334d16a99;
+   rdfs:domain evi:item;
+   rdfs:range evi:item;
+   rdfs:subPropertyOf evi:connected;
+   owl:inverseOf evi:is_enclosed_by;
+   rdfs:comment "generalized (improper) parthood relation; this does not necessarily refer to spatio-temporal parthood"^^xs:string.
+evi:is_enclosed_by a owl:ObjectProperty, owl:TransitiveProperty;
+   owl:equivalentProperty emmo-core:EMMO_10d3981e_95a7_472b_b24e_2be29744f1ab;
+   rdfs:domain evi:item;
+   rdfs:range evi:item;
+   rdfs:subPropertyOf evi:connected;
+   owl:inverseOf evi:encloses;
+   rdfs:comment "generalized (improper) parthood relation; this does not necessarily refer to spatio-temporal parthood"^^xs:string.
+evi:has_part a owl:ObjectProperty, owl:TransitiveProperty;
+   owl:equivalentProperty emmo-core:EMMO_17e27c22_37e1_468c_9dd7_95e137f73e7f;
+   rdfs:domain evi:item;
+   rdfs:range evi:item;
+   rdfs:subPropertyOf evi:encloses;
+   owl:inverseOf evi:is_part_of;
+   rdfs:comment "(improper) spatio-temporal parthood relation"^^xs:string.
+evi:is_part_of a owl:ObjectProperty, owl:TransitiveProperty;
+   owl:equivalentProperty emmo-core:EMMO_85fc27bc_5e42_4baa_bf85_5a2dc4a26a1f;
+   rdfs:domain evi:item;
+   rdfs:range evi:item;
+   rdfs:subPropertyOf evi:is_enclosed_by;
+   owl:inverseOf evi:has_part;
+   rdfs:comment "(improper) spatio-temporal parthood relation"^^xs:string.
+evi:has_proper_part a owl:ObjectProperty, owl:IrreflexiveProperty, owl:AsymmetricProperty;
+   owl:equivalentProperty emmo-core:EMMO_9380ab64_0363_4804_b13f_3a8a94119a76;
+   rdfs:domain evi:item;
+   rdfs:range evi:item;
+   rdfs:subPropertyOf evi:has_part;
+   owl:inverseOf evi:is_proper_part_of;
+   rdfs:comment "(proper) spatio-temporal parthood relation"^^xs:string.
+evi:is_proper_part_of a owl:ObjectProperty, owl:IrreflexiveProperty, owl:AsymmetricProperty;
+   owl:equivalentProperty emmo-core:EMMO_756d158a_cd64_44ba_b2e5_c3853ba2f3b2;
+   rdfs:domain evi:item;
+   rdfs:range evi:item;
+   rdfs:subPropertyOf evi:is_part_of;
+   owl:inverseOf evi:has_proper_part;
+   rdfs:comment "(proper) spatio-temporal parthood relation"^^xs:string.
+evi:has_participant a owl:ObjectProperty;
+   owl:equivalentProperty emmo-process:EMMO_ae2d1a96_bfa1_409a_a7d2_03d69e8a125a;
+   rdfs:domain evi:physical_process;
+   rdfs:range evi:participant;
+   rdfs:subPropertyOf evi:has_part;
+   owl:inverseOf evi:is_participant_of;
+   rdfs:comment "X has_participant Y refers to the following situation: X is a physical process, and Y takes part in that process with a specific role"^^xs:string.
+evi:is_participant_of a owl:ObjectProperty;
+   owl:equivalentProperty emmo-process:EMMO_748696de_8257_47c1_a53c_d09df0ff71c5;
+   rdfs:domain evi:participant;
+   rdfs:range evi:physical_process;
+   owl:inverseOf evi:has_participant;
+   rdfs:comment "X is_participant_of Y refers to the following situation: X takes part in the physical process Y with a specific role"^^xs:string.
+
+# EMMO semiotics
+#
+evi:has_sign a owl:ObjectProperty;
+   owl:equivalentProperty emmo-semiotics:EMMO_60577dea_9019_4537_ac41_80b0fb563d41;
+   rdfs:domain evi:object;
+   rdfs:range evi:sign;
+   rdfs:subPropertyOf evi:relation;
+   owl:inverseOf evi:stands_for;
+   rdfs:comment "points to a sign that refers to an object by semiosis"^^xs:string.
+evi:stands_for a owl:ObjectProperty;
+   owl:equivalentProperty emmo-semiotics:EMMO_72a3342f_ba51_49b6_bf5b_4eb948e2a172;
+   rdfs:domain evi:sign;
+   rdfs:range evi:object;
+   rdfs:subProperty evi:relation;
+   owl:inverseOf evi:has_sign;
+   rdfs:comment "points to the object to which the sign refers by semiosis"^^xs:string.
+evi:has_property a owl:ObjectProperty;
+   owl:equivalentProperty emmo-properties:EMMO_e1097637_70d2_4895_973f_2396f04fa204;
+   rdfs:subPropertyOf evi:has_sign;
+   owl:inverseOf evi:is_property_for.
+evi:is_property_for a owl:ObjectProperty;
+   owl:equivalentProperty emmo-properties:EMMO_7b8b789f_b9a8_488b_8019_45ed4e61deac;
+   rdfs:subPropertyOf evi:stands_for;
+   owl:inverseOf evi:has_property.
+evi:is_value_for a owl:ObjectProperty;
+   owl:equivalentProperty emmo-math:EMMO_3446e167_c576_49d6_846c_215bb8878a55;
+   rdfs:subPropertyOf evi:has_sign;
+   owl:inverseOf evi:has_value.
+evi:has_value a owl:ObjectProperty;
+   owl:equivalentProperty emmo-math:EMMO_0e9f1075_e4ea_4a91_ab90_a772b4880e95;
+   rdfs:subPropertyOf evi:stands_for;
+   owl:inverseOf evi:is_value_for.
+evi:has_model a owl:ObjectProperty;
+   owl:equivalentProperty emmo-models:EMMO_24c71baf_6db6_48b9_86c8_8c70cf36db0c;
+   rdfs:domain evi:physical;
+   rdfs:range evi:model;
+   rdfs:subPropertyOf evi:has_sign;
+   rdfs:inverseOf evi:is_model_for.
+evi:is_model_for a owl:ObjectProperty;
+   owl:equivalentProperty emmo-models:EMMO_05eef8df_e29a_43bf_8afd_4de96d38317f;
+   rdfs:domain evi:model;
+   rdfs:range evi:physical;
+   rdfs:subPropertyOf evi:stands_for;
+   rdfs:inverseOf evi:has_model.
+
+
+#####################################
+# GENERALIZED CLASSES AND RELATIONS #
+#####################################
+
+evi:proposition a owl:Class;  # to be used as superclass for assertions, equations, etc.
+   rdfs:subClassOf evi:sign;
+   rdfs:comment "proposition, i.e., a statement of any type"^^xs:string.
+
 
 ####################
 # EVMPO CATEGORIES #
 ####################
 
 evmpo:marketplace_related_entity rdfs:subClassOf evi:emmo.
-evmpo:paradigmatic_entity rdfs:subClassOf evi:emmo.
-evmpo:annotation rdfs:subClassOf evi:emmo.
+evmpo:paradigmatic_entity rdfs:subClassOf evi:emmo, evmpo:marketplace_related_entity.
+
+# category (1): assessment
+#
+evmpo:assessment rdfs:subClassOf evi:proposition, evmpo:paradigmatic_entity.
+
+# category (2): calendar_event
+#
+# unsure what to do with this
+#
+evmpo:calendar_event rdfs:subClassOf evi:emmo, evmpo:paradigmatic_entity.
+
+# category (3): communication
+#
+evmpo:communication rdfs:subClassOf evi:sign, evmpo:paradigmatic_entity.
+
+# category (4): information_content_entity
+#
+evmpo:information_content_entity rdfs:subClassOf evi:sign, evmpo:paradigmatic_entity.
+evmpo:document rdfs:subClassOf evi:symbolic, evmpo:information_content_entity.
+
+# category (5): infrastructure
+#
+# unsure what to do with this
+#
+evmpo:infrastructure rdfs:subClassOf evi:emmo, evmpo:paradigmatic_entity.
 
 # category (6): interpreter
 #
-evmpo:interpreter owl:equivalentClass evi:interpreter.
+evmpo:interpreter owl:equivalentClass evi:interpreter;
+   rdfs:subClassOf evmpo:paradigmatic_entity.
 
 # category (7): material
 #
-evmpo:material owl:equivalentClass evi:material.
+evmpo:material owl:equivalentClass evi:material;
+   rdfs:subClassOf evmpo:paradigmatic_entity.
 
 # category (8): model
 #
-evmpo:model owl:equivalentClass evi:model.
+evmpo:model owl:equivalentClass evi:model;
+   rdfs:subClassOf evmpo:paradigmatic_entity.
 
 # category (9): process
 #
-evmpo:physical_process rdfs:subClassOf evi:process.
+evmpo:process rdfs:subClassOf evmpo:paradigmatic_entity.
+evmpo:physical_process owl:equivalentClass evi:physical_process;
+   rdfs:subClassOf evmpo:process.
+evmpo:simulation rdfs:subClassOf evi:semiosis, evmpo:process.
 
 # category (10): product
 #
-evmpo:good rdfs:subClassOf evi:engineered_entity.
+evmpo:product rdfs:subClassOf evmpo:paradigmatic_entity.
+evmpo:good rdfs:subClassOf evi:engineered_entity, evmpo:product.
 
 # category (11): property
 #
-evmpo:property owl:equivalentClass evi:property.
+evmpo:property owl:equivalentClass evi:property;
+   rdfs:subClassOf evmpo:paradigmatic_entity.
+
+# category (0): annotation
+#
+evmpo:annotation rdfs:subClassOf evi:emmo, evmpo:marketplace_related_entity.
