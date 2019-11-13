@@ -1,9 +1,9 @@
 
 ### EMMO-VIMMP INTEGRATION (EVI) ###
 
-### VERSION 0.1.1 ###
+### VERSION 0.1.2 ###
 
-### DATED 8TH NOVEMBER 2019 ###
+### DATED 13TH NOVEMBER 2019 ###
 
 @prefix evi: <http://www.vimmp.eu/semantics/evi/evi.ttl#>.
 
@@ -63,11 +63,15 @@ evi:participant a owl:Class;
    rdfs:subClassOf evi:item;
    rdfs:comment "participant, i.e., an item that participates (or can participate) in a process with a specific role"^^xs:string.
 #
-# "emmo-process:process" is called "evi:physical_process" here,
+# "emmo-process:process" is called "evi:emmo_process" here,
 # since it corresponds to "evmpo:physical_process", which is to
 # be distinguished from the more general class "evmpo:process".
 #
-evi:physical_process a owl:Class;
+# Q: why two different definitions of "process"? 
+# A: in our discussions with access e.v., they insisted that
+#    "business_process" needs to be included in the EVMPO under process
+#
+evi:emmo_process a owl:Class;
    owl:equivalentClass emmo-process:EMMO_43e9a05d_98af_41b4_92f6_00f79a09bfce;
    rdfs:subClassOf evi:physical;
    rdfs:comment "process, i.e., a temporal part of a 'physical' that is categorized in a primitive process subclass; or, equivalently, something that has a meaning and unfolds in time"^^xs:string.
@@ -96,7 +100,7 @@ evi:quantitative_property a owl:Class;
 #
 evi:semiosis a owl:Class;
    owl:equivalentClass emmo-semiotics:EMMO_008fd3b2_4013_451f_8827_52bceab11841;
-   rdfs:subClassOf evi:physical_process;
+   rdfs:subClassOf evi:emmo_process;
    rdfs:comment "semiosis, i.e., a process by which an object, an interpreter, and a sign relate to each other"^^xs:string.
 evi:semiotic a owl:Class;
    owl:equivalentClass emmo-semiotics:EMMO_b803f122_4acb_4064_9d71_c1e5fd091fc9;
@@ -121,13 +125,13 @@ evi:symbolic a owl:Class;
 
 # EMMO use case ("usercase")
 #
-evi:material a owl:Class;
-   owl:equivalentClass emmo-usercase:EMMO_4207e895_8b83_4318_996a_72cfb32acd94;
-   rdfs:subClassOf evi:physical.
 evi:engineered_entity a owl:Class;
    owl:equivalentClass emmo-usercase:EMMO_86ca9b93_1183_4b65_81b8_c0fcd3bba5ad;
    rdfs:subClassOf evi:existent;
    rdfs:comment "engineered entity, i.e., an existent that has been produced for a particular purpose"^^xs:string.
+evi:material a owl:Class;
+   owl:equivalentClass emmo-usercase:EMMO_4207e895_8b83_4318_996a_72cfb32acd94;
+   rdfs:subClassOf evi:engineered_entity.
 
 
 #############################
@@ -209,7 +213,7 @@ evi:is_proper_part_of a owl:ObjectProperty, owl:IrreflexiveProperty, owl:Asymmet
    rdfs:comment "(proper) spatio-temporal parthood relation"^^xs:string.
 evi:has_participant a owl:ObjectProperty;
    owl:equivalentProperty emmo-process:EMMO_ae2d1a96_bfa1_409a_a7d2_03d69e8a125a;
-   rdfs:domain evi:physical_process;
+   rdfs:domain evi:emmo_process;
    rdfs:range evi:participant;
    rdfs:subPropertyOf evi:has_part;
    owl:inverseOf evi:is_participant_of;
@@ -217,7 +221,7 @@ evi:has_participant a owl:ObjectProperty;
 evi:is_participant_of a owl:ObjectProperty;
    owl:equivalentProperty emmo-process:EMMO_748696de_8257_47c1_a53c_d09df0ff71c5;
    rdfs:domain evi:participant;
-   rdfs:range evi:physical_process;
+   rdfs:range evi:emmo_process;
    owl:inverseOf evi:has_participant;
    rdfs:comment "X is_participant_of Y refers to the following situation: X takes part in the physical process Y with a specific role"^^xs:string.
 
@@ -326,7 +330,7 @@ evmpo:model owl:equivalentClass evi:model;
 # category (9): process
 #
 evmpo:process rdfs:subClassOf evmpo:paradigmatic_entity.
-evmpo:physical_process owl:equivalentClass evi:physical_process;
+evmpo:physical_process owl:equivalentClass evi:emmo_process;
    rdfs:subClassOf evmpo:process.
 evmpo:simulation rdfs:subClassOf evi:semiosis, evmpo:process.
 
