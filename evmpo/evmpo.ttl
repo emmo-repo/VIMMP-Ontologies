@@ -1,7 +1,7 @@
 
 ### EUROPEAN VIRTUAL MARKETPLACE ONTOLOGY (EVMPO) ###
 
-### VERSION 1.1.1, DATED 8TH NOVEMBER 2019 ###
+### VERSION 1.1.2, DATED 22ND NOVEMBER 2019 ###
 
 @prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
 
@@ -518,36 +518,27 @@ evmpo:dp_business_process a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 evmpo:op_process rdfs:subClassOf evmpo:op_business_process.
 evmpo:dp_process rdfs:subClassOf evmpo:dp_business_process.
-evmpo:communication_process a owl:Class;
-   rdfs:subClassOf evmpo:process;
-   rdfs:comment "communication process, i.e., a process of exchanging statements, information content entities, or binary data"^^xs:string.
-evmpo:op_communication_process a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-evmpo:dp_communication_process a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_process rdfs:subClassOf evmpo:op_communication_process.
-evmpo:dp_process rdfs:subClassOf evmpo:dp_communication_process.
 evmpo:computational_process a owl:Class;
-   rdfs:subClassOf evmpo:process;
+   rdfs:subClassOf evmpo:physical_process;
    rdfs:comment "computational process, i.e., a process by software is executed on hardware, and by which data may be generated or altered"^^xs:string.
 evmpo:op_computational_process a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 evmpo:dp_computational_process a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_process rdfs:subClassOf evmpo:op_computational_process.
-evmpo:dp_process rdfs:subClassOf evmpo:dp_computational_process.
+evmpo:op_physical_process rdfs:subClassOf evmpo:op_computational_process.
+evmpo:dp_physical_process rdfs:subClassOf evmpo:dp_computational_process.
 evmpo:manufacturing_process a owl:Class;
-   rdfs:subClassOf evmpo:process;
-   rdfs:comment "manufacturing process, i.e., a process-level description of industrial production activities"^^xs:string.
+   rdfs:subClassOf evmpo:physical_process;
+   rdfs:comment "manufacturing process, i.e., a physical process that serves the production of a good"^^xs:string.
 evmpo:op_manufacturing_process a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 evmpo:dp_manufacturing_process a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_process rdfs:subClassOf evmpo:op_manufacturing_process.
-evmpo:dp_process rdfs:subClassOf evmpo:dp_manufacturing_process.
+evmpo:op_physical_process rdfs:subClassOf evmpo:op_manufacturing_process.
+evmpo:dp_physical_process rdfs:subClassOf evmpo:dp_manufacturing_process.
 evmpo:physical_process a owl:Class;
    rdfs:subClassOf evmpo:process;
-   rdfs:comment "physical process, i.e., a process associated with or experienced by a material"^^xs:string.
+   rdfs:comment "physical process, i.e., a process in the sense of the EMMO"^^xs:string.
 evmpo:op_physical_process a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 evmpo:dp_physical_process a owl:Class;
@@ -555,14 +546,14 @@ evmpo:dp_physical_process a owl:Class;
 evmpo:op_process rdfs:subClassOf evmpo:op_physical_process.
 evmpo:dp_process rdfs:subClassOf evmpo:dp_physical_process.
 evmpo:simulation a owl:Class;
-   rdfs:subClassOf evmpo:process;
+   rdfs:subClassOf evmpo:computational_process;
    rdfs:comment "simulation, i.e., a simulation workflow (including a single simulation as special case)"^^xs:string.
 evmpo:op_simulation a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 evmpo:dp_simulation a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_process rdfs:subClassOf evmpo:op_simulation.
-evmpo:dp_process rdfs:subClassOf evmpo:dp_simulation.
+evmpo:op_computational_process rdfs:subClassOf evmpo:op_simulation.
+evmpo:dp_computational_process rdfs:subClassOf evmpo:dp_simulation.
 
 ### annotations to the fundamental class ###
 
