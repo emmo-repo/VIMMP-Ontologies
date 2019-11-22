@@ -6781,9 +6781,9 @@ cviii:dp_human_agent rdfs:subClassOf otras:dp_instructor.
 
 ### VIMMP COMMUNICATION ONTOLOGY (VICO) ###
 
-### VERSION 0.8.10 ###
+### VERSION 0.8.11 ###
 
-### DATED 7TH NOVEMBER 2019 ###
+### DATED 22ND NOVEMBER 2019 ###
 
 @prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
 
@@ -6816,6 +6816,13 @@ vico:has_author a evmpo:op_communication, owl:FunctionalProperty;
 vico:has_expiry_date a vico:op_interlocution, owl:FunctionalProperty;
    rdfs:domain evmpo:communication;
    rdfs:range dcterms:W3C-DTF.
+vico:has_file_content_locator a evmpo:dp_communication;
+   rdfs:domain evmpo:communication;
+   rdfs:range xs:string;
+   rdfs:comment "this may be a URL or a path where the file can be accessed"^^xs:string.
+vico:has_file_content_format a evmpo:dp_communication;
+   rdfs:domain evmpo:communication;
+   rdfs:range macro:file_format.
 vico:has_label a evmpo:op_communication;
    rdfs:domain evmpo:communication;
    rdfs:range vico:label;
@@ -6827,7 +6834,10 @@ vico:has_status a evmpo:op_communication;
 vico:has_submission_date a evmpo:op_communication, owl:FunctionalProperty;
    rdfs:domain evmpo:communication;
    rdfs:range dcterms:W3C-DTF.
-vico:has_text a evmpo:dp_communication;
+vico:has_text_content a evmpo:dp_communication;
+   rdfs:domain evmpo:communication;
+   rdfs:range xs:string.
+vico:has_title a evmpo:dp_communication;
    rdfs:domain evmpo:communication;
    rdfs:range xs:string.
 
@@ -6850,32 +6860,14 @@ evmpo:communication
 evmpo:statement owl:intersectionOf (evmpo:communication [a owl:Restriction; owl:onProperty vico:contains; owl:cardinality 0]).
 
 vico:appendix a owl:Class;
-   rdfs:subClassOf evmpo:communication;
-   rdfs:comment "appendix, i.e., a communication which cannot stand alone and needs to be combined with a communication body"^^xs:string.
+   rdfs:subClassOf evmpo:statement;
+   rdfs:comment "appendix, i.e., a statement that cannot stand alone and needs to be combined with a communication body"^^xs:string.
 vico:op_appendix a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 vico:dp_appendix a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_communication rdfs:subClassOf vico:op_appendix.
-evmpo:dp_communication rdfs:subClassOf vico:dp_appendix.
-
-vico:appendix rdfs:subClassOf [
-   a owl:Restriction;
-   owl:onProperty vico:contains;
-   owl:cardinality 0
-].
-
-vico:appendix_statement a owl:Class;
-   rdfs:subClassOf vico:appendix, evmpo:statement;
-   owl:intersectionOf (vico:appendix evmpo:statement).
-vico:op_appendix_statement a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-vico:dp_appendix_statement a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-vico:op_appendix rdfs:subClassOf vico:op_appendix_statement.
-vico:dp_appendix rdfs:subClassOf vico:dp_appendix_statement.
-evmpo:op_statement rdfs:subClassOf vico:op_appendix_statement.
-evmpo:dp_statement rdfs:subClassOf vico:dp_appendix_statement.
+evmpo:op_statement rdfs:subClassOf vico:op_appendix.
+evmpo:dp_statement rdfs:subClassOf vico:dp_appendix.
 
 vico:validation_communication a owl:Class;
    rdfs:subClassOf evmpo:communication, vivo:validation_entity;
