@@ -1,20 +1,20 @@
 
 ### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
 
-### VERSION 0.8.9 ###
+### VERSION 0.8.10 ###
 
-### DATED 7TH NOVEMBER 2019 ###
+### DATED 25TH NOVEMBER 2019 ###
 
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 
 @prefix ccso: <https://w3id.org/ccso/ccso#>.
-@prefix cviii: <http://www.vimmp.eu/semantics/cviii/cviii.ttl#>.
 @prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
 @prefix iao: <http://purl.obolibrary.org/obo/iao.owl#>.
 @prefix ical: <https://www.w3.org/2002/12/cal/icaltzd#>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
 <http://www.vimmp.eu/semantics/otras/otras.ttl#> a owl:Ontology.
@@ -1582,7 +1582,7 @@ otras:has_identified_given_name_initials a otras:dp_author_identifier, owl:Funct
    rdfs:range xs:string.
 otras:has_identified_person a otras:op_author_identifier;
    rdfs:domain otras:author_identifier;
-   rdfs:range cviii:person.
+   rdfs:range vico:person.
 otras:has_identified_surname a otras:dp_author_identifier, owl:FunctionalProperty;
    rdfs:domain otras:author_identifier;
    rdfs:range xs:string.
@@ -1637,16 +1637,16 @@ otras:author_map_element rdfs:subClassOf [
    ].
 
 otras:instructor a owl:Class;
-   rdfs:subClassOf evmpo:expert, cviii:training_provider, ccso:Professor;
+   rdfs:subClassOf evmpo:expert, vico:training_provider, ccso:Professor;
    rdfs:comment "instructor, i.e., an individual human agent with expertise who can take responsibility for courses, training units, or training services"^^xs:string.
-ccso:Professor rdfs:subClassOf cviii:agent.
+ccso:Professor rdfs:subClassOf vico:agent.
 otras:op_instructor a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 otras:dp_instructor a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 evmpo:op_expert rdfs:subClassOf otras:op_instructor.
 evmpo:dp_expert rdfs:subClassOf otras:dp_instructor.
-cviii:op_training_provider rdfs:subClassOf otras:op_instructor.
-cviii:dp_training_provider rdfs:subClassOf otras:dp_instructor.
-cviii:op_human_agent rdfs:subClassOf otras:op_instructor.
-cviii:dp_human_agent rdfs:subClassOf otras:dp_instructor.
+vico:op_training_provider rdfs:subClassOf otras:op_instructor.
+vico:dp_training_provider rdfs:subClassOf otras:dp_instructor.
+vico:op_human_agent rdfs:subClassOf otras:op_instructor.
+vico:dp_human_agent rdfs:subClassOf otras:dp_instructor.

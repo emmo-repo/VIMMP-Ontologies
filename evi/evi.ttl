@@ -1,9 +1,9 @@
 
 ### EMMO-VIMMP INTEGRATION (EVI) ###
 
-### VERSION 0.1.2 ###
+### VERSION 0.1.3 ###
 
-### DATED 13TH NOVEMBER 2019 ###
+### DATED 25TH NOVEMBER 2019 ###
 
 @prefix evi: <http://www.vimmp.eu/semantics/evi/evi.ttl#>.
 
@@ -16,8 +16,6 @@
 @prefix emmo-semiotics: <http://emmc.info/emmo-semiotics#>.
 @prefix emmo-usercase: <http://emmc.info/emmo-usercase#>.
 @prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
-@prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
-@prefix viso: <http://www.vimmp.eu/semantics/viso/viso-general.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
 ###########################

@@ -1,13 +1,12 @@
 
 ### MARKETPLACE-ACCESSIBLE COMPUTATIONAL RESOURCE ONTOLOGY (MACRO) ###
 
-### VERSION 0.2.3 ###
+### VERSION 0.2.4 ###
 
-### DATED 7TH NOVEMBER 2019 ###
+### DATED 25TH NOVEMBER 2019 ###
 
 @prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
 
-@prefix cviii: <http://www.vimmp.eu/semantics/cviii/cviii.ttl#>.
 @prefix edam: <http://edamontology.org/>.
 @prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
@@ -15,6 +14,7 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
 <http://www.vimmp.eu/semantics/macro/macro.ttl#> a owl:Ontology.
@@ -83,7 +83,7 @@ macro:dp_computational_resource rdfs:subClassOf macro:dp_software_infrastructure
 viso:software_tool rdfs:subClassOf macro:software_infrastructure.
 
 macro:repository a owl:Class;
-   rdfs:subClassOf macro:data_infrastructure, macro:hardware_infrastructure, cviii:agent.
+   rdfs:subClassOf macro:data_infrastructure, macro:hardware_infrastructure, vico:agent.
 macro:op_repository a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 macro:dp_repository a owl:Class;
@@ -92,27 +92,27 @@ macro:op_data_infrastructure rdfs:subClassOf macro:op_repository.
 macro:dp_data_infrastructure rdfs:subClassOf macro:dp_repository.
 macro:op_hardware_infrastructure rdfs:subClassOf macro:op_repository.
 macro:dp_hardware_infrastructure rdfs:subClassOf macro:dp_repository.
-cviii:op_agent rdfs:subClassOf macro:op_repository.
-cviii:dp_agent rdfs:subClassOf macro:dp_repository.
+vico:op_agent rdfs:subClassOf macro:op_repository.
+vico:dp_agent rdfs:subClassOf macro:dp_repository.
 
 macro:VIMMP_CERTIFICATE_REGISTRY a macro:repository;
-   cviii:acts_on macro:VIMMP_MARKETPLACE;
-   cviii:has_name "VIMMP Marketplace Certificate Registry"^^xs:string.
+   vico:acts_on macro:VIMMP_MARKETPLACE;
+   vico:has_name "VIMMP Marketplace Certificate Registry"^^xs:string.
 
 macro:model_database a owl:Class;
-   rdfs:subClassOf macro:repository, cviii:model_provider.
+   rdfs:subClassOf macro:repository, vico:model_provider.
 macro:op_model_database a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 macro:dp_model_database a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 macro:op_repository rdfs:subClassOf macro:op_model_database.
 macro:dp_repository rdfs:subClassOf macro:dp_model_database.
-cviii:op_model_provider rdfs:subClassOf macro:op_model_database.
-cviii:dp_model_provider rdfs:subClassOf macro:dp_model_database.
+vico:op_model_provider rdfs:subClassOf macro:op_model_database.
+vico:dp_model_provider rdfs:subClassOf macro:dp_model_database.
 
 macro:BOTTLED_SAFT a macro:model_database;
-   cviii:acts_on macro:VIMMP_MARKETPLACE;
-   cviii:has_name "Bottled SAFT"^^xs:string.
+   vico:acts_on macro:VIMMP_MARKETPLACE;
+   vico:has_name "Bottled SAFT"^^xs:string.
 
 macro:channel a owl:Class;
    rdfs:subClassOf macro:data_infrastructure.
@@ -125,8 +125,8 @@ macro:dp_data_infrastructure rdfs:subClassOf macro:dp_channel.
 
 macro:has_channel_member a macro:op_channel;
    rdfs:domain macro:channel;
-   rdfs:range cviii:agent;
-   owl:inverseOf cviii:has_access_to.
+   rdfs:range vico:agent;
+   owl:inverseOf vico:has_access_to.
 macro:has_channel_name a macro:dp_channel;
    rdfs:domain macro:channel;
    rdfs:range xs:string.
@@ -144,14 +144,14 @@ macro:dp_channel rdfs:subClassOf macro:dp_unidirectional_channel.
 
 macro:has_channel_owner a macro:op_unidirectional_channel;
    rdfs:domain macro:unidirectional_channel;
-   rdfs:range cviii:agent;
+   rdfs:range vico:agent;
    rdfs:subPropertyOf macro:has_channel_member;
-   owl:inverseOf cviii:is_owner_of.
+   owl:inverseOf vico:is_owner_of.
 macro:has_channel_subscriber a macro:op_unidirectional_channel;
    rdfs:domain macro:unidirectional_channel;
-   rdfs:range cviii:agent;
+   rdfs:range vico:agent;
    rdfs:subPropertyOf macro:has_channel_member;
-   owl:inverseOf cviii:is_subscribed_to.
+   owl:inverseOf vico:is_subscribed_to.
 
 macro:newsletter a owl:Class;
    rdfs:subClassOf macro:unidirectional_channel.
@@ -190,8 +190,8 @@ macro:dp_bidirectional_channel rdfs:subClassOf macro:dp_virtual_marketplace.
 
 macro:has_stakeholder a macro:op_virtual_marketplace;
    rdfs:domain macro:virtual_marketplace;
-   rdfs:range cviii:agent;
-   owl:inverseOf cviii:acts_at;
+   rdfs:range vico:agent;
+   owl:inverseOf vico:acts_at;
    rdfs:subPropertyOf macro:has_channel_member.
 
 macro:VIMMP_MARKETPLACE a macro:virtual_marketplace.

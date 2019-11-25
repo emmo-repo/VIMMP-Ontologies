@@ -3,7 +3,7 @@
 ##                                          ##
 ##  EXAMPLE: SWiMM 2020 SCHOOL DESCRIPTION  ##
 ##                                          ##
-##      LAST UPDATED: 6TH OCTOBER 2019      ##
+##     LAST UPDATED: 25TH NOVEMBER 2019     ##
 ##                                          ##
 ##############################################
 
@@ -26,7 +26,6 @@
 # IMPORTED VIMMP ONTOLOGIES #
 #############################
 
-@prefix cviii: <http://www.vimmp.eu/semantics/cviii/cviii.ttl#>.
 @prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 @prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
@@ -175,10 +174,10 @@ swimm:GROUP_SESSION_2 a otras:training_unit;
 ###############
 
 swimm:SILVIA_CHIACCHIERA a otras:instructor;
-   cviii:has_first_name "Silvia"^^xs:string;
-   cviii:has_last_name "Chiacchiera"^^xs:string;
-   cviii:has_academic_title cviii:TITLE_DOCTOR_GENERIC;
-   cviii:has_personal_address [
+   vico:has_first_name "Silvia"^^xs:string;
+   vico:has_last_name "Chiacchiera"^^xs:string;
+   vico:has_academic_title vico:TITLE_DOCTOR_GENERIC;
+   vico:has_personal_address [
       a vico:email_address;
       vico:has_email_prefix [
          vico:has_token_index 1;
@@ -191,10 +190,10 @@ swimm:SILVIA_CHIACCHIERA a otras:instructor;
    ].
 
 swimm:JOSHUA_D_ELLIOTT a otras:instructor;
-   cviii:has_first_name "Joshua D."^^xs:string;
-   cviii:has_last_name "Elliott"^^xs:string;
-   cviii:has_academic_title cviii:TITLE_DOCTOR_GENERIC;
-   cviii:has_personal_address [
+   vico:has_first_name "Joshua D."^^xs:string;
+   vico:has_last_name "Elliott"^^xs:string;
+   vico:has_academic_title vico:TITLE_DOCTOR_GENERIC;
+   vico:has_personal_address [
       a vico:email_address;
       vico:has_email_prefix [
          vico:has_token_index 1;
@@ -207,10 +206,10 @@ swimm:JOSHUA_D_ELLIOTT a otras:instructor;
    ].
 
 swimm:ERIC_FAYOLLE a otras:instructor;
-   cviii:has_first_name "Éric"^^xs:string;
-   cviii:has_last_name "Fayolle"^^xs:string;
-   cviii:has_academic_title cviii:TITLE_DOCTOR_GENERIC;
-   cviii:has_personal_address [
+   vico:has_first_name "Éric"^^xs:string;
+   vico:has_last_name "Fayolle"^^xs:string;
+   vico:has_academic_title vico:TITLE_DOCTOR_GENERIC;
+   vico:has_personal_address [
       a vico:email_address;
       vico:has_email_prefix [
          vico:has_token_index 1;
@@ -223,10 +222,10 @@ swimm:ERIC_FAYOLLE a otras:instructor;
    ].
 
 swimm:MARTIN_THOMAS_HORSCH a otras:instructor;
-   cviii:has_first_name "Martin Thomas"^^xs:string;
-   cviii:has_last_name "Horsch"^^xs:string;
-   cviii:has_academic_title cviii:TITLE_DOCTOR_GENERIC;
-   cviii:has_personal_address [
+   vico:has_first_name "Martin Thomas"^^xs:string;
+   vico:has_last_name "Horsch"^^xs:string;
+   vico:has_academic_title vico:TITLE_DOCTOR_GENERIC;
+   vico:has_personal_address [
       a vico:email_address;
       vico:has_email_prefix [
          vico:has_token_index 1;
@@ -239,10 +238,10 @@ swimm:MARTIN_THOMAS_HORSCH a otras:instructor;
    ].
 
 swimm:JAN_JANSSEN a otras:instructor;
-   cviii:has_first_name "Jan"^^xs:string;
-   cviii:has_last_name "Janssen"^^xs:string;
-   cviii:has_personal_title cviii:TITLE_MALE_GENERIC;
-   cviii:has_personal_address [
+   vico:has_first_name "Jan"^^xs:string;
+   vico:has_last_name "Janssen"^^xs:string;
+   vico:has_personal_title vico:TITLE_MALE_GENERIC;
+   vico:has_personal_address [
       a vico:email_address;
       vico:has_email_prefix [
          vico:has_token_index 1;
@@ -255,10 +254,10 @@ swimm:JAN_JANSSEN a otras:instructor;
    ].
 
 swimm:JAMES_R_KERMODE a otras:instructor;
-   cviii:has_first_name "James R."^^xs:string;
-   cviii:has_last_name "Kermode"^^xs:string;
-   cviii:has_academic_title cviii:TITLE_DOCTOR_GENERIC;
-   cviii:has_personal_address [
+   vico:has_first_name "James R."^^xs:string;
+   vico:has_last_name "Kermode"^^xs:string;
+   vico:has_academic_title vico:TITLE_DOCTOR_GENERIC;
+   vico:has_personal_address [
       a vico:email_address;
       vico:has_email_prefix [
          vico:has_token_index 1;
@@ -271,10 +270,10 @@ swimm:JAMES_R_KERMODE a otras:instructor;
    ].
 
 swimm:JEAN_PIERRE_MINIER a otras:instructor;
-   cviii:has_first_name "Jean-Pierre"^^xs:string;
-   cviii:has_last_name "Minier"^^xs:string;
-   cviii:has_academic_title cviii:TITLE_DOCTOR_GENERIC;
-   cviii:has_personal_address [
+   vico:has_first_name "Jean-Pierre"^^xs:string;
+   vico:has_last_name "Minier"^^xs:string;
+   vico:has_academic_title vico:TITLE_DOCTOR_GENERIC;
+   vico:has_personal_address [
       a vico:email_address;
       vico:has_email_prefix [
          vico:has_token_index 1;
@@ -287,10 +286,10 @@ swimm:JEAN_PIERRE_MINIER a otras:instructor;
    ].
 
 swimm:JOERG_NEUGEBAUER a otras:instructor;
-   cviii:has_first_name "Jörg"^^xs:string;
-   cviii:has_last_name "Neugebauer"^^xs:string;
-   cviii:has_academic_title cviii:TITLE_PROFESSOR_GENERIC_SHORT, cviii:TITLE_DOCTOR_GENERIC;
-   cviii:has_personal_address [
+   vico:has_first_name "Jörg"^^xs:string;
+   vico:has_last_name "Neugebauer"^^xs:string;
+   vico:has_academic_title vico:TITLE_PROFESSOR_GENERIC_SHORT, vico:TITLE_DOCTOR_GENERIC;
+   vico:has_personal_address [
       a vico:email_address;
       vico:has_email_prefix [
          vico:has_token_index 1;
@@ -303,10 +302,10 @@ swimm:JOERG_NEUGEBAUER a otras:instructor;
    ].
 
 swimm:PHILIPP_NEUMANN a otras:instructor;
-   cviii:has_first_name "Philipp"^^xs:string;
-   cviii:has_last_name "Neumann"^^xs:string;
-   cviii:has_academic_title cviii:TITLE_PROFESSOR_GENERIC_SHORT, cviii:TITLE_DOCTOR_GENERIC;
-   cviii:has_personal_address [
+   vico:has_first_name "Philipp"^^xs:string;
+   vico:has_last_name "Neumann"^^xs:string;
+   vico:has_academic_title vico:TITLE_PROFESSOR_GENERIC_SHORT, vico:TITLE_DOCTOR_GENERIC;
+   vico:has_personal_address [
       a vico:email_address;
       vico:has_email_prefix [
          vico:has_token_index 1;
@@ -319,10 +318,10 @@ swimm:PHILIPP_NEUMANN a otras:instructor;
    ].
 
 swimm:PASCALE_NOYRET a otras:instructor;
-   cviii:has_first_name "Pascale"^^xs:string;
-   cviii:has_last_name "Noyret"^^xs:string;
-   cviii:has_academic_title cviii:TITLE_DOCTOR_GENERIC;
-   cviii:has_personal_address [
+   vico:has_first_name "Pascale"^^xs:string;
+   vico:has_last_name "Noyret"^^xs:string;
+   vico:has_academic_title vico:TITLE_DOCTOR_GENERIC;
+   vico:has_personal_address [
       a vico:email_address;
       vico:has_email_prefix [
          vico:has_token_index 1;
@@ -335,10 +334,10 @@ swimm:PASCALE_NOYRET a otras:instructor;
    ].
 
 swimm:ARDITA_SHKURTI a otras:instructor;
-   cviii:has_first_name "Ardita"^^xs:string;
-   cviii:has_last_name "Shkurti"^^xs:string;
-   cviii:has_academic_title cviii:TITLE_DOCTOR_GENERIC;
-   cviii:has_personal_address [
+   vico:has_first_name "Ardita"^^xs:string;
+   vico:has_last_name "Shkurti"^^xs:string;
+   vico:has_academic_title vico:TITLE_DOCTOR_GENERIC;
+   vico:has_personal_address [
       a vico:email_address;
       vico:has_email_prefix [
          vico:has_token_index 1;
@@ -351,10 +350,10 @@ swimm:ARDITA_SHKURTI a otras:instructor;
    ].
 
 swimm:KRISTIAN_SOMMER_THYGESEN a otras:instructor;
-   cviii:has_first_name "Kristian Sommer"^^xs:string;
-   cviii:has_last_name "Thygesen"^^xs:string;
-   cviii:has_academic_title cviii:TITLE_DOCTOR_GENERIC;
-   cviii:has_personal_address [
+   vico:has_first_name "Kristian Sommer"^^xs:string;
+   vico:has_last_name "Thygesen"^^xs:string;
+   vico:has_academic_title vico:TITLE_DOCTOR_GENERIC;
+   vico:has_personal_address [
       a vico:email_address;
       vico:has_email_prefix [
          vico:has_token_index 1;
@@ -367,10 +366,10 @@ swimm:KRISTIAN_SOMMER_THYGESEN a otras:instructor;
    ].
 
 swimm:JADRAN_VRABEC a otras:instructor;
-   cviii:has_first_name "Jadran"^^xs:string;
-   cviii:has_last_name "Vrabec"^^xs:string;
-   cviii:has_academic_title cviii:TITLE_PROFESSOR_GENERIC_SHORT, cviii:TITLE_DOCTOR_GENERIC;
-   cviii:has_personal_address [
+   vico:has_first_name "Jadran"^^xs:string;
+   vico:has_last_name "Vrabec"^^xs:string;
+   vico:has_academic_title vico:TITLE_PROFESSOR_GENERIC_SHORT, vico:TITLE_DOCTOR_GENERIC;
+   vico:has_personal_address [
       a vico:email_address;
       vico:has_email_prefix [
          vico:has_token_index 1;

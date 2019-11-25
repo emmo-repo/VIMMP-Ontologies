@@ -2,7 +2,7 @@
 ##                                    ##
 ##  EXAMPLE: INGEST OF PERSONAL DATA  ##
 ##                                    ##
-##   LAST UPDATED: 6TH OCTOBER 2019   ##
+##  LAST UPDATED: 25TH NOVEMBER 2019  ##
 ##                                    ##
 ########################################
 
@@ -23,7 +23,6 @@
 # IMPORTED VIMMP ONTOLOGIES #
 #############################
 
-@prefix cviii: <http://www.vimmp.eu/semantics/cviii/cviii.ttl#>.
 @prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 @prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
@@ -33,12 +32,12 @@
 # PROFILE DATA #
 ################
 
-self-descriptions:MARTIN_THOMAS_HORSCH a cviii:expert, cviii:human_agent, cviii:marketplace_subject, cviii:model_provider, cviii:translator;
-   cviii:has_first_name "Martin Thomas"^^xs:string;
-   cviii:has_last_name "Horsch"^^xs:string;
-   cviii:has_academic_title cviii:TITLE_DOCTOR_GENERIC;
-   cviii:has_affiliation self-descriptions:STFC_DARESBURY_LABORATORY;
-   cviii:has_business_address [
+self-descriptions:MARTIN_THOMAS_HORSCH a vico:expert, vico:human_agent, vico:marketplace_subject, vico:model_provider, vico:translator;
+   vico:has_first_name "Martin Thomas"^^xs:string;
+   vico:has_last_name "Horsch"^^xs:string;
+   vico:has_academic_title vico:TITLE_DOCTOR_GENERIC;
+   vico:has_affiliation self-descriptions:STFC_DARESBURY_LABORATORY;
+   vico:has_business_address [
       a vico:email_address;
       vico:has_email_prefix [
          vico:has_token_index 1;
@@ -65,36 +64,36 @@ self-descriptions:MARTIN_THOMAS_HORSCH a cviii:expert, cviii:human_agent, cviii:
       vico:is_in_country lcc-codes:UnitedKingdomOfGreatBritainAndNorthernIreland;
       vico:has_textual_representation "http://www.scd.stfc.ac.uk/Pages/Martin-Thomas-Horsch.aspx"^^xs:string
    ], self-descriptions:DARESBURY_ADDRESS;
-   cviii:has_expertise_in otras:MM_TOPIC_4000, otras:MM_TOPIC_5200, otras:MM_TOPIC_7500, otras:MM_TOPIC_8570;
-   cviii:has_interlocutor_tag [
-      cviii:is_academic "true"^^xs:boolean;
-      cviii:is_based_in lcc-codes:UnitedKingdomOfGreatBritainAndNorthernIreland;
-      cviii:is_in_group cviii:IG_MODEL_PROVIDER, cviii:IG_TRANSLATOR;
-      cviii:is_for_profit "false"^^xs:boolean;
-      cviii:is_military "false"^^xs:boolean;
-      cviii:is_nuclear "false"^^xs:boolean
+   vico:has_expertise_in otras:MM_TOPIC_4000, otras:MM_TOPIC_5200, otras:MM_TOPIC_7500, otras:MM_TOPIC_8570;
+   vico:has_interlocutor_tag [
+      vico:is_academic "true"^^xs:boolean;
+      vico:is_based_in lcc-codes:UnitedKingdomOfGreatBritainAndNorthernIreland;
+      vico:is_in_group vico:IG_MODEL_PROVIDER, vico:IG_TRANSLATOR;
+      vico:is_for_profit "false"^^xs:boolean;
+      vico:is_military "false"^^xs:boolean;
+      vico:is_nuclear "false"^^xs:boolean
    ];
-   cviii:has_private_address [
+   vico:has_private_address [
       a vico:internet_address;
       vico:is_in_country lcc-codes:Germany;
       vico:has_textual_representation "http://home.bawue.de/~horsch/pdt/"^^xs:string
    ];
-   cviii:has_profile_image "https://i2.wp.com/emmc.info/wp-content/uploads/avatars/242/5ae3f1c5a17b1-bpfull.jpg"^^xs:anyURI;
-   cviii:has_profile_text "Here, there would be some biographic or other relevant description provided by the user."^^xs:string;
-   cviii:has_role_label "computational data scientist"^^xs:string;
-   cviii:is_subscribed_to macro:EMMC_NEWSLETTER, macro:VIMMP_NEWSLETTER.
+   vico:has_profile_image "https://i2.wp.com/emmc.info/wp-content/uploads/avatars/242/5ae3f1c5a17b1-bpfull.jpg"^^xs:anyURI;
+   vico:has_profile_text "Here, there would be some biographic or other relevant description provided by the user."^^xs:string;
+   vico:has_role_label "computational data scientist"^^xs:string;
+   vico:is_subscribed_to macro:EMMC_NEWSLETTER, macro:VIMMP_NEWSLETTER.
 
-self-descriptions:STFC_DARESBURY_LABORATORY a cviii:institution, cviii:model_provider, cviii:software_owner, cviii:training_provider, cviii:translator;
-   cviii:has_name "STFC Daresbury Laboratory"^^xs:string;
-   cviii:has_institutional_address self-descriptions:DARESBURY_ADDRESS;
-   cviii:has_interest otras:MM_TOPIC_3000, otras:MM_TOPIC_6120, otras:MM_TOPIC_7200, otras:MM_TOPIC_8350;
-   cviii:has_interlocutor_tag [
-      cviii:is_academic "true"^^xs:boolean;
-      cviii:is_based_in lcc-codes:UnitedKingdomOfGreatBritainAndNorthernIreland;
-      cviii:is_in_group cviii:IG_MODEL_PROVIDER, cviii:IG_SOFTWARE_OWNER, cviii:IG_TRAINING_PROVIDER, cviii:IG_TRANSLATOR;
-      cviii:is_for_profit "false"^^xs:boolean;
-      cviii:is_nuclear "true"^^xs:boolean;
-      cviii:is_sme "false"^^xs:boolean
+self-descriptions:STFC_DARESBURY_LABORATORY a vico:institution, vico:model_provider, vico:software_owner, vico:training_provider, vico:translator;
+   vico:has_name "STFC Daresbury Laboratory"^^xs:string;
+   vico:has_institutional_address self-descriptions:DARESBURY_ADDRESS;
+   vico:has_interest otras:MM_TOPIC_3000, otras:MM_TOPIC_6120, otras:MM_TOPIC_7200, otras:MM_TOPIC_8350;
+   vico:has_interlocutor_tag [
+      vico:is_academic "true"^^xs:boolean;
+      vico:is_based_in lcc-codes:UnitedKingdomOfGreatBritainAndNorthernIreland;
+      vico:is_in_group vico:IG_MODEL_PROVIDER, vico:IG_SOFTWARE_OWNER, vico:IG_TRAINING_PROVIDER, vico:IG_TRANSLATOR;
+      vico:is_for_profit "false"^^xs:boolean;
+      vico:is_nuclear "true"^^xs:boolean;
+      vico:is_sme "false"^^xs:boolean
    ].
 
 
