@@ -1,16 +1,13 @@
 
 ### VIMMP VALIDATION ONTOLOGY (VIVO) ###
 
-### VERSION 0.3.9 ###
+### VERSION 0.3.10 ###
 
-### DATED 7TH NOVEMBER 2019 ###
+### DATED 25TH NOVEMBER 2019 ###
 
 @prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
 
-@prefix cviii: <http://www.vimmp.eu/semantics/cviii/cviii.ttl#>.
 @prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
-@prefix iao: <http://purl.obolibrary.org/obo/iao.owl#>.
-@prefix ical: <https://www.w3.org/2002/12/cal/icaltzd#>.
 @prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
 @prefix mmto: <http://www.vimmp.eu/semantics/mmto/mmto.ttl#>.
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
@@ -78,7 +75,7 @@ vivo:review_entity owl:disjointUnionOf (vivo:review_assertion vivo:review_assess
 
 vivo:data_item a owl:Class;
    rdfs:subClassOf evmpo:information_content_entity;
-   owl:equivalentClass evmpo:data_item, iao:IAO_0000027.  # iao label "data item"
+   owl:equivalentClass evmpo:data_item.
 vivo:op_data_item a owl:Class;
    rdfs:subClassOf owl:ObjectProperty;
    owl:equivalentClass evmpo:op_data_item.
@@ -269,7 +266,7 @@ vivo:dp_review_assessment rdfs:subClassOf vivo:dp_agent_assessment.
 
 vivo:evaluates_agent a vivo:op_agent_assessment;
    rdfs:domain vivo:agent_assessment;
-   rdfs:range evmpo:agent, cviii:agent;
+   rdfs:range evmpo:agent, vico:agent;
    rdfs:subPropertyOf vivo:evaluates.
 
 vivo:agent_assessment owl:disjointWith vivo:accuracy_assessment, vivo:requirement_assessment.
@@ -301,7 +298,7 @@ evmpo:dp_assessment rdfs:subClassOf vivo:dp_document_assessment.
 
 vivo:evaluates_document a vivo:op_document_assessment;
    rdfs:domain vivo:document_assessment;
-   rdfs:range evmpo:document, iao:IAO_0000310;  # iao label "document"
+   rdfs:range evmpo:document;
    rdfs:subPropertyOf vivo:evaluates.
 
 vivo:document_assessment owl:disjointWith vivo:accuracy_assessment.
@@ -317,7 +314,7 @@ evmpo:dp_assessment rdfs:subClassOf vivo:dp_event_assessment.
 
 vivo:evaluates_event a vivo:op_event_assessment;
    rdfs:domain vivo:event_assessment;
-   rdfs:range evmpo:calendar_event, ical:Vevent;
+   rdfs:range evmpo:calendar_event;
    rdfs:subPropertyOf vivo:evaluates.
 
 vivo:event_assessment owl:disjointWith vivo:accuracy_assessment.
@@ -514,8 +511,8 @@ vivo:dp_validation_statement rdfs:subClassOf vivo:dp_certificate.
 
 vivo:has_certifier a vivo:op_certificate;
    rdfs:domain vivo:certificate;
-   rdfs:range cviii:certifier;
-   owl:inverseOf cviii:is_certifier_of;
+   rdfs:range vico:certifier;
+   owl:inverseOf vico:is_certifier_of;
    rdfs:comment "connects a certificate to the certifier who is responsible for the included assessment (not necessarily identical with the author who communicates the certificate)"^^xs:string.
 vivo:states_assessment a vivo:op_certificate;
    rdfs:domain vivo:certificate;
@@ -524,7 +521,7 @@ vivo:states_assessment a vivo:op_certificate;
 vivo:certificate rdfs:subClassOf [
       a owl:Restriction;
       owl:onProperty vivo:has_certifier;
-      owl:someValuesFrom cviii:certifier
+      owl:someValuesFrom vico:certifier
    ], [
       a owl:Restriction;
       owl:onProperty vico:states_assessment;
@@ -564,7 +561,7 @@ macro:op_channel rdfs:subClassOf vivo:op_validation_channel.
 macro:dp_channel rdfs:subClassOf vivo:dp_validation_channel.
 
 vivo:validation_repository a owl:Class;
-   rdfs:subClassOf vivo:validation_infrastructure, macro:repository, evmpo:agent, cviii:agent;
+   rdfs:subClassOf vivo:validation_infrastructure, macro:repository, evmpo:agent, vico:agent;
    owl:intersectionOf (vivo:validation_entity macro:repository).
 vivo:op_validation_repository a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
@@ -576,8 +573,8 @@ macro:op_repository rdfs:subClassOf vivo:op_validation_repository.
 macro:dp_repository rdfs:subClassOf vivo:dp_validation_repository.
 evmpo:op_agent rdfs:subClassOf vivo:op_validation_repository.
 evmpo:dp_agent rdfs:subClassOf vivo:dp_validation_repository.
-cviii:op_agent rdfs:subClassOf vivo:op_validation_repository.
-cviii:dp_agent rdfs:subClassOf vivo:dp_validation_repository.
+vico:op_agent rdfs:subClassOf vivo:op_validation_repository.
+vico:dp_agent rdfs:subClassOf vivo:dp_validation_repository.
 
 
 ###########################
