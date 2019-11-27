@@ -4462,9 +4462,9 @@ osmo:dp_unit_function rdfs:subClassOf osmo:dp_material_information_uf.
 
 ### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
 
-### VERSION 0.8.10 ###
+### VERSION 0.8.11 ###
 
-### DATED 25TH NOVEMBER 2019 ###
+### DATED 27TH NOVEMBER 2019 ###
 
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 
@@ -5041,37 +5041,49 @@ otras:mm_topic_social a owl:Class;
    rdfs:comment "a topic related to social, economic, and community aspects of materials modelling (code 6XXX if unique, 8XXX if interdisciplinary)"^^xs:string;
    rdfs:subClassOf otras:mm_topic.
 otras:mm_topic_social_industrial a owl:Class;
-   rdfs:comment "a topic that relates to industrial manufacturing (code 61XX)"^^xs:string;
+   rdfs:comment "a topic that relates to industrial production/manufacturing (code 61XX)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_social.
 otras:mm_topic_social_industrial_chemical a owl:Class;
-   rdfs:comment "a topic that relates to manufacturing in the chemical industry, including the petrochemical industry and polymers (codes 612X and 613X)"^^xs:string;
+   rdfs:comment "a topic that relates to production/manufacturing in the chemical industry, including polymers, but excluding the petrochemical industry (codes 612X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_social_industrial.
+otras:mm_topic_social_industrial_petrochemical a owl:Class;
+   rdfs:comment "a topic that relates to production/manufacturing in the petrochemical industry (codes 613X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_social_industrial.
 otras:mm_topic_social_industrial_transport a owl:Class;
-   rdfs:comment "a topic that relates to manufacturing in transportation-related industries, e.g., automotive, aerospace, and railways (code 614X)"^^xs:string;
+   rdfs:comment "a topic that relates to production/manufacturing in transportation-related industries, e.g., automotive, aerospace, and railways (code 614X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_social_industrial.
+otras:mm_topic_social_industrial_aerospace a owl:Class;
+   rdfs:comment "a topic that relates to production/manufacturing in the aerospace sector (code 6142/6143)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_social_industrial_transport.
+otras:mm_topic_social_industrial_automotive a owl:Class;
+   rdfs:comment "a topic that relates to production/manufacturing in the automotive sector (code 6144-6147)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_social_industrial_transport.
+otras:mm_topic_social_industrial_railway a owl:Class;
+   rdfs:comment "a topic that relates to production/manufacturing in the railway sector (code 6148)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_social_industrial_transport.
 otras:mm_topic_social_industrial_biotechnology a owl:Class;
-   rdfs:comment "a topic that relates to manufacturing in biotechnology, excluding pharmaceutical applications (codes 6150 to 6154)"^^xs:string;
+   rdfs:comment "a topic that relates to production/manufacturing in biotechnology, excluding pharmaceutical applications (codes 6150 to 6154)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_social_industrial.
 otras:mm_topic_social_industrial_food a owl:Class;
-   rdfs:comment "a topic that relates to manufacturing in food-related industries, including beverages and tobacco (codes 6155 to 6159)"^^xs:string;
+   rdfs:comment "a topic that relates to production/manufacturing in food-related industries, including beverages and tobacco (codes 6155 to 6159)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_social_industrial.
 otras:mm_topic_social_industrial_medicine a owl:Class;
-   rdfs:comment "a topic that relates to manufacturing in industries related to pharmaceutical and medical applications (codes 6160 to 6164)"^^xs:string;
+   rdfs:comment "a topic that relates to production/manufacturing in industries related to pharmaceutical and medical applications (codes 6160 to 6164)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_social_industrial.
 otras:mm_topic_social_industrial_paper a owl:Class;
-   rdfs:comment "a topic that relates to manufacturing of wood and paper based products, including printing (codes 6165 to 6169)"^^xs:string;
+   rdfs:comment "a topic that relates to production/manufacturing of wood and paper based products, including printing (codes 6165 to 6169)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_social_industrial.
 otras:mm_topic_social_industrial_electrical a owl:Class;
-   rdfs:comment "a topic that relates to manufacturing of electrical products and equipment (codes 6170 to 6174)"^^xs:string;
+   rdfs:comment "a topic that relates to production/manufacturing of electrical products and equipment (codes 6170 to 6174)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_social_industrial.
 otras:mm_topic_social_industrial_machinery a owl:Class;
-   rdfs:comment "a topic that relates to manufacturing of industrial machinery and equipment (codes 6175 to 6179)"^^xs:string;
+   rdfs:comment "a topic that relates to production/manufacturing of industrial machinery and equipment (codes 6175 to 6179)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_social_industrial.
 otras:mm_topic_social_industrial_metal a owl:Class;
-   rdfs:comment "a topic that relates to the production of basic and fabricated metal (code 618X)"^^xs:string;
+   rdfs:comment "a topic that relates to the production/manufacturing of basic and fabricated metal (code 618X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_social_industrial.
 otras:mm_topic_social_industrial_special a owl:Class;
-   rdfs:comment "a topic that relates to specific aspects or fields of industrial manufacturing (code 619X)"^^xs:string;
+   rdfs:comment "a topic that relates to specific aspects or fields of industrial production/manufacturing (code 619X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_social_industrial.
 
 otras:mm_topic_theoretical a owl:Class;
@@ -5335,57 +5347,77 @@ otras:MM_TOPIC_6000 a otras:mm_topic_social;
 otras:MM_TOPIC_6100 a otras:mm_topic_social_industrial;
    otras:has_topic_code 6100;
    otras:is_narrower_than otras:MM_TOPIC_6000;
-   otras:has_topic_descriptor "Topic: Industrial manufacturing"^^xs:string.
+   otras:has_topic_descriptor "Topic: Industrial production/manufacturing"^^xs:string.
 
 otras:MM_TOPIC_6120 a otras:mm_topic_social_industrial_chemical;
    otras:has_topic_code 6120;
    otras:is_narrower_than otras:MM_TOPIC_6100;
-   otras:has_topic_descriptor "Topic: Manufacturing in the chemical industry (including the petrochemical industry and polymers)"^^xs:string.
+   otras:has_topic_descriptor "Topic: Production/manufacturing in the chemical industry (including polymers, excluding the petrochemical industry)"^^xs:string.
+
+otras:MM_TOPIC_6130 a otras:mm_topic_social_industrial_petrochemical;
+   otras:has_topic_code 6130;
+   otras:is_narrower_than otras:MM_TOPIC_6100;
+   otras:has_topic_descriptor "Topic: Production/manufacturing in the petrochemical industry"^^xs:string.
 
 otras:MM_TOPIC_6140 a otras:mm_topic_social_industrial_transport;
    otras:has_topic_code 6140;
    otras:is_narrower_than otras:MM_TOPIC_6100;
-   otras:has_topic_descriptor "Topic: Manufacturing in transportation-related industries (e.g., automotive, aerospace, and railway related manufacturing)"^^xs:string.
+   otras:has_topic_descriptor "Topic: Production/manufacturing in transportation-related industries (e.g., automotive, aerospace, and railway related manufacturing)"^^xs:string.
+
+otras:MM_TOPIC_6142 a otras:mm_topic_social_industrial_aerospace;
+   otras:has_topic_code 6142;
+   otras:is_narrower_than otras:MM_TOPIC_6140;
+   otras:has_topic_descriptor "Topic: Production/manufacturing in the aerospace sector"^^xs:string.
+
+otras:MM_TOPIC_6144 a otras:mm_topic_social_industrial_automotive;
+   otras:has_topic_code 6144;
+   otras:is_narrower_than otras:MM_TOPIC_6140;
+   otras:has_topic_descriptor "Topic: Production/manufacturing in the automotive sector"^^xs:string.
+
+otras:MM_TOPIC_6148 a otras:mm_topic_social_industrial_railway;
+   otras:has_topic_code 6148;
+   otras:is_narrower_than otras:MM_TOPIC_6140;
+   otras:has_topic_descriptor "Topic: Production/manufacturing in the railway sector"^^xs:string.
 
 otras:MM_TOPIC_6150 a otras:mm_topic_social_industrial_biotechnology;
    otras:has_topic_code 6150;
    otras:is_narrower_than otras:MM_TOPIC_6100;
-   otras:has_topic_descriptor "Topic: Manufacturing in biotechnology (excluding pharmaceutical applications)"^^xs:string.
+   otras:has_topic_descriptor "Topic: Production/manufacturing in biotechnology (excluding pharmaceutical applications)"^^xs:string.
 
 otras:MM_TOPIC_6155 a otras:mm_topic_social_industrial_food;
    otras:has_topic_code 6155;
    otras:is_narrower_than otras:MM_TOPIC_6100;
-   otras:has_topic_descriptor "Topic: Manufacturing in food-related industries (including beverages and tobacco)"^^xs:string.
+   otras:has_topic_descriptor "Topic: Production/manufacturing in food-related industries (including beverages and tobacco)"^^xs:string.
 
 otras:MM_TOPIC_6160 a otras:mm_topic_social_industrial_medicine;
    otras:has_topic_code 6160;
    otras:is_narrower_than otras:MM_TOPIC_6100;
-   otras:has_topic_descriptor "Topic: Manufacturing in industries related to pharmaceutical and medical applications"^^xs:string.
+   otras:has_topic_descriptor "Topic: Production/manufacturing in industries related to pharmaceutical and medical applications"^^xs:string.
 
 otras:MM_TOPIC_6165 a otras:mm_topic_social_industrial_paper;
    otras:has_topic_code 6165;
    otras:is_narrower_than otras:MM_TOPIC_6100;
-   otras:has_topic_descriptor "Topic: Manufacturing of wood and paper based products (including printing)"^^xs:string.
+   otras:has_topic_descriptor "Topic: Production/manufacturing of wood and paper based products (including printing)"^^xs:string.
 
 otras:MM_TOPIC_6170 a otras:mm_topic_social_industrial_electrical;
    otras:has_topic_code 6170;
    otras:is_narrower_than otras:MM_TOPIC_6100;
-   otras:has_topic_descriptor "Topic: Manufacturing of electrical products and equipment"^^xs:string.
+   otras:has_topic_descriptor "Topic: Production/manufacturing of electrical products and equipment"^^xs:string.
 
 otras:MM_TOPIC_6175 a otras:mm_topic_social_industrial_machinery;
    otras:has_topic_code 6175;
    otras:is_narrower_than otras:MM_TOPIC_6100;
-   otras:has_topic_descriptor "Topic: Manufacturing of industrial machinery and equipment"^^xs:string.
+   otras:has_topic_descriptor "Topic: Production/manufacturing of industrial machinery and equipment"^^xs:string.
 
 otras:MM_TOPIC_6180 a otras:mm_topic_social_industrial_metal;
    otras:has_topic_code 6180;
    otras:is_narrower_than otras:MM_TOPIC_6100;
-   otras:has_topic_descriptor "Topic: Production of basic and fabricated metal"^^xs:string.
+   otras:has_topic_descriptor "Topic: Production/manufacturing of basic and fabricated metal"^^xs:string.
 
 otras:MM_TOPIC_6190 a otras:mm_topic_social_industrial_special;
    otras:has_topic_code 6190;
    otras:is_narrower_than otras:MM_TOPIC_6100;
-   otras:has_topic_descriptor "Topic: Specific aspects or fields of industrial manufacturing"^^xs:string.
+   otras:has_topic_descriptor "Topic: Specific aspects or fields of industrial production/manufacturing"^^xs:string.
 
 otras:MM_TOPIC_7000 a otras:mm_topic_theoretical;
    otras:has_topic_code 7000;
