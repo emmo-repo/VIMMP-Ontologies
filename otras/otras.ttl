@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
 
-### VERSION 0.8.11 ###
+### VERSION 0.8.12 ###
 
-### DATED 27TH NOVEMBER 2019 ###
+### DATED 3RD DECEMBER 2019 ###
 
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 
@@ -522,6 +522,72 @@ otras:mm_topic_basic_secondary a owl:Class;
 otras:mm_topic_computational a owl:Class;
    rdfs:comment "a topic related to computational and numerical aspects of materials modelling (code 3XXX if unique, 8XXX if interdisciplinary)"^^xs:string;
    rdfs:subClassOf otras:mm_topic.
+otras:mm_topic_computational_electronic a owl:Class;
+   rdfs:comment "computational aspects of electronic modelling (code 31XX)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_computational.
+otras:mm_topic_computational_EL1 a owl:Class;
+   rdfs:comment "computational aspects of physical equation EL.1 (code 312X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_computational_electronic.
+otras:mm_topic_computational_EL2 a owl:Class;
+   rdfs:comment "computational aspects of physical equation EL.2 (code 313X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_computational_electronic.
+otras:mm_topic_computational_EL3 a owl:Class;
+   rdfs:comment "computational aspects of physical equation EL.3 (code 314X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_computational_electronic.
+otras:mm_topic_computational_EL4 a owl:Class;
+   rdfs:comment "computational aspects of physical equation EL.4 (code 315X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_computational_electronic.
+otras:mm_topic_computational_EL5 a owl:Class;
+   rdfs:comment "computational aspects of physical equation EL.5 (code 316X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_computational_electronic.
+otras:mm_topic_computational_discrete a owl:Class;
+   rdfs:comment "computational aspects of discrete (atomistic and mesoscopic) modelling (code 32XX)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_computational.
+otras:mm_topic_computational_AM1 a owl:Class;
+   rdfs:comment "computational aspects of physical equations A.1/M.1 (code 322X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_computational_discrete.
+otras:mm_topic_computational_AM2 a owl:Class;
+   rdfs:comment "computational aspects of physical equations A.2/M.2 (code 323X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_computational_discrete.
+otras:mm_topic_computational_AM3 a owl:Class;
+   rdfs:comment "computational aspects of physical equations A.3/M.3 (code 324X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_computational_discrete.
+otras:mm_topic_computational_AM4 a owl:Class;
+   rdfs:comment "computational aspects of physical equations A.4/M.4 (code 325X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_computational_discrete.
+otras:mm_topic_computational_AM5 a owl:Class;
+   rdfs:comment "computational aspects of physical equations A.5/M.5 (code 326X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_computational_discrete.
+otras:mm_topic_computational_AM6 a owl:Class;
+   rdfs:comment "computational aspects of physical equations A.6/M.6 (code 327X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_computational_discrete.
+otras:mm_topic_computational_continuum a owl:Class;
+   rdfs:comment "computational aspects of (non-electronic, classical-mechanical) continuum modelling (code 33XX)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_computational.
+otras:mm_topic_computational_CO1 a owl:Class;
+   rdfs:comment "computational aspects of physical equation CO.1 (code 332X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_computational_continuum.
+otras:mm_topic_computational_CO2 a owl:Class;
+   rdfs:comment "computational aspects of physical equation CO.2 (code 333X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_computational_continuum.
+otras:mm_topic_computational_CO3 a owl:Class;
+   rdfs:comment "computational aspects of physical equation CO.3 (code 334X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_computational_continuum.
+otras:mm_topic_computational_CO4 a owl:Class;
+   rdfs:comment "computational aspects of physical equation CO.4 (code 335X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_computational_continuum.
+otras:mm_topic_computational_CO5 a owl:Class;
+   rdfs:comment "computational aspects of physical equation CO.5 (code 336X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_computational_continuum.
+otras:mm_topic_computational_CO6 a owl:Class;
+   rdfs:comment "computational aspects of physical equation CO.6 (code 337X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_computational_continuum.
+otras:mm_topic_computational_CO7 a owl:Class;
+   rdfs:comment "computational aspects of physical equation CO.7 (code 338X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_computational_continuum.
+otras:mm_topic_computational_CO8 a owl:Class;
+   rdfs:comment "computational aspects of physical equation CO.8 (code 339X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_computational_continuum.
 
 otras:mm_topic_data a owl:Class;
    rdfs:comment "a topic related to data science and technology aspects of materials modelling (code 4XXX if unique, 8XXX if interdisciplinary)"^^xs:string;
@@ -631,12 +697,69 @@ otras:mm_topic_theoretical a owl:Class;
 otras:mm_topic_theoretical_electronic a owl:Class;
    rdfs:comment "theoretical aspects of electronic modelling (code 71XX)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_theoretical.
+otras:mm_topic_theoretical_EL1 a owl:Class;
+   rdfs:comment "theoretical aspects of physical equation EL.1 (code 712X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_theoretical_electronic.
+otras:mm_topic_theoretical_EL2 a owl:Class;
+   rdfs:comment "theoretical aspects of physical equation EL.2 (code 713X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_theoretical_electronic.
+otras:mm_topic_theoretical_EL3 a owl:Class;
+   rdfs:comment "theoretical aspects of physical equation EL.3 (code 714X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_theoretical_electronic.
+otras:mm_topic_theoretical_EL4 a owl:Class;
+   rdfs:comment "theoretical aspects of physical equation EL.4 (code 715X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_theoretical_electronic.
+otras:mm_topic_theoretical_EL5 a owl:Class;
+   rdfs:comment "theoretical aspects of physical equation EL.5 (code 716X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_theoretical_electronic.
 otras:mm_topic_theoretical_discrete a owl:Class;
    rdfs:comment "theoretical aspects of discrete (atomistic and mesoscopic) modelling (code 72XX)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_theoretical.
+otras:mm_topic_theoretical_AM1 a owl:Class;
+   rdfs:comment "theoretical aspects of physical equations A.1/M.1 (code 722X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_theoretical_discrete.
+otras:mm_topic_theoretical_AM2 a owl:Class;
+   rdfs:comment "theoretical aspects of physical equations A.2/M.2 (code 723X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_theoretical_discrete.
+otras:mm_topic_theoretical_AM3 a owl:Class;
+   rdfs:comment "theoretical aspects of physical equations A.3/M.3 (code 724X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_theoretical_discrete.
+otras:mm_topic_theoretical_AM4 a owl:Class;
+   rdfs:comment "theoretical aspects of physical equations A.4/M.4 (code 725X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_theoretical_discrete.
+otras:mm_topic_theoretical_AM5 a owl:Class;
+   rdfs:comment "theoretical aspects of physical equations A.5/M.5 (code 726X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_theoretical_discrete.
+otras:mm_topic_theoretical_AM6 a owl:Class;
+   rdfs:comment "theoretical aspects of physical equations A.6/M.6 (code 727X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_theoretical_discrete.
 otras:mm_topic_theoretical_continuum a owl:Class;
    rdfs:comment "theoretical aspects of (non-electronic, classical-mechanical) continuum modelling (code 73XX)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_theoretical.
+otras:mm_topic_theoretical_CO1 a owl:Class;
+   rdfs:comment "theoretical aspects of physical equation CO.1 (code 732X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_theoretical_continuum.
+otras:mm_topic_theoretical_CO2 a owl:Class;
+   rdfs:comment "theoretical aspects of physical equation CO.2 (code 733X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_theoretical_continuum.
+otras:mm_topic_theoretical_CO3 a owl:Class;
+   rdfs:comment "theoretical aspects of physical equation CO.3 (code 734X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_theoretical_continuum.
+otras:mm_topic_theoretical_CO4 a owl:Class;
+   rdfs:comment "theoretical aspects of physical equation CO.4 (code 735X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_theoretical_continuum.
+otras:mm_topic_theoretical_CO5 a owl:Class;
+   rdfs:comment "theoretical aspects of physical equation CO.5 (code 736X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_theoretical_continuum.
+otras:mm_topic_theoretical_CO6 a owl:Class;
+   rdfs:comment "theoretical aspects of physical equation CO.6 (code 737X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_theoretical_continuum.
+otras:mm_topic_theoretical_CO7 a owl:Class;
+   rdfs:comment "theoretical aspects of physical equation CO.7 (code 738X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_theoretical_continuum.
+otras:mm_topic_theoretical_CO8 a owl:Class;
+   rdfs:comment "theoretical aspects of physical equation CO.8 (code 739X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_theoretical_continuum.
 otras:mm_topic_theoretical_non_equilibrium a owl:Class;
    rdfs:comment "theoretical aspects of non-equilibrium states and physical processes (code 74XX)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_theoretical.
@@ -792,6 +915,164 @@ otras:MM_TOPIC_3000 a otras:mm_topic_computational;
    otras:has_topic_code 3000;
    otras:is_narrower_than otras:MM_TOPIC_0000;
    otras:has_topic_descriptor "Topic: Computational or numerical (beyond basic prerequisites)"^^xs:string.
+
+otras:MM_TOPIC_3100 a otras:mm_topic_computational_electronic;
+   otras:has_topic_code 3100;
+   otras:is_narrower_than otras:MM_TOPIC_3000;
+   otras:has_topic_descriptor "Topic: Computational aspects of electronic modelling"^^xs:string.
+
+otras:MM_TOPIC_3120 a otras:mm_topic_computational_EL1;
+   otras:has_topic_code 3120;
+   otras:is_narrower_than otras:MM_TOPIC_3100;
+   otras:has_topic_descriptor "Topic: Computational aspects of physical equation EL.1"^^xs:string.
+
+otras:MM_TOPIC_3130 a otras:mm_topic_computational_EL2;
+   otras:has_topic_code 3130;
+   otras:is_narrower_than otras:MM_TOPIC_3100;
+   otras:has_topic_descriptor "Topic: Computational aspects of physical equation EL.2"^^xs:string.
+
+otras:MM_TOPIC_3140 a otras:mm_topic_computational_EL3;
+   otras:has_topic_code 3140;
+   otras:is_narrower_than otras:MM_TOPIC_3100;
+   otras:has_topic_descriptor "Topic: Computational aspects of physical equation EL.3"^^xs:string.
+
+otras:MM_TOPIC_3150 a otras:mm_topic_computational_EL4;
+   otras:has_topic_code 3150;
+   otras:is_narrower_than otras:MM_TOPIC_3100;
+   otras:has_topic_descriptor "Topic: Computational aspects of physical equation EL.4"^^xs:string.
+
+otras:MM_TOPIC_3160 a otras:mm_topic_computational_EL5;
+   otras:has_topic_code 3160;
+   otras:is_narrower_than otras:MM_TOPIC_3100;
+   otras:has_topic_descriptor "Topic: Computational aspects of physical equation EL.5"^^xs:string.
+
+otras:MM_TOPIC_3200 a otras:mm_topic_computational_discrete;
+   otras:has_topic_code 3200;
+   otras:is_narrower_than otras:MM_TOPIC_3000;
+   otras:has_topic_descriptor "Topic: Computational aspects of discrete (atomistic and mesoscopic) modelling"^^xs:string.
+
+otras:MM_TOPIC_3220 a otras:mm_topic_computational_AM1;
+   otras:has_topic_code 3220;
+   otras:is_narrower_than otras:MM_TOPIC_3200;
+   otras:has_topic_descriptor "Topic: Computational aspects of physical equations A.1/M.1"^^xs:string.
+otras:MM_TOPIC_3222 a otras:mm_topic_computational_AM1;
+   otras:has_topic_code 3222;
+   otras:is_narrower_than otras:MM_TOPIC_3220;
+   otras:has_topic_descriptor "Topic: Computational aspects of physical equation A.1 specifically"^^xs:string.
+otras:MM_TOPIC_3225 a otras:mm_topic_computational_AM1;
+   otras:has_topic_code 3225;
+   otras:is_narrower_than otras:MM_TOPIC_3220;
+   otras:has_topic_descriptor "Topic: Computational aspects of physical equation M.1 specifically"^^xs:string.
+
+otras:MM_TOPIC_3230 a otras:mm_topic_computational_AM2;
+   otras:has_topic_code 3230;
+   otras:is_narrower_than otras:MM_TOPIC_3200;
+   otras:has_topic_descriptor "Topic: Computational aspects of physical equations A.2/M.2"^^xs:string.
+otras:MM_TOPIC_3232 a otras:mm_topic_computational_AM2;
+   otras:has_topic_code 3232;
+   otras:is_narrower_than otras:MM_TOPIC_3230;
+   otras:has_topic_descriptor "Topic: Computational aspects of physical equation A.2 specifically"^^xs:string.
+otras:MM_TOPIC_3235 a otras:mm_topic_computational_AM2;
+   otras:has_topic_code 3235;
+   otras:is_narrower_than otras:MM_TOPIC_3230;
+   otras:has_topic_descriptor "Topic: Computational aspects of physical equation M.2 specifically"^^xs:string.
+
+otras:MM_TOPIC_3240 a otras:mm_topic_computational_AM3;
+   otras:has_topic_code 3240;
+   otras:is_narrower_than otras:MM_TOPIC_3200;
+   otras:has_topic_descriptor "Topic: Computational aspects of physical equations A.3/M.3"^^xs:string.
+otras:MM_TOPIC_3242 a otras:mm_topic_computational_AM3;
+   otras:has_topic_code 3242;
+   otras:is_narrower_than otras:MM_TOPIC_3240;
+   otras:has_topic_descriptor "Topic: Computational aspects of physical equation A.3 specifically"^^xs:string.
+otras:MM_TOPIC_3245 a otras:mm_topic_computational_AM3;
+   otras:has_topic_code 3245;
+   otras:is_narrower_than otras:MM_TOPIC_3240;
+   otras:has_topic_descriptor "Topic: Computational aspects of physical equation M.3 specifically"^^xs:string.
+
+otras:MM_TOPIC_3250 a otras:mm_topic_computational_AM4;
+   otras:has_topic_code 3250;
+   otras:is_narrower_than otras:MM_TOPIC_3200;
+   otras:has_topic_descriptor "Topic: Computational aspects of physical equations A.4/M.4"^^xs:string.
+otras:MM_TOPIC_3252 a otras:mm_topic_computational_AM4;
+   otras:has_topic_code 3252;
+   otras:is_narrower_than otras:MM_TOPIC_3250;
+   otras:has_topic_descriptor "Topic: Computational aspects of physical equation A.4 specifically"^^xs:string.
+otras:MM_TOPIC_3255 a otras:mm_topic_computational_AM4;
+   otras:has_topic_code 3255;
+   otras:is_narrower_than otras:MM_TOPIC_3250;
+   otras:has_topic_descriptor "Topic: Computational aspects of physical equation M.4 specifically"^^xs:string.
+
+otras:MM_TOPIC_3260 a otras:mm_topic_computational_AM5;
+   otras:has_topic_code 3260;
+   otras:is_narrower_than otras:MM_TOPIC_3200;
+   otras:has_topic_descriptor "Topic: Computational aspects of physical equations A.5/M.5"^^xs:string.
+otras:MM_TOPIC_3262 a otras:mm_topic_computational_AM5;
+   otras:has_topic_code 3262;
+   otras:is_narrower_than otras:MM_TOPIC_3260;
+   otras:has_topic_descriptor "Topic: Computational aspects of physical equation A.5 specifically"^^xs:string.
+otras:MM_TOPIC_3265 a otras:mm_topic_computational_AM5;
+   otras:has_topic_code 3265;
+   otras:is_narrower_than otras:MM_TOPIC_3260;
+   otras:has_topic_descriptor "Topic: Computational aspects of physical equation M.5 specifically"^^xs:string.
+
+otras:MM_TOPIC_3270 a otras:mm_topic_computational_AM6;
+   otras:has_topic_code 3270;
+   otras:is_narrower_than otras:MM_TOPIC_3200;
+   otras:has_topic_descriptor "Topic: Computational aspects of physical equations A.6/M.6"^^xs:string.
+otras:MM_TOPIC_3272 a otras:mm_topic_computational_AM6;
+   otras:has_topic_code 3272;
+   otras:is_narrower_than otras:MM_TOPIC_3270;
+   otras:has_topic_descriptor "Topic: Computational aspects of physical equation A.6 specifically"^^xs:string.
+otras:MM_TOPIC_3275 a otras:mm_topic_computational_AM6;
+   otras:has_topic_code 3275;
+   otras:is_narrower_than otras:MM_TOPIC_3270;
+   otras:has_topic_descriptor "Topic: Computational aspects of physical equation M.6 specifically"^^xs:string.
+
+otras:MM_TOPIC_3300 a otras:mm_topic_computational_continuum;
+   otras:has_topic_code 3300;
+   otras:is_narrower_than otras:MM_TOPIC_3000;
+   otras:has_topic_descriptor "Topic: Computational aspects of (non-electronic, classical-mechanical) continuum modelling"^^xs:string.
+
+otras:MM_TOPIC_3320 a otras:mm_topic_computational_CO1;
+   otras:has_topic_code 3320;
+   otras:is_narrower_than otras:MM_TOPIC_3300;
+   otras:has_topic_descriptor "Topic: Computational aspects of physical equation CO.1"^^xs:string.
+
+otras:MM_TOPIC_3330 a otras:mm_topic_computational_CO2;
+   otras:has_topic_code 3330;
+   otras:is_narrower_than otras:MM_TOPIC_3300;
+   otras:has_topic_descriptor "Topic: Computational aspects of physical equation CO.2"^^xs:string.
+
+otras:MM_TOPIC_3340 a otras:mm_topic_computational_CO3;
+   otras:has_topic_code 3340;
+   otras:is_narrower_than otras:MM_TOPIC_3300;
+   otras:has_topic_descriptor "Topic: Computational aspects of physical equation CO.3"^^xs:string.
+
+otras:MM_TOPIC_3350 a otras:mm_topic_computational_CO4;
+   otras:has_topic_code 3350;
+   otras:is_narrower_than otras:MM_TOPIC_3300;
+   otras:has_topic_descriptor "Topic: Computational aspects of physical equation CO.4"^^xs:string.
+
+otras:MM_TOPIC_3360 a otras:mm_topic_computational_CO5;
+   otras:has_topic_code 3360;
+   otras:is_narrower_than otras:MM_TOPIC_3300;
+   otras:has_topic_descriptor "Topic: Computational aspects of physical equation CO.5"^^xs:string.
+
+otras:MM_TOPIC_3370 a otras:mm_topic_computational_CO6;
+   otras:has_topic_code 3370;
+   otras:is_narrower_than otras:MM_TOPIC_3300;
+   otras:has_topic_descriptor "Topic: Computational aspects of physical equation CO.6"^^xs:string.
+
+otras:MM_TOPIC_3380 a otras:mm_topic_computational_CO7;
+   otras:has_topic_code 3380;
+   otras:is_narrower_than otras:MM_TOPIC_3300;
+   otras:has_topic_descriptor "Topic: Computational aspects of physical equation CO.7"^^xs:string.
+
+otras:MM_TOPIC_3390 a otras:mm_topic_computational_CO8;
+   otras:has_topic_code 3390;
+   otras:is_narrower_than otras:MM_TOPIC_3300;
+   otras:has_topic_descriptor "Topic: Computational aspects of physical equation CO.8"^^xs:string.
 
 otras:MM_TOPIC_4000 a otras:mm_topic_data;
    otras:has_topic_code 4000;
@@ -968,15 +1249,158 @@ otras:MM_TOPIC_7100 a otras:mm_topic_theoretical_electronic;
    otras:is_narrower_than otras:MM_TOPIC_7000;
    otras:has_topic_descriptor "Topic: Theoretical aspects of electronic modelling"^^xs:string.
 
+otras:MM_TOPIC_7120 a otras:mm_topic_theoretical_EL1;
+   otras:has_topic_code 7120;
+   otras:is_narrower_than otras:MM_TOPIC_7100;
+   otras:has_topic_descriptor "Topic: Theoretical aspects of physical equation EL.1"^^xs:string.
+
+otras:MM_TOPIC_7130 a otras:mm_topic_theoretical_EL2;
+   otras:has_topic_code 7130;
+   otras:is_narrower_than otras:MM_TOPIC_7100;
+   otras:has_topic_descriptor "Topic: Theoretical aspects of physical equation EL.2"^^xs:string.
+
+otras:MM_TOPIC_7140 a otras:mm_topic_theoretical_EL3;
+   otras:has_topic_code 7140;
+   otras:is_narrower_than otras:MM_TOPIC_7100;
+   otras:has_topic_descriptor "Topic: Theoretical aspects of physical equation EL.3"^^xs:string.
+
+otras:MM_TOPIC_7150 a otras:mm_topic_theoretical_EL4;
+   otras:has_topic_code 7150;
+   otras:is_narrower_than otras:MM_TOPIC_7100;
+   otras:has_topic_descriptor "Topic: Theoretical aspects of physical equation EL.4"^^xs:string.
+
+otras:MM_TOPIC_7160 a otras:mm_topic_theoretical_EL5;
+   otras:has_topic_code 7160;
+   otras:is_narrower_than otras:MM_TOPIC_7100;
+   otras:has_topic_descriptor "Topic: Theoretical aspects of physical equation EL.5"^^xs:string.
+
 otras:MM_TOPIC_7200 a otras:mm_topic_theoretical_discrete;
    otras:has_topic_code 7200;
    otras:is_narrower_than otras:MM_TOPIC_7000;
    otras:has_topic_descriptor "Topic: Theoretical aspects of discrete (atomistic and mesoscopic) modelling"^^xs:string.
 
+otras:MM_TOPIC_7220 a otras:mm_topic_theoretical_AM1;
+   otras:has_topic_code 7220;
+   otras:is_narrower_than otras:MM_TOPIC_7200;
+   otras:has_topic_descriptor "Topic: Theoretical aspects of physical equations A.1/M.1"^^xs:string.
+otras:MM_TOPIC_7222 a otras:mm_topic_theoretical_AM1;
+   otras:has_topic_code 7222;
+   otras:is_narrower_than otras:MM_TOPIC_7220;
+   otras:has_topic_descriptor "Topic: Theoretical aspects of physical equation A.1 specifically"^^xs:string.
+otras:MM_TOPIC_7225 a otras:mm_topic_theoretical_AM1;
+   otras:has_topic_code 7225;
+   otras:is_narrower_than otras:MM_TOPIC_7220;
+   otras:has_topic_descriptor "Topic: Theoretical aspects of physical equation M.1 specifically"^^xs:string.
+
+otras:MM_TOPIC_7230 a otras:mm_topic_theoretical_AM2;
+   otras:has_topic_code 7230;
+   otras:is_narrower_than otras:MM_TOPIC_7200;
+   otras:has_topic_descriptor "Topic: Theoretical aspects of physical equations A.2/M.2"^^xs:string.
+otras:MM_TOPIC_7232 a otras:mm_topic_theoretical_AM2;
+   otras:has_topic_code 7232;
+   otras:is_narrower_than otras:MM_TOPIC_7230;
+   otras:has_topic_descriptor "Topic: Theoretical aspects of physical equation A.2 specifically"^^xs:string.
+otras:MM_TOPIC_7235 a otras:mm_topic_theoretical_AM2;
+   otras:has_topic_code 7235;
+   otras:is_narrower_than otras:MM_TOPIC_7230;
+   otras:has_topic_descriptor "Topic: Theoretical aspects of physical equation M.2 specifically"^^xs:string.
+
+otras:MM_TOPIC_7240 a otras:mm_topic_theoretical_AM3;
+   otras:has_topic_code 7240;
+   otras:is_narrower_than otras:MM_TOPIC_7200;
+   otras:has_topic_descriptor "Topic: Theoretical aspects of physical equations A.3/M.3"^^xs:string.
+otras:MM_TOPIC_7242 a otras:mm_topic_theoretical_AM3;
+   otras:has_topic_code 7242;
+   otras:is_narrower_than otras:MM_TOPIC_7240;
+   otras:has_topic_descriptor "Topic: Theoretical aspects of physical equation A.3 specifically"^^xs:string.
+otras:MM_TOPIC_7245 a otras:mm_topic_theoretical_AM3;
+   otras:has_topic_code 7245;
+   otras:is_narrower_than otras:MM_TOPIC_7240;
+   otras:has_topic_descriptor "Topic: Theoretical aspects of physical equation M.3 specifically"^^xs:string.
+
+otras:MM_TOPIC_7250 a otras:mm_topic_theoretical_AM4;
+   otras:has_topic_code 7250;
+   otras:is_narrower_than otras:MM_TOPIC_7200;
+   otras:has_topic_descriptor "Topic: Theoretical aspects of physical equations A.4/M.4"^^xs:string.
+otras:MM_TOPIC_7252 a otras:mm_topic_theoretical_AM4;
+   otras:has_topic_code 7252;
+   otras:is_narrower_than otras:MM_TOPIC_7250;
+   otras:has_topic_descriptor "Topic: Theoretical aspects of physical equation A.4 specifically"^^xs:string.
+otras:MM_TOPIC_7255 a otras:mm_topic_theoretical_AM4;
+   otras:has_topic_code 7255;
+   otras:is_narrower_than otras:MM_TOPIC_7250;
+   otras:has_topic_descriptor "Topic: Theoretical aspects of physical equation M.4 specifically"^^xs:string.
+
+otras:MM_TOPIC_7260 a otras:mm_topic_theoretical_AM5;
+   otras:has_topic_code 7260;
+   otras:is_narrower_than otras:MM_TOPIC_7200;
+   otras:has_topic_descriptor "Topic: Theoretical aspects of physical equations A.5/M.5"^^xs:string.
+otras:MM_TOPIC_7262 a otras:mm_topic_theoretical_AM5;
+   otras:has_topic_code 7262;
+   otras:is_narrower_than otras:MM_TOPIC_7260;
+   otras:has_topic_descriptor "Topic: Theoretical aspects of physical equation A.5 specifically"^^xs:string.
+otras:MM_TOPIC_7265 a otras:mm_topic_theoretical_AM5;
+   otras:has_topic_code 7265;
+   otras:is_narrower_than otras:MM_TOPIC_7260;
+   otras:has_topic_descriptor "Topic: Theoretical aspects of physical equation M.5 specifically"^^xs:string.
+
+otras:MM_TOPIC_7270 a otras:mm_topic_theoretical_AM6;
+   otras:has_topic_code 7270;
+   otras:is_narrower_than otras:MM_TOPIC_7200;
+   otras:has_topic_descriptor "Topic: Computational aspects of physical equations A.6/M.6"^^xs:string.
+otras:MM_TOPIC_7272 a otras:mm_topic_theoretical_AM6;
+   otras:has_topic_code 7272;
+   otras:is_narrower_than otras:MM_TOPIC_7270;
+   otras:has_topic_descriptor "Topic: Computational aspects of physical equation A.6 specifically"^^xs:string.
+otras:MM_TOPIC_7275 a otras:mm_topic_theoretical_AM6;
+   otras:has_topic_code 7275;
+   otras:is_narrower_than otras:MM_TOPIC_7270;
+   otras:has_topic_descriptor "Topic: Computational aspects of physical equation M.6 specifically"^^xs:string.
+
 otras:MM_TOPIC_7300 a otras:mm_topic_theoretical_continuum;
    otras:has_topic_code 7300;
    otras:is_narrower_than otras:MM_TOPIC_7000;
    otras:has_topic_descriptor "Topic: Theoretical aspects of (non-electronic, classical-mechanical) continuum modelling"^^xs:string.
+
+otras:MM_TOPIC_7320 a otras:mm_topic_theoretical_CO1;
+   otras:has_topic_code 7320;
+   otras:is_narrower_than otras:MM_TOPIC_7300;
+   otras:has_topic_descriptor "Topic: Theoretical aspects of physical equation CO.1"^^xs:string.
+
+otras:MM_TOPIC_7330 a otras:mm_topic_theoretical_CO2;
+   otras:has_topic_code 7330;
+   otras:is_narrower_than otras:MM_TOPIC_7300;
+   otras:has_topic_descriptor "Topic: Theoretical aspects of physical equation CO.2"^^xs:string.
+
+otras:MM_TOPIC_7340 a otras:mm_topic_theoretical_CO3;
+   otras:has_topic_code 7340;
+   otras:is_narrower_than otras:MM_TOPIC_7300;
+   otras:has_topic_descriptor "Topic: Theoretical aspects of physical equation CO.3"^^xs:string.
+
+otras:MM_TOPIC_7350 a otras:mm_topic_theoretical_CO4;
+   otras:has_topic_code 7350;
+   otras:is_narrower_than otras:MM_TOPIC_7300;
+   otras:has_topic_descriptor "Topic: Theoretical aspects of physical equation CO.4"^^xs:string.
+
+otras:MM_TOPIC_7360 a otras:mm_topic_theoretical_CO5;
+   otras:has_topic_code 7360;
+   otras:is_narrower_than otras:MM_TOPIC_7300;
+   otras:has_topic_descriptor "Topic: Theoretical aspects of physical equation CO.5"^^xs:string.
+
+otras:MM_TOPIC_7370 a otras:mm_topic_theoretical_CO6;
+   otras:has_topic_code 7370;
+   otras:is_narrower_than otras:MM_TOPIC_7300;
+   otras:has_topic_descriptor "Topic: Theoretical aspects of physical equation CO.6"^^xs:string.
+
+otras:MM_TOPIC_7380 a otras:mm_topic_theoretical_CO7;
+   otras:has_topic_code 7380;
+   otras:is_narrower_than otras:MM_TOPIC_7300;
+   otras:has_topic_descriptor "Topic: Theoretical aspects of physical equation CO.7"^^xs:string.
+
+otras:MM_TOPIC_7390 a otras:mm_topic_theoretical_CO8;
+   otras:has_topic_code 7390;
+   otras:is_narrower_than otras:MM_TOPIC_7300;
+   otras:has_topic_descriptor "Topic: Theoretical aspects of physical equation CO.8"^^xs:string.
 
 otras:MM_TOPIC_7400 a otras:mm_topic_theoretical_non_equilibrium;
    otras:has_topic_code 7400;
