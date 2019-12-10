@@ -1475,9 +1475,9 @@ macro:SOFTWARE_TOOL_VOCTA a viso:software_tool.
 
 ### MATERIALS MODELLING TRANSLATION ONTOLOGY (MMTO) ###
 
-### VERSION 0.6.2 ###
+### VERSION 0.6.3 ###
 
-### DATED 5TH NOVEMBER 2019 ###
+### DATED 10TH DECEMBER 2019 ###
 
 @prefix mmto: <http://www.vimmp.eu/semantics/mmto/mmto.ttl#>.
 
@@ -1525,93 +1525,163 @@ mmto:dp_project rdfs:subClassOf mmto:dp_mm_project.
 
 mmto:addresses a mmto:op_mm_project;
    rdfs:domain mmto:mm_project;
-   rdfs:range mmto:application_case;
-   owl:inverseOf mmto:is_addressed_by;
+   rdfs:range osmo:application_case;
+   owl:inverseOf osmo:is_addressed_by;
    rdfs:subPropertyOf evmpo:has_process_annotation;
    rdfs:comment "points to an application case that is addressed by the present materials modelling project"^^xs:string.
 
-mmto:application_case a owl:Class;
-   rdfs:subClassOf mmto:translation_entity, evmpo:annotation;
-   rdfs:comment "application case, i.e., a scenario, point of view, or subjective or negotiated set of aims"^^xs:string.
-mmto:op_application_case a owl:Class;
+mmto:bc_entity a owl:Class;
+   rdfs:subClassOf osmo:application_case_entity, mmto:translation_entity;
+   rdfs:comment "business case entity, i.e., a business case or an aspect thereof"^^xs:string.
+mmto:op_bc_entity a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-mmto:dp_application_case a owl:Class;
+mmto:dp_bc_entity a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-mmto:op_translation_entity rdfs:subClassOf mmto:op_application_case.
-mmto:dp_translation_entity rdfs:subClassOf mmto:dp_application_case.
-evmpo:op_annotation rdfs:subClassOf mmto:op_application_case.
-evmpo:dp_annotation rdfs:subClassOf mmto:dp_application_case.
+osmo:op_application_case_entity rdfs:subClassOf mmto:op_bc_entity.
+osmo:dp_application_case_entity rdfs:subClassOf mmto:dp_bc_entity.
+mmto:op_translation_entity rdfs:subClassOf mmto:op_bc_entity.
+mmto:dp_translation_entity rdfs:subClassOf mmto:dp_bc_entity.
 
-mmto:is_addressed_by a mmto:op_application_case;
-   rdfs:domain mmto:application_case;
-   rdfs:range mmto:mm_project;
-   owl:inverseOf mmto:addresses;
-   rdfs:comment "points to a materials modelling project that addresses the present application case"^^xs:string.
-
-mmto:has_ac_summary a mmto:dp_application_case;
-   rdfs:domain mmto:application_case;
-   rdfs:range xs:string;
-   rdfs:comment "plain-text summary of the application case"^^xs:string.
-mmto:has_uc_summary a osmo:dp_use_case;
-   rdfs:domain osmo:use_case;
-   rdfs:range xs:string;
-   rdfs:subPropertyOf mmto:has_ac_summary;
-   owl:propertyChainAxiom (osmo:has_use_case_description osmo:has_aspect_text_content);
-   rdfs:comment "plain-text summary of the MODA/OSMO use case"^^xs:string.
-
-mmto:application_case owl:disjointUnionOf (mmto:business_case mmto:industrial_case mmto:translation_case osmo:use_case).
+mmto:bc_entity owl:disjointUnionOf (mmto:business_case mmto:bc_aspect).
 
 mmto:business_case a owl:Class;
-   rdfs:subClassOf mmto:application_case;
+   rdfs:subClassOf osmo:application_case, mmto:bc_entity;
    rdfs:comment "business case, i.e., an application case with a focus on economic/business aspects"^^xs:string.
 mmto:op_business_case a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 mmto:dp_business_case a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-mmto:op_application_case rdfs:subClassOf mmto:op_business_case.
-mmto:dp_application_case rdfs:subClassOf mmto:dp_business_case.
+osmo:op_application_case rdfs:subClassOf mmto:op_business_case.
+osmo:dp_application_case rdfs:subClassOf mmto:dp_business_case.
+mmto:op_bc_entity rdfs:subClassOf mmto:op_business_case.
+mmto:dp_bc_entity rdfs:subClassOf mmto:dp_business_case.
 
 mmto:has_bc_summary a mmto:dp_business_case;
    rdfs:domain mmto:business_case;
    rdfs:range xs:string;
-   rdfs:subPropertyOf mmto:has_ac_summary;
+   rdfs:subPropertyOf osmo:has_application_case_summary;
    rdfs:comment "plain-text summary of the business case"^^xs:string.
+mmto:has_bc_aspect a mmto:op_business_case;
+   rdfs:domain mmto:business_case;
+   rdfs:range mmto:bc_aspect;
+   rdfs:subPropertyOf osmo:has_application_case_aspect;
+   rdfs:comment "points to a business-case aspect"^^xs:string.
+
+mmto:bc_aspect a owl:Class;
+   rdfs:subClassOf osmo:application_case_aspect, mmto:bc_entity;
+   rdfs:comment "business-case aspect"^^xs:string.
+mmto:op_bc_aspect a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_bc_aspect a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_application_case_aspect rdfs:subClassOf mmto:op_bc_aspect.
+osmo:dp_application_case_aspect rdfs:subClassOf mmto:dp_bc_aspect.
+mmto:op_bc_entity rdfs:subClassOf mmto:op_bc_aspect.
+mmto:dp_bc_entity rdfs:subClassOf mmto:dp_bc_aspect.
+
+mmto:bc_aspect owl:intersectionOf (osmo:application_case_aspect mmto:bc_entity).
+
+mmto:ic_entity a owl:Class;
+   rdfs:subClassOf osmo:application_case_entity, mmto:translation_entity;
+   rdfs:comment "industrial case entity, i.e., an industrial case or an aspect thereof"^^xs:string.
+mmto:op_ic_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_ic_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_application_case_entity rdfs:subClassOf mmto:op_ic_entity.
+osmo:dp_application_case_entity rdfs:subClassOf mmto:dp_ic_entity.
+mmto:op_translation_entity rdfs:subClassOf mmto:op_ic_entity.
+mmto:dp_translation_entity rdfs:subClassOf mmto:dp_ic_entity.
+
+mmto:ic_entity owl:disjointUnionOf (mmto:industrial_case mmto:ic_aspect).
 
 mmto:industrial_case a owl:Class;
-   rdfs:subClassOf mmto:application_case;
+   rdfs:subClassOf osmo:application_case, mmto:ic_entity;
    rdfs:comment "industrial case, i.e., an application case with a focus on industrial/manufacturing aspects"^^xs:string.
 mmto:op_industrial_case a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 mmto:dp_industrial_case a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-mmto:op_application_case rdfs:subClassOf mmto:op_industrial_case.
-mmto:dp_application_case rdfs:subClassOf mmto:dp_industrial_case.
+osmo:op_application_case rdfs:subClassOf mmto:op_industrial_case.
+osmo:dp_application_case rdfs:subClassOf mmto:dp_industrial_case.
+mmto:op_ic_entity rdfs:subClassOf mmto:op_industrial_case.
+mmto:dp_ic_entity rdfs:subClassOf mmto:dp_industrial_case.
 
 mmto:has_ic_summary a mmto:dp_industrial_case;
    rdfs:domain mmto:industrial_case;
    rdfs:range xs:string;
-   rdfs:subPropertyOf mmto:has_ac_summary;
+   rdfs:subPropertyOf osmo:has_application_case_summary;
    rdfs:comment "plain-text summary of the industrial case"^^xs:string.
+mmto:has_ic_aspect a mmto:op_industrial_case;
+   rdfs:domain mmto:industrial_case;
+   rdfs:range mmto:ic_aspect;
+   rdfs:subPropertyOf osmo:has_application_case_aspect;
+   rdfs:comment "points to an industrial-case aspect"^^xs:string.
+
+mmto:ic_aspect a owl:Class;
+   rdfs:subClassOf osmo:application_case_aspect, mmto:ic_entity;
+   rdfs:comment "industrial-case aspect"^^xs:string.
+mmto:op_ic_aspect a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_ic_aspect a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_application_case_aspect rdfs:subClassOf mmto:op_ic_aspect.
+osmo:dp_application_case_aspect rdfs:subClassOf mmto:dp_ic_aspect.
+mmto:op_ic_entity rdfs:subClassOf mmto:op_ic_aspect.
+mmto:dp_ic_entity rdfs:subClassOf mmto:dp_ic_aspect.
+
+mmto:ic_aspect owl:intersectionOf (osmo:application_case_aspect mmto:ic_entity).
+
+mmto:tc_entity a owl:Class;
+   rdfs:subClassOf osmo:application_case_entity, mmto:translation_entity;
+   rdfs:comment "translation case entity, i.e., a translation case or an aspect thereof"^^xs:string.
+mmto:op_tc_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_tc_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_application_case_entity rdfs:subClassOf mmto:op_tc_entity.
+osmo:dp_application_case_entity rdfs:subClassOf mmto:dp_tc_entity.
+mmto:op_translation_entity rdfs:subClassOf mmto:op_tc_entity.
+mmto:dp_translation_entity rdfs:subClassOf mmto:dp_tc_entity.
+
+mmto:tc_entity owl:disjointUnionOf (mmto:translation_case mmto:tc_aspect).
 
 mmto:translation_case a owl:Class;
-   rdfs:subClassOf mmto:application_case;
+   rdfs:subClassOf osmo:application_case, mmto:tc_entity;
    rdfs:comment "translation case, i.e., an application case that can be described as specified by the EMMC Translation Case Template"^^xs:string.
 mmto:op_translation_case a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 mmto:dp_translation_case a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-mmto:op_application_case rdfs:subClassOf mmto:op_translation_case.
-mmto:dp_application_case rdfs:subClassOf mmto:dp_translation_case.
+osmo:op_application_case rdfs:subClassOf mmto:op_translation_case.
+osmo:dp_application_case rdfs:subClassOf mmto:dp_translation_case.
+mmto:op_tc_entity rdfs:subClassOf mmto:op_translation_case.
+mmto:dp_tc_entity rdfs:subClassOf mmto:dp_translation_case.
 
 mmto:has_tc_summary a mmto:dp_translation_case;
    rdfs:domain mmto:translation_case;
    rdfs:range xs:string;
-   rdfs:subPropertyOf mmto:has_ac_summary;
+   rdfs:subPropertyOf osmo:has_application_case_summary;
    rdfs:comment "plain-text summary of the translation case"^^xs:string.
-mmto:has_emmc_tc_attribute a mmto:op_translation_case;
+mmto:has_tc_aspect a mmto:op_translation_case;
    rdfs:domain mmto:translation_case;
-   rdfs:range evmpo:marketplace_related_entity;
-   rdfs:comment "attribute related to a translation case according to the EMMC Translation Case Template"^^xs:string.
+   rdfs:range mmto:tc_aspect;
+   rdfs:subPropertyOf osmo:has_application_case_aspect;
+   rdfs:comment "points to a translation-case aspect"^^xs:string.
+
+mmto:tc_aspect a owl:Class;
+   rdfs:subClassOf osmo:application_case_aspect, mmto:tc_entity;
+   rdfs:comment "translation-case aspect"^^xs:string.
+mmto:op_tc_aspect a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_tc_aspect a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_application_case_aspect rdfs:subClassOf mmto:op_tc_aspect.
+osmo:dp_application_case_aspect rdfs:subClassOf mmto:dp_tc_aspect.
+mmto:op_tc_entity rdfs:subClassOf mmto:op_tc_aspect.
+mmto:dp_tc_entity rdfs:subClassOf mmto:dp_tc_aspect.
+
+mmto:tc_aspect owl:intersectionOf (osmo:application_case_aspect mmto:tc_entity).
 
 # EMMC Translation Case Template: Introduction
 #
@@ -1794,9 +1864,9 @@ mmto:dp_project_statement rdfs:subClassOf mmto:dp_closing_statement.
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 1.2.0 ###
+### VERSION 1.2.1 ###
 
-### DATED 5TH NOVEMBER 2019 ###
+### DATED 10TH DECEMBER 2019 ###
 
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -2528,7 +2598,7 @@ osmo:dp_workflow_resource rdfs:subClassOf osmo:dp_section.
 osmo:op_section_entity rdfs:subClassOf osmo:op_section.
 osmo:dp_section_entity rdfs:subClassOf osmo:dp_section.
 
-osmo:section owl:disjointUnionOf (osmo:use_case osmo:materials_model osmo:solver osmo:processor).
+osmo:section owl:disjointUnionOf (osmo:application_case osmo:materials_model osmo:solver osmo:processor).
 
 osmo:has_internal_lv a osmo:op_section;
    rdfs:domain osmo:section;
@@ -2834,39 +2904,85 @@ osmo:dp_timespan_information a owl:Class;
 osmo:op_section_aspect rdfs:subClassOf osmo:op_timespan_information.
 osmo:dp_section_aspect rdfs:subClassOf osmo:dp_timespan_information.
 
-osmo:use_case_entity a owl:Class;
+osmo:application_case_entity a owl:Class;
    rdfs:subClassOf osmo:section_entity;
+   rdfs:comment "application case entity, i.e., an application case or an aspect thereof"^^xs:string.
+osmo:op_application_case_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_application_case_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_section_entity rdfs:subClassOf osmo:op_application_case_entity.
+osmo:dp_section_entity rdfs:subClassOf osmo:dp_application_case_entity.
+
+osmo:application_case_entity owl:disjointUnionOf (osmo:application_case osmo:application_case_aspect).
+
+osmo:application_case_entity owl:disjointUnionOf (mmto:bc_entity mmto:ic_entity mmto:tc_entity osmo:use_case_entity).
+
+osmo:use_case_entity a owl:Class;
+   rdfs:subClassOf osmo:application_case_entity;
    rdfs:comment "use case entity, i.e., a use case or an aspect thereof"^^xs:string.
 osmo:op_use_case_entity a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 osmo:dp_use_case_entity a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_section_entity rdfs:subClassOf osmo:op_use_case_entity.
-osmo:dp_section_entity rdfs:subClassOf osmo:dp_use_case_entity.
+osmo:op_application_case_entity rdfs:subClassOf osmo:op_use_case_entity.
+osmo:dp_application_case_entity rdfs:subClassOf osmo:dp_use_case_entity.
 
 osmo:use_case_entity owl:disjointUnionOf (osmo:use_case osmo:use_case_aspect).
 
+osmo:application_case a owl:Class;
+   rdfs:subClassOf mmto:translation_entity, evmpo:annotation, osmo:section;
+   rdfs:comment "application case, i.e., a scenario, point of view, or subjective or negotiated set of aims"^^xs:string.
+osmo:op_application_case a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_application_case a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_translation_entity rdfs:subClassOf osmo:op_application_case.
+mmto:dp_translation_entity rdfs:subClassOf osmo:dp_application_case.
+evmpo:op_annotation rdfs:subClassOf osmo:op_application_case.
+evmpo:dp_annotation rdfs:subClassOf osmo:dp_application_case.
+osmo:op_section rdfs:subClassOf osmo:op_application_case.
+osmo:dp_section rdfs:subClassOf osmo:dp_application_case.
+
+osmo:application_case owl:disjointUnionOf (mmto:business_case mmto:industrial_case mmto:translation_case osmo:use_case).
+
+osmo:has_application_case_aspect a osmo:op_use_case;
+   rdfs:domain osmo:application_case;
+   rdfs:range osmo:application_case_aspect;
+   rdfs:subPropertyOf osmo:has_aspect, evmpo:has_meta_annotation;
+   rdfs:comment "points to an application-case aspect (as in MODA or extensions of MODA)"^^xs:string.
+osmo:has_application_case_summary a osmo:dp_application_case;
+   rdfs:domain osmo:application_case;
+   rdfs:range xs:string;
+   rdfs:comment "plain-text summary of the application case"^^xs:string.
+osmo:is_addressed_by a osmo:op_application_case;
+   rdfs:domain osmo:application_case;
+   rdfs:range mmto:mm_project;
+   owl:inverseOf mmto:addresses;
+   rdfs:comment "points to a materials modelling project that addresses the present application case"^^xs:string.
+
 osmo:use_case a owl:Class;
-   rdfs:subClassOf osmo:section, osmo:use_case_entity, evmpo:annotation, mmto:application_case;
-   owl:intersectionOf (mmto:application_case osmo:section);
+   rdfs:subClassOf osmo:use_case_entity, osmo:application_case;
    rdfs:comment "use case (i.e., in MODA: 'user case')"^^xs:string.
 osmo:op_use_case a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 osmo:dp_use_case a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_section rdfs:subClassOf osmo:op_use_case.
-osmo:dp_section rdfs:subClassOf osmo:dp_use_case.
 osmo:op_use_case_entity rdfs:subClassOf osmo:op_use_case.
 osmo:dp_use_case_entity rdfs:subClassOf osmo:dp_use_case.
-evmpo:op_annotation rdfs:subClassOf osmo:op_use_case.
-evmpo:dp_annotation rdfs:subClassOf osmo:dp_use_case.
-mmto:op_application_case rdfs:subClassOf osmo:op_use_case.
-mmto:dp_application_case rdfs:subClassOf osmo:dp_use_case.
+osmo:op_application_case rdfs:subClassOf osmo:op_use_case.
+osmo:dp_application_case rdfs:subClassOf osmo:dp_use_case.
 
+osmo:has_use_case_summary a osmo:dp_use_case;
+   rdfs:domain osmo:use_case;
+   rdfs:range xs:string;
+   rdfs:subPropertyOf osmo:has_application_case_summary;
+   owl:propertyChainAxiom (osmo:has_use_case_description osmo:has_aspect_text_content);
+   rdfs:comment "plain-text summary of the MODA/OSMO use case"^^xs:string.
 osmo:has_use_case_aspect a osmo:op_use_case;
    rdfs:domain osmo:use_case;
    rdfs:range osmo:use_case_aspect;
-   rdfs:subPropertyOf osmo:has_aspect, evmpo:has_meta_annotation;
+   rdfs:subPropertyOf osmo:has_application_case_aspect;
    rdfs:comment "points to a use-case aspect (as in MODA)"^^xs:string.
 
 osmo:has_use_case_description a osmo:op_use_case;
@@ -2906,19 +3022,33 @@ osmo:use_case rdfs:subClassOf [
       owl:someValuesFrom osmo:use_case_material
    ].
 
+osmo:application_case_aspect a owl:Class;
+   rdfs:subClassOf osmo:section_aspect, osmo:application_case_entity;
+   rdfs:comment "application-case aspect (similar as in MODA or extensions of MODA)"^^xs:string.
+osmo:op_application_case_aspect a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_application_case_aspect a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_section_aspect rdfs:subClassOf osmo:op_application_case_aspect.
+osmo:dp_section_aspect rdfs:subClassOf osmo:dp_application_case_aspect.
+osmo:op_application_case_entity rdfs:subClassOf osmo:op_application_case_aspect.
+osmo:dp_application_case_entity rdfs:subClassOf osmo:dp_application_case_aspect.
+
+osmo:application_case_aspect owl:disjointUnionOf (mmto:bc_aspect mmto:ic_aspect mmto:tc_aspect osmo:use_case_aspect).
+
 osmo:use_case_aspect a owl:Class;
-   rdfs:subClassOf osmo:section_aspect, osmo:use_case_entity;
+   rdfs:subClassOf osmo:application_case_aspect, osmo:use_case_entity;
    rdfs:comment "use-case aspect (similar as in MODA)"^^xs:string.
 osmo:op_use_case_aspect a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 osmo:dp_use_case_aspect a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_section_aspect rdfs:subClassOf osmo:op_use_case_aspect.
-osmo:op_section_aspect rdfs:subClassOf osmo:dp_use_case_aspect.
+osmo:op_application_case_aspect rdfs:subClassOf osmo:op_use_case_aspect.
+osmo:dp_application_case_aspect rdfs:subClassOf osmo:dp_use_case_aspect.
 osmo:op_use_case_entity rdfs:subClassOf osmo:op_use_case_aspect.
-osmo:op_use_case_entity rdfs:subClassOf osmo:dp_use_case_aspect.
+osmo:dp_use_case_entity rdfs:subClassOf osmo:dp_use_case_aspect.
 
-osmo:use_case_aspect owl:intersectionOf (osmo:section_aspect osmo:use_case_entity).
+osmo:use_case_aspect owl:intersectionOf (osmo:application_case_aspect osmo:use_case_entity).
 
 osmo:use_case_description a owl:Class;
    rdfs:subClassOf osmo:use_case_aspect, osmo:section_description, [
