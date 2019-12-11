@@ -1,9 +1,9 @@
 
 ### VIMMP VALIDATION ONTOLOGY (VIVO) ###
 
-### VERSION 0.3.10 ###
+### VERSION 0.3.11 ###
 
-### DATED 25TH NOVEMBER 2019 ###
+### DATED 11TH DECEMBER 2019 ###
 
 @prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
 
@@ -69,9 +69,9 @@ vivo:review_entity owl:disjointUnionOf (vivo:review_assertion vivo:review_assess
    owl:disjointWith vivo:accuracy_entity, vivo:requirement_entity.
 
 
-############################
-# ASSERTION BRANCH OF VIVO #
-############################
+#####################################
+# ASSERTION BRANCH OF VIVO: GENERAL #
+#####################################
 
 vivo:data_item a owl:Class;
    rdfs:subClassOf evmpo:information_content_entity;
@@ -230,9 +230,9 @@ vivo:op_review_entity rdfs:subClassOf vivo:op_review_assertion.
 vivo:dp_review_entity rdfs:subClassOf vivo:dp_review_assertion.
 
 
-#############################
-# ASSESSMENT BRANCH OF VIVO #
-#############################
+######################################
+# ASSESSMENT BRANCH OF VIVO: GENERAL #
+######################################
 
 evmpo:assessment a owl:Class;
    rdfs:subClassOf vivo:validation_entity.
@@ -394,6 +394,62 @@ vivo:evaluates_service a vivo:op_service_assessment;
    rdfs:subPropertyOf vivo:evaluates.
 
 vivo:service_assessment owl:disjointWith vivo:accuracy_assessment, vivo:requirement_assessment.
+
+vivo:service_assessment owl:disjointUnionOf (vivo:data_access_assessment vivo:hardware_access_assessment vivo:software_access_assessment vivo:training_assessment vivo:translation_assessment vivo:other_service_assessment).
+
+vivo:data_access_assessment a owl:Class;
+   rdfs:subClassOf vivo:service_assessment.
+vivo:op_data_access_assessment a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vivo:dp_data_access_assessment a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vivo:op_service_assessment rdfs:subClassOf vivo:op_data_access_assessment.
+vivo:dp_service_assessment rdfs:subClassOf vivo:dp_data_access_assessment.
+
+vivo:hardware_access_assessment a owl:Class;
+   rdfs:subClassOf vivo:service_assessment.
+vivo:op_hardware_access_assessment a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vivo:dp_hardware_access_assessment a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vivo:op_service_assessment rdfs:subClassOf vivo:op_hardware_access_assessment.
+vivo:dp_service_assessment rdfs:subClassOf vivo:dp_hardware_access_assessment.
+
+vivo:software_access_assessment a owl:Class;
+   rdfs:subClassOf vivo:service_assessment.
+vivo:op_software_access_assessment a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vivo:dp_software_access_assessment a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vivo:op_service_assessment rdfs:subClassOf vivo:op_software_access_assessment.
+vivo:dp_service_assessment rdfs:subClassOf vivo:dp_software_access_assessment.
+
+vivo:training_assessment a owl:Class;
+   rdfs:subClassOf vivo:service_assessment.
+vivo:op_training_assessment a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vivo:dp_training_assessment a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vivo:op_service_assessment rdfs:subClassOf vivo:op_training_assessment.
+vivo:dp_service_assessment rdfs:subClassOf vivo:dp_training_assessment.
+
+vivo:translation_assessment a owl:Class;
+   rdfs:subClassOf vivo:service_assessment.
+vivo:op_translation_assessment a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vivo:dp_translation_assessment a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vivo:op_service_assessment rdfs:subClassOf vivo:op_translation_assessment.
+vivo:dp_service_assessment rdfs:subClassOf vivo:dp_translation_assessment.
+
+vivo:other_service_assessment a owl:Class;
+   rdfs:subClassOf vivo:service_assessment.
+vivo:op_other_service_assessment a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+vivo:dp_other_service_assessment a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+vivo:op_service_assessment rdfs:subClassOf vivo:op_other_service_assessment.
+vivo:dp_service_assessment rdfs:subClassOf vivo:dp_other_service_assessment.
 
 vivo:workflow_assessment a owl:Class;
    rdfs:subClassOf evmpo:assessment.
