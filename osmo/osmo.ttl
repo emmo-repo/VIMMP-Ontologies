@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 1.2.1 ###
+### VERSION 1.3.0 ###
 
-### DATED 10TH DECEMBER 2019 ###
+### DATED 12TH DECEMBER 2019 ###
 
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -20,34 +20,6 @@
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
 <http://www.vimmp.eu/semantics/osmo/osmo.ttl#> a owl:Ontology.
-
-osmo:model a owl:Class;
-   rdfs:subClassOf evmpo:paradigmatic_entity;
-   owl:equivalentClass evmpo:model;
-   rdfs:comment "model, i.e., a model as characterized by the EMMO"^^xs:string.
-osmo:op_model a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty;
-   owl:equivalentClass evmpo:op_model.
-osmo:dp_model a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty;
-   owl:equivalentClass evmpo:dp_model.
-evmpo:op_paradigmatic_entity rdfs:subClassOf osmo:op_model.
-evmpo:dp_paradigmatic_entity rdfs:subClassOf osmo:dp_model.
-
-osmo:simulation a owl:Class;
-   rdfs:subClassOf evmpo:paradigmatic_entity;
-   owl:equivalentClass evmpo:simulation;
-   rdfs:comment "simulation, i.e., a simulation workflow (including a single simulation as special case)"^^xs:string.
-osmo:op_simulation a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty;
-   owl:equivalentClass evmpo:op_simulation.
-osmo:dp_simulation a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty;
-   owl:equivalentClass evmpo:dp_simulation.
-evmpo:op_paradigmatic_entity rdfs:subClassOf osmo:op_simulation.
-evmpo:dp_paradigmatic_entity rdfs:subClassOf osmo:dp_simulation.
-
-osmo:model owl:disjointWith osmo:simulation.
 
 
 osmo:materials_model_classifier a owl:Class;
@@ -1083,7 +1055,7 @@ osmo:dp_section rdfs:subClassOf osmo:dp_application_case.
 
 osmo:application_case owl:disjointUnionOf (mmto:business_case mmto:industrial_case mmto:translation_case osmo:use_case).
 
-osmo:has_application_case_aspect a osmo:op_use_case;
+osmo:has_application_case_aspect a osmo:op_application_case;
    rdfs:domain osmo:application_case;
    rdfs:range osmo:application_case_aspect;
    rdfs:subPropertyOf osmo:has_aspect, evmpo:has_meta_annotation;
@@ -1097,6 +1069,12 @@ osmo:is_addressed_by a osmo:op_application_case;
    rdfs:range mmto:mm_project;
    owl:inverseOf mmto:addresses;
    rdfs:comment "points to a materials modelling project that addresses the present application case"^^xs:string.
+
+osmo:has_decision_support a osmo:op_application_case;
+   rdfs:domain osmo:application_case;
+   rdfs:range osmo:application_case_decision_support;
+   rdfs:subPropertyOf osmo:has_application_case_aspect;
+   rdfs:comment "points to information on the application decision support system"^^xs:string.
 
 osmo:use_case a owl:Class;
    rdfs:subClassOf osmo:use_case_entity, osmo:application_case;
@@ -1152,6 +1130,11 @@ osmo:has_use_case_literature a osmo:op_use_case;
    rdfs:range osmo:use_case_literature;
    rdfs:subPropertyOf osmo:has_use_case_aspect, osmo:has_section_literature;
    rdfs:comment "MODA subsection 1.6"^^xs:string.
+osmo:has_use_case_decision_support a osmo:op_use_case;
+   rdfs:domain osmo:use_case;
+   rdfs:range osmo:use_case_decision_support;
+   rdfs:subPropertyOf osmo:has_use_case_aspect, osmo:has_decision_support;
+   rdfs:comment "points to information on the use-case decision support system (UDSS)"^^xs:string.
 
 osmo:use_case rdfs:subClassOf [
       a owl:Restriction;
@@ -1172,6 +1155,22 @@ osmo:op_application_case_entity rdfs:subClassOf osmo:op_application_case_aspect.
 osmo:dp_application_case_entity rdfs:subClassOf osmo:dp_application_case_aspect.
 
 osmo:application_case_aspect owl:disjointUnionOf (mmto:bc_aspect mmto:ic_aspect mmto:tc_aspect osmo:use_case_aspect).
+
+osmo:application_case_decision_support a owl:Class;
+   rdfs:subClassOf osmo:application_case_aspect;
+   rdfs:comment "information on the decision support system"^^xs:string.
+osmo:op_application_case_decision_support a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_application_case_decision_support a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_application_case_aspect rdfs:subClassOf osmo:op_application_case_decision_support.
+osmo:dp_application_case_aspect rdfs:subClassOf osmo:dp_application_case_decision_support.
+
+osmo:application_case_decision_support rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty osmo:has_aspect_paradigmatic_content;
+      owl:someValuesFrom osmo:application_decision_support_system
+   ].
 
 osmo:use_case_aspect a owl:Class;
    rdfs:subClassOf osmo:application_case_aspect, osmo:use_case_entity;
@@ -1263,6 +1262,24 @@ osmo:dp_use_case_aspect rdfs:subClassOf osmo:dp_use_case_literature.
 osmo:op_section_literature rdfs:subClassOf osmo:op_use_case_literature.
 osmo:dp_section_literature rdfs:subClassOf osmo:dp_use_case_literature.
 
+osmo:use_case_decision_support a owl:Class;
+   rdfs:subClassOf osmo:use_case_aspect, osmo:application_case_decision_support;
+   rdfs:comment "information on the use-case decision support system (UDSS)"^^xs:string.
+osmo:op_use_case_decision_support a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_use_case_decision_support a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_use_case_aspect rdfs:subClassOf osmo:op_use_case_decision_support.
+osmo:dp_use_case_aspect rdfs:subClassOf osmo:dp_use_case_decision_support.
+osmo:op_application_case_decision_support rdfs:subClassOf osmo:op_use_case_decision_support.
+osmo:dp_application_case_decision_support rdfs:subClassOf osmo:dp_use_case_decision_support.
+
+osmo:use_case_decision_support rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty osmo:has_aspect_paradigmatic_content;
+      owl:someValuesFrom osmo:use_case_decision_support_system
+   ].
+
 osmo:model_entity a owl:Class;
    rdfs:subClassOf osmo:section_entity;
    rdfs:comment "model entity, i.e., a materials model (as in MODA) or an aspect thereof"^^xs:string.
@@ -1276,7 +1293,7 @@ osmo:dp_section_entity rdfs:subClassOf osmo:dp_model_entity.
 osmo:model_entity owl:disjointUnionOf (osmo:materials_model osmo:model_aspect).
 
 osmo:materials_model a owl:Class;
-   rdfs:subClassOf osmo:section, osmo:model, osmo:model_entity;
+   rdfs:subClassOf osmo:section, evmpo:model, osmo:model_entity;
    rdfs:comment "materials model (as in MODA)"^^xs:string.
 osmo:op_materials_model a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
@@ -1284,8 +1301,8 @@ osmo:dp_materials_model a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 osmo:op_section rdfs:subClassOf osmo:op_materials_model.
 osmo:dp_section rdfs:subClassOf osmo:dp_materials_model.
-osmo:op_model rdfs:subClassOf osmo:op_materials_model.
-osmo:dp_model rdfs:subClassOf osmo:dp_materials_model.
+evmpo:op_model rdfs:subClassOf osmo:op_materials_model.
+evmpo:dp_model rdfs:subClassOf osmo:dp_materials_model.
 osmo:op_model_entity rdfs:subClassOf osmo:op_materials_model.
 osmo:dp_model_entity rdfs:subClassOf osmo:dp_materials_model.
 
@@ -1324,8 +1341,8 @@ osmo:has_model_boundary_condition a osmo:op_materials_model;
    rdfs:range osmo:model_boundary_condition;
    rdfs:subPropertyOf osmo:has_model_aspect, osmo:has_boundary_condition;
    rdfs:comment "MODA subsection 2.5"^^xs:string.
-osmo:has_model_error_statement a osmo:op_model;
-   rdfs:domain osmo:model;
+osmo:has_model_error_statement a evmpo:op_model;
+   rdfs:domain evmpo:model;
    rdfs:range osmo:model_error_statement;
    rdfs:subPropertyOf osmo:has_error_statement.
 
@@ -2002,7 +2019,7 @@ osmo:logical_node rdfs:subClassOf [
    ].
 
 osmo:simulation_workflow a owl:Class;
-   rdfs:subClassOf osmo:workflow_graph, osmo:simulation;
+   rdfs:subClassOf osmo:workflow_graph, evmpo:simulation;
    rdfs:comment "simulation workflow, i.e., a (complete) workflow graph of an actually executable simulation workflow"^^xs:string.
 osmo:op_simulation_workflow a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
@@ -2010,10 +2027,10 @@ osmo:dp_simulation_workflow a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 osmo:op_workflow_graph rdfs:subClassOf osmo:op_simulation_workflow.
 osmo:dp_workflow_graph rdfs:subClassOf osmo:dp_simulation_workflow.
-osmo:op_simulation rdfs:subClassOf osmo:op_simulation_workflow.
-osmo:dp_simulation rdfs:subClassOf osmo:dp_simulation_workflow.
+evmpo:op_simulation rdfs:subClassOf osmo:op_simulation_workflow.
+evmpo:dp_simulation rdfs:subClassOf osmo:dp_simulation_workflow.
 
-osmo:simulation_workflow owl:intersectionOf (osmo:workflow_graph osmo:simulation).
+osmo:simulation_workflow owl:intersectionOf (osmo:workflow_graph evmpo:simulation).
 
 osmo:has_simulation_outcome a osmo:op_simulation_workflow;
    rdfs:domain osmo:simulation_workflow;
@@ -2726,3 +2743,47 @@ osmo:dp_material_information_uf a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 osmo:op_unit_function rdfs:subClassOf osmo:op_material_information_uf.
 osmo:dp_unit_function rdfs:subClassOf osmo:dp_material_information_uf.
+
+
+osmo:optimization_entity a owl:Class;
+   rdfs:subClassOf evmpo:marketplace_related_entity.
+osmo:op_optimization_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_optimization_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_marketplace_related_entity rdfs:subClassOf osmo:op_optimization_entity.
+evmpo:dp_marketplace_related_entity rdfs:subClassOf osmo:dp_optimization_entity.
+
+osmo:decision_support_system a owl:Class;
+   rdfs:subClassOf osmo:optimization_entity, macro:data_infrastructure, macro:software_infrastructure;
+   rdfs:comment "decision support system, i.e., a data and software infrastructure that facilitates decision support"^^xs:string.
+osmo:op_decision_support_system a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_decision_support_system a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_optimization_entity rdfs:subClassOf osmo:op_decision_support_system.
+osmo:dp_optimization_entity rdfs:subClassOf osmo:dp_decision_support_system.
+macro:op_data_infrastructure rdfs:subClassOf osmo:op_decision_support_system.
+macro:dp_data_infrastructure rdfs:subClassOf osmo:dp_decision_support_system.
+macro:op_software_infrastructure rdfs:subClassOf osmo:op_decision_support_system.
+macro:dp_software_infrastructure rdfs:subClassOf osmo:dp_decision_support_system.
+
+osmo:application_decision_support_system a owl:Class;
+   rdfs:subClassOf osmo:decision_support_system;
+   rdfs:comment "application decision support system, i.e., a decision support system that occurs in an application case"^^xs:string.
+osmo:op_application_decision_support_system a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_application_decision_support_system a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_decision_support_system rdfs:subClassOf osmo:op_application_decision_support_system.
+osmo:dp_decision_support_system rdfs:subClassOf osmo:dp_application_decision_support_system.
+
+osmo:use_case_decision_support_system a owl:Class;
+   rdfs:subClassOf osmo:application_decision_support_system;
+   rdfs:comment "use-case decision support system (UDSS), i.e., a decision support system that is applied to a use case"^^xs:string.
+osmo:op_use_case_decision_support_system a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_use_case_decision_support_system a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_application_decision_support_system rdfs:subClassOf osmo:op_use_case_decision_support_system.
+osmo:dp_application_decision_support_system rdfs:subClassOf osmo:dp_use_case_decision_support_system.

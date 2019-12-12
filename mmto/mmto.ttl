@@ -1,12 +1,13 @@
 
 ### MATERIALS MODELLING TRANSLATION ONTOLOGY (MMTO) ###
 
-### VERSION 0.6.4 ###
+### VERSION 0.6.5 ###
 
-### DATED 11TH DECEMBER 2019 ###
+### DATED 12TH DECEMBER 2019 ###
 
 @prefix mmto: <http://www.vimmp.eu/semantics/mmto/mmto.ttl#>.
 
+@prefix cao: <http://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/>.
 @prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
@@ -87,12 +88,69 @@ mmto:has_bc_summary a mmto:dp_business_case;
    rdfs:domain mmto:business_case;
    rdfs:range xs:string;
    rdfs:subPropertyOf osmo:has_application_case_summary;
+   owl:propertyChainAxiom (mmto:has_bca_description osmo:has_aspect_text_content);
    rdfs:comment "plain-text summary of the business case"^^xs:string.
 mmto:has_bc_aspect a mmto:op_business_case;
    rdfs:domain mmto:business_case;
    rdfs:range mmto:bc_aspect;
    rdfs:subPropertyOf osmo:has_application_case_aspect;
    rdfs:comment "points to a business-case aspect"^^xs:string.
+
+mmto:has_bca_description a mmto:op_business_case;
+   rdfs:domain mmto:business_case;
+   rdfs:range mmto:bca_description;
+   rdfs:subPropertyOf mmto:has_bc_aspect;
+   rdfs:comment "points to the BC aspect containing an abstract or a rough description of the BC in text form"^^xs:string.
+mmto:has_bca_industrial_case a mmto:op_business_case;
+   rdfs:domain mmto:business_case;
+   rdfs:range mmto:bca_industrial_case;
+   rdfs:subPropertyOf mmto:has_bc_aspect;
+   rdfs:comment "points to information on an industrial case associated with the present BC"^^xs:string.
+mmto:has_bca_red_zone a mmto:op_business_case;
+   rdfs:domain mmto:business_case;
+   rdfs:range mmto:bca_red_zone;
+   rdfs:subPropertyOf mmto:has_bc_aspect;
+   rdfs:comment "points to information on a red zone, i.e., operational or social constraint (contained in text form)"^^xs:string.
+mmto:has_bca_context a mmto:op_business_case;
+   rdfs:domain mmto:business_case;
+   rdfs:range mmto:bca_context;
+   rdfs:subPropertyOf mmto:has_bc_aspect;
+   rdfs:comment "points to information on the context of the BC (in text form); e.g., on revenue streams, market competitors, distribution channels, market shares, maximum time to solution, risk management, open/closed innovation, etc."^^xs:string.
+mmto:has_bca_currency a mmto:op_business_case;
+   rdfs:domain mmto:business_case;
+   rdfs:range mmto:bca_currency;
+   rdfs:subPropertyOf mmto:has_bc_aspect;
+   rdfs:comment "points to information on the budgeting currency"^^xs:string.
+mmto:has_bca_contribution_to_cost a mmto:op_business_case;
+   rdfs:domain mmto:business_case;
+   rdfs:range mmto:bca_contribution_to_cost;
+   rdfs:subPropertyOf mmto:has_bc_aspect;
+   rdfs:comment "points to information on a contribution to end-user cost (text plus value)"^^xs:string.
+mmto:has_bca_total_cost a mmto:op_business_case;
+   rdfs:domain mmto:business_case;
+   rdfs:range mmto:bca_total_cost;
+   rdfs:subPropertyOf mmto:has_bc_aspect;
+   rdfs:comment "points to information on the total end-user cost"^^xs:string.
+mmto:has_bca_contribution_to_benefit a mmto:op_business_case;
+   rdfs:domain mmto:business_case;
+   rdfs:range mmto:bca_contribution_to_benefit;
+   rdfs:subPropertyOf mmto:has_bc_aspect;
+   rdfs:comment "points to information on a contribution to end-user benefit (text plus value)"^^xs:string.
+mmto:has_bca_total_benefit a mmto:op_business_case;
+   rdfs:domain mmto:business_case;
+   rdfs:range mmto:bca_total_benefit;
+   rdfs:subPropertyOf mmto:has_bc_aspect;
+   rdfs:comment "points to information on the total end-user benefit"^^xs:string.
+mmto:has_bca_return_on_investment a mmto:op_business_case;
+   rdfs:domain mmto:business_case;
+   rdfs:range mmto:bca_return_on_investment;
+   rdfs:subPropertyOf mmto:has_bc_aspect;
+   rdfs:comment "points to information on the return on investment for the end user"^^xs:string.
+mmto:has_bca_decision_support a mmto:op_business_case;
+   rdfs:domain mmto:business_case;
+   rdfs:range mmto:bca_decision_support;
+   rdfs:subPropertyOf mmto:has_bc_aspect, osmo:has_decision_support;
+   rdfs:comment "points to information on the business decision support system"^^xs:string.
 
 mmto:bc_aspect a owl:Class;
    rdfs:subClassOf osmo:application_case_aspect, mmto:bc_entity;
@@ -107,6 +165,192 @@ mmto:op_bc_entity rdfs:subClassOf mmto:op_bc_aspect.
 mmto:dp_bc_entity rdfs:subClassOf mmto:dp_bc_aspect.
 
 mmto:bc_aspect owl:intersectionOf (osmo:application_case_aspect mmto:bc_entity).
+
+mmto:bca_description a owl:Class;
+   rdfs:subClassOf mmto:bc_aspect;
+   rdfs:comment "aspect containing an abstract or a rough description of the BC in text form"^^xs:string.
+mmto:op_bca_description a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_bca_description a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_bc_aspect rdfs:subClassOf mmto:op_bca_description.
+mmto:dp_bc_aspect rdfs:subClassOf mmto:dp_bca_description.
+
+mmto:bca_description rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty osmo:has_aspect_text_content;
+      owl:someValuesFrom xs:string
+   ].
+
+mmto:bca_industrial_case a owl:Class;
+   rdfs:subClassOf mmto:bc_aspect;
+   rdfs:comment "information on an industrial case associated with the present BC"^^xs:string.
+mmto:op_bca_industrial_case a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_bca_industrial_case a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_bc_aspect rdfs:subClassOf mmto:op_bca_industrial_case.
+mmto:dp_bc_aspect rdfs:subClassOf mmto:dp_bca_industrial_case.
+
+mmto:bca_industrial_case rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty osmo:has_aspect_annotation_content;
+      owl:someValuesFrom mmto:industrial_case
+   ].
+
+mmto:bca_red_zone a owl:Class;
+   rdfs:subClassOf mmto:bc_aspect;
+   rdfs:comment "information on a red zone, i.e., operational or social constraint (contained in text form)"^^xs:string.
+mmto:op_bca_red_zone a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_bca_red_zone a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_bc_aspect rdfs:subClassOf mmto:op_bca_red_zone.
+mmto:dp_bc_aspect rdfs:subClassOf mmto:dp_bca_red_zone.
+
+mmto:bca_red_zone rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty osmo:has_aspect_text_content;
+      owl:someValuesFrom xs:string
+   ].
+
+mmto:bca_context a owl:Class;
+   rdfs:subClassOf mmto:bc_aspect;
+   rdfs:comment "information on the context of the BC (in text form); e.g., on revenue streams, market competitors, distribution channels, market shares, maximum time to solution, risk management, open/closed innovation, etc."^^xs:string.
+mmto:op_bca_context a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_bca_context a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_bc_aspect rdfs:subClassOf mmto:op_bca_context.
+mmto:dp_bc_aspect rdfs:subClassOf mmto:dp_bca_context.
+
+mmto:bca_context rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty osmo:has_aspect_text_content;
+      owl:someValuesFrom xs:string
+   ].
+
+mmto:bca_currency a owl:Class;
+   rdfs:subClassOf mmto:bc_aspect;
+   rdfs:comment "information on the budgeting currency"^^xs:string.
+mmto:op_bca_currency a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_bca_currency a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_bc_aspect rdfs:subClassOf mmto:op_bca_currency.
+mmto:dp_bc_aspect rdfs:subClassOf mmto:dp_bca_currency.
+
+mmto:bca_currency rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty osmo:has_aspect_object_content;
+      owl:someValuesFrom cao:Currency
+   ].
+
+mmto:bca_contribution_to_cost a owl:Class;
+   rdfs:subClassOf mmto:bc_aspect;
+   rdfs:comment "information on a contribution to end-user cost (text explanation to be provided as text content, magnitude in budgeting currency to be provided as scalar content)"^^xs:string.
+mmto:op_bca_contribution_to_cost a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_bca_contribution_to_cost a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_bc_aspect rdfs:subClassOf mmto:op_bca_contribution_to_cost.
+mmto:dp_bc_aspect rdfs:subClassOf mmto:dp_bca_contribution_to_cost.
+
+mmto:bca_contribution_to_cost rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty osmo:has_aspect_text_content;
+      owl:someValuesFrom xs:string
+   ], [
+      a owl:Restriction;
+      owl:onProperty osmo:has_aspect_scalar_content;
+      owl:someValuesFrom xs:decimal
+   ].
+
+mmto:bca_total_cost a owl:Class;
+   rdfs:subClassOf mmto:bc_aspect;
+   rdfs:comment "information on the total end-user cost (to be provided as a xs:decimal value content)"^^xs:string.
+mmto:op_bca_total_cost a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_bca_total_cost a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_bc_aspect rdfs:subClassOf mmto:op_bca_total_cost.
+mmto:dp_bc_aspect rdfs:subClassOf mmto:dp_bca_total_cost.
+
+mmto:bca_total_cost rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty osmo:has_aspect_scalar_content;
+      owl:someValuesFrom xs:decimal
+   ].
+
+mmto:bca_contribution_to_benefit a owl:Class;
+   rdfs:subClassOf mmto:bc_aspect;
+   rdfs:comment "information on a contribution to end-user benefit (text explanation to be provided as text content, magnitude in budgeting currency to be provided as scalar content)"^^xs:string.
+mmto:op_bca_contribution_to_benefit a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_bca_contribution_to_benefit a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_bc_aspect rdfs:subClassOf mmto:op_bca_contribution_to_benefit.
+mmto:dp_bc_aspect rdfs:subClassOf mmto:dp_bca_contribution_to_benefit.
+
+mmto:bca_contribution_to_benefit rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty osmo:has_aspect_text_content;
+      owl:someValuesFrom xs:string
+   ], [
+      a owl:Restriction;
+      owl:onProperty osmo:has_aspect_scalar_content;
+      owl:someValuesFrom xs:decimal
+   ].
+
+mmto:bca_total_benefit a owl:Class;
+   rdfs:subClassOf mmto:bc_aspect;
+   rdfs:comment "information on the total end-user benefit (to be provided as a xs:decimal value content)"^^xs:string.
+mmto:op_bca_total_benefit a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_bca_total_benefit a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_bc_aspect rdfs:subClassOf mmto:op_bca_total_benefit.
+mmto:dp_bc_aspect rdfs:subClassOf mmto:dp_bca_total_benefit.
+
+mmto:bca_total_benefit rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty osmo:has_aspect_scalar_content;
+      owl:someValuesFrom xs:decimal
+   ].
+
+mmto:bca_return_on_investment a owl:Class;
+   rdfs:subClassOf mmto:bc_aspect;
+   rdfs:comment "information on the return on investment for the end user (to be provided as a xs:decimal value content)"^^xs:string.
+mmto:op_bca_return_on_investment a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_bca_return_on_investment a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_bc_aspect rdfs:subClassOf mmto:op_bca_return_on_investment.
+mmto:dp_bc_aspect rdfs:subClassOf mmto:dp_bca_return_on_investment.
+
+mmto:bca_return_on_investment rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty osmo:has_aspect_scalar_content;
+      owl:someValuesFrom xs:decimal
+   ].
+
+mmto:bca_decision_support a owl:Class;
+   rdfs:subClassOf mmto:bc_aspect, osmo:application_case_decision_support;
+   rdfs:comment "information on the business decision support system (BDSS)"^^xs:string.
+mmto:op_bca_decision_support a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_bca_decision_support a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_bc_aspect rdfs:subClassOf mmto:op_bca_decision_support.
+mmto:dp_bc_aspect rdfs:subClassOf mmto:dp_bca_decision_support.
+osmo:op_application_case_decision_support rdfs:subClassOf mmto:op_bca_decision_support.
+osmo:dp_application_case_decision_support rdfs:subClassOf mmto:dp_bca_decision_support.
+
+mmto:bca_decision_support rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty osmo:has_aspect_paradigmatic_content;
+      owl:someValuesFrom mmto:business_decision_support_system
+   ].
 
 mmto:ic_entity a owl:Class;
    rdfs:subClassOf osmo:application_case_entity, mmto:translation_entity;
@@ -145,6 +389,12 @@ mmto:has_ic_aspect a mmto:op_industrial_case;
    rdfs:subPropertyOf osmo:has_application_case_aspect;
    rdfs:comment "points to an industrial-case aspect"^^xs:string.
 
+mmto:has_ica_decision_support a mmto:op_industrial_case;
+   rdfs:domain mmto:industrial_case;
+   rdfs:range mmto:ica_decision_support;
+   rdfs:subPropertyOf mmto:has_ic_aspect, osmo:has_decision_support;
+   rdfs:comment "points to information on the industrial decision support system"^^xs:string.
+
 mmto:ic_aspect a owl:Class;
    rdfs:subClassOf osmo:application_case_aspect, mmto:ic_entity;
    rdfs:comment "industrial-case aspect"^^xs:string.
@@ -158,6 +408,24 @@ mmto:op_ic_entity rdfs:subClassOf mmto:op_ic_aspect.
 mmto:dp_ic_entity rdfs:subClassOf mmto:dp_ic_aspect.
 
 mmto:ic_aspect owl:intersectionOf (osmo:application_case_aspect mmto:ic_entity).
+
+mmto:ica_decision_support a owl:Class;
+   rdfs:subClassOf mmto:ic_aspect, osmo:application_case_decision_support;
+   rdfs:comment "information on the industrial decision support system (IDSS)"^^xs:string.
+mmto:op_ica_decision_support a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_ica_decision_support a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_ic_aspect rdfs:subClassOf mmto:op_ica_decision_support.
+mmto:dp_ic_aspect rdfs:subClassOf mmto:dp_ica_decision_support.
+osmo:op_application_case_decision_support rdfs:subClassOf mmto:op_ica_decision_support.
+osmo:dp_application_case_decision_support rdfs:subClassOf mmto:dp_ica_decision_support.
+
+mmto:ica_decision_support rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty osmo:has_aspect_paradigmatic_content;
+      owl:someValuesFrom mmto:industrial_decision_support_system
+   ].
 
 mmto:tc_entity a owl:Class;
    rdfs:subClassOf osmo:application_case_entity, mmto:translation_entity;
@@ -224,31 +492,28 @@ mmto:has_tca_use_case a mmto:op_translation_case;
 mmto:has_tca_pe_type a mmto:op_translation_case;
    rdfs:domain mmto:translation_case;
    rdfs:range mmto:tca_pe_type;
+   rdfs:subPropertyOf mmto:has_tc_aspect;
    rdfs:comment "points to information on the model type (i.e., physical equation type), as included in the EMMC Translation Case Template"^^xs:string.
 mmto:has_tca_discussion a mmto:op_translation_case;
    rdfs:domain mmto:translation_case;
    rdfs:range mmto:tca_discussion;
+   rdfs:subPropertyOf mmto:has_tc_aspect;
    rdfs:comment "points to information on discussions related to establishing a translation solution, as included in the EMMC Translation Case Template: arguments to select the modelling approach; inventory and data quality assessment / dedicated experimental work / validation steps; discussions on model accuracy / necessary investments; description of how the client (i.e., end user) was involved"^^xs:string.
 mmto:has_tca_evaluation a mmto:op_translation_case;
    rdfs:domain mmto:translation_case;
    rdfs:range mmto:tca_evaluation;
+   rdfs:subPropertyOf mmto:has_tc_aspect;
    rdfs:comment "points to information on evaluating the translation case (by means of an assessment from VIVO), as included in the EMMC Translation Case Template"^^xs:string.
 mmto:has_tca_impact a mmto:op_translation_case;
    rdfs:domain mmto:translation_case;
    rdfs:range mmto:tca_impact;
+   rdfs:subPropertyOf mmto:has_tc_aspect;
    rdfs:comment "points to information on the impact the translation case (how did the client use the results? etc.), i.e., the client benefits as included in the EMMC Translation Case Template"^^xs:string.
-mmto:has_tca_total_investment a mmto:op_translation_case;
+mmto:has_tca_decision_support a mmto:op_industrial_case;
    rdfs:domain mmto:translation_case;
-   rdfs:range mmto:tca_total_investment;
-   rdfs:comment "points to information on the total client investment (TCI), as included in the EMMC Translation Case Template"^^xs:string.
-mmto:has_tca_total_benefit a mmto:op_translation_case;
-   rdfs:domain mmto:translation_case;
-   rdfs:range mmto:tca_total_benefit;
-   rdfs:comment "points to information on the total client benefit (TCB), as included in the EMMC Translation Case Template"^^xs:string.
-mmto:has_tca_return_on_investment a mmto:op_translation_case;
-   rdfs:domain mmto:translation_case;
-   rdfs:range mmto:tca_return_on_investment;
-   rdfs:comment "points to information on the return on investment, as included in the EMMC Translation Case Template"^^xs:string.
+   rdfs:range mmto:tca_decision_support;
+   rdfs:subPropertyOf mmto:has_tc_aspect, osmo:has_decision_support;
+   rdfs:comment "points to information on the translation decision support system"^^xs:string.
 
 mmto:tc_aspect a owl:Class;
    rdfs:subClassOf osmo:application_case_aspect, mmto:tc_entity;
@@ -418,56 +683,24 @@ mmto:tca_impact rdfs:subClassOf [
       owl:someValuesFrom xs:string
    ].
 
-# EMMC Translation Case Template: Economic impact of the modelling project
-#
-mmto:tca_total_investment a owl:Class;
-   rdfs:subClassOf mmto:tc_aspect;
-   rdfs:comment "information on the total client investment (to be provided as a xs:decimal value content), as included in the EMMC Translation Case Template"^^xs:string.
-mmto:op_tca_total_investment a owl:Class;
+## Addition: Translation Decision Support System
+
+mmto:tca_decision_support a owl:Class;
+   rdfs:subClassOf mmto:tc_aspect, osmo:application_case_decision_support;
+   rdfs:comment "information on the translation decision support system (TDSS)"^^xs:string.
+mmto:op_tca_decision_support a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-mmto:dp_tca_total_investment a owl:Class;
+mmto:dp_tca_decision_support a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-mmto:op_tc_aspect rdfs:subClassOf mmto:op_tca_total_investment.
-mmto:dp_tc_aspect rdfs:subClassOf mmto:dp_tca_total_investment.
+mmto:op_tc_aspect rdfs:subClassOf mmto:op_tca_decision_support.
+mmto:dp_tc_aspect rdfs:subClassOf mmto:dp_tca_decision_support.
+osmo:op_application_case_decision_support rdfs:subClassOf mmto:op_tca_decision_support.
+osmo:dp_application_case_decision_support rdfs:subClassOf mmto:dp_tca_decision_support.
 
-mmto:tca_total_investment rdfs:subClassOf [
+mmto:tca_decision_support rdfs:subClassOf [
       a owl:Restriction;
-      owl:onProperty osmo:has_aspect_scalar_content;
-      owl:someValuesFrom xs:decimal
-   ].
-
-mmto:tca_total_benefit a owl:Class;
-   rdfs:subClassOf mmto:tc_aspect;
-   rdfs:comment "information on the total client benefit (to be provided as a xs:decimal value content), as included in the EMMC Translation Case Template"^^xs:string.
-mmto:op_tca_total_benefit a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-mmto:dp_tca_total_benefit a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-mmto:op_tc_aspect rdfs:subClassOf mmto:op_tca_total_benefit.
-mmto:dp_tc_aspect rdfs:subClassOf mmto:dp_tca_total_benefit.
-
-mmto:tca_total_benefit rdfs:subClassOf [
-      a owl:Restriction;
-      owl:onProperty osmo:has_aspect_scalar_content;
-      owl:someValuesFrom xs:decimal
-   ].
-
-# EMMC Translation Case Template: Return on investment
-#
-mmto:tca_return_on_investment a owl:Class;
-   rdfs:subClassOf mmto:tc_aspect;
-   rdfs:comment "information on the return on investment (to be provided as a xs:decimal value content), as included in the EMMC Translation Case Template"^^xs:string.
-mmto:op_tca_return_on_investment a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-mmto:dp_tca_return_on_investment a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-mmto:op_tc_aspect rdfs:subClassOf mmto:op_tca_return_on_investment.
-mmto:dp_tc_aspect rdfs:subClassOf mmto:dp_tca_return_on_investment.
-
-mmto:tca_return_on_investment rdfs:subClassOf [
-      a owl:Restriction;
-      owl:onProperty osmo:has_aspect_scalar_content;
-      owl:someValuesFrom xs:decimal
+      owl:onProperty osmo:has_aspect_paradigmatic_content;
+      owl:someValuesFrom mmto:translation_decision_support_system
    ].
 
 mmto:translation_statement a owl:Class;
@@ -617,6 +850,40 @@ mmto:dp_closing_statement a owl:Class;
 mmto:op_project_statement rdfs:subClassOf mmto:op_closing_statement.
 mmto:dp_project_statement rdfs:subClassOf mmto:dp_closing_statement.
 
-# Translation stages following the EMMC Translators' Guide
+# specific decision support systems
 #
-###
+mmto:business_decision_support_system a owl:Class;
+   rdfs:subClassOf mmto:translation_entity, osmo:application_decision_support_system;
+   rdfs:comment "business decision support system (BDSS), i.e., a decision support system that occurs in a business case"^^xs:string.
+mmto:op_business_decision_support_system a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_business_decision_support_system a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_translation_entity rdfs:subClassOf mmto:op_business_decision_support_system.
+mmto:dp_translation_entity rdfs:subClassOf mmto:dp_business_decision_support_system.
+osmo:op_application_decision_support_system rdfs:subClassOf mmto:op_business_decision_support_system.
+osmo:dp_application_decision_support_system rdfs:subClassOf mmto:dp_business_decision_support_system.
+
+mmto:industrial_decision_support_system a owl:Class;
+   rdfs:subClassOf mmto:translation_entity, osmo:application_decision_support_system;
+   rdfs:comment "industrial decision support system (IDSS), i.e., a decision support system that occurs in an industrial case"^^xs:string.
+mmto:op_industrial_decision_support_system a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_industrial_decision_support_system a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_translation_entity rdfs:subClassOf mmto:op_industrial_decision_support_system.
+mmto:dp_translation_entity rdfs:subClassOf mmto:dp_industrial_decision_support_system.
+osmo:op_application_decision_support_system rdfs:subClassOf mmto:op_industrial_decision_support_system.
+osmo:dp_application_decision_support_system rdfs:subClassOf mmto:dp_industrial_decision_support_system.
+
+mmto:translation_decision_support_system a owl:Class;
+   rdfs:subClassOf mmto:translation_entity, osmo:application_decision_support_system;
+   rdfs:comment "translation decision support system (TDSS), i.e., a decision support system that occurs in a translation case"^^xs:string.
+mmto:op_translation_decision_support_system a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_translation_decision_support_system a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_translation_entity rdfs:subClassOf mmto:op_translation_decision_support_system.
+mmto:dp_translation_entity rdfs:subClassOf mmto:dp_translation_decision_support_system.
+osmo:op_application_decision_support_system rdfs:subClassOf mmto:op_translation_decision_support_system.
+osmo:dp_application_decision_support_system rdfs:subClassOf mmto:dp_translation_decision_support_system.
