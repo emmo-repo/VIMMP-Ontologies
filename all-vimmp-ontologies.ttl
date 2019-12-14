@@ -1475,9 +1475,9 @@ macro:SOFTWARE_TOOL_VOCTA a viso:software_tool.
 
 ### MATERIALS MODELLING TRANSLATION ONTOLOGY (MMTO) ###
 
-### VERSION 0.6.5 ###
+### VERSION 1.0.0 ###
 
-### DATED 12TH DECEMBER 2019 ###
+### DATED 14TH DECEMBER 2019 ###
 
 @prefix mmto: <http://www.vimmp.eu/semantics/mmto/mmto.ttl#>.
 
@@ -1493,35 +1493,78 @@ macro:SOFTWARE_TOOL_VOCTA a viso:software_tool.
 
 <http://www.vimmp.eu/semantics/mmto/mmto.ttl#> a owl:Ontology.
 
-mmto:translation_entity a owl:Class;
+mmto:project_entity a owl:Class;
    rdfs:subClassOf evmpo:marketplace_related_entity;
+   rdfs:comment "project entity, i.e., a project or an entity related to a project"^^xs:string.
+mmto:op_project_entity a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_project_entity a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_marketplace_related_entity rdfs:subClassOf mmto:op_project_entity.
+evmpo:dp_marketplace_related_entity rdfs:subClassOf mmto:dp_project_entity.
+
+mmto:translation_entity a owl:Class;
+   rdfs:subClassOf mmto:project_entity;
    rdfs:comment "translation entity, i.e., a paradigmatic entity related to translating materials modelling problems to appropriate solutions"^^xs:string.
 mmto:op_translation_entity a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 mmto:dp_translation_entity a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_marketplace_related_entity rdfs:subClassOf mmto:op_translation_entity.
-evmpo:dp_marketplace_related_entity rdfs:subClassOf mmto:dp_translation_entity.
+mmto:op_project_entity rdfs:subClassOf mmto:op_translation_entity.
+mmto:dp_project_entity rdfs:subClassOf mmto:dp_translation_entity.
 
 mmto:project a owl:Class;
-   rdfs:subClassOf mmto:translation_entity, evmpo:process;
+   rdfs:subClassOf mmto:project_entity, evmpo:process;
    rdfs:comment "project, i.e., an undertaking of one or several stakeholders aiming at reaching a pre-specified objective within limited time"^^xs:string.
 mmto:op_project a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 mmto:dp_project a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-mmto:op_translation_entity rdfs:subClassOf mmto:op_project.
-mmto:dp_translation_entity rdfs:subClassOf mmto:dp_project.
 evmpo:op_process rdfs:subClassOf mmto:op_project.
 evmpo:dp_process rdfs:subClassOf mmto:dp_project.
+mmto:op_project_entity rdfs:subClassOf mmto:op_project.
+mmto:dp_project_entity rdfs:subClassOf mmto:dp_project.
+
+mmto:has_project_coordinator a mmto:op_project;
+   rdfs:domain mmto:project;
+   rdfs:range vico:agent;
+   rdfs:comment "agent that carries the main responsibility for the project"^^xs:string;
+   rdfs:subPropertyOf mmto:has_project_participant.
+mmto:has_project_description a mmto:dp_project;
+   rdfs:domain mmto:project;
+   rdfs:range xs:string;
+   rdfs:comment "description of the project in text form"^^xs:string.
+mmto:has_project_identifier a mmto:dp_project;
+   rdfs:domain mmto:project;
+   rdfs:range xs:string;
+   rdfs:comment "identifier of the project in text form"^^xs:string.
+mmto:has_project_participant a mmto:op_project_step;
+   rdfs:domain mmto:project;
+   rdfs:range vico:agent;
+   rdfs:comment "agent that participates in the project"^^xs:string.
+mmto:has_project_step a mmto:op_project;
+   rdfs:domain mmto:project;
+   rdfs:range mmto:project_step;
+   rdfs:comment "points to a step that occurs within the project"^^xs:string;
+   owl:inverseOf mmto:belongs_to_project.
+mmto:has_subproject a mmto:op_project, owl:TransitiveProperty;
+   rdfs:domain mmto:project;
+   rdfs:range mmto:project;
+   rdfs:comment "points to a part of the project (e.g., a work package) that can also be considered as a (smaller) project by itself"^^xs:string.
+mmto:has_objective_description a mmto:dp_project;
+   rdfs:domain mmto:project;
+   rdfs:range xs:string;
+   rdfs:comment "description of a project objective in text form"^^xs:string.
 
 mmto:mm_project a owl:Class;
-   rdfs:subClassOf mmto:project;
+   rdfs:subClassOf mmto:translation_entity, mmto:project;
    rdfs:comment "materials modelling project, i.e., a project that aims at realizing a materials modelling workflow that can be represented by MODA/OSMO"^^xs:string.
 mmto:op_mm_project a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 mmto:dp_mm_project a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_translation_entity rdfs:subClassOf mmto:op_mm_project.
+mmto:dp_translation_entity rdfs:subClassOf mmto:dp_mm_project.
 mmto:op_project rdfs:subClassOf mmto:op_mm_project.
 mmto:dp_project rdfs:subClassOf mmto:dp_mm_project.
 
@@ -1531,9 +1574,14 @@ mmto:addresses a mmto:op_mm_project;
    owl:inverseOf osmo:is_addressed_by;
    rdfs:subPropertyOf evmpo:has_process_annotation;
    rdfs:comment "points to an application case that is addressed by the present materials modelling project"^^xs:string.
+mmto:has_translation_step a mmto:op_mm_project;
+   rdfs:domain mmto:mm_project;
+   rdfs:range mmto:project_step;
+   rdfs:comment "points to a translation step that occurs within the materials modelling project"^^xs:string;
+   rdfs:subPropertyOf mmto:has_project_step.
 
 mmto:bc_entity a owl:Class;
-   rdfs:subClassOf osmo:application_case_entity, mmto:translation_entity;
+   rdfs:subClassOf osmo:application_case_entity, mmto:project_entity;
    rdfs:comment "business case entity, i.e., a business case or an aspect thereof"^^xs:string.
 mmto:op_bc_entity a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
@@ -1541,10 +1589,10 @@ mmto:dp_bc_entity a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 osmo:op_application_case_entity rdfs:subClassOf mmto:op_bc_entity.
 osmo:dp_application_case_entity rdfs:subClassOf mmto:dp_bc_entity.
-mmto:op_translation_entity rdfs:subClassOf mmto:op_bc_entity.
-mmto:dp_translation_entity rdfs:subClassOf mmto:dp_bc_entity.
+mmto:op_project_entity rdfs:subClassOf mmto:op_bc_entity.
+mmto:dp_project_entity rdfs:subClassOf mmto:dp_bc_entity.
 
-mmto:bc_entity owl:disjointUnionOf (mmto:business_case mmto:bc_aspect).
+mmto:bc_entity owl:disjointUnionOf (mmto:business_case mmto:bc_aspect mmto:business_decision_support_system).
 
 mmto:business_case a owl:Class;
    rdfs:subClassOf osmo:application_case, mmto:bc_entity;
@@ -1558,17 +1606,22 @@ osmo:dp_application_case rdfs:subClassOf mmto:dp_business_case.
 mmto:op_bc_entity rdfs:subClassOf mmto:op_business_case.
 mmto:dp_bc_entity rdfs:subClassOf mmto:dp_business_case.
 
+mmto:has_bc_aspect a mmto:op_business_case;
+   rdfs:domain mmto:business_case;
+   rdfs:range mmto:bc_aspect;
+   rdfs:subPropertyOf osmo:has_application_case_aspect;
+   rdfs:comment "points to a business-case aspect"^^xs:string.
+mmto:has_bc_kpi a mmto:op_business_case;
+   rdfs:domain mmto:business_case;
+   rdfs:range mmto:key_performance_indicator;
+   owl:inverseOf mmto:occurs_in_bc;
+   rdfs:comment "points to a KPI that is relevant for the business case"^^xs:string.
 mmto:has_bc_summary a mmto:dp_business_case;
    rdfs:domain mmto:business_case;
    rdfs:range xs:string;
    rdfs:subPropertyOf osmo:has_application_case_summary;
    owl:propertyChainAxiom (mmto:has_bca_description osmo:has_aspect_text_content);
    rdfs:comment "plain-text summary of the business case"^^xs:string.
-mmto:has_bc_aspect a mmto:op_business_case;
-   rdfs:domain mmto:business_case;
-   rdfs:range mmto:bc_aspect;
-   rdfs:subPropertyOf osmo:has_application_case_aspect;
-   rdfs:comment "points to a business-case aspect"^^xs:string.
 
 mmto:has_bca_description a mmto:op_business_case;
    rdfs:domain mmto:business_case;
@@ -1638,7 +1691,8 @@ osmo:dp_application_case_aspect rdfs:subClassOf mmto:dp_bc_aspect.
 mmto:op_bc_entity rdfs:subClassOf mmto:op_bc_aspect.
 mmto:dp_bc_entity rdfs:subClassOf mmto:dp_bc_aspect.
 
-mmto:bc_aspect owl:intersectionOf (osmo:application_case_aspect mmto:bc_entity).
+mmto:bc_aspect owl:intersectionOf (osmo:application_case_aspect mmto:bc_entity);
+   owl:disjointUnionOf (mmto:bca_description mmto:bca_industrial_case mmto:bca_red_zone mmto:bca_context mmto:bca_currency mmto:bca_contribution_to_cost mmto:bca_total_cost mmto:bca_contribution_to_benefit mmto:bca_total_benefit mmto:bca_return_on_investment mmto:bca_decision_support).
 
 mmto:bca_description a owl:Class;
    rdfs:subClassOf mmto:bc_aspect;
@@ -1827,7 +1881,7 @@ mmto:bca_decision_support rdfs:subClassOf [
    ].
 
 mmto:ic_entity a owl:Class;
-   rdfs:subClassOf osmo:application_case_entity, mmto:translation_entity;
+   rdfs:subClassOf osmo:application_case_entity, mmto:project_entity;
    rdfs:comment "industrial case entity, i.e., an industrial case or an aspect thereof"^^xs:string.
 mmto:op_ic_entity a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
@@ -1835,10 +1889,10 @@ mmto:dp_ic_entity a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
 osmo:op_application_case_entity rdfs:subClassOf mmto:op_ic_entity.
 osmo:dp_application_case_entity rdfs:subClassOf mmto:dp_ic_entity.
-mmto:op_translation_entity rdfs:subClassOf mmto:op_ic_entity.
-mmto:dp_translation_entity rdfs:subClassOf mmto:dp_ic_entity.
+mmto:op_project_entity rdfs:subClassOf mmto:op_ic_entity.
+mmto:dp_project_entity rdfs:subClassOf mmto:dp_ic_entity.
 
-mmto:ic_entity owl:disjointUnionOf (mmto:industrial_case mmto:ic_aspect).
+mmto:ic_entity owl:disjointUnionOf (mmto:industrial_case mmto:ic_aspect mmto:industrial_decision_support_system).
 
 mmto:industrial_case a owl:Class;
    rdfs:subClassOf osmo:application_case, mmto:ic_entity;
@@ -1852,17 +1906,37 @@ osmo:dp_application_case rdfs:subClassOf mmto:dp_industrial_case.
 mmto:op_ic_entity rdfs:subClassOf mmto:op_industrial_case.
 mmto:dp_ic_entity rdfs:subClassOf mmto:dp_industrial_case.
 
-mmto:has_ic_summary a mmto:dp_industrial_case;
-   rdfs:domain mmto:industrial_case;
-   rdfs:range xs:string;
-   rdfs:subPropertyOf osmo:has_application_case_summary;
-   rdfs:comment "plain-text summary of the industrial case"^^xs:string.
 mmto:has_ic_aspect a mmto:op_industrial_case;
    rdfs:domain mmto:industrial_case;
    rdfs:range mmto:ic_aspect;
    rdfs:subPropertyOf osmo:has_application_case_aspect;
    rdfs:comment "points to an industrial-case aspect"^^xs:string.
+mmto:has_ic_kpi a mmto:op_industrial_case;
+   rdfs:domain mmto:industrial_case;
+   rdfs:range mmto:key_performance_indicator;
+   owl:inverseOf mmto:occurs_in_ic;
+   rdfs:comment "points to a KPI that is relevant for the industrial case"^^xs:string.
+mmto:has_ic_summary a mmto:dp_industrial_case;
+   rdfs:domain mmto:industrial_case;
+   rdfs:range xs:string;
+   rdfs:subPropertyOf osmo:has_application_case_summary;
+   rdfs:comment "plain-text summary of the industrial case"^^xs:string.
 
+mmto:has_ica_constraints a mmto:op_industrial_case;
+   rdfs:domain mmto:industrial_case;
+   rdfs:range mmto:ica_constraints;
+   rdfs:subPropertyOf mmto:has_ic_aspect;
+   rdfs:comment "points to information on constraints that need to be taken into account (production capabilities, supply-chain issues, etc.)"^^xs:string.
+mmto:has_ica_data_source a mmto:op_industrial_case;
+   rdfs:domain mmto:industrial_case;
+   rdfs:range mmto:ica_data_source;
+   rdfs:subPropertyOf mmto:has_ic_aspect;
+   rdfs:comment "points to information on the available data sources (documents, citations, databases, or similar)"^^xs:string.
+mmto:has_ica_data_access a mmto:op_industrial_case;
+   rdfs:domain mmto:industrial_case;
+   rdfs:range mmto:ica_data_access;
+   rdfs:subPropertyOf mmto:has_ic_aspect;
+   rdfs:comment "points to information on the data access conditions (free or proprietary, who provides the data, etc.)"^^xs:string.
 mmto:has_ica_decision_support a mmto:op_industrial_case;
    rdfs:domain mmto:industrial_case;
    rdfs:range mmto:ica_decision_support;
@@ -1881,7 +1955,56 @@ osmo:dp_application_case_aspect rdfs:subClassOf mmto:dp_ic_aspect.
 mmto:op_ic_entity rdfs:subClassOf mmto:op_ic_aspect.
 mmto:dp_ic_entity rdfs:subClassOf mmto:dp_ic_aspect.
 
-mmto:ic_aspect owl:intersectionOf (osmo:application_case_aspect mmto:ic_entity).
+mmto:ic_aspect owl:intersectionOf (osmo:application_case_aspect mmto:ic_entity);
+   owl:disjointUnionOf (mmto:ica_constraints mmto:ica_data_source mmto:ica_data_access mmto:ica_decision_support).
+
+mmto:ica_constraints a owl:Class;
+   rdfs:subClassOf mmto:ic_aspect;
+   rdfs:comment "information on the constraints that need to be taken into account (production capabilities, supply-chain issues, etc.)"^^xs:string.
+mmto:op_ica_constraints a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_ica_constraints a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_ic_aspect rdfs:subClassOf mmto:op_ica_constraints.
+mmto:dp_ic_aspect rdfs:subClassOf mmto:dp_ica_constraints.
+
+mmto:ica_constraints rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty osmo:has_aspect_text_content;
+      owl:someValuesFrom xs:string
+   ].
+
+mmto:ica_data_source a owl:Class;
+   rdfs:subClassOf mmto:ic_aspect;
+   rdfs:comment "information on the available data sources (documents, citations, databases, or similar)"^^xs:string.
+mmto:op_ica_data_source a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_ica_data_source a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_ic_aspect rdfs:subClassOf mmto:op_ica_data_source.
+mmto:dp_ic_aspect rdfs:subClassOf mmto:dp_ica_data_source.
+
+mmto:ica_data_source rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty osmo:has_aspect_paradigmatic_content;
+      owl:someValuesFrom [owl:unionOf (evmpo:information_content_entity evmpo:data_infrastructure)]
+   ].
+
+mmto:ica_data_access a owl:Class;
+   rdfs:subClassOf mmto:ic_aspect;
+   rdfs:comment "information on the data access conditions (free or proprietary, who provides the data, etc.)"^^xs:string.
+mmto:op_ica_data_access a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_ica_data_access a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_ic_aspect rdfs:subClassOf mmto:op_ica_data_access.
+mmto:dp_ic_aspect rdfs:subClassOf mmto:dp_ica_data_access.
+
+mmto:ica_data_access rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty osmo:has_aspect_text_content;
+      owl:someValuesFrom xs:string
+   ].
 
 mmto:ica_decision_support a owl:Class;
    rdfs:subClassOf mmto:ic_aspect, osmo:application_case_decision_support;
@@ -1913,7 +2036,7 @@ osmo:dp_application_case_entity rdfs:subClassOf mmto:dp_tc_entity.
 mmto:op_translation_entity rdfs:subClassOf mmto:op_tc_entity.
 mmto:dp_translation_entity rdfs:subClassOf mmto:dp_tc_entity.
 
-mmto:tc_entity owl:disjointUnionOf (mmto:translation_case mmto:tc_aspect).
+mmto:tc_entity owl:disjointUnionOf (mmto:translation_case mmto:tc_aspect mmto:translation_decision_support_system).
 
 mmto:translation_case a owl:Class;
    rdfs:subClassOf osmo:application_case, mmto:tc_entity;
@@ -1943,9 +2066,9 @@ mmto:has_tca_translator a mmto:op_translation_case;
    rdfs:range mmto:tca_translator;
    rdfs:subPropertyOf mmto:has_tc_aspect;
    rdfs:comment "points to information on the involved translator, as included in the EMMC Translation Case Template"^^xs:string.
-mmto:has_tca_client a mmto:op_translation_case;
+mmto:has_tca_end_user a mmto:op_translation_case;
    rdfs:domain mmto:translation_case;
-   rdfs:range mmto:tca_client;
+   rdfs:range mmto:tca_end_user;
    rdfs:subPropertyOf mmto:has_tc_aspect;
    rdfs:comment "points to information on the involved client (i.e., end user), as included in the EMMC Translation Case Template"^^xs:string.
 mmto:has_tca_industrial_case a mmto:op_translation_case;
@@ -1958,11 +2081,11 @@ mmto:has_tca_business_case a mmto:op_translation_case;
    rdfs:range mmto:tca_business_case;
    rdfs:subPropertyOf mmto:has_tc_aspect;
    rdfs:comment "points to information on the budget, etc., (i.e., business case), as included in the EMMC Translation Case Template"^^xs:string.
-mmto:has_tca_use_case a mmto:op_translation_case;
+mmto:has_tca_expected_outcome a mmto:op_translation_case;
    rdfs:domain mmto:translation_case;
-   rdfs:range mmto:tca_use_case;
+   rdfs:range mmto:tca_expected_outcome;
    rdfs:subPropertyOf mmto:has_tc_aspect;
-   rdfs:comment "points to information on the budget, etc., (i.e., use case), as included in the EMMC Translation Case Template"^^xs:string.
+   rdfs:comment "points to information on the expected outcome (text description), as included in the EMMC Translation Case Template"^^xs:string.
 mmto:has_tca_pe_type a mmto:op_translation_case;
    rdfs:domain mmto:translation_case;
    rdfs:range mmto:tca_pe_type;
@@ -1973,6 +2096,11 @@ mmto:has_tca_discussion a mmto:op_translation_case;
    rdfs:range mmto:tca_discussion;
    rdfs:subPropertyOf mmto:has_tc_aspect;
    rdfs:comment "points to information on discussions related to establishing a translation solution, as included in the EMMC Translation Case Template: arguments to select the modelling approach; inventory and data quality assessment / dedicated experimental work / validation steps; discussions on model accuracy / necessary investments; description of how the client (i.e., end user) was involved"^^xs:string.
+mmto:has_tca_kpi_model a mmto:op_translation_case;
+   rdfs:domain mmto:translation_case;
+   rdfs:range mmto:tca_kpi_model;
+   rdfs:subPropertyOf mmto:has_tc_aspect;
+   rdfs:comment "points to information on the employed KPI model(s)"^^xs:string.
 mmto:has_tca_evaluation a mmto:op_translation_case;
    rdfs:domain mmto:translation_case;
    rdfs:range mmto:tca_evaluation;
@@ -2001,7 +2129,8 @@ osmo:dp_application_case_aspect rdfs:subClassOf mmto:dp_tc_aspect.
 mmto:op_tc_entity rdfs:subClassOf mmto:op_tc_aspect.
 mmto:dp_tc_entity rdfs:subClassOf mmto:dp_tc_aspect.
 
-mmto:tc_aspect owl:intersectionOf (osmo:application_case_aspect mmto:tc_entity).
+mmto:tc_aspect owl:intersectionOf (osmo:application_case_aspect mmto:tc_entity);
+   owl:disjointUnionOf (mmto:tca_translator mmto:tca_end_user mmto:tca_industrial_case mmto:tca_business_case mmto:tca_expected_outcome mmto:tca_pe_type mmto:tca_discussion mmto:tca_kpi_model mmto:tca_evaluation mmto:tca_impact mmto:tca_decision_support).
 
 # EMMC Translation Case Template: Introduction
 #
@@ -2021,17 +2150,17 @@ mmto:tca_translator rdfs:subClassOf [
       owl:someValuesFrom vico:translator
    ].
 
-mmto:tca_client a owl:Class;
+mmto:tca_end_user a owl:Class;
    rdfs:subClassOf mmto:tc_aspect;
    rdfs:comment "information on the involved client (i.e., end user), as included in the EMMC Translation Case Template"^^xs:string.
-mmto:op_tca_client a owl:Class;
+mmto:op_tca_end_user a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-mmto:dp_tca_client a owl:Class;
+mmto:dp_tca_end_user a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-mmto:op_tc_aspect rdfs:subClassOf mmto:op_tca_client.
-mmto:dp_tc_aspect rdfs:subClassOf mmto:dp_tca_client.
+mmto:op_tc_aspect rdfs:subClassOf mmto:op_tca_end_user.
+mmto:dp_tc_aspect rdfs:subClassOf mmto:dp_tca_end_user.
 
-mmto:tca_client rdfs:subClassOf [
+mmto:tca_end_user rdfs:subClassOf [
       a owl:Restriction;
       owl:onProperty osmo:has_aspect_paradigmatic_content;
       owl:someValuesFrom vico:end_user
@@ -2071,20 +2200,20 @@ mmto:tca_business_case rdfs:subClassOf [
       owl:someValuesFrom mmto:business_case
    ].
 
-mmto:tca_use_case a owl:Class;
+mmto:tca_expected_outcome a owl:Class;
    rdfs:subClassOf mmto:tc_aspect;
-   rdfs:comment "information on the expected outcome (i.e., use case), as included in the EMMC Translation Case Template"^^xs:string.
-mmto:op_tca_use_case a owl:Class;
+   rdfs:comment "information on the expected outcome (text description), as included in the EMMC Translation Case Template"^^xs:string.
+mmto:op_tca_expected_outcome a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-mmto:dp_tca_use_case a owl:Class;
+mmto:dp_tca_expected_outcome a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-mmto:op_tc_aspect rdfs:subClassOf mmto:op_tca_use_case.
-mmto:dp_tc_aspect rdfs:subClassOf mmto:dp_tca_use_case.
+mmto:op_tc_aspect rdfs:subClassOf mmto:op_tca_expected_outcome.
+mmto:dp_tc_aspect rdfs:subClassOf mmto:dp_tca_expected_outcome.
 
-mmto:tca_use_case rdfs:subClassOf [
+mmto:tca_expected_outcome rdfs:subClassOf [
       a owl:Restriction;
-      owl:onProperty osmo:has_aspect_annotation_content;
-      owl:someValuesFrom osmo:use_case
+      owl:onProperty osmo:has_aspect_text_content;
+      owl:someValuesFrom xs:string
    ].
 
 # EMMC Translation Case Template: Translation to modelling solution
@@ -2119,6 +2248,22 @@ mmto:tca_discussion rdfs:subClassOf [
       a owl:Restriction;
       owl:onProperty osmo:has_aspect_text_content;
       owl:someValuesFrom xs:string
+   ].
+
+mmto:tca_kpi_model a owl:Class;
+   rdfs:subClassOf mmto:tc_aspect;
+   rdfs:comment "information on the employed KPI model(s)"^^xs:string.
+mmto:op_tca_kpi_model a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_tca_kpi_model a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_tc_aspect rdfs:subClassOf mmto:op_tca_kpi_model.
+mmto:dp_tc_aspect rdfs:subClassOf mmto:dp_tca_kpi_model.
+
+mmto:tca_kpi_model rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty osmo:has_aspect_paradigmatic_content;
+      owl:someValuesFrom mmto:kpi_model
    ].
 
 # EMMC Translation Case Template: Evaluation of the translation case
@@ -2327,46 +2472,329 @@ mmto:dp_project_statement rdfs:subClassOf mmto:dp_closing_statement.
 # specific decision support systems
 #
 mmto:business_decision_support_system a owl:Class;
-   rdfs:subClassOf mmto:translation_entity, osmo:application_decision_support_system;
+   rdfs:subClassOf mmto:bc_entity, osmo:application_decision_support_system;
    rdfs:comment "business decision support system (BDSS), i.e., a decision support system that occurs in a business case"^^xs:string.
 mmto:op_business_decision_support_system a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 mmto:dp_business_decision_support_system a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-mmto:op_translation_entity rdfs:subClassOf mmto:op_business_decision_support_system.
-mmto:dp_translation_entity rdfs:subClassOf mmto:dp_business_decision_support_system.
+mmto:op_bc_entity rdfs:subClassOf mmto:op_business_decision_support_system.
+mmto:dp_bc_entity rdfs:subClassOf mmto:dp_business_decision_support_system.
 osmo:op_application_decision_support_system rdfs:subClassOf mmto:op_business_decision_support_system.
 osmo:dp_application_decision_support_system rdfs:subClassOf mmto:dp_business_decision_support_system.
 
 mmto:industrial_decision_support_system a owl:Class;
-   rdfs:subClassOf mmto:translation_entity, osmo:application_decision_support_system;
+   rdfs:subClassOf mmto:ic_entity, osmo:application_decision_support_system;
    rdfs:comment "industrial decision support system (IDSS), i.e., a decision support system that occurs in an industrial case"^^xs:string.
 mmto:op_industrial_decision_support_system a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 mmto:dp_industrial_decision_support_system a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-mmto:op_translation_entity rdfs:subClassOf mmto:op_industrial_decision_support_system.
-mmto:dp_translation_entity rdfs:subClassOf mmto:dp_industrial_decision_support_system.
+mmto:op_ic_entity rdfs:subClassOf mmto:op_industrial_decision_support_system.
+mmto:dp_ic_entity rdfs:subClassOf mmto:dp_industrial_decision_support_system.
 osmo:op_application_decision_support_system rdfs:subClassOf mmto:op_industrial_decision_support_system.
 osmo:dp_application_decision_support_system rdfs:subClassOf mmto:dp_industrial_decision_support_system.
 
 mmto:translation_decision_support_system a owl:Class;
-   rdfs:subClassOf mmto:translation_entity, osmo:application_decision_support_system;
+   rdfs:subClassOf mmto:tc_entity, osmo:application_decision_support_system;
    rdfs:comment "translation decision support system (TDSS), i.e., a decision support system that occurs in a translation case"^^xs:string.
 mmto:op_translation_decision_support_system a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 mmto:dp_translation_decision_support_system a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-mmto:op_translation_entity rdfs:subClassOf mmto:op_translation_decision_support_system.
-mmto:dp_translation_entity rdfs:subClassOf mmto:dp_translation_decision_support_system.
+mmto:op_tc_entity rdfs:subClassOf mmto:op_translation_decision_support_system.
+mmto:dp_tc_entity rdfs:subClassOf mmto:dp_translation_decision_support_system.
 osmo:op_application_decision_support_system rdfs:subClassOf mmto:op_translation_decision_support_system.
 osmo:dp_application_decision_support_system rdfs:subClassOf mmto:dp_translation_decision_support_system.
 
+mmto:project_step a owl:Class;
+   rdfs:subClassOf mmto:project_entity;
+   rdfs:comment "translation step as specified by the EMMO Translators Guide".
+mmto:op_project_step a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_project_step a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_project_entity rdfs:subClassOf mmto:op_project_step.
+mmto:dp_project_entity rdfs:subClassOf mmto:dp_project_step.
+
+mmto:belongs_to_project a mmto:op_project_step;
+   rdfs:domain mmto:project_step;
+   rdfs:range mmto:project;
+   rdfs:comment "points to the project within which a step occurs"^^xs:string;
+   owl:inverseOf mmto:has_project_step.
+mmto:has_step_content a mmto:op_project_step;
+   rdfs:domain mmto:project_step;
+   rdfs:range evmpo:document;
+   rdfs:comment "points to a document produced by or associated with the project step"^^xs:string.
+mmto:has_step_coordinator a mmto:op_project_step;
+   rdfs:domain mmto:project_step;
+   rdfs:range vico:agent;
+   rdfs:comment "agent that carries the main responsibility for the project step"^^xs:string;
+   rdfs:subPropertyOf mmto:has_step_participant.
+mmto:has_step_description a mmto:dp_project_step;
+   rdfs:domain mmto:project_step;
+   rdfs:range xs:string;
+   rdfs:comment "description of the project step in text form"^^xs:string.
+mmto:has_step_identifier a mmto:dp_project_step;
+   rdfs:domain mmto:project_step;
+   rdfs:range xs:string;
+   rdfs:comment "identifier of the project step"^^xs:string.
+mmto:has_step_participant a mmto:op_project_step;
+   rdfs:domain mmto:project_step;
+   rdfs:range vico:agent;
+   rdfs:comment "agent that participates in the project step"^^xs:string.
+
+mmto:translation_step a owl:Class;
+   rdfs:subClassOf mmto:project_step, mmto:translation_entity;
+   rdfs:comment "translation step as specified by the EMMO Translators Guide".
+mmto:op_translation_step a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_translation_step a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_project_step rdfs:subClassOf mmto:op_translation_step.
+mmto:dp_project_step rdfs:subClassOf mmto:dp_translation_step.
+mmto:op_translation_entity rdfs:subClassOf mmto:op_translation_step.
+mmto:dp_translation_entity rdfs:subClassOf mmto:dp_translation_step.
+
+mmto:considers_indicator a mmto:op_translation_step;
+   rdfs:domain mmto:translation_step;
+   rdfs:range mmto:indicator;
+   rdfs:comment "points to an indicator (e.g., a KPI) considered by the translation step"^^xs:string.
+mmto:considers_section a mmto:op_translation_step;
+   rdfs:domain mmto:translation_step;
+   rdfs:range osmo:section;
+   rdfs:comment "points to an OSMO section (including application cases) considered by the translation step"^^xs:string.
+mmto:has_emmc_guide_no a mmto:dp_translation_step;
+   rdfs:domain mmto:translation_step;
+   rdfs:range xs:nonNegativeInteger;
+   rdfs:comment "step no. from the EMMC Translators Guide corresponding to the translation step"^^xs:string.
+
+mmto:translation_step owl:unionOf (mmto:translation_step_bc mmto:translation_step_ic mmto:translation_step_data mmto:translation_step_modelling mmto:translation_step_execution mmto:translation_step_decision).
+
+mmto:translation_step_bc a owl:Class;
+   rdfs:subClassOf mmto:translation_step;
+   owl:intersectionOf (mmto:translation_step [a owl:Restriction; owl:onProperty mmto:has_emmc_guide_no; owl:hasValue 1]);
+   rdfs:comment "Translation step no. 1: Good understanding of the business case"^^xs:string.
+mmto:op_translation_step_bc a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_translation_step_bc a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_translation_step rdfs:subClassOf mmto:op_translation_step_bc.
+mmto:dp_translation_step rdfs:subClassOf mmto:dp_translation_step_bc.
+
+mmto:considers_business_case a mmto:op_translation_step_bc;
+   rdfs:domain mmto:translation_step_bc;
+   rdfs:range mmto:business_case;
+   rdfs:subPropertyOf mmto:considers_section;
+   rdfs:comment "points to a business case considered within translation stage no. 1"^^xs:string.
+
+mmto:translation_step_ic a owl:Class;
+   rdfs:subClassOf mmto:translation_step;
+   owl:intersectionOf (mmto:translation_step [a owl:Restriction; owl:onProperty mmto:has_emmc_guide_no; owl:hasValue 2]);
+   rdfs:comment "Translation step no. 2: Good understanding of the industrial case"^^xs:string.
+mmto:op_translation_step_ic a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_translation_step_ic a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_translation_step rdfs:subClassOf mmto:op_translation_step_ic.
+mmto:dp_translation_step rdfs:subClassOf mmto:dp_translation_step_ic.
+
+mmto:considers_industrial_case a mmto:op_translation_step_ic;
+   rdfs:domain mmto:translation_step_ic;
+   rdfs:range mmto:industrial_case;
+   rdfs:subPropertyOf mmto:considers_section;
+   rdfs:comment "points to an industrial case considered within translation stage no. 2"^^xs:string.
+
+mmto:translation_step_data a owl:Class;
+   rdfs:subClassOf mmto:translation_step;
+   owl:intersectionOf (mmto:translation_step [a owl:Restriction; owl:onProperty mmto:has_emmc_guide_no; owl:hasValue 3]);
+   rdfs:comment "Translation step no. 3: Analysis of the experimental and modelling data available to the end user"^^xs:string.
+mmto:op_translation_step_data a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_translation_step_data a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_translation_step rdfs:subClassOf mmto:op_translation_step_data.
+mmto:dp_translation_step rdfs:subClassOf mmto:dp_translation_step_data.
+
+mmto:considers_use_case a mmto:op_translation_step_data;
+   rdfs:domain mmto:translation_step_data;
+   rdfs:range osmo:use_case;
+   rdfs:subPropertyOf mmto:considers_section;
+   rdfs:comment "points to a use case considered within translation stage no. 3"^^xs:string.
+
+mmto:translation_step_modelling a owl:Class;
+   rdfs:subClassOf mmto:translation_step;
+   owl:intersectionOf (mmto:translation_step [a owl:Restriction; owl:onProperty mmto:has_emmc_guide_no; owl:hasValue 4]);
+   rdfs:comment "Translation step no. 4: Translation to simulation workflows (preferably more than one)"^^xs:string.
+mmto:op_translation_step_modelling a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_translation_step_modelling a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_translation_step rdfs:subClassOf mmto:op_translation_step_modelling.
+mmto:dp_translation_step rdfs:subClassOf mmto:dp_translation_step_modelling.
+
+mmto:considers_materials_model a mmto:op_translation_step_modelling;
+   rdfs:domain mmto:translation_step_modelling;
+   rdfs:range osmo:materials_model;
+   rdfs:subPropertyOf mmto:considers_section;
+   rdfs:comment "points to a model considered within translation stage no. 4"^^xs:string.
+mmto:considers_workflow a mmto:op_translation_step_modelling;
+   rdfs:domain mmto:translation_step_modelling;
+   rdfs:range osmo:workflow_graph;
+   rdfs:comment "points to a MODA/OSMO workflow graph considered within translation stage no. 4"^^xs:string.
+
+mmto:translation_step_execution a owl:Class;
+   rdfs:subClassOf mmto:translation_step;
+   owl:intersectionOf (mmto:translation_step [a owl:Restriction; owl:onProperty mmto:has_emmc_guide_no; owl:hasValue 5]);
+   rdfs:comment "Translation step no. 5: Propose and agree on an execution and validation strategy"^^xs:string.
+mmto:op_translation_step_execution a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_translation_step_execution a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_translation_step rdfs:subClassOf mmto:op_translation_step_execution.
+mmto:dp_translation_step rdfs:subClassOf mmto:dp_translation_step_execution.
+
+mmto:translation_step_decision a owl:Class;
+   rdfs:subClassOf mmto:translation_step;
+   owl:intersectionOf (mmto:translation_step [a owl:Restriction; owl:onProperty mmto:has_emmc_guide_no; owl:hasValue 6]);
+   rdfs:comment "Translation step no. 6: Evaluate the simulation results to facilitate an actionable decision"^^xs:string.
+mmto:op_translation_step_decision a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_translation_step_decision a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_translation_step rdfs:subClassOf mmto:op_translation_step_decision.
+mmto:dp_translation_step rdfs:subClassOf mmto:dp_translation_step_decision.
+
+mmto:considers_kpi_model a mmto:op_translation_step_decision;
+   rdfs:domain mmto:translation_step_decision;
+   rdfs:range mmto:kpi_model;
+   rdfs:comment "points to a KPI model developed/considered/employed within translation stage no. 6"^^xs:string.
+mmto:has_decision_support a mmto:op_translation_step_decision;
+   rdfs:domain mmto:translation_step_decision;
+   rdfs:range mmto:application_decision_support_system;
+   rdfs:comment "points to a decision support system employed within translation stage no. 6"^^xs:string.
+
+
+mmto:indicator a owl:Class;
+   rdfs:subClassOf mmto:project_entity, osmo:optimization_objective, evmpo:property;
+   owl:intersectionOf (osmo:optimization_objective evmpo:property);
+   rdfs:comment "indicator, i.e., a property (in the sense of the EVMPO) that can be employed as an optimization objective"^^xs:string.
+mmto:op_indicator a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_indicator a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_project_entity rdfs:subClassOf mmto:op_indicator.
+mmto:dp_project_entity rdfs:subClassOf mmto:dp_indicator.
+osmo:op_optimization_objective rdfs:subClassOf mmto:op_indicator.
+osmo:dp_optimization_objective rdfs:subClassOf mmto:dp_indicator.
+evmpo:op_property rdfs:subClassOf mmto:op_indicator.
+evmpo:dp_property rdfs:subClassOf mmto:dp_indicator.
+
+mmto:key_performance_indicator a owl:Class;
+   rdfs:subClassOf mmto:indicator;
+   rdfs:comment "key performance indicator (KPI), i.e., an indicator associated with the performance of a product or process"^^xs:string.
+mmto:op_key_performance_indicator a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_key_performance_indicator a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_indicator rdfs:subClassOf mmto:op_key_performance_indicator.
+mmto:dp_indicator rdfs:subClassOf mmto:dp_key_performance_indicator.
+
+mmto:describes_product a mmto:op_key_performance_indicator;
+   rdfs:domain mmto:key_performance_indicator;
+   rdfs:range evmpo:product;
+   rdfs:comment "points to a product that is described with this KPI"^^xs:string.
+mmto:describes_process a mmto:op_key_performance_indicator;
+   rdfs:domain mmto:key_performance_indicator;
+   rdfs:range evmpo:process, [owl:unionOf (evmpo:business_process evmpo:manufacturing_process)];
+   rdfs:comment "points to a business or manufacturing process that is described with this KPI"^^xs:string.
+mmto:occurs_in_bc a mmto:op_key_performance_indicator;
+   rdfs:domain mmto:key_performance_indicator;
+   rdfs:range mmto:business_case;
+   rdfs:subPropertyOf evmpo:has_property_annotation;
+   owl:inverseOf mmto:has_bc_kpi;
+   rdfs:comment "points to a business case for which this KPI is relevant"^^xs:string.
+mmto:occurs_in_ic a mmto:op_key_performance_indicator;
+   rdfs:domain mmto:key_performance_indicator;
+   rdfs:range mmto:industrial_case;
+   rdfs:subPropertyOf evmpo:has_property_annotation;
+   owl:inverseOf mmto:has_ic_kpi;
+   rdfs:comment "points to an industrial case for which this KPI is relevant"^^xs:string.
+
+mmto:key_performance_indicator owl:disjointUnionOf (mmto:subjective_kpi mmto:objective_kpi).
+
+mmto:subjective_kpi a owl:Class;
+   rdfs:subClassOf mmto:key_performance_indicator;
+   rdfs:comment "subjective KPI, i.e., a KPI closely related to human sentience (which for this reason cannot be simply computed algorithmically or measured by a technical experimental process)"^^xs:string.
+mmto:op_subjective_kpi a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_subjective_kpi a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_key_performance_indicator rdfs:subClassOf mmto:op_subjective_kpi.
+mmto:dp_key_performance_indicator rdfs:subClassOf mmto:dp_subjective_kpi.
+
+mmto:objective_kpi a owl:Class;
+   rdfs:subClassOf mmto:key_performance_indicator;
+   rdfs:comment "objective KPI, i.e., a KPI that can be determined by following a standard procedure and that does not depend substantially on subjective assessment by a human being"^^xs:string.
+mmto:op_objective_kpi a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_objective_kpi a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_key_performance_indicator rdfs:subClassOf mmto:op_objective_kpi.
+mmto:dp_key_performance_indicator rdfs:subClassOf mmto:dp_objective_kpi.
+
+mmto:computational_kpi a owl:Class;
+   rdfs:subClassOf mmto:objective_kpi;
+   rdfs:comment "computational KPI, i.e., an objective KPI that is determined computationally"^^xs:string.
+mmto:op_computational_kpi a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_computational_kpi a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_objective_kpi rdfs:subClassOf mmto:op_computational_kpi.
+mmto:dp_objective_kpi rdfs:subClassOf mmto:dp_computational_kpi.
+
+mmto:technological_kpi a owl:Class;
+   rdfs:subClassOf mmto:objective_kpi;
+   rdfs:comment "technological KPI, i.e., an objective KPI that is observed/measured within a technical or experimental process"^^xs:string.
+mmto:op_technological_kpi a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_technological_kpi a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_objective_kpi rdfs:subClassOf mmto:op_technological_kpi.
+mmto:dp_objective_kpi rdfs:subClassOf mmto:dp_technological_kpi.
+
+mmto:kpi_model a owl:Class;
+   rdfs:subClassOf mmto:translation_entity, osmo:condition, evmpo:model;
+   rdfs:comment "KPI model, i.e., a condition, correlation, or other formalism containing a set of logical variables, which can but need not be KPIs or other indicators, by which a set of KPIs is represented (i.e., here: predicted, correlated, or modelled)"^^xs:string.
+mmto:op_kpi_model a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+mmto:dp_kpi_model a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+mmto:op_translation_entity rdfs:subClassOf mmto:op_kpi_model.
+mmto:dp_translation_entity rdfs:subClassOf mmto:dp_kpi_model.
+osmo:op_condition rdfs:subClassOf mmto:op_kpi_model.
+osmo:dp_condition rdfs:subClassOf mmto:dp_kpi_model.
+evmpo:op_model rdfs:subClassOf mmto:op_kpi_model.
+evmpo:dp_model rdfs:subClassOf mmto:dp_kpi_model.
+
+mmto:has_model_name a mmto:dp_kpi_model;
+   rdfs:domain mmto:kpi_model;
+   rdfs:range xs:string;
+   rdfs:comment "name or identifier of the KPI model"^^xs:string.
+mmto:has_model_variable a mmto:op_kpi_model;
+   rdfs:domain mmto:kpi_model;
+   rdfs:range osmo:logical_variable;
+   rdfs:comment "points to a variable that occurs in the KPI model (as a model parameter, input, or argument)"^^xs:string.
+mmto:has_represented_kpi a mmto:op_kpi_model;
+   rdfs:domain mmto:key_performance_indicator;
+   rdfs:comment "points to a KPI that is represented (modelled) by the present KPI model"^^xs:string.
+
+
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 1.3.0 ###
+### VERSION 1.3.1 ###
 
-### DATED 12TH DECEMBER 2019 ###
+### DATED 14TH DECEMBER 2019 ###
 
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -3056,7 +3484,7 @@ osmo:dp_section_entity a owl:Class;
 osmo:op_workflow_entity rdfs:subClassOf osmo:op_section_entity.
 osmo:dp_workflow_entity rdfs:subClassOf osmo:dp_section_entity.
 
-osmo:section_entity owl:disjointUnionOf (osmo:section osmo:section_aspect).
+osmo:section_entity owl:disjointUnionOf (osmo:application_case_entity osmo:model_entity osmo:solver_entity osmo:processor_entity).
 
 osmo:section a owl:Class;
    rdfs:subClassOf osmo:workflow_resource, osmo:section_entity;
@@ -3386,7 +3814,7 @@ osmo:dp_application_case_entity a owl:Class;
 osmo:op_section_entity rdfs:subClassOf osmo:op_application_case_entity.
 osmo:dp_section_entity rdfs:subClassOf osmo:dp_application_case_entity.
 
-osmo:application_case_entity owl:disjointUnionOf (osmo:application_case osmo:application_case_aspect).
+osmo:application_case_entity owl:disjointUnionOf (osmo:application_case osmo:application_case_aspect osmo:application_decision_support_system).
 
 osmo:application_case_entity owl:disjointUnionOf (mmto:bc_entity mmto:ic_entity mmto:tc_entity osmo:use_case_entity).
 
@@ -3400,21 +3828,23 @@ osmo:dp_use_case_entity a owl:Class;
 osmo:op_application_case_entity rdfs:subClassOf osmo:op_use_case_entity.
 osmo:dp_application_case_entity rdfs:subClassOf osmo:dp_use_case_entity.
 
-osmo:use_case_entity owl:disjointUnionOf (osmo:use_case osmo:use_case_aspect).
+osmo:use_case_entity owl:disjointUnionOf (osmo:use_case osmo:use_case_aspect osmo:use_case_decision_support_system).
 
 osmo:application_case a owl:Class;
-   rdfs:subClassOf mmto:translation_entity, evmpo:annotation, osmo:section;
+   rdfs:subClassOf mmto:project_entity, evmpo:annotation, osmo:section, osmo:application_case_entity;
    rdfs:comment "application case, i.e., a scenario, point of view, or subjective or negotiated set of aims"^^xs:string.
 osmo:op_application_case a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 osmo:dp_application_case a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-mmto:op_translation_entity rdfs:subClassOf osmo:op_application_case.
-mmto:dp_translation_entity rdfs:subClassOf osmo:dp_application_case.
+mmto:op_project_entity rdfs:subClassOf osmo:op_application_case.
+mmto:dp_project_entity rdfs:subClassOf osmo:dp_application_case.
 evmpo:op_annotation rdfs:subClassOf osmo:op_application_case.
 evmpo:dp_annotation rdfs:subClassOf osmo:dp_application_case.
 osmo:op_section rdfs:subClassOf osmo:op_application_case.
 osmo:dp_section rdfs:subClassOf osmo:dp_application_case.
+osmo:op_application_case_entity rdfs:subClassOf osmo:op_application_case.
+osmo:dp_application_case_entity rdfs:subClassOf osmo:dp_application_case.
 
 osmo:application_case owl:disjointUnionOf (mmto:business_case mmto:industrial_case mmto:translation_case osmo:use_case).
 
@@ -5117,6 +5547,38 @@ osmo:dp_optimization_entity a owl:Class;
 evmpo:op_marketplace_related_entity rdfs:subClassOf osmo:op_optimization_entity.
 evmpo:dp_marketplace_related_entity rdfs:subClassOf osmo:dp_optimization_entity.
 
+osmo:optimization_objective a owl:Class;
+   rdfs:subClassOf osmo:unique_elementary, osmo:optimization_entity;
+   rdfs:comment "optimization objective, i.e., a target quantity employed as a criterion during optimization"^^xs:string.
+osmo:op_optimization_objective a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_optimization_objective a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_unique_elementary rdfs:subClassOf osmo:op_optimization_objective.
+osmo:dp_unique_elementary rdfs:subClassOf osmo:dp_optimization_objective.
+osmo:op_optimization_entity rdfs:subClassOf osmo:op_optimization_objective.
+osmo:dp_optimization_entity rdfs:subClassOf osmo:dp_optimization_objective.
+
+osmo:maximization_objective a owl:Class;
+   rdfs:subClassOf osmo:optimization_objective;
+   rdfs:comment "maximization objective, i.e., a target quantity that is to be maximized"^^xs:string.
+osmo:op_maximization_objective a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_maximization_objective a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_optimization_objective rdfs:subClassOf osmo:op_maximization_objective.
+osmo:dp_optimization_objective rdfs:subClassOf osmo:dp_maximization_objective.
+
+osmo:minimization_objective a owl:Class;
+   rdfs:subClassOf osmo:optimization_objective;
+   rdfs:comment "minimization objective, i.e., a target quantity that is to be minimized"^^xs:string.
+osmo:op_minimization_objective a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_minimization_objective a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_optimization_objective rdfs:subClassOf osmo:op_minimization_objective.
+osmo:dp_optimization_objective rdfs:subClassOf osmo:dp_minimization_objective.
+
 osmo:decision_support_system a owl:Class;
    rdfs:subClassOf osmo:optimization_entity, macro:data_infrastructure, macro:software_infrastructure;
    rdfs:comment "decision support system, i.e., a data and software infrastructure that facilitates decision support"^^xs:string.
@@ -5130,6 +5592,25 @@ macro:op_data_infrastructure rdfs:subClassOf osmo:op_decision_support_system.
 macro:dp_data_infrastructure rdfs:subClassOf osmo:dp_decision_support_system.
 macro:op_software_infrastructure rdfs:subClassOf osmo:op_decision_support_system.
 macro:dp_software_infrastructure rdfs:subClassOf osmo:dp_decision_support_system.
+
+osmo:has_constraint a osmo:op_decision_support_system;
+   rdfs:domain osmo:decision_support_system;
+   rdfs:range osmo:condition;
+   rdfs:comment "points to a constraint of the optimization problem"^^xs:string.
+osmo:has_maximization_objective a osmo:op_decision_support_system;
+   rdfs:domain osmo:decision_support_system;
+   rdfs:range osmo:maximization_objective;
+   rdfs:subPropertyOf osmo:has_objective;
+   rdfs:comment "points to a target quantity that is to be maximized"^^xs:string.
+osmo:has_minimization_objective a osmo:op_decision_support_system;
+   rdfs:domain osmo:decision_support_system;
+   rdfs:range osmo:minimization_objective;
+   rdfs:subPropertyOf osmo:has_objective;
+   rdfs:comment "points to a target quantity that is to be minimized"^^xs:string.
+osmo:has_objective a osmo:op_decision_support_system;
+   rdfs:domain osmo:decision_support_system;
+   rdfs:range osmo:optimization_objective;
+   rdfs:comment "points to a target quantity"^^xs:string.
 
 osmo:application_decision_support_system a owl:Class;
    rdfs:subClassOf osmo:decision_support_system;

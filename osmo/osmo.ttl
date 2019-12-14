@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 1.3.0 ###
+### VERSION 1.3.1 ###
 
-### DATED 12TH DECEMBER 2019 ###
+### DATED 14TH DECEMBER 2019 ###
 
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -693,7 +693,7 @@ osmo:dp_section_entity a owl:Class;
 osmo:op_workflow_entity rdfs:subClassOf osmo:op_section_entity.
 osmo:dp_workflow_entity rdfs:subClassOf osmo:dp_section_entity.
 
-osmo:section_entity owl:disjointUnionOf (osmo:section osmo:section_aspect).
+osmo:section_entity owl:disjointUnionOf (osmo:application_case_entity osmo:model_entity osmo:solver_entity osmo:processor_entity).
 
 osmo:section a owl:Class;
    rdfs:subClassOf osmo:workflow_resource, osmo:section_entity;
@@ -1023,7 +1023,7 @@ osmo:dp_application_case_entity a owl:Class;
 osmo:op_section_entity rdfs:subClassOf osmo:op_application_case_entity.
 osmo:dp_section_entity rdfs:subClassOf osmo:dp_application_case_entity.
 
-osmo:application_case_entity owl:disjointUnionOf (osmo:application_case osmo:application_case_aspect).
+osmo:application_case_entity owl:disjointUnionOf (osmo:application_case osmo:application_case_aspect osmo:application_decision_support_system).
 
 osmo:application_case_entity owl:disjointUnionOf (mmto:bc_entity mmto:ic_entity mmto:tc_entity osmo:use_case_entity).
 
@@ -1037,21 +1037,23 @@ osmo:dp_use_case_entity a owl:Class;
 osmo:op_application_case_entity rdfs:subClassOf osmo:op_use_case_entity.
 osmo:dp_application_case_entity rdfs:subClassOf osmo:dp_use_case_entity.
 
-osmo:use_case_entity owl:disjointUnionOf (osmo:use_case osmo:use_case_aspect).
+osmo:use_case_entity owl:disjointUnionOf (osmo:use_case osmo:use_case_aspect osmo:use_case_decision_support_system).
 
 osmo:application_case a owl:Class;
-   rdfs:subClassOf mmto:translation_entity, evmpo:annotation, osmo:section;
+   rdfs:subClassOf mmto:project_entity, evmpo:annotation, osmo:section, osmo:application_case_entity;
    rdfs:comment "application case, i.e., a scenario, point of view, or subjective or negotiated set of aims"^^xs:string.
 osmo:op_application_case a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 osmo:dp_application_case a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-mmto:op_translation_entity rdfs:subClassOf osmo:op_application_case.
-mmto:dp_translation_entity rdfs:subClassOf osmo:dp_application_case.
+mmto:op_project_entity rdfs:subClassOf osmo:op_application_case.
+mmto:dp_project_entity rdfs:subClassOf osmo:dp_application_case.
 evmpo:op_annotation rdfs:subClassOf osmo:op_application_case.
 evmpo:dp_annotation rdfs:subClassOf osmo:dp_application_case.
 osmo:op_section rdfs:subClassOf osmo:op_application_case.
 osmo:dp_section rdfs:subClassOf osmo:dp_application_case.
+osmo:op_application_case_entity rdfs:subClassOf osmo:op_application_case.
+osmo:dp_application_case_entity rdfs:subClassOf osmo:dp_application_case.
 
 osmo:application_case owl:disjointUnionOf (mmto:business_case mmto:industrial_case mmto:translation_case osmo:use_case).
 
@@ -2754,6 +2756,38 @@ osmo:dp_optimization_entity a owl:Class;
 evmpo:op_marketplace_related_entity rdfs:subClassOf osmo:op_optimization_entity.
 evmpo:dp_marketplace_related_entity rdfs:subClassOf osmo:dp_optimization_entity.
 
+osmo:optimization_objective a owl:Class;
+   rdfs:subClassOf osmo:unique_elementary, osmo:optimization_entity;
+   rdfs:comment "optimization objective, i.e., a target quantity employed as a criterion during optimization"^^xs:string.
+osmo:op_optimization_objective a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_optimization_objective a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_unique_elementary rdfs:subClassOf osmo:op_optimization_objective.
+osmo:dp_unique_elementary rdfs:subClassOf osmo:dp_optimization_objective.
+osmo:op_optimization_entity rdfs:subClassOf osmo:op_optimization_objective.
+osmo:dp_optimization_entity rdfs:subClassOf osmo:dp_optimization_objective.
+
+osmo:maximization_objective a owl:Class;
+   rdfs:subClassOf osmo:optimization_objective;
+   rdfs:comment "maximization objective, i.e., a target quantity that is to be maximized"^^xs:string.
+osmo:op_maximization_objective a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_maximization_objective a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_optimization_objective rdfs:subClassOf osmo:op_maximization_objective.
+osmo:dp_optimization_objective rdfs:subClassOf osmo:dp_maximization_objective.
+
+osmo:minimization_objective a owl:Class;
+   rdfs:subClassOf osmo:optimization_objective;
+   rdfs:comment "minimization objective, i.e., a target quantity that is to be minimized"^^xs:string.
+osmo:op_minimization_objective a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+osmo:dp_minimization_objective a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+osmo:op_optimization_objective rdfs:subClassOf osmo:op_minimization_objective.
+osmo:dp_optimization_objective rdfs:subClassOf osmo:dp_minimization_objective.
+
 osmo:decision_support_system a owl:Class;
    rdfs:subClassOf osmo:optimization_entity, macro:data_infrastructure, macro:software_infrastructure;
    rdfs:comment "decision support system, i.e., a data and software infrastructure that facilitates decision support"^^xs:string.
@@ -2767,6 +2801,25 @@ macro:op_data_infrastructure rdfs:subClassOf osmo:op_decision_support_system.
 macro:dp_data_infrastructure rdfs:subClassOf osmo:dp_decision_support_system.
 macro:op_software_infrastructure rdfs:subClassOf osmo:op_decision_support_system.
 macro:dp_software_infrastructure rdfs:subClassOf osmo:dp_decision_support_system.
+
+osmo:has_constraint a osmo:op_decision_support_system;
+   rdfs:domain osmo:decision_support_system;
+   rdfs:range osmo:condition;
+   rdfs:comment "points to a constraint of the optimization problem"^^xs:string.
+osmo:has_maximization_objective a osmo:op_decision_support_system;
+   rdfs:domain osmo:decision_support_system;
+   rdfs:range osmo:maximization_objective;
+   rdfs:subPropertyOf osmo:has_objective;
+   rdfs:comment "points to a target quantity that is to be maximized"^^xs:string.
+osmo:has_minimization_objective a osmo:op_decision_support_system;
+   rdfs:domain osmo:decision_support_system;
+   rdfs:range osmo:minimization_objective;
+   rdfs:subPropertyOf osmo:has_objective;
+   rdfs:comment "points to a target quantity that is to be minimized"^^xs:string.
+osmo:has_objective a osmo:op_decision_support_system;
+   rdfs:domain osmo:decision_support_system;
+   rdfs:range osmo:optimization_objective;
+   rdfs:comment "points to a target quantity"^^xs:string.
 
 osmo:application_decision_support_system a owl:Class;
    rdfs:subClassOf osmo:decision_support_system;
