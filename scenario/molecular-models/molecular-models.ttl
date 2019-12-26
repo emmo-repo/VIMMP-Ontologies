@@ -2,13 +2,13 @@
 ##                                           ##
 ##  EXAMPLE: INTERMOLECULAR PAIR POTENTIALS  ##
 ##                                           ##
-##      LAST UPDATED: 7TH DECEMBER 2019      ##
+##     LAST UPDATED: 26TH DECEMBER 2019      ##
 ##                                           ##
 ###############################################
 
 <http://www.vimmp.eu/semantics/scenario/molecular-models/molecular-models.ttl#> a owl:Ontology.
 
-@prefix potex: <http://www.vimmp.eu/semantics/scenario/molecular-models/molecular-models.ttl#>.
+@prefix molmod: <http://www.vimmp.eu/semantics/scenario/molecular-models/molecular-models.ttl#>.
 
 
 ################################
@@ -37,74 +37,74 @@
 # AVENDAÑO ET AL. (2013) MODEL FOR R1234YF #
 ############################################
 
-potex:R1234YF a osmo:cas_listed_material, osmo:einecs_listed_material;
+molmod:R1234YF a osmo:cas_listed_material, osmo:einecs_listed_material;
    osmo:has_cas_number "754-12-1"^^xs:string;
    osmo:has_ec_number "468-710-7"^^xs:string.
 
-potex:R1234YF_RIGID_UNIT a viso-am:rigid_object;
-      viso:has_part potex:R1234YF_SITE_A, potex:R1234YF_SITE_B, potex:R1234YF_SITE_COM.
-potex:R1234YF_POTENTIAL a osmo:materials_relation, viso-am:two_body_potential;
-   osmo:has_aspect_paradigmatic_content potex:R1234YF, potex:AVENDANO_ET_AL_2013;
-   vov:involves potex:R1234YF_RIGID_UNIT;
-   osmo:has_aspect_object_content potex:R1234YF_POTENTIAL_SITE_A, potex:R1234YF_MASS_SITE_A, potex:R1234YF_CONSTRAINT_SITE_A, potex:R1234YF_POTENTIAL_SITE_B, potex:R1234YF_MASS_SITE_B, potex:R1234YF_CONSTRAINT_SITE_B.
+molmod:R1234YF_RIGID_UNIT a viso-am:rigid_object;
+      viso:has_part molmod:R1234YF_SITE_A, molmod:R1234YF_SITE_B, molmod:R1234YF_SITE_COM.
+molmod:R1234YF_POTENTIAL a osmo:materials_relation, viso-am:two_body_potential;
+   osmo:has_aspect_paradigmatic_content molmod:R1234YF, molmod:AVENDANO_ET_AL_2013;
+   vov:involves molmod:R1234YF_RIGID_UNIT;
+   osmo:has_aspect_object_content molmod:R1234YF_POTENTIAL_SITE_A, molmod:R1234YF_MASS_SITE_A, molmod:R1234YF_CONSTRAINT_SITE_A, molmod:R1234YF_POTENTIAL_SITE_B, molmod:R1234YF_MASS_SITE_B, molmod:R1234YF_CONSTRAINT_SITE_B.
 
-potex:R1234YF_SITE_COM a viso-am:structureless_object.  # centre of mass
+molmod:R1234YF_SITE_COM a viso-am:structureless_object.  # centre of mass
 
-potex:R1234YF_SITE_A a viso-am:mie_site, viso-am:mass_site.
-potex:R1234YF_SITE_B a viso-am:mie_site, viso-am:mass_site.
-potex:R1234YF_POTENTIAL_SITE_A a osmo:materials_relation, viso-am:two_body_potential;
+molmod:R1234YF_SITE_A a viso-am:mie_site, viso-am:mass_site.
+molmod:R1234YF_SITE_B a viso-am:mie_site, viso-am:mass_site.
+molmod:R1234YF_POTENTIAL_SITE_A a osmo:materials_relation, viso-am:two_body_potential;
    osmo:has_aspect_object_content [
       a osmo:quantitative_condition;
-      osmo:contains_predetermined_variable potex:R1234YF_PARAMETER_SIG, potex:R1234YF_PARAMETER_EPS, potex:R1234YF_PARAMETER_M, potex:R1234YF_PARAMETER_N
+      osmo:contains_predetermined_variable molmod:R1234YF_PARAMETER_SIG, molmod:R1234YF_PARAMETER_EPS, molmod:R1234YF_PARAMETER_M, molmod:R1234YF_PARAMETER_N
    ];
-   vov:involves potex:R1234YF_SITE_A.
-potex:R1234YF_POTENTIAL_SITE_B a osmo:materials_relation, viso-am:two_body_potential;
+   vov:involves molmod:R1234YF_SITE_A.
+molmod:R1234YF_POTENTIAL_SITE_B a osmo:materials_relation, viso-am:two_body_potential;
    osmo:has_aspect_object_content [
       a osmo:quantitative_condition;
-      osmo:contains_predetermined_variable potex:R1234YF_PARAMETER_SIG, potex:R1234YF_PARAMETER_EPS, potex:R1234YF_PARAMETER_M, potex:R1234YF_PARAMETER_N
+      osmo:contains_predetermined_variable molmod:R1234YF_PARAMETER_SIG, molmod:R1234YF_PARAMETER_EPS, molmod:R1234YF_PARAMETER_M, molmod:R1234YF_PARAMETER_N
    ];
-   vov:involves potex:R1234YF_SITE_B.
-potex:R1234YF_MASS_SITE_A a osmo:materials_relation;
+   vov:involves molmod:R1234YF_SITE_B.
+molmod:R1234YF_MASS_SITE_A a osmo:materials_relation;
    osmo:has_aspect_object_content [
       a osmo:quantitative_condition;
-      osmo:contains_predetermined_variable potex:HALF_MASS_R1234YF
+      osmo:contains_predetermined_variable molmod:HALF_MASS_R1234YF
    ];
-   vov:involves potex:R1234YF_SITE_A.
-potex:R1234YF_MASS_SITE_B a osmo:materials_relation;
+   vov:involves molmod:R1234YF_SITE_A.
+molmod:R1234YF_MASS_SITE_B a osmo:materials_relation;
    osmo:has_aspect_object_content [
       a osmo:quantitative_condition;
-      osmo:contains_predetermined_variable potex:HALF_MASS_R1234YF
+      osmo:contains_predetermined_variable molmod:HALF_MASS_R1234YF
    ];
-   vov:involves potex:R1234YF_SITE_A.
-potex:R1234YF_CONSTRAINT_SITE_A a osmo:materials_relation, viso-am:two_body_potential, viso-am:bonding_potential;
+   vov:involves molmod:R1234YF_SITE_A.
+molmod:R1234YF_CONSTRAINT_SITE_A a osmo:materials_relation, viso-am:two_body_potential, viso-am:bonding_potential;
    osmo:has_aspect_object_content [
       a osmo:quantitative_condition;
-      osmo:contains_predetermined_variable potex:R1234YF_PARAMETER_SITE_A_RAD
+      osmo:contains_predetermined_variable molmod:R1234YF_PARAMETER_SITE_A_RAD
    ];
-   vov:involves potex:R1234YF_RIGID_UNIT, potex:R1234YF_SITE_COM, potex:R1234YF_SITE_A.
-potex:R1234YF_CONSTRAINT_SITE_B a osmo:materials_relation, viso-am:two_body_potential, viso-am:bonding_potential;
+   vov:involves molmod:R1234YF_RIGID_UNIT, molmod:R1234YF_SITE_COM, molmod:R1234YF_SITE_A.
+molmod:R1234YF_CONSTRAINT_SITE_B a osmo:materials_relation, viso-am:two_body_potential, viso-am:bonding_potential;
    osmo:has_aspect_object_content [
       a osmo:quantitative_condition;
-      osmo:contains_predetermined_variable potex:R1234YF_PARAMETER_SITE_B_RAD
+      osmo:contains_predetermined_variable molmod:R1234YF_PARAMETER_SITE_B_RAD
    ];
-   vov:involves potex:R1234YF_RIGID_UNIT, potex:R1234YF_SITE_COM, potex:R1234YF_SITE_B.
-potex:R1234YF_PARAMETER_SIG a osmo:unique_elementary, osmo:logical_constant;
+   vov:involves molmod:R1234YF_RIGID_UNIT, molmod:R1234YF_SITE_COM, molmod:R1234YF_SITE_B.
+molmod:R1234YF_PARAMETER_SIG a osmo:unique_elementary, osmo:logical_constant;
    osmo:has_variable_name "sigma"^^xs:string;
    osmo:has_initial_elementary_value [osmo:is_decimal 3.900];
    osmo:has_variable_unit qudt-unit:Angstrom.
-potex:R1234YF_PARAMETER_EPS a osmo:unique_elementary, osmo:logical_constant;
+molmod:R1234YF_PARAMETER_EPS a osmo:unique_elementary, osmo:logical_constant;
    osmo:has_variable_name "epsilon"^^xs:string;
    osmo:has_initial_elementary_value [osmo:is_decimal 257.39];
    osmo:has_variable_unit vivo:UNIT_KELVIN_BOLTZMANN.
-potex:R1234YF_PARAMETER_M a osmo:unique_elementary, osmo:logical_constant;
+molmod:R1234YF_PARAMETER_M a osmo:unique_elementary, osmo:logical_constant;
    osmo:has_variable_name "m"^^xs:string;
    osmo:has_initial_elementary_value [osmo:is_decimal 6];
    osmo:has_variable_unit qudt-unit:Unitless.
-potex:R1234YF_PARAMETER_N a osmo:unique_elementary, osmo:logical_constant;
+molmod:R1234YF_PARAMETER_N a osmo:unique_elementary, osmo:logical_constant;
    osmo:has_variable_name "n"^^xs:string;
    osmo:has_initial_elementary_value [osmo:is_decimal 16.54];
    osmo:has_variable_unit qudt-unit:Unitless.
-potex:R1234YF_PARAMETER_SITE_A_RAD a osmo:logical_array, osmo:logical_constant;
+molmod:R1234YF_PARAMETER_SITE_A_RAD a osmo:logical_array, osmo:logical_constant;
    osmo:has_variable_name "radius"^^xs:string;
    osmo:has_index_name "d"^^xs:string;
    osmo:has_static_array_size 3;
@@ -119,7 +119,7 @@ potex:R1234YF_PARAMETER_SITE_A_RAD a osmo:logical_array, osmo:logical_constant;
       osmo:has_variable_index 2;
       osmo:has_initial_elementary_value [osmo:is_decimal 0.0]
    ].
-potex:R1234YF_PARAMETER_SITE_B_RAD a osmo:logical_array, osmo:logical_constant;
+molmod:R1234YF_PARAMETER_SITE_B_RAD a osmo:logical_array, osmo:logical_constant;
    osmo:has_variable_name "radius"^^xs:string;
    osmo:has_index_name "d"^^xs:string;
    osmo:has_static_array_size 3;
@@ -144,74 +144,74 @@ potex:R1234YF_PARAMETER_SITE_B_RAD a osmo:logical_array, osmo:logical_constant;
 #
 # The user guidance here was: Two Mie segments, and rho'(0.7 T_c) = 36.626 mol/l.
 
-potex:AMMONIA a osmo:cas_listed_material, osmo:einecs_listed_material;
+molmod:AMMONIA a osmo:cas_listed_material, osmo:einecs_listed_material;
    osmo:has_cas_number "7664-41-7"^^xs:string;
    osmo:has_ec_number "231-635-3"^^xs:string.
 
-potex:AMMONIA_RIGID_UNIT a viso-am:rigid_object;
-      viso:has_part potex:AMMONIA_SITE_A, potex:AMMONIA_SITE_B, potex:AMMONIA_SITE_COM.
-potex:AMMONIA_POTENTIAL a osmo:materials_relation, viso-am:two_body_potential;
-   osmo:has_aspect_paradigmatic_content potex:AMMONIA, potex:ERVIK_ET_AL_2016;
-   vov:involves potex:AMMONIA_RIGID_UNIT;
-   osmo:has_aspect_object_content potex:AMMONIA_POTENTIAL_SITE_A, potex:AMMONIA_MASS_SITE_A, potex:AMMONIA_CONSTRAINT_SITE_A, potex:AMMONIA_POTENTIAL_SITE_B, potex:AMMONIA_MASS_SITE_B, potex:AMMONIA_CONSTRAINT_SITE_B.
+molmod:AMMONIA_RIGID_UNIT a viso-am:rigid_object;
+      viso:has_part molmod:AMMONIA_SITE_A, molmod:AMMONIA_SITE_B, molmod:AMMONIA_SITE_COM.
+molmod:AMMONIA_POTENTIAL a osmo:materials_relation, viso-am:two_body_potential;
+   osmo:has_aspect_paradigmatic_content molmod:AMMONIA, molmod:ERVIK_ET_AL_2016;
+   vov:involves molmod:AMMONIA_RIGID_UNIT;
+   osmo:has_aspect_object_content molmod:AMMONIA_POTENTIAL_SITE_A, molmod:AMMONIA_MASS_SITE_A, molmod:AMMONIA_CONSTRAINT_SITE_A, molmod:AMMONIA_POTENTIAL_SITE_B, molmod:AMMONIA_MASS_SITE_B, molmod:AMMONIA_CONSTRAINT_SITE_B.
 
-potex:AMMONIA_SITE_COM a viso-am:structureless_object.  # centre of mass
+molmod:AMMONIA_SITE_COM a viso-am:structureless_object.  # centre of mass
 
-potex:AMMONIA_SITE_A a viso-am:mie_site, viso-am:mass_site.
-potex:AMMONIA_SITE_B a viso-am:mie_site, viso-am:mass_site.
-potex:AMMONIA_POTENTIAL_SITE_A a osmo:materials_relation, viso-am:two_body_potential;
+molmod:AMMONIA_SITE_A a viso-am:mie_site, viso-am:mass_site.
+molmod:AMMONIA_SITE_B a viso-am:mie_site, viso-am:mass_site.
+molmod:AMMONIA_POTENTIAL_SITE_A a osmo:materials_relation, viso-am:two_body_potential;
    osmo:has_aspect_object_content [
       a osmo:quantitative_condition;
-      osmo:contains_predetermined_variable potex:AMMONIA_PARAMETER_SIG, potex:AMMONIA_PARAMETER_EPS, potex:AMMONIA_PARAMETER_M, potex:AMMONIA_PARAMETER_N
+      osmo:contains_predetermined_variable molmod:AMMONIA_PARAMETER_SIG, molmod:AMMONIA_PARAMETER_EPS, molmod:AMMONIA_PARAMETER_M, molmod:AMMONIA_PARAMETER_N
    ];
-   vov:involves potex:AMMONIA_SITE_A.
-potex:AMMONIA_POTENTIAL_SITE_B a osmo:materials_relation, viso-am:two_body_potential;
+   vov:involves molmod:AMMONIA_SITE_A.
+molmod:AMMONIA_POTENTIAL_SITE_B a osmo:materials_relation, viso-am:two_body_potential;
    osmo:has_aspect_object_content [
       a osmo:quantitative_condition;
-      osmo:contains_predetermined_variable potex:AMMONIA_PARAMETER_SIG, potex:AMMONIA_PARAMETER_EPS, potex:AMMONIA_PARAMETER_M, potex:AMMONIA_PARAMETER_N
+      osmo:contains_predetermined_variable molmod:AMMONIA_PARAMETER_SIG, molmod:AMMONIA_PARAMETER_EPS, molmod:AMMONIA_PARAMETER_M, molmod:AMMONIA_PARAMETER_N
    ];
-   vov:involves potex:AMMONIA_SITE_B.
-potex:AMMONIA_MASS_SITE_A a osmo:materials_relation;
+   vov:involves molmod:AMMONIA_SITE_B.
+molmod:AMMONIA_MASS_SITE_A a osmo:materials_relation;
    osmo:has_aspect_object_content [
       a osmo:quantitative_condition;
-      osmo:contains_predetermined_variable potex:HALF_MASS_NH3
+      osmo:contains_predetermined_variable molmod:HALF_MASS_NH3
    ];
-   vov:involves potex:AMMONIA_SITE_A.
-potex:AMMONIA_MASS_SITE_B a osmo:materials_relation;
+   vov:involves molmod:AMMONIA_SITE_A.
+molmod:AMMONIA_MASS_SITE_B a osmo:materials_relation;
    osmo:has_aspect_object_content [
       a osmo:quantitative_condition;
-      osmo:contains_predetermined_variable potex:HALF_MASS_NH3
+      osmo:contains_predetermined_variable molmod:HALF_MASS_NH3
    ];
-   vov:involves potex:AMMONIA_SITE_A.
-potex:AMMONIA_CONSTRAINT_SITE_A a osmo:materials_relation, viso-am:two_body_potential, viso-am:bonding_potential;
+   vov:involves molmod:AMMONIA_SITE_B.
+molmod:AMMONIA_CONSTRAINT_SITE_A a osmo:materials_relation, viso-am:two_body_potential, viso-am:bonding_potential;
    osmo:has_aspect_object_content [
       a osmo:quantitative_condition;
-      osmo:contains_predetermined_variable potex:AMMONIA_PARAMETER_SITE_A_RAD
+      osmo:contains_predetermined_variable molmod:AMMONIA_PARAMETER_SITE_A_RAD
    ];
-   vov:involves potex:AMMONIA_RIGID_UNIT, potex:AMMONIA_SITE_COM, potex:AMMONIA_SITE_A.
-potex:AMMONIA_CONSTRAINT_SITE_B a osmo:materials_relation, viso-am:two_body_potential, viso-am:bonding_potential;
+   vov:involves molmod:AMMONIA_RIGID_UNIT, molmod:AMMONIA_SITE_COM, molmod:AMMONIA_SITE_A.
+molmod:AMMONIA_CONSTRAINT_SITE_B a osmo:materials_relation, viso-am:two_body_potential, viso-am:bonding_potential;
    osmo:has_aspect_object_content [
       a osmo:quantitative_condition;
-      osmo:contains_predetermined_variable potex:AMMONIA_PARAMETER_SITE_B_RAD
+      osmo:contains_predetermined_variable molmod:AMMONIA_PARAMETER_SITE_B_RAD
    ];
-   vov:involves potex:AMMONIA_RIGID_UNIT, potex:AMMONIA_SITE_COM, potex:AMMONIA_SITE_B.
-potex:AMMONIA_PARAMETER_SIG a osmo:unique_elementary, osmo:logical_constant;
+   vov:involves molmod:AMMONIA_RIGID_UNIT, molmod:AMMONIA_SITE_COM, molmod:AMMONIA_SITE_B.
+molmod:AMMONIA_PARAMETER_SIG a osmo:unique_elementary, osmo:logical_constant;
    osmo:has_variable_name "sigma"^^xs:string;
    osmo:has_initial_elementary_value [osmo:is_decimal 2.5764];
    osmo:has_variable_unit qudt-unit:Angstrom.
-potex:AMMONIA_PARAMETER_EPS a osmo:unique_elementary, osmo:logical_constant;
+molmod:AMMONIA_PARAMETER_EPS a osmo:unique_elementary, osmo:logical_constant;
    osmo:has_variable_name "epsilon"^^xs:string;
    osmo:has_initial_elementary_value [osmo:is_decimal 275.06];
    osmo:has_variable_unit vivo:UNIT_KELVIN_BOLTZMANN.
-potex:AMMONIA_PARAMETER_M a osmo:unique_elementary, osmo:logical_constant;
+molmod:AMMONIA_PARAMETER_M a osmo:unique_elementary, osmo:logical_constant;
    osmo:has_variable_name "m"^^xs:string;
    osmo:has_initial_elementary_value [osmo:is_decimal 6];
    osmo:has_variable_unit qudt-unit:Unitless.
-potex:AMMONIA_PARAMETER_N a osmo:unique_elementary, osmo:logical_constant;
+molmod:AMMONIA_PARAMETER_N a osmo:unique_elementary, osmo:logical_constant;
    osmo:has_variable_name "n"^^xs:string;
    osmo:has_initial_elementary_value [osmo:is_decimal 16.151];
    osmo:has_variable_unit qudt-unit:Unitless.
-potex:AMMONIA_PARAMETER_SITE_A_RAD a osmo:logical_array, osmo:logical_constant;
+molmod:AMMONIA_PARAMETER_SITE_A_RAD a osmo:logical_array, osmo:logical_constant;
    osmo:has_variable_name "radius"^^xs:string;
    osmo:has_index_name "d"^^xs:string;
    osmo:has_static_array_size 3;
@@ -226,7 +226,7 @@ potex:AMMONIA_PARAMETER_SITE_A_RAD a osmo:logical_array, osmo:logical_constant;
       osmo:has_variable_index 2;
       osmo:has_initial_elementary_value [osmo:is_decimal 0.0]
    ].
-potex:AMMONIA_PARAMETER_SITE_B_RAD a osmo:logical_array, osmo:logical_constant;
+molmod:AMMONIA_PARAMETER_SITE_B_RAD a osmo:logical_array, osmo:logical_constant;
    osmo:has_variable_name "radius"^^xs:string;
    osmo:has_index_name "d"^^xs:string;
    osmo:has_static_array_size 3;
@@ -247,47 +247,47 @@ potex:AMMONIA_PARAMETER_SITE_B_RAD a osmo:logical_array, osmo:logical_constant;
 # HUANG ET AL. (2011) MODEL FOR PHOSGENE #
 ##########################################
 
-potex:PHOSGENE a osmo:cas_listed_material, osmo:einecs_listed_material;
+molmod:PHOSGENE a osmo:cas_listed_material, osmo:einecs_listed_material;
    osmo:has_cas_number "75-44-5"^^xs:string;
    osmo:has_ec_number "200-870-3"^^xs:string.
 
-potex:PHOSGENE_RIGID_UNIT a viso-am:rigid_object;
-      viso:has_part potex:PHOSGENE_SITE_C, potex:PHOSGENE_SITE_O, potex:PHOSGENE_SITE_CL_A, potex:PHOSGENE_SITE_CL_B, potex:PHOSGENE_SITE_DPL, potex:PHOSGENE_SITE_QPL, potex:PHOSGENE_SITE_COM.
-potex:PHOSGENE_POTENTIAL a osmo:materials_relation, viso-am:two_body_potential;
-   osmo:has_aspect_paradigmatic_content potex:PHOSGENE, potex:HUANG_ET_AL_2011;
-   vov:involves potex:PHOSGENE_RIGID_UNIT;
-   osmo:has_aspect_object_content potex:PHOSGENE_POTENTIAL_C, potex:PHOSGENE_MASS_C, potex:PHOSGENE_CONSTRAINT_C, potex:PHOSGENE_POTENTIAL_O, potex:PHOSGENE_MASS_O, potex:PHOSGENE_CONSTRAINT_O, potex:PHOSGENE_POTENTIAL_CL_A, potex:PHOSGENE_MASS_CL_A, potex:PHOSGENE_CONSTRAINT_CL_A, potex:PHOSGENE_POTENTIAL_CL_B, potex:PHOSGENE_MASS_CL_B, potex:PHOSGENE_CONSTRAINT_CL_B, potex:PHOSGENE_POTENTIAL_DPL, potex:PHOSGENE_CONSTRAINT_DPL, potex:PHOSGENE_POTENTIAL_QPL, potex:PHOSGENE_CONSTRAINT_QPL.
+molmod:PHOSGENE_RIGID_UNIT a viso-am:rigid_object;
+      viso:has_part molmod:PHOSGENE_SITE_C, molmod:PHOSGENE_SITE_O, molmod:PHOSGENE_SITE_CL_A, molmod:PHOSGENE_SITE_CL_B, molmod:PHOSGENE_SITE_DPL, molmod:PHOSGENE_SITE_QPL, molmod:PHOSGENE_SITE_COM.
+molmod:PHOSGENE_POTENTIAL a osmo:materials_relation, viso-am:two_body_potential;
+   osmo:has_aspect_paradigmatic_content molmod:PHOSGENE, molmod:HUANG_ET_AL_2011;
+   vov:involves molmod:PHOSGENE_RIGID_UNIT;
+   osmo:has_aspect_object_content molmod:PHOSGENE_POTENTIAL_C, molmod:PHOSGENE_MASS_C, molmod:PHOSGENE_CONSTRAINT_C, molmod:PHOSGENE_POTENTIAL_O, molmod:PHOSGENE_MASS_O, molmod:PHOSGENE_CONSTRAINT_O, molmod:PHOSGENE_POTENTIAL_CL_A, molmod:PHOSGENE_MASS_CL_A, molmod:PHOSGENE_CONSTRAINT_CL_A, molmod:PHOSGENE_POTENTIAL_CL_B, molmod:PHOSGENE_MASS_CL_B, molmod:PHOSGENE_CONSTRAINT_CL_B, molmod:PHOSGENE_POTENTIAL_DPL, molmod:PHOSGENE_CONSTRAINT_DPL, molmod:PHOSGENE_POTENTIAL_QPL, molmod:PHOSGENE_CONSTRAINT_QPL.
 
-potex:PHOSGENE_SITE_COM a viso-am:structureless_object.  # centre of mass
+molmod:PHOSGENE_SITE_COM a viso-am:structureless_object.  # centre of mass
 
-potex:PHOSGENE_SITE_C a viso-am:lj_site, viso-am:mass_site.
-potex:PHOSGENE_POTENTIAL_C a osmo:materials_relation, viso-am:two_body_potential;
+molmod:PHOSGENE_SITE_C a viso-am:lj_site, viso-am:mass_site.
+molmod:PHOSGENE_POTENTIAL_C a osmo:materials_relation, viso-am:two_body_potential;
    osmo:has_aspect_object_content [
       a osmo:quantitative_condition;
-      osmo:contains_predetermined_variable potex:PHOSGENE_PARAMETER_C_SIG, potex:PHOSGENE_PARAMETER_C_EPS
+      osmo:contains_predetermined_variable molmod:PHOSGENE_PARAMETER_C_SIG, molmod:PHOSGENE_PARAMETER_C_EPS
    ];
-   vov:involves potex:PHOSGENE_SITE_C.
-potex:PHOSGENE_MASS_C a osmo:materials_relation;
+   vov:involves molmod:PHOSGENE_SITE_C.
+molmod:PHOSGENE_MASS_C a osmo:materials_relation;
    osmo:has_aspect_object_content [
       a osmo:quantitative_condition;
-      osmo:contains_predetermined_variable potex:SITE_MASS_C
+      osmo:contains_predetermined_variable molmod:SITE_MASS_C
    ];
-   vov:involves potex:PHOSGENE_SITE_C.
-potex:PHOSGENE_CONSTRAINT_C a osmo:materials_relation, viso-am:two_body_potential, viso-am:bonding_potential;
+   vov:involves molmod:PHOSGENE_SITE_C.
+molmod:PHOSGENE_CONSTRAINT_C a osmo:materials_relation, viso-am:two_body_potential, viso-am:bonding_potential;
    osmo:has_aspect_object_content [
       a osmo:quantitative_condition;
-      osmo:contains_predetermined_variable potex:PHOSGENE_PARAMETER_C_RAD
+      osmo:contains_predetermined_variable molmod:PHOSGENE_PARAMETER_C_RAD
    ];
-   vov:involves potex:PHOSGENE_RIGID_UNIT, potex:PHOSGENE_SITE_COM, potex:PHOSGENE_SITE_C.
-potex:PHOSGENE_PARAMETER_C_SIG a osmo:unique_elementary, osmo:logical_constant;
+   vov:involves molmod:PHOSGENE_RIGID_UNIT, molmod:PHOSGENE_SITE_COM, molmod:PHOSGENE_SITE_C.
+molmod:PHOSGENE_PARAMETER_C_SIG a osmo:unique_elementary, osmo:logical_constant;
    osmo:has_variable_name "sigma"^^xs:string;
    osmo:has_initial_elementary_value [osmo:is_decimal 2.815];
    osmo:has_variable_unit qudt-unit:Angstrom.
-potex:PHOSGENE_PARAMETER_C_EPS a osmo:unique_elementary, osmo:logical_constant;
+molmod:PHOSGENE_PARAMETER_C_EPS a osmo:unique_elementary, osmo:logical_constant;
    osmo:has_variable_name "epsilon"^^xs:string;
    osmo:has_initial_elementary_value [osmo:is_decimal 10.62];
    osmo:has_variable_unit vivo:UNIT_KELVIN_BOLTZMANN.
-potex:PHOSGENE_PARAMETER_C_RAD a osmo:logical_array, osmo:logical_constant;
+molmod:PHOSGENE_PARAMETER_C_RAD a osmo:logical_array, osmo:logical_constant;
    osmo:has_variable_name "radius"^^xs:string;
    osmo:has_index_name "d"^^xs:string;
    osmo:has_static_array_size 3;
@@ -303,34 +303,34 @@ potex:PHOSGENE_PARAMETER_C_RAD a osmo:logical_array, osmo:logical_constant;
       osmo:has_initial_elementary_value [osmo:is_decimal 0.0]
    ].
 
-potex:PHOSGENE_SITE_O a viso-am:lj_site, viso-am:mass_site.
-potex:PHOSGENE_POTENTIAL_O a osmo:materials_relation, viso-am:two_body_potential;
+molmod:PHOSGENE_SITE_O a viso-am:lj_site, viso-am:mass_site.
+molmod:PHOSGENE_POTENTIAL_O a osmo:materials_relation, viso-am:two_body_potential;
    osmo:has_aspect_object_content [
       a osmo:quantitative_condition;
-      osmo:contains_predetermined_variable potex:PHOSGENE_PARAMETER_O_SIG, potex:PHOSGENE_PARAMETER_O_EPS
+      osmo:contains_predetermined_variable molmod:PHOSGENE_PARAMETER_O_SIG, molmod:PHOSGENE_PARAMETER_O_EPS
    ];
-   vov:involves potex:PHOSGENE_SITE_O.
-potex:PHOSGENE_MASS_O a osmo:materials_relation;
+   vov:involves molmod:PHOSGENE_SITE_O.
+molmod:PHOSGENE_MASS_O a osmo:materials_relation;
    osmo:has_aspect_object_content [
       a osmo:quantitative_condition;
-      osmo:contains_predetermined_variable potex:SITE_MASS_O
+      osmo:contains_predetermined_variable molmod:SITE_MASS_O
    ];
-   vov:involves potex:PHOSGENE_SITE_O.
-potex:PHOSGENE_CONSTRAINT_O a osmo:materials_relation, viso-am:two_body_potential, viso-am:bonding_potential;
+   vov:involves molmod:PHOSGENE_SITE_O.
+molmod:PHOSGENE_CONSTRAINT_O a osmo:materials_relation, viso-am:two_body_potential, viso-am:bonding_potential;
    osmo:has_aspect_object_content [
       a osmo:quantitative_condition;
-      osmo:contains_predetermined_variable potex:PHOSGENE_PARAMETER_O_RAD
+      osmo:contains_predetermined_variable molmod:PHOSGENE_PARAMETER_O_RAD
    ];
-   vov:involves potex:PHOSGENE_RIGID_UNIT, potex:PHOSGENE_SITE_COM, potex:PHOSGENE_SITE_O.
-potex:PHOSGENE_PARAMETER_O_SIG a osmo:unique_elementary, osmo:logical_constant;
+   vov:involves molmod:PHOSGENE_RIGID_UNIT, molmod:PHOSGENE_SITE_COM, molmod:PHOSGENE_SITE_O.
+molmod:PHOSGENE_PARAMETER_O_SIG a osmo:unique_elementary, osmo:logical_constant;
    osmo:has_variable_name "sigma"^^xs:string;
    osmo:has_initial_elementary_value [osmo:is_decimal 3.195];
    osmo:has_variable_unit qudt-unit:Angstrom.
-potex:PHOSGENE_PARAMETER_O_EPS a osmo:unique_elementary, osmo:logical_constant;
+molmod:PHOSGENE_PARAMETER_O_EPS a osmo:unique_elementary, osmo:logical_constant;
    osmo:has_variable_name "epsilon"^^xs:string;
    osmo:has_initial_elementary_value [osmo:is_decimal 132.66];
    osmo:has_variable_unit vivo:UNIT_KELVIN_BOLTZMANN.
-potex:PHOSGENE_PARAMETER_O_RAD a osmo:logical_array, osmo:logical_constant;
+molmod:PHOSGENE_PARAMETER_O_RAD a osmo:logical_array, osmo:logical_constant;
    osmo:has_variable_name "radius"^^xs:string;
    osmo:has_index_name "d"^^xs:string;
    osmo:has_static_array_size 3;
@@ -346,53 +346,53 @@ potex:PHOSGENE_PARAMETER_O_RAD a osmo:logical_array, osmo:logical_constant;
       osmo:has_initial_elementary_value [osmo:is_decimal 0.0]
    ].
 
-potex:PHOSGENE_SITE_CL_A a viso-am:lj_site, viso-am:mass_site.
-potex:PHOSGENE_SITE_CL_B a viso-am:lj_site, viso-am:mass_site.
-potex:PHOSGENE_POTENTIAL_CL_A a osmo:materials_relation, viso-am:two_body_potential;
+molmod:PHOSGENE_SITE_CL_A a viso-am:lj_site, viso-am:mass_site.
+molmod:PHOSGENE_SITE_CL_B a viso-am:lj_site, viso-am:mass_site.
+molmod:PHOSGENE_POTENTIAL_CL_A a osmo:materials_relation, viso-am:two_body_potential;
    osmo:has_aspect_object_content [
       a osmo:quantitative_condition;
-      osmo:contains_predetermined_variable potex:PHOSGENE_PARAMETER_CL_SIG, potex:PHOSGENE_PARAMETER_CL_EPS
+      osmo:contains_predetermined_variable molmod:PHOSGENE_PARAMETER_CL_SIG, molmod:PHOSGENE_PARAMETER_CL_EPS
    ];
-   vov:involves potex:PHOSGENE_SITE_CL_A.
-potex:PHOSGENE_POTENTIAL_CL_B a osmo:materials_relation, viso-am:two_body_potential;
+   vov:involves molmod:PHOSGENE_SITE_CL_A.
+molmod:PHOSGENE_POTENTIAL_CL_B a osmo:materials_relation, viso-am:two_body_potential;
    osmo:has_aspect_object_content [
       a osmo:quantitative_condition;
-      osmo:contains_predetermined_variable potex:PHOSGENE_PARAMETER_CL_SIG, potex:PHOSGENE_PARAMETER_CL_EPS
+      osmo:contains_predetermined_variable molmod:PHOSGENE_PARAMETER_CL_SIG, molmod:PHOSGENE_PARAMETER_CL_EPS
    ];
-   vov:involves potex:PHOSGENE_SITE_CL_B.
-potex:PHOSGENE_MASS_CL_A a osmo:materials_relation;
+   vov:involves molmod:PHOSGENE_SITE_CL_B.
+molmod:PHOSGENE_MASS_CL_A a osmo:materials_relation;
    osmo:has_aspect_object_content [
       a osmo:quantitative_condition;
-      osmo:contains_predetermined_variable potex:SITE_MASS_CL
+      osmo:contains_predetermined_variable molmod:SITE_MASS_CL
    ];
-   vov:involves potex:PHOSGENE_SITE_CL_A.
-potex:PHOSGENE_MASS_CL_B a osmo:materials_relation;
+   vov:involves molmod:PHOSGENE_SITE_CL_A.
+molmod:PHOSGENE_MASS_CL_B a osmo:materials_relation;
    osmo:has_aspect_object_content [
       a osmo:quantitative_condition;
-      osmo:contains_predetermined_variable potex:SITE_MASS_CL
+      osmo:contains_predetermined_variable molmod:SITE_MASS_CL
    ];
-   vov:involves potex:PHOSGENE_SITE_CL_B.
-potex:PHOSGENE_CONSTRAINT_CL_A a osmo:materials_relation, viso-am:two_body_potential, viso-am:bonding_potential;
+   vov:involves molmod:PHOSGENE_SITE_CL_B.
+molmod:PHOSGENE_CONSTRAINT_CL_A a osmo:materials_relation, viso-am:two_body_potential, viso-am:bonding_potential;
    osmo:has_aspect_object_content [
       a osmo:quantitative_condition;
-      osmo:contains_predetermined_variable potex:PHOSGENE_PARAMETER_CL_A_RAD
+      osmo:contains_predetermined_variable molmod:PHOSGENE_PARAMETER_CL_A_RAD
    ];
-   vov:involves potex:PHOSGENE_RIGID_UNIT, potex:PHOSGENE_SITE_COM, potex:PHOSGENE_SITE_CL_A.
-potex:PHOSGENE_CONSTRAINT_CL_B a osmo:materials_relation, viso-am:two_body_potential, viso-am:bonding_potential;
+   vov:involves molmod:PHOSGENE_RIGID_UNIT, molmod:PHOSGENE_SITE_COM, molmod:PHOSGENE_SITE_CL_A.
+molmod:PHOSGENE_CONSTRAINT_CL_B a osmo:materials_relation, viso-am:two_body_potential, viso-am:bonding_potential;
    osmo:has_aspect_object_content [
       a osmo:quantitative_condition;
-      osmo:contains_predetermined_variable potex:PHOSGENE_PARAMETER_CL_B_RAD
+      osmo:contains_predetermined_variable molmod:PHOSGENE_PARAMETER_CL_B_RAD
    ];
-   vov:involves potex:PHOSGENE_RIGID_UNIT, potex:PHOSGENE_SITE_COM, potex:PHOSGENE_SITE_CL_B.
-potex:PHOSGENE_PARAMETER_CL_SIG a osmo:unique_elementary, osmo:logical_constant;
+   vov:involves molmod:PHOSGENE_RIGID_UNIT, molmod:PHOSGENE_SITE_COM, molmod:PHOSGENE_SITE_CL_B.
+molmod:PHOSGENE_PARAMETER_CL_SIG a osmo:unique_elementary, osmo:logical_constant;
    osmo:has_variable_name "sigma"^^xs:string;
    osmo:has_initial_elementary_value [osmo:is_decimal 3.366];
    osmo:has_variable_unit qudt-unit:Angstrom.
-potex:PHOSGENE_PARAMETER_CL_EPS a osmo:unique_elementary, osmo:logical_constant;
+molmod:PHOSGENE_PARAMETER_CL_EPS a osmo:unique_elementary, osmo:logical_constant;
    osmo:has_variable_name "epsilon"^^xs:string;
    osmo:has_initial_elementary_value [osmo:is_decimal 157.63];
    osmo:has_variable_unit vivo:UNIT_KELVIN_BOLTZMANN.
-potex:PHOSGENE_PARAMETER_CL_A_RAD a osmo:logical_array, osmo:logical_constant;
+molmod:PHOSGENE_PARAMETER_CL_A_RAD a osmo:logical_array, osmo:logical_constant;
    osmo:has_variable_name "radius"^^xs:string;
    osmo:has_index_name "d"^^xs:string;
    osmo:has_static_array_size 3;
@@ -407,7 +407,7 @@ potex:PHOSGENE_PARAMETER_CL_A_RAD a osmo:logical_array, osmo:logical_constant;
       osmo:has_variable_index 2;
       osmo:has_initial_elementary_value [osmo:is_decimal -1.4509]
    ].
-potex:PHOSGENE_PARAMETER_CL_B_RAD a osmo:logical_array, osmo:logical_constant;
+molmod:PHOSGENE_PARAMETER_CL_B_RAD a osmo:logical_array, osmo:logical_constant;
    osmo:has_variable_name "radius"^^xs:string;
    osmo:has_index_name "d"^^xs:string;
    osmo:has_static_array_size 3;
@@ -423,24 +423,24 @@ potex:PHOSGENE_PARAMETER_CL_B_RAD a osmo:logical_array, osmo:logical_constant;
       osmo:has_initial_elementary_value [osmo:is_decimal 1.4509]
    ].
 
-potex:PHOSGENE_SITE_DPL a viso-am:charge_dipole_site.
-potex:PHOSGENE_POTENTIAL_DPL a osmo:materials_relation, viso-am:two_body_potential;
+molmod:PHOSGENE_SITE_DPL a viso-am:charge_dipole_site.
+molmod:PHOSGENE_POTENTIAL_DPL a osmo:materials_relation, viso-am:two_body_potential;
    osmo:has_aspect_object_content [
       a osmo:quantitative_condition;
-      osmo:contains_predetermined_variable potex:PHOSGENE_PARAMETER_DPL_MAGN, potex:PHOSGENE_PARAMETER_DPL_ORI
+      osmo:contains_predetermined_variable molmod:PHOSGENE_PARAMETER_DPL_MAGN, molmod:PHOSGENE_PARAMETER_DPL_ORI
    ];
-   vov:involves potex:PHOSGENE_SITE_DPL.
-potex:PHOSGENE_CONSTRAINT_DPL a osmo:materials_relation, viso-am:two_body_potential, viso-am:bonding_potential;
+   vov:involves molmod:PHOSGENE_SITE_DPL.
+molmod:PHOSGENE_CONSTRAINT_DPL a osmo:materials_relation, viso-am:two_body_potential, viso-am:bonding_potential;
    osmo:has_aspect_object_content [
       a osmo:quantitative_condition;
-      osmo:contains_predetermined_variable potex:PHOSGENE_PARAMETER_DPL_RAD
+      osmo:contains_predetermined_variable molmod:PHOSGENE_PARAMETER_DPL_RAD
    ];
-   vov:involves potex:PHOSGENE_RIGID_UNIT, potex:PHOSGENE_SITE_COM, potex:PHOSGENE_SITE_DPL.
-potex:PHOSGENE_PARAMETER_DPL_MAGN a osmo:unique_elementary, osmo:logical_constant;
+   vov:involves molmod:PHOSGENE_RIGID_UNIT, molmod:PHOSGENE_SITE_COM, molmod:PHOSGENE_SITE_DPL.
+molmod:PHOSGENE_PARAMETER_DPL_MAGN a osmo:unique_elementary, osmo:logical_constant;
    osmo:has_variable_name "magnitude"^^xs:string;
    osmo:has_initial_elementary_value [osmo:is_decimal 1.002];
    osmo:has_variable_unit qudt-unit:Debye.
-potex:PHOSGENE_PARAMETER_DPL_ORI a osmo:unique_structure, osmo:logical_constant;
+molmod:PHOSGENE_PARAMETER_DPL_ORI a osmo:unique_structure, osmo:logical_constant;
    osmo:has_variable_name "orientation"^^xs:string;
    osmo:has_structure_element [
       a osmo:unique_elementary;
@@ -453,7 +453,7 @@ potex:PHOSGENE_PARAMETER_DPL_ORI a osmo:unique_structure, osmo:logical_constant;
       osmo:has_initial_elementary_value [osmo:is_decimal 90.0];
       osmo:has_variable_unit qudt-unit:DegreeAngle
    ].
-potex:PHOSGENE_PARAMETER_DPL_RAD a osmo:logical_array, osmo:logical_constant;
+molmod:PHOSGENE_PARAMETER_DPL_RAD a osmo:logical_array, osmo:logical_constant;
    osmo:has_variable_name "radius"^^xs:string;
    osmo:has_index_name "d"^^xs:string;
    osmo:has_static_array_size 3;
@@ -469,24 +469,24 @@ potex:PHOSGENE_PARAMETER_DPL_RAD a osmo:logical_array, osmo:logical_constant;
       osmo:has_initial_elementary_value [osmo:is_decimal 0.0]
    ].
 
-potex:PHOSGENE_SITE_QPL a viso-am:charge_quadrupole_site.
-potex:PHOSGENE_POTENTIAL_QPL a osmo:materials_relation, viso-am:two_body_potential;
+molmod:PHOSGENE_SITE_QPL a viso-am:charge_quadrupole_site.
+molmod:PHOSGENE_POTENTIAL_QPL a osmo:materials_relation, viso-am:two_body_potential;
    osmo:has_aspect_object_content [
       a osmo:quantitative_condition;
-      osmo:contains_predetermined_variable potex:PHOSGENE_PARAMETER_QPL_MAGN, potex:PHOSGENE_PARAMETER_QPL_ORI
+      osmo:contains_predetermined_variable molmod:PHOSGENE_PARAMETER_QPL_MAGN, molmod:PHOSGENE_PARAMETER_QPL_ORI
    ];
-   vov:involves potex:PHOSGENE_SITE_QPL.
-potex:PHOSGENE_CONSTRAINT_QPL a osmo:materials_relation, viso-am:two_body_potential, viso-am:bonding_potential;
+   vov:involves molmod:PHOSGENE_SITE_QPL.
+molmod:PHOSGENE_CONSTRAINT_QPL a osmo:materials_relation, viso-am:two_body_potential, viso-am:bonding_potential;
    osmo:has_aspect_object_content [
       a osmo:quantitative_condition;
-      osmo:contains_predetermined_variable potex:PHOSGENE_PARAMETER_QPL_RAD
+      osmo:contains_predetermined_variable molmod:PHOSGENE_PARAMETER_QPL_RAD
    ];
-   vov:involves potex:PHOSGENE_RIGID_UNIT, potex:PHOSGENE_SITE_COM, potex:PHOSGENE_SITE_QPL.
-potex:PHOSGENE_PARAMETER_QPL_MAGN a osmo:unique_elementary, osmo:logical_constant;
+   vov:involves molmod:PHOSGENE_RIGID_UNIT, molmod:PHOSGENE_SITE_COM, molmod:PHOSGENE_SITE_QPL.
+molmod:PHOSGENE_PARAMETER_QPL_MAGN a osmo:unique_elementary, osmo:logical_constant;
    osmo:has_variable_name "magnitude"^^xs:string;
    osmo:has_initial_elementary_value [osmo:is_decimal -3.627];
    osmo:has_variable_unit vivo:UNIT_DEBYE_ANGSTROM.
-potex:PHOSGENE_PARAMETER_QPL_ORI a osmo:unique_structure, osmo:logical_constant;
+molmod:PHOSGENE_PARAMETER_QPL_ORI a osmo:unique_structure, osmo:logical_constant;
    osmo:has_variable_name "orientation"^^xs:string;
    osmo:has_structure_element [
       a osmo:unique_elementary;
@@ -499,7 +499,7 @@ potex:PHOSGENE_PARAMETER_QPL_ORI a osmo:unique_structure, osmo:logical_constant;
       osmo:has_initial_elementary_value [osmo:is_decimal 90.0];
       osmo:has_variable_unit qudt-unit:DegreeAngle
    ].
-potex:PHOSGENE_PARAMETER_QPL_RAD a osmo:logical_array, osmo:logical_constant;
+molmod:PHOSGENE_PARAMETER_QPL_RAD a osmo:logical_array, osmo:logical_constant;
    osmo:has_variable_name "radius"^^xs:string;
    osmo:has_index_name "d"^^xs:string;
    osmo:has_static_array_size 3;
@@ -520,32 +520,32 @@ potex:PHOSGENE_PARAMETER_QPL_RAD a osmo:logical_array, osmo:logical_constant;
 # MASS ASSOCIATED WITH INTERACTION SITES #
 ##########################################
 
-potex:HALF_MASS_NH3 a osmo:unique_physical_constant;
+molmod:HALF_MASS_NH3 a osmo:unique_physical_constant;
    osmo:is_constant "true"^^xs:boolean;
    osmo:has_variable_name "mass"^^xs:string;
    osmo:has_initial_elementary_value [osmo:is_decimal 8.515];
    osmo:is_quantity_kind qudt-qk:Mass;
    osmo:has_variable_unit vivo:UNIT_U.
-potex:HALF_MASS_R1234YF a osmo:unique_physical_constant;
+molmod:HALF_MASS_R1234YF a osmo:unique_physical_constant;
    osmo:is_constant "true"^^xs:boolean;
    osmo:has_variable_name "mass"^^xs:string;
    osmo:has_initial_elementary_value [osmo:is_decimal 57.02];
    osmo:is_quantity_kind qudt-qk:Mass;
    osmo:has_variable_unit vivo:UNIT_U.
 
-potex:SITE_MASS_C a osmo:unique_physical_constant;
+molmod:SITE_MASS_C a osmo:unique_physical_constant;
    osmo:is_constant "true"^^xs:boolean;
    osmo:has_variable_name "mass"^^xs:string;
    osmo:has_initial_elementary_value [osmo:is_decimal 12.011];
    osmo:is_quantity_kind qudt-qk:Mass;
    osmo:has_variable_unit vivo:UNIT_U.
-potex:SITE_MASS_O a osmo:unique_physical_constant;
+molmod:SITE_MASS_O a osmo:unique_physical_constant;
    osmo:is_constant "true"^^xs:boolean;
    osmo:has_variable_name "mass"^^xs:string;
    osmo:has_initial_elementary_value [osmo:is_decimal 15.999];
    osmo:is_quantity_kind qudt-qk:Mass;
    osmo:has_variable_unit vivo:UNIT_U.
-potex:SITE_MASS_CL a osmo:unique_physical_constant;
+molmod:SITE_MASS_CL a osmo:unique_physical_constant;
    osmo:is_constant "true"^^xs:boolean;
    osmo:has_variable_name "mass"^^xs:string;
    osmo:has_initial_elementary_value [osmo:is_decimal 35.458];
@@ -559,7 +559,7 @@ potex:SITE_MASS_CL a osmo:unique_physical_constant;
 
 # molecular model of R1234yf
 #
-potex:AVENDANO_ET_AL_2013 a otras:citation;
+molmod:AVENDANO_ET_AL_2013 a otras:citation;
    otras:has_first_author_surname "Avendaño"^^xs:string;
    otras:has_publication_year 2013;
    otras:has_author_map [
@@ -609,11 +609,11 @@ potex:AVENDANO_ET_AL_2013 a otras:citation;
    otras:has_publication_journal_issue 9;
    otras:has_publication_journal_pages "2717-2733"^^xs:string;
    otras:has_doi "10.1021/jp306442b"^^xs:string;
-   otras:is_about potex:R1234YF, potex:R1234YF_POTENTIAL.
+   otras:is_about molmod:R1234YF, molmod:R1234YF_POTENTIAL.
 
 # SAFT bottled
 #
-potex:ERVIK_ET_AL_2016 a otras:citation;
+molmod:ERVIK_ET_AL_2016 a otras:citation;
    otras:has_first_author_surname "Ervik"^^xs:string;
    otras:has_publication_year 2016;
    otras:has_author_map [
@@ -649,7 +649,7 @@ potex:ERVIK_ET_AL_2016 a otras:citation;
 
 # molecular model of phosgene
 #
-potex:HUANG_ET_AL_2011 a otras:citation;
+molmod:HUANG_ET_AL_2011 a otras:citation;
    otras:has_first_author_surname "Huang"^^xs:string;
    otras:has_publication_year 2011;
    otras:has_author_map [
@@ -687,4 +687,4 @@ potex:HUANG_ET_AL_2011 a otras:citation;
    otras:has_publication_journal_issue 4;
    otras:has_publication_journal_pages "1043-1060"^^xs:string;
    otras:has_doi "10.1002/aic.12329"^^xs:string;
-   otras:is_about potex:PHOSGENE, potex:PHOSGENE_POTENTIAL.
+   otras:is_about molmod:PHOSGENE, molmod:PHOSGENE_POTENTIAL.
