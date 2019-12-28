@@ -1,9 +1,9 @@
 
 ### EMMO-VIMMP INTEGRATION (EVI) ###
 
-### VERSION 0.2.1 ###
+### VERSION 0.2.2 ###
 
-### DATED 28TH DECEMBER 2019 ###
+### DATED 29TH DECEMBER 2019 ###
 
 @prefix evi: <http://www.vimmp.eu/semantics/evi/evi.ttl#>.
 
@@ -22,6 +22,7 @@
 @prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 @prefix viso: <http://www.vimmp.eu/semantics/viso/viso-general.ttl#>.
+@prefix viso-am: <http://www.vimmp.eu/semantics/viso/viso-atomistic-mesoscopic.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
 ###########################
@@ -352,6 +353,7 @@ osmo:materials_relation rdfs:subClassOf evmpo:marketplace_related_entity;
 # VISO-EMMO INTEGRATION #
 #########################
 
-viso:model_object rdfs:subClassOf evi:symbol, evmpo:marketplace_related_entity.
+viso:model_object rdfs:subClassOf evi:symbolic, evmpo:marketplace_related_entity.
+viso-am:interaction_site rdfs:subClassOf evi:symbol, viso:model_object.
 
 viso:has_part rdfs:subPropertyOf evi:has_part.
