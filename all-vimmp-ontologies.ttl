@@ -13,9 +13,9 @@
 
 ### EMMO-VIMMP INTEGRATION (EVI) ###
 
-### VERSION 0.2.0 ###
+### VERSION 0.2.1 ###
 
-### DATED 27TH DECEMBER 2019 ###
+### DATED 28TH DECEMBER 2019 ###
 
 @prefix evi: <http://www.vimmp.eu/semantics/evi/evi.ttl#>.
 
@@ -356,15 +356,17 @@ evmpo:annotation rdfs:subClassOf evi:emmo, evmpo:marketplace_related_entity.
 # OSMO-EMMO INTEGRATION #
 #########################
 
-osmo:materials_relation owl:equivalentClass evi:material_relation.
+osmo:materials_relation rdfs:subClassOf evmpo:marketplace_related_entity;
+   owl:equivalentClass evi:material_relation.
 
 
 #########################
 # VISO-EMMO INTEGRATION #
 #########################
 
-viso:model_object rdfs:subClassOf evi:symbol.
+viso:model_object rdfs:subClassOf evi:symbol, evmpo:marketplace_related_entity.
 
+viso:has_part rdfs:subPropertyOf evi:has_part.
 
 ### EUROPEAN VIRTUAL MARKETPLACE ONTOLOGY (EVMPO) ###
 
