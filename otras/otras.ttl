@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
 
-### VERSION 0.8.12 ###
+### VERSION 0.8.13 ###
 
-### DATED 3RD DECEMBER 2019 ###
+### DATED 9TH JANUARY 2020 ###
 
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 
@@ -39,25 +39,62 @@ otras:dp_carrier a owl:Class;
 otras:op_training_entity rdfs:subClassOf otras:op_carrier.
 otras:dp_training_entity rdfs:subClassOf otras:dp_carrier.
 
-otras:has_citation_representation a evmpo:op_document;
+otras:is_cited_as a evmpo:op_document;
    rdfs:domain evmpo:document;
    rdfs:range otras:citation;
    owl:inverseOf otras:is_citation_about_document.
 
-otras:scientific_publication a owl:Class;
+otras:publication a owl:Class;
    rdfs:subClassOf evmpo:document;
-   rdfs:comment "scientific publication, i.e., publication about an investigation, as defined by the IAO"^^xs:string;
+   rdfs:comment "publication as defined by the IAO"^^xs:string;
+   owl:equivalentClass iao:IAO_0000311.  # iao label "publication"
+otras:op_publication a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_publication a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_document rdfs:subClassOf otras:op_publication.
+evmpo:dp_document rdfs:subClassOf otras:dp_publication.
+
+otras:book a owl:Class;
+   rdfs:subClassOf otras:publication;
+   rdfs:comment "book, i.e., a publication that has an ISBN"^^xs:string.
+otras:op_book a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_book a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+otras:op_publication rdfs:subClassOf otras:op_book.
+otras:dp_publication rdfs:subClassOf otras:dp_book.
+
+otras:has_document_isbn a otras:dp_book;
+   rdfs:domain otras:book;
+   rdfs:range xs:string;
+   owl:propertyChainAxiom (otras:is_cited_as otras:has_cited_book_isbn).
+otras:book owl:intersectionOf (otras:publication [a owl:Restriction; owl:onProperty otras:has_document_isbn; owl:someValuesFrom xs:string]).
+
+otras:slides a owl:Class;
+   rdfs:subClassOf evmpo:document;
+   rdfs:comment "slides, i.e., a document that can be presented by means of a slide show"^^xs:string.
+otras:op_slides a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_slides a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_document rdfs:subClassOf otras:op_slides.
+evmpo:dp_document rdfs:subClassOf otras:dp_slides.
+
+otras:scientific_publication a owl:Class;
+   rdfs:subClassOf otras:publication;
+   rdfs:comment "scientific publication, i.e., a publication about an investigation, as defined by the IAO"^^xs:string;
    owl:equivalentClass iao:IAO_0000312.  # iao label "scientific publication" or equivalently "publication about an investigation"
 otras:op_scientific_publication a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 otras:dp_scientific_publication a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_document rdfs:subClassOf otras:op_scientific_publication.
-evmpo:dp_document rdfs:subClassOf otras:dp_scientific_publication.
+otras:op_publication rdfs:subClassOf otras:op_scientific_publication.
+otras:dp_publication rdfs:subClassOf otras:dp_scientific_publication.
 
 otras:scientific_publication rdfs:subClassOf [
       a owl:Restriction;
-      owl:onProperty otras:has_citation_representation;
+      owl:onProperty otras:is_cited_as;
       owl:someValuesFrom otras:citation
    ].
 
@@ -1945,28 +1982,69 @@ otras:op_doi_citation a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 otras:dp_doi_citation a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_citation rdfs:subClassOf otras:op_doi_citation.
-evmpo:dp_citation rdfs:subClassOf otras:dp_doi_citation.
+otras:op_citation rdfs:subClassOf otras:op_doi_citation.
+otras:dp_citation rdfs:subClassOf otras:dp_doi_citation.
 
-otras:doi_citation
-   rdfs:subClassOf [
+otras:doi_citation rdfs:subClassOf [
       a owl:Restriction;
       owl:onProperty otras:is_about;
       owl:cardinality 1
    ];
    owl:intersectionOf (otras:citation [a owl:Restriction; owl:onProperty otras:has_doi; owl:someValuesFrom xs:string]).
 
+otras:book_citation a owl:Class;
+   rdfs:subClassOf otras:citation;
+   rdfs:comment "book citation, i.e., a citation that is about a book"^^xs:string.
+otras:op_book_citation a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_book_citation a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+otras:op_citation rdfs:subClassOf otras:op_book_citation.
+otras:dp_citation rdfs:subClassOf otras:dp_book_citation.
+
+otras:book_citation owl:intersectionOf (otras:citation [a owl:Restriction; owl:onProperty otras:is_citation_about_document; owl:someValuesFrom otras:book]).
+
+otras:has_cited_book_isbn a otras:dp_citation;
+   rdfs:domain otras:book_citation;
+   rdfs:range xs:string.
+otras:has_cited_book_publisher_name a otras:dp_citation;
+   rdfs:domain otras:book_citation;
+   rdfs:range xs:string.
+otras:has_cited_book_publisher_city a otras:dp_citation;
+   rdfs:domain otras:book_citation;
+   rdfs:range xs:string.
+otras:has_cited_book_publisher_country a otras:op_citation;
+   rdfs:domain otras:book_citation;
+   rdfs:range vico:country.
+otras:has_cited_book_edition a otras:dp_citation;
+   rdfs:domain otras:book_citation;
+   rdfs:range xs:nonNegativeInteger.
+
+otras:book_citation rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty otras:has_cited_book_publisher_name;
+      owl:cardinality 1
+   ], [
+      a owl:Restriction;
+      owl:onProperty otras:has_cited_book_publisher_city;
+      owl:someValuesFrom xs:string
+   ], [
+      a owl:Restriction;
+      owl:onProperty otras:has_cited_book_publisher_country;
+      owl:someValuesFrom vico:country
+   ].
+
 otras:journal_article_citation a owl:Class;
-   rdfs:subClassOf otras:doi_citation;
-   rdfs:comment "journal article citation, i.e., a DOI citation that is about a journal article"^^xs:string.
+   rdfs:subClassOf otras:citation;
+   rdfs:comment "journal article citation, i.e., a citation that is about a journal article"^^xs:string.
 otras:op_journal_article_citation a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
 otras:dp_journal_article_citation a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_doi_citation rdfs:subClassOf otras:op_journal_article_citation.
-evmpo:dp_doi_citation rdfs:subClassOf otras:dp_journal_article_citation.
+otras:op_citation rdfs:subClassOf otras:op_journal_article_citation.
+otras:dp_citation rdfs:subClassOf otras:dp_journal_article_citation.
 
-otras:journal_article_citation owl:intersectionOf (otras:doi_citation [a owl:Restriction; owl:onProperty otras:is_citation_about_document; owl:someValuesFrom otras:journal_article]).
+otras:journal_article_citation owl:intersectionOf (otras:citation [a owl:Restriction; owl:onProperty otras:is_citation_about_document; owl:someValuesFrom otras:journal_article]).
 
 otras:has_publication_journal_identifier a otras:dp_journal_article_citation;
    rdfs:domain otras:journal_article_citation;
