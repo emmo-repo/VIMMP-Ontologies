@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
 
-### VERSION 0.8.13 ###
+### VERSION 0.8.14 ###
 
-### DATED 9TH JANUARY 2020 ###
+### DATED 15TH JANUARY 2020 ###
 
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 
@@ -39,10 +39,30 @@ otras:dp_carrier a owl:Class;
 otras:op_training_entity rdfs:subClassOf otras:op_carrier.
 otras:dp_training_entity rdfs:subClassOf otras:dp_carrier.
 
+otras:has_abstract a evmpo:op_document;
+   rdfs:domain evmpo:document;
+   rdfs:range otras:abstract;
+   rdfs:subPropertyOf iao:BFO_0000051.  # BFO "has_part" referenced through the IAO
 otras:is_cited_as a evmpo:op_document;
    rdfs:domain evmpo:document;
    rdfs:range otras:citation;
    owl:inverseOf otras:is_citation_about_document.
+
+otras:has_text_form a evmpo:dp_information_content_entity;
+   rdfs:domain evmpo:information_content_entity;
+   rdfs:range xs:string;
+   rdfs:comment "xs:string representation of the information content"^^xs:string.
+
+otras:abstract a owl:Class;
+   rdfs:subClassOf evmpo:information_content_entity;
+   rdfs:comment "abstract as defined by the IAO"^^xs:string;
+   owl:equivalentClass iao:IAO_0000315.  # iao label "abstract"
+otras:op_abstract a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_abstract a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_information_content_entity rdfs:subClassOf otras:op_abstract.
+evmpo:dp_information_content_entity rdfs:subClassOf otras:dp_abstract.
 
 otras:publication a owl:Class;
    rdfs:subClassOf evmpo:document;
@@ -67,19 +87,59 @@ otras:dp_publication rdfs:subClassOf otras:dp_book.
 
 otras:has_document_isbn a otras:dp_book;
    rdfs:domain otras:book;
-   rdfs:range xs:string;
-   owl:propertyChainAxiom (otras:is_cited_as otras:has_cited_book_isbn).
+   rdfs:range xs:string.
 otras:book owl:intersectionOf (otras:publication [a owl:Restriction; owl:onProperty otras:has_document_isbn; owl:someValuesFrom xs:string]).
 
-otras:slides a owl:Class;
+otras:presentation a owl:Class;
    rdfs:subClassOf evmpo:document;
-   rdfs:comment "slides, i.e., a document that can be presented by means of a slide show"^^xs:string.
-otras:op_slides a owl:Class;
+   rdfs:comment "presentation, i.e., a document that can be presented to a group of people as is"^^xs:string.
+otras:op_presentation a owl:Class;
    rdfs:subClassOf owl:ObjectProperty.
-otras:dp_slides a owl:Class;
+otras:dp_presentation a owl:Class;
    rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_document rdfs:subClassOf otras:op_slides.
-evmpo:dp_document rdfs:subClassOf otras:dp_slides.
+evmpo:op_document rdfs:subClassOf otras:op_presentation.
+evmpo:dp_document rdfs:subClassOf otras:dp_presentation.
+
+otras:slide_presentation a owl:Class;
+   rdfs:subClassOf evmpo:presentation;
+   rdfs:comment "slide presentation, i.e., a presentation in the form of slides"^^xs:string.
+otras:op_slide_presentation a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_slide_presentation a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_presentation rdfs:subClassOf otras:op_slide_presentation.
+evmpo:dp_presentation rdfs:subClassOf otras:dp_slide_presentation.
+
+otras:recording a owl:Class;
+   rdfs:subClassOf evmpo:presentation;
+   rdfs:comment "recording, i.e., a recorded presentation"^^xs:string.
+otras:op_recording a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_recording a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_presentation rdfs:subClassOf otras:op_recording.
+evmpo:dp_presentation rdfs:subClassOf otras:dp_recording.
+
+otras:audio_recording a owl:Class;
+   rdfs:subClassOf evmpo:recording;
+   rdfs:comment "audio recording, i.e., a recording with audio-only content"^^xs:string.
+otras:op_audio_recording a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_audio_recording a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_recording rdfs:subClassOf otras:op_audio_recording.
+evmpo:dp_recording rdfs:subClassOf otras:dp_audio_recording.
+
+otras:video_recording a owl:Class;
+   rdfs:subClassOf evmpo:recording;
+   owl:disjointWith otras:audio_recording;
+   rdfs:comment "video recording, i.e., a recording with video content"^^xs:string.
+otras:op_video_recording a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+otras:dp_video_recording a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_recording rdfs:subClassOf otras:op_video_recording.
+evmpo:dp_recording rdfs:subClassOf otras:dp_video_recording.
 
 otras:scientific_publication a owl:Class;
    rdfs:subClassOf otras:publication;
@@ -185,6 +245,10 @@ otras:is_broader_than a otras:op_topic, owl:TransitiveProperty;
    rdfs:domain otras:topic;
    rdfs:range otras:topic;
    owl:inverseOf otras:is_narrower_than.
+otras:is_discussed_by_document a otras:op_topic;
+   rdfs:domain otras:topic;
+   rdfs:range evmpo:document;
+   owl:inverseOf otras:has_document_topic.
 otras:is_narrower_than a otras:op_topic, owl:TransitiveProperty;
    rdfs:domain otras:topic;
    rdfs:range otras:topic;
@@ -378,22 +442,22 @@ otras:covers_topic a otras:op_syllabus;
    rdfs:range otras:topic;
    rdfs:subPropertyOf evmpo:has_information_content_entity_annotation;
    owl:equivalentProperty ccso:coversTopic.
-otras:has_learning_material a otras:op_syllabus;
+otras:has_learning_material_citation a otras:op_syllabus;
    rdfs:domain otras:syllabus;
-   rdfs:range evmpo:marketplace_related_entity;
+   rdfs:range otras:citation;
    rdfs:subPropertyOf ccso:hasLM.
-otras:has_literature a otras:op_syllabus;
+otras:has_literature_citation a otras:op_syllabus;
    rdfs:domain otras:syllabus;
-   rdfs:range evmpo:marketplace_related_entity;
-   rdfs:subPropertyOf otras:has_learning_material.
+   rdfs:range otras:citation;
+   rdfs:subPropertyOf otras:has_learning_material_citation.
 otras:has_mandatory_literature a otras:op_syllabus;
    rdfs:domain otras:syllabus;
    rdfs:range otras:citation;
-   rdfs:subPropertyOf otras:has_literature.
+   rdfs:subPropertyOf otras:has_literature_citation.
 otras:has_recommended_literature a otras:op_syllabus;
    rdfs:domain otras:syllabus;
    rdfs:range otras:citation;
-   rdfs:subPropertyOf otras:has_literature.
+   rdfs:subPropertyOf otras:has_literature_citation.
 
 otras:course a owl:Class;
    rdfs:comment "a course as defined by CCSO"^^xs:string;
@@ -1960,6 +2024,12 @@ otras:is_citation_about_document a otras:op_citation;
    rdfs:range evmpo:document;
    rdfs:subPropertyOf otras:is_about;
    owl:inverseOf otras:is_cited_as.
+
+otras:has_document_topic a evmpo:op_document;
+   rdfs:domain evmpo:document;
+   rdfs:range otras:topic;
+   owl:inverseOf otras:is_discussed_by_document;
+   rdfs:subPropertyOf otras:is_about, evmpo:has_information_content_entity_annotation.
 
 otras:citation rdfs:subClassOf [
       a owl:Restriction;  # important to ensure that any set of citations can be sorted by first-author surname
