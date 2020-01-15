@@ -1,0 +1,194 @@
+###############################################
+##                                           ##
+##  EXAMPLE: MOLECULAR SIMULATION TUTORIALS  ##
+##                                           ##
+##      LAST UPDATED: 15TH JANUARY 2020      ##
+##                                           ##
+###############################################
+
+<http://www.vimmp.eu/semantics/scenario/training/tutorials.ttl#> a owl:Ontology.
+
+@prefix molsim-tutorial: <http://www.vimmp.eu/semantics/scenario/training/tutorials.ttl#>.
+
+################################
+# IMPORTED EXTERNAL ONTOLOGIES #
+################################
+
+@prefix ccso: <https://w3id.org/ccso/ccso#>.
+@prefix iao: <http://purl.obolibrary.org/obo/iao.owl#>.
+@prefix lcc-codes: <https://www.omg.org/spec/LCC/Countries/ISO3166-1-CountryCodes/>.
+@prefix xs: <http://www.w3.org/2001/XMLSchema#>.
+
+#############################
+# IMPORTED VIMMP ONTOLOGIES #
+#############################
+
+@prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
+
+#############
+# CITATIONS #
+#############
+
+molsim-tutorial:CITATION_AT17 a otras:book_citation;
+   otras:has_first_author_surname "Allen"^^xs:string;
+   otras:has_author_map molsim-tutorial:AUTHOR_MAP_AT17;
+   otras:has_publication_year 2017;
+   otras:has_publication_title "Computer Simulation of Liquids"^^xs:string;
+   otras:has_cited_book_isbn "978-0-19-880319-5"^^xs:string;
+   otras:has_cited_book_publisher_name "Oxford University Press"^^xs:string;
+   otras:has_cited_book_publisher_city "Oxford"^^xs:string;
+   otras:has_cited_book_publisher_country lcc-codes:UnitedKingdomOfGreatBritainAndNorthernIreland;
+   otras:has_cited_book_edition 2;
+   otras:is_citation_about_document molsim-tutorial:DOCUMENT_AT17.
+molsim-tutorial:AUTHOR_MAP_AT17 a otras:author_map;
+   otras:has_author_map_element [
+         a otras:author_map_element;
+         otras:has_ame_index 1;
+         otras:has_ame_identifier [
+            a otras:author_identifier;
+            otras:has_identified_given_name "Michael"^^xs:string;
+            otras:has_identified_given_name_initials "M. P."^^xs:string;
+            otras:has_identified_surname "Allen"^^xs:string
+         ]
+      ], [
+         a otras:author_map_element;
+         otras:has_ame_index 2;
+         otras:has_ame_identifier [
+            a otras:author_identifier;
+            otras:has_identified_given_name "Dominic"^^xs:string;
+            otras:has_identified_given_name_initials "D. J."^^xs:string;
+            otras:has_identified_surname "Tildesley"^^xs:string
+         ]
+      ].
+
+molsim-tutorial:CITATION_HESS07 a otras:citation;
+   otras:has_first_author_surname "Hess"^^xs:string;
+   otras:has_author_map molsim-tutorial:AUTHOR_MAP_HESS07;
+   otras:has_publication_year 2007;
+   otras:has_publication_title "Force fields, thermo- and barostats"^^xs:string;
+   otras:has_url "https://extras.csc.fi/chem/courses/gmx2007/Berk_talks/forcef.pdf"^^xs:string;
+   otras:is_citation_about_document molsim-tutorial:DOCUMENT_HESS07.
+molsim-tutorial:AUTHOR_MAP_HESS07 a otras:author_map;
+   otras:has_author_map_element [
+         a otras:author_map_element;
+         otras:has_ame_index 1;
+         otras:has_ame_identifier [
+            a otras:author_identifier;
+            otras:has_identified_given_name "Berk"^^xs:string;
+            otras:has_identified_given_name_initials "B."^^xs:string;
+            otras:has_identified_surname "Hess"^^xs:string
+         ]
+      ].
+
+molsim-tutorial:CITATION_KERRACHE17 a otras:citation;
+   otras:has_first_author_surname "Kerrache"^^xs:string;
+   otras:has_author_map molsim-tutorial:AUTHOR_MAP_KERRACHE17;
+   otras:has_publication_year 2017;
+   otras:has_publication_title "Intro to molecular dynamics simulation using LAMMPS"^^xs:string;
+   otras:has_url "https://www.youtube.com/watch?v=ZMiveX6n-1w"^^xs:string;
+   otras:is_citation_about_document molsim-tutorial:DOCUMENT_KERRACHE17.
+molsim-tutorial:AUTHOR_MAP_KERRACHE17 a otras:author_map;
+   otras:has_author_map_element [
+         a otras:author_map_element;
+         otras:has_ame_index 1;
+         otras:has_ame_identifier [
+            a otras:author_identifier;
+            otras:has_identified_given_name "Ali"^^xs:string;
+            otras:has_identified_given_name_initials "A."^^xs:string;
+            otras:has_identified_surname "Kerrache"^^xs:string
+         ]
+      ].
+
+molsim-tutorial:CITATION_SEATON07 a otras:citation;
+   otras:has_first_author_surname "Seaton"^^xs:string;
+   otras:has_author_map molsim-tutorial:AUTHOR_MAP_SEATON07;
+   otras:has_publication_year 2007;
+   otras:has_publication_title "Dissipative particle dynamics"^^xs:string;
+   otras:is_citation_about_document molsim-tutorial:DOCUMENT_SEATON07.
+molsim-tutorial:AUTHOR_MAP_SEATON07 a otras:author_map;
+   otras:has_author_map_element [
+         a otras:author_map_element;
+         otras:has_ame_index 1;
+         otras:has_ame_identifier [
+            a otras:author_identifier;
+            otras:has_identified_given_name "Michael"^^xs:string;
+            otras:has_identified_given_name_initials "M. A."^^xs:string;
+            otras:has_identified_surname "Seaton"^^xs:string
+         ]
+      ].
+
+#############################################
+# DOCUMENT DESCRIPTION AND ADDRESSED TOPICS #
+#############################################
+
+molsim-tutorial:DOCUMENT_AT17 a otras:book, otras:training_document;
+   otras:has_document_topic
+      otras:MM_TOPIC_3240,  # molecular dynamics implementation
+      otras:MM_TOPIC_3250,  # Monte Carlo implementation
+      otras:MM_TOPIC_5200,  # fluids
+      otras:MM_TOPIC_7240,  # molecular dynamics theory
+      otras:MM_TOPIC_7250,  # Monte Carlo theory
+      otras:MM_TOPIC_7600;  # statistical mechanics
+   otras:has_abstract [
+      a otras:abstract;
+      otras:has_text_form "This book is both an introduction to computer simulation of liquids for upper level undergraduates and a how-to guide for specialists. The authors discuss the latest simulation techniques of molecular dynamics and the Monte Carlo methods as well as how to avoid common programming pitfalls. Theoretical concepts and practical programming advice are amply reinforced with examples of computer simulation in action and samples of Fortran code."^^xs:string
+   ].
+
+molsim-tutorial:DOCUMENT_HESS07 a otras:slides, otras:training_document;
+   otras:has_document_topic otras:MM_TOPIC_3240.  # molecular dynamics implementation
+
+molsim-tutorial:DOCUMENT_KERRACHE17 a otras:video_recording, otras:training_document;
+   otras:has_document_topic otras:MM_TOPIC_3240;  # molecular dynamics implementation
+   otras:has_abstract [
+      a otras:abstract;
+      otras:has_text_form "This online webinar gives an introduction to molecular dynamics (MD) simulation and explores some of the basic features and capabilities of the LAMMPS code."^^xs:string.
+   ].
+
+molsim-tutorial:DOCUMENT_SEATON07 a otras:slides, otras:training_document;
+   otras:has_document_topic
+      otras:MM_TOPIC_3245,  # mesoscopic equations of motion (implementation)
+      otras:MM_TOPIC_3275,  # mesoscopic statistical transport models (implementation)
+      otras:MM_TOPIC_5200,  # fluids
+      otras:MM_TOPIC_7245,  # mesoscopic equations of motion (theory)
+      otras:MM_TOPIC_7275,  # mesoscopic statistical transport models (theory)
+      otras:MM_TOPIC_7600;  # statistical mechanics
+   otras:has_abstract [
+      a otras:abstract;
+      otras:has_text_form "A presentation from the CCP5 Summer School describing the DPD mechanisms, its similarities to MD, applications to complex fluids and some examples of how the DPD mesoscopic model can be applied to some particular problems."^^xs:string.
+   ].
+
+####################
+# LEARNING OUTCOME #
+####################
+
+# Learning outcome from Michael's presentation
+#
+# "Successful training results in the ability to
+#    apply                                                                              <- operator
+#       dissipative particle dynamics (DPD)                                             <- operand
+#          by setting up and conducting DPD simulations,                                <- implementation
+#             e.g., by DPD simulation of polyelectrolytes in aqueous salt solutions."   <- example
+#
+molsim-tutorial:DPD_COURSE a otras:course;
+   otras:has_document molsim-tutorial:DOCUMENT_SEATON07;
+   otras:has_syllabus molsim-tutorial:DPD_SYLLABUS.
+molsim-tutorial:DPD_SYLLABUS a otras:syllabus;
+   otras:has_mandatory_literature molsim-tutorial:CITATION_SEATON07;
+   otras:aims_to molsim-tutorial:DPD_LEARNING_OUTCOME.
+molsim-tutorial:DPD_LEARNING_OUTCOME a otras:learning_outcome;
+   otras:has_operator_specifier otras:KMK_OPERATOR_235;  # "to apply"
+   otras:has_operand_specifier [
+      a otras:operand_specifier;
+      otras:has_operand_descriptor "dissipative particle dynamics"^^xs:string;
+      otras:has_operand_topic otras:MM_TOPIC_3245, otras:MM_TOPIC_3275
+   ];
+   otras:has_implementation_specifier [
+      a otras:implementation_specifier;
+      otras:has_implementation_descriptor "to set up and conduct DPD simulations"^^xs:string
+   ];
+   otras:has_example_specifier [
+      a otras:example_specifier;
+      otras:has_example_descriptor "DPD simulation of polyelectrolytes in aqueous salt solutions"^^xs:string;
+      otras:has_example_topic otras:MM_TOPIC_5450  # electrolytes
+   ];
+   otras:has_l_o_descriptor "Successful training results in the ability to apply dissipative particle dynamics (DPD) by setting up and conducting DPD simulations, e.g., of polyelectrolytes in aqueous salt solutions"^^xs:string.

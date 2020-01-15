@@ -1,7 +1,7 @@
 
 ### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
 
-### VERSION 0.8.14 ###
+### VERSION 0.8.15 ###
 
 ### DATED 15TH JANUARY 2020 ###
 
@@ -1630,7 +1630,7 @@ otras:is_at_numerical_level a otras:dp_operator_level, owl:FunctionalProperty;
    rdfs:comment "value which is 0 (special case: below basic), 1 (basic), 2 (intermediate), 3 (advanced), 4 (expert), or 5 (special case: exceptional distinction or unique skill)".
 
 otras:EXPERT_LEVEL a otras:operator_level;
-   otras:is_at_numerical_level 4.
+   otras:is_at_numerical_level "4"^^xs:nonNegativeInteger.
 
 otras:kmk_operator_level a owl:Class;
    rdfs:comment "KMK operator level, i.e., a requirement level corresponding to one of the headings from the KMK catalogue of operators for statements of learning outcomes in natural-science subjects"^^xs:string;
@@ -1651,11 +1651,11 @@ otras:kmk_operator_level rdfs:subClassOf [
 otras:kmk_operator_level owl:oneOf (otras:KMK_LEVEL_I otras:KMK_LEVEL_II otras:KMK_LEVEL_III).
 
 otras:KMK_LEVEL_I a otras:kmk_operator_level;
-   otras:is_at_numerical_level 1.
+   otras:is_at_numerical_level "1"^^xs:nonNegativeInteger.
 otras:KMK_LEVEL_II a otras:kmk_operator_level;
-   otras:is_at_numerical_level 2.
+   otras:is_at_numerical_level "2"^^xs:nonNegativeInteger.
 otras:KMK_LEVEL_III a otras:kmk_operator_level;
-   otras:is_at_numerical_level 3.
+   otras:is_at_numerical_level "3"^^xs:nonNegativeInteger.
 
 _:C_OPERATOR_LEVEL a owl:AllDifferent;
    owl:members (otras:KMK_LEVEL_I otras:KMK_LEVEL_II otras:KMK_LEVEL_III otras:EXPERT_LEVEL).
