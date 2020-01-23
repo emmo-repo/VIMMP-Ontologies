@@ -1,20 +1,21 @@
 
 ### MARKETPLACE-ACCESSIBLE COMPUTATIONAL RESOURCE ONTOLOGY (MACRO) ###
 
-### VERSION 0.2.5 ###
+### VERSION 0.3.0 ###
 
-### DATED 10TH JANUARY 2020 ###
+### DATED 23RD JANUARY 2020 ###
 
 @prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
 
 @prefix edam: <http://edamontology.org/>.
 @prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
-@prefix viso: <http://www.vimmp.eu/semantics/viso/viso-general.ttl#>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix paasport: <http://lpis.csd.auth.gr/ontologies/paasport/paasport1.owl#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
+@prefix viso: <http://www.vimmp.eu/semantics/viso/viso-general.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
 <http://www.vimmp.eu/semantics/macro/macro.ttl#> a owl:Ontology.
@@ -67,6 +68,33 @@ macro:dp_hardware_infrastructure a owl:Class;
    owl:equivalentClass evmpo:dp_hardware_infrastructure.
 macro:op_computational_resource rdfs:subClassOf macro:op_hardware_infrastructure.
 macro:dp_computational_resource rdfs:subClassOf macro:dp_hardware_infrastructure.
+
+macro:hpc_infrastructure a owl:Class;
+   rdfs:subClassOf macro:hardware_infrastructure.
+macro:op_hpc_infrastructure a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+macro:dp_hpc_infrastructure a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+macro:op_hardware_infrastructure rdfs:subClassOf macro:op_hpc_infrastructure.
+macro:dp_hardware_infrastructure rdfs:subClassOf macro:dp_hpc_infrastructure.
+
+macro:supercomputer a owl:Class;
+   rdfs:subClassOf macro:hpc_infrastructure.
+macro:op_supercomputer a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+macro:dp_supercomputer a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+macro:op_hpc_infrastructure rdfs:subClassOf macro:op_supercomputer.
+macro:dp_hpc_infrastructure rdfs:subClassOf macro:dp_supercomputer.
+
+macro:cloud_infrastructure a owl:Class;
+   rdfs:subClassOf macro:hpc_infrastructure.
+macro:op_cloud_infrastructure a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+macro:dp_cloud_infrastructure a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+macro:op_hpc_infrastructure rdfs:subClassOf macro:op_cloud_infrastructure.
+macro:dp_hpc_infrastructure rdfs:subClassOf macro:dp_cloud_infrastructure.
 
 macro:software_infrastructure a owl:Class;
    rdfs:subClassOf macro:computational_resource;
@@ -200,6 +228,74 @@ macro:MARKET40_MARKETPLACE a macro:virtual_marketplace.
 
 _:C_VIRTUAL_MARKETPLACE a owl:AllDifferent;
    owl:members (macro:VIMMP_MARKETPLACE macro:MARKETPLACE_MARKETPLACE macro:MARKET40_MARKETPLACE).
+
+macro:infrastructure_service a owl:Class;
+   rdfs:subClassOf evmpo:service;
+   rdfs:comment "infrastructure service, i.e., a service providing access to (or use of) an infrastructure"^^xs:string.
+macro:op_infrastructure_service a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+macro:dp_infrastructure_service a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_service rdfs:subClassOf macro:op_infrastructure_service.
+evmpo:dp_service rdfs:subClassOf macro:dp_infrastructure_service.
+
+macro:provides_access_to a macro:op_infrastructure_service;
+   rdfs:domain macro:infrastructure_service;
+   rdfs:range evmpo:infrastructure.
+macro:infrastructure_service rdfs:subClassOf [a owl:Restriction; owl:onProperty macro:provides_access_to; owl:someValuesFrom evmpo:infrastructure].
+
+macro:cr_service a owl:Class;
+   rdfs:subClassOf macro:infrastructure_service, macro:computational_entity;
+   owl:intersectionOf (macro:infrastructure_service [a owl:Restriction; owl:onProperty macro:provides_access_to; owl:someValuesFrom macro:computational_resource]);
+   rdfs:comment "computational resource service, i.e., an infrastructure service providing access to (or use of) a computational resource"^^xs:string.
+macro:op_cr_service a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+macro:dp_cr_service a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+macro:op_infrastructure_service rdfs:subClassOf macro:op_infrastructure_service.
+macro:dp_infrastructure_service rdfs:subClassOf macro:dp_infrastructure_service.
+macro:op_computational_entity rdfs:subClassOf macro:op_infrastructure_service.
+macro:dp_computational_entity rdfs:subClassOf macro:dp_infrastructure_service.
+
+macro:data_service a owl:Class;
+   rdfs:subClassOf macro:cr_service;
+   owl:intersectionOf (macro:cr_service [a owl:Restriction; owl:onProperty macro:provides_access_to; owl:someValuesFrom evmpo:data_infrastructure]).
+macro:op_data_service a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+macro:dp_data_service a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_cr_service rdfs:subClassOf macro:op_data_service.
+evmpo:dp_cr_service rdfs:subClassOf macro:dp_data_service.
+
+macro:hardware_service a owl:Class;
+   rdfs:subClassOf macro:cr_service;
+   owl:intersectionOf (macro:cr_service [a owl:Restriction; owl:onProperty macro:provides_access_to; owl:someValuesFrom evmpo:hardware_infrastructure]).
+macro:op_hardware_service a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+macro:dp_hardware_service a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_cr_service rdfs:subClassOf macro:op_hardware_service.
+evmpo:dp_cr_service rdfs:subClassOf macro:dp_hardware_service.
+
+macro:hpc_service a owl:Class;
+   rdfs:subClassOf macro:hardware_service;
+   owl:intersectionOf (macro:hardware_service [a owl:Restriction; owl:onProperty macro:provides_access_to; owl:someValuesFrom evmpo:hpc_infrastructure]).
+macro:op_hpc_service a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+macro:dp_hpc_service a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_hardware_service rdfs:subClassOf macro:op_hpc_service.
+evmpo:dp_hardware_service rdfs:subClassOf macro:dp_hpc_service.
+
+macro:software_service a owl:Class;
+   rdfs:subClassOf macro:cr_service;
+   owl:intersectionOf (macro:cr_service [a owl:Restriction; owl:onProperty macro:provides_access_to; owl:someValuesFrom evmpo:software_infrastructure]).
+macro:op_software_service a owl:Class;
+   rdfs:subClassOf owl:ObjectProperty.
+macro:dp_software_service a owl:Class;
+   rdfs:subClassOf owl:DatatypeProperty.
+evmpo:op_cr_service rdfs:subClassOf macro:op_software_service.
+evmpo:dp_cr_service rdfs:subClassOf macro:dp_software_service.
 
 macro:io_format a owl:Class;
    rdfs:subClassOf macro:computational_entity, evmpo:annotation;
