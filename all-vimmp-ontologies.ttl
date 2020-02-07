@@ -13,9 +13,9 @@
 
 ### EMMO-VIMMP INTEGRATION (EVI) ###
 
-### VERSION 0.2.2 ###
+### VERSION 0.3.0 ###
 
-### DATED 29TH DECEMBER 2019 ###
+### DATED 7TH FEBRUARY 2020 ###
 
 @prefix evi: <http://www.vimmp.eu/semantics/evi/evi.ttl#>.
 
@@ -244,7 +244,12 @@ evi:has_proper_part a owl:ObjectProperty, owl:IrreflexiveProperty, owl:Asymmetri
    rdfs:domain evi:emmo;
    rdfs:range evi:emmo;
    rdfs:subPropertyOf evi:has_part;
+   owl:inverseOf evi:is_proper_part_of;
    rdfs:comment "(proper) spatio-temporal parthood relation"^^xs:string.
+evi:is_proper_part_of a owl:ObjectProperty;
+   rdfs:domain evi:emmo;
+   rdfs:range evi:emmo;
+   owl:inverseOf evi:has_proper_part.
 evi:has_participant a owl:ObjectProperty;
    owl:sameAs emmo-processual:EMMO_ae2d1a96_bfa1_409a_a7d2_03d69e8a125a;
    rdfs:domain evi:emmo_process;
@@ -264,7 +269,12 @@ evi:has_sign a owl:ObjectProperty;
    rdfs:domain evi:object;
    rdfs:range evi:sign;
    rdfs:subPropertyOf evi:emmo_relation;
+   owl:inverseOf evi:is_sign_for;
    rdfs:comment "points to a sign that refers to an object by semiosis"^^xs:string.
+evi:is_sign_for a owl:ObjectProperty;
+   rdfs:domain evi:sign;
+   rdfs:range evi:object;
+   owl:inverseOf evi:has_sign.
 evi:has_property a owl:ObjectProperty;
    owl:sameAs emmo-properties:EMMO_e1097637_70d2_4895_973f_2396f04fa204;
    rdfs:subPropertyOf evi:has_sign.
@@ -272,7 +282,13 @@ evi:has_model a owl:ObjectProperty;
    owl:sameAs emmo-models:EMMO_24c71baf_6db6_48b9_86c8_8c70cf36db0c;
    rdfs:domain evi:physical;
    rdfs:range evi:model;
-   rdfs:subPropertyOf evi:has_sign.
+   rdfs:subPropertyOf evi:has_sign;
+   owl:inverseOf evi:is_model_for.
+evi:is_model_for a owl:ObjectProperty;
+   rdfs:domain evi:model;
+   rdfs:range evi:physical;
+   rdfs:subPropertyOf evi:is_sign_for;
+   owl:inverseOf evi:has_model.
 
 
 #####################################
@@ -293,13 +309,21 @@ evmpo:paradigmatic_entity rdfs:subClassOf evi:emmo, evmpo:marketplace_related_en
 
 # category (1): assessment
 #
-evmpo:assessment rdfs:subClassOf evi:proposition, evmpo:paradigmatic_entity.
+evmpo:assessment rdfs:subClassOf evi:proposition, evmpo:paradigmatic_entity;
+   rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty evi:is_sign_for;
+      owl:someValuesFrom evmpo:information_content_entity
+   ].
 
 # category (2): calendar_event
 #
-# unsure what to do with this
-#
-evmpo:calendar_event rdfs:subClassOf evi:emmo, evmpo:paradigmatic_entity.
+evmpo:calendar_event rdfs:subClassOf evi:sign, evmpo:paradigmatic_entity;
+   rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty evi:is_sign_for;
+      owl:someValuesFrom evi:emmo_process
+   ].
 
 # category (3): communication
 #
@@ -334,6 +358,12 @@ evmpo:model owl:equivalentClass evi:model;
 # category (9): process
 #
 evmpo:process rdfs:subClassOf evmpo:paradigmatic_entity.
+evmpo:business_process rdfs:subClassOf evmpo:model, evmpo:process;
+   rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty evi:is_model_for;
+      owl:someValuesFrom evi:emmo_process
+   ].
 evmpo:physical_process owl:equivalentClass evi:emmo_process;
    rdfs:subClassOf evmpo:process.
 evmpo:simulation rdfs:subClassOf evi:semiosis, evmpo:process.
@@ -342,6 +372,12 @@ evmpo:simulation rdfs:subClassOf evi:semiosis, evmpo:process.
 #
 evmpo:product rdfs:subClassOf evmpo:paradigmatic_entity.
 evmpo:good rdfs:subClassOf evi:engineered_entity, evmpo:product.
+evmpo:service rdfs:subClassOf evi:sign, evmpo:product;
+   rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty evi:is_sign_for;
+      owl:someValuesFrom evi:emmo_process
+   ].
 
 # category (11): property
 #
