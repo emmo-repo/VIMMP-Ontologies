@@ -13,9 +13,9 @@
 
 ### EMMO-VIMMP INTEGRATION (EVI) ###
 
-### VERSION 0.3.1 ###
+### VERSION 0.3.2 ###
 
-### DATED 14TH FEBRUARY 2020 ###
+### DATED 16TH FEBRUARY 2020 ###
 
 @prefix evi: <http://www.vimmp.eu/semantics/evi/evi.ttl#>.
 
@@ -33,9 +33,21 @@
 @prefix emmo-usercase: <http://emmc.info/domains/emmo-usercase.owl#>.
 @prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
+@prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 @prefix viso: <http://www.vimmp.eu/semantics/viso/viso-general.ttl#>.
 @prefix viso-am: <http://www.vimmp.eu/semantics/viso/viso-atomistic-mesoscopic.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
+
+#########################
+# METAONTOLOGICAL LEVEL #
+#########################
+
+evi:meta_emmo a owl:Class;
+   owl:disjointUnionOf (evi:emmo evi:non_emmo);
+   rdfs:comment "this class contains EMMO entities as well as non-spacetime entities that are not covered by the EMMO"^^xs:string.
+evi:non_emmo a owl:Class;
+   rdfs:subClassOf evi:meta_emmo;
+   rdfs:comment "any non-spacetime entities (hence, not covered by the EMMO) are to be subsumed under this class"^^xs:string.
 
 ###########################
 # REFERENCED EMMO CLASSES #
@@ -80,6 +92,7 @@ evi:material a owl:Class;
 ## EMMO mereotopology
 #
 evi:emmo a owl:Class;
+   rdfs:subclassOf evi:meta_emmo;
    owl:sameAs emmo-mereotopology:EMMO_802d3e92_8770_4f98_a289_ccaaab7fdddf;
    owl:disjointUnionOf (evi:item evi:collection);
    rdfs:comment "EMMO top entity, i.e., a (four-dimensional) item or a collection of such items"^^xs:string.
@@ -306,8 +319,8 @@ evi:proposition a owl:Class;  # to be used as superclass for assertions, equatio
 # EVMPO CATEGORIES #
 ####################
 
-evmpo:marketplace_related_entity rdfs:subClassOf evi:emmo.
-evmpo:paradigmatic_entity rdfs:subClassOf evi:emmo, evmpo:marketplace_related_entity.
+evmpo:marketplace_related_entity rdfs:subClassOf evi:meta_emmo.
+evmpo:paradigmatic_entity rdfs:subClassOf evi:meta_emmo, evmpo:marketplace_related_entity.
 
 # category (1): assessment
 #
@@ -340,7 +353,7 @@ evmpo:document rdfs:subClassOf evmpo:information_content_entity.
 #
 # unsure what to do with this
 #
-evmpo:infrastructure rdfs:subClassOf evi:emmo, evmpo:paradigmatic_entity.
+evmpo:infrastructure rdfs:subClassOf evmpo:paradigmatic_entity.
 
 # category (6): interpreter
 #
@@ -388,7 +401,7 @@ evmpo:property owl:equivalentClass evi:property;
 
 # category (0): annotation
 #
-evmpo:annotation rdfs:subClassOf evi:emmo, evmpo:marketplace_related_entity.
+evmpo:annotation rdfs:subClassOf evmpo:marketplace_related_entity.
 
 
 ##################
@@ -588,6 +601,24 @@ evi:mereosemiotics_hs_ip_is a owl:ObjectProperty;
 
 osmo:materials_relation rdfs:subClassOf evmpo:marketplace_related_entity;
    owl:equivalentClass evi:material_relation.
+
+
+##########################
+# OTRAS-EMMO INTEGRATION #
+##########################
+
+# a citation is a sign for an information content entity
+#
+otras:citation rdfs:subClassOf evi:sign, evmpo:information_content_entity;
+   rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty evi:is_sign_for;
+      owl:someValuesFrom evmpo:information_content_entity
+   ].
+
+otras:has_abstract rdfs:subPropertyOf evi:has_proper_part.
+otras:is_citation_about_document rdfs:subPropertyOf evi:is_sign_for.
+otras:is_cited_as rdfs:subPropertyOf evi:has_sign.
 
 
 #########################
