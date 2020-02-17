@@ -13,9 +13,9 @@
 
 ### EMMO-VIMMP INTEGRATION (EVI) ###
 
-### VERSION 0.3.2 ###
+### VERSION 0.3.3 ###
 
-### DATED 16TH FEBRUARY 2020 ###
+### DATED 17TH FEBRUARY 2020 ###
 
 @prefix evi: <http://www.vimmp.eu/semantics/evi/evi.ttl#>.
 
@@ -94,7 +94,7 @@ evi:material a owl:Class;
 evi:emmo a owl:Class;
    rdfs:subclassOf evi:meta_emmo;
    owl:sameAs emmo-mereotopology:EMMO_802d3e92_8770_4f98_a289_ccaaab7fdddf;
-   owl:disjointUnionOf (evi:item evi:collection);
+   owl:unionOf (evi:item evi:collection);
    rdfs:comment "EMMO top entity, i.e., a (four-dimensional) item or a collection of such items"^^xs:string.
 evi:item a owl:Class;
    owl:sameAs emmo-mereotopology:EMMO_eb3a768e_d53e_4be9_a23b_0714833c36de;
@@ -319,12 +319,15 @@ evi:proposition a owl:Class;  # to be used as superclass for assertions, equatio
 # EVMPO CATEGORIES #
 ####################
 
-evmpo:marketplace_related_entity rdfs:subClassOf evi:meta_emmo.
-evmpo:paradigmatic_entity rdfs:subClassOf evi:meta_emmo, evmpo:marketplace_related_entity.
+evmpo:marketplace_related_entity a owl:Class;
+   rdfs:subClassOf evi:meta_emmo.
+evmpo:paradigmatic_entity a owl:Class;
+   rdfs:subClassOf evi:meta_emmo, evmpo:marketplace_related_entity.
 
 # category (1): assessment
 #
-evmpo:assessment rdfs:subClassOf evi:proposition, evmpo:paradigmatic_entity;
+evmpo:assessment a owl:Class;
+   rdfs:subClassOf evi:proposition, evmpo:paradigmatic_entity;
    rdfs:subClassOf [
       a owl:Restriction;
       owl:onProperty evi:is_sign_for;
@@ -333,7 +336,8 @@ evmpo:assessment rdfs:subClassOf evi:proposition, evmpo:paradigmatic_entity;
 
 # category (2): calendar_event
 #
-evmpo:calendar_event rdfs:subClassOf evi:sign, evmpo:paradigmatic_entity;
+evmpo:calendar_event a owl:Class;
+   rdfs:subClassOf evi:sign, evmpo:paradigmatic_entity;
    rdfs:subClassOf [
       a owl:Restriction;
       owl:onProperty evi:is_sign_for;
@@ -342,52 +346,66 @@ evmpo:calendar_event rdfs:subClassOf evi:sign, evmpo:paradigmatic_entity;
 
 # category (3): communication
 #
-evmpo:communication rdfs:subClassOf evi:sign, evmpo:paradigmatic_entity.
+evmpo:communication a owl:Class;
+   rdfs:subClassOf evi:sign, evmpo:paradigmatic_entity.
 
 # category (4): information_content_entity
 #
-evmpo:information_content_entity rdfs:subClassOf evi:symbolic, evmpo:paradigmatic_entity.
-evmpo:document rdfs:subClassOf evmpo:information_content_entity.
+evmpo:information_content_entity a owl:Class;
+   rdfs:subClassOf evi:symbolic, evmpo:paradigmatic_entity.
+evmpo:document a owl:Class;
+   rdfs:subClassOf evmpo:information_content_entity.
 
 # category (5): infrastructure
 #
 # unsure what to do with this
 #
-evmpo:infrastructure rdfs:subClassOf evmpo:paradigmatic_entity.
+evmpo:infrastructure a owl:Class;
+   rdfs:subClassOf evmpo:paradigmatic_entity.
 
 # category (6): interpreter
 #
-evmpo:interpreter owl:equivalentClass evi:interpreter;
+evmpo:interpreter a owl:Class;
+   owl:equivalentClass evi:interpreter;
    rdfs:subClassOf evmpo:paradigmatic_entity.
 
 # category (7): material
 #
-evmpo:material owl:equivalentClass evi:material;
+evmpo:material a owl:Class;
+   owl:equivalentClass evi:material;
    rdfs:subClassOf evmpo:paradigmatic_entity.
 
 # category (8): model
 #
-evmpo:model owl:equivalentClass evi:model;
+evmpo:model a owl:Class;
+   owl:equivalentClass evi:model;
    rdfs:subClassOf evmpo:paradigmatic_entity.
 
 # category (9): process
 #
-evmpo:process rdfs:subClassOf evmpo:paradigmatic_entity.
-evmpo:business_process rdfs:subClassOf evmpo:model, evmpo:process;
+evmpo:process a owl:Class;
+   rdfs:subClassOf evmpo:paradigmatic_entity.
+evmpo:business_process a owl:Class;
+   rdfs:subClassOf evmpo:model, evmpo:process;
    rdfs:subClassOf [
       a owl:Restriction;
       owl:onProperty evi:is_model_for;
       owl:someValuesFrom evi:emmo_process
    ].
-evmpo:physical_process owl:equivalentClass evi:emmo_process;
+evmpo:physical_process a owl:Class;
+   owl:equivalentClass evi:emmo_process;
    rdfs:subClassOf evmpo:process.
-evmpo:simulation rdfs:subClassOf evi:semiosis, evmpo:process.
+evmpo:simulation a owl:Class;
+   rdfs:subClassOf evi:semiosis, evmpo:process.
 
 # category (10): product
 #
-evmpo:product rdfs:subClassOf evmpo:paradigmatic_entity.
-evmpo:good rdfs:subClassOf evi:engineered_entity, evmpo:product.
-evmpo:service rdfs:subClassOf evi:sign, evmpo:product;
+evmpo:product a owl:Class;
+   rdfs:subClassOf evmpo:paradigmatic_entity.
+evmpo:good a owl:Class;
+   rdfs:subClassOf evi:engineered_entity, evmpo:product.
+evmpo:service a owl:Class;
+   rdfs:subClassOf evi:sign, evmpo:product;
    rdfs:subClassOf [
       a owl:Restriction;
       owl:onProperty evi:is_sign_for;
@@ -396,12 +414,14 @@ evmpo:service rdfs:subClassOf evi:sign, evmpo:product;
 
 # category (11): property
 #
-evmpo:property owl:equivalentClass evi:property;
+evmpo:property a owl:Class;
+   owl:equivalentClass evi:property;
    rdfs:subClassOf evmpo:paradigmatic_entity.
 
 # category (0): annotation
 #
-evmpo:annotation rdfs:subClassOf evmpo:marketplace_related_entity.
+evmpo:annotation a owl:Class;
+   rdfs:subClassOf evmpo:marketplace_related_entity.
 
 
 ##################
@@ -599,7 +619,11 @@ evi:mereosemiotics_hs_ip_is a owl:ObjectProperty;
 # OSMO-EMMO INTEGRATION #
 #########################
 
-osmo:materials_relation rdfs:subClassOf evmpo:marketplace_related_entity;
+# the OSMO concept "materials_relation" and the EMMO concept "material_relation"
+# both refer to the same entity, namely, a materials relation (MR) according to RoMM
+#
+osmo:materials_relation a owl:Class;
+   rdfs:subClassOf evmpo:marketplace_related_entity;
    owl:equivalentClass evi:material_relation.
 
 
@@ -607,28 +631,80 @@ osmo:materials_relation rdfs:subClassOf evmpo:marketplace_related_entity;
 # OTRAS-EMMO INTEGRATION #
 ##########################
 
+# OTRAS top class
+#
+otras:training_entity a owl:Class;
+   rdfs:subClassOf evi:meta_emmo.
+
 # a citation is a sign for an information content entity
 #
-otras:citation rdfs:subClassOf evi:sign, evmpo:information_content_entity;
+otras:citation a owl:Class;
+   rdfs:subClassOf evi:sign, evmpo:information_content_entity;
    rdfs:subClassOf [
       a owl:Restriction;
       owl:onProperty evi:is_sign_for;
       owl:someValuesFrom evmpo:information_content_entity
    ].
 
-otras:has_abstract rdfs:subPropertyOf evi:has_proper_part.
-otras:is_citation_about_document rdfs:subPropertyOf evi:is_sign_for.
-otras:is_cited_as rdfs:subPropertyOf evi:has_sign.
+# a course is a process
+#
+otras:course a owl:Class;
+   rdfs:subClassOf evi:emmo_process, otras:training_entity.
+
+# a focus is a symbolic entity
+#
+otras:focus a owl:Class;
+   rdfs:subClassOf evi:symbolic, evmpo:annotation, otras:training_entity.
+
+# a topic is a sign for a collection of semiosis processes
+#
+otras:topic a owl:Class;
+   rdfs:subClassOf evi:sign, otras:focus;
+   rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty evi:is_sign_for;
+      owl:someValuesFrom evi:collection
+   ], [
+      a owl:Restriction;
+      owl:onProperty [owl:inverseOf evi:mereosemiotics_ip_hs];
+      owl:someValuesFrom evi:semiosis
+   ].
+
+otras:has_abstract a owl:ObjectProperty;
+   rdfs:subPropertyOf evi:has_proper_part.
+otras:has_document_topic a owl:ObjectProperty;
+   rdfs:subPropertyOf evi:mereosemiotics_hp_ip_hs.
+otras:has_offered_course a owl:ObjectProperty;
+   rdfs:subPropertyOf [owl:inverseOf evi:mereosemiotics_ip_hs], evi:has_mereosemiotic_relation_with.
+otras:is_broader_than a owl:ObjectProperty;
+   rdfs:subPropertyOf [owl:inverseOf evi:mereosemiotics_is_ip_hs], evi:has_mereosemiotic_relation_with.
+otras:is_citation_about_document a owl:ObjectProperty;
+   rdfs:subPropertyOf evi:is_sign_for.
+otras:is_cited_as a owl:ObjectProperty;
+   rdfs:subPropertyOf evi:has_sign.
+otras:is_discussed_by_document a owl:ObjectProperty;
+   rdfs:subPropertyOf [owl:inverseOf evi:mereosemiotics_hp_ip_hs], evi:has_mereosemiotic_relation_with.
+otras:is_narrower_than a owl:ObjectProperty;
+   rdfs:subPropertyOf evi:mereosemiotics_is_ip_hs.
 
 
 #########################
 # VISO-EMMO INTEGRATION #
 #########################
 
-viso:model_object rdfs:subClassOf evi:symbolic, evmpo:marketplace_related_entity.
-viso-am:interaction_site rdfs:subClassOf evi:symbol, viso:model_object.
+# an interaction site is a symbol
+# (i.e., it is an element of the alphabet for an appropriately specified formal language)
+#
+viso-am:interaction_site a owl:Class;
+   rdfs:subClassOf evi:symbol, viso:model_object.
 
-viso:has_part rdfs:subPropertyOf evi:has_part.
+# a model object is a symbolic entity
+#
+viso:model_object a owl:Class;
+   rdfs:subClassOf evi:symbolic, evmpo:marketplace_related_entity.
+
+viso:has_part a owl:ObjectProperty;
+   rdfs:subPropertyOf evi:has_part.
 
 ### EUROPEAN VIRTUAL MARKETPLACE ONTOLOGY (EVMPO) ###
 
