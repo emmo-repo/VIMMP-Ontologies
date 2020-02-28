@@ -5,6 +5,10 @@
 
 ### DATED 17TH FEBRUARY 2020 ###
 
+### NOTE: THIS VERSION IS ALIGNED WITH EMMO v0.9.10, THE MOST RECENT PRE-RELEASE AS OF FEBRUARY 2020 ###
+
+### IN DUE COURSE, SUBSEQUENT TO THE RELEASE OF THE FIRST STABLE EMMO VERSION, A REALIGNMENT WILL BE CONDUCTED ###
+
 @prefix evi: <http://www.vimmp.eu/semantics/evi/evi.ttl#>.
 
 @prefix emmo-existent: <http://emmc.info/perspectives/emmo-existent.owl#>.
