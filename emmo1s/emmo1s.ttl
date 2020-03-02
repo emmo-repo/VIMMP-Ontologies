@@ -1,0 +1,686 @@
+
+### EMMO 1.0 SIMPLIFIED (EMMO1S) ###
+
+### VERSION 0.9.0 ###
+
+### DATED 2ND MARCH 2020 ###
+
+@prefix emmo1s: <http://www.vimmp.eu/semantics/emmo/emmo1s.ttl#>.
+
+@prefix emmo-holistic: <http://emmo.info/emmo/middle/holistic#>.
+@prefix emmo-manufacturing: <http://emmo.info/emmo/middle/manufacturing#>.
+@prefix emmo-math: <http://emmo.info/emmo/middle/math#>.
+@prefix emmo-mereotopology: <http://emmo.info/emmo/top/mereotopology#>.
+@prefix emmo-models: <http://emmo.info/emmo/middle/models#>.
+@prefix emmo-perceptual: <http://emmo.info/emmo/middle/perceptual#>.
+@prefix emmo-physical: <http://emmo.info/emmo/top/physical#>.
+@prefix emmo-physicalistic: <http://emmo.info/emmo/middle/physicalistic#>.
+@prefix emmo-properties: <http://emmo.info/emmo/middle/properties#>.
+@prefix emmo-semiotics: <http://emmo.info/emmo/middle/semiotics#>.
+@prefix emmo-units: <http://emmo.info/emmo/middle/units#>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix owl2: <http://www.w3.org/2006/12/owl2#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xs: <http://www.w3.org/2001/XMLSchema#>.
+
+<http://www.vimmp.eu/semantics/emmo/emmo1s.ttl#> a owl:Ontology.
+
+
+#############################################
+#                                           #
+# REFERENCED EMMO TOP CLASSES AND RELATIONS #
+#                                           #
+#    (i.e., mereotopology and physical)     #
+#                                           #
+#############################################
+
+## EMMO mereotopology classes
+#
+emmo1s:Collection a owl:Class;
+   rdfs:label "Collection"^^xs:string;
+   owl:sameAs emmo-mereotopology:EMMO_2d2ecd97_067f_4d0e_950c_d746b7700a31;
+   rdfs:subClassOf emmo1s:EMMO;
+   owl:equivalentClass [
+      owl:intersectionOf (
+         emmo1s:EMMO [
+            a owl:Restriction;
+            owl:onProperty emmo1s:hasMember;
+            owl:someValuesFrom emmo1s:Item
+         ]
+      )
+   ];
+   rdfs:comment "Collection, i.e., an unconnected 4D object; a Collection has Items (connected components) as members"^^xs:string.
+emmo1s:EMMO a owl:Class;
+   rdfs:label "EMMO"^^xs:string;
+   owl:sameAs emmo-mereotopology:EMMO_802d3e92_8770_4f98_a289_ccaaab7fdddf;
+   owl:disjointUnionOf (emmo1s:Item emmo1s:Collection);
+   rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty [owl:inverseOf emmo1s:hasPart];
+      owl:hasValue emmo1s:Universe
+   ];
+   rdfs:comment "EMMO entity, i.e., a 4D spatiotemporal thing"^^xs:string.
+emmo1s:Item a owl:Class;
+   rdfs:label "Item"^^xs:string;
+   owl:sameAs emmo-mereotopology:EMMO_eb3a768e_d53e_4be9_a23b_0714833c36de;
+   rdfs:subClassOf emmo1s:EMMO;
+   owl:disjointUnionOf (emmo1s:Physical emmo1s:Void);
+   rdfs:comment "Item, i.e., a connected component - between any two parts there is a path of connections"^^xs:string.
+
+## EMMO mereotopology relations
+#
+emmo1s:connected a owl:ObjectProperty, owl:SymmetricProperty;
+   rdfs:label "connected"^^xs:string;
+   owl:sameAs emmo-mereotopology:EMMO_6703954e_34c4_4a15_a9e7_f313760ae1a8;
+   rdfs:domain emmo1s:EMMO;
+   rdfs:range emmo1s:EMMO;
+   rdfs:subPropertyOf emmo1s:EMMORelation;
+   owl2:disjointObjectProperties emmo1s:disconnected;
+   rdfs:comment "4D spatiotemporal relation of immediate connectivity or contact"^^xs:string.
+emmo1s:disconnected a owl:ObjectProperty, owl:SymmetricProperty;
+   rdfs:label "disconnected"^^xs:string;
+   owl:sameAs emmo-mereotopology:EMMO_517dfaf9_4970_41ac_81ee_d031627d2c7c;
+   rdfs:domain emmo1s:EMMO;
+   rdfs:range emmo1s:EMMO;
+   rdfs:subPropertyOf emmo1s:EMMORelation;
+   owl2:disjointObjectProperties emmo1s:connected;
+   rdfs:comment "the meaning of this is not clarified by the EMMO - it could be the complement of 'connected' or the complement of its transitive closure (i.e., of path connectivity)"^^xs:string.
+emmo1s:EMMORelation a owl:ObjectProperty, owl:SymmetricProperty, owl:TransitiveProperty;
+   rdfs:label "EMMORelation"^^xs:string;
+   owl:sameAs emmo-mereotopology:EMMO_ec2472ae_cf4a_46a5_8555_1556f5a6c3c5;
+   rdfs:domain emmo1s:EMMO;
+   rdfs:range emmo1s:EMMO;
+   rdfs:comment "EMMO top relation"^^xs:string.
+emmo1s:hasMember a owl:ObjectProperty;
+   rdfs:label "hasMember"^^xs:string;
+   owl:sameAs emmo-mereotopology:EMMO_6b7276a4_4b9d_440a_b577_0277539c0fc4;
+   rdfs:domain emmo1s:Collection;
+   rdfs:range emmo1s:Item;
+   rdfs:subPropertyOf emmo1s:hasProperPart;
+   rdfs:comment "hasMember relates an unconnected object (Collection) to its connected components (Items)"^^xs:string.
+emmo1s:hasOverlapWith a owl:ObjectProperty;
+   rdfs:label "hasOverlapWith"^^xs:string;
+   owl:sameAs emmo-mereotopology:EMMO_d893d373_b579_4867_841e_1c2b31a8d2c6;
+   rdfs:domain emmo1s:EMMO;
+   rdfs:range emmo1s:EMMO;
+   rdfs:subPropertyOf emmo1s:connected;
+   owl:propertyChainAxiom (emmo1s:hasPart [owl:inverseOf emmo1s:hasPart]).
+emmo1s:hasPart a owl:ObjectProperty, owl:TransitiveProperty;
+   rdfs:label "hasPart"^^xs:string;
+   owl:sameAs emmo-mereotopology:EMMO_17e27c22_37e1_468c_9dd7_95e137f73e7f;
+   rdfs:domain emmo1s:EMMO;
+   rdfs:range emmo1s:EMMO;
+   rdfs:subPropertyOf emmo1s:hasOverlapWith;
+   rdfs:comment "4D spatiotemporal parthood relation (reflexive version, i.e., improper parthood)"^^xs:string.
+emmo1s:hasProperPart a owl:ObjectProperty, owl:TransitiveProperty;
+   rdfs:label "hasProperPart"^^xs:string;
+   owl:sameAs emmo-mereotopology:EMMO_9380ab64_0363_4804_b13f_3a8a94119a76;
+   rdfs:domain emmo1s:EMMO;
+   rdfs:range emmo1s:EMMO;
+   rdfs:subPropertyOf emmo1s:hasPart;
+   rdfs:comment "4D spatiotemporal parthood relation (antireflexive version, i.e., proper parthood)"^^xs:string.
+
+## EMMO mereotopology individuals
+#
+emmo1s:Universe a emmo1s:EMMO;
+   rdfs:label "Universe"^^xs:string;
+   owl:sameAs emmo-mereotopology:EMMO_08cb807c_e626_447b_863f_e2835540e918.
+
+## EMMO physical classes
+#
+emmo1s:Physical a owl:Class;
+   rdfs:label "Physical"^^xs:string;
+   owl:sameAs emmo-physical:EMMO_c5ddfdba_c074_4aa4_ad6b_1ac4942d300d;
+   rdfs:subClassOf emmo1s:Item;
+   rdfs:comment "Physical, i.e., an Item that is not Void"^^xs:string.
+emmo1s:Void a owl:Class;
+   rdfs:label "Void"^^xs:string;
+   owl:sameAs emmo-physical:EMMO_29072ec4_ffcb_42fb_bdc7_26f05a2e9873;
+   rdfs:subClassOf emmo1s:Item;
+   owl:equivalentClass [
+      owl:intersectionOf (
+         emmo1s:EMMO [
+            a owl:Restriction;
+            owl:onProperty emmo1s:hasPart;
+            owl:allValuesFrom emmo1s:Void
+         ]
+      )
+   ];
+   owl:disjointWith [
+      a owl:Restriction;
+      owl:onProperty emmo1s:hasPart;
+      owl:someValuesFrom emmo1s:Physical
+   ];
+   rdfs:comment "Void, i.e., an Item that does not have any Physical parts (all of its parts are Void)"^^xs:string.
+
+## EMMO physical relations
+#
+emmo1s:hasSpatialPart a owl:ObjectProperty, owl:TransitiveProperty;
+   rdfs:label "hasSpatialPart"^^xs:string;
+   owl:sameAs emmo-physical:EMMO_f68030be_94b8_4c61_a161_886468558054;
+   rdfs:domain emmo1s:Item;
+   rdfs:range emmo1s:Item;
+   rdfs:subPropertyOf emmo1s:hasProperPart;
+   rdfs:comment "proper parthood where the spatial extensions differ, while the temporal extensions are the same"^^xs:string;
+   owl2:disjointObjectProperties emmo1s:hasSpatioTemporalPart, emmo1s:hasTemporalPart.
+emmo1s:hasSpatioTemporalPart a owl:ObjectProperty, owl:TransitiveProperty;
+   rdfs:label "hasSpatioTemporalPart"^^xs:string;
+   owl:sameAs emmo-physical:EMMO_6e046dd0_9634_4013_b2b1_9cc468087c83;
+   rdfs:domain emmo1s:Item;
+   rdfs:range emmo1s:Item;
+   rdfs:subPropertyOf emmo1s:hasProperPart;
+   rdfs:comment "proper parthood where both the spatial _and_ temporal extensions differ"^^xs:string;
+   owl2:disjointObjectProperties emmo1s:hasSpatialPart, emmo1s:hasTemporalPart.
+emmo1s:hasTemporalPart a owl:ObjectProperty, owl:TransitiveProperty;
+   rdfs:label "hasTemporalPart"^^xs:string;
+   owl:sameAs emmo-physical:EMMO_7afbed84_7593_4a23_bd88_9d9c6b04e8f6;
+   rdfs:domain emmo1s:Item;
+   rdfs:range emmo1s:Item;
+   rdfs:subPropertyOf emmo1s:hasProperPart;
+   rdfs:comment "proper parthood where the temporal extensions differ, while the spatial extensions are the same"^^xs:string;
+   owl2:disjointObjectProperties emmo1s:hasSpatioTemporalPart, emmo1s:hasTemporalPart.
+
+
+#########################################################################
+#                                                                       #
+# REFERENCED EMMO HOLISTIC, SEMIOTICS, AND MODELS CLASSES AND RELATIONS #
+#                                                                       #
+#########################################################################
+
+## EMMO holistic classes
+#
+emmo1s:Participant a owl:Class;
+   rdfs:label "Participant"^^xs:string;
+   owl:sameAs emmo-holistic:EMMO_49804605_c0fe_4538_abda_f70ba1dc8a5d;
+   rdfs:subClassOf emmo1s:Physical;
+   owl:equivalentClass [
+      owl:intersectionOf (
+         emmo1s:Physical [
+            a owl:Restriction;
+            owl:onProperty [owl:inverseOf emmo1s:hasParticipant];
+            owl:someValuesFrom emmo1s:Process
+         ]
+      )
+   ];
+   rdfs:comment "Participant, i.e., a Physical entity that participates (with a specific role) in a Process"^^xs:string.
+emmo1s:Process a owl:Class;
+   rdfs:label "Process"^^xs:string;
+   owl:sameAs emmo-holistic:EMMO_43e9a05d_98af_41b4_92f6_00f79a09bfce;
+   rdfs:subClassOf emmo1s:Physical;
+   rdfs:comment "Process, i.e., a Physical entity with a temporal evolution that 'has a meaning for the ontologist'"^^xs:string.
+
+## EMMO holistic relations
+#
+emmo1s:hasParticipant a owl:ObjectProperty;
+   rdfs:label "hasParticipant"^^xs:string;
+   owl:sameAs emmo-holistic:EMMO_ae2d1a96_bfa1_409a_a7d2_03d69e8a125a;
+   rdfs:domain emmo1s:Process;
+   rdfs:range emmo1s:Participant;
+   rdfs:subPropertyOf emmo1s:hasPart;
+   rdfs:comment "participation, i.e., (improper) parthood that relates to participation with a specific role in a Process"^^xs:string.
+emmo1s:hasProperParticipant a owl:ObjectProperty;
+   rdfs:label "hasProperParticipant"^^xs:string;
+   owl:sameAs emmo-holistic:EMMO_c5aae418_1622_4d02_93c5_21159e28e6c1;
+   rdfs:domain emmo1s:Process;
+   rdfs:range emmo1s:Participant;
+   rdfs:subPropertyOf emmo1s:hasProperPart, emmo1s:hasParticipant;
+   rdfs:comment "participation, i.e., (proper) parthood that relates to participation with a specific role in a Process"^^xs:string.
+
+## EMMO semiotics classes
+#
+emmo1s:Conventional a owl:Class;
+   rdfs:label "Conventional"^^xs:string;
+   owl:sameAs emmo-semiotics:EMMO_35d2e130_6e01_41ed_94f7_00b333d46cf9;
+   rdfs:subClassOf emmo1s:Sign;
+   rdfs:comment "Conventional, i.e., a Sign that represents an Object by convention"^^xs:string.
+emmo1s:Icon a owl:Class;
+   rdfs:label "Icon"^^xs:string;
+   owl:sameAs emmo-semiotics:EMMO_d7788d1a_020d_4c78_85a1_13563fcec168;
+   rdfs:subClassOf emmo1s:Sign;
+   rdfs:comment "Icon, i.e., a Sign that represents an Object by similarity"^^xs:string.
+emmo1s:Index a owl:Class;
+   rdfs:label "Index"^^xs:string;
+   owl:sameAs emmo-semiotics:EMMO_0cd58641_824c_4851_907f_f4c3be76630c;
+   rdfs:subClassOf emmo1s:Sign;
+   rdfs:comment "Index, i.e., a Sign that represents an Object by indication due to causal contiguity (like smoke signifies fire)"^^xs:string.
+emmo1s:Interpretant a owl:Class;
+   rdfs:label "Interpretant"^^xs:string;
+   owl:sameAs emmo-semiotics:EMMO_054af807_85cd_4a13_8eba_119dfdaaf38b;
+   rdfs:subClassOf emmo1s:Sign;
+   rdfs:comment "Interpretant, i.e., a Sign that is used internally by the Interpreter to represent the Object (to himself only)"^^xs:string.
+emmo1s:Interpreter a owl:Class;
+   rdfs:label "Interpreter"^^xs:string;
+   owl:sameAs emmo-semiotics:EMMO_0527413c_b286_4e9c_b2d0_03fb2a038dee;
+   rdfs:subClassOf emmo1s:Semiotic;
+   rdfs:comment "Interpreter, i.e., a Semiotic Participant that actively creates the connection between the Sign, the Object, and the Interpretant in a Semiosis Process"^^xs:string.
+emmo1s:Object a owl:Class;
+   rdfs:label "Object"^^xs:string;
+   owl:sameAs emmo-semiotics:EMMO_6f5af708_f825_4feb_a0d1_a8d813d3022b;
+   rdfs:subClassOf emmo1s:Semiotic;
+   rdfs:comment "Object, i.e., a Semiotic Participant to which the Interpreter refers, using a Sign"^^xs:string.
+emmo1s:Semiosis a owl:Class;
+   rdfs:label "Semiosis"^^xs:string;
+   owl:sameAs emmo-semiotics:EMMO_008fd3b2_4013_451f_8827_52bceab11841;
+   rdfs:subClassOf emmo1s:Process, [
+      a owl:Restriction;
+      owl:onProperty emmo1s:hasProperParticipant;
+      owl:someValuesFrom emmo1s:Interpreter
+   ], [
+      a owl:Restriction;
+      owl:onProperty emmo1s:hasProperParticipant;
+      owl:someValuesFrom emmo1s:Sign
+   ], [
+      a owl:Restriction;
+      owl:onProperty emmo1s:hasProperParticipant;
+      owl:someValuesFrom emmo1s:Object
+   ];
+   rdfs:comment "Semiosis, i.e., a Process that constitutes meaning by participation of an Interpreter, a Sign, and an Object"^^xs:string.
+emmo1s:Semiotic a owl:Class;
+   rdfs:label "Semiotic"^^xs:string;
+   owl:sameAs emmo-semiotics:EMMO_b803f122_4acb_4064_9d71_c1e5fd091fc9;
+   rdfs:subClassOf emmo1s:Participant, [
+      a owl:Restriction;
+      owl:onProperty [owl:inverseOf emmo1s:hasProperParticipant];
+      owl:someValuesFrom emmo1s:Semiosis
+   ];
+   owl:unionOf (emmo1s:Interpreter emmo1s:Sign emmo1s:Object);
+   rdfs:comment "Semiotic, i.e., a Participant that fulfills one of the constitutive roles in a Semiosis, i.e., that of the Interpreter, Sign, or Object"^^xs:string.
+emmo1s:Sign a owl:Class;
+   rdfs:label "Sign"^^xs:string;
+   owl:sameAs emmo-semiotics:EMMO_b21a56ed_f969_4612_a6ec_cb7766f7f31d;
+   rdfs:subClassOf emmo1s:Semiotic, emmo1s:Perceptual;
+   owl:unionOf (emmo1s:Conventional emmo1s:Icon emmo1s:Index);
+   rdfs:comment "Sign, i.e., a Semiotic Participant that represents (signifies) an Object within a Semiosis Process"^^xs:string.
+
+## EMMO semiotics relations
+#
+emmo1s:hasConventional a owl:ObjectProperty;
+   rdfs:label "hasConventional"^^xs:string;
+   owl:sameAs emmo-semiotics:EMMO_eb3518bf_f799_4f9e_8c3e_ce59af11453b;
+   rdfs:domain emmo1s:Object;
+   rdfs:range emmo1s:Conventional;
+   rdfs:subPropertyOf emmo1s:hasSign;
+   rdfs:comment "signification of an Object by a Conventional Sign (i.e., according to convention)"^^xs:string.
+emmo1s:hasIcon a owl:ObjectProperty;
+   rdfs:label "hasIcon"^^xs:string;
+   owl:sameAs emmo-semiotics:EMMO_39c3815d_8cae_4c8f_b2ff_eeba24bec455;
+   rdfs:domain emmo1s:Object;
+   rdfs:range emmo1s:Icon;
+   rdfs:subPropertyOf emmo1s:hasSign;
+   rdfs:comment "signification of an Object by an Icon (i.e., a Sign that resembles the Object)"^^xs:string.
+emmo1s:hasIndex a owl:ObjectProperty;
+   rdfs:label "hasIndex"^^xs:string;
+   owl:sameAs emmo-semiotics:EMMO_297999d6_c9e4_4262_9536_bd524d1c6e21;
+   rdfs:domain emmo1s:Object;
+   rdfs:range emmo1s:Index;
+   rdfs:subPropertyOf emmo1s:hasSign;
+   rdfs:comment "signification of an Object by an Index (i.e., a Sign that indicates the Object due to causal contiguity)"^^xs:string.
+emmo1s:hasInterpretant a owl:ObjectProperty;
+   rdfs:label "hasInterpretant"^^xs:string;
+   owl:sameAs emmo-semiotics:EMMO_7fb7fe7e_bdf9_4eeb_adad_e384dd5285c6;
+   rdfs:domain emmo1s:Object;
+   rdfs:range emmo1s:Interpretant;
+   rdfs:subPropertyOf emmo1s:hasSign;
+   rdfs:comment "connects an Object to the internal representation (Interpretant) given to it by an Interpreter"^^xs:string.
+emmo1s:hasSign a owl:ObjectProperty;
+   rdfs:label "hasSign"^^xs:string;
+   owl:sameAs emmo-semiotics:EMMO_60577dea_9019_4537_ac41_80b0fb563d41;
+   rdfs:domain emmo1s:EMMO;
+   rdfs:range emmo1s:Sign;
+   rdfs:subPropertyOf emmo1s:EMMORelation;
+   rdfs:comment "signification, connecting a referenced entity to a sign that represents it by semiosis"^^xs:string.
+
+## EMMO models classes
+#
+emmo1s:AtomisticModel a owl:Class;
+   rdfs:label "AtomisticModel"^^xs:string;
+   owl:sameAs emmo-models:EMMO_84cadc45_6758_46f2_ba2a_5ead65c70213;
+   rdfs:subClassOf emmo1s:PhysicsBasedModel;
+   rdfs:comment "AtomisticModel, i.e., an atomistic PhysicsBasedModel following RoMM, MODA, and OSMO"^^xs:string.
+emmo1s:ContinuumModel a owl:Class;
+   rdfs:label "ContinuumModel"^^xs:string;
+   owl:sameAs emmo-models:EMMO_4456a5d2_16a6_4ee1_9a8e_5c75956b28ea;
+   rdfs:subClassOf emmo1s:PhysicsBasedModel;
+   rdfs:comment "ContinuumModel, i.e., a continuum PhysicsBasedModel following RoMM, MODA, and OSMO"^^xs:string.
+emmo1s:DataBasedModel a owl:Class;
+   rdfs:label "DataBasedModel"^^xs:string;
+   owl:sameAs emmo-models:EMMO_a4b14b83_9392_4a5f_a2e8_b2b58793f59b;
+   rdfs:subClassOf emmo1s:MathematicalModel;
+   rdfs:comment "DataBasedModel, i.e., an empirical data-driven MathematicalModel that is not based on a physical equation"^^xs:string.
+emmo1s:ElectronicModel a owl:Class;
+   rdfs:label "ElectronicModel"^^xs:string;
+   owl:sameAs emmo-models:EMMO_6eca09be_17e9_445e_abc9_000aa61b7a11;
+   rdfs:subClassOf emmo1s:PhysicsBasedModel;
+   rdfs:comment "ElectronicModel, i.e., an electronic PhysicsBasedModel following RoMM, MODA, and OSMO"^^xs:string.
+emmo1s:Experiment a owl:Class;
+   rdfs:label "Experiment"^^xs:string;
+   owl:sameAs emmo-models:EMMO_22522299_4091_4d1f_82a2_3890492df6db;
+   rdfs:subClassOf emmo1s:Observation, [
+      a owl:Restriction;
+      owl:onProperty emmo1s:hasProperParticipant;
+      owl:someValuesFrom emmo1s:PhysicalPhenomenon
+   ];
+   rdfs:comment "Experiment, i.e., an Observation that is conducted with the intention of replicating a PhysicalPhenomenon in a controlled environment"^^xs:string.
+emmo1s:MaterialRelation a owl:Class;
+   rdfs:label "MaterialRelation"^^xs:string;
+   owl:sameAs emmo-models:EMMO_e5438930_04e7_4d42_ade5_3700d4a52ab7;
+   rdfs:subClassOf emmo1s:Equation, [
+      a owl:Restriction;
+      owl:onProperty emmo1s:hasSpatialPart;
+      owl:someValuesFrom emmo1s:PhysicalQuantity
+   ];
+   rdfs:comment "MaterialRelation, i.e., a materials relation (MR) as defined by RoMM, MODA, and OSMO"^^xs:string.
+emmo1s:MathematicalModel a owl:Class;
+   rdfs:label "MathematicalModel"^^xs:string;
+   owl:sameAs emmo-models:EMMO_f7ed665b_c2e1_42bc_889b_6b42ed3a36f0;
+   rdfs:subClassOf emmo1s:Model, emmo1s:Mathematical;
+   owl:equivalentClass [owl:intersectionOf (emmo1s:Model emmo1s:Mathematical)];
+   rdfs:comment "class defined by intersection of Model and Mathematical"^^xs:string.
+emmo1s:MesoscopicModel a owl:Class;
+   rdfs:label "MesoscopicModel"^^xs:string;
+   owl:sameAs emmo-models:EMMO_53935db0_af45_4426_b9e9_244a0d77db00;
+   rdfs:subClassOf emmo1s:PhysicsBasedModel;
+   rdfs:comment "MesoscopicModel, i.e., a mesoscopic PhysicsBasedModel following RoMM, MODA, and OSMO"^^xs:string.
+emmo1s:Model a owl:Class;
+   rdfs:label "Model"^^xs:string;
+   owl:sameAs emmo-models:EMMO_939483b1_0148_43d1_8b35_851d2cd5d939;
+   rdfs:subClassOf emmo1s:Icon, [
+      a owl:Restriction;
+      owl:onProperty [owl:inverseOf emmo1s:hasModel];
+      owl:someValuesFrom emmo1s:Object
+   ];
+   rdfs:comment "Model, i.e., an Icon that provides a simplified representation of a Physical Object that is suitable for predicting its behaviour, e.g., by simulation"^^xs:string.
+emmo1s:PhysicalPhenomenon a owl:Class;
+   rdfs:label "PhysicalPhenomenon"^^xs:string;
+   owl:sameAs emmo-models:EMMO_314d0bd5_67ed_437e_a609_36d46147cea7;
+   rdfs:subClassOf emmo1s:Process;
+   rdfs:comment "PhysicalPhenomenon, i.e., a Process that 'for the ontologist' carries a meaning related to physics"^^xs:string.
+emmo1s:PhysicsBasedModel a owl:Class;
+   rdfs:label "PhysicsBasedModel"^^xs:string;
+   owl:sameAs emmo-models:EMMO_b29fd350_39aa_4af7_9459_3faa0544cba6;
+   rdfs:subClassOf emmo1s:MathematicalModel, [
+      a owl:Restriction;
+      owl:onProperty emmo1s:hasSpatialPart;
+      owl:someValuesFrom emmo1s:PhysicsEquation
+   ], [
+      a owl:Restriction;
+      owl:onProperty emmo1s:hasSpatialPart;
+      owl:someValuesFrom emmo1s:MaterialRelation
+   ];
+   rdfs:comment "PhysicsBasedModel, i.e., a mathematical model that is based on a physical equation (PE) and one or multiple materials relations (MR) as governing equations, following RoMM, MODA, and OSMO"^^xs:string.
+emmo1s:PhysicsEquation a owl:Class;
+   rdfs:label "PhysicsEquation"^^xs:string;
+   owl:sameAs emmo-models:EMMO_27c5d8c6_8af7_4d63_beb1_ec37cd8b3fa3;
+   rdfs:subClassOf emmo1s:Equation, [
+      a owl:Restriction;
+      owl:onProperty emmo1s:hasSpatialPart;
+      owl:someValuesFrom emmo1s:PhysicalQuantity
+   ];
+   rdfs:comment "PhysicsEquation, i.e., a physical equation, e.g., belonging to any of the 25 physical equation types specified by OSMO on the basis of RoMM"^^xs:string.
+
+## EMMO models relations
+#
+emmo1s:hasModel a owl:ObjectProperty;
+   rdfs:label "hasModel"^^xs:string;
+   owl:sameAs emmo-models:EMMO_24c71baf_6db6_48b9_86c8_8c70cf36db0c;
+   rdfs:domain emmo1s:Object;
+   rdfs:range emmo1s:Model;
+   rdfs:subPropertyOf emmo1s:hasIcon;
+   rdfs:comment "connects an Object to a Model that represents it"^^xs:string.
+
+
+###############################################################################
+#                                                                             #
+#                REFERENCED EMMO MIDDLE CLASSES AND RELATIONS                 #
+#                                                                             #
+# (i.e., other than mereotopology, physical, holistic, semiotics, and models) #
+#                                                                             #
+###############################################################################
+
+## EMMO manufacturing classes
+#
+emmo1s:Engineered a owl:Class;
+   rdfs:label "Engineered"^^xs:string;
+   owl:sameAs emmo-manufacturing:EMMO_a4d66059_5dd3_4b90_b4cb_10960559441b;
+   rdfs:subClassOf emmo1s:Physical;
+   rdfs:comment "Engineered, i.e., a Physical object that has been manufactured for a particular purpose"^^xs:string.
+
+## EMMO math classes
+#
+emmo1s:Array a owl:Class;
+   rdfs:label "Array"^^xs:string;
+   owl:sameAs emmo-math:EMMO_28fbea28_2204_4613_87ff_6d877b855fcd;
+   rdfs:subClassOf emmo1s:Mathematical.
+emmo1s:Constant a owl:Class;
+   rdfs:label "Constant"^^xs:string;
+   owl:sameAs emmo-math:EMMO_ae15fb4f_8e4d_41de_a0f9_3997f89ba6a2;
+   rdfs:subClassOf emmo1s:Variable;
+   rdfs:comment "Constant, i.e., a Variable that stands for a well-known constant; n.b., following the EMMO definition, the value must be 'well-known' - the included example is pi = 3.1415 ... other Variables with fixed values that are not 'well-known' must be classified as Parameters"^^xs:string.
+emmo1s:Equation a owl:Class;
+   rdfs:label "Equation"^^xs:string;
+   owl:sameAs emmo-math:EMMO_e56ee3eb_7609_4ae1_8bed_51974f0960a6;
+   rdfs:subClassOf emmo1s:Mathematical, emmo1s:String;
+   rdfs:comment "Equation, i.e., a formula of the type 'f(...) = g(...)' where f and g are functions of Variables"^^xs:string.
+emmo1s:Inequality a owl:Class;
+   rdfs:label "Inequality"^^xs:string;
+   owl:sameAs emmo-math:EMMO_0b6ebe5a_0026_4bef_a1c1_5be00df9f98e;
+   rdfs:subClassOf emmo1s:Mathematical, emmo1s:String;
+   rdfs:comment "Equation, i.e., a formula of the type 'f(...) O g(...)' where f and g are Expressions, namely, functions of Variables, and O is one of the appropriate operators (i.e., /=, <, <=, >, and >=)"^^xs:string.
+emmo1s:Mathematical a owl:Class;
+   rdfs:label "Mathematical"^^xs:string;
+   owl:sameAs emmo-math:EMMO_54ee6b5e_5261_44a8_86eb_5717e7fdb9d0;
+   rdfs:subClassOf emmo1s:WellFormedSymbolic;
+   rdfs:comment "Mathematical, i.e., a WellFormedSymbolic term (word) that respects the rules of mathematical syntax"^^xs:string.
+emmo1s:Matrix a owl:Class;
+   rdfs:label "Matrix"^^xs:string;
+   owl:sameAs emmo-math:EMMO_1cba0b27_15d0_4326_933f_379d0b3565b6;
+   rdfs:subClassOf emmo1s:Array.
+emmo1s:Number a owl:Class;
+   rdfs:label "Number"^^xs:string;
+   owl:sameAs emmo-math:EMMO_21f56795_ee72_4858_b571_11cfaa59c1a8;
+   rdfs:subClassOf emmo1s:Mathematical, emmo1s:Symbol;
+   rdfs:comment "n.b., a Number is defined to be a Symbol (rather than just a Symbolic)"^^xs:string.
+emmo1s:Parameter a owl:Class;
+   rdfs:label "Parameter"^^xs:string;
+   owl:sameAs emmo-math:EMMO_d1d436e7_72fc_49cd_863b_7bfb4ba5276a;
+   rdfs:subClassOf emmo1s:Variable;
+   rdfs:comment "Parameter, i.e., a Variable with a value that is assumed to be known independently from any Equation that is being solved (e.g., viscosity in the Navier-Stokes equation)"^^xs:string.
+emmo1s:Unknown a owl:Class;
+   rdfs:label "Unknown"^^xs:string;
+   owl:sameAs emmo-math:EMMO_fe7e56ce_118b_4243_9aad_20eb9f4f31f6;
+   rdfs:subClassOf emmo1s:Variable;
+   rdfs:comment "Unknown, i.e., a Variable for which a value is not given or assumed to be known; e.g., any Variable for which an Equation is being solved is an Unknown in the context of this Equation"^^xs:string.
+emmo1s:Variable a owl:Class;
+   rdfs:label "Variable"^^xs:string;
+   owl:sameAs emmo-math:EMMO_1eed0732_e3f1_4b2c_a9c4_b4e75eeb5895;
+   rdfs:subClassOf emmo1s:Mathematical, emmo1s:Conventional, [
+      a owl:Restriction;
+      owl:onProperty [owl:inverseOf emmo1s:hasVariable];
+      owl:someValuesFrom emmo1s:Mathematical
+   ];
+   rdfs:comment "Variable, i.e., a Mathematical Symbolic that, by convention, stands for a numerically defined mathematical object (n.b., a Number is a Symbol, whereas a Variable is only a Symbolic)"^^xs:string.
+emmo1s:Vector a owl:Class;
+   rdfs:label "Vector"^^xs:string;
+   owl:sameAs emmo-math:EMMO_06658d8d_dcde_4fc9_aae1_17f71c0bcdec;
+   rdfs:subClassOf emmo1s:Array.
+
+## EMMO math properties
+#
+emmo1s:hasVariable a owl:ObjectProperty;
+   rdfs:label "hasVariable"^^xs:string;
+   owl:sameAs emmo-math:EMMO_3446e167_c576_49d6_846c_215bb8878a55;
+   rdfs:domain emmo1s:Mathematical;
+   rdfs:range emmo1s:Variable;
+   rdfs:subPropertyOf emmo1s:hasConventional;
+   rdfs:comment "relates a Mathematical object to a Variable that represents it"^^xs:string.
+
+## EMMO perceptual classes
+#
+emmo1s:Composition a owl:Class;
+   rdfs:label "Composition"^^xs:string;
+   owl:sameAs emmo-perceptual:EMMO_2c1ceb4c_8b09_4374_91ec_98497b245a22;
+   rdfs:subClassOf emmo1s:Symbolic, [
+      a owl:Restriction;
+      owl:onProperty emmo1s:hasSpatialPart;
+      owl:someValuesFrom emmo1s:Symbolic
+   ];
+   rdfs:comment "Composition, i.e., a Symbolic object composed of other Symbolic objects that are arranged in a specific spatial configuration"^^xs:string.
+emmo1s:Geometrical a owl:Class;
+   rdfs:label "Geometrical"^^xs:string;
+   owl:sameAs emmo-perceptual:EMMO_b5957cef_a287_442d_a3ce_fd39f20ba1cd;
+   rdfs:subClassOf emmo1s:Perceptual;
+   rdfs:comment "Geometrical, i.e., an entity that expresses a (non-4D) geometrical object; n.b., these are not Signs according to the EMMO, since non-4D geometrical objects cannot be EMMO individuals"^^xs:string.
+emmo1s:Perceptual a owl:Class;
+   rdfs:label "Perceptual"^^xs:string;
+   owl:sameAs emmo-perceptual:EMMO_649bf97b_4397_4005_90d9_219755d92e34;
+   rdfs:subClassOf emmo1s:Physical;
+   rdfs:comment "Perceptual, i.e., a Physical entity that is 'recognizable by an Interpreter'"^^xs:string.
+emmo1s:String a owl:Class;
+   rdfs:label "String"^^xs:string;
+   owl:sameAs emmo-perceptual:EMMO_50ea1ec5_f157_41b0_b46b_a9032f17ca10;
+   rdfs:subClassOf emmo1s:Symbolic, [
+      a owl:Restriction;
+      owl:onProperty emmo1s:hasSpatialPart;
+      owl:someValuesFrom emmo1s:Symbol
+   ];
+   rdfs:commit "String, i.e., a (linear) sequence of Symbols"^^xs:string.
+emmo1s:Symbol a owl:Class;
+   rdfs:label "Symbol"^^xs:string;
+   owl:sameAs emmo-perceptual:EMMO_a1083d0a_c1fb_471f_8e20_a98f881ad527;
+   rdfs:subClassOf emmo1s:Symbolic;
+   owl:disjointWith [
+      a owl:Restriction;
+      owl:onProperty emmo1s:hasProperPart;
+      owl:someValuesFrom emmo1s:Symbol
+   ];
+   rdfs:comment "Symbol, i.e., the element of an alphabet (or a 'symbol of a formal language'); being elementary, it does not contain any Symbol as a proper part"^^xs:string.
+emmo1s:Symbolic a owl:Class;
+   rdfs:label "Symbolic"^^xs:string;
+   owl:sameAs emmo-perceptual:EMMO_057e7d57_aff0_49de_911a_8861d85cef40;
+   rdfs:subClassOf emmo1s:Perceptual;
+   rdfs:comment "Symbolic, i.e., a graphical combination or arrangement ultimately based on 'tokens' (presumably, 'token' here means Symbol)"^^xs:string.
+emmo1s:WellFormedSymbolic a owl:Class;
+   rdfs:label "WellFormedSymbolic"^^xs:string;
+   owl:sameAs emmo-perceptual:EMMO_d8d2144e_5c8d_455d_a643_5caf4d8d9df8;
+   rdfs:subClassOf emmo1s:Symbolic;
+   rdfs:comment "WellFormedSymbolic, i.e., a Symbolic that respects the syntactic rules of a formal language"^^xs:string.
+
+## EMMO physicalistic classes
+#
+emmo1s:Material a owl:Class;
+   rdfs:label "Material"^^xs:string;
+   owl:sameAs emmo-physicalistic:EMMO_4207e895_8b83_4318_996a_72cfb32acd94;
+   rdfs:subClassOf emmo1s:Physical;
+   rdfs:comment "Material, i.e., a Physical object that is part of 'a more comprehensive real-world object'"^^xs:string.
+
+## EMMO properties classes
+#
+emmo1s:Measurement a owl:Class;
+   rdfs:label "Measurement"^^xs:string;
+   owl:sameAs emmo-properties:EMMO_463bcfda_867b_41d9_a967_211d4d437cfb;
+   rdfs:subClassOf emmo1s:Observation;
+   rdfs:comment "Measurement, i.e., an Observation by which a Property of an Object is determined by comparison to a standard reference"^^xs:string.
+emmo1s:Observation a owl:Class;
+   rdfs:label "Observation"^^xs:string;
+   owl:sameAs emmo-properties:EMMO_10a5fd39_06aa_4648_9e70_f962a9cb2069;
+   rdfs:subClassOf emmo1s:Semiosis, [
+      a owl:Restriction;
+      owl:onProperty emmo1s:hasProperParticipant;
+      owl:someValuesFrom emmo1s:Observer
+   ], [
+      a owl:Restriction;
+      owl:onProperty emmo1s:hasProperParticipant;
+      owl:someValuesFrom emmo1s:Property
+   ];
+   rdfs:comment "Observation, i.e., a Semiosis Process by which an Observer determines a Property of an Object"^^xs:string.
+emmo1s:Observer a owl:Class;
+   rdfs:label "Observer"^^xs:string;
+   owl:sameAs emmo-properties:EMMO_1b52ee70_121e_4d8d_8419_3f97cd0bd89c;
+   rdfs:subClassOf emmo1s:Interpreter, [
+      a owl:Restriction;
+      owl:onProperty [owl:inverseOf emmo1s:hasProperParticipant];
+      owl:someValuesFrom emmo1s:Observation
+   ];
+   rdfs:comment "Observer, i.e., an Interpreter that observes an Object through a specific perception mechanism to determine a Property by Observation"^^xs:string.
+emmo1s:ObjectiveProperty a owl:Class;
+   rdfs:label "ObjectiveProperty"^^xs:string;
+   owl:sameAs emmo-properties:EMMO_2a888cdf_ec4a_4ec5_af1c_0343372fc978;
+   rdfs:subClassOf emmo1s:Property;
+   rdfs:comment "ObjectiveProperty, i.e., a Property that is determined by a well-defined Observation procedure through a specific perception channel"^^xs:string.
+emmo1s:Property a owl:Class;
+   rdfs:label "Property"^^xs:string;
+   owl:sameAs emmo-properties:EMMO_b7bcff25_ffc3_474e_9ab5_01b1664bd4ba;
+   rdfs:subClassOf emmo1s:Conventional, [
+      a owl:Restriction;
+      owl:onProperty [owl:inverseOf emmo1s:hasProperParticipant];
+      owl:someValuesFrom emmo1s:Observation
+   ], [
+      a owl:Restriction;
+      owl:onProperty [owl:inverseOf emmo1s:hasProperty];
+      owl:someValuesFrom emmo1s:Object
+   ];
+   owl:disjointUnionOf (emmo1s:SubjectiveProperty emmo1s:ObjectiveProperty);
+   rdfs:comment "Property, i.e., a Conventional (Sign) that participates in an Observation Process"^^xs:string.
+emmo1s:QuantitativeProperty a owl:Class;
+   rdfs:label "QuantitativeProperty"^^xs:string;
+   owl:sameAs emmo-properties:EMMO_dd4a7f3e_ef56_466c_ac1a_d2716b5f87ec;
+   rdfs:subClassOf emmo1s:ObjectiveProperty;
+   rdfs:comment "QuantitativeProperty, i.e., an ObjectiveProperty that can be quantified with respect to a standardized reference physical instance or method"^^xs:string.
+emmo1s:SubjectiveProperty a owl:Class;
+   rdfs:label "SubjectiveProperty"^^xs:string;
+   owl:sameAs emmo-properties:EMMO_251cfb4f_5c75_4778_91ed_6c8395212fd8;
+   rdfs:subClassOf emmo1s:Property;
+   rdfs:comment "SubjectiveProperty, i.e., a Property that is not an ObjectiveProperty - it is not determined by a well-defined Observation procedure"^^xs:string.
+
+## EMMO properties relations
+#
+emmo1s:hasProperty a owl:ObjectProperty;
+   rdfs:label "hasProperty"^^xs:string;
+   owl:sameAs emmo-properties:EMMO_e1097637_70d2_4895_973f_2396f04fa204;
+   rdfs:domain emmo1s:Object;
+   rdfs:range emmo1s:Property;
+   rdfs:subPropertyOf emmo1s:hasConventional.
+
+## EMMO units classes
+#
+emmo1s:MeasurementUnit a owl:Class;
+   rdfs:label "MeasurementUnit"^^xs:string;
+   owl:sameAs emmo-units:EMMO_b081b346_7279_46ef_9a3d_2c088fcd79f4;
+   rdfs:subClassOf emmo1s:ReferenceUnit, emmo1s:Mathematical;
+   rdfs:comment "MeasurementUnit, i.e., a Mathematical ReferenceUnit that stands for the standard reference magnitude of a specific class of measurement processes, defined and adopted by convention or by law"^^xs:string.
+emmo1s:PhysicalQuantity a owl:Class;
+   rdfs:label "PhysicalQuantity"^^xs:string;
+   owl:sameAs emmo-units:EMMO_02c0621e_a527_4790_8a0f_2bb51973c819;
+   rdfs:subClassOf emmo1s:Quantity, emmo1s:Mathematical.
+emmo1s:Quantity a owl:Class;
+   rdfs:label "Quantity"^^xs:string;
+   owl:sameAs emmo-units:EMMO_f658c301_ce93_46cf_9639_4eace2c5d1d5;
+   rdfs:subClassOf emmo1s:WellFormedSymbolic, [
+      a owl:Restriction;
+      owl:onProperty emmo1s:hasQuantityValue;
+      owl:cardinality 1
+   ], [
+      a owl:Restriction;
+      owl:onProperty emmo1s:hasUnit;
+      owl:cardinality 1
+   ].
+emmo1s:ReferenceUnit a owl:Class;
+   rdfs:label "ReferenceUnit"^^xs:string;
+   owl:sameAs emmo-units:EMMO_18ce5200_00f5_45bb_8c6f_6fb128cd41ae;
+   rdfs:subClassOf emmo1s:WellFormedSymbolic.
+
+## EMMO units properties
+#
+emmo1s:hasQuantityValue a owl:ObjectProperty;
+   rdfs:label "hasQuantityValue"^^xs:string;
+   owl:sameAs emmo-units:EMMO_8ef3cd6d_ae58_4a8d_9fc0_ad8f49015cd0;
+   rdfs:domain emmo1s:Quantity;
+   rdfs:range emmo1s:Number;
+   rdfs:subPropertyOf emmo1s:hasSpatialPart.
+emmo1s:hasUnit a owl:ObjectProperty;
+   rdfs:label "hasUnit"^^xs:string;
+   owl:sameAs emmo-units:EMMO_67fc0a36_8dcb_4ffa_9a43_31074efa3296;
+   rdfs:domain emmo1s:Quantity;
+   rdfs:range emmo1s:ReferenceUnit;
+   rdfs:subPropertyOf emmo1s:hasSpatialPart.
