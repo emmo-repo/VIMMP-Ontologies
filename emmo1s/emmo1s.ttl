@@ -1,7 +1,7 @@
 
 ### EMMO 1.0 SIMPLIFIED (EMMO1S) ###
 
-### VERSION 0.9.0 ###
+### VERSION 0.9.1 ###
 
 ### DATED 2ND MARCH 2020 ###
 
@@ -326,7 +326,7 @@ emmo1s:hasInterpretant a owl:ObjectProperty;
 emmo1s:hasSign a owl:ObjectProperty;
    rdfs:label "hasSign"^^xs:string;
    owl:sameAs emmo-semiotics:EMMO_60577dea_9019_4537_ac41_80b0fb563d41;
-   rdfs:domain emmo1s:EMMO;
+   rdfs:domain emmo1s:Object;
    rdfs:range emmo1s:Sign;
    rdfs:subPropertyOf emmo1s:EMMORelation;
    rdfs:comment "signification, connecting a referenced entity to a sign that represents it by semiosis"^^xs:string.

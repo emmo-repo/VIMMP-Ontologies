@@ -13,7 +13,7 @@
 
 ### EMMO 1.0 SIMPLIFIED (EMMO1S) ###
 
-### VERSION 0.9.0 ###
+### VERSION 0.9.1 ###
 
 ### DATED 2ND MARCH 2020 ###
 
@@ -338,7 +338,7 @@ emmo1s:hasInterpretant a owl:ObjectProperty;
 emmo1s:hasSign a owl:ObjectProperty;
    rdfs:label "hasSign"^^xs:string;
    owl:sameAs emmo-semiotics:EMMO_60577dea_9019_4537_ac41_80b0fb563d41;
-   rdfs:domain emmo1s:EMMO;
+   rdfs:domain emmo1s:Object;
    rdfs:range emmo1s:Sign;
    rdfs:subPropertyOf emmo1s:EMMORelation;
    rdfs:comment "signification, connecting a referenced entity to a sign that represents it by semiosis"^^xs:string.
@@ -699,7 +699,7 @@ emmo1s:hasUnit a owl:ObjectProperty;
 
 ### EMMO-VIMMP INTEGRATION (EVI) ###
 
-### VERSION 0.4.0 ###
+### VERSION 0.4.1 ###
 
 ### DATED 2ND MARCH 2020 ###
 
@@ -853,7 +853,7 @@ evi:is_proper_part_of a owl:ObjectProperty;
 emmo1s:hasProperPart rdfs:subPropertyOf evi:has_mereosemiotic_relation_with.
 evi:is_sign_for a owl:ObjectProperty;
    rdfs:domain emmo1s:Sign;
-   rdfs:range emmo1s:EMMO;
+   rdfs:range emmo1s:Object;
    owl:inverseOf emmo1s:hasSign;
    rdfs:subPropertyOf evi:has_mereosemiotic_relation_with.
 evi:is_model_for a owl:ObjectProperty;
@@ -1088,36 +1088,19 @@ otras:course a owl:Class;
 otras:focus a owl:Class;
    rdfs:subClassOf emmo1s:Symbolic, evmpo:annotation, otras:training_entity.
 
-# a topic is a sign for a collection of semiosis processes
+# a topic is a sign
 #
 otras:topic a owl:Class;
-   rdfs:subClassOf emmo1s:Sign, otras:focus;
-   rdfs:subClassOf [
-      a owl:Restriction;
-      owl:onProperty evi:is_sign_for;
-      owl:someValuesFrom emmo1s:Collection
-   ], [
-      a owl:Restriction;
-      owl:onProperty [owl:inverseOf evi:mereosemiotics_ip_hs];
-      owl:someValuesFrom emmo1s:Semiosis
-   ].
+   rdfs:subClassOf emmo1s:Sign, otras:focus.
 
 otras:has_abstract a owl:ObjectProperty;
    rdfs:subPropertyOf emmo1s:hasProperPart.
-otras:has_document_topic a owl:ObjectProperty;
-   rdfs:subPropertyOf evi:mereosemiotics_hp_ip_hs.
 otras:has_offered_course a owl:ObjectProperty;
    rdfs:subPropertyOf [owl:inverseOf evi:mereosemiotics_ip_hs], evi:has_mereosemiotic_relation_with.
-otras:is_broader_than a owl:ObjectProperty;
-   rdfs:subPropertyOf [owl:inverseOf evi:mereosemiotics_is_ip_hs], evi:has_mereosemiotic_relation_with.
 otras:is_citation_about_document a owl:ObjectProperty;
    rdfs:subPropertyOf evi:is_sign_for.
 otras:is_cited_as a owl:ObjectProperty;
    rdfs:subPropertyOf emmo1s:hasSign.
-otras:is_discussed_by_document a owl:ObjectProperty;
-   rdfs:subPropertyOf [owl:inverseOf evi:mereosemiotics_hp_ip_hs], evi:has_mereosemiotic_relation_with.
-otras:is_narrower_than a owl:ObjectProperty;
-   rdfs:subPropertyOf evi:mereosemiotics_is_ip_hs.
 
 
 #########################
@@ -1128,7 +1111,7 @@ otras:is_narrower_than a owl:ObjectProperty;
 # (i.e., it is an element of the alphabet for an appropriately specified formal language)
 #
 viso-am:interaction_site a owl:Class;
-   rdfs:subClassOf evi:Symbol, viso:model_object.
+   rdfs:subClassOf emmo1s:Symbol, viso:model_object.
 
 # a model object is a symbolic entity
 #
