@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 1.3.1 ###
+### VERSION 1.4.0 ###
 
-### DATED 14TH DECEMBER 2019 ###
+### DATED 4TH MARCH 2020 ###
 
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -25,23 +25,19 @@
 osmo:materials_model_classifier a owl:Class;
    rdfs:subClassOf evmpo:annotation;
    rdfs:comment "materials model classifier, i.e., a symbol for categories of materials-model related entities, following RoMM (note: these are descriptors, not identical with the described entities)"^^xs:string.
-osmo:op_materials_model_classifier a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_materials_model_classifier a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_annotation rdfs:subClassOf osmo:op_materials_model_classifier.
-evmpo:dp_annotation rdfs:subClassOf osmo:dp_materials_model_classifier.
+osmo:op_materials_model_classifier a owl:ObjectProperty.
+osmo:dp_materials_model_classifier a owl:DatatypeProperty.
+evmpo:op_annotation rdfs:subPropertyOf osmo:op_materials_model_classifier.
+evmpo:dp_annotation rdfs:subPropertyOf osmo:dp_materials_model_classifier.
 
 osmo:granularity_level a owl:Class;
    rdfs:subClassOf osmo:materials_model_classifier;
    owl:oneOf (osmo:ELECTRONIC osmo:ATOMISTIC osmo:MESOSCOPIC osmo:CONTINUUM);
    rdfs:comment "granularity level (from RoMM), i.e., electronic, atomistic, mesoscopic, or continuum level according to RoMM"^^xs:string.
-osmo:op_granularity_level a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_granularity_level a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_materials_model_classifier rdfs:subClassOf osmo:op_granularity_level.
-osmo:dp_materials_model_classifier rdfs:subClassOf osmo:dp_granularity_level.
+osmo:op_granularity_level a owl:ObjectProperty.
+osmo:dp_granularity_level a owl:DatatypeProperty.
+osmo:op_materials_model_classifier rdfs:subPropertyOf osmo:op_granularity_level.
+osmo:dp_materials_model_classifier rdfs:subPropertyOf osmo:dp_granularity_level.
 
 osmo:ELECTRONIC a osmo:granularity_level;
    rdfs:comment "granularity level label: electronic materials modelling"^^xs:string.
@@ -58,21 +54,22 @@ _:C_GRANULARITY_LEVEL a owl:AllDifferent;
 osmo:physical_equation_type a owl:Class;
    rdfs:subClassOf osmo:materials_model_classifier;
    rdfs:comment "physical equation type, i.e., a symbol referring to the physical equation underlying a model, mostly following RoMM (n.b., these entities are not models, they are descriptors of models)"^^xs:string.
-osmo:op_physical_equation_type a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_physical_equation_type a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_materials_model_classifier rdfs:subClassOf osmo:op_physical_equation_type.
-osmo:dp_materials_model_classifier rdfs:subClassOf osmo:dp_physical_equation_type.
+osmo:op_physical_equation_type a owl:ObjectProperty.
+osmo:dp_physical_equation_type a owl:DatatypeProperty.
+osmo:op_materials_model_classifier rdfs:subPropertyOf osmo:op_physical_equation_type.
+osmo:dp_materials_model_classifier rdfs:subPropertyOf osmo:dp_physical_equation_type.
 
-osmo:has_granularity_level a osmo:op_physical_equation_type;
+osmo:has_granularity_level a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_physical_equation_type;
    rdfs:domain osmo:physical_equation_type;
    rdfs:range osmo:granularity_level;
    rdfs:subPropertyOf evmpo:has_meta_annotation.
-osmo:has_pe_type_descriptor a osmo:dp_physical_equation_type;
+osmo:has_pe_type_descriptor a owl:DatatypeProperty;
+   rdfs:subPropertyOf osmo:dp_physical_equation_type;
    rdfs:domain osmo:physical_equation_type;
    rdfs:range xs:string.
-osmo:has_pe_type_id a osmo:dp_physical_equation_type;
+osmo:has_pe_type_id a owl:DatatypeProperty;
+   rdfs:subPropertyOf osmo:dp_physical_equation_type;
    rdfs:domain osmo:physical_equation_type;
    rdfs:range xs:string.
 
@@ -95,12 +92,10 @@ osmo:physical_equation_type owl:disjointUnionOf (osmo:pe_type_electronic osmo:pe
 osmo:pe_type_electronic a owl:Class;
    rdfs:subClassOf osmo:physical_equation_type;
    rdfs:comment "electronic physical equation type, i.e., a PE type at the electronic granularity level"^^xs:string.
-osmo:op_pe_type_electronic a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_pe_type_electronic a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_physical_equation_type rdfs:subClassOf osmo:op_pe_type_electronic.
-osmo:dp_physical_equation_type rdfs:subClassOf osmo:dp_pe_type_electronic.
+osmo:op_pe_type_electronic a owl:ObjectProperty.
+osmo:dp_pe_type_electronic a owl:DatatypeProperty.
+osmo:op_physical_equation_type rdfs:subPropertyOf osmo:op_pe_type_electronic.
+osmo:dp_physical_equation_type rdfs:subPropertyOf osmo:dp_pe_type_electronic.
 
 osmo:pe_type_electronic
    owl:intersectionOf (osmo:physical_equation_type [a owl:Restriction; owl:onProperty osmo:has_granularity_level; owl:hasValue osmo:ELECTRONIC]);
@@ -121,12 +116,10 @@ osmo:pe_type_electronic_qm_abinitio a owl:Class;
       owl:onProperty osmo:has_pe_type_id;
       owl:hasValue "EL.1"^^xs:string];
    rdfs:comment "RoMM model vocabulary category 1.1, OSMO PE type EL.1"^^xs:string.
-osmo:op_pe_type_electronic_qm_abinitio a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_pe_type_electronic_qm_abinitio a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_pe_type_electronic rdfs:subClassOf osmo:op_pe_type_electronic_qm_abinitio.
-osmo:dp_pe_type_electronic rdfs:subClassOf osmo:dp_pe_type_electronic_qm_abinitio.
+osmo:op_pe_type_electronic_qm_abinitio a owl:ObjectProperty.
+osmo:dp_pe_type_electronic_qm_abinitio a owl:DatatypeProperty.
+osmo:op_pe_type_electronic rdfs:subPropertyOf osmo:op_pe_type_electronic_qm_abinitio.
+osmo:dp_pe_type_electronic rdfs:subPropertyOf osmo:dp_pe_type_electronic_qm_abinitio.
 
 osmo:pe_type_electronic_manybody_effective a owl:Class;
    rdfs:subClassOf osmo:pe_type_electronic;
@@ -137,12 +130,10 @@ osmo:pe_type_electronic_manybody_effective a owl:Class;
       owl:onProperty osmo:has_pe_type_id;
       owl:hasValue "EL.2"^^xs:string];
    rdfs:comment "RoMM model vocabulary category 1.2, OSMO PE type EL.2"^^xs:string.
-osmo:op_pe_type_electronic_manybody_effective a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_pe_type_electronic_manybody_effective a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_pe_type_electronic rdfs:subClassOf osmo:op_pe_type_electronic_manybody_effective.
-osmo:dp_pe_type_electronic rdfs:subClassOf osmo:dp_pe_type_electronic_manybody_effective.
+osmo:op_pe_type_electronic_manybody_effective a owl:ObjectProperty.
+osmo:dp_pe_type_electronic_manybody_effective a owl:DatatypeProperty.
+osmo:op_pe_type_electronic rdfs:subPropertyOf osmo:op_pe_type_electronic_manybody_effective.
+osmo:dp_pe_type_electronic rdfs:subPropertyOf osmo:dp_pe_type_electronic_manybody_effective.
 
 osmo:pe_type_electronic_time_dependent a owl:Class;
    rdfs:subClassOf osmo:pe_type_electronic;
@@ -153,12 +144,10 @@ osmo:pe_type_electronic_time_dependent a owl:Class;
       owl:onProperty osmo:has_pe_type_id;
       owl:hasValue "EL.3"^^xs:string];
    rdfs:comment "RoMM model vocabulary category 1.3, OSMO PE type EL.3"^^xs:string.
-osmo:op_pe_type_electronic_time_dependent a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_pe_type_electronic_time_dependent a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_pe_type_electronic rdfs:subClassOf osmo:op_pe_type_electronic_time_dependent.
-osmo:dp_pe_type_electronic rdfs:subClassOf osmo:dp_pe_type_electronic_time_dependent.
+osmo:op_pe_type_electronic_time_dependent a owl:ObjectProperty.
+osmo:dp_pe_type_electronic_time_dependent a owl:DatatypeProperty.
+osmo:op_pe_type_electronic rdfs:subPropertyOf osmo:op_pe_type_electronic_time_dependent.
+osmo:dp_pe_type_electronic rdfs:subPropertyOf osmo:dp_pe_type_electronic_time_dependent.
 
 osmo:pe_type_electronic_charge_transport a owl:Class;
    rdfs:subClassOf osmo:pe_type_electronic;
@@ -169,12 +158,10 @@ osmo:pe_type_electronic_charge_transport a owl:Class;
       owl:onProperty osmo:has_pe_type_id;
       owl:hasValue "EL.4"^^xs:string];
    rdfs:comment "RoMM model vocabulary category 1.4, OSMO PE type EL.4"^^xs:string.
-osmo:op_pe_type_electronic_charge_transport a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_pe_type_electronic_charge_transport a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_pe_type_electronic rdfs:subClassOf osmo:op_pe_type_electronic_charge_transport.
-osmo:dp_pe_type_electronic rdfs:subClassOf osmo:dp_pe_type_electronic_charge_transport.
+osmo:op_pe_type_electronic_charge_transport a owl:ObjectProperty.
+osmo:dp_pe_type_electronic_charge_transport a owl:DatatypeProperty.
+osmo:op_pe_type_electronic rdfs:subPropertyOf osmo:op_pe_type_electronic_charge_transport.
+osmo:dp_pe_type_electronic rdfs:subPropertyOf osmo:dp_pe_type_electronic_charge_transport.
 
 osmo:pe_type_electronic_spin_transport a owl:Class;
    rdfs:subClassOf osmo:pe_type_electronic;
@@ -185,22 +172,18 @@ osmo:pe_type_electronic_spin_transport a owl:Class;
       owl:onProperty osmo:has_pe_type_id;
       owl:hasValue "EL.5"^^xs:string];
    rdfs:comment "RoMM model vocabulary category 1.5, OSMO PE type EL.5"^^xs:string.
-osmo:op_pe_type_electronic_spin_transport a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_pe_type_electronic_spin_transport a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_pe_type_electronic rdfs:subClassOf osmo:op_pe_type_electronic_spin_transport.
-osmo:dp_pe_type_electronic rdfs:subClassOf osmo:dp_pe_type_electronic_spin_transport.
+osmo:op_pe_type_electronic_spin_transport a owl:ObjectProperty.
+osmo:dp_pe_type_electronic_spin_transport a owl:DatatypeProperty.
+osmo:op_pe_type_electronic rdfs:subPropertyOf osmo:op_pe_type_electronic_spin_transport.
+osmo:dp_pe_type_electronic rdfs:subPropertyOf osmo:dp_pe_type_electronic_spin_transport.
 
 osmo:pe_type_atomistic a owl:Class;
    rdfs:subClassOf osmo:physical_equation_type;
    rdfs:comment "atomistic physical equation type, i.e., a PE type that at the atomistic granularity level"^^xs:string.
-osmo:op_pe_type_atomistic a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_pe_type_atomistic a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_physical_equation_type rdfs:subClassOf osmo:op_pe_type_atomistic.
-osmo:dp_physical_equation_type rdfs:subClassOf osmo:dp_pe_type_atomistic.
+osmo:op_pe_type_atomistic a owl:ObjectProperty.
+osmo:dp_pe_type_atomistic a owl:DatatypeProperty.
+osmo:op_physical_equation_type rdfs:subPropertyOf osmo:op_pe_type_atomistic.
+osmo:dp_physical_equation_type rdfs:subPropertyOf osmo:dp_pe_type_atomistic.
 
 osmo:pe_type_atomistic
    owl:intersectionOf (osmo:physical_equation_type [a owl:Restriction; owl:onProperty osmo:has_granularity_level; owl:hasValue osmo:ATOMISTIC]);
@@ -222,12 +205,10 @@ osmo:pe_type_atomistic_density_functional a owl:Class;
       owl:onProperty osmo:has_pe_type_id;
       owl:hasValue "A.1"^^xs:string];
    rdfs:comment "RoMM model vocabulary category 2.1, OSMO PE type A.1"^^xs:string.
-osmo:op_pe_type_atomistic_density_functional a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_pe_type_atomistic_density_functional a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_pe_type_atomistic rdfs:subClassOf osmo:op_pe_type_atomistic_density_functional.
-osmo:dp_pe_type_atomistic rdfs:subClassOf osmo:dp_pe_type_atomistic_density_functional.
+osmo:op_pe_type_atomistic_density_functional a owl:ObjectProperty.
+osmo:dp_pe_type_atomistic_density_functional a owl:DatatypeProperty.
+osmo:op_pe_type_atomistic rdfs:subPropertyOf osmo:op_pe_type_atomistic_density_functional.
+osmo:dp_pe_type_atomistic rdfs:subPropertyOf osmo:dp_pe_type_atomistic_density_functional.
 
 osmo:pe_type_atomistic_molecular_statics a owl:Class;
    rdfs:subClassOf osmo:pe_type_atomistic;
@@ -238,12 +219,10 @@ osmo:pe_type_atomistic_molecular_statics a owl:Class;
       owl:onProperty osmo:has_pe_type_id;
       owl:hasValue "A.2"^^xs:string];
    rdfs:comment "RoMM model vocabulary category 2.2, OSMO PE type A.2"^^xs:string.
-osmo:op_pe_type_atomistic_molecular_statics a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_pe_type_atomistic_molecular_statics a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_pe_type_atomistic rdfs:subClassOf osmo:op_pe_type_atomistic_molecular_statics.
-osmo:dp_pe_type_atomistic rdfs:subClassOf osmo:dp_pe_type_atomistic_molecular_statics.
+osmo:op_pe_type_atomistic_molecular_statics a owl:ObjectProperty.
+osmo:dp_pe_type_atomistic_molecular_statics a owl:DatatypeProperty.
+osmo:op_pe_type_atomistic rdfs:subPropertyOf osmo:op_pe_type_atomistic_molecular_statics.
+osmo:dp_pe_type_atomistic rdfs:subPropertyOf osmo:dp_pe_type_atomistic_molecular_statics.
 
 osmo:pe_type_atomistic_molecular_dynamics a owl:Class;
    rdfs:subClassOf osmo:pe_type_atomistic;
@@ -254,12 +233,10 @@ osmo:pe_type_atomistic_molecular_dynamics a owl:Class;
       owl:onProperty osmo:has_pe_type_id;
       owl:hasValue "A.3"^^xs:string];
    rdfs:comment "RoMM model vocabulary category 2.3, OSMO PE type A.3"^^xs:string.
-osmo:op_pe_type_atomistic_molecular_dynamics a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_pe_type_atomistic_molecular_dynamics a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_pe_type_atomistic rdfs:subClassOf osmo:op_pe_type_atomistic_molecular_dynamics.
-osmo:dp_pe_type_atomistic rdfs:subClassOf osmo:dp_pe_type_atomistic_molecular_dynamics.
+osmo:op_pe_type_atomistic_molecular_dynamics a owl:ObjectProperty.
+osmo:dp_pe_type_atomistic_molecular_dynamics a owl:DatatypeProperty.
+osmo:op_pe_type_atomistic rdfs:subPropertyOf osmo:op_pe_type_atomistic_molecular_dynamics.
+osmo:dp_pe_type_atomistic rdfs:subPropertyOf osmo:dp_pe_type_atomistic_molecular_dynamics.
 
 osmo:pe_type_atomistic_partition_function a owl:Class;
    rdfs:subClassOf osmo:pe_type_atomistic;
@@ -270,12 +247,10 @@ osmo:pe_type_atomistic_partition_function a owl:Class;
       owl:onProperty osmo:has_pe_type_id;
       owl:hasValue "A.4"^^xs:string];
    rdfs:comment "RoMM model vocabulary category 2.4, OSMO PE type A.4"^^xs:string.
-osmo:op_pe_type_atomistic_partition_function a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_pe_type_atomistic_partition_function a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_pe_type_atomistic rdfs:subClassOf osmo:op_pe_type_atomistic_partition_function.
-osmo:dp_pe_type_atomistic rdfs:subClassOf osmo:dp_pe_type_atomistic_partition_function.
+osmo:op_pe_type_atomistic_partition_function a owl:ObjectProperty.
+osmo:dp_pe_type_atomistic_partition_function a owl:DatatypeProperty.
+osmo:op_pe_type_atomistic rdfs:subPropertyOf osmo:op_pe_type_atomistic_partition_function.
+osmo:dp_pe_type_atomistic rdfs:subPropertyOf osmo:dp_pe_type_atomistic_partition_function.
 
 osmo:pe_type_atomistic_spin_model a owl:Class;
    rdfs:subClassOf osmo:pe_type_atomistic;
@@ -286,12 +261,10 @@ osmo:pe_type_atomistic_spin_model a owl:Class;
       owl:onProperty osmo:has_pe_type_id;
       owl:hasValue "A.5"^^xs:string];
    rdfs:comment "RoMM model vocabulary category 2.5, OSMO PE type A.5"^^xs:string.
-osmo:op_pe_type_atomistic_spin_model a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_pe_type_atomistic_spin_model a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_pe_type_atomistic rdfs:subClassOf osmo:op_pe_type_atomistic_spin_model.
-osmo:dp_pe_type_atomistic rdfs:subClassOf osmo:dp_pe_type_atomistic_spin_model.
+osmo:op_pe_type_atomistic_spin_model a owl:ObjectProperty.
+osmo:dp_pe_type_atomistic_spin_model a owl:DatatypeProperty.
+osmo:op_pe_type_atomistic rdfs:subPropertyOf osmo:op_pe_type_atomistic_spin_model.
+osmo:dp_pe_type_atomistic rdfs:subPropertyOf osmo:dp_pe_type_atomistic_spin_model.
 
 osmo:pe_type_atomistic_statistical_transport a owl:Class;
    rdfs:subClassOf osmo:pe_type_atomistic;
@@ -302,22 +275,18 @@ osmo:pe_type_atomistic_statistical_transport a owl:Class;
       owl:onProperty osmo:has_pe_type_id;
       owl:hasValue "A.6"^^xs:string];
    rdfs:comment "RoMM model vocabulary categories 2.6 and 2.7, OSMO PE type A.6"^^xs:string.
-osmo:op_pe_type_atomistic_statistical_transport a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_pe_type_atomistic_statistical_transport a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_pe_type_atomistic rdfs:subClassOf osmo:op_pe_type_atomistic_statistical_transport.
-osmo:dp_pe_type_atomistic rdfs:subClassOf osmo:dp_pe_type_atomistic_statistical_transport.
+osmo:op_pe_type_atomistic_statistical_transport a owl:ObjectProperty.
+osmo:dp_pe_type_atomistic_statistical_transport a owl:DatatypeProperty.
+osmo:op_pe_type_atomistic rdfs:subPropertyOf osmo:op_pe_type_atomistic_statistical_transport.
+osmo:dp_pe_type_atomistic rdfs:subPropertyOf osmo:dp_pe_type_atomistic_statistical_transport.
 
 osmo:pe_type_mesoscopic a owl:Class;
    rdfs:subClassOf osmo:physical_equation_type;
    rdfs:comment "mesoscopic physical equation type, i.e., a PE type at the mesoscopic granularity level"^^xs:string.
-osmo:op_pe_type_mesoscopic a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_pe_type_mesoscopic a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_physical_equation_type rdfs:subClassOf osmo:op_pe_type_mesoscopic.
-osmo:dp_physical_equation_type rdfs:subClassOf osmo:dp_pe_type_mesoscopic.
+osmo:op_pe_type_mesoscopic a owl:ObjectProperty.
+osmo:dp_pe_type_mesoscopic a owl:DatatypeProperty.
+osmo:op_physical_equation_type rdfs:subPropertyOf osmo:op_pe_type_mesoscopic.
+osmo:dp_physical_equation_type rdfs:subPropertyOf osmo:dp_pe_type_mesoscopic.
 
 osmo:pe_type_mesoscopic
    owl:intersectionOf (osmo:physical_equation_type [a owl:Restriction; owl:onProperty osmo:has_granularity_level; owl:hasValue osmo:MESOSCOPIC]);
@@ -339,12 +308,10 @@ osmo:pe_type_mesoscopic_density_functional a owl:Class;
       owl:onProperty osmo:has_pe_type_id;
       owl:hasValue "M.1"^^xs:string];
    rdfs:comment "RoMM model vocabulary category 3.1, OSMO PE type M.1"^^xs:string.
-osmo:op_pe_type_mesoscopic_density_functional a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_pe_type_mesoscopic_density_functional a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_pe_type_mesoscopic rdfs:subClassOf osmo:op_pe_type_mesoscopic_density_functional.
-osmo:dp_pe_type_mesoscopic rdfs:subClassOf osmo:dp_pe_type_mesoscopic_density_functional.
+osmo:op_pe_type_mesoscopic_density_functional a owl:ObjectProperty.
+osmo:dp_pe_type_mesoscopic_density_functional a owl:DatatypeProperty.
+osmo:op_pe_type_mesoscopic rdfs:subPropertyOf osmo:op_pe_type_mesoscopic_density_functional.
+osmo:dp_pe_type_mesoscopic rdfs:subPropertyOf osmo:dp_pe_type_mesoscopic_density_functional.
 
 osmo:pe_type_mesoscopic_molecular_statics a owl:Class;
    rdfs:subClassOf osmo:pe_type_mesoscopic;
@@ -355,12 +322,10 @@ osmo:pe_type_mesoscopic_molecular_statics a owl:Class;
       owl:onProperty osmo:has_pe_type_id;
       owl:hasValue "M.2"^^xs:string];
    rdfs:comment "OSMO PE type M.2"^^xs:string.
-osmo:op_pe_type_mesoscopic_molecular_statics a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_pe_type_mesoscopic_molecular_statics a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_pe_type_mesoscopic rdfs:subClassOf osmo:op_pe_type_mesoscopic_molecular_statics.
-osmo:dp_pe_type_mesoscopic rdfs:subClassOf osmo:dp_pe_type_mesoscopic_molecular_statics.
+osmo:op_pe_type_mesoscopic_molecular_statics a owl:ObjectProperty.
+osmo:dp_pe_type_mesoscopic_molecular_statics a owl:DatatypeProperty.
+osmo:op_pe_type_mesoscopic rdfs:subPropertyOf osmo:op_pe_type_mesoscopic_molecular_statics.
+osmo:dp_pe_type_mesoscopic rdfs:subPropertyOf osmo:dp_pe_type_mesoscopic_molecular_statics.
 
 osmo:pe_type_mesoscopic_molecular_dynamics a owl:Class;
    rdfs:subClassOf osmo:pe_type_mesoscopic;
@@ -371,12 +336,10 @@ osmo:pe_type_mesoscopic_molecular_dynamics a owl:Class;
       owl:onProperty osmo:has_pe_type_id;
       owl:hasValue "M.3"^^xs:string];
    rdfs:comment "RoMM model vocabulary category 3.2, OSMO PE type M.3"^^xs:string.
-osmo:op_pe_type_mesoscopic_molecular_dynamics a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_pe_type_mesoscopic_molecular_dynamics a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_pe_type_mesoscopic rdfs:subClassOf osmo:op_pe_type_mesoscopic_molecular_dynamics.
-osmo:dp_pe_type_mesoscopic rdfs:subClassOf osmo:dp_pe_type_mesoscopic_molecular_dynamics.
+osmo:op_pe_type_mesoscopic_molecular_dynamics a owl:ObjectProperty.
+osmo:dp_pe_type_mesoscopic_molecular_dynamics a owl:DatatypeProperty.
+osmo:op_pe_type_mesoscopic rdfs:subPropertyOf osmo:op_pe_type_mesoscopic_molecular_dynamics.
+osmo:dp_pe_type_mesoscopic rdfs:subPropertyOf osmo:dp_pe_type_mesoscopic_molecular_dynamics.
 
 osmo:pe_type_mesoscopic_partition_function a owl:Class;
    rdfs:subClassOf osmo:pe_type_mesoscopic;
@@ -387,12 +350,10 @@ osmo:pe_type_mesoscopic_partition_function a owl:Class;
       owl:onProperty osmo:has_pe_type_id;
       owl:hasValue "M.4"^^xs:string];
    rdfs:comment "RoMM model vocabulary category 3.3, OSMO PE type M.4"^^xs:string.
-osmo:op_pe_type_mesoscopic_partition_function a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_pe_type_mesoscopic_partition_function a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_pe_type_mesoscopic rdfs:subClassOf osmo:op_pe_type_mesoscopic_partition_function.
-osmo:dp_pe_type_mesoscopic rdfs:subClassOf osmo:dp_pe_type_mesoscopic_partition_function.
+osmo:op_pe_type_mesoscopic_partition_function a owl:ObjectProperty.
+osmo:dp_pe_type_mesoscopic_partition_function a owl:DatatypeProperty.
+osmo:op_pe_type_mesoscopic rdfs:subPropertyOf osmo:op_pe_type_mesoscopic_partition_function.
+osmo:dp_pe_type_mesoscopic rdfs:subPropertyOf osmo:dp_pe_type_mesoscopic_partition_function.
 
 osmo:pe_type_mesoscopic_micromagnetism a owl:Class;
    rdfs:subClassOf osmo:pe_type_mesoscopic;
@@ -403,12 +364,10 @@ osmo:pe_type_mesoscopic_micromagnetism a owl:Class;
       owl:onProperty osmo:has_pe_type_id;
       owl:hasValue "M.5"^^xs:string];
    rdfs:comment "RoMM model vocabulary category 3.4, OSMO PE type M.5"^^xs:string.
-osmo:op_pe_type_mesoscopic_micromagnetism a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_pe_type_mesoscopic_micromagnetism a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_pe_type_mesoscopic rdfs:subClassOf osmo:op_pe_type_mesoscopic_micromagnetism.
-osmo:dp_pe_type_mesoscopic rdfs:subClassOf osmo:dp_pe_type_mesoscopic_micromagnetism.
+osmo:op_pe_type_mesoscopic_micromagnetism a owl:ObjectProperty.
+osmo:dp_pe_type_mesoscopic_micromagnetism a owl:DatatypeProperty.
+osmo:op_pe_type_mesoscopic rdfs:subPropertyOf osmo:op_pe_type_mesoscopic_micromagnetism.
+osmo:dp_pe_type_mesoscopic rdfs:subPropertyOf osmo:dp_pe_type_mesoscopic_micromagnetism.
 
 osmo:pe_type_mesoscopic_statistical_transport a owl:Class;
    rdfs:subClassOf osmo:pe_type_mesoscopic;
@@ -419,22 +378,18 @@ osmo:pe_type_mesoscopic_statistical_transport a owl:Class;
       owl:onProperty osmo:has_pe_type_id;
       owl:hasValue "M.6"^^xs:string];
    rdfs:comment "RoMM model vocabulary categories 3.5, OSMO PE type M.6"^^xs:string.
-osmo:op_pe_type_mesoscopic_statistical_transport a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_pe_type_mesoscopic_statistical_transport a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_pe_type_mesoscopic rdfs:subClassOf osmo:op_pe_type_mesoscopic_statistical_transport.
-osmo:dp_pe_type_mesoscopic rdfs:subClassOf osmo:dp_pe_type_mesoscopic_statistical_transport.
+osmo:op_pe_type_mesoscopic_statistical_transport a owl:ObjectProperty.
+osmo:dp_pe_type_mesoscopic_statistical_transport a owl:DatatypeProperty.
+osmo:op_pe_type_mesoscopic rdfs:subPropertyOf osmo:op_pe_type_mesoscopic_statistical_transport.
+osmo:dp_pe_type_mesoscopic rdfs:subPropertyOf osmo:dp_pe_type_mesoscopic_statistical_transport.
 
 osmo:pe_type_continuum a owl:Class;
    rdfs:subClassOf osmo:physical_equation_type;
    rdfs:comment "continuum physical equation type, i.e., a PE type that operates at the continuum granularity level"^^xs:string.
-osmo:op_pe_type_continuum a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_pe_type_continuum a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_physical_equation_type rdfs:subClassOf osmo:op_pe_type_continuum.
-osmo:dp_physical_equation_type rdfs:subClassOf osmo:dp_pe_type_continuum.
+osmo:op_pe_type_continuum a owl:ObjectProperty.
+osmo:dp_pe_type_continuum a owl:DatatypeProperty.
+osmo:op_physical_equation_type rdfs:subPropertyOf osmo:op_pe_type_continuum.
+osmo:dp_physical_equation_type rdfs:subPropertyOf osmo:dp_pe_type_continuum.
 
 osmo:pe_type_continuum
    owl:intersectionOf (osmo:physical_equation_type [a owl:Restriction; owl:onProperty osmo:has_granularity_level; owl:hasValue osmo:CONTINUUM]);
@@ -458,12 +413,10 @@ osmo:pe_type_continuum_solid_mechanics a owl:Class;
       owl:onProperty osmo:has_pe_type_id;
       owl:hasValue "CO.1"^^xs:string];
    rdfs:comment "RoMM model vocabulary category 4.1, OSMO PE type CO.1"^^xs:string.
-osmo:op_pe_type_continuum_solid_mechanics a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_pe_type_continuum_solid_mechanics a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_pe_type_continuum rdfs:subClassOf osmo:op_pe_type_continuum_solid_mechanics.
-osmo:dp_pe_type_continuum rdfs:subClassOf osmo:dp_pe_type_continuum_solid_mechanics.
+osmo:op_pe_type_continuum_solid_mechanics a owl:ObjectProperty.
+osmo:dp_pe_type_continuum_solid_mechanics a owl:DatatypeProperty.
+osmo:op_pe_type_continuum rdfs:subPropertyOf osmo:op_pe_type_continuum_solid_mechanics.
+osmo:dp_pe_type_continuum rdfs:subPropertyOf osmo:dp_pe_type_continuum_solid_mechanics.
 
 osmo:pe_type_continuum_fluid_mechanics a owl:Class;
    rdfs:subClassOf osmo:pe_type_continuum;
@@ -474,12 +427,10 @@ osmo:pe_type_continuum_fluid_mechanics a owl:Class;
       owl:onProperty osmo:has_pe_type_id;
       owl:hasValue "CO.2"^^xs:string];
    rdfs:comment "RoMM model vocabulary category 4.2, OSMO PE type CO.2"^^xs:string.
-osmo:op_pe_type_continuum_fluid_mechanics a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_pe_type_continuum_fluid_mechanics a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_pe_type_continuum rdfs:subClassOf osmo:op_pe_type_continuum_fluid_mechanics.
-osmo:dp_pe_type_continuum rdfs:subClassOf osmo:dp_pe_type_continuum_fluid_mechanics.
+osmo:op_pe_type_continuum_fluid_mechanics a owl:ObjectProperty.
+osmo:dp_pe_type_continuum_fluid_mechanics a owl:DatatypeProperty.
+osmo:op_pe_type_continuum rdfs:subPropertyOf osmo:op_pe_type_continuum_fluid_mechanics.
+osmo:dp_pe_type_continuum rdfs:subPropertyOf osmo:dp_pe_type_continuum_fluid_mechanics.
 
 osmo:pe_type_continuum_heat_transfer a owl:Class;
    rdfs:subClassOf osmo:pe_type_continuum;
@@ -490,12 +441,10 @@ osmo:pe_type_continuum_heat_transfer a owl:Class;
       owl:onProperty osmo:has_pe_type_id;
       owl:hasValue "CO.3"^^xs:string];
    rdfs:comment "RoMM model vocabulary category 4.3, OSMO PE type CO.3"^^xs:string.
-osmo:op_pe_type_continuum_heat_transfer a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_pe_type_continuum_heat_transfer a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_pe_type_continuum rdfs:subClassOf osmo:op_pe_type_continuum_heat_transfer.
-osmo:dp_pe_type_continuum rdfs:subClassOf osmo:dp_pe_type_continuum_heat_transfer.
+osmo:op_pe_type_continuum_heat_transfer a owl:ObjectProperty.
+osmo:dp_pe_type_continuum_heat_transfer a owl:DatatypeProperty.
+osmo:op_pe_type_continuum rdfs:subPropertyOf osmo:op_pe_type_continuum_heat_transfer.
+osmo:dp_pe_type_continuum rdfs:subPropertyOf osmo:dp_pe_type_continuum_heat_transfer.
 
 osmo:pe_type_continuum_phase_field a owl:Class;
    rdfs:subClassOf osmo:pe_type_continuum;
@@ -506,12 +455,10 @@ osmo:pe_type_continuum_phase_field a owl:Class;
       owl:onProperty osmo:has_pe_type_id;
       owl:hasValue "CO.4"^^xs:string];
    rdfs:comment "RoMM model vocabulary category 4.4.2, OSMO PE type CO.4"^^xs:string.
-osmo:op_pe_type_continuum_phase_field a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_pe_type_continuum_phase_field a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_pe_type_continuum rdfs:subClassOf osmo:op_pe_type_continuum_phase_field.
-osmo:dp_pe_type_continuum rdfs:subClassOf osmo:dp_pe_type_continuum_phase_field.
+osmo:op_pe_type_continuum_phase_field a owl:ObjectProperty.
+osmo:dp_pe_type_continuum_phase_field a owl:DatatypeProperty.
+osmo:op_pe_type_continuum rdfs:subPropertyOf osmo:op_pe_type_continuum_phase_field.
+osmo:dp_pe_type_continuum rdfs:subPropertyOf osmo:dp_pe_type_continuum_phase_field.
 
 osmo:pe_type_continuum_thermodynamics a owl:Class;
    rdfs:subClassOf osmo:pe_type_continuum;
@@ -522,12 +469,10 @@ osmo:pe_type_continuum_thermodynamics a owl:Class;
       owl:onProperty osmo:has_pe_type_id;
       owl:hasValue "CO.5"^^xs:string];
    rdfs:comment "RoMM model vocabulary category 4.4.1, OSMO PE type CO.5"^^xs:string.
-osmo:op_pe_type_continuum_thermodynamics a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_pe_type_continuum_thermodynamics a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_pe_type_continuum rdfs:subClassOf osmo:op_pe_type_continuum_thermodynamics.
-osmo:dp_pe_type_continuum rdfs:subClassOf osmo:dp_pe_type_continuum_thermodynamics.
+osmo:op_pe_type_continuum_thermodynamics a owl:ObjectProperty.
+osmo:dp_pe_type_continuum_thermodynamics a owl:DatatypeProperty.
+osmo:op_pe_type_continuum rdfs:subPropertyOf osmo:op_pe_type_continuum_thermodynamics.
+osmo:dp_pe_type_continuum rdfs:subPropertyOf osmo:dp_pe_type_continuum_thermodynamics.
 
 osmo:pe_type_continuum_reaction_kinetics a owl:Class;
    rdfs:subClassOf osmo:pe_type_continuum;
@@ -538,12 +483,10 @@ osmo:pe_type_continuum_reaction_kinetics a owl:Class;
       owl:onProperty osmo:has_pe_type_id;
       owl:hasValue "CO.6"^^xs:string];
    rdfs:comment "RoMM model vocabulary category 4.5, OSMO PE type CO.6"^^xs:string.
-osmo:op_pe_type_continuum_reaction_kinetics a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_pe_type_continuum_reaction_kinetics a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_pe_type_continuum rdfs:subClassOf osmo:op_pe_type_continuum_reaction_kinetics.
-osmo:dp_pe_type_continuum rdfs:subClassOf osmo:dp_pe_type_continuum_reaction_kinetics.
+osmo:op_pe_type_continuum_reaction_kinetics a owl:ObjectProperty.
+osmo:dp_pe_type_continuum_reaction_kinetics a owl:DatatypeProperty.
+osmo:op_pe_type_continuum rdfs:subPropertyOf osmo:op_pe_type_continuum_reaction_kinetics.
+osmo:dp_pe_type_continuum rdfs:subPropertyOf osmo:dp_pe_type_continuum_reaction_kinetics.
 
 osmo:pe_type_continuum_electromagnetism a owl:Class;
    rdfs:subClassOf osmo:pe_type_continuum;
@@ -554,12 +497,10 @@ osmo:pe_type_continuum_electromagnetism a owl:Class;
       owl:onProperty osmo:has_pe_type_id;
       owl:hasValue "CO.7"^^xs:string];
    rdfs:comment "RoMM model vocabulary category 4.6, OSMO PE type CO.7"^^xs:string.
-osmo:op_pe_type_continuum_electromagnetism a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_pe_type_continuum_electromagnetism a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_pe_type_continuum rdfs:subClassOf osmo:op_pe_type_continuum_electromagnetism.
-osmo:dp_pe_type_continuum rdfs:subClassOf osmo:dp_pe_type_continuum_electromagnetism.
+osmo:op_pe_type_continuum_electromagnetism a owl:ObjectProperty.
+osmo:dp_pe_type_continuum_electromagnetism a owl:DatatypeProperty.
+osmo:op_pe_type_continuum rdfs:subPropertyOf osmo:op_pe_type_continuum_electromagnetism.
+osmo:dp_pe_type_continuum rdfs:subPropertyOf osmo:dp_pe_type_continuum_electromagnetism.
 
 osmo:pe_type_continuum_process_model a owl:Class;
    rdfs:subClassOf osmo:pe_type_continuum;
@@ -570,36 +511,31 @@ osmo:pe_type_continuum_process_model a owl:Class;
       owl:onProperty osmo:has_pe_type_id;
       owl:hasValue "CO.8"^^xs:string];
    rdfs:comment "RoMM model vocabulary category 4.7, OSMO PE type CO.8"^^xs:string.
-osmo:op_pe_type_continuum_process_model a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_pe_type_continuum_process_model a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_pe_type_continuum rdfs:subClassOf osmo:op_pe_type_continuum_process_model.
-osmo:dp_pe_type_continuum rdfs:subClassOf osmo:dp_pe_type_continuum_process_model.
+osmo:op_pe_type_continuum_process_model a owl:ObjectProperty.
+osmo:dp_pe_type_continuum_process_model a owl:DatatypeProperty.
+osmo:op_pe_type_continuum rdfs:subPropertyOf osmo:op_pe_type_continuum_process_model.
+osmo:dp_pe_type_continuum rdfs:subPropertyOf osmo:dp_pe_type_continuum_process_model.
 
 osmo:workflow_entity a owl:Class;
    rdfs:subClassOf evmpo:marketplace_related_entity;
    rdfs:comment "workflow entity, i.e., an element or aspect that can occur in a simulation workflow structure"^^xs:string.
-osmo:op_workflow_entity a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_workflow_entity a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_marketplace_related_entity rdfs:subClassOf osmo:op_workflow_entity.
-evmpo:dp_marketplace_related_entity rdfs:subClassOf osmo:dp_workflow_entity.
+osmo:op_workflow_entity a owl:ObjectProperty.
+osmo:dp_workflow_entity a owl:DatatypeProperty.
+evmpo:op_marketplace_related_entity rdfs:subPropertyOf osmo:op_workflow_entity.
+evmpo:dp_marketplace_related_entity rdfs:subPropertyOf osmo:dp_workflow_entity.
 
 osmo:workflow_entity owl:disjointUnionOf (osmo:logical_entity osmo:section_entity osmo:workflow_graph).
 
 osmo:workflow_resource a owl:Class;
    rdfs:subClassOf osmo:workflow_entity;
    rdfs:comment "workflow resource, i.e., a workflow entity that can be contained as a node-like element or as a subgraph by a workflow graph"^^xs:string.
-osmo:op_workflow_resource a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_workflow_resource a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_workflow_entity rdfs:subClassOf osmo:op_workflow_resource.
-osmo:dp_workflow_entity rdfs:subClassOf osmo:dp_workflow_resource.
+osmo:op_workflow_resource a owl:ObjectProperty.
+osmo:dp_workflow_resource a owl:DatatypeProperty.
+osmo:op_workflow_entity rdfs:subPropertyOf osmo:op_workflow_resource.
+osmo:dp_workflow_entity rdfs:subPropertyOf osmo:dp_workflow_resource.
 
-osmo:has_resource_label a osmo:dp_workflow_resource;
+osmo:has_resource_label a owl:DatatypeProperty;
+   rdfs:subPropertyOf osmo:dp_workflow_resource;
    rdfs:domain osmo:workflow_entity;
    rdfs:range xs:string;
    rdfs:comment "label to be used, e.g., in graph representations and for other visualization purposes"^^xs:string.
@@ -612,24 +548,21 @@ osmo:virtual_graph a owl:Class;
    ];
    owl:intersectionOf (osmo:workflow_graph [a owl:Restriction; owl:onProperty osmo:is_virtual; owl:hasValue "true"^^xs:boolean]);
    rdfs:comment "virtual graph, i.e., a workflow graph that is variably instantiated based on workflow-dependent quantities; e.g., a virtual graph might be instantiated multiple times in parallel or sequentially, or the way in which it is instantiated might qualitatively depend on input parameters in a significant way, going beyond the conventional role of an input parameter (n.b., virtual graphs do not contain anything; instead, they are instantiated by concrete graphs that contain further elements)"^^xs:string.
-osmo:op_virtual_graph a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_virtual_graph a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_workflow_graph rdfs:subClassOf osmo:op_virtual_graph.
-osmo:dp_workflow_graph rdfs:subClassOf osmo:dp_virtual_graph.
+osmo:op_virtual_graph a owl:ObjectProperty.
+osmo:dp_virtual_graph a owl:DatatypeProperty.
+osmo:op_workflow_graph rdfs:subPropertyOf osmo:op_virtual_graph.
+osmo:dp_workflow_graph rdfs:subPropertyOf osmo:dp_virtual_graph.
 
 osmo:contingent_graph a owl:Class;
    rdfs:subClassOf osmo:virtual_graph;
    rdfs:comment "contingent graph, i.e., a virtual graph that is only present/active if one or multiple conditions are fulfilled"^^xs:string.
-osmo:op_contingent_graph a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_contingent_graph a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_virtual_graph rdfs:subClassOf osmo:op_contingent_graph.
-osmo:dp_virtual_graph rdfs:subClassOf osmo:dp_contingent_graph.
+osmo:op_contingent_graph a owl:ObjectProperty.
+osmo:dp_contingent_graph a owl:DatatypeProperty.
+osmo:op_virtual_graph rdfs:subPropertyOf osmo:op_contingent_graph.
+osmo:dp_virtual_graph rdfs:subPropertyOf osmo:dp_contingent_graph.
 
-osmo:is_contingent_on a osmo:op_contingent_graph;
+osmo:is_contingent_on a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_contingent_graph;
    rdfs:domain osmo:contingent_graph;
    rdfs:range osmo:condition;
    rdfs:comment "whenever one or several conditions are not fulfilled, a resource that is contingent on them is absent/inactive"^^xs:string.
@@ -643,32 +576,35 @@ osmo:contingent_graph rdfs:subClassOf [
 osmo:indexed_graph a owl:Class;
    rdfs:subClassOf osmo:virtual_graph;
    rdfs:comment "indexed graph, i.e., a virtual graph that is instantiated multiple times, with an index"^^xs:string.
-osmo:op_indexed_graph a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_indexed_graph a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_virtual_graph rdfs:subClassOf osmo:op_indexed_graph.
-osmo:dp_virtual_graph rdfs:subClassOf osmo:dp_indexed_graph.
+osmo:op_indexed_graph a owl:ObjectProperty.
+osmo:dp_indexed_graph a owl:DatatypeProperty.
+osmo:op_virtual_graph rdfs:subPropertyOf osmo:op_indexed_graph.
+osmo:dp_virtual_graph rdfs:subPropertyOf osmo:dp_indexed_graph.
 
-osmo:has_coupled_instances a osmo:dp_indexed_graph;
+osmo:has_coupled_instances a owl:DatatypeProperty;
+   rdfs:subPropertyOf osmo:dp_indexed_graph;
    rdfs:domain osmo:indexed_graph;
    rdfs:range xs:boolean;
    rdfs:comment "indicates whether any of the multiple instantiations of this resource are coupled (synchronized) with each other"^^xs:string.
-osmo:has_linked_instances a osmo:dp_indexed_graph;
+osmo:has_linked_instances a owl:DatatypeProperty;
+   rdfs:subPropertyOf osmo:dp_indexed_graph;
    rdfs:domain osmo:indexed_graph;
    rdfs:range xs:boolean;
    rdfs:comment "indicates whether any of the multiple instantiations of this resource are sequentially linked to each other"^^xs:string.
 
-osmo:has_index a osmo:op_indexed_graph;
+osmo:has_index a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_indexed_graph;
    rdfs:domain osmo:indexed_graph;
    rdfs:range osmo:logical_variable;
    rdfs:comment "points to the logical variable/index to which multiple values are assigned"^^xs:string.
-osmo:has_index_unit a osmo:op_indexed_graph, owl:FunctionalProperty;
+osmo:has_index_unit a owl:ObjectProperty, owl:FunctionalProperty;
+   rdfs:subPropertyOf osmo:op_indexed_graph;
    rdfs:domain osmo:indexed_graph;
    rdfs:range qudt:Unit, vivo:unit;
    rdfs:comment "unit in which the index values are given (not required; in many typical cases, the index is dimensionless)"^^xs:string;
    rdfs:subPropertyOf evmpo:has_annotation.
-osmo:has_index_value a osmo:dp_indexed_graph;
+osmo:has_index_value a owl:DatatypeProperty;
+   rdfs:subPropertyOf osmo:dp_indexed_graph;
    rdfs:domain osmo:indexed_graph;
    rdfs:range xs:decimal;
    rdfs:comment "points to each of the multiple values that are given to the index"^^xs:string.
@@ -686,135 +622,155 @@ osmo:indexed_graph rdfs:subClassOf [
 osmo:section_entity a owl:Class;
    rdfs:subClassOf osmo:workflow_entity;
    rdfs:comment "section entity, i.e., an OSMO/MODA section or an aspect thereof"^^xs:string.
-osmo:op_section_entity a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_section_entity a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_workflow_entity rdfs:subClassOf osmo:op_section_entity.
-osmo:dp_workflow_entity rdfs:subClassOf osmo:dp_section_entity.
+osmo:op_section_entity a owl:ObjectProperty.
+osmo:dp_section_entity a owl:DatatypeProperty.
+osmo:op_workflow_entity rdfs:subPropertyOf osmo:op_section_entity.
+osmo:dp_workflow_entity rdfs:subPropertyOf osmo:dp_section_entity.
 
 osmo:section_entity owl:disjointUnionOf (osmo:application_case_entity osmo:model_entity osmo:solver_entity osmo:processor_entity).
 
 osmo:section a owl:Class;
    rdfs:subClassOf osmo:workflow_resource, osmo:section_entity;
    rdfs:comment "section, i.e., a use case, model, solver, or processor (as in MODA)"^^xs:string.
-osmo:op_section a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_section a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_workflow_resource rdfs:subClassOf osmo:op_section.
-osmo:dp_workflow_resource rdfs:subClassOf osmo:dp_section.
-osmo:op_section_entity rdfs:subClassOf osmo:op_section.
-osmo:dp_section_entity rdfs:subClassOf osmo:dp_section.
+osmo:op_section a owl:ObjectProperty.
+osmo:dp_section a owl:DatatypeProperty.
+osmo:op_workflow_resource rdfs:subPropertyOf osmo:op_section.
+osmo:dp_workflow_resource rdfs:subPropertyOf osmo:dp_section.
+osmo:op_section_entity rdfs:subPropertyOf osmo:op_section.
+osmo:dp_section_entity rdfs:subPropertyOf osmo:dp_section.
 
 osmo:section owl:disjointUnionOf (osmo:application_case osmo:materials_model osmo:solver osmo:processor).
 
-osmo:has_internal_lv a osmo:op_section;
+osmo:has_internal_lv a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_section;
    rdfs:domain osmo:section;
    rdfs:range osmo:logical_variable;
    rdfs:comment "points to information that plays a role within the respective OSMO/MODA section"^^xs:string.
-osmo:has_input_format a osmo:op_section;
+osmo:has_input_format a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_section;
    rdfs:domain osmo:section;
    rdfs:range macro:io_format;
    rdfs:subPropertyOf osmo:has_io_format;
    owl:propertyChainAxiom (osmo:has_logical_input osmo:is_encoded_by).
-osmo:has_io_format a osmo:op_section;
+osmo:has_io_format a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_section;
    rdfs:domain osmo:section;
    rdfs:range macro:io_format;
    rdfs:comment "points to a format employed for I/O in the technical implementation of the respective OSMO/MODA section"^^xs:string;
    rdfs:subPropertyOf evmpo:has_annotation;
    owl:propertyChainAxiom (osmo:has_logical_io osmo:is_encoded_by).
-osmo:has_logical_input a osmo:op_section;
+osmo:has_logical_input a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_section;
    rdfs:domain osmo:section;
    rdfs:range osmo:logical_variable;
    rdfs:comment "points to information that needs to be provided"^^xs:string;
    rdfs:subPropertyOf osmo:has_logical_io.
-osmo:has_logical_io a osmo:op_section;
+osmo:has_logical_io a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_section;
    rdfs:domain osmo:section;
    rdfs:range osmo:logical_variable;
    rdfs:comment "points to information required or produced by a OSMO/MODA section"^^xs:string.
-osmo:has_logical_output a osmo:op_section;
+osmo:has_logical_output a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_section;
    rdfs:domain osmo:section;
    rdfs:range osmo:logical_variable;
    rdfs:comment "points to information that is obtained as a result from the respective OSMO/MODA section"^^xs:string;
    rdfs:subPropertyOf osmo:has_logical_io.
-osmo:has_output_format a osmo:op_section;
+osmo:has_output_format a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_section;
    rdfs:domain osmo:section;
    rdfs:range macro:io_format;
    rdfs:subPropertyOf osmo:has_io_format;
    owl:propertyChainAxiom (osmo:has_logical_output osmo:is_encoded_by).
-osmo:has_section_label a osmo:dp_section;
+osmo:has_section_label a owl:DatatypeProperty;
+   rdfs:subPropertyOf osmo:dp_section;
    rdfs:domain osmo:section;
    rdfs:range xs:string;
    rdfs:subPropertyOf osmo:has_resource_label.
 
-osmo:has_physical_input a osmo:op_section;
+osmo:has_physical_input a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_section;
    rdfs:domain osmo:section;
    rdfs:range vivo:material_property, osmo:logical_variable, evmpo:material_property;
    rdfs:subPropertyOf osmo:has_logical_input;
    rdfs:comment "points to required physical (thermodynamic or mechanical) information, which needs to be provided, e.g., from the output of another OSMO/MODA section"^^xs:string.
-osmo:has_internal_mp a osmo:op_section;
+osmo:has_internal_mp a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_section;
    rdfs:domain osmo:section;
    rdfs:range vivo:material_property, osmo:logical_variable, evmpo:material_property;
    rdfs:subPropertyOf osmo:has_internal_lv;
    rdfs:comment "points to physical information that plays a role within the respective OSMO/MODA section"^^xs:string.
-osmo:has_physical_output a osmo:op_section;
+osmo:has_physical_output a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_section;
    rdfs:domain osmo:section;
    rdfs:range vivo:material_property, osmo:logical_variable, evmpo:material_property;
    rdfs:subPropertyOf osmo:has_logical_output;
    rdfs:comment "points to desired physical (thermodynamic or mechanical) information which is obtained as a result from the respective OSMO/MODA section"^^xs:string.
 
-osmo:has_aspect a osmo:op_section;
+osmo:has_aspect a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_section;
    rdfs:domain osmo:section;
    rdfs:range osmo:section_aspect;
    rdfs:comment "points to an aspect associated with the respective OSMO/MODA section"^^xs:string;
    rdfs:subPropertyOf evmpo:has_annotation.
 
-osmo:has_boundary_condition a osmo:op_section;
+osmo:has_boundary_condition a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_section;
    rdfs:domain osmo:section;
    rdfs:range osmo:boundary_condition;
    rdfs:subPropertyOf osmo:has_aspect.
-osmo:has_employed_software a osmo:op_section;
+osmo:has_employed_software a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_section;
    rdfs:domain osmo:section;
    rdfs:range osmo:software;
    rdfs:subPropertyOf osmo:has_aspect.
-osmo:has_error_statement a osmo:op_section;
+osmo:has_error_statement a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_section;
    rdfs:domain osmo:section;
    rdfs:range osmo:error_statement.
-osmo:has_geometry_information a osmo:op_section;
+osmo:has_geometry_information a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_section;
    rdfs:domain osmo:section;
    rdfs:range osmo:geometry_information;
    rdfs:subPropertyOf osmo:has_boundary_condition.
-osmo:has_material_information a osmo:op_section;
+osmo:has_material_information a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_section;
    rdfs:domain osmo:section;
    rdfs:range osmo:material_information;
    rdfs:subPropertyOf osmo:has_aspect.
-osmo:has_method_type a osmo:op_section;
+osmo:has_method_type a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_section;
    rdfs:domain osmo:section;
    rdfs:range osmo:method_type;
    rdfs:subPropertyOf osmo:has_aspect.
-osmo:has_section_description a osmo:op_section;
+osmo:has_section_description a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_section;
    rdfs:domain osmo:section;
    rdfs:range osmo:section_description;
    rdfs:subPropertyOf osmo:has_aspect.
-osmo:has_section_literature a osmo:op_section;
+osmo:has_section_literature a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_section;
    rdfs:domain osmo:section;
    rdfs:range osmo:section_literature;
    rdfs:subPropertyOf osmo:has_aspect.
-osmo:has_section_parameter a osmo:op_section;
+osmo:has_section_parameter a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_section;
    rdfs:domain osmo:section;
    rdfs:range osmo:parameter_aspect;
    rdfs:subPropertyOf osmo:has_aspect.
-osmo:has_temporal_discretization a osmo:op_section;
+osmo:has_temporal_discretization a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_section;
    rdfs:domain osmo:section;
    rdfs:range osmo:temporal_discretization;
    rdfs:subPropertyOf osmo:has_aspect.
-osmo:has_timespan a osmo:op_section;
+osmo:has_timespan a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_section;
    rdfs:domain osmo:section;
    rdfs:range osmo:timespan_information;
    rdfs:subPropertyOf osmo:has_aspect.
 
-osmo:applies_to a osmo:op_section;
+osmo:applies_to a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_section;
    rdfs:domain osmo:section, [a owl:Class; owl:unionOf (osmo:use_case osmo:materials_model)];
    rdfs:range osmo:workflow_graph;
    rdfs:comment "points to the workflow (sub)graph to which a particular use case or materials model applies"^^xs:string;
@@ -823,39 +779,43 @@ osmo:applies_to a osmo:op_section;
 osmo:section_aspect a owl:Class;
    rdfs:subClassOf osmo:section_entity;
    rdfs:comment "section aspect, i.e., an aspect of a use case, model, solver, or processor that can be represented by a section"^^xs:string.
-osmo:op_section_aspect a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_section_aspect a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_section_entity rdfs:subClassOf osmo:op_section_aspect.
-osmo:dp_section_entity rdfs:subClassOf osmo:dp_section_aspect.
+osmo:op_section_aspect a owl:ObjectProperty.
+osmo:dp_section_aspect a owl:DatatypeProperty.
+osmo:op_section_entity rdfs:subPropertyOf osmo:op_section_aspect.
+osmo:dp_section_entity rdfs:subPropertyOf osmo:dp_section_aspect.
 
-osmo:has_aspect_text_content a osmo:dp_section_aspect;
+osmo:has_aspect_text_content a owl:DatatypeProperty;
+   rdfs:subPropertyOf osmo:dp_section_aspect;
    rdfs:domain osmo:section_aspect;
    rdfs:range xs:string;
    rdfs:comment "plain-text description of an aspect/subsection (as in MODA)"^^xs:string.
-osmo:has_aspect_scalar_content a osmo:dp_section_aspect;
+osmo:has_aspect_scalar_content a owl:DatatypeProperty;
+   rdfs:subPropertyOf osmo:dp_section_aspect;
    rdfs:domain osmo:section_aspect;
    rdfs:range xs:decimal;
    rdfs:comment "numerical value associated with an aspect/subsection (as in MODA)"^^xs:string.
 
-osmo:has_aspect_object_content a osmo:op_section_aspect;
+osmo:has_aspect_object_content a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_section_aspect;
    rdfs:domain osmo:section_aspect;
    rdfs:range evmpo:marketplace_related_entity;
    rdfs:comment "points to an object associated with an aspect/subsection"^^xs:string;
    owl:inverseOf osmo:is_aspect_content_of.
-osmo:has_aspect_annotation_content a osmo:op_section_aspect;
+osmo:has_aspect_annotation_content a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_section_aspect;
    rdfs:domain osmo:section_aspect;
    rdfs:range evmpo:annotation;
    rdfs:comment "points to an annotation object (i.e., a non-paradigmatic object) associated with an aspect/subsection"^^xs:string;
    rdfs:subPropertyOf evmpo:has_meta_annotation, osmo:has_aspect_object_content.
-osmo:has_aspect_paradigmatic_content a osmo:op_section_aspect;
+osmo:has_aspect_paradigmatic_content a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_section_aspect;
    rdfs:domain osmo:section_aspect;
    rdfs:range evmpo:paradigmatic_entity;
    rdfs:comment "points to a paradigmatic object associated with an aspect/subsection"^^xs:string;
    rdfs:subPropertyOf osmo:has_aspect_object_content.
 
-osmo:is_aspect_content_of a evmpo:op_marketplace_related_entity, owl:ObjectProperty;
+osmo:is_aspect_content_of a owl:ObjectProperty;
+   rdfs:subPropertyOf evmpo:op_marketplace_related_entity;;
    rdfs:domain evmpo:marketplace_related_entity;
    rdfs:range osmo:section_aspect;
    owl:inverseOf osmo:has_aspect_object_content;
@@ -864,14 +824,12 @@ osmo:is_aspect_content_of a evmpo:op_marketplace_related_entity, owl:ObjectPrope
 osmo:boundary_condition a owl:Class;
    rdfs:subClassOf osmo:section_aspect;
    rdfs:comment "boundary condition, i.e., any given information that needs to be taken into account"^^xs:string.
-osmo:op_boundary_condition a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_boundary_condition a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_section_aspect rdfs:subClassOf osmo:op_boundary_condition.
-osmo:dp_section_aspect rdfs:subClassOf osmo:dp_boundary_condition.
-osmo:op_condition rdfs:subClassOf osmo:op_boundary_condition.
-osmo:dp_condition rdfs:subClassOf osmo:dp_boundary_condition.
+osmo:op_boundary_condition a owl:ObjectProperty.
+osmo:dp_boundary_condition a owl:DatatypeProperty.
+osmo:op_section_aspect rdfs:subPropertyOf osmo:op_boundary_condition.
+osmo:dp_section_aspect rdfs:subPropertyOf osmo:dp_boundary_condition.
+osmo:op_condition rdfs:subPropertyOf osmo:op_boundary_condition.
+osmo:dp_condition rdfs:subPropertyOf osmo:dp_boundary_condition.
 
 osmo:boundary_condition rdfs:subClassOf [
       a owl:Restriction;
@@ -882,12 +840,10 @@ osmo:boundary_condition rdfs:subClassOf [
 osmo:error_statement a owl:Class;
    rdfs:subClassOf osmo:section_aspect;
    rdfs:comment "error statement, i.e., an aspect that contains an accuracy assertion"^^xs:string.
-osmo:op_error_statement a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_error_statement a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_section_aspect rdfs:subClassOf osmo:op_error_statement.
-osmo:dp_section_aspect rdfs:subClassOf osmo:dp_error_statement.
+osmo:op_error_statement a owl:ObjectProperty.
+osmo:dp_error_statement a owl:DatatypeProperty.
+osmo:op_section_aspect rdfs:subPropertyOf osmo:op_error_statement.
+osmo:dp_section_aspect rdfs:subPropertyOf osmo:dp_error_statement.
 
 osmo:error_statement rdfs:subClassOf [
       a owl:Restriction;
@@ -898,26 +854,23 @@ osmo:error_statement rdfs:subClassOf [
 osmo:geometry_information a owl:Class;
    rdfs:subClassOf osmo:boundary_condition;
    rdfs:comment "geometry information, i.e., geometry considered by an OSMO/MODA section"^^xs:string.
-osmo:op_geometry_information a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_geometry_information a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_boundary_condition rdfs:subClassOf osmo:op_geometry_information.
-osmo:dp_boundary_condition rdfs:subClassOf osmo:dp_geometry_information.
+osmo:op_geometry_information a owl:ObjectProperty.
+osmo:dp_geometry_information a owl:DatatypeProperty.
+osmo:op_boundary_condition rdfs:subPropertyOf osmo:op_geometry_information.
+osmo:dp_boundary_condition rdfs:subPropertyOf osmo:dp_geometry_information.
 
 osmo:PERIODIC_BOUNDARY_CONDITION a osmo:geometry_information.
 
 osmo:material_information a owl:Class;
    rdfs:subClassOf osmo:section_aspect;
    rdfs:comment "material information, i.e., aspect related to the material considered by an OSMO/MODA section"^^xs:string.
-osmo:op_material_information a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_material_information a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_section_aspect rdfs:subClassOf osmo:op_material_information.
-osmo:dp_section_aspect rdfs:subClassOf osmo:dp_material_information.
+osmo:op_material_information a owl:ObjectProperty.
+osmo:dp_material_information a owl:DatatypeProperty.
+osmo:op_section_aspect rdfs:subPropertyOf osmo:op_material_information.
+osmo:dp_section_aspect rdfs:subPropertyOf osmo:dp_material_information.
 
-osmo:has_material_information_uf a osmo:op_material_information;
+osmo:has_material_information_uf a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_material_information;
    rdfs:domain osmo:material_information;
    rdfs:range osmo:material_information_uf;
    rdfs:subPropertyOf osmo:has_aspect_annotation_content, osmo:has_unit_function;
@@ -932,24 +885,20 @@ osmo:material_information rdfs:subClassOf [
 osmo:method_type a owl:Class;
    rdfs:subClassOf osmo:section_aspect;
    rdfs:comment "method type, i.e., type and/or name information on a method employed by an OSMO/MODA section"^^xs:string.
-osmo:op_method_type a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_method_type a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_section_aspect rdfs:subClassOf osmo:op_method_type.
-osmo:dp_section_aspect rdfs:subClassOf osmo:dp_method_type.
+osmo:op_method_type a owl:ObjectProperty.
+osmo:dp_method_type a owl:DatatypeProperty.
+osmo:op_section_aspect rdfs:subPropertyOf osmo:op_method_type.
+osmo:dp_section_aspect rdfs:subPropertyOf osmo:dp_method_type.
 
 osmo:parameter_aspect a owl:Class;
    rdfs:subClassOf osmo:section_aspect;
    rdfs:comment "parameter aspect, i.e., an aspect characterizing a parameter associated with an OSMO/MODA section"^^xs:string.
-osmo:op_parameter_aspect a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_parameter_aspect a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_section_aspect rdfs:subClassOf osmo:op_parameter_aspect.
-osmo:dp_section_aspect rdfs:subClassOf osmo:dp_parameter_aspect.
-osmo:op_parameter rdfs:subClassOf osmo:op_parameter_aspect.
-osmo:dp_parameter rdfs:subClassOf osmo:dp_parameter_aspect.
+osmo:op_parameter_aspect a owl:ObjectProperty.
+osmo:dp_parameter_aspect a owl:DatatypeProperty.
+osmo:op_section_aspect rdfs:subPropertyOf osmo:op_parameter_aspect.
+osmo:dp_section_aspect rdfs:subPropertyOf osmo:dp_parameter_aspect.
+osmo:op_parameter rdfs:subPropertyOf osmo:op_parameter_aspect.
+osmo:dp_parameter rdfs:subPropertyOf osmo:dp_parameter_aspect.
 
 osmo:parameter_aspect rdfs:subClassOf [
       a owl:Restriction;
@@ -960,22 +909,18 @@ osmo:parameter_aspect rdfs:subClassOf [
 osmo:section_description a owl:Class;
    rdfs:subClassOf osmo:section_aspect;
    rdfs:comment "section description, i.e., any descriptive-type information concerning an OSMO/MODA section"^^xs:string.
-osmo:op_section_description a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_section_description a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_section_aspect rdfs:subClassOf osmo:op_section_description.
-osmo:dp_section_aspect rdfs:subClassOf osmo:dp_section_description.
+osmo:op_section_description a owl:ObjectProperty.
+osmo:dp_section_description a owl:DatatypeProperty.
+osmo:op_section_aspect rdfs:subPropertyOf osmo:op_section_description.
+osmo:dp_section_aspect rdfs:subPropertyOf osmo:dp_section_description.
 
 osmo:section_literature a owl:Class;
    rdfs:subClassOf osmo:section_aspect;
    rdfs:comment "section literature, i.e., a literature reference associated with an OSMO/MODA section"^^xs:string.
-osmo:op_section_literature a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_section_literature a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_section_aspect rdfs:subClassOf osmo:op_section_literature.
-osmo:dp_section_aspect rdfs:subClassOf osmo:dp_section_literature.
+osmo:op_section_literature a owl:ObjectProperty.
+osmo:dp_section_literature a owl:DatatypeProperty.
+osmo:op_section_aspect rdfs:subPropertyOf osmo:op_section_literature.
+osmo:dp_section_aspect rdfs:subPropertyOf osmo:dp_section_literature.
 
 osmo:section_literature rdfs:subClassOf [
       a owl:Restriction;
@@ -986,42 +931,34 @@ osmo:section_literature rdfs:subClassOf [
 osmo:software a owl:Class;
    rdfs:subClassOf osmo:section_aspect;
    rdfs:comment "software, i.e., an executable numerical artefact"^^xs:string.
-osmo:op_software a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_software a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_section_aspect rdfs:subClassOf osmo:op_software.
-osmo:dp_section_aspect rdfs:subClassOf osmo:dp_software.
+osmo:op_software a owl:ObjectProperty.
+osmo:dp_software a owl:DatatypeProperty.
+osmo:op_section_aspect rdfs:subPropertyOf osmo:op_software.
+osmo:dp_section_aspect rdfs:subPropertyOf osmo:dp_software.
 
 osmo:temporal_discretization a owl:Class;
    rdfs:subClassOf osmo:section_aspect;
    rdfs:comment "temporal discretization, i.e., temporal discretization approach conceptually underlying an OSMO/MODA section"^^xs:string.
-osmo:op_temporal_discretization a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_temporal_discretization a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_section_aspect rdfs:subClassOf osmo:op_temporal_discretization.
-osmo:dp_section_aspect rdfs:subClassOf osmo:dp_temporal_discretization.
+osmo:op_temporal_discretization a owl:ObjectProperty.
+osmo:dp_temporal_discretization a owl:DatatypeProperty.
+osmo:op_section_aspect rdfs:subPropertyOf osmo:op_temporal_discretization.
+osmo:dp_section_aspect rdfs:subPropertyOf osmo:dp_temporal_discretization.
 
 osmo:timespan_information a owl:Class;
    rdfs:subClassOf osmo:section_aspect;
    rdfs:comment "time span information, i.e., statement on the time interval considered, modelled, or represented by an OSMO/MODA section"^^xs:string.
-osmo:op_timespan_information a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_timespan_information a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_section_aspect rdfs:subClassOf osmo:op_timespan_information.
-osmo:dp_section_aspect rdfs:subClassOf osmo:dp_timespan_information.
+osmo:op_timespan_information a owl:ObjectProperty.
+osmo:dp_timespan_information a owl:DatatypeProperty.
+osmo:op_section_aspect rdfs:subPropertyOf osmo:op_timespan_information.
+osmo:dp_section_aspect rdfs:subPropertyOf osmo:dp_timespan_information.
 
 osmo:application_case_entity a owl:Class;
    rdfs:subClassOf osmo:section_entity;
    rdfs:comment "application case entity, i.e., an application case or an aspect thereof"^^xs:string.
-osmo:op_application_case_entity a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_application_case_entity a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_section_entity rdfs:subClassOf osmo:op_application_case_entity.
-osmo:dp_section_entity rdfs:subClassOf osmo:dp_application_case_entity.
+osmo:op_application_case_entity a owl:ObjectProperty.
+osmo:dp_application_case_entity a owl:DatatypeProperty.
+osmo:op_section_entity rdfs:subPropertyOf osmo:op_application_case_entity.
+osmo:dp_section_entity rdfs:subPropertyOf osmo:dp_application_case_entity.
 
 osmo:application_case_entity owl:disjointUnionOf (osmo:application_case osmo:application_case_aspect osmo:application_decision_support_system).
 
@@ -1030,49 +967,49 @@ osmo:application_case_entity owl:disjointUnionOf (mmto:bc_entity mmto:ic_entity 
 osmo:use_case_entity a owl:Class;
    rdfs:subClassOf osmo:application_case_entity;
    rdfs:comment "use case entity, i.e., a use case or an aspect thereof"^^xs:string.
-osmo:op_use_case_entity a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_use_case_entity a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_application_case_entity rdfs:subClassOf osmo:op_use_case_entity.
-osmo:dp_application_case_entity rdfs:subClassOf osmo:dp_use_case_entity.
+osmo:op_use_case_entity a owl:ObjectProperty.
+osmo:dp_use_case_entity a owl:DatatypeProperty.
+osmo:op_application_case_entity rdfs:subPropertyOf osmo:op_use_case_entity.
+osmo:dp_application_case_entity rdfs:subPropertyOf osmo:dp_use_case_entity.
 
 osmo:use_case_entity owl:disjointUnionOf (osmo:use_case osmo:use_case_aspect osmo:use_case_decision_support_system).
 
 osmo:application_case a owl:Class;
    rdfs:subClassOf mmto:project_entity, evmpo:annotation, osmo:section, osmo:application_case_entity;
    rdfs:comment "application case, i.e., a scenario, point of view, or subjective or negotiated set of aims"^^xs:string.
-osmo:op_application_case a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_application_case a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-mmto:op_project_entity rdfs:subClassOf osmo:op_application_case.
-mmto:dp_project_entity rdfs:subClassOf osmo:dp_application_case.
-evmpo:op_annotation rdfs:subClassOf osmo:op_application_case.
-evmpo:dp_annotation rdfs:subClassOf osmo:dp_application_case.
-osmo:op_section rdfs:subClassOf osmo:op_application_case.
-osmo:dp_section rdfs:subClassOf osmo:dp_application_case.
-osmo:op_application_case_entity rdfs:subClassOf osmo:op_application_case.
-osmo:dp_application_case_entity rdfs:subClassOf osmo:dp_application_case.
+osmo:op_application_case a owl:ObjectProperty.
+osmo:dp_application_case a owl:DatatypeProperty.
+mmto:op_project_entity rdfs:subPropertyOf osmo:op_application_case.
+mmto:dp_project_entity rdfs:subPropertyOf osmo:dp_application_case.
+evmpo:op_annotation rdfs:subPropertyOf osmo:op_application_case.
+evmpo:dp_annotation rdfs:subPropertyOf osmo:dp_application_case.
+osmo:op_section rdfs:subPropertyOf osmo:op_application_case.
+osmo:dp_section rdfs:subPropertyOf osmo:dp_application_case.
+osmo:op_application_case_entity rdfs:subPropertyOf osmo:op_application_case.
+osmo:dp_application_case_entity rdfs:subPropertyOf osmo:dp_application_case.
 
 osmo:application_case owl:disjointUnionOf (mmto:business_case mmto:industrial_case mmto:translation_case osmo:use_case).
 
-osmo:has_application_case_aspect a osmo:op_application_case;
+osmo:has_application_case_aspect a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_application_case;
    rdfs:domain osmo:application_case;
    rdfs:range osmo:application_case_aspect;
    rdfs:subPropertyOf osmo:has_aspect, evmpo:has_meta_annotation;
    rdfs:comment "points to an application-case aspect (as in MODA or extensions of MODA)"^^xs:string.
-osmo:has_application_case_summary a osmo:dp_application_case;
+osmo:has_application_case_summary a owl:DatatypeProperty;
+   rdfs:subPropertyOf osmo:dp_application_case;
    rdfs:domain osmo:application_case;
    rdfs:range xs:string;
    rdfs:comment "plain-text summary of the application case"^^xs:string.
-osmo:is_addressed_by a osmo:op_application_case;
+osmo:is_addressed_by a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_application_case;
    rdfs:domain osmo:application_case;
    rdfs:range mmto:mm_project;
    owl:inverseOf mmto:addresses;
    rdfs:comment "points to a materials modelling project that addresses the present application case"^^xs:string.
 
-osmo:has_decision_support a osmo:op_application_case;
+osmo:has_decision_support a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_application_case;
    rdfs:domain osmo:application_case;
    rdfs:range osmo:application_case_decision_support;
    rdfs:subPropertyOf osmo:has_application_case_aspect;
@@ -1081,58 +1018,65 @@ osmo:has_decision_support a osmo:op_application_case;
 osmo:use_case a owl:Class;
    rdfs:subClassOf osmo:use_case_entity, osmo:application_case;
    rdfs:comment "use case (i.e., in MODA: 'user case')"^^xs:string.
-osmo:op_use_case a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_use_case a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_use_case_entity rdfs:subClassOf osmo:op_use_case.
-osmo:dp_use_case_entity rdfs:subClassOf osmo:dp_use_case.
-osmo:op_application_case rdfs:subClassOf osmo:op_use_case.
-osmo:dp_application_case rdfs:subClassOf osmo:dp_use_case.
+osmo:op_use_case a owl:ObjectProperty.
+osmo:dp_use_case a owl:DatatypeProperty.
+osmo:op_use_case_entity rdfs:subPropertyOf osmo:op_use_case.
+osmo:dp_use_case_entity rdfs:subPropertyOf osmo:dp_use_case.
+osmo:op_application_case rdfs:subPropertyOf osmo:op_use_case.
+osmo:dp_application_case rdfs:subPropertyOf osmo:dp_use_case.
 
-osmo:has_use_case_summary a osmo:dp_use_case;
+osmo:has_use_case_summary a owl:DatatypeProperty;
+   rdfs:subPropertyOf osmo:dp_use_case;
    rdfs:domain osmo:use_case;
    rdfs:range xs:string;
    rdfs:subPropertyOf osmo:has_application_case_summary;
    owl:propertyChainAxiom (osmo:has_use_case_description osmo:has_aspect_text_content);
    rdfs:comment "plain-text summary of the MODA/OSMO use case"^^xs:string.
-osmo:has_use_case_aspect a osmo:op_use_case;
+osmo:has_use_case_aspect a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_use_case;
    rdfs:domain osmo:use_case;
    rdfs:range osmo:use_case_aspect;
    rdfs:subPropertyOf osmo:has_application_case_aspect;
    rdfs:comment "points to a use-case aspect (as in MODA)"^^xs:string.
 
-osmo:has_use_case_description a osmo:op_use_case;
+osmo:has_use_case_description a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_use_case;
    rdfs:domain osmo:use_case;
    rdfs:range osmo:use_case_description;
    rdfs:subPropertyOf osmo:has_use_case_aspect, osmo:has_section_description;
    rdfs:comment "MODA subsection 1.1"^^xs:string.
-osmo:has_use_case_material a osmo:op_use_case;
+osmo:has_use_case_material a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_use_case;
    rdfs:domain osmo:use_case;
    rdfs:range osmo:use_case_material;
    rdfs:subPropertyOf osmo:has_use_case_aspect, osmo:has_material_information;
    rdfs:comment "MODA subsection 1.2"^^xs:string.
-osmo:has_use_case_geometry a osmo:op_use_case;
+osmo:has_use_case_geometry a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_use_case;
    rdfs:domain osmo:use_case;
    rdfs:range osmo:use_case_geometry;
    rdfs:subPropertyOf osmo:has_use_case_boundary_condition, osmo:has_geometry_information;
    rdfs:comment "MODA subsection 1.3"^^xs:string.
-osmo:has_use_case_timespan a osmo:op_use_case;
+osmo:has_use_case_timespan a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_use_case;
    rdfs:domain osmo:use_case;
    rdfs:range osmo:use_case_timespan;
    rdfs:subPropertyOf osmo:has_use_case_aspect, osmo:has_timespan;
    rdfs:comment "MODA subsection 1.4"^^xs:string.
-osmo:has_use_case_boundary_condition a osmo:op_use_case;
+osmo:has_use_case_boundary_condition a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_use_case;
    rdfs:domain osmo:use_case;
    rdfs:range osmo:use_case_boundary_condition;
    rdfs:subPropertyOf osmo:has_use_case_aspect, osmo:has_boundary_condition;
    rdfs:comment "MODA subsection 1.5"^^xs:string.
-osmo:has_use_case_literature a osmo:op_use_case;
+osmo:has_use_case_literature a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_use_case;
    rdfs:domain osmo:use_case;
    rdfs:range osmo:use_case_literature;
    rdfs:subPropertyOf osmo:has_use_case_aspect, osmo:has_section_literature;
    rdfs:comment "MODA subsection 1.6"^^xs:string.
-osmo:has_use_case_decision_support a osmo:op_use_case;
+osmo:has_use_case_decision_support a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_use_case;
    rdfs:domain osmo:use_case;
    rdfs:range osmo:use_case_decision_support;
    rdfs:subPropertyOf osmo:has_use_case_aspect, osmo:has_decision_support;
@@ -1147,26 +1091,22 @@ osmo:use_case rdfs:subClassOf [
 osmo:application_case_aspect a owl:Class;
    rdfs:subClassOf osmo:section_aspect, osmo:application_case_entity;
    rdfs:comment "application-case aspect (similar as in MODA or extensions of MODA)"^^xs:string.
-osmo:op_application_case_aspect a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_application_case_aspect a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_section_aspect rdfs:subClassOf osmo:op_application_case_aspect.
-osmo:dp_section_aspect rdfs:subClassOf osmo:dp_application_case_aspect.
-osmo:op_application_case_entity rdfs:subClassOf osmo:op_application_case_aspect.
-osmo:dp_application_case_entity rdfs:subClassOf osmo:dp_application_case_aspect.
+osmo:op_application_case_aspect a owl:ObjectProperty.
+osmo:dp_application_case_aspect a owl:DatatypeProperty.
+osmo:op_section_aspect rdfs:subPropertyOf osmo:op_application_case_aspect.
+osmo:dp_section_aspect rdfs:subPropertyOf osmo:dp_application_case_aspect.
+osmo:op_application_case_entity rdfs:subPropertyOf osmo:op_application_case_aspect.
+osmo:dp_application_case_entity rdfs:subPropertyOf osmo:dp_application_case_aspect.
 
 osmo:application_case_aspect owl:disjointUnionOf (mmto:bc_aspect mmto:ic_aspect mmto:tc_aspect osmo:use_case_aspect).
 
 osmo:application_case_decision_support a owl:Class;
    rdfs:subClassOf osmo:application_case_aspect;
    rdfs:comment "information on the decision support system"^^xs:string.
-osmo:op_application_case_decision_support a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_application_case_decision_support a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_application_case_aspect rdfs:subClassOf osmo:op_application_case_decision_support.
-osmo:dp_application_case_aspect rdfs:subClassOf osmo:dp_application_case_decision_support.
+osmo:op_application_case_decision_support a owl:ObjectProperty.
+osmo:dp_application_case_decision_support a owl:DatatypeProperty.
+osmo:op_application_case_aspect rdfs:subPropertyOf osmo:op_application_case_decision_support.
+osmo:dp_application_case_aspect rdfs:subPropertyOf osmo:dp_application_case_decision_support.
 
 osmo:application_case_decision_support rdfs:subClassOf [
       a owl:Restriction;
@@ -1177,14 +1117,12 @@ osmo:application_case_decision_support rdfs:subClassOf [
 osmo:use_case_aspect a owl:Class;
    rdfs:subClassOf osmo:application_case_aspect, osmo:use_case_entity;
    rdfs:comment "use-case aspect (similar as in MODA)"^^xs:string.
-osmo:op_use_case_aspect a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_use_case_aspect a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_application_case_aspect rdfs:subClassOf osmo:op_use_case_aspect.
-osmo:dp_application_case_aspect rdfs:subClassOf osmo:dp_use_case_aspect.
-osmo:op_use_case_entity rdfs:subClassOf osmo:op_use_case_aspect.
-osmo:dp_use_case_entity rdfs:subClassOf osmo:dp_use_case_aspect.
+osmo:op_use_case_aspect a owl:ObjectProperty.
+osmo:dp_use_case_aspect a owl:DatatypeProperty.
+osmo:op_application_case_aspect rdfs:subPropertyOf osmo:op_use_case_aspect.
+osmo:dp_application_case_aspect rdfs:subPropertyOf osmo:dp_use_case_aspect.
+osmo:op_use_case_entity rdfs:subPropertyOf osmo:op_use_case_aspect.
+osmo:dp_use_case_entity rdfs:subPropertyOf osmo:dp_use_case_aspect.
 
 osmo:use_case_aspect owl:intersectionOf (osmo:application_case_aspect osmo:use_case_entity).
 
@@ -1195,86 +1133,72 @@ osmo:use_case_description a owl:Class;
       owl:someValuesFrom xs:string
    ];
    rdfs:comment "use-case description (MODA subsection 1.1), describes aspects of a use case textually"^^xs:string.
-osmo:op_use_case_description a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_use_case_description a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_use_case_aspect rdfs:subClassOf osmo:op_use_case_description.
-osmo:dp_use_case_aspect rdfs:subClassOf osmo:dp_use_case_description.
-osmo:op_section_description rdfs:subClassOf osmo:op_use_case_description.
-osmo:dp_section_description rdfs:subClassOf osmo:dp_use_case_description.
+osmo:op_use_case_description a owl:ObjectProperty.
+osmo:dp_use_case_description a owl:DatatypeProperty.
+osmo:op_use_case_aspect rdfs:subPropertyOf osmo:op_use_case_description.
+osmo:dp_use_case_aspect rdfs:subPropertyOf osmo:dp_use_case_description.
+osmo:op_section_description rdfs:subPropertyOf osmo:op_use_case_description.
+osmo:dp_section_description rdfs:subPropertyOf osmo:dp_use_case_description.
 
 osmo:use_case_material a owl:Class;
    rdfs:subClassOf osmo:use_case_aspect, osmo:material_information;
    rdfs:comment "use-case material information (MODA subsection 1.2), characterizes/describes the considered material"^^xs:string.
-osmo:op_use_case_material a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_use_case_material a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_use_case_aspect rdfs:subClassOf osmo:op_use_case_material.
-osmo:dp_use_case_aspect rdfs:subClassOf osmo:dp_use_case_material.
-osmo:op_material_information rdfs:subClassOf osmo:op_use_case_material.
-osmo:dp_material_information rdfs:subClassOf osmo:dp_use_case_material.
+osmo:op_use_case_material a owl:ObjectProperty.
+osmo:dp_use_case_material a owl:DatatypeProperty.
+osmo:op_use_case_aspect rdfs:subPropertyOf osmo:op_use_case_material.
+osmo:dp_use_case_aspect rdfs:subPropertyOf osmo:dp_use_case_material.
+osmo:op_material_information rdfs:subPropertyOf osmo:op_use_case_material.
+osmo:dp_material_information rdfs:subPropertyOf osmo:dp_use_case_material.
 
 osmo:use_case_geometry a owl:Class;
    rdfs:subClassOf osmo:use_case_boundary_condition, osmo:geometry_information;
    rdfs:comment "use-case geometry information (MODA subsection 1.3), characterizes/describes the considered system geometry"^^xs:string.
-osmo:op_use_case_geometry a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_use_case_geometry a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_use_case_boundary_condition rdfs:subClassOf osmo:op_use_case_geometry.
-osmo:dp_use_case_boundary_condition rdfs:subClassOf osmo:dp_use_case_geometry.
-osmo:op_geometry_information rdfs:subClassOf osmo:op_use_case_geometry.
-osmo:dp_geometry_information rdfs:subClassOf osmo:dp_use_case_geometry.
+osmo:op_use_case_geometry a owl:ObjectProperty.
+osmo:dp_use_case_geometry a owl:DatatypeProperty.
+osmo:op_use_case_boundary_condition rdfs:subPropertyOf osmo:op_use_case_geometry.
+osmo:dp_use_case_boundary_condition rdfs:subPropertyOf osmo:dp_use_case_geometry.
+osmo:op_geometry_information rdfs:subPropertyOf osmo:op_use_case_geometry.
+osmo:dp_geometry_information rdfs:subPropertyOf osmo:dp_use_case_geometry.
 
 osmo:use_case_timespan a owl:Class;
    rdfs:subClassOf osmo:use_case_aspect, osmo:timespan_information;
    rdfs:comment "use-case time span (MODA subsection 1.4), characterizes/describes the considered time interval"^^xs:string.
-osmo:op_use_case_timespan a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_use_case_timespan a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_use_case_aspect rdfs:subClassOf osmo:op_use_case_timespan.
-osmo:dp_use_case_aspect rdfs:subClassOf osmo:dp_use_case_timespan.
-osmo:op_timespan_information rdfs:subClassOf osmo:op_use_case_timespan.
-osmo:dp_timespan_information rdfs:subClassOf osmo:dp_use_case_timespan.
+osmo:op_use_case_timespan a owl:ObjectProperty.
+osmo:dp_use_case_timespan a owl:DatatypeProperty.
+osmo:op_use_case_aspect rdfs:subPropertyOf osmo:op_use_case_timespan.
+osmo:dp_use_case_aspect rdfs:subPropertyOf osmo:dp_use_case_timespan.
+osmo:op_timespan_information rdfs:subPropertyOf osmo:op_use_case_timespan.
+osmo:dp_timespan_information rdfs:subPropertyOf osmo:dp_use_case_timespan.
 
 osmo:use_case_boundary_condition a owl:Class;
    rdfs:subClassOf osmo:use_case_aspect, osmo:boundary_condition;
    rdfs:comment "use-case boundary condition (MODA subsection 1.5), characterizes/describes a thermodynamic, spatio-temporal, or any other boundary condition"^^xs:string.
-osmo:op_use_case_boundary_condition a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_use_case_boundary_condition a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_use_case_aspect rdfs:subClassOf osmo:op_use_case_boundary_condition.
-osmo:dp_use_case_aspect rdfs:subClassOf osmo:dp_use_case_boundary_condition.
-osmo:op_boundary_condition rdfs:subClassOf osmo:op_use_case_boundary_condition.
-osmo:dp_boundary_condition rdfs:subClassOf osmo:dp_use_case_boundary_condition.
+osmo:op_use_case_boundary_condition a owl:ObjectProperty.
+osmo:dp_use_case_boundary_condition a owl:DatatypeProperty.
+osmo:op_use_case_aspect rdfs:subPropertyOf osmo:op_use_case_boundary_condition.
+osmo:dp_use_case_aspect rdfs:subPropertyOf osmo:dp_use_case_boundary_condition.
+osmo:op_boundary_condition rdfs:subPropertyOf osmo:op_use_case_boundary_condition.
+osmo:dp_boundary_condition rdfs:subPropertyOf osmo:dp_use_case_boundary_condition.
 
 osmo:use_case_literature a owl:Class;
    rdfs:subClassOf osmo:use_case_aspect, osmo:section_literature;
    rdfs:comment "use-case literature (MODA subsection 1.6), cites a reference that is relevant or of interest for the use case"^^xs:string.
-osmo:op_use_case_literature a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_use_case_literature a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_use_case_aspect rdfs:subClassOf osmo:op_use_case_literature.
-osmo:dp_use_case_aspect rdfs:subClassOf osmo:dp_use_case_literature.
-osmo:op_section_literature rdfs:subClassOf osmo:op_use_case_literature.
-osmo:dp_section_literature rdfs:subClassOf osmo:dp_use_case_literature.
+osmo:op_use_case_literature a owl:ObjectProperty.
+osmo:dp_use_case_literature a owl:DatatypeProperty.
+osmo:op_use_case_aspect rdfs:subPropertyOf osmo:op_use_case_literature.
+osmo:dp_use_case_aspect rdfs:subPropertyOf osmo:dp_use_case_literature.
+osmo:op_section_literature rdfs:subPropertyOf osmo:op_use_case_literature.
+osmo:dp_section_literature rdfs:subPropertyOf osmo:dp_use_case_literature.
 
 osmo:use_case_decision_support a owl:Class;
    rdfs:subClassOf osmo:use_case_aspect, osmo:application_case_decision_support;
    rdfs:comment "information on the use-case decision support system (UDSS)"^^xs:string.
-osmo:op_use_case_decision_support a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_use_case_decision_support a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_use_case_aspect rdfs:subClassOf osmo:op_use_case_decision_support.
-osmo:dp_use_case_aspect rdfs:subClassOf osmo:dp_use_case_decision_support.
-osmo:op_application_case_decision_support rdfs:subClassOf osmo:op_use_case_decision_support.
-osmo:dp_application_case_decision_support rdfs:subClassOf osmo:dp_use_case_decision_support.
+osmo:op_use_case_decision_support a owl:ObjectProperty.
+osmo:dp_use_case_decision_support a owl:DatatypeProperty.
+osmo:op_use_case_aspect rdfs:subPropertyOf osmo:op_use_case_decision_support.
+osmo:dp_use_case_aspect rdfs:subPropertyOf osmo:dp_use_case_decision_support.
+osmo:op_application_case_decision_support rdfs:subPropertyOf osmo:op_use_case_decision_support.
+osmo:dp_application_case_decision_support rdfs:subPropertyOf osmo:dp_use_case_decision_support.
 
 osmo:use_case_decision_support rdfs:subClassOf [
       a owl:Restriction;
@@ -1285,65 +1209,69 @@ osmo:use_case_decision_support rdfs:subClassOf [
 osmo:model_entity a owl:Class;
    rdfs:subClassOf osmo:section_entity;
    rdfs:comment "model entity, i.e., a materials model (as in MODA) or an aspect thereof"^^xs:string.
-osmo:op_model_entity a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_model_entity a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_section_entity rdfs:subClassOf osmo:op_model_entity.
-osmo:dp_section_entity rdfs:subClassOf osmo:dp_model_entity.
+osmo:op_model_entity a owl:ObjectProperty.
+osmo:dp_model_entity a owl:DatatypeProperty.
+osmo:op_section_entity rdfs:subPropertyOf osmo:op_model_entity.
+osmo:dp_section_entity rdfs:subPropertyOf osmo:dp_model_entity.
 
 osmo:model_entity owl:disjointUnionOf (osmo:materials_model osmo:model_aspect).
 
 osmo:materials_model a owl:Class;
    rdfs:subClassOf osmo:section, evmpo:model, osmo:model_entity;
    rdfs:comment "materials model (as in MODA)"^^xs:string.
-osmo:op_materials_model a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_materials_model a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_section rdfs:subClassOf osmo:op_materials_model.
-osmo:dp_section rdfs:subClassOf osmo:dp_materials_model.
-evmpo:op_model rdfs:subClassOf osmo:op_materials_model.
-evmpo:dp_model rdfs:subClassOf osmo:dp_materials_model.
-osmo:op_model_entity rdfs:subClassOf osmo:op_materials_model.
-osmo:dp_model_entity rdfs:subClassOf osmo:dp_materials_model.
+osmo:op_materials_model a owl:ObjectProperty.
+osmo:dp_materials_model a owl:DatatypeProperty.
+osmo:op_section rdfs:subPropertyOf osmo:op_materials_model.
+osmo:dp_section rdfs:subPropertyOf osmo:dp_materials_model.
+evmpo:op_model rdfs:subPropertyOf osmo:op_materials_model.
+evmpo:dp_model rdfs:subPropertyOf osmo:dp_materials_model.
+osmo:op_model_entity rdfs:subPropertyOf osmo:op_materials_model.
+osmo:dp_model_entity rdfs:subPropertyOf osmo:dp_materials_model.
 
-osmo:has_model_aspect a osmo:op_materials_model;
+osmo:has_model_aspect a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_materials_model;
    rdfs:domain osmo:materials_model;
    rdfs:range osmo:model_aspect;
    rdfs:subPropertyOf osmo:has_aspect, evmpo:has_model_annotation;
    rdfs:comment "points to an aspect associated with a materials model (as in MODA)"^^xs:string.
-osmo:has_materials_model_ge a osmo:op_materials_model;
+osmo:has_materials_model_ge a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_materials_model;
    rdfs:domain osmo:materials_model;
    rdfs:range osmo:governing_equation;
    rdfs:subPropertyOf osmo:has_model_aspect.
 
-osmo:has_model_type a osmo:op_materials_model;
+osmo:has_model_type a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_materials_model;
    rdfs:domain osmo:materials_model;
    rdfs:range osmo:model_type;
    rdfs:subPropertyOf osmo:has_model_aspect, osmo:has_method_type;
    rdfs:comment "MODA subsection 2.1"^^xs:string.
-osmo:has_model_granularity a osmo:op_materials_model;
+osmo:has_model_granularity a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_materials_model;
    rdfs:domain osmo:materials_model;
    rdfs:range osmo:model_granularity;
    rdfs:subPropertyOf osmo:has_model_aspect;
    rdfs:comment "MODA subsection 2.2"^^xs:string.
-osmo:has_physical_equation a osmo:op_materials_model;
+osmo:has_physical_equation a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_materials_model;
    rdfs:domain osmo:materials_model;
    rdfs:range osmo:physical_equation;
    rdfs:subPropertyOf osmo:has_materials_model_ge;
    rdfs:comment "MODA subsection 2.3"^^xs:string.
-osmo:has_materials_relation a osmo:op_materials_model;
+osmo:has_materials_relation a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_materials_model;
    rdfs:domain osmo:materials_model;
    rdfs:range osmo:materials_relation;
    rdfs:subPropertyOf osmo:has_materials_model_ge;
    rdfs:comment "MODA subsection 2.4"^^xs:string.
-osmo:has_model_boundary_condition a osmo:op_materials_model;
+osmo:has_model_boundary_condition a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_materials_model;
    rdfs:domain osmo:materials_model;
    rdfs:range osmo:model_boundary_condition;
    rdfs:subPropertyOf osmo:has_model_aspect, osmo:has_boundary_condition;
    rdfs:comment "MODA subsection 2.5"^^xs:string.
-osmo:has_model_error_statement a evmpo:op_model;
+osmo:has_model_error_statement a owl:ObjectProperty;
+   rdfs:subPropertyOf evmpo:op_model;
    rdfs:domain evmpo:model;
    rdfs:range osmo:model_error_statement;
    rdfs:subPropertyOf osmo:has_error_statement.
@@ -1369,28 +1297,24 @@ osmo:materials_model rdfs:subClassOf [
 osmo:model_aspect a owl:Class;
    rdfs:subClassOf osmo:section_aspect, osmo:model_entity;
    rdfs:comment "model aspect, i.e., an aspect of a materials model"^^xs:string.
-osmo:op_model_aspect a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_model_aspect a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_section_aspect rdfs:subClassOf osmo:op_model_aspect.
-osmo:dp_section_aspect rdfs:subClassOf osmo:dp_model_aspect.
-osmo:op_model_entity rdfs:subClassOf osmo:op_model_aspect.
-osmo:dp_model_entity rdfs:subClassOf osmo:dp_model_aspect.
+osmo:op_model_aspect a owl:ObjectProperty.
+osmo:dp_model_aspect a owl:DatatypeProperty.
+osmo:op_section_aspect rdfs:subPropertyOf osmo:op_model_aspect.
+osmo:dp_section_aspect rdfs:subPropertyOf osmo:dp_model_aspect.
+osmo:op_model_entity rdfs:subPropertyOf osmo:op_model_aspect.
+osmo:dp_model_entity rdfs:subPropertyOf osmo:dp_model_aspect.
 
 osmo:model_aspect owl:intersectionOf (osmo:section_aspect osmo:model_entity).
 
 osmo:model_type a owl:Class;
    rdfs:subClassOf osmo:model_aspect, osmo:method_type;
    rdfs:comment "model type (MODA subsection 2.1), characterizes/describes the model type or class or the approach to modelling that is followed"^^xs:string.
-osmo:op_model_type a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_model_type a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_model_aspect rdfs:subClassOf osmo:op_model_type.
-osmo:dp_model_aspect rdfs:subClassOf osmo:dp_model_type.
-osmo:op_method_type rdfs:subClassOf osmo:op_model_type.
-osmo:dp_method_type rdfs:subClassOf osmo:dp_model_type.
+osmo:op_model_type a owl:ObjectProperty.
+osmo:dp_model_type a owl:DatatypeProperty.
+osmo:op_model_aspect rdfs:subPropertyOf osmo:op_model_type.
+osmo:dp_model_aspect rdfs:subPropertyOf osmo:dp_model_type.
+osmo:op_method_type rdfs:subPropertyOf osmo:op_model_type.
+osmo:dp_method_type rdfs:subPropertyOf osmo:dp_model_type.
 
 osmo:model_type rdfs:subClassOf [
       a owl:Restriction;
@@ -1401,12 +1325,10 @@ osmo:model_type rdfs:subClassOf [
 osmo:model_granularity a owl:Class;
    rdfs:subClassOf osmo:model_aspect;
    rdfs:comment "model granularity aspect (MODA subsection 2.2), characterizes the RoMM granularity level of a model"^^xs:string.
-osmo:op_model_granularity a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_model_granularity a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_model_aspect rdfs:subClassOf osmo:op_model_granularity.
-osmo:dp_model_aspect rdfs:subClassOf osmo:dp_model_granularity.
+osmo:op_model_granularity a owl:ObjectProperty.
+osmo:dp_model_granularity a owl:DatatypeProperty.
+osmo:op_model_aspect rdfs:subPropertyOf osmo:op_model_granularity.
+osmo:dp_model_aspect rdfs:subPropertyOf osmo:dp_model_granularity.
 
 osmo:model_granularity rdfs:subClassOf [
       a owl:Restriction;
@@ -1421,120 +1343,114 @@ osmo:governing_equation a owl:Class;
       owl:someValuesFrom osmo:condition
    ];
    rdfs:comment "governing equation (GE) as defined by RoMM, i.e., a physical equation (PE) or materials relation (MR)"^^xs:string.
-osmo:op_governing_equation a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_governing_equation a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_model_aspect rdfs:subClassOf osmo:op_governing_equation.
-osmo:dp_model_aspect rdfs:subClassOf osmo:dp_governing_equation.
-osmo:op_condition rdfs:subClassOf osmo:op_governing_equation.
-osmo:dp_condition rdfs:subClassOf osmo:dp_governing_equation.
+osmo:op_governing_equation a owl:ObjectProperty.
+osmo:dp_governing_equation a owl:DatatypeProperty.
+osmo:op_model_aspect rdfs:subPropertyOf osmo:op_governing_equation.
+osmo:dp_model_aspect rdfs:subPropertyOf osmo:dp_governing_equation.
+osmo:op_condition rdfs:subPropertyOf osmo:op_governing_equation.
+osmo:dp_condition rdfs:subPropertyOf osmo:dp_governing_equation.
 
 osmo:physical_equation a owl:Class;
    rdfs:subClassOf osmo:governing_equation;
    rdfs:comment "physical equation (PE) as defined by RoMM, cf. MODA subsection 2.3"^^xs:string.
-osmo:op_physical_equation a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_physical_equation a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_governing_equation rdfs:subClassOf osmo:op_physical_equation.
-osmo:dp_governing_equation rdfs:subClassOf osmo:dp_physical_equation.
+osmo:op_physical_equation a owl:ObjectProperty.
+osmo:dp_physical_equation a owl:DatatypeProperty.
+osmo:op_governing_equation rdfs:subPropertyOf osmo:op_physical_equation.
+osmo:dp_governing_equation rdfs:subPropertyOf osmo:dp_physical_equation.
 
 osmo:materials_relation a owl:Class;
    rdfs:subClassOf osmo:governing_equation;
    rdfs:comment "materials relation (MR) as defined by RoMM, cf. MODA subsection 2.4"^^xs:string.
-osmo:op_materials_relation a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_materials_relation a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_governing_equation rdfs:subClassOf osmo:op_materials_relation.
-osmo:dp_governing_equation rdfs:subClassOf osmo:dp_materials_relation.
+osmo:op_materials_relation a owl:ObjectProperty.
+osmo:dp_materials_relation a owl:DatatypeProperty.
+osmo:op_governing_equation rdfs:subPropertyOf osmo:op_materials_relation.
+osmo:dp_governing_equation rdfs:subPropertyOf osmo:dp_materials_relation.
 
 osmo:model_boundary_condition a owl:Class;
    rdfs:subClassOf osmo:model_aspect, osmo:boundary_condition;
    rdfs:comment "model boundary condition (MODA subsection 2.5), characterizes/describes a boundary condition that is applied to the model"^^xs:string.
-osmo:op_model_boundary_condition a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_model_boundary_condition a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_model_aspect rdfs:subClassOf osmo:op_model_boundary_condition.
-osmo:dp_model_aspect rdfs:subClassOf osmo:dp_model_boundary_condition.
-osmo:op_boundary_condition rdfs:subClassOf osmo:op_model_boundary_condition.
-osmo:dp_boundary_condition rdfs:subClassOf osmo:dp_model_boundary_condition.
+osmo:op_model_boundary_condition a owl:ObjectProperty.
+osmo:dp_model_boundary_condition a owl:DatatypeProperty.
+osmo:op_model_aspect rdfs:subPropertyOf osmo:op_model_boundary_condition.
+osmo:dp_model_aspect rdfs:subPropertyOf osmo:dp_model_boundary_condition.
+osmo:op_boundary_condition rdfs:subPropertyOf osmo:op_model_boundary_condition.
+osmo:dp_boundary_condition rdfs:subPropertyOf osmo:dp_model_boundary_condition.
 
 osmo:model_error_statement a owl:Class;
    rdfs:subClassOf osmo:error_statement;
    rdfs:comment "model error statement, characterizes/describes the error or uncertainty associated with a model"^^xs:string.
-osmo:op_model_error_statement a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_model_error_statement a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_error_statement rdfs:subClassOf osmo:op_model_error_statement.
-osmo:dp_error_statement rdfs:subClassOf osmo:dp_model_error_statement.
+osmo:op_model_error_statement a owl:ObjectProperty.
+osmo:dp_model_error_statement a owl:DatatypeProperty.
+osmo:op_error_statement rdfs:subPropertyOf osmo:op_model_error_statement.
+osmo:dp_error_statement rdfs:subPropertyOf osmo:dp_model_error_statement.
 
 osmo:solver_entity a owl:Class;
    rdfs:subClassOf osmo:section_entity;
    rdfs:comment "solver entity, i.e., a solver or an aspect thereof"^^xs:string.
-osmo:op_solver_entity a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_solver_entity a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_section_entity rdfs:subClassOf osmo:op_solver_entity.
-osmo:dp_section_entity rdfs:subClassOf osmo:dp_solver_entity.
+osmo:op_solver_entity a owl:ObjectProperty.
+osmo:dp_solver_entity a owl:DatatypeProperty.
+osmo:op_section_entity rdfs:subPropertyOf osmo:op_solver_entity.
+osmo:dp_section_entity rdfs:subPropertyOf osmo:dp_solver_entity.
 
 osmo:solver_entity owl:disjointUnionOf (osmo:solver osmo:solver_aspect).
 
 osmo:solver a owl:Class;
    rdfs:subClassOf osmo:section, evmpo:annotation, osmo:solver_entity;
    rdfs:comment "solver (as in MODA)"^^xs:string.
-osmo:op_solver a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_solver a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_section rdfs:subClassOf osmo:op_solver.
-osmo:dp_section rdfs:subClassOf osmo:dp_solver.
-evmpo:op_annotation rdfs:subClassOf osmo:op_solver.
-evmpo:dp_annotation rdfs:subClassOf osmo:dp_solver.
-osmo:op_solver_entity rdfs:subClassOf osmo:op_solver.
-osmo:dp_solver_entity rdfs:subClassOf osmo:dp_solver.
+osmo:op_solver a owl:ObjectProperty.
+osmo:dp_solver a owl:DatatypeProperty.
+osmo:op_section rdfs:subPropertyOf osmo:op_solver.
+osmo:dp_section rdfs:subPropertyOf osmo:dp_solver.
+evmpo:op_annotation rdfs:subPropertyOf osmo:op_solver.
+evmpo:dp_annotation rdfs:subPropertyOf osmo:dp_solver.
+osmo:op_solver_entity rdfs:subPropertyOf osmo:op_solver.
+osmo:dp_solver_entity rdfs:subPropertyOf osmo:dp_solver.
 
-osmo:has_solver_aspect a osmo:op_solver;
+osmo:has_solver_aspect a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_solver;
    rdfs:domain osmo:solver;
    rdfs:range osmo:solver_aspect;
    rdfs:subPropertyOf osmo:has_aspect, evmpo:has_meta_annotation;
    rdfs:comment "points to an aspect associated with a solver"^^xs:string.
 
-osmo:has_solver_method_type a osmo:op_solver;
+osmo:has_solver_method_type a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_solver;
    rdfs:domain osmo:solver;
    rdfs:range osmo:solver_method_type;
    rdfs:subPropertyOf osmo:has_solver_aspect, osmo:has_method_type;
    rdfs:comment "MODA subsection 3.1"^^xs:string.
-osmo:has_solver_software a osmo:op_solver;
+osmo:has_solver_software a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_solver;
    rdfs:domain osmo:solver;
    rdfs:range osmo:solver_software;
    rdfs:subPropertyOf osmo:has_solver_aspect, osmo:has_employed_software;
    rdfs:comment "MODA subsection 3.2"^^xs:string.
-osmo:has_solver_timestep a osmo:op_solver;
+osmo:has_solver_timestep a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_solver;
    rdfs:domain osmo:solver;
    rdfs:range osmo:solver_timestep;
    rdfs:subPropertyOf osmo:has_solver_aspect, osmo:has_temporal_discretization;
    rdfs:comment "MODA subsection 3.3"^^xs:string.
-osmo:has_computational_representation a osmo:op_solver;
+osmo:has_computational_representation a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_solver;
    rdfs:domain osmo:solver;
    rdfs:range osmo:computational_representation;
    rdfs:subPropertyOf osmo:has_solver_aspect;
    rdfs:comment "MODA subsection 3.4"^^xs:string.
-osmo:has_solver_boundary_condition a osmo:op_solver;
+osmo:has_solver_boundary_condition a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_solver;
    rdfs:domain osmo:solver;
    rdfs:range osmo:solver_boundary_condition;
    rdfs:subPropertyOf osmo:has_solver_aspect, osmo:has_boundary_condition;
    rdfs:comment "MODA subsection 3.5"^^xs:string.
-osmo:has_solver_parameter a osmo:op_solver;
+osmo:has_solver_parameter a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_solver;
    rdfs:domain osmo:solver;
    rdfs:range osmo:solver_parameter;
    rdfs:subPropertyOf osmo:has_solver_aspect, osmo:has_section_parameter;
    rdfs:comment "MODA subsection 3.6"^^xs:string.
-osmo:has_solver_error_statement a osmo:op_solver;
+osmo:has_solver_error_statement a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_solver;
    rdfs:domain osmo:solver;
    rdfs:range osmo:solver_error_statement;
    rdfs:subPropertyOf osmo:has_error_statement.
@@ -1552,28 +1468,24 @@ osmo:solver rdfs:subClassOf [
 osmo:solver_aspect a owl:Class;
    rdfs:subClassOf osmo:section_aspect, osmo:solver_entity;
    rdfs:comment "MODA solver aspect, i.e., an aspect of a solver (similar to MODA)"^^xs:string.
-osmo:op_solver_aspect a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_solver_aspect a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_section_aspect rdfs:subClassOf osmo:op_solver_aspect.
-osmo:op_section_aspect rdfs:subClassOf osmo:dp_solver_aspect.
-osmo:op_solver_entity rdfs:subClassOf osmo:op_solver_aspect.
-osmo:op_solver_entity rdfs:subClassOf osmo:dp_solver_aspect.
+osmo:op_solver_aspect a owl:ObjectProperty.
+osmo:dp_solver_aspect a owl:DatatypeProperty.
+osmo:op_section_aspect rdfs:subPropertyOf osmo:op_solver_aspect.
+osmo:op_section_aspect rdfs:subPropertyOf osmo:dp_solver_aspect.
+osmo:op_solver_entity rdfs:subPropertyOf osmo:op_solver_aspect.
+osmo:op_solver_entity rdfs:subPropertyOf osmo:dp_solver_aspect.
 
 osmo:solver_aspect owl:intersectionOf (osmo:section_aspect osmo:solver_entity).
 
 osmo:solver_method_type a owl:Class;
    rdfs:subClassOf osmo:solver_aspect, osmo:method_type;
    rdfs:comment "solver method type (MODA subsection 3.1), characterizes/describes the name and type of the solver"^^xs:string.
-osmo:op_solver_method_type a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_solver_method_type a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_solver_aspect rdfs:subClassOf osmo:op_solver_method_type.
-osmo:dp_solver_aspect rdfs:subClassOf osmo:dp_solver_method_type.
-osmo:op_method_type rdfs:subClassOf osmo:op_solver_method_type.
-osmo:dp_method_type rdfs:subClassOf osmo:dp_solver_method_type.
+osmo:op_solver_method_type a owl:ObjectProperty.
+osmo:dp_solver_method_type a owl:DatatypeProperty.
+osmo:op_solver_aspect rdfs:subPropertyOf osmo:op_solver_method_type.
+osmo:dp_solver_aspect rdfs:subPropertyOf osmo:dp_solver_method_type.
+osmo:op_method_type rdfs:subPropertyOf osmo:op_solver_method_type.
+osmo:dp_method_type rdfs:subPropertyOf osmo:dp_solver_method_type.
 
 osmo:EOS_SINGLE_PHASE_SOLVER a osmo:solver_method_type;
    osmo:has_aspect_text_content "EOS single-phase solver"^^xs:string.
@@ -1587,14 +1499,12 @@ osmo:MONTE_CARLO_SOLVER a osmo:solver_method_type;
 osmo:solver_software a owl:Class;
    rdfs:subClassOf osmo:solver_aspect, osmo:software;
    rdfs:comment "solver software (MODA subsection 3.2), characterizes/describes a code/package to be used as a solver"^^xs:string.
-osmo:op_solver_software a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_solver_software a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_solver_aspect rdfs:subClassOf osmo:op_solver_software.
-osmo:dp_solver_aspect rdfs:subClassOf osmo:dp_solver_software.
-osmo:op_software rdfs:subClassOf osmo:op_solver_software.
-osmo:dp_software rdfs:subClassOf osmo:dp_solver_software.
+osmo:op_solver_software a owl:ObjectProperty.
+osmo:dp_solver_software a owl:DatatypeProperty.
+osmo:op_solver_aspect rdfs:subPropertyOf osmo:op_solver_software.
+osmo:dp_solver_aspect rdfs:subPropertyOf osmo:dp_solver_software.
+osmo:op_software rdfs:subPropertyOf osmo:op_solver_software.
+osmo:dp_software rdfs:subPropertyOf osmo:dp_solver_software.
 
 osmo:solver_software rdfs:subClassOf [
       a owl:Restriction;
@@ -1605,14 +1515,12 @@ osmo:solver_software rdfs:subClassOf [
 osmo:solver_timestep a owl:Class;
    rdfs:subClassOf osmo:solver_aspect, osmo:temporal_discretization;
    rdfs:comment "solver time step (MODA subsection 3.3), numerical time step employed by the solver"^^xs:string.
-osmo:op_solver_timestep a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_solver_timestep a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_solver_aspect rdfs:subClassOf osmo:op_solver_timestep.
-osmo:dp_solver_aspect rdfs:subClassOf osmo:dp_solver_timestep.
-osmo:op_temporal_discretization rdfs:subClassOf osmo:op_solver_timestep.
-osmo:dp_temporal_discretization rdfs:subClassOf osmo:dp_solver_timestep.
+osmo:op_solver_timestep a owl:ObjectProperty.
+osmo:dp_solver_timestep a owl:DatatypeProperty.
+osmo:op_solver_aspect rdfs:subPropertyOf osmo:op_solver_timestep.
+osmo:dp_solver_aspect rdfs:subPropertyOf osmo:dp_solver_timestep.
+osmo:op_temporal_discretization rdfs:subPropertyOf osmo:op_solver_timestep.
+osmo:dp_temporal_discretization rdfs:subPropertyOf osmo:dp_solver_timestep.
 
 osmo:computational_representation a owl:Class;
    rdfs:subClassOf osmo:solver_aspect, [
@@ -1621,137 +1529,118 @@ osmo:computational_representation a owl:Class;
       owl:someValuesFrom osmo:condition
    ];
    rdfs:comment "solver computational representation (MODA subsection 3.4), characterizes/describes how the solver numerically represents the model and/or the material"^^xs:string.
-osmo:op_computational_representation a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_computational_representation a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_solver_aspect rdfs:subClassOf osmo:op_computational_representation.
-osmo:dp_solver_aspect rdfs:subClassOf osmo:dp_computational_representation.
-osmo:op_condition rdfs:subClassOf osmo:op_computational_representation.
-osmo:dp_condition rdfs:subClassOf osmo:dp_computational_representation.
+osmo:op_computational_representation a owl:ObjectProperty.
+osmo:dp_computational_representation a owl:DatatypeProperty.
+osmo:op_solver_aspect rdfs:subPropertyOf osmo:op_computational_representation.
+osmo:dp_solver_aspect rdfs:subPropertyOf osmo:dp_computational_representation.
+osmo:op_condition rdfs:subPropertyOf osmo:op_computational_representation.
+osmo:dp_condition rdfs:subPropertyOf osmo:dp_computational_representation.
 
 osmo:computational_representation_model a owl:Class;
    rdfs:subClassOf osmo:computational_representation;
    rdfs:comment "solver CR of the model, i.e., a computational representation of (all or part of) the governing equations of the employed materials model"^^xs:string.
-osmo:op_computational_representation_model a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_computational_representation_model a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_computational_representation rdfs:subClassOf osmo:op_computational_representation_model.
-osmo:dp_computational_representation rdfs:subClassOf osmo:dp_computational_representation_model.
+osmo:op_computational_representation_model a owl:ObjectProperty.
+osmo:dp_computational_representation_model a owl:DatatypeProperty.
+osmo:op_computational_representation rdfs:subPropertyOf osmo:op_computational_representation_model.
+osmo:dp_computational_representation rdfs:subPropertyOf osmo:dp_computational_representation_model.
 
 osmo:computational_representation_pe a owl:Class;
    rdfs:subClassOf osmo:computational_representation_model;
    rdfs:comment "solver CR of PE, i.e., a computational representation specifically of one or multiple physical equations (PE)"^^xs:string.
-osmo:op_computational_representation_pe a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_computational_representation_pe a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_computational_representation_model rdfs:subClassOf osmo:op_computational_representation_pe.
-osmo:dp_computational_representation_model rdfs:subClassOf osmo:dp_computational_representation_pe.
+osmo:op_computational_representation_pe a owl:ObjectProperty.
+osmo:dp_computational_representation_pe a owl:DatatypeProperty.
+osmo:op_computational_representation_model rdfs:subPropertyOf osmo:op_computational_representation_pe.
+osmo:dp_computational_representation_model rdfs:subPropertyOf osmo:dp_computational_representation_pe.
 
 osmo:computational_representation_mr a owl:Class;
    rdfs:subClassOf osmo:computational_representation_model;
    rdfs:comment "solver CR of MR, i.e., a computational representation specifically of one or multiple materials relations (MR)"^^xs:string.
-osmo:op_computational_representation_mr a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_computational_representation_mr a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_computational_representation_model rdfs:subClassOf osmo:op_computational_representation_mr.
-osmo:dp_computational_representation_model rdfs:subClassOf osmo:dp_computational_representation_mr.
+osmo:op_computational_representation_mr a owl:ObjectProperty.
+osmo:dp_computational_representation_mr a owl:DatatypeProperty.
+osmo:op_computational_representation_model rdfs:subPropertyOf osmo:op_computational_representation_mr.
+osmo:dp_computational_representation_model rdfs:subPropertyOf osmo:dp_computational_representation_mr.
 
 osmo:computational_representation_material a owl:Class;
    rdfs:subClassOf osmo:computational_representation;
    rdfs:comment "solver CR of the material, i.e., a computational representation of the considered use case or material"^^xs:string.
-osmo:op_computational_representation_material a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_computational_representation_material a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_computational_representation rdfs:subClassOf osmo:op_computational_representation_material.
-osmo:dp_computational_representation rdfs:subClassOf osmo:dp_computational_representation_material.
+osmo:op_computational_representation_material a owl:ObjectProperty.
+osmo:dp_computational_representation_material a owl:DatatypeProperty.
+osmo:op_computational_representation rdfs:subPropertyOf osmo:op_computational_representation_material.
+osmo:dp_computational_representation rdfs:subPropertyOf osmo:dp_computational_representation_material.
 
 osmo:computational_representation_hybrid a owl:Class;
    rdfs:subClassOf osmo:computational_representation;
    rdfs:comment "solver CR of the material, i.e., a computational representation that combines model and material (or use case) aspects"^^xs:string.
-osmo:op_computational_representation_hybrid a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_computational_representation_hybrid a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_computational_representation rdfs:subClassOf osmo:op_computational_representation_hybrid.
-osmo:dp_computational_representation rdfs:subClassOf osmo:dp_computational_representation_hybrid.
+osmo:op_computational_representation_hybrid a owl:ObjectProperty.
+osmo:dp_computational_representation_hybrid a owl:DatatypeProperty.
+osmo:op_computational_representation rdfs:subPropertyOf osmo:op_computational_representation_hybrid.
+osmo:dp_computational_representation rdfs:subPropertyOf osmo:dp_computational_representation_hybrid.
 
 osmo:solver_boundary_condition a owl:Class;
    rdfs:subClassOf osmo:solver_aspect, osmo:boundary_condition;
    rdfs:comment "solver boundary condition (MODA subsection 3.5), characterizes/describes a computational boundary condition of a solver"^^xs:string.
-osmo:op_solver_boundary_condition a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_solver_boundary_condition a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_solver_aspect rdfs:subClassOf osmo:op_solver_boundary_condition.
-osmo:dp_solver_aspect rdfs:subClassOf osmo:dp_solver_boundary_condition.
-osmo:op_boundary_condition rdfs:subClassOf osmo:op_solver_boundary_condition.
-osmo:dp_boundary_condition rdfs:subClassOf osmo:dp_solver_boundary_condition.
+osmo:op_solver_boundary_condition a owl:ObjectProperty.
+osmo:dp_solver_boundary_condition a owl:DatatypeProperty.
+osmo:op_solver_aspect rdfs:subPropertyOf osmo:op_solver_boundary_condition.
+osmo:dp_solver_aspect rdfs:subPropertyOf osmo:dp_solver_boundary_condition.
+osmo:op_boundary_condition rdfs:subPropertyOf osmo:op_solver_boundary_condition.
+osmo:dp_boundary_condition rdfs:subPropertyOf osmo:dp_solver_boundary_condition.
 
 osmo:solver_parameter a owl:Class;
    rdfs:subClassOf osmo:solver_aspect, osmo:parameter_aspect;
    rdfs:comment "solver parameter (MODA subsection 3.6), i.e., a parameter of a solver"^^xs:string.
-osmo:op_solver_parameter a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_solver_parameter a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_solver_aspect rdfs:subClassOf osmo:op_solver_parameter.
-osmo:dp_solver_aspect rdfs:subClassOf osmo:dp_solver_parameter.
-osmo:op_parameter_aspect rdfs:subClassOf osmo:op_solver_parameter.
-osmo:dp_parameter_aspect rdfs:subClassOf osmo:dp_solver_parameter.
+osmo:op_solver_parameter a owl:ObjectProperty.
+osmo:dp_solver_parameter a owl:DatatypeProperty.
+osmo:op_solver_aspect rdfs:subPropertyOf osmo:op_solver_parameter.
+osmo:dp_solver_aspect rdfs:subPropertyOf osmo:dp_solver_parameter.
+osmo:op_parameter_aspect rdfs:subPropertyOf osmo:op_solver_parameter.
+osmo:dp_parameter_aspect rdfs:subPropertyOf osmo:dp_solver_parameter.
 
 osmo:solver_error_statement a owl:Class;
    rdfs:subClassOf osmo:error_statement;
    rdfs:comment "solver error statement, characterizes/describes the error or uncertainty associated with a solver output"^^xs:string.
-osmo:op_solver_error_statement a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_solver_error_statement a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_error_statement rdfs:subClassOf osmo:op_solver_error_statement.
-osmo:dp_error_statement rdfs:subClassOf osmo:dp_solver_error_statement.
+osmo:op_solver_error_statement a owl:ObjectProperty.
+osmo:dp_solver_error_statement a owl:DatatypeProperty.
+osmo:op_error_statement rdfs:subPropertyOf osmo:op_solver_error_statement.
+osmo:dp_error_statement rdfs:subPropertyOf osmo:dp_solver_error_statement.
 
 osmo:processor_entity a owl:Class;
    rdfs:subClassOf osmo:section_entity;
    rdfs:comment "processor entity, i.e., a processor that can be described by MODA section 4, or an aspect thereof"^^xs:string.
-osmo:op_processor_entity a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_processor_entity a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_section_entity rdfs:subClassOf osmo:op_processor_entity.
-osmo:dp_section_entity rdfs:subClassOf osmo:dp_processor_entity.
+osmo:op_processor_entity a owl:ObjectProperty.
+osmo:dp_processor_entity a owl:DatatypeProperty.
+osmo:op_section_entity rdfs:subPropertyOf osmo:op_processor_entity.
+osmo:dp_section_entity rdfs:subPropertyOf osmo:dp_processor_entity.
 
 osmo:processor_entity owl:disjointUnionOf (osmo:processor osmo:processor_aspect).
 
 osmo:processor a owl:Class;
    rdfs:subClassOf osmo:section, evmpo:annotation, osmo:processor_entity;
    rdfs:comment "processor (like a MODA postprocessor, however, without implying execution subsequent to a solver, which would correspond to the special case represented by the subclass osmo:postprocessor)"^^xs:string.
-osmo:op_processor a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_processor a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_section rdfs:subClassOf osmo:op_processor.
-osmo:dp_section rdfs:subClassOf osmo:dp_processor.
-evmpo:op_annotation rdfs:subClassOf osmo:op_processor.
-evmpo:dp_annotation rdfs:subClassOf osmo:dp_processor.
-osmo:op_processor_entity rdfs:subClassOf osmo:op_processor.
-osmo:dp_processor_entity rdfs:subClassOf osmo:dp_processor.
+osmo:op_processor a owl:ObjectProperty.
+osmo:dp_processor a owl:DatatypeProperty.
+osmo:op_section rdfs:subPropertyOf osmo:op_processor.
+osmo:dp_section rdfs:subPropertyOf osmo:dp_processor.
+evmpo:op_annotation rdfs:subPropertyOf osmo:op_processor.
+evmpo:dp_annotation rdfs:subPropertyOf osmo:dp_processor.
+osmo:op_processor_entity rdfs:subPropertyOf osmo:op_processor.
+osmo:dp_processor_entity rdfs:subPropertyOf osmo:dp_processor.
 
-osmo:has_processor_aspect a osmo:op_processor;
+osmo:has_processor_aspect a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_processor;
    rdfs:domain osmo:processor;
    rdfs:range osmo:processor_aspect;
    rdfs:subPropertyOf osmo:has_aspect, evmpo:has_meta_annotation;
    rdfs:comment "points to an aspect associated with a processor"^^xs:string.
 
-osmo:has_processor_method_type a osmo:op_processor;
+osmo:has_processor_method_type a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_processor;
    rdfs:domain osmo:processor;
    rdfs:range osmo:processor_method_type;
    rdfs:subPropertyOf osmo:has_processor_aspect, osmo:has_method_type, evmpo:has_meta_annotation;
    rdfs:comment "MODA subsection 4.2"^^xs:string.
-osmo:has_processor_error_statement a osmo:op_processor;
+osmo:has_processor_error_statement a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_processor;
    rdfs:domain osmo:processor;
    rdfs:range osmo:processor_error_statement;
    rdfs:subPropertyOf osmo:has_processor_aspect, osmo:has_error_statement;
@@ -1768,54 +1657,44 @@ osmo:processor owl:disjointUnionOf (osmo:preprocessor osmo:coupled_processor osm
 osmo:preprocessor a owl:Class;
    rdfs:subClassOf osmo:processor;
    rdfs:comment "preprocessor, i.e., a processor that operates before a solver or during solver initialization".
-osmo:op_preprocessor a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_preprocessor a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_processor rdfs:subClassOf osmo:op_preprocessor.
-osmo:dp_processor rdfs:subClassOf osmo:dp_preprocessor.
+osmo:op_preprocessor a owl:ObjectProperty.
+osmo:dp_preprocessor a owl:DatatypeProperty.
+osmo:op_processor rdfs:subPropertyOf osmo:op_preprocessor.
+osmo:dp_processor rdfs:subPropertyOf osmo:dp_preprocessor.
 
 osmo:coupled_processor a owl:Class;
    rdfs:subClassOf osmo:processor;
    rdfs:comment "coupled processor, i.e., a processor that is synchronized with a solver and operates on the fly".
-osmo:op_coupled_processor a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_coupled_processor a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_processor rdfs:subClassOf osmo:op_coupled_processor.
-osmo:dp_processor rdfs:subClassOf osmo:dp_coupled_processor.
+osmo:op_coupled_processor a owl:ObjectProperty.
+osmo:dp_coupled_processor a owl:DatatypeProperty.
+osmo:op_processor rdfs:subPropertyOf osmo:op_coupled_processor.
+osmo:dp_processor rdfs:subPropertyOf osmo:dp_coupled_processor.
 
 osmo:postprocessor a owl:Class;
    rdfs:subClassOf osmo:processor;
    rdfs:comment "postprocessor, i.e., a processor that operates subsequent to a solver or during solver finalization".
-osmo:op_postprocessor a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_postprocessor a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_processor rdfs:subClassOf osmo:op_postprocessor.
-osmo:dp_processor rdfs:subClassOf osmo:dp_postprocessor.
+osmo:op_postprocessor a owl:ObjectProperty.
+osmo:dp_postprocessor a owl:DatatypeProperty.
+osmo:op_processor rdfs:subPropertyOf osmo:op_postprocessor.
+osmo:dp_processor rdfs:subPropertyOf osmo:dp_postprocessor.
 
 osmo:data_processor a owl:Class;
    rdfs:subClassOf osmo:processor;
    rdfs:comment "data processor, i.e., a processor that is not coupled or immediately linked to a solver".
-osmo:op_data_processor a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_data_processor a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_processor rdfs:subClassOf osmo:op_data_processor.
-osmo:dp_processor rdfs:subClassOf osmo:dp_data_processor.
+osmo:op_data_processor a owl:ObjectProperty.
+osmo:dp_data_processor a owl:DatatypeProperty.
+osmo:op_processor rdfs:subPropertyOf osmo:op_data_processor.
+osmo:dp_processor rdfs:subPropertyOf osmo:dp_data_processor.
 
 osmo:processor_aspect a owl:Class;
    rdfs:subClassOf osmo:section_aspect, osmo:processor_entity;
    rdfs:comment "processor aspect, i.e., an aspect of a processor (as in MODA)"^^xs:string.
-osmo:op_processor_aspect a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_processor_aspect a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_section_aspect rdfs:subClassOf osmo:op_processor_aspect.
-osmo:op_section_aspect rdfs:subClassOf osmo:dp_processor_aspect.
-osmo:op_processor_entity rdfs:subClassOf osmo:op_processor_aspect.
-osmo:op_processor_entity rdfs:subClassOf osmo:dp_processor_aspect.
+osmo:op_processor_aspect a owl:ObjectProperty.
+osmo:dp_processor_aspect a owl:DatatypeProperty.
+osmo:op_section_aspect rdfs:subPropertyOf osmo:op_processor_aspect.
+osmo:op_section_aspect rdfs:subPropertyOf osmo:dp_processor_aspect.
+osmo:op_processor_entity rdfs:subPropertyOf osmo:op_processor_aspect.
+osmo:op_processor_entity rdfs:subPropertyOf osmo:dp_processor_aspect.
 
 osmo:processor_aspect owl:intersectionOf (osmo:section_aspect osmo:processor_entity).
 
@@ -1826,44 +1705,36 @@ osmo:processor_method_type a owl:Class;
       owl:someValuesFrom xs:string
    ];
    rdfs:comment "processor method type (MODA subsection 4.2), characterizes/describes the methodology employed by a processor"^^xs:string.
-osmo:op_processor_method_type a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_processor_method_type a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_processor_aspect rdfs:subClassOf osmo:op_processor_method_type.
-osmo:dp_processor_aspect rdfs:subClassOf osmo:dp_processor_method_type.
-osmo:op_method_type rdfs:subClassOf osmo:op_processor_method_type.
-osmo:dp_method_type rdfs:subClassOf osmo:dp_processor_method_type.
+osmo:op_processor_method_type a owl:ObjectProperty.
+osmo:dp_processor_method_type a owl:DatatypeProperty.
+osmo:op_processor_aspect rdfs:subPropertyOf osmo:op_processor_method_type.
+osmo:dp_processor_aspect rdfs:subPropertyOf osmo:dp_processor_method_type.
+osmo:op_method_type rdfs:subPropertyOf osmo:op_processor_method_type.
+osmo:dp_method_type rdfs:subPropertyOf osmo:dp_processor_method_type.
 
 osmo:preprocessor_method_type a owl:Class;
    rdfs:subClassOf osmo:processor_method_type;
    rdfs:comment "preprocessor method type, i.e., a method type associated with a preprocessor"^^xs:string.
-osmo:op_preprocessor_method_type a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_preprocessor_method_type a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_processor_method_type rdfs:subClassOf osmo:op_preprocessor_method_type.
-osmo:dp_processor_method_type rdfs:subClassOf osmo:dp_preprocessor_method_type.
+osmo:op_preprocessor_method_type a owl:ObjectProperty.
+osmo:dp_preprocessor_method_type a owl:DatatypeProperty.
+osmo:op_processor_method_type rdfs:subPropertyOf osmo:op_preprocessor_method_type.
+osmo:dp_processor_method_type rdfs:subPropertyOf osmo:dp_preprocessor_method_type.
 
 osmo:coupled_processor_method_type a owl:Class;
    rdfs:subClassOf osmo:processor_method_type;
    rdfs:comment "coupled processor method type, i.e., a method type associated with a coupled processor"^^xs:string.
-osmo:op_coupled_processor_method_type a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_coupled_processor_method_type a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_processor_method_type rdfs:subClassOf osmo:op_coupled_processor_method_type.
-osmo:dp_processor_method_type rdfs:subClassOf osmo:dp_coupled_processor_method_type.
+osmo:op_coupled_processor_method_type a owl:ObjectProperty.
+osmo:dp_coupled_processor_method_type a owl:DatatypeProperty.
+osmo:op_processor_method_type rdfs:subPropertyOf osmo:op_coupled_processor_method_type.
+osmo:dp_processor_method_type rdfs:subPropertyOf osmo:dp_coupled_processor_method_type.
 
 osmo:postprocessor_method_type a owl:Class;
    rdfs:subClassOf osmo:processor_method_type;
    rdfs:comment "postprocessor method type, i.e., a method type associated with a postprocessor"^^xs:string.
-osmo:op_postprocessor_method_type a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_postprocessor_method_type a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_processor_method_type rdfs:subClassOf osmo:op_postprocessor_method_type.
-osmo:dp_processor_method_type rdfs:subClassOf osmo:dp_postprocessor_method_type.
+osmo:op_postprocessor_method_type a owl:ObjectProperty.
+osmo:dp_postprocessor_method_type a owl:DatatypeProperty.
+osmo:op_processor_method_type rdfs:subPropertyOf osmo:op_postprocessor_method_type.
+osmo:dp_processor_method_type rdfs:subPropertyOf osmo:dp_postprocessor_method_type.
 
 osmo:TRAJECTORY_ANALYSER a osmo:postprocessor_method_type;
    osmo:has_aspect_text_content "trajectory analyser, i.e., a postprocessor that analyses simulation trajectory output"^^xs:string.
@@ -1871,108 +1742,118 @@ osmo:TRAJECTORY_ANALYSER a osmo:postprocessor_method_type;
 osmo:data_processor_method_type a owl:Class;
    rdfs:subClassOf osmo:processor_method_type;
    rdfs:comment "data processor method type, i.e., a method type associated with a data processor"^^xs:string.
-osmo:op_data_processor_method_type a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_data_processor_method_type a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_processor_method_type rdfs:subClassOf osmo:op_data_processor_method_type.
-osmo:dp_processor_method_type rdfs:subClassOf osmo:dp_data_processor_method_type.
+osmo:op_data_processor_method_type a owl:ObjectProperty.
+osmo:dp_data_processor_method_type a owl:DatatypeProperty.
+osmo:op_processor_method_type rdfs:subPropertyOf osmo:op_data_processor_method_type.
+osmo:dp_processor_method_type rdfs:subPropertyOf osmo:dp_data_processor_method_type.
 
 osmo:processor_error_statement a owl:Class;
    rdfs:subClassOf osmo:processor_aspect, osmo:error_statement;
    rdfs:comment "processor error statement (MODA subsection 4.3), characterizes/describes the error or uncertainty associated with a processor output"^^xs:string.
-osmo:op_processor_error_statement a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_processor_error_statement a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_processor_aspect rdfs:subClassOf osmo:op_processor_error_statement.
-osmo:dp_processor_aspect rdfs:subClassOf osmo:dp_processor_error_statement.
-osmo:op_error_statement rdfs:subClassOf osmo:op_processor_error_statement.
-osmo:dp_error_statement rdfs:subClassOf osmo:dp_processor_error_statement.
+osmo:op_processor_error_statement a owl:ObjectProperty.
+osmo:dp_processor_error_statement a owl:DatatypeProperty.
+osmo:op_processor_aspect rdfs:subPropertyOf osmo:op_processor_error_statement.
+osmo:dp_processor_aspect rdfs:subPropertyOf osmo:dp_processor_error_statement.
+osmo:op_error_statement rdfs:subPropertyOf osmo:op_processor_error_statement.
+osmo:dp_error_statement rdfs:subPropertyOf osmo:dp_processor_error_statement.
 
 
 osmo:workflow_graph a owl:Class;
    rdfs:subClassOf osmo:workflow_resource;
    rdfs:comment "workflow graph, i.e., a model, simulation, or aspects thereof that can be represented by a combination of OSMO/MODA sections"^^xs:string.
-osmo:op_workflow_graph a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_workflow_graph a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_workflow_resource rdfs:subClassOf osmo:op_workflow_graph.
-osmo:dp_workflow_resource rdfs:subClassOf osmo:dp_workflow_graph.
+osmo:op_workflow_graph a owl:ObjectProperty.
+osmo:dp_workflow_graph a owl:DatatypeProperty.
+osmo:op_workflow_resource rdfs:subPropertyOf osmo:op_workflow_graph.
+osmo:dp_workflow_resource rdfs:subPropertyOf osmo:dp_workflow_graph.
 
-osmo:is_concrete a osmo:dp_workflow_graph;
+osmo:is_concrete a owl:DatatypeProperty;
+   rdfs:subPropertyOf osmo:dp_workflow_graph;
    rdfs:domain osmo:workflow_graph;
    rdfs:range xs:boolean.
-osmo:is_virtual a osmo:dp_workflow_graph;
+osmo:is_virtual a owl:DatatypeProperty;
+   rdfs:subPropertyOf osmo:dp_workflow_graph;
    rdfs:domain osmo:workflow_graph;
    rdfs:range xs:boolean.
 
 osmo:workflow_graph owl:disjointUnionOf (osmo:concrete_graph osmo:virtual_graph).
 
-osmo:considers a osmo:op_workflow_graph;
+osmo:considers a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_workflow_graph;
    rdfs:domain osmo:workflow_graph;
    rdfs:range osmo:section, [a owl:Class; owl:unionOf (osmo:use_case osmo:materials_model)];
    rdfs:comment "points to the use case or materials model considered by a workflow (sub)graph"^^xs:string;
    owl:inverseOf osmo:applies_to.
-osmo:considers_model a osmo:op_workflow_graph;
+osmo:considers_model a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_workflow_graph;
    rdfs:domain osmo:workflow_graph;
    rdfs:range osmo:materials_model;
    rdfs:comment "points to the materials model considered by a workflow (sub)graph"^^xs:string;
    rdfs:subPropertyOf osmo:considers.
-osmo:considers_use_case a osmo:op_workflow_graph;
+osmo:considers_use_case a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_workflow_graph;
    rdfs:domain osmo:workflow_graph;
    rdfs:range osmo:use_case;
    rdfs:comment "points to the use case considered by a workflow (sub)graph"^^xs:string;
    rdfs:subPropertyOf osmo:considers, evmpo:has_annotation.
 
-osmo:has_subgraph a osmo:op_workflow_graph, owl:TransitiveProperty;
+osmo:has_subgraph a owl:ObjectProperty, owl:TransitiveProperty;
+   rdfs:subPropertyOf osmo:op_workflow_graph;
    rdfs:domain osmo:workflow_graph;
    rdfs:range osmo:workflow_graph;
    rdfs:comment "points to a subgraph, i.e., a graph that is subordinate (to the present graph) by containment and/or instantiation"^^xs:string.
 
-osmo:has_starting_point a osmo:op_workflow_graph;
+osmo:has_starting_point a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_workflow_graph;
    rdfs:domain osmo:workflow_graph;
    rdfs:range osmo:workflow_node;
    rdfs:comment "points to the position, or a position, where the workflow execution begins";
    rdfs:subPropertyOf osmo:has_subgraph, evmpo:has_annotation.
-osmo:has_terminal_point a osmo:op_workflow_graph;
+osmo:has_terminal_point a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_workflow_graph;
    rdfs:domain osmo:workflow_graph;
    rdfs:range osmo:workflow_node;
    rdfs:comment "points to the position, or a position, where the workflow execution terminates";
    rdfs:subPropertyOf osmo:has_subgraph, evmpo:has_annotation.
 
-osmo:has_cause a osmo:op_workflow_graph, owl:TransitiveProperty;
+osmo:has_cause a owl:ObjectProperty, owl:TransitiveProperty;
+   rdfs:subPropertyOf osmo:op_workflow_graph;
    rdfs:domain osmo:workflow_graph;
    rdfs:range osmo:workflow_graph;
    rdfs:comment "[G has_cause F] means that in every execution, F needs to finish before G can begin"^^xs:string.
-osmo:has_effect a osmo:op_workflow_graph, owl:TransitiveProperty;
+osmo:has_effect a owl:ObjectProperty, owl:TransitiveProperty;
+   rdfs:subPropertyOf osmo:op_workflow_graph;
    rdfs:domain osmo:workflow_graph;
    rdfs:range osmo:workflow_graph;
    owl:inverseOf osmo:has_cause.
-osmo:is_coupled_with a osmo:op_workflow_graph;
+osmo:is_coupled_with a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_workflow_graph;
    rdfs:domain osmo:workflow_graph;
    rdfs:range osmo:workflow_graph;
    rdfs:comment "if [F is_coupled_with G] they must occur synchronously when a workflow that contains them is executed"^^xs:string.
-osmo:is_direct_cause_of a osmo:op_workflow_graph;
+osmo:is_direct_cause_of a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_workflow_graph;
    rdfs:domain osmo:workflow_graph;
    rdfs:range osmo:workflow_graph;
    rdfs:subPropertyOf osmo:is_linked_to, osmo:has_effect;
    rdfs:comment "if [F is direct cause of G] there is an immediate link by which G depends on the conclusion of F"^^xs:string.
-osmo:is_direct_effect_of a osmo:op_workflow_graph;
+osmo:is_direct_effect_of a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_workflow_graph;
    rdfs:domain osmo:workflow_graph;
    rdfs:range osmo:workflow_graph;
    owl:inverseOf osmo:is_direct_cause_of;
    rdfs:subPropertyOf osmo:is_linked_to, osmo:has_cause.
-osmo:is_independent_of a osmo:op_workflow_graph;
+osmo:is_independent_of a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_workflow_graph;
    rdfs:domain osmo:workflow_graph;
    rdfs:range osmo:workflow_graph;
    rdfs:comment "two workflow graphs F and G are independent if they (and any of their subgraphs) are not coupled or linked to each other"^^xs:string.
-osmo:is_linked_to a osmo:op_workflow_graph;
+osmo:is_linked_to a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_workflow_graph;
    rdfs:domain osmo:workflow_graph;
    rdfs:range osmo:workflow_graph;
    rdfs:comment "if [F is linked to G] they cannot be executed concurrently; one side depends on the completion of the other side"^^xs:string.
-osmo:is_part_of a osmo:op_workflow_graph, owl:TransitiveProperty;
+osmo:is_part_of a owl:ObjectProperty, owl:TransitiveProperty;
+   rdfs:subPropertyOf osmo:op_workflow_graph;
    rdfs:domain osmo:workflow_graph;
    rdfs:range osmo:concrete_graph;
    owl:inverseOf osmo:contains_graph;
@@ -1981,14 +1862,12 @@ osmo:is_part_of a osmo:op_workflow_graph, owl:TransitiveProperty;
 osmo:workflow_node a owl:Class;
    rdfs:subClassOf osmo:workflow_graph, evmpo:annotation;
    rdfs:comment "workflow node, i.e., a workflow graph that contains exactly one workflow resource"^^xs:string.
-osmo:op_workflow_node a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_workflow_node a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_workflow_graph rdfs:subClassOf osmo:op_workflow_node.
-osmo:dp_workflow_graph rdfs:subClassOf osmo:dp_workflow_node.
-evmpo:op_annotation rdfs:subClassOf osmo:op_workflow_node.
-evmpo:dp_annotation rdfs:subClassOf osmo:dp_workflow_node.
+osmo:op_workflow_node a owl:ObjectProperty.
+osmo:dp_workflow_node a owl:DatatypeProperty.
+osmo:op_workflow_graph rdfs:subPropertyOf osmo:op_workflow_node.
+osmo:dp_workflow_graph rdfs:subPropertyOf osmo:dp_workflow_node.
+evmpo:op_annotation rdfs:subPropertyOf osmo:op_workflow_node.
+evmpo:dp_annotation rdfs:subPropertyOf osmo:dp_workflow_node.
 
 osmo:workflow_node rdfs:subClassOf [
       a owl:Restriction;
@@ -2003,12 +1882,10 @@ osmo:workflow_node rdfs:subClassOf [
 osmo:logical_node a owl:Class;
    rdfs:subClassOf osmo:workflow_node;
    rdfs:comment "logical node, i.e., a workflow node that contains exactly one logical resource"^^xs:string.
-osmo:op_logical_node a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_logical_node a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_workflow_node rdfs:subClassOf osmo:op_logical_node.
-osmo:dp_workflow_node rdfs:subClassOf osmo:dp_logical_node.
+osmo:op_logical_node a owl:ObjectProperty.
+osmo:dp_logical_node a owl:DatatypeProperty.
+osmo:op_workflow_node rdfs:subPropertyOf osmo:op_logical_node.
+osmo:dp_workflow_node rdfs:subPropertyOf osmo:dp_logical_node.
 
 osmo:logical_node rdfs:subClassOf [
       a owl:Restriction;
@@ -2023,18 +1900,17 @@ osmo:logical_node rdfs:subClassOf [
 osmo:simulation_workflow a owl:Class;
    rdfs:subClassOf osmo:workflow_graph, evmpo:simulation;
    rdfs:comment "simulation workflow, i.e., a (complete) workflow graph of an actually executable simulation workflow"^^xs:string.
-osmo:op_simulation_workflow a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_simulation_workflow a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_workflow_graph rdfs:subClassOf osmo:op_simulation_workflow.
-osmo:dp_workflow_graph rdfs:subClassOf osmo:dp_simulation_workflow.
-evmpo:op_simulation rdfs:subClassOf osmo:op_simulation_workflow.
-evmpo:dp_simulation rdfs:subClassOf osmo:dp_simulation_workflow.
+osmo:op_simulation_workflow a owl:ObjectProperty.
+osmo:dp_simulation_workflow a owl:DatatypeProperty.
+osmo:op_workflow_graph rdfs:subPropertyOf osmo:op_simulation_workflow.
+osmo:dp_workflow_graph rdfs:subPropertyOf osmo:dp_simulation_workflow.
+evmpo:op_simulation rdfs:subPropertyOf osmo:op_simulation_workflow.
+evmpo:dp_simulation rdfs:subPropertyOf osmo:dp_simulation_workflow.
 
 osmo:simulation_workflow owl:intersectionOf (osmo:workflow_graph evmpo:simulation).
 
-osmo:has_simulation_outcome a osmo:op_simulation_workflow;
+osmo:has_simulation_outcome a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_simulation_workflow;
    rdfs:domain osmo:simulation_workflow;
    rdfs:range osmo:logical_node;
    rdfs:comment "points to a node that contains a logical resource with (all or part of) the end outcome of the simulation workflow"^^xs:string;
@@ -2053,32 +1929,35 @@ osmo:concrete_graph a owl:Class;
    ];
    owl:intersectionOf (osmo:workflow_graph [a owl:Restriction; owl:onProperty osmo:is_concrete; owl:hasValue "true"^^xs:boolean]);
    rdfs:comment "concrete graph, i.e., a workflow graph that is a concrete (non-virtual) workflow resource"^^xs:string.
-osmo:op_concrete_graph a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_concrete_graph a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_workflow_graph rdfs:subClassOf osmo:op_concrete_graph.
-osmo:dp_workflow_graph rdfs:subClassOf osmo:dp_concrete_graph.
+osmo:op_concrete_graph a owl:ObjectProperty.
+osmo:dp_concrete_graph a owl:DatatypeProperty.
+osmo:op_workflow_graph rdfs:subPropertyOf osmo:op_concrete_graph.
+osmo:dp_workflow_graph rdfs:subPropertyOf osmo:dp_concrete_graph.
 
-osmo:contains a osmo:op_concrete_graph;
+osmo:contains a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_concrete_graph;
    rdfs:domain osmo:concrete_graph;
    rdfs:range osmo:workflow_resource;
    rdfs:comment "[G contains R] if R occurs as a part/component of graph G"^^xs:string.
-osmo:contains_logical a osmo:op_concrete_graph;
+osmo:contains_logical a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_concrete_graph;
    rdfs:domain osmo:concrete_graph;
    rdfs:range osmo:logical_resource;
    rdfs:subPropertyOf osmo:contains, evmpo:has_annotation.
-osmo:contains_section a osmo:op_concrete_graph;
+osmo:contains_section a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_concrete_graph;
    rdfs:domain osmo:concrete_graph;
    rdfs:range osmo:section;
    rdfs:subPropertyOf osmo:contains.
 
-osmo:contains_graph a osmo:op_concrete_graph, owl:TransitiveProperty;
+osmo:contains_graph a owl:ObjectProperty, owl:TransitiveProperty;
+   rdfs:subPropertyOf osmo:op_concrete_graph;
    rdfs:domain osmo:concrete_graph;
    rdfs:range osmo:workflow_graph;
    rdfs:subPropertyOf osmo:contains, osmo:has_subgraph;
    owl:inverseOf osmo:is_part_of.
-osmo:instantiates a osmo:op_concrete_graph;
+osmo:instantiates a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_concrete_graph;
    rdfs:domain osmo:concrete_graph;
    rdfs:range osmo:virtual_graph;
    rdfs:comment "use of this relation: a virtual graph can be defined by describing a concrete graph that instantiates it (e.g., a single loop iteration), i.e., which is related to the corresponding virtual graph by osmo:instantiates"^^xs:string;
@@ -2087,20 +1966,19 @@ osmo:instantiates a osmo:op_concrete_graph;
 osmo:physical_variable a owl:Class;
    rdfs:subClassOf vivo:material_property, osmo:logical_variable, evmpo:material_property, evmpo:paradigmatic_entity;
    rdfs:comment "physical variable, i.e., a logical variable defined in terms of a material property"^^xs:string.
-osmo:op_physical_variable a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_physical_variable a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_logical_variable rdfs:subClassOf osmo:op_physical_variable.
-osmo:dp_logical_variable rdfs:subClassOf osmo:dp_physical_variable.
-vivo:op_material_property rdfs:subClassOf osmo:op_physical_variable.
-vivo:dp_material_property rdfs:subClassOf osmo:dp_physical_variable.
-evmpo:op_material_property rdfs:subClassOf osmo:op_physical_variable.
-evmpo:dp_material_property rdfs:subClassOf osmo:dp_physical_variable.
-evmpo:op_paradigmatic_entity rdfs:subClassOf osmo:op_physical_variable.
-evmpo:dp_paradigmatic_entity rdfs:subClassOf osmo:dp_physical_variable.
+osmo:op_physical_variable a owl:ObjectProperty.
+osmo:dp_physical_variable a owl:DatatypeProperty.
+osmo:op_logical_variable rdfs:subPropertyOf osmo:op_physical_variable.
+osmo:dp_logical_variable rdfs:subPropertyOf osmo:dp_physical_variable.
+vivo:op_material_property rdfs:subPropertyOf osmo:op_physical_variable.
+vivo:dp_material_property rdfs:subPropertyOf osmo:dp_physical_variable.
+evmpo:op_material_property rdfs:subPropertyOf osmo:op_physical_variable.
+evmpo:dp_material_property rdfs:subPropertyOf osmo:dp_physical_variable.
+evmpo:op_paradigmatic_entity rdfs:subPropertyOf osmo:op_physical_variable.
+evmpo:dp_paradigmatic_entity rdfs:subPropertyOf osmo:dp_physical_variable.
 
-osmo:is_quantity_kind a osmo:op_physical_variable, owl:FunctionalProperty;
+osmo:is_quantity_kind a owl:ObjectProperty, owl:FunctionalProperty;
+   rdfs:subPropertyOf osmo:op_physical_variable;
    rdfs:domain osmo:physical_variable;
    rdfs:range qudt:QuantityKind;
    rdfs:subPropertyOf vivo:is_quantity_kind;
@@ -2109,47 +1987,48 @@ osmo:is_quantity_kind a osmo:op_physical_variable, owl:FunctionalProperty;
 osmo:unique_physical_constant a owl:Class;
    rdfs:subClassOf osmo:logical_constant, osmo:unique_elementary, osmo:physical_variable;
    rdfs:comment "unique physical constant, i.e., a physical variable with a unique constant value"^^xs:string.
-osmo:op_unique_physical_constant a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_unique_physical_constant a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_logical_constant rdfs:subClassOf osmo:op_unique_physical_constant.
-osmo:dp_logical_constant rdfs:subClassOf osmo:dp_unique_physical_constant.
-osmo:op_unique_elementary rdfs:subClassOf osmo:op_unique_physical_constant.
-osmo:dp_unique_elementary rdfs:subClassOf osmo:dp_unique_physical_constant.
-osmo:op_physical_variable rdfs:subClassOf osmo:op_unique_physical_constant.
-osmo:dp_physical_variable rdfs:subClassOf osmo:dp_unique_physical_constant.
+osmo:op_unique_physical_constant a owl:ObjectProperty.
+osmo:dp_unique_physical_constant a owl:DatatypeProperty.
+osmo:op_logical_constant rdfs:subPropertyOf osmo:op_unique_physical_constant.
+osmo:dp_logical_constant rdfs:subPropertyOf osmo:dp_unique_physical_constant.
+osmo:op_unique_elementary rdfs:subPropertyOf osmo:op_unique_physical_constant.
+osmo:dp_unique_elementary rdfs:subPropertyOf osmo:dp_unique_physical_constant.
+osmo:op_physical_variable rdfs:subPropertyOf osmo:op_unique_physical_constant.
+osmo:dp_physical_variable rdfs:subPropertyOf osmo:dp_unique_physical_constant.
 
 osmo:condition a owl:Class;
    rdfs:subClassOf evmpo:marketplace_related_entity;
    rdfs:comment "condition, i.e., a statement concerning values of properties and/or parameters and/or their relation to each other"^^xs:string.
-osmo:op_condition a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_condition a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_marketplace_related_entity rdfs:subClassOf osmo:op_condition.
-evmpo:dp_marketplace_related_entity rdfs:subClassOf osmo:dp_condition.
+osmo:op_condition a owl:ObjectProperty.
+osmo:dp_condition a owl:DatatypeProperty.
+evmpo:op_marketplace_related_entity rdfs:subPropertyOf osmo:op_condition.
+evmpo:dp_marketplace_related_entity rdfs:subPropertyOf osmo:dp_condition.
 
-osmo:contains_variable a osmo:op_condition;
+osmo:contains_variable a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_condition;
    rdfs:domain osmo:condition;
    rdfs:range osmo:logical_variable;
    rdfs:comment "points to a parameter (e.g., variable or input value) occurring in a condition"^^xs:string.
-osmo:contains_predetermined_variable a osmo:op_condition;
+osmo:contains_predetermined_variable a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_condition;
    rdfs:domain osmo:condition;
    rdfs:range osmo:logical_variable;
    rdfs:subPropertyOf osmo:contains_variable;
    rdfs:comment "points to a parameter that is determined before workflow execution begins, i.e., an input parameter that is not specified by the user"^^xs:string.
-osmo:contains_precomputed_variable a osmo:op_condition;
+osmo:contains_precomputed_variable a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_condition;
    rdfs:domain osmo:condition;
    rdfs:range osmo:logical_variable;
    rdfs:subPropertyOf osmo:contains_variable;
    rdfs:comment "points to a parameter that is computed within the workflow, but available and fixed at run time (of the element associate with the present condition), i.e., an input parameter that is not specified by the user"^^xs:string.
-osmo:contains_runtime_variable a osmo:op_condition;
+osmo:contains_runtime_variable a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_condition;
    rdfs:domain osmo:condition;
    rdfs:range osmo:logical_variable;
    rdfs:subPropertyOf osmo:contains_variable;
    rdfs:comment "points to a parameter that is only determined at run time (of the element associate with the present condition) or that is varied at run time"^^xs:string.
-osmo:contains_undetermined_variable a osmo:op_condition;
+osmo:contains_undetermined_variable a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_condition;
    rdfs:domain osmo:condition;
    rdfs:range osmo:logical_variable;
    rdfs:subPropertyOf osmo:contains_variable;
@@ -2160,80 +2039,76 @@ osmo:condition owl:disjointUnionOf (osmo:qualitative_condition osmo:quantitative
 osmo:qualitative_condition a owl:Class;
    rdfs:subClassOf osmo:condition;
    rdfs:comment "qualitative condition, i.e., a condition (e.g., an inequality) that compares or connects properties and/or parameters without imposing any particular value for any of them, even if the values of all the others are given"^^xs:string.
-osmo:op_qualitative_condition a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_qualitative_condition a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_condition rdfs:subClassOf osmo:op_qualitative_condition.
-osmo:dp_condition rdfs:subClassOf osmo:dp_qualitative_condition.
+osmo:op_qualitative_condition a owl:ObjectProperty.
+osmo:dp_qualitative_condition a owl:DatatypeProperty.
+osmo:op_condition rdfs:subPropertyOf osmo:op_qualitative_condition.
+osmo:dp_condition rdfs:subPropertyOf osmo:dp_qualitative_condition.
 
 osmo:quantitative_condition a owl:Class;
    rdfs:subClassOf osmo:condition;
    rdfs:comment "quantitative condition, i.e., a condition (e.g., an equation) that imposes a particular value for one of the considered quantities assuming that all others are given"^^xs:string.
-osmo:op_quantitative_condition a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_quantitative_condition a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_condition rdfs:subClassOf osmo:op_quantitative_condition.
-osmo:dp_condition rdfs:subClassOf osmo:dp_quantitative_condition.
+osmo:op_quantitative_condition a owl:ObjectProperty.
+osmo:dp_quantitative_condition a owl:DatatypeProperty.
+osmo:op_condition rdfs:subPropertyOf osmo:op_quantitative_condition.
+osmo:dp_condition rdfs:subPropertyOf osmo:dp_quantitative_condition.
 
 
 osmo:logical_entity a owl:Class;
    rdfs:subClassOf osmo:workflow_entity;
    rdfs:comment "logical entity, i.e., a notational element of a simulation workflow related to data exchange and communication"^^xs:string.
-osmo:op_logical_entity a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_logical_entity a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_workflow_entity rdfs:subClassOf osmo:op_logical_entity.
-osmo:dp_workflow_entity rdfs:subClassOf osmo:dp_logical_entity.
+osmo:op_logical_entity a owl:ObjectProperty.
+osmo:dp_logical_entity a owl:DatatypeProperty.
+osmo:op_workflow_entity rdfs:subPropertyOf osmo:op_logical_entity.
+osmo:dp_workflow_entity rdfs:subPropertyOf osmo:dp_logical_entity.
 
 osmo:logical_resource a owl:Class;
    rdfs:subClassOf osmo:logical_entity, osmo:workflow_resource, evmpo:annotation;
    rdfs:comment "logical resource, i.e., a notational element of a simulation workflow to which data (i.e., logical variables) are formally written and/or from where they can be formally read"^^xs:string.
-osmo:op_logical_resource a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_logical_resource a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_logical_entity rdfs:subClassOf osmo:op_logical_resource.
-osmo:dp_logical_entity rdfs:subClassOf osmo:dp_logical_resource.
-osmo:op_workflow_resource rdfs:subClassOf osmo:op_logical_resource.
-osmo:dp_workflow_resource rdfs:subClassOf osmo:dp_logical_resource.
-evmpo:op_annotation rdfs:subClassOf osmo:op_logical_resource.
-evmpo:dp_annotation rdfs:subClassOf osmo:dp_logical_resource.
+osmo:op_logical_resource a owl:ObjectProperty.
+osmo:dp_logical_resource a owl:DatatypeProperty.
+osmo:op_logical_entity rdfs:subPropertyOf osmo:op_logical_resource.
+osmo:dp_logical_entity rdfs:subPropertyOf osmo:dp_logical_resource.
+osmo:op_workflow_resource rdfs:subPropertyOf osmo:op_logical_resource.
+osmo:dp_workflow_resource rdfs:subPropertyOf osmo:dp_logical_resource.
+evmpo:op_annotation rdfs:subPropertyOf osmo:op_logical_resource.
+evmpo:dp_annotation rdfs:subPropertyOf osmo:dp_logical_resource.
 
-osmo:has_logical_label a osmo:dp_logical_resource;
+osmo:has_logical_label a owl:DatatypeProperty;
+   rdfs:subPropertyOf osmo:dp_logical_resource;
    rdfs:domain osmo:logical_resource;
    rdfs:range xs:string;
    rdfs:subPropertyOf osmo:has_resource_label.
-osmo:has_lrid a osmo:dp_logical_resource;
+osmo:has_lrid a owl:DatatypeProperty;
+   rdfs:subPropertyOf osmo:dp_logical_resource;
    rdfs:domain osmo:logical_resource;
    rdfs:range xs:string;
    rdfs:comment "points to the logical resource ID (LRID) associated with the present logical resource; n.b., this ID has technical purposes (for notational and visualization purposes, use osmo:has_logical_label)"^^xs:string.
-osmo:is_interactive a osmo:dp_logical_resource;
+osmo:is_interactive a owl:DatatypeProperty;
+   rdfs:subPropertyOf osmo:dp_logical_resource;
    rdfs:domain osmo:logical_resource;
    rdfs:range xs:boolean;
    rdfs:comment "states whether an external entity (user interaction, or some process not represented in the workflow) has write access to this resource at execution time"^^xs:string.
 
-osmo:has_stored_variable a osmo:op_logical_resource;
+osmo:has_stored_variable a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_logical_resource;
    rdfs:domain osmo:logical_resource;
    rdfs:range osmo:logical_variable.
 
 osmo:logical_term a owl:Class;
    rdfs:subClassOf osmo:logical_entity;
    rdfs:comment "logical term, i.e., a logical variable or a value that can be assigned to a logical variable"^^xs:string.
-osmo:op_logical_variable a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_logical_variable a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_logical_entity rdfs:subClassOf osmo:op_logical_term.
-osmo:dp_logical_entity rdfs:subClassOf osmo:dp_logical_term.
+osmo:op_logical_variable a owl:ObjectProperty.
+osmo:dp_logical_variable a owl:DatatypeProperty.
+osmo:op_logical_entity rdfs:subPropertyOf osmo:op_logical_term.
+osmo:dp_logical_entity rdfs:subPropertyOf osmo:dp_logical_term.
 
-osmo:has_term_index a osmo:dp_logical_term;
+osmo:has_term_index a owl:DatatypeProperty;
+   rdfs:subPropertyOf osmo:dp_logical_term;
    rdfs:domain osmo:logical_term;
    rdfs:range xs:nonNegativeInteger;
    rdfs:comment "identifies a term by a non-negative integer number; in particular, use for array terms (numbering convention: from 0 to array size minus 1)"^^xs:string.
-osmo:has_term_name a osmo:dp_logical_term;
+osmo:has_term_name a owl:DatatypeProperty;
+   rdfs:subPropertyOf osmo:dp_logical_term;
    rdfs:domain osmo:logical_term;
    rdfs:range xs:string.
 
@@ -2244,14 +2119,13 @@ osmo:logical_term owl:disjointUnionOf (osmo:elementary_term osmo:structure_term)
 osmo:elementary_term a owl:Class;
    rdfs:subClassOf osmo:logical_term;
    rdfs:comment "elementary term, i.e., a logical term without any internal structure"^^xs:string.
-osmo:op_elementary_term a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_elementary_term a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_logical_term rdfs:subClassOf osmo:op_elementary_term.
-osmo:dp_logical_term rdfs:subClassOf osmo:dp_elementary_term.
+osmo:op_elementary_term a owl:ObjectProperty.
+osmo:dp_elementary_term a owl:DatatypeProperty.
+osmo:op_logical_term rdfs:subPropertyOf osmo:op_elementary_term.
+osmo:dp_logical_term rdfs:subPropertyOf osmo:dp_elementary_term.
 
-osmo:has_term_unit a osmo:op_elementary_term, owl:FunctionalProperty;
+osmo:has_term_unit a owl:ObjectProperty, owl:FunctionalProperty;
+   rdfs:subPropertyOf osmo:op_elementary_term;
    rdfs:domain osmo:elementary_term;
    rdfs:range qudt:Unit, vivo:unit;
    rdfs:comment "unit associated with any assigned decimal values"^^xs:string;
@@ -2262,14 +2136,13 @@ osmo:elementary_term owl:disjointUnionOf (osmo:elementary_logical osmo:elementar
 osmo:structure_term a owl:Class;
    rdfs:subClassOf osmo:logical_term;
    rdfs:comment "structure term, i.e., a logical term with an internal structure"^^xs:string.
-osmo:op_structure_term a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_structure_term a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_logical_term rdfs:subClassOf osmo:op_structure_term.
-osmo:dp_logical_term rdfs:subClassOf osmo:dp_structure_term.
+osmo:op_structure_term a owl:ObjectProperty.
+osmo:dp_structure_term a owl:DatatypeProperty.
+osmo:op_logical_term rdfs:subPropertyOf osmo:op_structure_term.
+osmo:dp_logical_term rdfs:subPropertyOf osmo:dp_structure_term.
 
-osmo:has_structure_element a osmo:op_structure_term;
+osmo:has_structure_element a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_structure_term;
    rdfs:domain osmo:structure_term;
    rdfs:range osmo:logical_term;
    rdfs:comment "points to an element of a structure"^^xs:string.
@@ -2279,12 +2152,10 @@ osmo:structure_term owl:disjointUnionOf (osmo:logical_structure osmo:structure_v
 osmo:logical_value a owl:Class;
    rdfs:subClassOf osmo:logical_term, evmpo:annotation;
    rdfs:comment "logical value, i.e., an entity that can be assigned to a logical variable as its value"^^xs:string.
-osmo:op_logical_value a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_logical_value a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_logical_term rdfs:subClassOf osmo:op_logical_value.
-osmo:dp_logical_term rdfs:subClassOf osmo:dp_logical_value.
+osmo:op_logical_value a owl:ObjectProperty.
+osmo:dp_logical_value a owl:DatatypeProperty.
+osmo:op_logical_term rdfs:subPropertyOf osmo:op_logical_value.
+osmo:dp_logical_term rdfs:subPropertyOf osmo:dp_logical_value.
 
 osmo:logical_value owl:disjointUnionOf (osmo:elementary_value osmo:structure_value).
 
@@ -2292,19 +2163,19 @@ osmo:elementary_value a owl:Class;
    rdfs:subClassOf osmo:logical_value, osmo:elementary_term;
    owl:intersectionOf (osmo:logical_value osmo:elementary_term);
    rdfs:comment "elementary value, i.e., an entity that can be assigned to an elementary logical (variable) as its value"^^xs:string.
-osmo:op_elementary_value a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_elementary_value a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_logical_value rdfs:subClassOf osmo:op_elementary_value.
-osmo:dp_logical_value rdfs:subClassOf osmo:dp_elementary_value.
-osmo:op_elementary_term rdfs:subClassOf osmo:op_elementary_value.
-osmo:dp_elementary_term rdfs:subClassOf osmo:dp_elementary_value.
+osmo:op_elementary_value a owl:ObjectProperty.
+osmo:dp_elementary_value a owl:DatatypeProperty.
+osmo:op_logical_value rdfs:subPropertyOf osmo:op_elementary_value.
+osmo:dp_logical_value rdfs:subPropertyOf osmo:dp_elementary_value.
+osmo:op_elementary_term rdfs:subPropertyOf osmo:op_elementary_value.
+osmo:dp_elementary_term rdfs:subPropertyOf osmo:dp_elementary_value.
 
-osmo:is_decimal a osmo:dp_elementary_value;
+osmo:is_decimal a owl:DatatypeProperty;
+   rdfs:subPropertyOf osmo:dp_elementary_value;
    rdfs:domain osmo:elementary_value;
    rdfs:range xs:decimal.
-osmo:is_string a osmo:dp_elementary_value;
+osmo:is_string a owl:DatatypeProperty;
+   rdfs:subPropertyOf osmo:dp_elementary_value;
    rdfs:domain osmo:elementary_value;
    rdfs:range xs:string.
 
@@ -2312,55 +2183,59 @@ osmo:structure_value a owl:Class;
    rdfs:subClassOf osmo:logical_value, osmo:structure_term;
    owl:intersectionOf (osmo:logical_value osmo:structure_term);
    rdfs:comment "structure value, i.e., an entity that can be assigned to a logical structure as its value"^^xs:string.
-osmo:op_structure_value a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_structure_value a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_logical_value rdfs:subClassOf osmo:op_structure_value.
-osmo:dp_logical_value rdfs:subClassOf osmo:dp_structure_value.
-osmo:op_structure_term rdfs:subClassOf osmo:op_structure_value.
-osmo:dp_structure_term rdfs:subClassOf osmo:dp_structure_value.
+osmo:op_structure_value a owl:ObjectProperty.
+osmo:dp_structure_value a owl:DatatypeProperty.
+osmo:op_logical_value rdfs:subPropertyOf osmo:op_structure_value.
+osmo:dp_logical_value rdfs:subPropertyOf osmo:dp_structure_value.
+osmo:op_structure_term rdfs:subPropertyOf osmo:op_structure_value.
+osmo:dp_structure_term rdfs:subPropertyOf osmo:dp_structure_value.
 
 osmo:logical_variable a owl:Class;
    rdfs:subClassOf osmo:logical_term;
    rdfs:comment "logical variable, i.e., property which can be exchanged between logical resources"^^xs:string.
-osmo:op_logical_variable a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_logical_variable a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_logical_term rdfs:subClassOf osmo:op_logical_variable.
-osmo:dp_logical_term rdfs:subClassOf osmo:dp_logical_variable.
+osmo:op_logical_variable a owl:ObjectProperty.
+osmo:dp_logical_variable a owl:DatatypeProperty.
+osmo:op_logical_term rdfs:subPropertyOf osmo:op_logical_variable.
+osmo:dp_logical_term rdfs:subPropertyOf osmo:dp_logical_variable.
 
-osmo:has_value a osmo:op_logical_variable;
+osmo:has_value a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_logical_variable;
    rdfs:domain osmo:logical_variable;
    rdfs:range osmo:logical_value;
    rdfs:subPropertyOf evmpo:has_annotation.
-osmo:has_current_value a osmo:op_logical_variable;
+osmo:has_current_value a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_logical_variable;
    rdfs:domain osmo:elementary_logical;
    rdfs:range osmo:logical_value;
    rdfs:subPropertyOf osmo:has_value.
-osmo:has_default_value a osmo:op_logical_variable;
+osmo:has_default_value a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_logical_variable;
    rdfs:domain osmo:elementary_logical;
    rdfs:range osmo:logical_value;
    rdfs:subPropertyOf osmo:has_value.
-osmo:has_initial_value a osmo:op_logical_variable;
+osmo:has_initial_value a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_logical_variable;
    rdfs:domain osmo:elementary_logical;
    rdfs:range osmo:logical_value;
    rdfs:subPropertyOf osmo:has_value.
 
-osmo:has_variable_index a osmo:dp_logical_variable;
+osmo:has_variable_index a owl:DatatypeProperty;
+   rdfs:subPropertyOf osmo:dp_logical_variable;
    rdfs:domain osmo:logical_variable;
    rdfs:range xs:nonNegativeInteger;
    rdfs:subPropertyOf osmo:has_term_index;
    rdfs:comment "identifies a variable by a non-negative integer number; in particular, use for logical arrays (numbering convention: from 0 to array size minus 1)"^^xs:string.
-osmo:has_variable_name a osmo:dp_logical_variable;
+osmo:has_variable_name a owl:DatatypeProperty;
+   rdfs:subPropertyOf osmo:dp_logical_variable;
    rdfs:domain osmo:logical_variable;
    rdfs:subPropertyOf osmo:has_term_name;
    rdfs:range xs:string.
-osmo:is_constant a osmo:dp_logical_variable;
+osmo:is_constant a owl:DatatypeProperty;
+   rdfs:subPropertyOf osmo:dp_logical_variable;
    rdfs:domain osmo:logical_variable;
    rdfs:range xs:boolean.
-osmo:is_encoded_by a osmo:op_logical_variable;
+osmo:is_encoded_by a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_logical_variable;
    rdfs:domain osmo:logical_variable;
    rdfs:range macro:io_format;
    rdfs:comment "format by which the present logical variable is represented in the technical implementation of a simulation workflow"^^xs:string;
@@ -2369,12 +2244,10 @@ osmo:is_encoded_by a osmo:op_logical_variable;
 osmo:logical_constant a owl:Class;
    rdfs:subClassOf osmo:logical_variable;
    rdfs:comment "logical constant, i.e., a logical variable with constant value"^^xs:string.
-osmo:op_logical_constant a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_logical_constant a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_logical_variable rdfs:subClassOf osmo:op_logical_constant.
-osmo:dp_logical_variable rdfs:subClassOf osmo:dp_logical_constant.
+osmo:op_logical_constant a owl:ObjectProperty.
+osmo:dp_logical_constant a owl:DatatypeProperty.
+osmo:op_logical_variable rdfs:subPropertyOf osmo:op_logical_constant.
+osmo:dp_logical_variable rdfs:subPropertyOf osmo:dp_logical_constant.
 
 osmo:logical_constant owl:intersectionOf (osmo:logical_variable [a owl:Restriction; owl:onProperty osmo:is_constant; owl:hasValue "true"^^xs:boolean]).
 
@@ -2386,33 +2259,36 @@ osmo:elementary_logical a owl:Class;
    rdfs:subClassOf osmo:logical_variable, osmo:elementary_term;
    owl:intersectionOf (osmo:logical_variable osmo:elementary_term);
    rdfs:comment "elementary logical, i.e., a logical variable that does not contain any (sub-)variables as structure elements"^^xs:string.
-osmo:op_elementary_logical a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_elementary_logical a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_logical_variable rdfs:subClassOf osmo:op_elementary_logical.
-osmo:dp_logical_variable rdfs:subClassOf osmo:dp_elementary_logical.
-osmo:op_elementary_term rdfs:subClassOf osmo:op_elementary_logical.
-osmo:dp_lelementary_term rdfs:subClassOf osmo:dp_elementary_logical.
+osmo:op_elementary_logical a owl:ObjectProperty.
+osmo:dp_elementary_logical a owl:DatatypeProperty.
+osmo:op_logical_variable rdfs:subPropertyOf osmo:op_elementary_logical.
+osmo:dp_logical_variable rdfs:subPropertyOf osmo:dp_elementary_logical.
+osmo:op_elementary_term rdfs:subPropertyOf osmo:op_elementary_logical.
+osmo:dp_lelementary_term rdfs:subPropertyOf osmo:dp_elementary_logical.
 
-osmo:has_elementary_value a osmo:op_elementary_logical;
+osmo:has_elementary_value a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_elementary_logical;
    rdfs:domain osmo:elementary_logical;
    rdfs:range osmo:elementary_value;
    rdfs:subPropertyOf osmo:has_value.
-osmo:has_current_elementary_value a osmo:op_elementary_logical;
+osmo:has_current_elementary_value a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_elementary_logical;
    rdfs:domain osmo:elementary_logical;
    rdfs:range osmo:elementary_value;
    rdfs:subPropertyOf osmo:has_elementary_value, osmo:has_current_value.
-osmo:has_default_elementary_value a osmo:op_elementary_logical;
+osmo:has_default_elementary_value a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_elementary_logical;
    rdfs:domain osmo:elementary_logical;
    rdfs:range osmo:elementary_value;
    rdfs:subPropertyOf osmo:has_elementary_value, osmo:has_default_value.
-osmo:has_initial_elementary_value a osmo:op_elementary_logical;
+osmo:has_initial_elementary_value a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_elementary_logical;
    rdfs:domain osmo:elementary_logical;
    rdfs:range osmo:elementary_value;
    rdfs:subPropertyOf osmo:has_elementary_value, osmo:has_initial_value.
 
-osmo:has_variable_unit a osmo:op_elementary_logical, owl:FunctionalProperty;
+osmo:has_variable_unit a owl:ObjectProperty, owl:FunctionalProperty;
+   rdfs:subPropertyOf osmo:op_elementary_logical;
    rdfs:domain osmo:elementary_logical;
    rdfs:range qudt:Unit, vivo:unit;
    rdfs:comment "unit associated with any assigned decimal values"^^xs:string;
@@ -2422,28 +2298,30 @@ osmo:logical_structure a owl:Class;
    rdfs:subClassOf osmo:logical_variable, osmo:structure_term;
    owl:intersectionOf (osmo:logical_variable osmo:structure_term);
    rdfs:comment "logical structure, i.e., a logical variable that contains (sub-)variables as structure elements"^^xs:string.
-osmo:op_logical_structure a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_logical_structure a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_logical_variable rdfs:subClassOf osmo:op_logical_structure.
-osmo:dp_logical_variable rdfs:subClassOf osmo:dp_logical_structure.
-osmo:op_structure_term rdfs:subClassOf osmo:op_logical_structure.
-osmo:dp_structure_term rdfs:subClassOf osmo:dp_logical_structure.
+osmo:op_logical_structure a owl:ObjectProperty.
+osmo:dp_logical_structure a owl:DatatypeProperty.
+osmo:op_logical_variable rdfs:subPropertyOf osmo:op_logical_structure.
+osmo:dp_logical_variable rdfs:subPropertyOf osmo:dp_logical_structure.
+osmo:op_structure_term rdfs:subPropertyOf osmo:op_logical_structure.
+osmo:dp_structure_term rdfs:subPropertyOf osmo:dp_logical_structure.
 
-osmo:has_structure_value a osmo:op_logical_structure;
+osmo:has_structure_value a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_logical_structure;
    rdfs:domain osmo:logical_structure;
    rdfs:range osmo:structure_value;
    rdfs:subPropertyOf osmo:has_value.
-osmo:has_current_structure_value a osmo:op_logical_structure;
+osmo:has_current_structure_value a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_logical_structure;
    rdfs:domain osmo:logical_structure;
    rdfs:range osmo:structure_value;
    rdfs:subPropertyOf osmo:has_structure_value, osmo:has_current_value.
-osmo:has_default_structure_value a osmo:op_logical_structure;
+osmo:has_default_structure_value a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_logical_structure;
    rdfs:domain osmo:logical_structure;
    rdfs:range osmo:structure_value;
    rdfs:subPropertyOf osmo:has_structure_value, osmo:has_default_value.
-osmo:has_initial_structure_value a osmo:op_logical_structure;
+osmo:has_initial_structure_value a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_logical_structure;
    rdfs:domain osmo:logical_structure;
    rdfs:range osmo:structure_value;
    rdfs:subPropertyOf osmo:has_structure_value, osmo:has_initial_value.
@@ -2451,28 +2329,30 @@ osmo:has_initial_structure_value a osmo:op_logical_structure;
 osmo:logical_array a owl:Class;
    rdfs:subClassOf osmo:unique_structure;
    rdfs:comment "logical array, i.e., a unique structure with indexed elements (n.b., for indexing, use has_variable_index, starting from 0)"^^xs:string.
-osmo:op_logical_array a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_logical_array a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_unique_structure rdfs:subClassOf osmo:op_logical_array.
-osmo:dp_unique_structure rdfs:subClassOf osmo:dp_logical_array.
+osmo:op_logical_array a owl:ObjectProperty.
+osmo:dp_logical_array a owl:DatatypeProperty.
+osmo:op_unique_structure rdfs:subPropertyOf osmo:op_logical_array.
+osmo:dp_unique_structure rdfs:subPropertyOf osmo:dp_logical_array.
 
-osmo:has_array_element a osmo:op_logical_array;
+osmo:has_array_element a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_logical_array;
    rdfs:domain osmo:logical_array;
    rdfs:range osmo:logical_variable;
    rdfs:subPropertyOf osmo:has_structure_element;
    rdfs:comment "points to an array element"^^xs:string.
-osmo:has_dynamic_array_size a osmo:op_logical_array;
+osmo:has_dynamic_array_size a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_logical_array;
    rdfs:domain osmo:logical_array;
    rdfs:range osmo:unique_elementary;
    rdfs:comment "points to a variable that contains the (dynamic) array size; convention: element indices run from 0 to the array size minus one"^^xs:string.
-osmo:has_element_unit a osmo:op_logical_array, owl:FunctionalProperty;
+osmo:has_element_unit a owl:ObjectProperty, owl:FunctionalProperty;
+   rdfs:subPropertyOf osmo:op_logical_array;
    rdfs:domain osmo:logical_array;
    rdfs:range qudt:Unit, vivo:unit;
    rdfs:comment "unit in which values of array elements are given (does not apply if the array elements are logical structures)"^^xs:string;
    rdfs:subPropertyOf evmpo:has_annotation.
-osmo:has_generic_element a osmo:op_logical_array;
+osmo:has_generic_element a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_logical_array;
    rdfs:domain osmo:logical_array;
    rdfs:range osmo:logical_variable;
    rdfs:subPropertyOf osmo:has_array_element;
@@ -2481,12 +2361,14 @@ osmo:has_index_name a osmo:logical_array;
    rdfs:domain osmo:logical_array;
    rdfs:range xs:string;
    rdfs:comment "this property can be used to assign a variable name to the array index"^^xs:string.
-osmo:has_specific_element a osmo:op_logical_array;
+osmo:has_specific_element a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_logical_array;
    rdfs:domain osmo:logical_array;
    rdfs:range osmo:logical_variable;
    rdfs:subPropertyOf osmo:has_array_element;
    rdfs:comment "points to one particular array element (identified by a specific index value)"^^xs:string.
-osmo:has_static_array_size a osmo:dp_logical_array;
+osmo:has_static_array_size a owl:DatatypeProperty;
+   rdfs:subPropertyOf osmo:dp_logical_array;
    rdfs:domain osmo:logical_array;
    rdfs:range xs:nonNegativeInteger;
    rdfs:comment "value that gives the array size; convention: element indices run from 0 to the array size minus one"^^xs:string.
@@ -2494,106 +2376,99 @@ osmo:has_static_array_size a osmo:dp_logical_array;
 osmo:unique_logical a owl:Class;
    rdfs:subClassOf osmo:logical_variable;
    rdfs:comment "logical scalar, i.e., an logical variable that can have only one value at the same time"^^xs:string.
-osmo:op_unique_logical a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_unique_logical a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_logical_variable rdfs:subClassOf osmo:op_unique_logical.
-osmo:dp_logical_variable rdfs:subClassOf osmo:dp_unique_logical.
+osmo:op_unique_logical a owl:ObjectProperty.
+osmo:dp_unique_logical a owl:DatatypeProperty.
+osmo:op_logical_variable rdfs:subPropertyOf osmo:op_unique_logical.
+osmo:dp_logical_variable rdfs:subPropertyOf osmo:dp_unique_logical.
 
 osmo:logical_collection a owl:Class;
    rdfs:subClassOf osmo:logical_variable;
    rdfs:comment "logical collection, i.e., a logical variable that can carry multiple values (e.g., representing a set, map, list, or array)"^^xs:string.
-osmo:op_logical_collection a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_logical_collection a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_logical_variable rdfs:subClassOf osmo:op_logical_collection.
-osmo:dp_logical_variable rdfs:subClassOf osmo:dp_logical_collection.
+osmo:op_logical_collection a owl:ObjectProperty.
+osmo:dp_logical_collection a owl:DatatypeProperty.
+osmo:op_logical_variable rdfs:subPropertyOf osmo:op_logical_collection.
+osmo:dp_logical_variable rdfs:subPropertyOf osmo:dp_logical_collection.
 
-osmo:has_collection_size a osmo:dp_logical_collection;
+osmo:has_collection_size a owl:DatatypeProperty;
+   rdfs:subPropertyOf osmo:dp_logical_collection;
    rdfs:domain osmo:logical_collection;
    rdfs:range xs:nonNegativeInteger.
 
 osmo:unique_elementary a owl:Class;
    rdfs:subClassOf osmo:elementary_logical, osmo:unique_logical;
    owl:intersectionOf (osmo:elementary_logical osmo:unique_logical).
-osmo:op_unique_elementary a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_unique_elementary a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_elementary_logical rdfs:subClassOf osmo:op_unique_elementary.
-osmo:dp_elementary_logical rdfs:subClassOf osmo:dp_unique_elementary.
-osmo:op_unique_logical rdfs:subClassOf osmo:op_unique_elementary.
-osmo:dp_unique_logical rdfs:subClassOf osmo:dp_unique_elementary.
+osmo:op_unique_elementary a owl:ObjectProperty.
+osmo:dp_unique_elementary a owl:DatatypeProperty.
+osmo:op_elementary_logical rdfs:subPropertyOf osmo:op_unique_elementary.
+osmo:dp_elementary_logical rdfs:subPropertyOf osmo:dp_unique_elementary.
+osmo:op_unique_logical rdfs:subPropertyOf osmo:op_unique_elementary.
+osmo:dp_unique_logical rdfs:subPropertyOf osmo:dp_unique_elementary.
 
 osmo:unique_structure a owl:Class;
    rdfs:subClassOf osmo:logical_structure, osmo:unique_logical;
    owl:intersectionOf (osmo:logical_structure osmo:unique_logical).
-osmo:op_unique_structure a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_unique_structure a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_logical_structure rdfs:subClassOf osmo:op_unique_structure.
-osmo:dp_logical_structure rdfs:subClassOf osmo:dp_unique_structure.
-osmo:op_unique_logical rdfs:subClassOf osmo:op_unique_structure.
-osmo:dp_unique_logical rdfs:subClassOf osmo:dp_unique_structure.
+osmo:op_unique_structure a owl:ObjectProperty.
+osmo:dp_unique_structure a owl:DatatypeProperty.
+osmo:op_logical_structure rdfs:subPropertyOf osmo:op_unique_structure.
+osmo:dp_logical_structure rdfs:subPropertyOf osmo:dp_unique_structure.
+osmo:op_unique_logical rdfs:subPropertyOf osmo:op_unique_structure.
+osmo:dp_unique_logical rdfs:subPropertyOf osmo:dp_unique_structure.
 
 osmo:elementary_collection a owl:Class;
    rdfs:subClassOf osmo:elementary_logical, osmo:logical_collection;
    owl:intersectionOf (osmo:elementary_logical osmo:logical_collection).
-osmo:op_elementary_collection a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_elementary_collection a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_elementary_logical rdfs:subClassOf osmo:op_elementary_collection.
-osmo:dp_elementary_logical rdfs:subClassOf osmo:dp_elementary_collection.
-osmo:op_logical_collection rdfs:subClassOf osmo:op_elementary_collection.
-osmo:dp_logical_collection rdfs:subClassOf osmo:dp_elementary_collection.
+osmo:op_elementary_collection a owl:ObjectProperty.
+osmo:dp_elementary_collection a owl:DatatypeProperty.
+osmo:op_elementary_logical rdfs:subPropertyOf osmo:op_elementary_collection.
+osmo:dp_elementary_logical rdfs:subPropertyOf osmo:dp_elementary_collection.
+osmo:op_logical_collection rdfs:subPropertyOf osmo:op_elementary_collection.
+osmo:dp_logical_collection rdfs:subPropertyOf osmo:dp_elementary_collection.
 
 osmo:structure_collection a owl:Class;
    rdfs:subClassOf osmo:logical_structure, osmo:logical_collection;
    owl:intersectionOf (osmo:logical_structure osmo:logical_collection).
-osmo:op_structure_collection a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_structure_collection a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_logical_structure rdfs:subClassOf osmo:op_structure_collection.
-osmo:dp_logical_structure rdfs:subClassOf osmo:dp_structure_collection.
-osmo:op_logical_collection rdfs:subClassOf osmo:op_structure_collection.
-osmo:dp_logical_collection rdfs:subClassOf osmo:dp_structure_collection.
+osmo:op_structure_collection a owl:ObjectProperty.
+osmo:dp_structure_collection a owl:DatatypeProperty.
+osmo:op_logical_structure rdfs:subPropertyOf osmo:op_structure_collection.
+osmo:dp_logical_structure rdfs:subPropertyOf osmo:dp_structure_collection.
+osmo:op_logical_collection rdfs:subPropertyOf osmo:op_structure_collection.
+osmo:dp_logical_collection rdfs:subPropertyOf osmo:dp_structure_collection.
 
 
 
 osmo:logical_access a owl:Class;
    rdfs:subClassOf osmo:logical_entity, evmpo:annotation;
    rdfs:comment "logical access, i.e., a notational process/connection by which an OSMO/MODA section accesses a logical resource"^^xs:string.
-osmo:op_logical_access a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_logical_access a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_logical_entity rdfs:subClassOf osmo:op_logical_access.
-osmo:dp_logical_entity rdfs:subClassOf osmo:dp_logical_access.
-evmpo:op_annotation rdfs:subClassOf osmo:op_logical_resource.
-evmpo:dp_annotation rdfs:subClassOf osmo:dp_logical_resource.
+osmo:op_logical_access a owl:ObjectProperty.
+osmo:dp_logical_access a owl:DatatypeProperty.
+osmo:op_logical_entity rdfs:subPropertyOf osmo:op_logical_access.
+osmo:dp_logical_entity rdfs:subPropertyOf osmo:dp_logical_access.
+evmpo:op_annotation rdfs:subPropertyOf osmo:op_logical_resource.
+evmpo:dp_annotation rdfs:subPropertyOf osmo:dp_logical_resource.
 
-osmo:has_access_point a osmo:op_logical_access;
+osmo:has_access_point a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_logical_access;
    rdfs:domain osmo:logical_access;
    rdfs:range osmo:section.
-osmo:has_carried_variable a osmo:op_logical_access;
+osmo:has_carried_variable a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_logical_access;
    rdfs:domain osmo:logical_access;
    rdfs:range osmo:logical_variable.
-osmo:has_resource a osmo:op_logical_access;
+osmo:has_resource a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_logical_access;
    rdfs:domain osmo:logical_access;
    rdfs:range osmo:logical_resource;
    rdfs:subPropertyOf evmpo:has_meta_annotation.
-osmo:is_at_runtime a osmo:dp_logical_access;
+osmo:is_at_runtime a owl:DatatypeProperty;
+   rdfs:subPropertyOf osmo:dp_logical_access;
    rdfs:domain osmo:logical_access;
    rdfs:range xs:boolean.
-osmo:is_final a osmo:dp_logical_access;
+osmo:is_final a owl:DatatypeProperty;
+   rdfs:subPropertyOf osmo:dp_logical_access;
    rdfs:domain osmo:logical_access;
    rdfs:range xs:boolean.
-osmo:is_initial a osmo:dp_logical_access;
+osmo:is_initial a owl:DatatypeProperty;
+   rdfs:subPropertyOf osmo:dp_logical_access;
    rdfs:domain osmo:logical_access;
    rdfs:range xs:boolean.
 
@@ -2602,47 +2477,44 @@ osmo:logical_access owl:disjointUnionOf (osmo:logical_read_access osmo:logical_w
 osmo:logical_read_access a owl:Class;
    rdfs:subClassOf osmo:logical_access;
    rdfs:comment "logical read access, i.e., a notational process/connection by which an OSMO/MODA section reads from a logical resource"^^xs:string.
-osmo:op_logical_read_access a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_logical_read_access a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_logical_access rdfs:subClassOf osmo:op_logical_read_access.
-osmo:dp_logical_access rdfs:subClassOf osmo:dp_logical_read_access.
+osmo:op_logical_read_access a owl:ObjectProperty.
+osmo:dp_logical_read_access a owl:DatatypeProperty.
+osmo:op_logical_access rdfs:subPropertyOf osmo:op_logical_read_access.
+osmo:dp_logical_access rdfs:subPropertyOf osmo:dp_logical_read_access.
 
-osmo:is_parameterization a osmo:dp_logical_read_access;
+osmo:is_parameterization a owl:DatatypeProperty;
+   rdfs:subPropertyOf osmo:dp_logical_read_access;
    rdfs:domain osmo:logical_read_access;
    rdfs:range xs:boolean.
 
 osmo:logical_write_access a owl:Class;
    rdfs:subClassOf osmo:logical_access;
    rdfs:comment "logical write access, i.e., a notational process/connection by which an OSMO/MODA section writes to a logical resource"^^xs:string.
-osmo:op_logical_write_access a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_logical_write_access a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_logical_access rdfs:subClassOf osmo:op_logical_write_access.
-osmo:dp_logical_access rdfs:subClassOf osmo:dp_logical_write_access.
+osmo:op_logical_write_access a owl:ObjectProperty.
+osmo:dp_logical_write_access a owl:DatatypeProperty.
+osmo:op_logical_access rdfs:subPropertyOf osmo:op_logical_write_access.
+osmo:dp_logical_access rdfs:subPropertyOf osmo:dp_logical_write_access.
 
 
 osmo:material a owl:Class;
    rdfs:subClassOf evmpo:paradigmatic_entity;
    owl:equivalentClass evmpo:material;
    rdfs:comment "material, i.e., a material as characterized by the EMMO"^^xs:string.
-osmo:op_material a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty;
-   owl:equivalentClass evmpo:op_material.
-osmo:dp_material a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty;
-   owl:equivalentClass evmpo:dp_material.
-evmpo:op_paradigmatic_entity rdfs:subClassOf osmo:op_material.
-evmpo:dp_paradigmatic_entity rdfs:subClassOf osmo:dp_material.
+osmo:op_material a owl:ObjectProperty;
+   owl:equivalentProperty evmpo:op_material.
+osmo:dp_material a owl:DatatypeProperty;
+   owl:equivalentProperty evmpo:dp_material.
+evmpo:op_paradigmatic_entity rdfs:subPropertyOf osmo:op_material.
+evmpo:dp_paradigmatic_entity rdfs:subPropertyOf osmo:dp_material.
 
-osmo:has_cas_number a osmo:dp_material, owl:FunctionalProperty;
+osmo:has_cas_number a owl:DatatypeProperty, owl:FunctionalProperty;
+   rdfs:subPropertyOf osmo:dp_material;
    rdfs:domain osmo:material;
    rdfs:range xs:string;
    rdfs:comment "points to the Chemical Abstracts Service Registry Number (CASRN, or CAS number) associated with a material"^^xs:string.
 
-osmo:has_ec_number a osmo:dp_material, owl:FunctionalProperty;
+osmo:has_ec_number a owl:DatatypeProperty, owl:FunctionalProperty;
+   rdfs:subPropertyOf osmo:dp_material;
    rdfs:domain osmo:material;
    rdfs:range xs:string;
    rdfs:comment "points to the EC number (i.e., the European common market number) associated with a material"^^xs:string.
@@ -2650,72 +2522,62 @@ osmo:has_ec_number a osmo:dp_material, owl:FunctionalProperty;
 osmo:cas_listed_material a owl:Class;
    rdfs:subClassOf osmo:material;
    rdfs:comment "CAS listed material, i.e., a material that has a Chemical Abstracts Service Registry Number (CASRN, or CAS number)"^^xs:string.
-osmo:op_cas_listed_material a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_cas_listed_material a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_material rdfs:subClassOf osmo:op_cas_listed_material.
-osmo:dp_material rdfs:subClassOf osmo:dp_cas_listed_material.
+osmo:op_cas_listed_material a owl:ObjectProperty.
+osmo:dp_cas_listed_material a owl:DatatypeProperty.
+osmo:op_material rdfs:subPropertyOf osmo:op_cas_listed_material.
+osmo:dp_material rdfs:subPropertyOf osmo:dp_cas_listed_material.
 
 osmo:cas_listed_material owl:intersectionOf (osmo:material [a owl:Restriction; owl:onProperty osmo:has_cas_number; owl:someValuesFrom xs:string]).
 
 osmo:ec_listed_material a owl:Class;
    rdfs:subClassOf osmo:material;
    rdfs:comment "EC listed material, i.e., a material that has an EC number and is traded on the European common market"^^xs:string.
-osmo:op_ec_listed_material a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_ec_listed_material a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_material rdfs:subClassOf osmo:op_ec_listed_material.
-osmo:dp_material rdfs:subClassOf osmo:dp_ec_listed_material.
+osmo:op_ec_listed_material a owl:ObjectProperty.
+osmo:dp_ec_listed_material a owl:DatatypeProperty.
+osmo:op_material rdfs:subPropertyOf osmo:op_ec_listed_material.
+osmo:dp_material rdfs:subPropertyOf osmo:dp_ec_listed_material.
 
 osmo:ec_listed_material owl:intersectionOf (osmo:material [a owl:Restriction; owl:onProperty osmo:has_ec_number; owl:someValuesFrom xs:string]).
 
 osmo:einecs_listed_material a owl:Class;
    rdfs:subClassOf osmo:ec_listed_material;
    rdfs:comment "EINECS listed material, i.e., an EC listed material from the European Inventory of Existing Commercial Chemical Substances (EINECS)"^^xs:string.
-osmo:op_einecs_listed_material a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_einecs_listed_material a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_ec_listed_material rdfs:subClassOf osmo:op_einecs_listed_material.
-osmo:dp_ec_listed_material rdfs:subClassOf osmo:dp_einecs_listed_material.
+osmo:op_einecs_listed_material a owl:ObjectProperty.
+osmo:dp_einecs_listed_material a owl:DatatypeProperty.
+osmo:op_ec_listed_material rdfs:subPropertyOf osmo:op_einecs_listed_material.
+osmo:dp_ec_listed_material rdfs:subPropertyOf osmo:dp_einecs_listed_material.
 
 osmo:elincs_listed_material a owl:Class;
    rdfs:subClassOf osmo:ec_listed_material;
    rdfs:comment "ELINCS listed material, i.e., an EC listed material from the European List of Notified Chemical Substances (ELINCS)"^^xs:string.
-osmo:op_elincs_listed_material a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_elincs_listed_material a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_ec_listed_material rdfs:subClassOf osmo:op_elincs_listed_material.
-osmo:dp_ec_listed_material rdfs:subClassOf osmo:dp_elincs_listed_material.
+osmo:op_elincs_listed_material a owl:ObjectProperty.
+osmo:dp_elincs_listed_material a owl:DatatypeProperty.
+osmo:op_ec_listed_material rdfs:subPropertyOf osmo:op_elincs_listed_material.
+osmo:dp_ec_listed_material rdfs:subPropertyOf osmo:dp_elincs_listed_material.
 
 osmo:nlp_listed_material a owl:Class;
    rdfs:subClassOf osmo:ec_listed_material;
    rdfs:comment "NLP listed material, i.e., an EC listed material from the No-Longer-Polymers (NLP) List"^^xs:string.
-osmo:op_nlp_listed_material a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_nlp_listed_material a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_ec_listed_material rdfs:subClassOf osmo:op_nlp_listed_material.
-osmo:dp_ec_listed_material rdfs:subClassOf osmo:dp_nlp_listed_material.
+osmo:op_nlp_listed_material a owl:ObjectProperty.
+osmo:dp_nlp_listed_material a owl:DatatypeProperty.
+osmo:op_ec_listed_material rdfs:subPropertyOf osmo:op_nlp_listed_material.
+osmo:dp_ec_listed_material rdfs:subPropertyOf osmo:dp_nlp_listed_material.
 
 
 osmo:unit_function a owl:Class;
    rdfs:subClassOf evmpo:annotation;
    rdfs:comment "Unit function, i.e., purpose or impact of one out of multiple coexisting units of the same or similar type"^^xs:string.
-osmo:op_unit_function a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_unit_function a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_annotation rdfs:subClassOf osmo:op_unit_function.
-evmpo:dp_annotation rdfs:subClassOf osmo:dp_unit_function.
+osmo:op_unit_function a owl:ObjectProperty.
+osmo:dp_unit_function a owl:DatatypeProperty.
+evmpo:op_annotation rdfs:subPropertyOf osmo:op_unit_function.
+evmpo:dp_annotation rdfs:subPropertyOf osmo:dp_unit_function.
 
-osmo:has_uf_descriptor a osmo:dp_unit_function;
+osmo:has_uf_descriptor a owl:DatatypeProperty;
+   rdfs:subPropertyOf osmo:dp_unit_function;
    rdfs:domain osmo:unit_function;
    rdfs:range xs:string.
-osmo:refers_to_unit a osmo:op_unit_function;
+osmo:refers_to_unit a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_unit_function;
    rdfs:domain osmo:unit_function;
    rdfs:range evmpo:marketplace_related_entity;
    owl:inverseOf osmo:has_unit_function.
@@ -2730,7 +2592,8 @@ osmo:unit_function rdfs:subClassOf [
       owl:someValuesFrom evmpo:marketplace_related_entity
    ].
 
-osmo:has_unit_function a evmpo:op_marketplace_related_entity, owl:ObjectProperty;
+osmo:has_unit_function a owl:ObjectProperty;
+   rdfs:subPropertyOf evmpo:op_marketplace_related_entity;;
    rdfs:domain evmpo:marketplace_related_entity;
    rdfs:range osmo:unit_function;
    rdfs:subPropertyOf evmpo:has_annotation;
@@ -2739,84 +2602,76 @@ osmo:has_unit_function a evmpo:op_marketplace_related_entity, owl:ObjectProperty
 osmo:material_information_uf a owl:Class;
    rdfs:subClassOf osmo:unit_function;
    rdfs:comment "Unit function of an MI"^^xs:string.
-osmo:op_material_information_uf a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_material_information_uf a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_unit_function rdfs:subClassOf osmo:op_material_information_uf.
-osmo:dp_unit_function rdfs:subClassOf osmo:dp_material_information_uf.
+osmo:op_material_information_uf a owl:ObjectProperty.
+osmo:dp_material_information_uf a owl:DatatypeProperty.
+osmo:op_unit_function rdfs:subPropertyOf osmo:op_material_information_uf.
+osmo:dp_unit_function rdfs:subPropertyOf osmo:dp_material_information_uf.
 
 
 osmo:optimization_entity a owl:Class;
    rdfs:subClassOf evmpo:marketplace_related_entity.
-osmo:op_optimization_entity a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_optimization_entity a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-evmpo:op_marketplace_related_entity rdfs:subClassOf osmo:op_optimization_entity.
-evmpo:dp_marketplace_related_entity rdfs:subClassOf osmo:dp_optimization_entity.
+osmo:op_optimization_entity a owl:ObjectProperty.
+osmo:dp_optimization_entity a owl:DatatypeProperty.
+evmpo:op_marketplace_related_entity rdfs:subPropertyOf osmo:op_optimization_entity.
+evmpo:dp_marketplace_related_entity rdfs:subPropertyOf osmo:dp_optimization_entity.
 
 osmo:optimization_objective a owl:Class;
    rdfs:subClassOf osmo:unique_elementary, osmo:optimization_entity;
    rdfs:comment "optimization objective, i.e., a target quantity employed as a criterion during optimization"^^xs:string.
-osmo:op_optimization_objective a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_optimization_objective a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_unique_elementary rdfs:subClassOf osmo:op_optimization_objective.
-osmo:dp_unique_elementary rdfs:subClassOf osmo:dp_optimization_objective.
-osmo:op_optimization_entity rdfs:subClassOf osmo:op_optimization_objective.
-osmo:dp_optimization_entity rdfs:subClassOf osmo:dp_optimization_objective.
+osmo:op_optimization_objective a owl:ObjectProperty.
+osmo:dp_optimization_objective a owl:DatatypeProperty.
+osmo:op_unique_elementary rdfs:subPropertyOf osmo:op_optimization_objective.
+osmo:dp_unique_elementary rdfs:subPropertyOf osmo:dp_optimization_objective.
+osmo:op_optimization_entity rdfs:subPropertyOf osmo:op_optimization_objective.
+osmo:dp_optimization_entity rdfs:subPropertyOf osmo:dp_optimization_objective.
 
 osmo:maximization_objective a owl:Class;
    rdfs:subClassOf osmo:optimization_objective;
    rdfs:comment "maximization objective, i.e., a target quantity that is to be maximized"^^xs:string.
-osmo:op_maximization_objective a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_maximization_objective a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_optimization_objective rdfs:subClassOf osmo:op_maximization_objective.
-osmo:dp_optimization_objective rdfs:subClassOf osmo:dp_maximization_objective.
+osmo:op_maximization_objective a owl:ObjectProperty.
+osmo:dp_maximization_objective a owl:DatatypeProperty.
+osmo:op_optimization_objective rdfs:subPropertyOf osmo:op_maximization_objective.
+osmo:dp_optimization_objective rdfs:subPropertyOf osmo:dp_maximization_objective.
 
 osmo:minimization_objective a owl:Class;
    rdfs:subClassOf osmo:optimization_objective;
    rdfs:comment "minimization objective, i.e., a target quantity that is to be minimized"^^xs:string.
-osmo:op_minimization_objective a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_minimization_objective a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_optimization_objective rdfs:subClassOf osmo:op_minimization_objective.
-osmo:dp_optimization_objective rdfs:subClassOf osmo:dp_minimization_objective.
+osmo:op_minimization_objective a owl:ObjectProperty.
+osmo:dp_minimization_objective a owl:DatatypeProperty.
+osmo:op_optimization_objective rdfs:subPropertyOf osmo:op_minimization_objective.
+osmo:dp_optimization_objective rdfs:subPropertyOf osmo:dp_minimization_objective.
 
 osmo:decision_support_system a owl:Class;
    rdfs:subClassOf osmo:optimization_entity, macro:data_infrastructure, macro:software_infrastructure;
    rdfs:comment "decision support system, i.e., a data and software infrastructure that facilitates decision support"^^xs:string.
-osmo:op_decision_support_system a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_decision_support_system a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_optimization_entity rdfs:subClassOf osmo:op_decision_support_system.
-osmo:dp_optimization_entity rdfs:subClassOf osmo:dp_decision_support_system.
-macro:op_data_infrastructure rdfs:subClassOf osmo:op_decision_support_system.
-macro:dp_data_infrastructure rdfs:subClassOf osmo:dp_decision_support_system.
-macro:op_software_infrastructure rdfs:subClassOf osmo:op_decision_support_system.
-macro:dp_software_infrastructure rdfs:subClassOf osmo:dp_decision_support_system.
+osmo:op_decision_support_system a owl:ObjectProperty.
+osmo:dp_decision_support_system a owl:DatatypeProperty.
+osmo:op_optimization_entity rdfs:subPropertyOf osmo:op_decision_support_system.
+osmo:dp_optimization_entity rdfs:subPropertyOf osmo:dp_decision_support_system.
+macro:op_data_infrastructure rdfs:subPropertyOf osmo:op_decision_support_system.
+macro:dp_data_infrastructure rdfs:subPropertyOf osmo:dp_decision_support_system.
+macro:op_software_infrastructure rdfs:subPropertyOf osmo:op_decision_support_system.
+macro:dp_software_infrastructure rdfs:subPropertyOf osmo:dp_decision_support_system.
 
-osmo:has_constraint a osmo:op_decision_support_system;
+osmo:has_constraint a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_decision_support_system;
    rdfs:domain osmo:decision_support_system;
    rdfs:range osmo:condition;
    rdfs:comment "points to a constraint of the optimization problem"^^xs:string.
-osmo:has_maximization_objective a osmo:op_decision_support_system;
+osmo:has_maximization_objective a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_decision_support_system;
    rdfs:domain osmo:decision_support_system;
    rdfs:range osmo:maximization_objective;
    rdfs:subPropertyOf osmo:has_objective;
    rdfs:comment "points to a target quantity that is to be maximized"^^xs:string.
-osmo:has_minimization_objective a osmo:op_decision_support_system;
+osmo:has_minimization_objective a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_decision_support_system;
    rdfs:domain osmo:decision_support_system;
    rdfs:range osmo:minimization_objective;
    rdfs:subPropertyOf osmo:has_objective;
    rdfs:comment "points to a target quantity that is to be minimized"^^xs:string.
-osmo:has_objective a osmo:op_decision_support_system;
+osmo:has_objective a owl:ObjectProperty;
+   rdfs:subPropertyOf osmo:op_decision_support_system;
    rdfs:domain osmo:decision_support_system;
    rdfs:range osmo:optimization_objective;
    rdfs:comment "points to a target quantity"^^xs:string.
@@ -2824,19 +2679,15 @@ osmo:has_objective a osmo:op_decision_support_system;
 osmo:application_decision_support_system a owl:Class;
    rdfs:subClassOf osmo:decision_support_system;
    rdfs:comment "application decision support system, i.e., a decision support system that occurs in an application case"^^xs:string.
-osmo:op_application_decision_support_system a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_application_decision_support_system a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_decision_support_system rdfs:subClassOf osmo:op_application_decision_support_system.
-osmo:dp_decision_support_system rdfs:subClassOf osmo:dp_application_decision_support_system.
+osmo:op_application_decision_support_system a owl:ObjectProperty.
+osmo:dp_application_decision_support_system a owl:DatatypeProperty.
+osmo:op_decision_support_system rdfs:subPropertyOf osmo:op_application_decision_support_system.
+osmo:dp_decision_support_system rdfs:subPropertyOf osmo:dp_application_decision_support_system.
 
 osmo:use_case_decision_support_system a owl:Class;
    rdfs:subClassOf osmo:application_decision_support_system;
    rdfs:comment "use-case decision support system (UDSS), i.e., a decision support system that is applied to a use case"^^xs:string.
-osmo:op_use_case_decision_support_system a owl:Class;
-   rdfs:subClassOf owl:ObjectProperty.
-osmo:dp_use_case_decision_support_system a owl:Class;
-   rdfs:subClassOf owl:DatatypeProperty.
-osmo:op_application_decision_support_system rdfs:subClassOf osmo:op_use_case_decision_support_system.
-osmo:dp_application_decision_support_system rdfs:subClassOf osmo:dp_use_case_decision_support_system.
+osmo:op_use_case_decision_support_system a owl:ObjectProperty.
+osmo:dp_use_case_decision_support_system a owl:DatatypeProperty.
+osmo:op_application_decision_support_system rdfs:subPropertyOf osmo:op_use_case_decision_support_system.
+osmo:dp_application_decision_support_system rdfs:subPropertyOf osmo:dp_use_case_decision_support_system.
