@@ -1123,7 +1123,7 @@ viso:has_part a owl:ObjectProperty;
 
 ### EUROPEAN VIRTUAL MARKETPLACE ONTOLOGY (EVMPO) ###
 
-### VERSION 1.1.2, DATED 22ND NOVEMBER 2019 ###
+### VERSION 1.2.0, DATED 4TH MARCH 2020 ###
 
 @prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
 
@@ -1730,12 +1730,12 @@ evmpo:has_meta_annotation a owl:ObjectProperty;
    rdfs:domain evmpo:annotation;
    rdfs:range evmpo:annotation;
    rdfs:subPropertyOf evmpo:has_annotation.
-
+   
 ### MARKETPLACE-ACCESSIBLE COMPUTATIONAL RESOURCE ONTOLOGY (MACRO) ###
 
-### VERSION 0.3.0 ###
+### VERSION 0.4.0 ###
 
-### DATED 23RD JANUARY 2020 ###
+### DATED 4TH MARCH 2020 ###
 
 @prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
 
@@ -2374,9 +2374,9 @@ macro:VOCTA_XML_FORMAT macro:is_input_format_of macro:SOFTWARE_TOOL_VOCTA.
 
 ### MATERIALS MODELLING TRANSLATION ONTOLOGY (MMTO) ###
 
-### VERSION 1.0.0 ###
+### VERSION 1.1.0 ###
 
-### DATED 14TH DECEMBER 2019 ###
+### DATED 4TH MARCH 2020 ###
 
 @prefix mmto: <http://www.vimmp.eu/semantics/mmto/mmto.ttl#>.
 
@@ -3614,12 +3614,11 @@ mmto:has_represented_kpi a owl:ObjectProperty;
    rdfs:domain mmto:key_performance_indicator;
    rdfs:comment "points to a KPI that is represented (modelled) by the present KPI model"^^xs:string.
 
-
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 1.3.1 ###
+### VERSION 1.4.0 ###
 
-### DATED 14TH DECEMBER 2019 ###
+### DATED 4TH MARCH 2020 ###
 
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -6310,9 +6309,9 @@ osmo:dp_application_decision_support_system rdfs:subPropertyOf osmo:dp_use_case_
 
 ### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
 
-### VERSION 0.8.15 ###
+### VERSION 0.9.0 ###
 
-### DATED 15TH JANUARY 2020 ###
+### DATED 4TH MARCH 2020 ###
 
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 
@@ -8555,9 +8554,9 @@ vico:dp_human_agent rdfs:subPropertyOf otras:dp_instructor.
 
 ### VIMMP COMMUNICATION ONTOLOGY (VICO) ###
 
-### VERSION 1.0.0 ###
+### VERSION 1.1.0 ###
 
-### DATED 25TH NOVEMBER 2019 ###
+### DATED 4TH MARCH 2020 ###
 
 @prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
 
@@ -9724,9 +9723,9 @@ vico:nondoctoral_title owl:disjointWith [
 
 ### VIMMP VALIDATION ONTOLOGY (VIVO) ###
 
-### VERSION 0.3.11 ###
+### VERSION 0.4.0 ###
 
-### DATED 11TH DECEMBER 2019 ###
+### DATED 4TH MARCH 2020 ###
 
 @prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
 
