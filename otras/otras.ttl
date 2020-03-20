@@ -3,7 +3,7 @@
 
 ### VERSION 0.9.0 ###
 
-### DATED 4TH MARCH 2020 ###
+### DATED 20TH MARCH 2020 ###
 
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 
@@ -24,16 +24,16 @@ otras:training_entity a owl:Class;
    rdfs:subClassOf evmpo:marketplace_related_entity.
 otras:op_training_entity a owl:ObjectProperty.
 otras:dp_training_entity a owl:DatatypeProperty.
-evmpo:op_marketplace_related_entity rdfs:subPropertyOf otras:op_training_entity.
-evmpo:dp_marketplace_related_entity rdfs:subPropertyOf otras:dp_training_entity.
+otras:op_training_entity rdfs:subPropertyOf evmpo:op_marketplace_related_entity.
+otras:dp_training_entity rdfs:subPropertyOf evmpo:dp_marketplace_related_entity.
 
 otras:carrier a owl:Class;
    rdfs:comment "carrier, e.g, material, activity, event that carries the contents of a course"^^xs:string;
    rdfs:subClassOf otras:training_entity.
 otras:op_carrier a owl:ObjectProperty.
 otras:dp_carrier a owl:DatatypeProperty.
-otras:op_training_entity rdfs:subPropertyOf otras:op_carrier.
-otras:dp_training_entity rdfs:subPropertyOf otras:dp_carrier.
+otras:op_carrier rdfs:subPropertyOf otras:op_training_entity.
+otras:dp_carrier rdfs:subPropertyOf otras:dp_training_entity.
 
 otras:has_abstract a owl:ObjectProperty;
    rdfs:subPropertyOf evmpo:op_document;
@@ -58,8 +58,8 @@ otras:abstract a owl:Class;
    owl:equivalentClass iao:IAO_0000315.  # iao label "abstract"
 otras:op_abstract a owl:ObjectProperty.
 otras:dp_abstract a owl:DatatypeProperty.
-evmpo:op_information_content_entity rdfs:subPropertyOf otras:op_abstract.
-evmpo:dp_information_content_entity rdfs:subPropertyOf otras:dp_abstract.
+otras:op_abstract rdfs:subPropertyOf evmpo:op_information_content_entity.
+otras:dp_abstract rdfs:subPropertyOf evmpo:dp_information_content_entity.
 
 otras:publication a owl:Class;
    rdfs:subClassOf evmpo:document;
@@ -67,16 +67,16 @@ otras:publication a owl:Class;
    owl:equivalentClass iao:IAO_0000311.  # iao label "publication"
 otras:op_publication a owl:ObjectProperty.
 otras:dp_publication a owl:DatatypeProperty.
-evmpo:op_document rdfs:subPropertyOf otras:op_publication.
-evmpo:dp_document rdfs:subPropertyOf otras:dp_publication.
+otras:op_publication rdfs:subPropertyOf evmpo:op_document.
+otras:dp_publication rdfs:subPropertyOf evmpo:dp_document.
 
 otras:book a owl:Class;
    rdfs:subClassOf otras:publication;
    rdfs:comment "book, i.e., a publication that has an ISBN"^^xs:string.
 otras:op_book a owl:ObjectProperty.
 otras:dp_book a owl:DatatypeProperty.
-otras:op_publication rdfs:subPropertyOf otras:op_book.
-otras:dp_publication rdfs:subPropertyOf otras:dp_book.
+otras:op_book rdfs:subPropertyOf otras:op_publication.
+otras:dp_book rdfs:subPropertyOf otras:dp_publication.
 
 otras:has_document_isbn a owl:DatatypeProperty;
    rdfs:subPropertyOf otras:dp_book;
@@ -89,32 +89,32 @@ otras:presentation a owl:Class;
    rdfs:comment "presentation, i.e., a document that can be presented to a group of people as is"^^xs:string.
 otras:op_presentation a owl:ObjectProperty.
 otras:dp_presentation a owl:DatatypeProperty.
-evmpo:op_document rdfs:subPropertyOf otras:op_presentation.
-evmpo:dp_document rdfs:subPropertyOf otras:dp_presentation.
+otras:op_presentation rdfs:subPropertyOf evmpo:op_document.
+otras:dp_presentation rdfs:subPropertyOf evmpo:dp_document.
 
 otras:slide_presentation a owl:Class;
    rdfs:subClassOf evmpo:presentation;
    rdfs:comment "slide presentation, i.e., a presentation in the form of slides"^^xs:string.
 otras:op_slide_presentation a owl:ObjectProperty.
 otras:dp_slide_presentation a owl:DatatypeProperty.
-evmpo:op_presentation rdfs:subPropertyOf otras:op_slide_presentation.
-evmpo:dp_presentation rdfs:subPropertyOf otras:dp_slide_presentation.
+otras:op_slide_presentation rdfs:subPropertyOf evmpo:op_presentation.
+otras:dp_slide_presentation rdfs:subPropertyOf evmpo:dp_presentation.
 
 otras:recording a owl:Class;
    rdfs:subClassOf evmpo:presentation;
    rdfs:comment "recording, i.e., a recorded presentation"^^xs:string.
 otras:op_recording a owl:ObjectProperty.
 otras:dp_recording a owl:DatatypeProperty.
-evmpo:op_presentation rdfs:subPropertyOf otras:op_recording.
-evmpo:dp_presentation rdfs:subPropertyOf otras:dp_recording.
+otras:op_recording rdfs:subPropertyOf evmpo:op_presentation.
+otras:dp_recording rdfs:subPropertyOf evmpo:dp_presentation.
 
 otras:audio_recording a owl:Class;
    rdfs:subClassOf evmpo:recording;
    rdfs:comment "audio recording, i.e., a recording with audio-only content"^^xs:string.
 otras:op_audio_recording a owl:ObjectProperty.
 otras:dp_audio_recording a owl:DatatypeProperty.
-evmpo:op_recording rdfs:subPropertyOf otras:op_audio_recording.
-evmpo:dp_recording rdfs:subPropertyOf otras:dp_audio_recording.
+otras:op_audio_recording rdfs:subPropertyOf evmpo:op_recording.
+otras:dp_audio_recording rdfs:subPropertyOf evmpo:dp_recording.
 
 otras:video_recording a owl:Class;
    rdfs:subClassOf evmpo:recording;
@@ -122,8 +122,8 @@ otras:video_recording a owl:Class;
    rdfs:comment "video recording, i.e., a recording with video content"^^xs:string.
 otras:op_video_recording a owl:ObjectProperty.
 otras:dp_video_recording a owl:DatatypeProperty.
-evmpo:op_recording rdfs:subPropertyOf otras:op_video_recording.
-evmpo:dp_recording rdfs:subPropertyOf otras:dp_video_recording.
+otras:op_video_recording rdfs:subPropertyOf evmpo:op_recording.
+otras:dp_video_recording rdfs:subPropertyOf evmpo:dp_recording.
 
 otras:scientific_publication a owl:Class;
    rdfs:subClassOf otras:publication;
@@ -131,8 +131,8 @@ otras:scientific_publication a owl:Class;
    owl:equivalentClass iao:IAO_0000312.  # iao label "scientific publication" or equivalently "publication about an investigation"
 otras:op_scientific_publication a owl:ObjectProperty.
 otras:dp_scientific_publication a owl:DatatypeProperty.
-otras:op_publication rdfs:subPropertyOf otras:op_scientific_publication.
-otras:dp_publication rdfs:subPropertyOf otras:dp_scientific_publication.
+otras:op_scientific_publication rdfs:subPropertyOf otras:op_publication.
+otras:dp_scientific_publication rdfs:subPropertyOf otras:dp_publication.
 
 otras:scientific_publication rdfs:subClassOf [
       a owl:Restriction;
@@ -145,8 +145,8 @@ otras:journal_article a owl:Class;
    rdfs:comment "a journal article"^^xs:string.
 otras:op_journal_article a owl:ObjectProperty.
 otras:dp_journal_article a owl:DatatypeProperty.
-evmpo:op_scientific_publication rdfs:subPropertyOf otras:op_journal_article.
-evmpo:dp_scientific_publication rdfs:subPropertyOf otras:dp_journal_article.
+otras:op_journal_article rdfs:subPropertyOf evmpo:op_scientific_publication.
+otras:dp_journal_article rdfs:subPropertyOf evmpo:dp_scientific_publication.
 
 otras:training_document a owl:Class;
    rdfs:comment "a training document is a document (as defined by IAO) that is related to training content on a virtual marketplace"^^xs:string;
@@ -155,10 +155,10 @@ otras:training_document a owl:Class;
    owl:intersectionOf (evmpo:document otras:carrier).
 otras:op_training_document a owl:ObjectProperty.
 otras:dp_training_document a owl:DatatypeProperty.
-evmpo:op_document rdfs:subPropertyOf otras:op_training_document.
-evmpo:dp_document rdfs:subPropertyOf otras:dp_training_document.
-otras:op_carrier rdfs:subPropertyOf otras:op_training_document.
-otras:dp_carrier rdfs:subPropertyOf otras:dp_training_document.
+otras:op_training_document rdfs:subPropertyOf evmpo:op_document.
+otras:dp_training_document rdfs:subPropertyOf evmpo:dp_document.
+otras:op_training_document rdfs:subPropertyOf otras:op_carrier.
+otras:dp_training_document rdfs:subPropertyOf otras:dp_carrier.
 
 otras:training_event a owl:Class;
    rdfs:comment "a training event is a (potential) virtual marketplace calendar event at which training activities occur, equivalent to Event from CCSO"^^xs:string;
@@ -167,18 +167,18 @@ otras:training_event a owl:Class;
    owl:intersectionOf (evmpo:calendar_event otras:carrier).
 otras:op_training_event a owl:ObjectProperty.
 otras:dp_training_event a owl:DatatypeProperty.
-evmpo:op_calendar_event rdfs:subPropertyOf otras:op_training_event.
-evmpo:dp_calendar_event rdfs:subPropertyOf otras:dp_training_event.
-otras:op_carrier rdfs:subPropertyOf otras:op_training_event.
-otras:dp_carrier rdfs:subPropertyOf otras:dp_training_event.
+otras:op_training_event rdfs:subPropertyOf evmpo:op_calendar_event.
+otras:dp_training_event rdfs:subPropertyOf evmpo:dp_calendar_event.
+otras:op_training_event rdfs:subPropertyOf otras:op_carrier.
+otras:dp_training_event rdfs:subPropertyOf otras:dp_carrier.
 
 otras:training_service a owl:Class;
    rdfs:comment "a training service is a tradeable object that has a content related to training activities on a virtual marketplace"^^xs:string;
    rdfs:subClassOf evmpo:tradeable_object.
 otras:op_training_service a owl:ObjectProperty.
 otras:dp_training_service a owl:DatatypeProperty.
-evmpo:op_tradeable_object rdfs:subPropertyOf otras:op_training_service.
-evmpo:dp_tradeable_object rdfs:subPropertyOf otras:dp_training_service.
+otras:op_training_service rdfs:subPropertyOf evmpo:op_tradeable_object.
+otras:dp_training_service rdfs:subPropertyOf evmpo:dp_tradeable_object.
 
 otras:has_offered_course a owl:ObjectProperty;
    rdfs:subPropertyOf otras:op_training_service;
@@ -190,10 +190,10 @@ otras:focus a owl:Class;
    rdfs:subClassOf otras:training_entity, evmpo:annotation.
 otras:op_focus a owl:ObjectProperty.
 otras:dp_focus a owl:DatatypeProperty.
-otras:op_training_entity rdfs:subPropertyOf otras:op_focus.
-otras:dp_training_entity rdfs:subPropertyOf otras:dp_focus.
-evmpo:op_annotation rdfs:subPropertyOf otras:op_focus.
-evmpo:dp_annotation rdfs:subPropertyOf otras:dp_focus.
+otras:op_focus rdfs:subPropertyOf otras:op_training_entity.
+otras:dp_focus rdfs:subPropertyOf otras:dp_training_entity.
+otras:op_focus rdfs:subPropertyOf evmpo:op_annotation.
+otras:dp_focus rdfs:subPropertyOf evmpo:dp_annotation.
 
 otras:has_focus_descriptor a owl:DatatypeProperty;
    rdfs:subPropertyOf otras:dp_focus;
@@ -206,8 +206,8 @@ otras:topic a owl:Class;
    owl:equivalentClass ccso:Topic.
 otras:op_topic a owl:ObjectProperty.
 otras:dp_topic a owl:DatatypeProperty.
-otras:op_focus rdfs:subPropertyOf otras:op_topic.
-otras:dp_focus rdfs:subPropertyOf otras:dp_topic.
+otras:op_topic rdfs:subPropertyOf otras:op_focus.
+otras:dp_topic rdfs:subPropertyOf otras:dp_focus.
 
 otras:has_topic_descriptor a owl:DatatypeProperty;
    rdfs:subPropertyOf otras:dp_topic;
@@ -235,8 +235,8 @@ otras:specifier a owl:Class;
    rdfs:subClassOf otras:focus, [a owl:Restriction; owl:onProperty otras:has_specifier_descriptor; owl:someValuesFrom rdfs:Literal].
 otras:op_specifier a owl:ObjectProperty.
 otras:dp_specifier a owl:DatatypeProperty.
-otras:op_focus rdfs:subPropertyOf otras:op_specifier.
-otras:dp_focus rdfs:subPropertyOf otras:dp_specifier.
+otras:op_specifier rdfs:subPropertyOf otras:op_focus.
+otras:dp_specifier rdfs:subPropertyOf otras:dp_focus.
 
 otras:has_specifier_descriptor a owl:DatatypeProperty;
    rdfs:subPropertyOf otras:dp_specifier;
@@ -249,8 +249,8 @@ otras:operator_specifier a owl:Class;
    rdfs:subClassOf otras:specifier.
 otras:op_operator_specifier a owl:ObjectProperty.
 otras:dp_operator_specifier a owl:DatatypeProperty.
-otras:op_specifier rdfs:subPropertyOf otras:op_operator_specifier.
-otras:dp_specifier rdfs:subPropertyOf otras:dp_operator_specifier.
+otras:op_operator_specifier rdfs:subPropertyOf otras:op_specifier.
+otras:dp_operator_specifier rdfs:subPropertyOf otras:dp_specifier.
 
 otras:is_expressed_by a owl:DatatypeProperty;
    rdfs:subPropertyOf otras:dp_operator_specifier;
@@ -288,8 +288,8 @@ otras:operand_specifier a owl:Class;
    rdfs:subClassOf otras:specifier.
 otras:op_operand_specifier a owl:ObjectProperty.
 otras:dp_operand_specifier a owl:DatatypeProperty.
-otras:op_specifier rdfs:subPropertyOf otras:op_operand_specifier.
-otras:dp_specifier rdfs:subPropertyOf otras:dp_operand_specifier.
+otras:op_operand_specifier rdfs:subPropertyOf otras:op_specifier.
+otras:dp_operand_specifier rdfs:subPropertyOf otras:dp_specifier.
 
 otras:has_operand_descriptor a owl:DatatypeProperty;
    rdfs:subPropertyOf otras:dp_operand_specifier;
@@ -307,8 +307,8 @@ otras:implementation_specifier a owl:Class;
    rdfs:subClassOf otras:specifier.
 otras:op_implementation_specifier a owl:ObjectProperty.
 otras:dp_implementation_specifier a owl:DatatypeProperty.
-otras:op_specifier rdfs:subPropertyOf otras:op_implementation_specifier.
-otras:dp_specifier rdfs:subPropertyOf otras:dp_implementation_specifier.
+otras:op_implementation_specifier rdfs:subPropertyOf otras:op_specifier.
+otras:dp_implementation_specifier rdfs:subPropertyOf otras:dp_specifier.
 
 otras:has_implementation_descriptor a owl:DatatypeProperty;
    rdfs:subPropertyOf otras:dp_implementation_specifier;
@@ -321,8 +321,8 @@ otras:example_specifier a owl:Class;
    rdfs:subClassOf otras:specifier.
 otras:op_example_specifier a owl:ObjectProperty.
 otras:dp_example_specifier a owl:DatatypeProperty.
-otras:op_specifier rdfs:subPropertyOf otras:op_example_specifier.
-otras:dp_specifier rdfs:subPropertyOf otras:dp_example_specifier.
+otras:op_example_specifier rdfs:subPropertyOf otras:op_specifier.
+otras:dp_example_specifier rdfs:subPropertyOf otras:dp_specifier.
 
 otras:has_example_descriptor a owl:DatatypeProperty;
    rdfs:subPropertyOf otras:dp_example_specifier;
@@ -341,8 +341,8 @@ otras:learning_outcome a owl:Class;
    owl:equivalentClass ccso:LearningOutcome.
 otras:op_learning_outcome a owl:ObjectProperty.
 otras:dp_learning_outcome a owl:DatatypeProperty.
-otras:op_focus rdfs:subPropertyOf otras:op_learning_outcome.
-otras:dp_focus rdfs:subPropertyOf otras:dp_learning_outcome.
+otras:op_learning_outcome rdfs:subPropertyOf otras:op_focus.
+otras:dp_learning_outcome rdfs:subPropertyOf otras:dp_focus.
 
 otras:has_l_o_descriptor a owl:DatatypeProperty;
    rdfs:subPropertyOf otras:dp_specifier;
@@ -391,8 +391,8 @@ otras:expert_competency a owl:Class;
    rdfs:subClassOf otras:learning_outcome.
 otras:op_expert_competency a owl:ObjectProperty.
 otras:dp_expert_competency a owl:DatatypeProperty.
-evmpo:op_learning_outcome rdfs:subPropertyOf otras:op_expert_competency.
-evmpo:dp_learning_outcome rdfs:subPropertyOf otras:dp_expert_competency.
+otras:op_expert_competency rdfs:subPropertyOf evmpo:op_learning_outcome.
+otras:dp_expert_competency rdfs:subPropertyOf evmpo:dp_learning_outcome.
 
 otras:expert_competency rdfs:subClassOf [
       a owl:Restriction;
@@ -406,8 +406,8 @@ otras:syllabus a owl:Class;
    owl:equivalentClass ccso:Syllabus.
 otras:op_syllabus a owl:ObjectProperty.
 otras:dp_syllabus a owl:DatatypeProperty.
-evmpo:op_document rdfs:subPropertyOf otras:op_syllabus.
-evmpo:dp_document rdfs:subPropertyOf otras:dp_syllabus.
+otras:op_syllabus rdfs:subPropertyOf evmpo:op_document.
+otras:dp_syllabus rdfs:subPropertyOf evmpo:dp_document.
 
 otras:aims_to a owl:ObjectProperty;
    rdfs:subPropertyOf otras:op_syllabus;
@@ -448,8 +448,8 @@ otras:course a owl:Class;
    owl:equivalentClass ccso:Course.
 otras:op_course a owl:ObjectProperty.
 otras:dp_course a owl:DatatypeProperty.
-otras:op_training_entity rdfs:subPropertyOf otras:op_course.
-otras:dp_training_entity rdfs:subPropertyOf otras:dp_course.
+otras:op_course rdfs:subPropertyOf otras:op_training_entity.
+otras:dp_course rdfs:subPropertyOf otras:dp_training_entity.
 
 otras:has_carrier a owl:ObjectProperty;
    rdfs:subPropertyOf otras:op_course;
@@ -481,8 +481,8 @@ otras:training_unit a owl:Class;
    rdfs:subClassOf otras:course.
 otras:op_training_unit a owl:ObjectProperty.
 otras:dp_training_unit a owl:DatatypeProperty.
-otras:op_course rdfs:subPropertyOf otras:op_training_unit.
-otras:dp_course rdfs:subPropertyOf otras:dp_training_unit.
+otras:op_training_unit rdfs:subPropertyOf otras:op_course.
+otras:dp_training_unit rdfs:subPropertyOf otras:dp_course.
 
 otras:is_part_of_course a owl:ObjectProperty, owl:FunctionalProperty;
    rdfs:subPropertyOf otras:op_training_unit;
@@ -500,8 +500,8 @@ otras:physics_subject_heading a owl:Class;
    rdfs:subClassOf otras:topic.
 otras:op_physics_subject_heading a owl:ObjectProperty.
 otras:dp_physics_subject_heading a owl:DatatypeProperty.
-evmpo:op_topic rdfs:subPropertyOf otras:op_physics_subject_heading.
-evmpo:dp_topic rdfs:subPropertyOf otras:dp_physics_subject_heading.
+otras:op_physics_subject_heading rdfs:subPropertyOf evmpo:op_topic.
+otras:dp_physics_subject_heading rdfs:subPropertyOf evmpo:dp_topic.
 
 otras:has_physh_label a owl:DatatypeProperty;
    rdfs:subPropertyOf otras:dp_physics_subject_heading;
@@ -528,8 +528,8 @@ otras:ccs_concept a owl:Class;
    rdfs:subClassOf otras:topic.
 otras:op_ccs_concept a owl:ObjectProperty.
 otras:dp_ccs_concept a owl:DatatypeProperty.
-evmpo:op_topic rdfs:subPropertyOf otras:op_ccs_concept.
-evmpo:dp_topic rdfs:subPropertyOf otras:dp_ccs_concept.
+otras:op_ccs_concept rdfs:subPropertyOf evmpo:op_topic.
+otras:dp_ccs_concept rdfs:subPropertyOf evmpo:dp_topic.
 
 otras:has_ccs_id a owl:DatatypeProperty;
    rdfs:subPropertyOf otras:dp_ccs_concept;
@@ -556,8 +556,8 @@ otras:mm_topic a owl:Class;
    rdfs:subClassOf otras:topic.
 otras:op_mm_topic a owl:ObjectProperty.
 otras:dp_mm_topic a owl:DatatypeProperty.
-evmpo:op_topic rdfs:subPropertyOf otras:op_mm_topic.
-evmpo:dp_topic rdfs:subPropertyOf otras:dp_mm_topic.
+otras:op_mm_topic rdfs:subPropertyOf evmpo:op_topic.
+otras:dp_mm_topic rdfs:subPropertyOf evmpo:dp_topic.
 
 otras:has_topic_code a owl:DatatypeProperty, owl:FunctionalProperty;
    rdfs:subPropertyOf otras:dp_mm_topic;
@@ -1604,8 +1604,8 @@ otras:operator_level a owl:Class;
    rdfs:subClassOf otras:focus.
 otras:op_operator_level a owl:ObjectProperty.
 otras:dp_operator_level a owl:DatatypeProperty.
-otras:op_focus rdfs:subPropertyOf otras:op_operator_level.
-otras:dp_focus rdfs:subPropertyOf otras:dp_operator_level.
+otras:op_operator_level rdfs:subPropertyOf otras:op_focus.
+otras:dp_operator_level rdfs:subPropertyOf otras:dp_focus.
 
 otras:is_at_numerical_level a owl:DatatypeProperty, owl:FunctionalProperty;
    rdfs:subPropertyOf otras:dp_operator_level;
@@ -1621,8 +1621,8 @@ otras:kmk_operator_level a owl:Class;
    rdfs:subClassOf otras:operator_level.
 otras:op_kmk_operator_level a owl:ObjectProperty.
 otras:dp_kmk_operator_level a owl:DatatypeProperty.
-otras:op_operator_level rdfs:subPropertyOf otras:op_kmk_operator_level.
-otras:dp_operator_level rdfs:subPropertyOf otras:dp_kmk_operator_level.
+otras:op_kmk_operator_level rdfs:subPropertyOf otras:op_operator_level.
+otras:dp_kmk_operator_level rdfs:subPropertyOf otras:dp_operator_level.
 
 otras:kmk_operator_level rdfs:subClassOf [
       a owl:Restriction;
@@ -1647,8 +1647,8 @@ otras:kmk_operator_specifier a owl:Class;
    rdfs:subClassOf otras:operator_specifier.
 otras:op_kmk_operator_specifier a owl:ObjectProperty.
 otras:dp_kmk_operator_specifier a owl:DatatypeProperty.
-otras:op_operator_specifier rdfs:subPropertyOf otras:op_kmk_operator_specifier.
-otras:dp_operator_specifier rdfs:subPropertyOf otras:dp_kmk_operator_specifier.
+otras:op_kmk_operator_specifier rdfs:subPropertyOf otras:op_operator_specifier.
+otras:dp_kmk_operator_specifier rdfs:subPropertyOf otras:dp_operator_specifier.
 
 otras:has_kmk_level a owl:ObjectProperty;
    rdfs:subPropertyOf otras:op_kmk_operator_specifier;
@@ -1675,8 +1675,8 @@ otras:expert_operator_specifier a owl:Class;
    rdfs:subClassOf otras:operator_specifier.
 otras:op_expert_operator_specifier a owl:ObjectProperty.
 otras:dp_expert_operator_specifier a owl:DatatypeProperty.
-otras:op_operator_specifier rdfs:subPropertyOf otras:op_expert_operator_specifier.
-otras:dp_operator_specifier rdfs:subPropertyOf otras:dp_expert_operator_specifier.
+otras:op_expert_operator_specifier rdfs:subPropertyOf otras:op_operator_specifier.
+otras:dp_expert_operator_specifier rdfs:subPropertyOf otras:dp_operator_specifier.
 
 otras:expert_operator_specifier rdfs:subClassOf [
       a owl:Restriction;
@@ -1968,8 +1968,8 @@ otras:citation a owl:Class;
    owl:equivalentClass iao:IAO_0000301.  # iao label "citation"
 otras:op_citation a owl:ObjectProperty.
 otras:dp_citation a owl:DatatypeProperty.
-evmpo:op_information_content_entity rdfs:subPropertyOf otras:op_citation.
-evmpo:dp_information_content_entity rdfs:subPropertyOf otras:dp_citation.
+otras:op_citation rdfs:subPropertyOf evmpo:op_information_content_entity.
+otras:dp_citation rdfs:subPropertyOf evmpo:dp_information_content_entity.
 
 otras:has_author_map a owl:ObjectProperty;
    rdfs:subPropertyOf otras:op_citation;
@@ -2036,8 +2036,8 @@ otras:doi_citation a owl:Class;
    rdfs:comment "DOI citation, i.e., a citation that has a DOI"^^xs:string.
 otras:op_doi_citation a owl:ObjectProperty.
 otras:dp_doi_citation a owl:DatatypeProperty.
-otras:op_citation rdfs:subPropertyOf otras:op_doi_citation.
-otras:dp_citation rdfs:subPropertyOf otras:dp_doi_citation.
+otras:op_doi_citation rdfs:subPropertyOf otras:op_citation.
+otras:dp_doi_citation rdfs:subPropertyOf otras:dp_citation.
 
 otras:doi_citation rdfs:subClassOf [
       a owl:Restriction;
@@ -2051,8 +2051,8 @@ otras:book_citation a owl:Class;
    rdfs:comment "book citation, i.e., a citation that is about a book"^^xs:string.
 otras:op_book_citation a owl:ObjectProperty.
 otras:dp_book_citation a owl:DatatypeProperty.
-otras:op_citation rdfs:subPropertyOf otras:op_book_citation.
-otras:dp_citation rdfs:subPropertyOf otras:dp_book_citation.
+otras:op_book_citation rdfs:subPropertyOf otras:op_citation.
+otras:dp_book_citation rdfs:subPropertyOf otras:dp_citation.
 
 otras:book_citation owl:intersectionOf (otras:citation [a owl:Restriction; owl:onProperty otras:is_citation_about_document; owl:someValuesFrom otras:book]).
 
@@ -2096,8 +2096,8 @@ otras:journal_article_citation a owl:Class;
    rdfs:comment "journal article citation, i.e., a citation that is about a journal article"^^xs:string.
 otras:op_journal_article_citation a owl:ObjectProperty.
 otras:dp_journal_article_citation a owl:DatatypeProperty.
-otras:op_citation rdfs:subPropertyOf otras:op_journal_article_citation.
-otras:dp_citation rdfs:subPropertyOf otras:dp_journal_article_citation.
+otras:op_journal_article_citation rdfs:subPropertyOf otras:op_citation.
+otras:dp_journal_article_citation rdfs:subPropertyOf otras:dp_citation.
 
 otras:journal_article_citation owl:intersectionOf (otras:citation [a owl:Restriction; owl:onProperty otras:is_citation_about_document; owl:someValuesFrom otras:journal_article]).
 
@@ -2153,18 +2153,18 @@ otras:author_identification_entity a owl:Class;
    rdfs:comment "author identification entity, i.e., an entity related to the identification of authors"^^xs:string.
 otras:op_author_identification_entity a owl:ObjectProperty.
 otras:dp_author_identification_entity a owl:DatatypeProperty.
-otras:op_training_entity rdfs:subPropertyOf otras:op_author_identification_entity.
-otras:dp_training_entity rdfs:subPropertyOf otras:dp_author_identification_entity.
-evmpo:op_annotation rdfs:subPropertyOf otras:op_author_identification_entity.
-evmpo:dp_annotation rdfs:subPropertyOf otras:dp_author_identification_entity.
+otras:op_author_identification_entity rdfs:subPropertyOf otras:op_training_entity.
+otras:dp_author_identification_entity rdfs:subPropertyOf otras:dp_training_entity.
+otras:op_author_identification_entity rdfs:subPropertyOf evmpo:op_annotation.
+otras:dp_author_identification_entity rdfs:subPropertyOf evmpo:dp_annotation.
 
 otras:author_identifier a owl:Class;
    rdfs:subClassOf otras:author_identification_entity;
    rdfs:comment "author identifier, i.e., a descriptor by which an author can be identified"^^xs:string.
 otras:op_author_identifier a owl:ObjectProperty.
 otras:dp_author_identifier a owl:DatatypeProperty.
-otras:op_author_identification_entity rdfs:subPropertyOf otras:op_author_identifier.
-otras:dp_author_identification_entity rdfs:subPropertyOf otras:dp_author_identifier.
+otras:op_author_identifier rdfs:subPropertyOf otras:op_author_identification_entity.
+otras:dp_author_identifier rdfs:subPropertyOf otras:dp_author_identification_entity.
 
 otras:has_identified_given_name a owl:DatatypeProperty, owl:FunctionalProperty;
    rdfs:subPropertyOf otras:dp_author_identifier;
@@ -2194,8 +2194,8 @@ otras:author_map a owl:Class;
    rdfs:comment "author map, i.e., an indexed collection of author identifiers (n.b., not a collection of the persons themselves, but of identifiers)"^^xs:string.
 otras:op_author_map a owl:ObjectProperty.
 otras:dp_author_map a owl:DatatypeProperty.
-otras:op_author_identification_entity rdfs:subPropertyOf otras:op_author_map.
-otras:dp_author_identification_entity rdfs:subPropertyOf otras:dp_author_map.
+otras:op_author_map rdfs:subPropertyOf otras:op_author_identification_entity.
+otras:dp_author_map rdfs:subPropertyOf otras:dp_author_identification_entity.
 
 otras:has_author_map_element a owl:ObjectProperty;
    rdfs:subPropertyOf otras:op_author_map;
@@ -2208,8 +2208,8 @@ otras:author_map_element a owl:Class;
    rdfs:comment "author map element, i.e., a numbered entry within an indexed collection of author identifiers"^^xs:string.
 otras:op_author_map_element a owl:ObjectProperty.
 otras:dp_author_map_element a owl:DatatypeProperty.
-otras:op_author_identification_entity rdfs:subPropertyOf otras:op_author_map_element.
-otras:dp_author_identification_entity rdfs:subPropertyOf otras:dp_author_map_element.
+otras:op_author_map_element rdfs:subPropertyOf otras:op_author_identification_entity.
+otras:dp_author_map_element rdfs:subPropertyOf otras:dp_author_identification_entity.
 
 otras:has_ame_identifier a owl:ObjectProperty, owl:FunctionalProperty;
    rdfs:subPropertyOf otras:op_author_map_element;
@@ -2237,9 +2237,9 @@ otras:instructor a owl:Class;
 ccso:Professor rdfs:subClassOf vico:agent.
 otras:op_instructor a owl:ObjectProperty.
 otras:dp_instructor a owl:DatatypeProperty.
-evmpo:op_expert rdfs:subPropertyOf otras:op_instructor.
-evmpo:dp_expert rdfs:subPropertyOf otras:dp_instructor.
-vico:op_training_provider rdfs:subPropertyOf otras:op_instructor.
-vico:dp_training_provider rdfs:subPropertyOf otras:dp_instructor.
-vico:op_human_agent rdfs:subPropertyOf otras:op_instructor.
-vico:dp_human_agent rdfs:subPropertyOf otras:dp_instructor.
+otras:op_instructor rdfs:subPropertyOf evmpo:op_expert.
+otras:dp_instructor rdfs:subPropertyOf evmpo:dp_expert.
+otras:op_instructor rdfs:subPropertyOf vico:op_training_provider.
+otras:dp_instructor rdfs:subPropertyOf vico:dp_training_provider.
+otras:op_instructor rdfs:subPropertyOf vico:op_human_agent.
+otras:dp_instructor rdfs:subPropertyOf vico:dp_human_agent.
