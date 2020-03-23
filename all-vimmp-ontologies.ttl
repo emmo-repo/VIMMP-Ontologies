@@ -6653,7 +6653,7 @@ otras:op_learning_outcome rdfs:subPropertyOf otras:op_focus.
 otras:dp_learning_outcome rdfs:subPropertyOf otras:dp_focus.
 
 otras:has_l_o_descriptor a owl:DatatypeProperty;
-   rdfs:subPropertyOf otras:dp_specifier;
+   rdfs:subPropertyOf otras:dp_learning_outcome;
    rdfs:domain otras:learning_outcome;
    rdfs:range rdfs:Literal;
    rdfs:subPropertyOf otras:has_focus_descriptor.
