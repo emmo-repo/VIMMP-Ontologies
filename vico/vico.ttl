@@ -1,9 +1,9 @@
 
 ### VIMMP COMMUNICATION ONTOLOGY (VICO) ###
 
-### VERSION 1.1.0 ###
+### VERSION 1.1.1 ###
 
-### DATED 20TH MARCH 2020 ###
+### DATED 28TH MARCH 2020 ###
 
 @prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
 
@@ -21,63 +21,50 @@
 <http://www.vimmp.eu/semantics/vico/vico.ttl#> a owl:Ontology.
 
 vico:contains a owl:ObjectProperty, owl:TransitiveProperty;
-   rdfs:subPropertyOf evmpo:op_communication;
    rdfs:domain evmpo:communication;
    rdfs:range evmpo:communication;
    rdfs:comment "The expression [A contains B] means that B is a proper part of A, where A and B are both communications"^^xs:string.
 vico:has_access_rule a owl:ObjectProperty, owl:FunctionalProperty;
-   rdfs:subPropertyOf evmpo:op_communication;
    rdfs:domain evmpo:communication;
    rdfs:range vico:access_rule;
    rdfs:subPropertyOf evmpo:has_communication_annotation;
    rdfs:comment "regulates (read) access to the communicated content"^^xs:string.
 vico:has_author a owl:ObjectProperty, owl:FunctionalProperty;
-   rdfs:subPropertyOf evmpo:op_communication;
    rdfs:domain evmpo:communication;
    rdfs:range vico:agent;
    owl:inverseOf vico:is_author_of.
 vico:has_expiry_date a owl:ObjectProperty, owl:FunctionalProperty;
-   rdfs:subPropertyOf vico:op_interlocution;
    rdfs:domain evmpo:communication;
    rdfs:range dcterms:W3C-DTF.
 vico:has_file_content_locator a owl:DatatypeProperty;
-   rdfs:subPropertyOf evmpo:dp_communication;
    rdfs:domain evmpo:communication;
    rdfs:range xs:string;
    rdfs:comment "this may be a URL or a path where the file can be accessed"^^xs:string.
 vico:has_file_content_format a owl:DatatypeProperty;
-   rdfs:subPropertyOf evmpo:dp_communication;
    rdfs:domain evmpo:communication;
    rdfs:range macro:file_format.
 vico:has_label a owl:ObjectProperty;
-   rdfs:subPropertyOf evmpo:op_communication;
    rdfs:domain evmpo:communication;
    rdfs:range vico:label;
    rdfs:subPropertyOf evmpo:has_communication_annotation.
 vico:has_status a owl:ObjectProperty;
-   rdfs:subPropertyOf evmpo:op_communication;
    rdfs:domain evmpo:communication;
    rdfs:range vico:status;
    rdfs:subPropertyOf vico:has_label.
 vico:has_submission_date a owl:ObjectProperty, owl:FunctionalProperty;
-   rdfs:subPropertyOf evmpo:op_communication;
    rdfs:domain evmpo:communication;
    rdfs:range dcterms:W3C-DTF.
 vico:has_text_content a owl:DatatypeProperty;
-   rdfs:subPropertyOf evmpo:dp_communication;
    rdfs:domain evmpo:communication;
    rdfs:range xs:string.
 vico:has_title a owl:DatatypeProperty;
-   rdfs:subPropertyOf evmpo:dp_communication;
    rdfs:domain evmpo:communication;
    rdfs:range xs:string.
 
 vico:is_on_channel a owl:ObjectProperty;
-   rdfs:subPropertyOf evmpo:op_communication;
    rdfs:domain evmpo:communication;
    rdfs:range macro:channel.
 vico:is_on_marketplace a owl:ObjectProperty;
-   rdfs:subPropertyOf evmpo:op_communication;
    rdfs:domain evmpo:communication;
    rdfs:range macro:virtual_marketplace;
    rdfs:subPropertyOf vico:is_on_channel.
@@ -95,47 +82,29 @@ evmpo:statement owl:intersectionOf (evmpo:communication [a owl:Restriction; owl:
 vico:appendix a owl:Class;
    rdfs:subClassOf evmpo:statement;
    rdfs:comment "appendix, i.e., a statement that cannot stand alone and needs to be combined with a communication body"^^xs:string.
-vico:op_appendix a owl:ObjectProperty.
-vico:dp_appendix a owl:DatatypeProperty.
-vico:op_appendix rdfs:subPropertyOf evmpo:op_statement.
-vico:dp_appendix rdfs:subPropertyOf evmpo:dp_statement.
 
 vico:validation_communication a owl:Class;
    rdfs:subClassOf evmpo:communication, vivo:validation_entity;
    owl:intersectionOf (evmpo:communication vivo:validation_entity);
    rdfs:comment "validation communication, i.e., a communication which, as its main feature or purpose, relates to validation"^^xs:string.
-vico:op_validation_communication a owl:ObjectProperty.
-vico:dp_translation_communication a owl:DatatypeProperty.
-vico:op_validation_communication rdfs:subPropertyOf evmpo:op_communication.
-vico:dp_validation_communication rdfs:subPropertyOf evmpo:dp_communication.
-vico:op_validation_communication rdfs:subPropertyOf vivo:op_validation_entity.
-vico:dp_validation_communication rdfs:subPropertyOf vivo:dp_validation_entity.
 
 vico:access_rule a owl:Class;
    rdfs:subClassOf evmpo:annotation;
    rdfs:comment "access rule, i.e., a communication annotation that specifies who is allowed to read the communicated content"^^xs:string.
-vico:op_access_rule a owl:ObjectProperty.
-vico:dp_access_rule a owl:DatatypeProperty.
-vico:op_access_rule rdfs:subPropertyOf evmpo:op_annotation.
-vico:dp_access_rule rdfs:subPropertyOf evmpo:dp_annotation.
 
 vico:allows a owl:ObjectProperty;
-   rdfs:subPropertyOf vico:op_access_rule;
    rdfs:domain vico:access_rule;
    rdfs:range vico:interlocutor;
    rdfs:comment "[A allows B] means that B, who is an interlocutor, must be granted access"^^xs:string.
 vico:excludes a owl:ObjectProperty;
-   rdfs:subPropertyOf vico:op_access_rule;
    rdfs:domain vico:access_rule;
    rdfs:range vico:interlocutor;
    rdfs:comment "[A excludes B] means that B, who is an interlocutor, must be denied access"^^xs:string.
 vico:allows_all a owl:ObjectProperty;
-   rdfs:subPropertyOf vico:op_access_rule;
    rdfs:domain vico:access_rule;
    rdfs:range vico:interlocutor_group;
    rdfs:comment "[A allows_all C] means that all interlocutors from group C must be granted access"^^xs:string.
 vico:excludes_all a owl:ObjectProperty;
-   rdfs:subPropertyOf vico:op_access_rule;
    rdfs:domain vico:access_rule;
    rdfs:range vico:interlocutor_group;
    rdfs:comment "[A excludes_all C] means that all interlocutors from group C must be denied access"^^xs:string.
@@ -146,34 +115,20 @@ vico:allows_all owl:propertyDisjointWith vico:excludes_all.
 vico:label a owl:Class;
    rdfs:subClassOf evmpo:annotation;
    rdfs:comment "label, i.e., a remark or information item that can be carried by (i.e., associated with) a communication"^^xs:string.
-vico:op_label a owl:ObjectProperty.
-vico:dp_label a owl:DatatypeProperty.
-vico:op_label rdfs:subPropertyOf evmpo:op_annotation.
-vico:dp_label rdfs:subPropertyOf evmpo:dp_annotation.
 
 vico:status a owl:Class;
    rdfs:subClassOf vico:label;
    rdfs:comment "status, i.e., a label that expresses information on the submission, reading, or exchange process of a communication"^^xs:string.
-vico:op_status a owl:ObjectProperty.
-vico:dp_status a owl:DatatypeProperty.
-vico:op_status rdfs:subPropertyOf evmpo:op_label.
-vico:dp_status rdfs:subPropertyOf evmpo:dp_label.
 
 vico:has_status_timestamp a owl:ObjectProperty, owl:FunctionalProperty;
-   rdfs:subPropertyOf vico:op_status;
    rdfs:domain vico:status;
    rdfs:range dcterms:W3C-DTF.
 
 vico:processed_status a owl:Class;
    rdfs:subClassOf vico:status;
    rdfs:comment "processed status, i.e., a status expressing to what extent a communication and/or its contents or associated tasks have been processed or carried out"^^xs:string.
-vico:op_processed_status a owl:ObjectProperty.
-vico:dp_processed_status a owl:DatatypeProperty.
-vico:op_processed_status rdfs:subPropertyOf evmpo:op_status.
-vico:dp_processed_status rdfs:subPropertyOf evmpo:dp_status.
 
 vico:has_fractional_progress a owl:DatatypeProperty;
-   rdfs:subPropertyOf vico:dp_processed_status;
    rdfs:domain vico:processed_status;
    rdfs:range xs:decimal;
    rdfs:comment "fractional extent to which the communication has been processed; minimum: 0 for zero progress, maximum: 1 for completion"^^xs:string.
@@ -181,64 +136,44 @@ vico:has_fractional_progress a owl:DatatypeProperty;
 vico:read_status a owl:Class;
    rdfs:subClassOf vico:status;
    rdfs:comment "read status, i.e., a status expressing that a communication has been read"^^xs:string.
-vico:op_read_status a owl:ObjectProperty.
-vico:dp_read_status a owl:DatatypeProperty.
-vico:op_read_status rdfs:subPropertyOf evmpo:op_status.
-vico:dp_read_status rdfs:subPropertyOf evmpo:dp_status.
 
 vico:sent_status a owl:Class;
    rdfs:subClassOf vico:status;
    rdfs:comment "sent status, i.e., a status expressing that a communication has been sent"^^xs:string.
-vico:op_sent_status a owl:ObjectProperty.
-vico:dp_sent_status a owl:DatatypeProperty.
-vico:op_sent_status rdfs:subPropertyOf evmpo:op_status.
-vico:dp_sent_status rdfs:subPropertyOf evmpo:dp_status.
 
 vico:message a owl:Class;
    rdfs:subClassOf evmpo:communication;
    rdfs:comment "message, i.e., a stand-alone communication (as opposed to an appendix)"^^xs:string.
-vico:op_message a owl:ObjectProperty.
-vico:dp_message a owl:DatatypeProperty.
-vico:op_message rdfs:subPropertyOf evmpo:op_communication.
-vico:dp_message rdfs:subPropertyOf evmpo:dp_communication.
 
 vico:has_appendix a owl:ObjectProperty;
-   rdfs:subPropertyOf vico:op_message;
    rdfs:domain vico:message;
    rdfs:range vico:appendix;
    rdfs:subPropertyOf vico:contains.
 vico:has_assignee a owl:ObjectProperty;
-   rdfs:subPropertyOf vico:op_message;
    rdfs:domain vico:message;
    rdfs:range vico:agent;
    owl:inverseOf vico:is_assignee_of.
 vico:has_certificate a owl:ObjectProperty;
-   rdfs:subPropertyOf vico:op_message;
    rdfs:domain vico:message;
    rdfs:range vivo:certificate;
    rdfs:subPropertyOf vico:has_appendix.
 vico:has_comment a owl:ObjectProperty;
-   rdfs:subPropertyOf vico:op_message;
    rdfs:domain vico:message;
    rdfs:range vico:comment;
    rdfs:subPropertyOf vico:is_followed_by;
    owl:inverseOf vico:has_commented_message.
 vico:follows a owl:ObjectProperty;
-   rdfs:subPropertyOf vico:op_message;
    rdfs:domain vico:message;
    rdfs:range vico:message.
 vico:has_listener a owl:ObjectProperty;
-   rdfs:subPropertyOf vico:op_message;
    rdfs:domain vico:message;
    rdfs:range vico:agent;
    owl:inverseOf vico:is_listener_of.
 vico:has_signal a owl:ObjectProperty;
-   rdfs:subPropertyOf vico:op_message;
    rdfs:domain vico:message;
    rdfs:range vico:signal_statement;
    rdfs:subPropertyOf vico:is_followed_by.
 vico:is_followed_by a owl:ObjectProperty;
-   rdfs:subPropertyOf vico:op_message;
    rdfs:domain vico:message;
    rdfs:range vico:message;
    owl:inverseOf vico:follows.
@@ -257,10 +192,6 @@ vico:message owl:disjointUnionOf (vico:declaration vico:interlocution).
 vico:task a owl:Class;
    rdfs:subClassOf vico:message;
    rdfs:comment "task, i.e., a message that has an assignee"^^xs:string.
-vico:op_task a owl:ObjectProperty.
-vico:dp_task a owl:DatatypeProperty.
-vico:op_task rdfs:subPropertyOf vico:op_message.
-vico:dp_task rdfs:subPropertyOf vico:dp_message.
 
 vico:task owl:intersectionOf (vico:message [a owl:Restriction; owl:onProperty vico:has_assignee; owl:someValuesFrom vico:agent]).
 
@@ -268,12 +199,6 @@ vico:declaration a owl:Class;
    rdfs:subClassOf vico:message;
    rdfs:comment "declaration, i.e., a message without recipient"^^xs:string;
    owl:equivalentClass evmpo:declaration.
-vico:op_declaration a owl:ObjectProperty;
-   owl:equivalentProperty evmpo:op_declaration.
-vico:dp_declaration a owl:DatatypeProperty;
-   owl:equivalentProperty evmpo:dp_declaration.
-vico:op_declaration rdfs:subPropertyOf vico:op_message.
-vico:dp_declaration rdfs:subPropertyOf vico:dp_message.
 
 vico:declaration owl:intersectionOf (vico:message [a owl:Restriction; owl:onProperty vico:has_recipient; owl:cardinality 0]).
 
@@ -281,13 +206,8 @@ vico:interlocution a owl:Class;
    rdfs:subClassOf vico:message;
    rdfs:comment "interlocution, i.e., a message that has at least one recipient"^^xs:string;
    owl:equivalentClass evmpo:interlocution.
-vico:op_interlocution a owl:ObjectProperty.
-vico:dp_interlocution a owl:DatatypeProperty.
-vico:op_interlocution rdfs:subPropertyOf vico:op_message.
-vico:dp_interlocution rdfs:subPropertyOf vico:dp_message.
 
 vico:has_recipient a owl:ObjectProperty;
-   rdfs:subPropertyOf vico:op_interlocution;
    rdfs:domain vico:interlocution;
    rdfs:range vico:agent;
    owl:inverseOf vico:is_recipient_of.
@@ -297,23 +217,14 @@ vico:interlocution owl:intersectionOf (vico:message [a owl:Restriction; owl:onPr
 vico:collocution a owl:Class;
    rdfs:subClassOf vico:interlocution;
    rdfs:comment "collocution, i.e., an interlocution which, as its main feature or purpose, comments or adds material or data to another message"^^xs:string.
-vico:op_collocution a owl:ObjectProperty.
-vico:dp_collocution a owl:DatatypeProperty.
-vico:op_collocution rdfs:subPropertyOf vico:op_interlocution.
-vico:dp_collocution rdfs:subPropertyOf vico:dp_interlocution.
 
 vico:collocution rdfs:subClassOf [a owl:Restriction; owl:onProperty vico:follows; owl:someValuesFrom vico:message].
 
 vico:comment a owl:Class;
    rdfs:subClassOf vico:collocution;
    rdfs:comment "comment, i.e., a collocution that serves the purpose of commenting on another message"^^xs:string.
-vico:op_comment a owl:ObjectProperty.
-vico:dp_comment a owl:DatatypeProperty.
-vico:op_comment rdfs:subPropertyOf vico:op_collocution.
-vico:dp_comment rdfs:subPropertyOf vico:dp_collocution.
 
 vico:has_commented_message a owl:ObjectProperty;
-   rdfs:subPropertyOf vico:op_comment;
    rdfs:domain vico:comment;
    rdfs:range vico:message;
    rdfs:subPropertyOf vico:follows;
@@ -332,12 +243,6 @@ vico:comment rdfs:subClassOf [
 vico:signal_statement a owl:Class;
    rdfs:subClassOf vico:collocution, evmpo:statement;
    rdfs:comment "signal statement, i.e., a standardized shorthand reaction to another message"^^xs:string.
-vico:op_signal_statement a owl:ObjectProperty.
-vico:dp_signal_statement a owl:DatatypeProperty.
-vico:op_signal_statement rdfs:subPropertyOf vico:op_collocution.
-vico:dp_signal_statement rdfs:subPropertyOf vico:dp_collocution.
-vico:op_signal_statement rdfs:subPropertyOf evmpo:op_statement.
-vico:dp_signal_statement rdfs:subPropertyOf evmpo:dp_statement.
 
 vico:signal_statement rdfs:subClassOf [
       a owl:Restriction;
@@ -352,269 +257,175 @@ vico:signal_i_like a owl:Class;
 vico:translation_communication a owl:Class;
    rdfs:subClassOf evmpo:communication;
    rdfs:comment "translation communication, i.e., a communication which, as its main feature or purpose, relates to translation"^^xs:string.
-vico:op_translation_communication a owl:ObjectProperty.
-vico:dp_translation_communication a owl:DatatypeProperty.
-vico:op_translation_communication rdfs:subPropertyOf evmpo:op_communication.
-vico:dp_translation_communication rdfs:subPropertyOf evmpo:dp_communication.
 
 vico:legal_communication a owl:Class;
    rdfs:subClassOf evmpo:communication;
    rdfs:comment "legal communication, i.e., a communication which, as its main feature or purpose, relates to legal, financial, or contractual issues"^^xs:string.
-vico:op_legal_communication a owl:ObjectProperty.
-vico:dp_legal_communication a owl:DatatypeProperty.
-vico:op_legal_communication rdfs:subPropertyOf evmpo:op_communication.
-vico:dp_legal_communication rdfs:subPropertyOf evmpo:dp_communication.
 
 vico:legal_statement a owl:Class;
    rdfs:subClassOf evmpo:statement, vico:legal_communication;
    owl:intersectionOf (vico:legal_communication evmpo:statement);
    rdfs:comment "legal statement, i.e., a statement which, as its main feature or purpose, relates to legal, financial, or contractual issues"^^xs:string.
-vico:op_legal_statement a owl:ObjectProperty.
-vico:dp_legal_statement a owl:DatatypeProperty.
-vico:op_legal_statement rdfs:subPropertyOf vico:op_legal_communication.
-vico:dp_legal_statement rdfs:subPropertyOf vico:dp_legal_communication.
-vico:op_legal_statement rdfs:subPropertyOf evmpo:op_statement.
-vico:dp_legal_statement rdfs:subPropertyOf evmpo:dp_statement.
 
 
 vico:address_entity a owl:Class;
    rdfs:subClassOf evmpo:annotation.
-vico:op_address_entity a owl:ObjectProperty.
-vico:dp_address_entity a owl:DatatypeProperty.
-vico:op_address_entity rdfs:subPropertyOf evmpo:op_annotation.
-vico:dp_address_entity rdfs:subPropertyOf evmpo:dp_annotation.
 
 vico:has_address_content a owl:ObjectProperty;
-   rdfs:subPropertyOf vico:op_address_entity;
    rdfs:domain vico:address_entity, [owl:complementOf vico:address_token];
    rdfs:range vico:address_content;
    rdfs:subPropertyOf evmpo:has_meta_annotation.
 
 vico:address a owl:Class;
    rdfs:subClassOf vico:address_entity.
-vico:op_address a owl:ObjectProperty.
-vico:dp_address a owl:DatatypeProperty.
-vico:op_address rdfs:subPropertyOf vico:op_address_entity.
-vico:dp_address rdfs:subPropertyOf vico:dp_address_entity.
 
 vico:has_address_qualifier a owl:ObjectProperty;
-   rdfs:subPropertyOf vico:op_postal_address;
    rdfs:domain vico:address;
    rdfs:range vico:address_content;
    rdfs:comment "content that needs to be added to an address, e.g., additional address lines"^^xs:string;
    rdfs:subPropertyOf vico:has_address_content.
 vico:is_in_country a owl:ObjectProperty;
-   rdfs:subPropertyOf vico:op_address;
    rdfs:domain vico:address;
    rdfs:range vico:country.
 
 vico:address_content a owl:Class;
    rdfs:subClassOf vico:address_entity.
-vico:op_address_content a owl:ObjectProperty.
-vico:dp_address_content a owl:DatatypeProperty.
-vico:op_address_content rdfs:subPropertyOf vico:op_address_entity.
-vico:dp_address_content rdfs:subPropertyOf vico:dp_address_entity.
 
 vico:address_token a owl:Class;
    rdfs:subClassOf vico:address_content.
-vico:op_address_token a owl:ObjectProperty.
-vico:dp_address_token a owl:DatatypeProperty.
-vico:op_address_token rdfs:subPropertyOf vico:op_address_content.
-vico:dp_address_token rdfs:subPropertyOf vico:dp_address_content.
 
 vico:has_number_representation a owl:DatatypeProperty;
-   rdfs:subPropertyOf vico:dp_address_token;
    rdfs:domain vico:address_token;
    rdfs:range xs:nonNegativeInteger.
 vico:has_textual_representation a owl:DatatypeProperty;
-   rdfs:subPropertyOf vico:dp_address_token;
    rdfs:domain vico:address_token;
    rdfs:range xs:string.
 vico:has_token_index a owl:DatatypeProperty;
-   rdfs:subPropertyOf vico:dp_address_token;
    rdfs:domain vico:address_token;
    rdfs:range xs:nonNegativeInteger.
 
 vico:postal_address a owl:Class;
    rdfs:subClassOf vico:address.
-vico:op_postal_address a owl:ObjectProperty.
-vico:dp_postal_address a owl:DatatypeProperty.
-vico:op_postal_address rdfs:subPropertyOf vico:op_address.
-vico:dp_postal_address rdfs:subPropertyOf vico:dp_address.
 
 vico:is_po_box a owl:DatatypeProperty;
-   rdfs:subPropertyOf vico:dp_postal_address;
    rdfs:domain vico:postal_address;
    rdfs:range xs:boolean.
 vico:has_city_name a owl:ObjectProperty;
-   rdfs:subPropertyOf vico:op_postal_address;
    rdfs:domain vico:postal_address;
    rdfs:range vico:address_token;
    rdfs:subPropertyOf vico:has_address_content.
 vico:has_house_no a owl:ObjectProperty;
-   rdfs:subPropertyOf vico:op_postal_address;
    rdfs:domain vico:postal_address;
    rdfs:range vico:address_token;
    rdfs:subPropertyOf vico:has_address_content.
 vico:has_po_box_no a owl:ObjectProperty;
-   rdfs:subPropertyOf vico:op_postal_address;
    rdfs:domain vico:postal_address;
    rdfs:range vico:address_token;
    rdfs:subPropertyOf vico:has_address_content.
 vico:has_postal_code a owl:ObjectProperty;
-   rdfs:subPropertyOf vico:op_postal_address;
    rdfs:domain vico:postal_address;
    rdfs:range vico:address_token;
    rdfs:subPropertyOf vico:has_address_content.
 vico:has_region_name a owl:ObjectProperty;
-   rdfs:subPropertyOf vico:op_postal_address;
    rdfs:domain vico:postal_address;
    rdfs:range vico:address_token;
    rdfs:subPropertyOf vico:has_address_content.
 vico:has_street_name a owl:ObjectProperty;
-   rdfs:subPropertyOf vico:op_postal_address;
    rdfs:domain vico:postal_address;
    rdfs:range vico:address_token;
    rdfs:subPropertyOf vico:has_address_content.
 
 vico:email_address a owl:Class;
    rdfs:subClassOf vico:address.
-vico:op_email_address a owl:ObjectProperty.
-vico:dp_email_address a owl:DatatypeProperty.
-vico:op_email_address rdfs:subPropertyOf vico:op_address.
-vico:dp_email_address rdfs:subPropertyOf vico:dp_address.
 
 vico:has_email_domain_label a owl:ObjectProperty;
-   rdfs:subPropertyOf vico:op_email_address;
    rdfs:domain vico:email_address;
    rdfs:range vico:address_token;
    rdfs:subPropertyOf vico:has_address_content.
 vico:has_email_prefix a owl:ObjectProperty;
-   rdfs:subPropertyOf vico:op_email_address;
    rdfs:domain vico:email_address;
    rdfs:range vico:address_token;
    rdfs:subPropertyOf vico:has_address_content.
 
 vico:internet_address a owl:Class;
    rdfs:subClassOf vico:address.
-vico:op_internet_address a owl:ObjectProperty.
-vico:dp_internet_address a owl:DatatypeProperty.
-vico:op_internet_address rdfs:subPropertyOf vico:op_address.
-vico:dp_internet_address rdfs:subPropertyOf vico:dp_address.
 
 vico:phone_number a owl:Class;
    rdfs:subClassOf vico:address.
-vico:op_phone_number a owl:ObjectProperty.
-vico:dp_phone_number a owl:DatatypeProperty.
-vico:op_phone_number rdfs:subPropertyOf vico:op_address.
-vico:dp_phone_number rdfs:subPropertyOf vico:dp_address.
 
 vico:has_area_code a owl:ObjectProperty;
-   rdfs:subPropertyOf vico:op_phone_number;
    rdfs:domain vico:phone_number;
    rdfs:range vico:address_token;
    rdfs:subPropertyOf vico:has_address_content.
 vico:has_local_number a owl:ObjectProperty;
-   rdfs:subPropertyOf vico:op_phone_number;
    rdfs:domain vico:phone_number;
    rdfs:range vico:address_token;
    rdfs:subPropertyOf vico:has_address_content.
 
 vico:fax_number a owl:Class;
    rdfs:subClassOf vico:phone_number.
-vico:op_fax_number a owl:ObjectProperty.
-vico:dp_fax_number a owl:DatatypeProperty.
-vico:op_fax_number rdfs:subPropertyOf vico:op_phone_number.
-vico:dp_fax_number rdfs:subPropertyOf vico:dp_phone_number.
 
 vico:landline_number a owl:Class;
    rdfs:subClassOf vico:phone_number.
-vico:op_landline_number a owl:ObjectProperty.
-vico:dp_landline_number a owl:DatatypeProperty.
-vico:op_landline_number rdfs:subPropertyOf vico:op_phone_number.
-vico:dp_landline_number rdfs:subPropertyOf vico:dp_phone_number.
 
 vico:mobile_number a owl:Class;
    rdfs:subClassOf vico:phone_number.
-vico:op_mobile_number a owl:ObjectProperty.
-vico:dp_mobile_number a owl:DatatypeProperty.
-vico:op_mobile_number rdfs:subPropertyOf vico:op_phone_number.
-vico:dp_mobile_number rdfs:subPropertyOf vico:dp_phone_number.
 
 
 vico:agent a owl:Class;
    rdfs:subClassOf evmpo:interpreter;
    rdfs:comment "agent, i.e., an entity that has (in principle) the potential of acting at a virtual marketplace, whether that capability is exercised or not"^^xs:string;
    owl:equivalentClass evmpo:agent.
-vico:op_agent a owl:ObjectProperty;
-   owl:equivalentProperty evmpo:op_agent.
-vico:dp_agent a owl:DatatypeProperty;
-   owl:equivalentProperty evmpo:dp_agent.
-vico:op_agent rdfs:subPropertyOf evmpo:op_interpreter.
-vico:dp_agent rdfs:subPropertyOf evmpo:dp_interpreter.
 
 vico:acts_at a owl:ObjectProperty;
-   rdfs:subPropertyOf vico:op_agent;
    rdfs:domain vico:agent;
    rdfs:range macro:virtual_marketplace;
    owl:inverseOf macro:has_stakeholder;
    rdfs:subPropertyOf vico:has_access_to.
 vico:has_access_to a owl:ObjectProperty;
-   rdfs:subPropertyOf vico:op_agent;
    rdfs:domain vico:agent;
    rdfs:range macro:channel;
    owl:inverseOf macro:has_channel_member.
 vico:has_address a owl:ObjectProperty;
-   rdfs:subPropertyOf vico:op_agent;
    rdfs:domain vico:agent;
    rdfs:range vico:address;
    rdfs:subPropertyOf evmpo:has_interpreter_annotation.
 vico:has_agentid a owl:DatatypeProperty;
-   rdfs:subPropertyOf vico:dp_agent;
    rdfs:domain vico:agent;
    rdfs:range xs:nonNegativeInteger.
 vico:has_interest a owl:ObjectProperty;
-   rdfs:subPropertyOf vico:op_agent;
    rdfs:domain vico:agent;
    rdfs:range otras:topic;
    rdfs:subPropertyOf evmpo:has_interpreter_annotation.
 vico:has_name a owl:DatatypeProperty;
-   rdfs:subPropertyOf vico:dp_agent;
    rdfs:domain vico:agent;
    rdfs:range xs:string.
 vico:is_assignee_of a owl:ObjectProperty;
-   rdfs:subPropertyOf vico:op_agent;
    rdfs:domain vico:agent;
    rdfs:range vico:message;
    owl:inverseOf vico:has_assignee.
 vico:is_author_of a owl:ObjectProperty;
-   rdfs:subPropertyOf vico:op_agent;
    rdfs:domain vico:agent;
    rdfs:range evmpo:communication;
    owl:inverseOf vico:has_author.
 vico:is_listener_of a owl:ObjectProperty;
-   rdfs:subPropertyOf vico:op_agent;
    rdfs:domain vico:agent;
    rdfs:range vico:message;
    owl:inverseOf vico:has_listener.
 vico:is_member_of a owl:ObjectProperty;
-   rdfs:subPropertyOf vico:op_agent;
    rdfs:domain vico:agent;
    rdfs:range vico:agent_assembly;
    owl:inverseOf vico:has_member.
 vico:is_recipient_of a owl:ObjectProperty;
-   rdfs:subPropertyOf vico:op_agent;
    rdfs:domain vico:agent;
    rdfs:range vico:interlocution;
    owl:inverseOf vico:has_recipient.
 vico:is_subscribed_to a owl:ObjectProperty;
-   rdfs:subPropertyOf vico:op_agent;
    rdfs:domain vico:agent;
    rdfs:range macro:unidirectional_channel;
    owl:inverseOf macro:has_channel_subscriber;
    rdfs:subPropertyOf vico:has_access_to.
 vico:is_owner_of a owl:ObjectProperty;
-   rdfs:subPropertyOf vico:op_agent;
    rdfs:domain vico:agent;
    rdfs:range macro:unidirectional_channel;
    owl:inverseOf macro:has_channel_owner;
@@ -625,19 +436,13 @@ vico:agent owl:disjointUnionOf (evmpo:agent_group evmpo:institution vico:person)
 vico:agent_assembly a owl:Class;
    rdfs:subClassOf vico:agent;
    rdfs:comment "agent assembly, i.e., an agent entity that can have other agents as temporary or permanent constituent members"^^xs:string.
-vico:op_agent_assembly a owl:ObjectProperty.
-vico:dp_agent_assembly a owl:DatatypeProperty.
-vico:op_agent_assembly rdfs:subPropertyOf vico:op_agent.
-vico:dp_agent_assembly rdfs:subPropertyOf vico:dp_agent.
 
 vico:has_member a owl:ObjectProperty;
-   rdfs:subPropertyOf vico:op_agent_assembly;
    rdfs:domain vico:agent_assembly;
    rdfs:range vico:agent;
    owl:inverseOf vico:is_member_of.
 
 vico:has_institutional_address a owl:ObjectProperty;
-   rdfs:subPropertyOf evmpo:op_institution;
    rdfs:domain evmpo:institution;
    rdfs:range vico:address;
    rdfs:subPropertyOf vico:has_address.
@@ -645,62 +450,47 @@ vico:has_institutional_address a owl:ObjectProperty;
 vico:person a owl:Class;
    rdfs:subClassOf vico:agent;
    rdfs:comment "person, i.e., a stand-alone agent that does not have multiple constituent parts or components that could by themselves act at a virtual marketplace"^^xs:string.
-vico:op_person a owl:ObjectProperty.
-vico:dp_person a owl:DatatypeProperty.
-vico:op_person rdfs:subPropertyOf vico:op_agent.
-vico:dp_person rdfs:subPropertyOf vico:dp_agent.
 
 vico:person owl:disjointUnionOf (evmpo:human_agent vico:virtual_agent).
 
 vico:has_affiliation a owl:ObjectProperty;
-   rdfs:subPropertyOf vico:op_person;
    rdfs:domain vico:person;
    rdfs:range evmpo:institution;
    rdfs:subPropertyOf vico:is_member_of.
 vico:has_business_address a owl:ObjectProperty;
-   rdfs:subPropertyOf vico:op_person;
    rdfs:domain vico:person;
    rdfs:range vico:address;
    rdfs:subPropertyOf vico:has_personal_address.
 vico:has_personal_address a owl:ObjectProperty;
-   rdfs:subPropertyOf vico:op_person;
    rdfs:domain vico:person;
    rdfs:range vico:address;
    rdfs:subPropertyOf vico:has_address.
 vico:has_profile_image a owl:DatatypeProperty;
-   rdfs:subPropertyOf vico:dp_person;
    rdfs:domain vico:person;
    rdfs:range xs:anyURI.
 vico:has_profile_text a owl:DatatypeProperty;
-   rdfs:subPropertyOf vico:dp_person;
    rdfs:domain vico:person;
    rdfs:range xs:string.
 vico:has_interpreter_label a owl:DatatypeProperty;
-   rdfs:subPropertyOf vico:dp_person;
    rdfs:domain vico:person;
    rdfs:range xs:string.
 
 vico:has_academic_title a owl:ObjectProperty;
-   rdfs:subPropertyOf evmpo:op_human_agent;
    rdfs:domain evmpo:human_agent;
    rdfs:range vico:academic_title;
    rdfs:subPropertyOf vico:has_personal_title.
 vico:has_first_name a owl:DatatypeProperty;
-   rdfs:subPropertyOf evmpo:dp_human_agent;
    rdfs:domain evmpo:human_agent;
    rdfs:range xs:string.
 vico:has_last_name a owl:DatatypeProperty;
-   rdfs:subPropertyOf evmpo:dp_human_agent;
    rdfs:domain evmpo:human_agent;
    rdfs:range xs:string;
    rdfs:subPropertyOf vico:has_name.
 vico:has_private_address a owl:ObjectProperty;
-   rdfs:subPropertyOf evmpo:op_human_agent;
    rdfs:domain evmpo:human_agent;
    rdfs:range vico:address;
    rdfs:subPropertyOf vico:has_personal_address.
 vico:has_personal_title a owl:ObjectProperty;
-   rdfs:subPropertyOf evmpo:op_human_agent;
    rdfs:domain evmpo:human_agent;
    rdfs:range vico:personal_title;
    rdfs:subPropertyOf evmpo:has_interpreter_annotation.
@@ -708,20 +498,14 @@ vico:has_personal_title a owl:ObjectProperty;
 vico:virtual_agent a owl:Class;
    rdfs:subClassOf vico:person;
    rdfs:comment "virtual agent, i.e., any person that is not a human agent (this includes bots/engines, agent pseudonyms, etc.)"^^xs:string.
-vico:op_virtual_agent a owl:ObjectProperty.
-vico:dp_virtual_agent a owl:DatatypeProperty.
-vico:op_virtual_agent rdfs:subPropertyOf vico:op_person.
-vico:dp_virtual_agent rdfs:subPropertyOf vico:dp_person.
 
 evmpo:stakeholder owl:intersectionOf (vico:agent [a owl:Restriction; owl:onProperty vico:acts_at; owl:someValuesFrom macro:virtual_marketplace]).
 
 vico:has_competency a owl:ObjectProperty;
-   rdfs:subPropertyOf evmpo:op_expert;
    rdfs:domain evmpo:expert;
    rdfs:range otras:expert_competency;
    rdfs:subPropertyOf evmpo:has_interpreter_annotation.
 vico:has_expertise_in a owl:ObjectProperty;
-   rdfs:subPropertyOf evmpo:op_expert;
    rdfs:domain evmpo:expert;
    rdfs:range otras:topic;
    rdfs:subPropertyOf vico:has_interest.
@@ -729,13 +513,8 @@ vico:has_expertise_in a owl:ObjectProperty;
 vico:certifier a owl:Class;
    rdfs:subClassOf vico:agent;
    rdfs:comment "certifier, i.e., an agent who can issue certificates (communications hat contain assessments)"^^xs:string.
-vico:op_certifier a owl:ObjectProperty.
-vico:dp_certifier a owl:DatatypeProperty.
-vico:op_certifier rdfs:subPropertyOf vico:op_agent.
-vico:dp_certifier rdfs:subPropertyOf vico:dp_agent.
 
 vico:is_certifier_of a owl:ObjectProperty;
-   rdfs:subPropertyOf vico:op_certifier;
    rdfs:domain vico:certifier;
    rdfs:range vivo:certificate;
    owl:inverseOf vivo:has_certifier.
@@ -746,24 +525,13 @@ vico:certifying_expert a owl:Class;
    rdfs:subClassOf vico:certifier, evmpo:expert;
    owl:intersectionOf (vico:certifier evmpo:expert);
    rdfs:comment "certifying expert, i.e., a certifier who is also an expert"^^xs:string.
-vico:op_certifying_expert a owl:ObjectProperty.
-vico:dp_certifying_expert a owl:DatatypeProperty.
-vico:op_certifying_expert rdfs:subPropertyOf vico:op_certifier.
-vico:dp_certifying_expert rdfs:subPropertyOf vico:dp_certifier.
-vico:op_certifying_expert rdfs:subPropertyOf evmpo:op_expert.
-vico:dp_certifying_expert rdfs:subPropertyOf evmpo:dp_expert.
 
 vico:certifying_resource a owl:Class;
    rdfs:subClassOf vico:certifier;
    owl:intersectionOf (vico:certifier [owl:complementOf evmpo:human_agent]);
    rdfs:comment "certifying resource, i.e., a certifier who is not a human agent"^^xs:string.
-vico:op_certifying_resource a owl:ObjectProperty.
-vico:dp_certifying_resource a owl:DatatypeProperty.
-vico:op_certifying_resource rdfs:subPropertyOf vico:op_certifier.
-vico:dp_certifying_resource rdfs:subPropertyOf vico:dp_certifier.
 
 vico:is_at_uri a owl:DatatypeProperty;
-   rdfs:subPropertyOf vico:dp_certifying_resource;
    rdfs:domain vico:certifying_resource;
    rdfs:range xs:anyURI.
 
@@ -771,197 +539,97 @@ vico:certifying_resource owl:disjointWith evmpo:human_agent.
 
 vico:certifying_journal_article a owl:Class;
    rdfs:subClassOf vico:certifying_resource.
-vico:op_certifying_journal_article a owl:ObjectProperty.
-vico:dp_certifying_journal_article a owl:DatatypeProperty.
-vico:op_certifying_journal_article rdfs:subPropertyOf vico:op_certifying_resource.
-vico:dp_certifying_journal_article rdfs:subPropertyOf vico:dp_certifying_resource.
 
 vico:certifying_database a owl:Class;
    rdfs:subClassOf vico:certifying_resource, macro:repository.
-vico:op_certifying_database a owl:ObjectProperty.
-vico:dp_certifying_database a owl:DatatypeProperty.
-vico:op_certifying_database rdfs:subPropertyOf vico:op_certifying_resource.
-vico:dp_certifying_database rdfs:subPropertyOf vico:dp_certifying_resource.
-vico:op_certifying_database rdfs:subPropertyOf macro:op_repository.
-vico:dp_certifying_database rdfs:subPropertyOf macro:dp_repository.
 
 vico:interlocutor a owl:Class;
    rdfs:subClassOf vico:agent;
    rdfs:comment "interlocutor, i.e., an entity that can (potentially) send and receive communications at a virtual marketplace"^^xs:string.
-vico:op_interlocutor a owl:ObjectProperty.
-vico:dp_interlocutor a owl:DatatypeProperty.
-vico:op_interlocutor rdfs:subPropertyOf vico:op_agent.
-vico:dp_interlocutor rdfs:subPropertyOf vico:dp_agent.
 
 vico:marketplace_subject a owl:Class;
    rdfs:subClassOf vico:interlocutor, evmpo:stakeholder;
    rdfs:comment "marketplace subject, i.e., an interlocutor who acts at one or multiple virtual marketplaces"^^xs:string.
-vico:op_marketplace_subject a owl:ObjectProperty.
-vico:dp_marketplace_subject a owl:DatatypeProperty.
-vico:op_marketplace_subject rdfs:subPropertyOf vico:op_interlocutor.
-vico:dp_marketplace_subject rdfs:subPropertyOf vico:dp_interlocutor.
-vico:op_marketplace_subject rdfs:subPropertyOf evmpo:op_stakeholder.
-vico:dp_marketplace_subject rdfs:subPropertyOf evmpo:dp_stakeholder.
 
 vico:marketplace_subject owl:intersectionOf (vico:interlocutor evmpo:stakeholder).
 
 vico:consultant a owl:Class;
    rdfs:subClassOf vico:interlocutor.
-vico:op_consultant a owl:ObjectProperty.
-vico:dp_consultant a owl:DatatypeProperty.
-vico:op_consultant rdfs:subPropertyOf vico:op_interlocutor.
-vico:dp_consultant rdfs:subPropertyOf vico:dp_interlocutor.
 
 vico:data_provider a owl:Class;
    rdfs:subClassOf vico:interlocutor;
    owl:equivalentClass evmpo:data_provider.
-vico:op_data_provider a owl:ObjectProperty;
-   owl:equivalentProperty evmpo:op_data_provider.
-vico:dp_data_provider a owl:DatatypeProperty;
-   owl:equivalentProperty evmpo:dp_data_provider.
-vico:op_data_provider rdfs:subPropertyOf vico:op_interlocutor.
-vico:dp_data_provider rdfs:subPropertyOf vico:dp_interlocutor.
 
 vico:end_user a owl:Class;
    rdfs:subClassOf vico:interlocutor;
    owl:equivalentClass evmpo:end_user.
-vico:op_end_user a owl:ObjectProperty;
-   owl:equivalentProperty evmpo:op_end_user.
-vico:dp_end_user a owl:DatatypeProperty;
-   owl:equivalentProperty evmpo:dp_end_user.
-vico:op_end_user rdfs:subPropertyOf vico:op_interlocutor.
-vico:dp_end_user rdfs:subPropertyOf vico:dp_interlocutor.
 
 vico:guest a owl:Class;
    rdfs:subClassOf vico:marketplace_subject.
-vico:op_guest a owl:ObjectProperty.
-vico:dp_guest a owl:DatatypeProperty.
-vico:op_guest rdfs:subPropertyOf vico:op_marketplace_subject.
-vico:dp_guest rdfs:subPropertyOf vico:dp_marketplace_subject.
 
 vico:manufacturer a owl:Class;
    rdfs:subClassOf vico:interlocutor.
-vico:op_manufacturer a owl:ObjectProperty.
-vico:dp_manufacturer a owl:DatatypeProperty.
-vico:op_manufacturer rdfs:subPropertyOf vico:op_interlocutor.
-vico:dp_manufacturer rdfs:subPropertyOf vico:dp_interlocutor.
 
 vico:model_provider a owl:Class;
    rdfs:subClassOf vico:interlocutor;
    owl:equivalentClass evmpo:model_provider.
-vico:op_model_provider a owl:ObjectProperty;
-   owl:equivalentProperty evmpo:op_model_provider.
-vico:dp_model_provider a owl:DatatypeProperty;
-   owl:equivalentProperty evmpo:dp_model_provider.
-vico:op_model_provider rdfs:subPropertyOf vico:op_interlocutor.
-vico:dp_model_provider rdfs:subPropertyOf vico:dp_interlocutor.
 
 vico:software_owner a owl:Class;
    rdfs:subClassOf vico:interlocutor;
    owl:equivalentClass evmpo:software_owner.
-vico:op_software_owner a owl:ObjectProperty;
-   owl:equivalentProperty evmpo:op_software_owner.
-vico:dp_software_owner a owl:DatatypeProperty;
-   owl:equivalentProperty evmpo:dp_software_owner.
-vico:op_software_owner rdfs:subPropertyOf vico:op_interlocutor.
-vico:dp_software_owner rdfs:subPropertyOf vico:dp_interlocutor.
 
 vico:training_provider a owl:Class;
    rdfs:subClassOf vico:interlocutor;
    owl:equivalentClass evmpo:training_provider.
-vico:op_training_provider a owl:ObjectProperty;
-   owl:equivalentProperty evmpo:op_training_provider.
-vico:dp_training_provider a owl:DatatypeProperty;
-   owl:equivalentProperty evmpo:dp_training_provider.
-vico:op_training_provider rdfs:subPropertyOf vico:op_interlocutor.
-vico:dp_training_provider rdfs:subPropertyOf vico:dp_interlocutor.
 
 vico:translator a owl:Class;
    rdfs:subClassOf vico:interlocutor;
    owl:equivalentClass evmpo:translator;
    rdfs:comment "translator as characterized by the EMMC Translators' Guide and the EMMC Translation Case Template"^^xs:string.
-vico:op_translator a owl:ObjectProperty;
-   owl:equivalentProperty evmpo:op_translator.
-vico:dp_translator a owl:DatatypeProperty;
-   owl:equivalentProperty evmpo:dp_translator.
-vico:op_translator rdfs:subPropertyOf vico:op_interlocutor.
-vico:dp_translator rdfs:subPropertyOf vico:dp_interlocutor.
 
 vico:technology_transfer_institute a owl:Class;
    rdfs:subClassOf vico:translator, evmpo:institution;
    rdfs:comment "Technology Transfer Institute (TTI), cf. the EMMC Translation Case Template"^^xs:string.
-vico:op_technology_transfer_institute a owl:ObjectProperty.
-vico:dp_technology_transfer_institute a owl:DatatypeProperty.
-vico:op_technology_transfer_institute rdfs:subPropertyOf vico:op_translator.
-vico:dp_technology_transfer_institute rdfs:subPropertyOf vico:dp_translator.
-vico:op_technology_transfer_institute rdfs:subPropertyOf evmpo:op_institution.
-vico:dp_technology_transfer_institute rdfs:subPropertyOf evmpo:dp_institution.
 
 vico:pseudonym a owl:Class;
    rdfs:subClassOf vico:marketplace_subject, vico:virtual_agent.
-vico:op_pseudonym a owl:ObjectProperty.
-vico:dp_pseudonym a owl:DatatypeProperty.
-vico:op_pseudonym rdfs:subPropertyOf vico:op_marketplace_subject.
-vico:dp_pseudonym rdfs:subPropertyOf vico:dp_marketplace_subject.
-vico:op_pseudonym rdfs:subPropertyOf vico:op_virtual_agent.
-vico:dp_pseudonym rdfs:subPropertyOf vico:dp_virtual_agent.
 
 vico:interlocutor_type a owl:Class;
    rdfs:subClassOf evmpo:annotation.
-vico:op_interlocutor_type a owl:ObjectProperty.
-vico:dp_interlocutor_type a owl:DatatypeProperty.
-vico:op_interlocutor_type rdfs:subPropertyOf evmpo:op_annotation.
-vico:dp_interlocutor_type rdfs:subPropertyOf evmpo:dp_annotation.
 
 vico:interlocutor_group a owl:Class;
    rdfs:subClassOf vico:interlocutor_type.
-vico:op_interlocutor_group a owl:ObjectProperty.
-vico:dp_interlocutor_group a owl:DatatypeProperty.
-vico:op_interlocutor_group rdfs:subPropertyOf vico:op_interlocutor_type.
-vico:dp_interlocutor_group rdfs:subPropertyOf vico:dp_interlocutor_type.
 
 vico:interlocutor_group owl:oneOf (vico:IG_CONSULTANT vico:IG_DATA_PROVIDER vico:IG_END_USER vico:IG_GUEST vico:IG_MANUFACTURER vico:IG_MODEL_PROVIDER vico:IG_SOFTWARE_OWNER vico:IG_TRAINING_PROVIDER vico:IG_TRANSLATOR).
 
 vico:interlocutor_tag a owl:Class;
    rdfs:subClassOf vico:interlocutor_type.
-vico:op_interlocutor_tag a owl:ObjectProperty.
-vico:dp_interlocutor_tag a owl:DatatypeProperty.
-vico:op_interlocutor_tag rdfs:subPropertyOf vico:op_interlocutor_type.
-vico:dp_interlocutor_tag rdfs:subPropertyOf vico:dp_interlocutor_type.
 
 vico:has_interlocutor_tag a owl:ObjectProperty;
-   rdfs:subPropertyOf vico:op_interlocutor;
    rdfs:domain vico:interlocutor;
    rdfs:range vico:interlocutor_tag;
    rdfs:subPropertyOf evmpo:has_interpreter_annotation.
 
 vico:is_based_in a owl:ObjectProperty;
-   rdfs:subPropertyOf vico:op_interlocutor_tag;
    rdfs:domain vico:interlocutor_tag;
    rdfs:range vico:country.
 vico:is_in_group a owl:ObjectProperty;
-   rdfs:subPropertyOf vico:op_interlocutor_tag;
    rdfs:domain vico:interlocutor_tag;
    rdfs:range vico:interlocutor_group;
    rdfs:subPropertyOf evmpo:has_meta_annotation.
 vico:is_academic a owl:DatatypeProperty;
-   rdfs:subPropertyOf vico:dp_interlocutor_tag;
    rdfs:domain vico:interlocutor_tag;
    rdfs:range xs:boolean.
 vico:is_for_profit a owl:DatatypeProperty;
-   rdfs:subPropertyOf vico:dp_interlocutor_tag;
    rdfs:domain vico:interlocutor_tag;
    rdfs:range xs:boolean.
 vico:is_military a owl:DatatypeProperty;
-   rdfs:subPropertyOf vico:dp_interlocutor_tag;
    rdfs:domain vico:interlocutor_tag;
    rdfs:range xs:boolean.
 vico:is_nuclear a owl:DatatypeProperty;
-   rdfs:subPropertyOf vico:dp_interlocutor_tag;
    rdfs:domain vico:interlocutor_tag;
    rdfs:range xs:boolean.
 vico:is_sme a owl:DatatypeProperty;
-   rdfs:subPropertyOf vico:dp_interlocutor_tag;
    rdfs:domain vico:interlocutor_tag;
    rdfs:range xs:boolean.
 
@@ -970,99 +638,77 @@ vico:country a owl:Class;
    rdfs:subClassOf evmpo:interpreter;
    owl:equivalentClass lcc-cr:Country;
    rdfs:comment "country defined following ISO 3166 as implemented by the LCR ontology"^^xs:string.
-vico:op_country a owl:ObjectProperty.
-vico:dp_country a owl:DatatypeProperty.
-vico:op_country rdfs:subPropertyOf evmpo:op_interpreter.
-vico:dp_country rdfs:subPropertyOf evmpo:dp_interpreter.
 
 
 vico:personal_title a owl:Class;
    rdfs:subClassOf evmpo:annotation;
    rdfs:comment "personal title, i.e., a title that can be carried by a human agent in association with the name"^^xs:string.
-vico:op_personal_title a owl:ObjectProperty.
-vico:dp_personal_title a owl:DatatypeProperty.
-vico:op_personal_title rdfs:subPropertyOf evmpo:op_annotation.
-vico:dp_personal_title rdfs:subPropertyOf evmpo:dp_annotation.
 
 vico:corresponds_to a owl:ObjectProperty, owl:TransitiveProperty, owl:SymmetricProperty;
-   rdfs:subPropertyOf vico:op_personal_title;
    rdfs:domain vico:personal_title;
    rdfs:range vico:personal_title;
    rdfs:comment "relation that connects equivalent or approximately equivalent titles (e.g., versions in different languages or from different countries)"^^xs:string;
    rdfs:subPropertyOf evmpo:has_meta_annotation.
 vico:is_extended_form_of a owl:ObjectProperty, owl:TransitiveProperty;
-   rdfs:subPropertyOf vico:op_personal_title;
    rdfs:domain vico:personal_title;
    rdfs:range vico:personal_title;
    rdfs:comment "the two titles refer to the same degree, only that this one is a longer written form of it than the other"^^xs:string;
    rdfs:subPropertyOf vico:corresponds_to;
    owl:inverseOf vico:is_shortened_form_of.
 vico:is_gendered_form_of a owl:ObjectProperty, owl:TransitiveProperty, owl:SymmetricProperty;
-   rdfs:subPropertyOf vico:op_personal_title;
    rdfs:domain vico:personal_title;
    rdfs:range vico:personal_title;
    rdfs:comment "this relation applies if the difference between the two given titles essentially reduces to gender (n.b., this also holds if one of the two forms does not denote gender explicitly)"^^xs:string;
    rdfs:subPropertyOf vico:corresponds_to.
 vico:is_shortened_form_of a owl:ObjectProperty, owl:TransitiveProperty;
-   rdfs:subPropertyOf vico:op_personal_title;
    rdfs:domain vico:personal_title;
    rdfs:range vico:personal_title;
    rdfs:comment "the two titles refer to the same degree, only that this one is a shorter written form of it than the other"^^xs:string;
    rdfs:subPropertyOf vico:corresponds_to;
    owl:inverseOf vico:is_extended_form_of.
 vico:is_translated_form_of a owl:ObjectProperty, owl:TransitiveProperty, owl:SymmetricProperty;
-   rdfs:subPropertyOf vico:op_personal_title;
    rdfs:domain vico:personal_title;
    rdfs:range vico:personal_title;
    rdfs:comment "this relation applies if the difference between the two given titles essentially reduces to a choice of language or country"^^xs:string;
    rdfs:subPropertyOf vico:corresponds_to.
 
 vico:has_prefix_element a owl:DatatypeProperty;
-   rdfs:subPropertyOf vico:dp_personal_title;
    rdfs:domain vico:personal_title;
    rdfs:range xs:boolean;
    rdfs:comment "is true if there is a part of the title that goes before the name, such as Dr."^^xs:string.
 vico:has_prefix_text a owl:DatatypeProperty;
-   rdfs:subPropertyOf vico:dp_personal_title;
    rdfs:domain vico:personal_title;
    rdfs:range xs:string;
    rdfs:comment "title (or part of it) that goes before the name"^^xs:string.
 vico:has_suffix_element a owl:DatatypeProperty;
-   rdfs:subPropertyOf vico:dp_personal_title;
    rdfs:domain vico:personal_title;
    rdfs:range xs:boolean;
    rdfs:comment "is true if there is a part of the title that goes after the name, such as jr."^^xs:string.
 vico:has_suffix_text a owl:DatatypeProperty;
-   rdfs:subPropertyOf vico:dp_personal_title;
    rdfs:domain vico:personal_title;
    rdfs:range xs:string;
    rdfs:comment "title (or part of it) that goes after the name"^^xs:string.
 vico:is_local_to a owl:ObjectProperty;
-   rdfs:subPropertyOf vico:op_personal_title;
    rdfs:domain vico:personal_title;
    rdfs:range vico:country;
    rdfs:comment "points to a country where this title is recognized and used in the given form"^^xs:string.
 vico:prefix_is_prior_to a owl:ObjectProperty, owl:TransitiveProperty;
-   rdfs:subPropertyOf vico:op_personal_title;
    rdfs:domain vico:personal_title;
    rdfs:range vico:personal_title;
    rdfs:comment "relation that determines the order in which title prefixes are written down"^^xs:string;
    owl:inverseOf vico:prefix_is_posterior_to.
 vico:prefix_is_posterior_to a owl:ObjectProperty, owl:TransitiveProperty;
-   rdfs:subPropertyOf vico:op_personal_title;
    rdfs:domain vico:personal_title;
    rdfs:range vico:personal_title;
    rdfs:comment "relation that determines the order in which title prefixes are written down"^^xs:string;
    owl:inverseOf vico:prefix_is_prior_to;
    rdfs:subPropertyOf evmpo:has_meta_annotation.
 vico:suffix_is_prior_to a owl:ObjectProperty, owl:TransitiveProperty;
-   rdfs:subPropertyOf vico:op_personal_title;
    rdfs:domain vico:personal_title;
    rdfs:range vico:personal_title;
    rdfs:comment "relation that determines the order in which title suffixes are written down"^^xs:string;
    owl:inverseOf vico:suffix_is_posterior_to.
 vico:suffix_is_posterior_to a owl:ObjectProperty, owl:TransitiveProperty;
-   rdfs:subPropertyOf vico:op_personal_title;
    rdfs:domain vico:personal_title;
    rdfs:range vico:personal_title;
    rdfs:comment "relation that determines the order in which title suffixes are written down"^^xs:string;
@@ -1072,19 +718,13 @@ vico:suffix_is_posterior_to a owl:ObjectProperty, owl:TransitiveProperty;
 vico:titular_rank a owl:Class;
    rdfs:subClassOf vico:personal_title;
    rdfs:comment "titular rank, i.e., a personal title that is part of a hierarchy of titles"^^xs:string.
-vico:op_titular_rank a owl:ObjectProperty.
-vico:dp_titular_rank a owl:DatatypeProperty.
-vico:op_titular_rank rdfs:subPropertyOf vico:op_personal_title.
-vico:dp_titular_rank rdfs:subPropertyOf vico:dp_personal_title.
 
 vico:is_inferior_to a owl:ObjectProperty, owl:TransitiveProperty;
-   rdfs:subPropertyOf vico:op_titular_rank;
    rdfs:domain vico:titular_rank;
    rdfs:range vico:titular_rank;
    rdfs:comment "relation corresponding to the hierarchical order of titles"^^xs:string;
    owl:inverseOf vico:is_superior_to.
 vico:is_superior_to a owl:ObjectProperty, owl:TransitiveProperty;
-   rdfs:subPropertyOf vico:op_titular_rank;
    rdfs:domain vico:titular_rank;
    rdfs:range vico:titular_rank;
    rdfs:comment "relation corresponding to the hierarchical order of titles"^^xs:string;
@@ -1094,36 +734,20 @@ vico:is_superior_to a owl:ObjectProperty, owl:TransitiveProperty;
 vico:academic_title a owl:Class;
    rdfs:subClassOf vico:titular_rank;
    rdfs:comment "academic title, i.e., a titular rank that signifies possession of an academic degree"^^xs:string.
-vico:op_academic_title a owl:ObjectProperty.
-vico:dp_academic_title a owl:DatatypeProperty.
-vico:op_academic_title rdfs:subPropertyOf vico:op_titular_rank.
-vico:dp_academic_title rdfs:subPropertyOf vico:dp_titular_rank.
 
 vico:academic_title owl:disjointUnionOf (vico:nondoctoral_title vico:doctoral_title vico:postdoctoral_title).
 
 vico:postdoctoral_title a owl:Class;
    rdfs:subClassOf vico:academic_title;
    rdfs:comment "postdoctoral title, i.e., an academic title that is usually only conferred on people with a doctorate"^^xs:string.
-vico:op_postdoctoral_title a owl:ObjectProperty.
-vico:dp_postdoctoral_title a owl:DatatypeProperty.
-vico:op_postdoctoral_title rdfs:subPropertyOf vico:op_academic_title.
-vico:dp_postdoctoral_title rdfs:subPropertyOf vico:dp_academic_title.
 
 vico:doctoral_title a owl:Class;
    rdfs:subClassOf vico:academic_title;
    rdfs:comment "doctoral title, i.e., an academic title that signifies the possession of a doctorate degree"^^xs:string.
-vico:op_doctoral_title a owl:ObjectProperty.
-vico:dp_doctoral_title a owl:DatatypeProperty.
-vico:op_doctoral_title rdfs:subPropertyOf vico:op_academic_title.
-vico:dp_doctoral_title rdfs:subPropertyOf vico:dp_academic_title.
 
 vico:nondoctoral_title a owl:Class;
    rdfs:subClassOf vico:academic_title;
    rdfs:comment "nondoctoral title, i.e., an academic title which does not confer a doctorate and also usually does not require a doctorate"^^xs:string.
-vico:op_nondoctoral_title a owl:ObjectProperty.
-vico:dp_nondoctoral_title a owl:DatatypeProperty.
-vico:op_nondoctoral_title rdfs:subPropertyOf vico:op_academic_title.
-vico:dp_nondoctoral_title rdfs:subPropertyOf vico:dp_academic_title.
 
 vico:TITLE_FEMALE_GENERIC a vico:personal_title;
    vico:has_prefix_element "true"^^xs:boolean;
@@ -1154,16 +778,3 @@ vico:TITLE_PROFESSOR_GENERIC_SHORT a vico:postdoctoral_title;
 
 _:C_PERSONAL_TITLE a owl:AllDifferent;
    owl:members (vico:TITLE_FEMALE_GENERIC vico:TITLE_MALE_GENERIC vico:TITLE_DOCTOR_GENERIC vico:TITLE_PROFESSOR_GENERIC_LONG vico:TITLE_PROFESSOR_GENERIC_SHORT).
-
-# "no nondoctoral title is superior to any postdoctoral title"
-#
-vico:is_superior_to_any a owl:ObjectProperty;
-   rdfs:subPropertyOf vico:op_titular_rank;
-   rdfs:domain vico:titular_rank;
-   rdfs:range owl:Class;
-   owl:propertyChainAxiom (vico:is_superior_to rdf:type).
-vico:nondoctoral_title owl:disjointWith [
-   a owl:Restriction;
-   owl:onProperty vico:is_superior_to_any;
-   owl:hasValue vico:postdoctoral_title
-].
