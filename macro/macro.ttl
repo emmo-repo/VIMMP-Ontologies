@@ -1,9 +1,9 @@
 
 ### MARKETPLACE-ACCESSIBLE COMPUTATIONAL RESOURCE ONTOLOGY (MACRO) ###
 
-### VERSION 0.4.1 ###
+### VERSION 0.4.2 ###
 
-### DATED 20TH MARCH 2020 ###
+### DATED 28TH MARCH 2020 ###
 
 @prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
 
@@ -23,87 +23,39 @@
 macro:computational_entity a owl:Class;
    rdfs:subClassOf evmpo:marketplace_related_entity;
    rdfs:comment "computational entity, i.e., a computational resource or a pheonomenon or attribute associated with a computational resource"^^xs:string.
-macro:op_computational_entity a owl:ObjectProperty.
-macro:dp_computational_entity a owl:DatatypeProperty.
-macro:op_computational_entity rdfs:subPropertyOf evmpo:op_marketplace_related_entity.
-macro:dp_computational_entity rdfs:subPropertyOf evmpo:dp_marketplace_related_entity.
 
 macro:computational_resource a owl:Class;
    rdfs:subClassOf evmpo:infrastructure, macro:computational_entity;
    rdfs:comment "computational resource, i.e., an infrastructure that is a computational entity"^^xs:string;
    owl:intersectionOf (evmpo:infrastructure macro:computational_entity).
-macro:op_computational_resource a owl:ObjectProperty.
-macro:dp_computational_resource a owl:DatatypeProperty.
-macro:op_computational_resource rdfs:subPropertyOf evmpo:op_infrastructure.
-macro:dp_computational_resource rdfs:subPropertyOf evmpo:dp_infrastructure.
-macro:op_computational_resource rdfs:subPropertyOf macro:op_computational_entity.
-macro:dp_computational_resource rdfs:subPropertyOf macro:dp_computational_entity.
 
 macro:computational_resource owl:unionOf (macro:data_infrastructure macro:hardware_infrastructure macro:software_infrastructure).
 
 macro:data_infrastructure a owl:Class;
    rdfs:subClassOf macro:computational_resource;
    owl:equivalentClass evmpo:data_infrastructure.
-macro:op_data_infrastructure a owl:ObjectProperty;
-   owl:equivalentProperty evmpo:op_data_infrastructure.
-macro:dp_data_infrastructure a owl:DatatypeProperty;
-   owl:equivalentProperty evmpo:dp_data_infrastructure.
-macro:op_data_infrastructure rdfs:subPropertyOf macro:op_computational_resource.
-macro:dp_data_infrastructure rdfs:subPropertyOf macro:dp_computational_resource.
 
 macro:hardware_infrastructure a owl:Class;
    rdfs:subClassOf macro:computational_resource;
    owl:equivalentClass evmpo:hardware_infrastructure.
-macro:op_hardware_infrastructure a owl:ObjectProperty;
-   owl:equivalentProperty evmpo:op_hardware_infrastructure.
-macro:dp_hardware_infrastructure a owl:DatatypeProperty;
-   owl:equivalentProperty evmpo:dp_hardware_infrastructure.
-macro:op_hardware_infrastructure rdfs:subPropertyOf macro:op_computational_resource.
-macro:dp_hardware_infrastructure rdfs:subPropertyOf macro:dp_computational_resource.
 
 macro:hpc_infrastructure a owl:Class;
    rdfs:subClassOf macro:hardware_infrastructure.
-macro:op_hpc_infrastructure a owl:ObjectProperty.
-macro:dp_hpc_infrastructure a owl:DatatypeProperty.
-macro:op_hpc_infrastructure rdfs:subPropertyOf macro:op_hardware_infrastructure.
-macro:dp_hpc_infrastructure rdfs:subPropertyOf macro:dp_hardware_infrastructure.
 
 macro:supercomputer a owl:Class;
    rdfs:subClassOf macro:hpc_infrastructure.
-macro:op_supercomputer a owl:ObjectProperty.
-macro:dp_supercomputer a owl:DatatypeProperty.
-macro:op_supercomputer rdfs:subPropertyOf macro:op_hpc_infrastructure.
-macro:dp_supercomputer rdfs:subPropertyOf macro:dp_hpc_infrastructure.
 
 macro:cloud_infrastructure a owl:Class;
    rdfs:subClassOf macro:hpc_infrastructure.
-macro:op_cloud_infrastructure a owl:ObjectProperty.
-macro:dp_cloud_infrastructure a owl:DatatypeProperty.
-macro:op_cloud_infrastructure rdfs:subPropertyOf macro:op_hpc_infrastructure.
-macro:dp_cloud_infrastructure rdfs:subPropertyOf macro:dp_hpc_infrastructure.
 
 macro:software_infrastructure a owl:Class;
    rdfs:subClassOf macro:computational_resource;
    owl:equivalentClass evmpo:software_infrastructure.
-macro:op_software_infrastructure a owl:ObjectProperty;
-   owl:equivalentProperty evmpo:op_software_infrastructure.
-macro:dp_software_infrastructure a owl:DatatypeProperty;
-   owl:equivalentProperty evmpo:dp_software_infrastructure.
-macro:op_software_infrastructure rdfs:subPropertyOf macro:op_computational_resource.
-macro:dp_software_infrastructure rdfs:subPropertyOf macro:dp_computational_resource.
 
 viso:software_tool rdfs:subClassOf macro:software_infrastructure.
 
 macro:repository a owl:Class;
    rdfs:subClassOf macro:data_infrastructure, macro:hardware_infrastructure, vico:agent.
-macro:op_repository a owl:ObjectProperty.
-macro:dp_repository a owl:DatatypeProperty.
-macro:op_repository rdfs:subPropertyOf macro:op_data_infrastructure.
-macro:dp_repository rdfs:subPropertyOf macro:dp_data_infrastructure.
-macro:op_repository rdfs:subPropertyOf macro:op_hardware_infrastructure.
-macro:dp_repository rdfs:subPropertyOf macro:dp_hardware_infrastructure.
-macro:op_repository rdfs:subPropertyOf vico:op_agent.
-macro:dp_repository rdfs:subPropertyOf vico:dp_agent.
 
 macro:VIMMP_CERTIFICATE_REGISTRY a macro:repository;
    vico:acts_on macro:VIMMP_MARKETPLACE;
@@ -111,12 +63,6 @@ macro:VIMMP_CERTIFICATE_REGISTRY a macro:repository;
 
 macro:model_database a owl:Class;
    rdfs:subClassOf macro:repository, vico:model_provider.
-macro:op_model_database a owl:ObjectProperty.
-macro:dp_model_database a owl:DatatypeProperty.
-macro:op_model_database rdfs:subPropertyOf macro:op_repository.
-macro:dp_model_database rdfs:subPropertyOf macro:dp_repository.
-macro:op_model_database rdfs:subPropertyOf vico:op_model_provider.
-macro:dp_model_database rdfs:subPropertyOf vico:dp_model_provider.
 
 macro:BOTTLED_SAFT a macro:model_database;
    vico:acts_on macro:VIMMP_MARKETPLACE;
@@ -124,18 +70,12 @@ macro:BOTTLED_SAFT a macro:model_database;
 
 macro:channel a owl:Class;
    rdfs:subClassOf macro:data_infrastructure.
-macro:op_channel a owl:ObjectProperty.
-macro:dp_channel a owl:DatatypeProperty.
-macro:op_channel rdfs:subPropertyOf macro:op_data_infrastructure.
-macro:dp_channel rdfs:subPropertyOf macro:dp_data_infrastructure.
 
 macro:has_channel_member a owl:ObjectProperty;
-   rdfs:subPropertyOf macro:op_channel;
    rdfs:domain macro:channel;
    rdfs:range vico:agent;
    owl:inverseOf vico:has_access_to.
 macro:has_channel_name a owl:DatatypeProperty;
-   rdfs:subPropertyOf macro:dp_channel;
    rdfs:domain macro:channel;
    rdfs:range xs:string.
 
@@ -143,19 +83,13 @@ macro:channel owl:disjointUnionOf (macro:unidirectional_channel macro:bidirectio
 
 macro:unidirectional_channel a owl:Class;
    rdfs:subClassOf macro:channel.
-macro:op_unidirectional_channel a owl:ObjectProperty.
-macro:dp_unidirectional_channel a owl:DatatypeProperty.
-macro:op_unidirectional_channel rdfs:subPropertyOf macro:op_channel.
-macro:dp_unidirectional_channel rdfs:subPropertyOf macro:dp_channel.
 
 macro:has_channel_owner a owl:ObjectProperty;
-   rdfs:subPropertyOf macro:op_unidirectional_channel;
    rdfs:domain macro:unidirectional_channel;
    rdfs:range vico:agent;
    rdfs:subPropertyOf macro:has_channel_member;
    owl:inverseOf vico:is_owner_of.
 macro:has_channel_subscriber a owl:ObjectProperty;
-   rdfs:subPropertyOf macro:op_unidirectional_channel;
    rdfs:domain macro:unidirectional_channel;
    rdfs:range vico:agent;
    rdfs:subPropertyOf macro:has_channel_member;
@@ -163,10 +97,6 @@ macro:has_channel_subscriber a owl:ObjectProperty;
 
 macro:newsletter a owl:Class;
    rdfs:subClassOf macro:unidirectional_channel.
-macro:op_newsletter a owl:ObjectProperty.
-macro:dp_newsletter a owl:DatatypeProperty.
-macro:op_newsletter rdfs:subPropertyOf macro:op_unidirectional_channel.
-macro:dp_newsletter rdfs:subPropertyOf macro:dp_unidirectional_channel.
 
 macro:EMMC_NEWSLETTER a macro:newsletter;
    macro:has_channel_name "EMMC Newsletter"^^xs:string.
@@ -178,20 +108,11 @@ _:C_NEWSLETTER a owl:AllDifferent;
 
 macro:bidirectional_channel a owl:Class;
    rdfs:subClassOf macro:channel.
-macro:op_bidirectional_channel a owl:ObjectProperty.
-macro:dp_bidirectional_channel a owl:DatatypeProperty.
-macro:op_bidirectional_channel rdfs:subPropertyOf macro:op_channel.
-macro:dp_bidirectional_channel rdfs:subPropertyOf macro:dp_channel.
 
 macro:virtual_marketplace a owl:Class;
    rdfs:subClassOf macro:bidirectional_channel.
-macro:op_virtual_marketplace a owl:ObjectProperty.
-macro:dp_virtual_marketplace a owl:DatatypeProperty.
-macro:op_virtual_marketplace rdfs:subPropertyOf macro:op_bidirectional_channel.
-macro:dp_virtual_marketplace rdfs:subPropertyOf macro:dp_bidirectional_channel.
 
 macro:has_stakeholder a owl:ObjectProperty;
-   rdfs:subPropertyOf macro:op_virtual_marketplace;
    rdfs:domain macro:virtual_marketplace;
    rdfs:range vico:agent;
    owl:inverseOf vico:acts_at;
@@ -207,13 +128,8 @@ _:C_VIRTUAL_MARKETPLACE a owl:AllDifferent;
 macro:infrastructure_service a owl:Class;
    rdfs:subClassOf evmpo:service;
    rdfs:comment "infrastructure service, i.e., a service providing access to (or use of) an infrastructure"^^xs:string.
-macro:op_infrastructure_service a owl:ObjectProperty.
-macro:dp_infrastructure_service a owl:DatatypeProperty.
-macro:op_infrastructure_service rdfs:subPropertyOf evmpo:op_service.
-macro:dp_infrastructure_service rdfs:subPropertyOf evmpo:dp_service.
 
 macro:provides_access_to a owl:ObjectProperty;
-   rdfs:subPropertyOf macro:op_infrastructure_service;
    rdfs:domain macro:infrastructure_service;
    rdfs:range evmpo:infrastructure.
 macro:infrastructure_service rdfs:subClassOf [a owl:Restriction; owl:onProperty macro:provides_access_to; owl:someValuesFrom evmpo:infrastructure].
@@ -222,82 +138,47 @@ macro:cr_service a owl:Class;
    rdfs:subClassOf macro:infrastructure_service, macro:computational_entity;
    owl:intersectionOf (macro:infrastructure_service [a owl:Restriction; owl:onProperty macro:provides_access_to; owl:someValuesFrom macro:computational_resource]);
    rdfs:comment "computational resource service, i.e., an infrastructure service providing access to (or use of) a computational resource"^^xs:string.
-macro:op_cr_service a owl:ObjectProperty.
-macro:dp_cr_service a owl:DatatypeProperty.
-# macro:op_infrastructure_service rdfs:subPropertyOf macro:op_infrastructure_service.
-# macro:dp_infrastructure_service rdfs:subPropertyOf macro:dp_infrastructure_service.
-macro:op_infrastructure_service rdfs:subPropertyOf macro:op_computational_entity.
-macro:dp_infrastructure_service rdfs:subPropertyOf macro:dp_computational_entity.
 
 macro:data_service a owl:Class;
    rdfs:subClassOf macro:cr_service;
    owl:intersectionOf (macro:cr_service [a owl:Restriction; owl:onProperty macro:provides_access_to; owl:someValuesFrom evmpo:data_infrastructure]).
-macro:op_data_service a owl:ObjectProperty.
-macro:dp_data_service a owl:DatatypeProperty.
-macro:op_data_service rdfs:subPropertyOf macro:op_cr_service.
-macro:dp_data_service rdfs:subPropertyOf macro:dp_cr_service.
 
 macro:hardware_service a owl:Class;
    rdfs:subClassOf macro:cr_service;
    owl:intersectionOf (macro:cr_service [a owl:Restriction; owl:onProperty macro:provides_access_to; owl:someValuesFrom evmpo:hardware_infrastructure]).
-macro:op_hardware_service a owl:ObjectProperty.
-macro:dp_hardware_service a owl:DatatypeProperty.
-macro:op_hardware_service rdfs:subPropertyOf macro:op_cr_service.
-macro:dp_hardware_service rdfs:subPropertyOf macro:dp_cr_service.
 
 macro:hpc_service a owl:Class;
    rdfs:subClassOf macro:hardware_service;
    owl:intersectionOf (macro:hardware_service [a owl:Restriction; owl:onProperty macro:provides_access_to; owl:someValuesFrom evmpo:hpc_infrastructure]).
-macro:op_hpc_service a owl:ObjectProperty.
-macro:dp_hpc_service a owl:DatatypeProperty.
-macro:op_hpc_service rdfs:subPropertyOf evmpo:op_hardware_service.
-macro:dp_hpc_service rdfs:subPropertyOf evmpo:dp_hardware_service.
 
 macro:software_service a owl:Class;
    rdfs:subClassOf macro:cr_service;
    owl:intersectionOf (macro:cr_service [a owl:Restriction; owl:onProperty macro:provides_access_to; owl:someValuesFrom evmpo:software_infrastructure]).
-macro:op_software_service a owl:ObjectProperty.
-macro:dp_software_service a owl:DatatypeProperty.
-macro:op_software_service rdfs:subPropertyOf macro:op_cr_service.
-macro:dp_software_service rdfs:subPropertyOf macro:dp_cr_service.
 
 macro:io_format a owl:Class;
    rdfs:subClassOf macro:computational_entity, evmpo:annotation;
    rdfs:comment "I/O format, i.e., syntactical convention to which a technical I/O implementation can adhere"^^xs:string.
-macro:op_io_format a owl:ObjectProperty.
-macro:dp_io_format a owl:DatatypeProperty.
-macro:op_io_format rdfs:subPropertyOf macro:op_computational_entity.
-macro:dp_io_format rdfs:subPropertyOf macro:dp_computational_entity.
-macro:op_io_format rdfs:subPropertyOf evmpo:op_annotation.
-macro:dp_io_format rdfs:subPropertyOf evmpo:dp_annotation.
 
 macro:has_definition_uri a owl:DatatypeProperty;
-   rdfs:subPropertyOf macro:dp_io_format;
    rdfs:domain macro:io_format;
    rdfs:range xs:string.
 macro:has_format_abbreviation a owl:DatatypeProperty;
-   rdfs:subPropertyOf macro:dp_io_format;
    rdfs:domain macro:io_format;
    rdfs:range xs:string.
 macro:has_format_name a owl:DatatypeProperty;
-   rdfs:subPropertyOf macro:dp_io_format;
    rdfs:domain macro:io_format;
    rdfs:range xs:string.
 macro:has_format_version a owl:DatatypeProperty;
-   rdfs:subPropertyOf macro:dp_io_format;
    rdfs:domain macro:io_format;
    rdfs:range xs:string.
 macro:is_io_format_of a owl:ObjectProperty;
-   rdfs:subPropertyOf macro:op_io_format;
    rdfs:domain macro:io_format;
    rdfs:range viso:software_tool.
 macro:is_input_format_of a owl:ObjectProperty;
-   rdfs:subPropertyOf macro:op_io_format;
    rdfs:domain macro:io_format;
    rdfs:range viso:software_tool;
    rdfs:subPropertyOf macro:is_io_format_of.
 macro:is_output_format_of a owl:ObjectProperty;
-   rdfs:subPropertyOf macro:op_io_format;
    rdfs:domain macro:io_format;
    rdfs:range viso:software_tool;
    rdfs:subPropertyOf macro:is_io_format_of.
@@ -308,13 +189,8 @@ macro:file_format a owl:Class;
    rdfs:subClassOf macro:io_format;
    owl:equivalentClass edam:format_1915;  # "Format" in EDAM
    rdfs:comment "file format, i.e., a syntactical standard for files"^^xs:string.
-macro:op_file_format a owl:ObjectProperty.
-macro:dp_file_format a owl:DatatypeProperty.
-macro:op_file_format rdfs:subPropertyOf macro:op_io_format.
-macro:dp_file_format rdfs:subPropertyOf macro:dp_io_format.
 
 macro:has_file_ending a owl:DatatypeProperty;
-   rdfs:subPropertyOf macro:dp_file_format;
    rdfs:domain macro:file_format;
    rdfs:range xs:string.
 
@@ -324,10 +200,6 @@ macro:textual_file_format a owl:Class;
    rdfs:subClassOf macro:file_format;
    owl:equivalentClass edam:format_2330;  # "Textual format" in EDAM
    rdfs:comment "textual file format, i.e., any file format encoded in ASCII, Unicode, or comparable"^^xs:string.
-macro:op_textual_file_format a owl:ObjectProperty.
-macro:dp_textual_file_format a owl:DatatypeProperty.
-macro:op_textual_file_format rdfs:subPropertyOf macro:op_file_format.
-macro:dp_textual_file_format rdfs:subPropertyOf macro:dp_file_format.
 
 macro:textual_xml_format a owl:Class;
    rdfs:subClassOf macro:textual_file_format, edam:format_2332;  # "XML" in EDAM
@@ -341,10 +213,6 @@ macro:textual_xml_format a owl:Class;
       owl:hasValue "XML"^^xs:string
    ];
    rdfs:comment "textual XML format, i.e., an XML-based textual file format"^^xs:string.
-macro:op_textual_xml_format a owl:ObjectProperty.
-macro:dp_textual_xml_format a owl:DatatypeProperty.
-macro:op_textual_xml_format rdfs:subPropertyOf macro:op_textual_file_format.
-macro:dp_textual_xml_format rdfs:subPropertyOf macro:dp_textual_file_format.
 
 macro:textual_csv_format a owl:Class;
    rdfs:subClassOf macro:textual_file_format;
@@ -359,28 +227,16 @@ macro:textual_csv_format a owl:Class;
       owl:hasValue "CSV"^^xs:string
    ];
    rdfs:comment "CSV format, i.e., comma-separated values (table-like)"^^xs:string.
-macro:op_textual_csv_format a owl:ObjectProperty.
-macro:dp_textual_csv_format a owl:DatatypeProperty.
-macro:op_textual_csv_format rdfs:subPropertyOf macro:op_textual_file_format.
-macro:dp_textual_csv_format rdfs:subPropertyOf macro:dp_textual_file_format.
 
 macro:binary_file_format a owl:Class;
    rdfs:subClassOf macro:file_format;
    owl:equivalentClass edam:format_2333;  # "Binary format" in EDAM
    rdfs:comment "binary file format, i.e., any file format not encoded in ASCII, Unicode, or comparable"^^xs:string.
-macro:op_binary_file_format a owl:ObjectProperty.
-macro:dp_binary_file_format a owl:DatatypeProperty.
-macro:op_binary_file_format rdfs:subPropertyOf macro:op_file_format.
-macro:dp_binary_file_format rdfs:subPropertyOf macro:dp_file_format.
 
 macro:image_format a owl:Class;
    rdfs:subClassOf macro:file_format;
    owl:equivalentClass edam:format_3547;  # "Image format" in EDAM
    rdfs:comment "format for representing images/graphics"^^xs:string.
-macro:op_image_format a owl:ObjectProperty.
-macro:dp_image_format a owl:DatatypeProperty.
-macro:op_image_format rdfs:subPropertyOf macro:op_file_format.
-macro:dp_image_format rdfs:subPropertyOf macro:dp_file_format.
 
 macro:png_format a owl:Class;
    rdfs:subClassOf macro:image_format, macro:binary_file_format;
@@ -399,12 +255,6 @@ macro:png_format a owl:Class;
       owl:hasValue "portable network graphics"^^xs:string
    ];
    rdfs:comment "PNG graphics format"^^xs:string.
-macro:op_png_format a owl:ObjectProperty.
-macro:dp_png_format a owl:DatatypeProperty.
-macro:op_png_format rdfs:subPropertyOf macro:op_image_format.
-macro:dp_png_format rdfs:subPropertyOf macro:dp_image_format.
-macro:op_png_format rdfs:subPropertyOf macro:op_binary_file_format.
-macro:dp_png_format rdfs:subPropertyOf macro:dp_binary_file_format.
 
 macro:PNG_FORMAT_ISO a macro:png_format;
    macro:has_definition_uri "https://www.iso.org/standard/29581.html"^^xs:string.
@@ -412,21 +262,12 @@ macro:PNG_FORMAT_ISO a macro:png_format;
 macro:stream_format a owl:Class;
    rdfs:subClassOf macro:io_format;
    rdfs:comment "stream format, i.e., a syntactical standard for streams"^^xs:string.
-macro:op_stream_format a owl:ObjectProperty.
-macro:dp_stream_format a owl:DatatypeProperty.
-macro:op_stream_format rdfs:subPropertyOf macro:op_io_format.
-macro:dp_stream_format rdfs:subPropertyOf macro:dp_io_format.
 
 macro:materials_modelling_format a owl:Class;
    rdfs:subClassOf macro:io_format;
    rdfs:comment "materials modelling format, i.e., an I/O format that represents entities occurring within a model, solver, processor, or workflow in materials modelling"^^xs:string.
-macro:op_materials_modelling_format a owl:ObjectProperty.
-macro:dp_materials_modelling_format a owl:DatatypeProperty.
-macro:op_materials_modelling_format rdfs:subPropertyOf macro:op_io_format.
-macro:dp_materials_modelling_format rdfs:subPropertyOf macro:dp_io_format.
 
 macro:has_granularity a owl:ObjectProperty;
-   rdfs:subPropertyOf macro:op_materials_modelling_format;
    rdfs:domain macro:materials_modelling_format;
    rdfs:range osmo:granularity_level;
    rdfs:comment "points to the granularity level to which the entities represented in the file format belong"^^xs:string.
@@ -434,18 +275,10 @@ macro:has_granularity a owl:ObjectProperty;
 macro:materials_relation_format a owl:Class;
    rdfs:subClassOf macro:materials_modelling_format;
    rdfs:comment "materials relation format, i.e., an I/O format that encodes a materials relation or part of a materials relation"^^xs:string.
-macro:op_materials_relation_format a owl:ObjectProperty.
-macro:dp_materials_relation_format a owl:DatatypeProperty.
-macro:op_materials_relation_format rdfs:subPropertyOf macro:op_materials_modelling_format.
-macro:dp_materials_relation_format rdfs:subPropertyOf macro:dp_materials_modelling_format.
 
 macro:force_field_format a owl:Class;
    rdfs:subClassOf macro:materials_relation_format;
    rdfs:comment "force field format, i.e., a format representing an atomistic or mesoscopic materials relation (force field)"^^xs:string.
-macro:op_force_field_format a owl:ObjectProperty.
-macro:dp_force_field_format a owl:DatatypeProperty.
-macro:op_force_field_format rdfs:subPropertyOf macro:op_materials_relation_format.
-macro:dp_force_field_format rdfs:subPropertyOf macro:dp_materials_relation_format.
 
 macro:force_field_format owl:disjointWith [
       a owl:Restriction;
@@ -460,10 +293,6 @@ macro:force_field_format owl:disjointWith [
 macro:solver_parameter_format a owl:Class;
    rdfs:subClassOf macro:materials_modelling_format;
    rdfs:comment "solver parameter format, i.e., an I/O format that is used to steer or parameterize a solver"^^xs:string.
-macro:op_solver_parameter_format a owl:ObjectProperty.
-macro:dp_solver_parameter_format a owl:DatatypeProperty.
-macro:op_solver_parameter_format rdfs:subPropertyOf macro:op_materials_modelling_format.
-macro:dp_solver_parameter_format rdfs:subPropertyOf macro:dp_materials_modelling_format.
 
 #####################################################
 # CODE-SPECIFIC FILE FORMAT CLASSES AND INDIVIDUALS #
@@ -489,12 +318,6 @@ macro:quesp_in_format a owl:Class;
       owl:hasValue osmo:ELECTRONIC
    ];
    rdfs:comment "Quantum Espresso parameter format"^^xs:string.
-macro:op_quesp_in_format a owl:ObjectProperty.
-macro:dp_quesp_in_format a owl:DatatypeProperty.
-macro:op_quesp_in_format rdfs:subPropertyOf macro:op_textual_file_format.
-macro:dp_quesp_in_format rdfs:subPropertyOf macro:dp_textual_file_format.
-macro:op_quesp_in_format rdfs:subPropertyOf macro:op_solver_parameter_format.
-macro:dp_quesp_in_format rdfs:subPropertyOf macro:dp_solver_parameter_format.
 
 macro:QUESP_IN_FORMAT a macro:quesp_in_format.
 
@@ -518,12 +341,6 @@ macro:quesp_upf_format a owl:Class;
       owl:hasValue osmo:ELECTRONIC
    ];
    rdfs:comment "Quantum Espresso pseudopotential format"^^xs:string.
-macro:op_quesp_upf_format a owl:ObjectProperty.
-macro:dp_quesp_upf_format a owl:DatatypeProperty.
-macro:op_quesp_upf_format rdfs:subPropertyOf macro:op_textual_file_format.
-macro:dp_quesp_upf_format rdfs:subPropertyOf macro:dp_textual_file_format.
-macro:op_quesp_upf_format rdfs:subPropertyOf macro:op_materials_relation_format.
-macro:dp_quesp_upf_format rdfs:subPropertyOf macro:dp_materials_relation_format.
 
 macro:QUESP_UPF_FORMAT a macro:quesp_upf_format.
 
@@ -547,12 +364,6 @@ macro:quesp_out_format a owl:Class;
       owl:hasValue osmo:ELECTRONIC
    ];
    rdfs:comment "Quantum Espresso output format"^^xs:string.
-macro:op_quesp_out_format a owl:ObjectProperty.
-macro:dp_quesp_out_format a owl:DatatypeProperty.
-macro:op_quesp_out_format rdfs:subPropertyOf macro:op_textual_file_format.
-macro:dp_quesp_out_format rdfs:subPropertyOf macro:dp_textual_file_format.
-macro:op_quesp_out_format rdfs:subPropertyOf macro:op_materials_modelling_format.
-macro:dp_quesp_out_format rdfs:subPropertyOf macro:dp_materials_modelling_format.
 
 macro:QUESP_OUT_FORMAT a macro:quesp_out_format.
 
@@ -580,12 +391,6 @@ macro:starccm_plus_sim_format a owl:Class;
       owl:hasValue osmo:CONTINUUM
    ];
    rdfs:comment "StarCCM+ simulation output format"^^xs:string.
-macro:op_starccm_plus_sim_format a owl:ObjectProperty.
-macro:dp_starccm_plus_sim_format a owl:DatatypeProperty.
-macro:op_starccm_plus_sim_format rdfs:subPropertyOf macro:op_binary_file_format.
-macro:dp_starccm_plus_sim_format rdfs:subPropertyOf macro:dp_binary_file_format.
-macro:op_starccm_plus_sim_format rdfs:subPropertyOf macro:op_materials_modelling_format.
-macro:dp_starccm_plus_sim_format rdfs:subPropertyOf macro:dp_materials_modelling_format.
 
 macro:STARCCM_PLUS_SIM_FORMAT a macro:starccm_plus_sim_format.
 
@@ -609,12 +414,6 @@ macro:vocta_data_format a owl:Class;
       owl:hasValue osmo:MESOSCOPIC
    ];
    rdfs:comment "VOCTA potential/force format"^^xs:string.
-macro:op_vocta_data_format a owl:ObjectProperty.
-macro:dp_vocta_data_format a owl:DatatypeProperty.
-macro:op_vocta_data_format rdfs:subPropertyOf macro:op_force_field_format.
-macro:dp_vocta_data_format rdfs:subPropertyOf macro:dp_force_field_format.
-macro:op_vocta_data_format rdfs:subPropertyOf macro:op_textual_file_format.
-macro:dp_vocta_data_format rdfs:subPropertyOf macro:dp_textual_file_format.
 
 macro:VOCTA_DATA_FORMAT a macro:vocta_data_format.
 
