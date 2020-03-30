@@ -4628,9 +4628,9 @@ osmo:use_case_decision_support_system a owl:Class;
 
 ### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
 
-### VERSION 0.9.1 ###
+### VERSION 0.9.2 ###
 
-### DATED 27TH MARCH 2020 ###
+### DATED 30TH MARCH 2020 ###
 
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 
@@ -4653,6 +4653,10 @@ otras:training_entity a owl:Class;
 otras:carrier a owl:Class;
    rdfs:comment "carrier, e.g, material, activity, event that carries the contents of a course"^^xs:string;
    rdfs:subClassOf otras:training_entity.
+
+otras:has_targeted_group a owl:ObjectProperty;
+   rdfs:domain evmpo:carrier;
+   rdfs:range vico:interlocutor_group.
 
 otras:has_abstract a owl:ObjectProperty;
    rdfs:domain evmpo:document;
@@ -6425,6 +6429,16 @@ otras:has_publication_year a owl:DatatypeProperty;
 otras:has_url a owl:DatatypeProperty;
    rdfs:domain otras:citation;
    rdfs:range xs:string.
+otras:has_external_url a owl:DatatypeProperty;
+   rdfs:domain otras:citation;
+   rdfs:range xs:string;
+   rdfs:subPropertyOf otras:has_url;
+   rdfs:comment "to be used for URLs that are external to the respective infrastructure"^^xs:string.
+otras:has_internal_url a owl:DatatypeProperty;
+   rdfs:domain otras:citation;
+   rdfs:range xs:string;
+   rdfs:subPropertyOf otras:has_url;
+   rdfs:comment "to be used for URLs pointing to the internal storage belonging to an infrastructure (e.g., Osthus cloud)"^^xs:string.
 
 otras:is_about a owl:ObjectProperty;
    rdfs:domain evmpo:information_content_entity;
@@ -6486,6 +6500,9 @@ otras:has_cited_book_publisher_country a owl:ObjectProperty;
    rdfs:domain otras:book_citation;
    rdfs:range vico:country.
 otras:has_cited_book_edition a owl:DatatypeProperty;
+   rdfs:domain otras:book_citation;
+   rdfs:range xs:nonNegativeInteger.
+otras:has_cited_book_number_of_pages a owl:DatatypeProperty;
    rdfs:domain otras:book_citation;
    rdfs:range xs:nonNegativeInteger.
 
