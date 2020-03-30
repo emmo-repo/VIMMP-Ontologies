@@ -1123,7 +1123,7 @@ viso:has_part a owl:ObjectProperty;
 
 ### EUROPEAN VIRTUAL MARKETPLACE ONTOLOGY (EVMPO) ###
 
-### VERSION 1.2.1, DATED 28TH MARCH 2020 ###
+### VERSION 1.2.2, DATED 30TH MARCH 2020 ###
 
 @prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
 
@@ -1433,10 +1433,6 @@ evmpo:has_process_annotation a owl:ObjectProperty;
    rdfs:domain evmpo:process;
    rdfs:range evmpo:annotation;
    rdfs:subPropertyOf evmpo:has_annotation.
-evmpo:has_simulation_annotation a owl:ObjectProperty;
-   rdfs:domain evmpo:simulation;
-   rdfs:range evmpo:annotation;
-   rdfs:subPropertyOf evmpo:has_process_annotation.
 
 
 #########################################################
@@ -2807,9 +2803,9 @@ mmto:has_represented_kpi a owl:ObjectProperty;
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 1.4.1 ###
+### VERSION 1.4.2 ###
 
-### DATED 27TH MARCH 2020 ###
+### DATED 30TH MARCH 2020 ###
 
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -4125,7 +4121,7 @@ osmo:has_simulation_outcome a owl:ObjectProperty;
    rdfs:domain osmo:simulation_workflow;
    rdfs:range osmo:logical_node;
    rdfs:comment "points to a node that contains a logical resource with (all or part of) the end outcome of the simulation workflow"^^xs:string;
-   rdfs:subPropertyOf osmo:has_subgraph, evmpo:has_simulation_annotation.
+   rdfs:subPropertyOf osmo:has_subgraph, evmpo:has_process_annotation.
 osmo:simulation_workflow rdfs:subClassOf [
       a owl:Restriction;
       owl:onProperty osmo:has_simulation_outcome;

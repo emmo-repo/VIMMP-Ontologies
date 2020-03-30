@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 1.4.1 ###
+### VERSION 1.4.2 ###
 
-### DATED 27TH MARCH 2020 ###
+### DATED 30TH MARCH 2020 ###
 
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -1319,7 +1319,7 @@ osmo:has_simulation_outcome a owl:ObjectProperty;
    rdfs:domain osmo:simulation_workflow;
    rdfs:range osmo:logical_node;
    rdfs:comment "points to a node that contains a logical resource with (all or part of) the end outcome of the simulation workflow"^^xs:string;
-   rdfs:subPropertyOf osmo:has_subgraph, evmpo:has_simulation_annotation.
+   rdfs:subPropertyOf osmo:has_subgraph, evmpo:has_process_annotation.
 osmo:simulation_workflow rdfs:subClassOf [
       a owl:Restriction;
       owl:onProperty osmo:has_simulation_outcome;

@@ -1,7 +1,7 @@
 
 ### EUROPEAN VIRTUAL MARKETPLACE ONTOLOGY (EVMPO) ###
 
-### VERSION 1.2.1, DATED 28TH MARCH 2020 ###
+### VERSION 1.2.2, DATED 30TH MARCH 2020 ###
 
 @prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
 
@@ -311,10 +311,6 @@ evmpo:has_process_annotation a owl:ObjectProperty;
    rdfs:domain evmpo:process;
    rdfs:range evmpo:annotation;
    rdfs:subPropertyOf evmpo:has_annotation.
-evmpo:has_simulation_annotation a owl:ObjectProperty;
-   rdfs:domain evmpo:simulation;
-   rdfs:range evmpo:annotation;
-   rdfs:subPropertyOf evmpo:has_process_annotation.
 
 
 #########################################################
