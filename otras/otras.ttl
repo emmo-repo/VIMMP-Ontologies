@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
 
-### VERSION 0.9.2 ###
+### VERSION 0.9.3 ###
 
-### DATED 30TH MARCH 2020 ###
+### DATED 31ST MARCH 2020 ###
 
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 
@@ -1789,8 +1789,12 @@ otras:has_author_map a owl:ObjectProperty;
 
 otras:has_doi a owl:DatatypeProperty;
    rdfs:domain otras:citation;
-   rdfs:range xs:string.
+   rdfs:range xs:string;
+   rdfs:subPropertyOf otras:has_resolvable_identifier.
 otras:has_first_author_surname a owl:DatatypeProperty;
+   rdfs:domain otras:citation;
+   rdfs:range xs:string.
+otras:has_illustration_of_content a owl:DatatypeProperty;
    rdfs:domain otras:citation;
    rdfs:range xs:string.
 otras:has_publication_title a owl:DatatypeProperty;
@@ -1798,10 +1802,11 @@ otras:has_publication_title a owl:DatatypeProperty;
    rdfs:range xs:string.
 otras:has_publication_year a owl:DatatypeProperty;
    rdfs:domain otras:citation;
-   rdfs:range xs:year.
+   rdfs:range xs:integer.
 otras:has_url a owl:DatatypeProperty;
    rdfs:domain otras:citation;
-   rdfs:range xs:string.
+   rdfs:range xs:string;
+   rdfs:subPropertyOf otras:has_resolvable_identifier.
 otras:has_external_url a owl:DatatypeProperty;
    rdfs:domain otras:citation;
    rdfs:range xs:string;
@@ -1812,6 +1817,17 @@ otras:has_internal_url a owl:DatatypeProperty;
    rdfs:range xs:string;
    rdfs:subPropertyOf otras:has_url;
    rdfs:comment "to be used for URLs pointing to the internal storage belonging to an infrastructure (e.g., Osthus cloud)"^^xs:string.
+otras:has_non_resolvable_identifier a owl:DatatypeProperty;
+   rdfs:domain otras:citation;
+   rdfs:range xs:string;
+   rdfs:subPropertyOf otras:has_resource_identifier.
+otras:has_resolvable_identifier a owl:DatatypeProperty;
+   rdfs:domain otras:citation;
+   rdfs:range xs:string;
+   rdfs:subPropertyOf otras:has_resource_identifier.
+otras:has_resource_identifier a owl:DatatypeProperty;
+   rdfs:domain otras:citation;
+   rdfs:range xs:string.
 
 otras:is_about a owl:ObjectProperty;
    rdfs:domain evmpo:information_content_entity;
@@ -1854,6 +1870,16 @@ otras:doi_citation rdfs:subClassOf [
    ];
    owl:intersectionOf (otras:citation [a owl:Restriction; owl:onProperty otras:has_doi; owl:someValuesFrom xs:string]).
 
+otras:video_citation a owl:Class;
+   rdfs:subClassOf otras:citation;
+   rdfs:comment "video citation, i.e., a citation that is about a video recording"^^xs:string.
+
+otras:video_citation owl:intersectionOf (otras:citation [a owl:Restriction; owl:onProperty otras:is_citation_about_document; owl:someValuesFrom otras:video_recording]).
+
+otras:has_cited_video_duration_seconds a owl:DatatypeProperty;
+   rdfs:domain otras:video_citation;
+   rdfs:range xs:decimal.
+
 otras:book_citation a owl:Class;
    rdfs:subClassOf otras:citation;
    rdfs:comment "book citation, i.e., a citation that is about a book"^^xs:string.
@@ -1862,7 +1888,8 @@ otras:book_citation owl:intersectionOf (otras:citation [a owl:Restriction; owl:o
 
 otras:has_cited_book_isbn a owl:DatatypeProperty;
    rdfs:domain otras:book_citation;
-   rdfs:range xs:string.
+   rdfs:range xs:string;
+   rdfs:subPropertyOf otras:has_resource_identifier.
 otras:has_cited_book_publisher_name a owl:DatatypeProperty;
    rdfs:domain otras:book_citation;
    rdfs:range xs:string.
@@ -1901,15 +1928,16 @@ otras:journal_article_citation owl:intersectionOf (otras:citation [a owl:Restric
 
 otras:has_publication_journal_identifier a owl:DatatypeProperty;
    rdfs:domain otras:journal_article_citation;
-   rdfs:range xs:string.
+   rdfs:range xs:string;
+   rdfs:subPropertyOf otras:has_resource_identifier.
 otras:has_publication_journal_name a owl:DatatypeProperty;
    rdfs:domain otras:journal_article_citation;
    rdfs:range xs:string;
-   rdfs:subPropertyOf otras:has_publication_journal_identifier.
+   rdfs:subPropertyOf otras:has_publication_journal_identifier, otras:has_non_resolvable_identifier.
 otras:has_publication_journal_abbreviation a owl:DatatypeProperty;
    rdfs:domain otras:journal_article_citation;
    rdfs:range xs:string;
-   rdfs:subPropertyOf otras:has_publication_journal_identifier.
+   rdfs:subPropertyOf otras:has_publication_journal_identifier, otras:has_non_resolvable_identifier.
 otras:has_publication_journal_issn a owl:DatatypeProperty;
    rdfs:domain otras:journal_article_citation;
    rdfs:range xs:string;
