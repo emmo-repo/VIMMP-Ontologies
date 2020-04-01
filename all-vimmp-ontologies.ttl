@@ -701,7 +701,7 @@ emmo1s:hasUnit a owl:ObjectProperty;
 
 ### VERSION 0.4.1 ###
 
-### DATED 30TH MARCH 2020 ###
+### DATED 2ND MARCH 2020 ###
 
 @prefix evi: <http://www.vimmp.eu/semantics/evi/evi.ttl#>.
 
@@ -1086,7 +1086,7 @@ otras:course a owl:Class;
 # a focus is a symbolic entity
 #
 otras:focus a owl:Class;
-   rdfs:subClassOf emmo1s:Symbolic, otras:training_entity.
+   rdfs:subClassOf emmo1s:Symbolic, evmpo:annotation, otras:training_entity.
 
 # a topic is a sign
 #
@@ -3618,7 +3618,7 @@ mmto:has_represented_kpi a owl:ObjectProperty;
 
 ### VERSION 1.4.0 ###
 
-### DATED 30TH MARCH 2020 ###
+### DATED 20TH MARCH 2020 ###
 
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -4590,11 +4590,7 @@ osmo:dp_use_case_entity rdfs:subPropertyOf osmo:dp_application_case_entity.
 osmo:use_case_entity owl:disjointUnionOf (osmo:use_case osmo:use_case_aspect osmo:use_case_decision_support_system).
 
 osmo:application_case a owl:Class;
-   rdfs:subClassOf 
-#		mmto:project_entity, 
-		evmpo:annotation,
-#		osmo:section,
-		osmo:application_case_entity;
+   rdfs:subClassOf mmto:project_entity, evmpo:annotation, osmo:section, osmo:application_case_entity;
    rdfs:comment "application case, i.e., a scenario, point of view, or subjective or negotiated set of aims"^^xs:string.
 osmo:op_application_case a owl:ObjectProperty.
 osmo:dp_application_case a owl:DatatypeProperty.
@@ -6315,7 +6311,7 @@ osmo:dp_use_case_decision_support_system rdfs:subPropertyOf osmo:dp_application_
 
 ### VERSION 0.9.0 ###
 
-### DATED 30TH MARCH 2020 ###
+### DATED 20TH MARCH 2020 ###
 
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 
@@ -6499,7 +6495,7 @@ otras:has_offered_course a owl:ObjectProperty;
 
 otras:focus a owl:Class;
    rdfs:comment "focus, i.e., a studied object or topic or training objective (or an aspect or constitutive part thereof)";
-   rdfs:subClassOf otras:training_entity .
+   rdfs:subClassOf otras:training_entity, evmpo:annotation.
 otras:op_focus a owl:ObjectProperty.
 otras:dp_focus a owl:DatatypeProperty.
 otras:op_focus rdfs:subPropertyOf otras:op_training_entity.
@@ -8461,7 +8457,7 @@ otras:journal_article_citation rdfs:subClassOf [
    ].
 
 otras:author_identification_entity a owl:Class;
-   rdfs:subClassOf otras:training_entity;
+   rdfs:subClassOf otras:training_entity, evmpo:annotation;
    rdfs:comment "author identification entity, i.e., an entity related to the identification of authors"^^xs:string.
 otras:op_author_identification_entity a owl:ObjectProperty.
 otras:dp_author_identification_entity a owl:DatatypeProperty.
@@ -9729,7 +9725,7 @@ vico:nondoctoral_title owl:disjointWith [
 
 ### VERSION 0.4.0 ###
 
-### DATED 30TH MARCH 2020 ###
+### DATED 20TH MARCH 2020 ###
 
 @prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
 
@@ -9944,8 +9940,8 @@ vivo:dp_review_assertion rdfs:subPropertyOf vivo:dp_review_entity.
 # ASSESSMENT BRANCH OF VIVO: GENERAL #
 ######################################
 
-# evmpo:assessment a owl:Class;
-# rdfs:subClassOf vivo:validation_entity.
+evmpo:assessment a owl:Class;
+   rdfs:subClassOf vivo:validation_entity.
 evmpo:op_assessment rdfs:subPropertyOf vivo:op_validation_entity.
 evmpo:dp_assessment rdfs:subPropertyOf vivo:dp_validation_entity.
 

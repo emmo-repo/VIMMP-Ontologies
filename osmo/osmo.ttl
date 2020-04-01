@@ -3,7 +3,7 @@
 
 ### VERSION 1.4.0 ###
 
-### DATED 30TH MARCH 2020 ###
+### DATED 20TH MARCH 2020 ###
 
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -975,11 +975,7 @@ osmo:dp_use_case_entity rdfs:subPropertyOf osmo:dp_application_case_entity.
 osmo:use_case_entity owl:disjointUnionOf (osmo:use_case osmo:use_case_aspect osmo:use_case_decision_support_system).
 
 osmo:application_case a owl:Class;
-   rdfs:subClassOf 
-#		mmto:project_entity, 
-		evmpo:annotation,
-#		osmo:section,
-		osmo:application_case_entity;
+   rdfs:subClassOf mmto:project_entity, evmpo:annotation, osmo:section, osmo:application_case_entity;
    rdfs:comment "application case, i.e., a scenario, point of view, or subjective or negotiated set of aims"^^xs:string.
 osmo:op_application_case a owl:ObjectProperty.
 osmo:dp_application_case a owl:DatatypeProperty.
