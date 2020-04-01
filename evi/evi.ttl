@@ -3,7 +3,7 @@
 
 ### VERSION 0.4.1 ###
 
-### DATED 2ND MARCH 2020 ###
+### DATED 30TH MARCH 2020 ###
 
 @prefix evi: <http://www.vimmp.eu/semantics/evi/evi.ttl#>.
 
@@ -388,7 +388,7 @@ otras:course a owl:Class;
 # a focus is a symbolic entity
 #
 otras:focus a owl:Class;
-   rdfs:subClassOf emmo1s:Symbolic, evmpo:annotation, otras:training_entity.
+   rdfs:subClassOf emmo1s:Symbolic, otras:training_entity.
 
 # a topic is a sign
 #

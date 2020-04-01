@@ -3,7 +3,7 @@
 
 ### VERSION 0.4.1 ###
 
-### DATED 27TH MARCH 2020 ###
+### DATED 30TH MARCH 2020 ###
 
 @prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
 
@@ -142,8 +142,8 @@ vivo:review_assertion a owl:Class;
 # ASSESSMENT BRANCH OF VIVO: GENERAL #
 ######################################
 
-evmpo:assessment a owl:Class;
-   rdfs:subClassOf vivo:validation_entity.
+# evmpo:assessment a owl:Class;
+# rdfs:subClassOf vivo:validation_entity.
 
 vivo:evaluates a owl:ObjectProperty;
    rdfs:domain evmpo:assessment;
