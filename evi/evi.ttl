@@ -1,9 +1,9 @@
 
 ### EMMO-VIMMP INTEGRATION (EVI) ###
 
-### VERSION 0.4.1 ###
+### VERSION 0.4.2 ###
 
-### DATED 30TH MARCH 2020 ###
+### DATED 8TH APRIL 2020 ###
 
 @prefix evi: <http://www.vimmp.eu/semantics/evi/evi.ttl#>.
 
@@ -365,10 +365,10 @@ osmo:materials_relation a owl:Class;
 # OTRAS-EMMO INTEGRATION #
 ##########################
 
-# OTRAS top class
-#
-otras:training_entity a owl:Class;
-   rdfs:subClassOf evi:meta_emmo.
+# # OTRAS top class
+# #
+# otras:training_entity a owl:Class;
+#    rdfs:subClassOf evi:meta_emmo.
 
 # a citation is a sign for an information content entity
 #
@@ -383,12 +383,14 @@ otras:citation a owl:Class;
 # a course is a process
 #
 otras:course a owl:Class;
-   rdfs:subClassOf emmo1s:Process, otras:training_entity.
+   rdfs:subClassOf emmo1s:Process, evmpo:process.
+# otras:course rdfs:subClassOf otras:training_entity.
 
 # a focus is a symbolic entity
 #
 otras:focus a owl:Class;
-   rdfs:subClassOf emmo1s:Symbolic, otras:training_entity.
+   rdfs:subClassOf emmo1s:Symbolic, evmpo:annotation.
+# otras:focus rdfs:subClassOf otras:training_entity.
 
 # a topic is a sign
 #

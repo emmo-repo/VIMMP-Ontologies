@@ -1,9 +1,9 @@
 
 ### EMMO 1.0 SIMPLIFIED (EMMO1S) ###
 
-### VERSION 0.9.1 ###
+### VERSION 0.9.2 ###
 
-### DATED 2ND MARCH 2020 ###
+### DATED 8TH APRIL 2020 ###
 
 @prefix emmo1s: <http://www.vimmp.eu/semantics/emmo/emmo1s.ttl#>.
 
@@ -55,7 +55,7 @@ emmo1s:EMMO a owl:Class;
    rdfs:label "EMMO"^^xs:string;
    owl:sameAs emmo-mereotopology:EMMO_802d3e92_8770_4f98_a289_ccaaab7fdddf;
    owl:disjointUnionOf (emmo1s:Item emmo1s:Collection);
-   rdfs:subClassOf [
+   owl:equivalentClass [
       a owl:Restriction;
       owl:onProperty [owl:inverseOf emmo1s:hasPart];
       owl:hasValue emmo1s:Universe
@@ -92,6 +92,19 @@ emmo1s:EMMORelation a owl:ObjectProperty, owl:SymmetricProperty, owl:TransitiveP
    rdfs:domain emmo1s:EMMO;
    rdfs:range emmo1s:EMMO;
    rdfs:comment "EMMO top relation"^^xs:string.
+emmo1s:encloses a owl:ObjectProperty, owl:TransitiveProperty;
+   rdfs:label "encloses"^^xs:string;
+   owl:sameAs emmo-mereotopology:EMMO_8c898653_1118_4682_9bbf_6cc334d16a99;
+   rdfs:domain emmo1s:EMMO;
+   rdfs:range emmo1s:EMMO;
+   rdfs:subPropertyOf emmo1s:connected;
+   rdfs:comment "a generalized improper parthood relation; the EMMO is not quite clear how exactly 'encloses' differs from 'hasPart', and why 'encloses' is not a subproperty of 'hasOverlapWith'"^^xs:string.
+emmo1s:hasContactWith a owl:ObjectProperty, owl:SymmetricProperty;
+   rdfs:label "hasContactWith"^^xs:string;
+   owl:sameAs emmo-mereotopology:EMMO_4d6504f1_c470_4ce9_b941_bbbebc9ab05d;
+   rdfs:domain emmo1s:EMMO;
+   rdfs:range emmo1s:EMMO;
+   rdfs:subPropertyOf emmo1s:connected.
 emmo1s:hasMember a owl:ObjectProperty;
    rdfs:label "hasMember"^^xs:string;
    owl:sameAs emmo-mereotopology:EMMO_6b7276a4_4b9d_440a_b577_0277539c0fc4;
@@ -99,7 +112,7 @@ emmo1s:hasMember a owl:ObjectProperty;
    rdfs:range emmo1s:Item;
    rdfs:subPropertyOf emmo1s:hasProperPart;
    rdfs:comment "hasMember relates an unconnected object (Collection) to its connected components (Items)"^^xs:string.
-emmo1s:hasOverlapWith a owl:ObjectProperty;
+emmo1s:hasOverlapWith a owl:ObjectProperty, owl:SymmetricProperty;
    rdfs:label "hasOverlapWith"^^xs:string;
    owl:sameAs emmo-mereotopology:EMMO_d893d373_b579_4867_841e_1c2b31a8d2c6;
    rdfs:domain emmo1s:EMMO;
@@ -111,7 +124,7 @@ emmo1s:hasPart a owl:ObjectProperty, owl:TransitiveProperty;
    owl:sameAs emmo-mereotopology:EMMO_17e27c22_37e1_468c_9dd7_95e137f73e7f;
    rdfs:domain emmo1s:EMMO;
    rdfs:range emmo1s:EMMO;
-   rdfs:subPropertyOf emmo1s:hasOverlapWith;
+   rdfs:subPropertyOf emmo1s:encloses, emmo1s:hasOverlapWith;
    rdfs:comment "4D spatiotemporal parthood relation (reflexive version, i.e., improper parthood)"^^xs:string.
 emmo1s:hasProperPart a owl:ObjectProperty, owl:TransitiveProperty;
    rdfs:label "hasProperPart"^^xs:string;
@@ -132,7 +145,11 @@ emmo1s:Universe a emmo1s:EMMO;
 emmo1s:Physical a owl:Class;
    rdfs:label "Physical"^^xs:string;
    owl:sameAs emmo-physical:EMMO_c5ddfdba_c074_4aa4_ad6b_1ac4942d300d;
-   rdfs:subClassOf emmo1s:Item;
+   rdfs:subClassOf emmo1s:Item, [
+      a owl:Restriction;
+      owl:onProperty emmo1s:hasTemporalPart;
+      owl:allValuesFrom emmo1s:Physical
+   ];
    rdfs:comment "Physical, i.e., an Item that is not Void"^^xs:string.
 emmo1s:Void a owl:Class;
    rdfs:label "Void"^^xs:string;

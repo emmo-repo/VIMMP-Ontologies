@@ -13,9 +13,9 @@
 
 ### EMMO 1.0 SIMPLIFIED (EMMO1S) ###
 
-### VERSION 0.9.1 ###
+### VERSION 0.9.2 ###
 
-### DATED 2ND MARCH 2020 ###
+### DATED 8TH APRIL 2020 ###
 
 @prefix emmo1s: <http://www.vimmp.eu/semantics/emmo/emmo1s.ttl#>.
 
@@ -67,7 +67,7 @@ emmo1s:EMMO a owl:Class;
    rdfs:label "EMMO"^^xs:string;
    owl:sameAs emmo-mereotopology:EMMO_802d3e92_8770_4f98_a289_ccaaab7fdddf;
    owl:disjointUnionOf (emmo1s:Item emmo1s:Collection);
-   rdfs:subClassOf [
+   owl:equivalentClass [
       a owl:Restriction;
       owl:onProperty [owl:inverseOf emmo1s:hasPart];
       owl:hasValue emmo1s:Universe
@@ -104,6 +104,19 @@ emmo1s:EMMORelation a owl:ObjectProperty, owl:SymmetricProperty, owl:TransitiveP
    rdfs:domain emmo1s:EMMO;
    rdfs:range emmo1s:EMMO;
    rdfs:comment "EMMO top relation"^^xs:string.
+emmo1s:encloses a owl:ObjectProperty, owl:TransitiveProperty;
+   rdfs:label "encloses"^^xs:string;
+   owl:sameAs emmo-mereotopology:EMMO_8c898653_1118_4682_9bbf_6cc334d16a99;
+   rdfs:domain emmo1s:EMMO;
+   rdfs:range emmo1s:EMMO;
+   rdfs:subPropertyOf emmo1s:connected;
+   rdfs:comment "a generalized improper parthood relation; the EMMO is not quite clear how exactly 'encloses' differs from 'hasPart', and why 'encloses' is not a subproperty of 'hasOverlapWith'"^^xs:string.
+emmo1s:hasContactWith a owl:ObjectProperty, owl:SymmetricProperty;
+   rdfs:label "hasContactWith"^^xs:string;
+   owl:sameAs emmo-mereotopology:EMMO_4d6504f1_c470_4ce9_b941_bbbebc9ab05d;
+   rdfs:domain emmo1s:EMMO;
+   rdfs:range emmo1s:EMMO;
+   rdfs:subPropertyOf emmo1s:connected.
 emmo1s:hasMember a owl:ObjectProperty;
    rdfs:label "hasMember"^^xs:string;
    owl:sameAs emmo-mereotopology:EMMO_6b7276a4_4b9d_440a_b577_0277539c0fc4;
@@ -111,7 +124,7 @@ emmo1s:hasMember a owl:ObjectProperty;
    rdfs:range emmo1s:Item;
    rdfs:subPropertyOf emmo1s:hasProperPart;
    rdfs:comment "hasMember relates an unconnected object (Collection) to its connected components (Items)"^^xs:string.
-emmo1s:hasOverlapWith a owl:ObjectProperty;
+emmo1s:hasOverlapWith a owl:ObjectProperty, owl:SymmetricProperty;
    rdfs:label "hasOverlapWith"^^xs:string;
    owl:sameAs emmo-mereotopology:EMMO_d893d373_b579_4867_841e_1c2b31a8d2c6;
    rdfs:domain emmo1s:EMMO;
@@ -123,7 +136,7 @@ emmo1s:hasPart a owl:ObjectProperty, owl:TransitiveProperty;
    owl:sameAs emmo-mereotopology:EMMO_17e27c22_37e1_468c_9dd7_95e137f73e7f;
    rdfs:domain emmo1s:EMMO;
    rdfs:range emmo1s:EMMO;
-   rdfs:subPropertyOf emmo1s:hasOverlapWith;
+   rdfs:subPropertyOf emmo1s:encloses, emmo1s:hasOverlapWith;
    rdfs:comment "4D spatiotemporal parthood relation (reflexive version, i.e., improper parthood)"^^xs:string.
 emmo1s:hasProperPart a owl:ObjectProperty, owl:TransitiveProperty;
    rdfs:label "hasProperPart"^^xs:string;
@@ -144,7 +157,11 @@ emmo1s:Universe a emmo1s:EMMO;
 emmo1s:Physical a owl:Class;
    rdfs:label "Physical"^^xs:string;
    owl:sameAs emmo-physical:EMMO_c5ddfdba_c074_4aa4_ad6b_1ac4942d300d;
-   rdfs:subClassOf emmo1s:Item;
+   rdfs:subClassOf emmo1s:Item, [
+      a owl:Restriction;
+      owl:onProperty emmo1s:hasTemporalPart;
+      owl:allValuesFrom emmo1s:Physical
+   ];
    rdfs:comment "Physical, i.e., an Item that is not Void"^^xs:string.
 emmo1s:Void a owl:Class;
    rdfs:label "Void"^^xs:string;
@@ -699,9 +716,9 @@ emmo1s:hasUnit a owl:ObjectProperty;
 
 ### EMMO-VIMMP INTEGRATION (EVI) ###
 
-### VERSION 0.4.1 ###
+### VERSION 0.4.2 ###
 
-### DATED 30TH MARCH 2020 ###
+### DATED 8TH APRIL 2020 ###
 
 @prefix evi: <http://www.vimmp.eu/semantics/evi/evi.ttl#>.
 
@@ -1063,10 +1080,10 @@ osmo:materials_relation a owl:Class;
 # OTRAS-EMMO INTEGRATION #
 ##########################
 
-# OTRAS top class
-#
-otras:training_entity a owl:Class;
-   rdfs:subClassOf evi:meta_emmo.
+# # OTRAS top class
+# #
+# otras:training_entity a owl:Class;
+#    rdfs:subClassOf evi:meta_emmo.
 
 # a citation is a sign for an information content entity
 #
@@ -1081,12 +1098,14 @@ otras:citation a owl:Class;
 # a course is a process
 #
 otras:course a owl:Class;
-   rdfs:subClassOf emmo1s:Process, otras:training_entity.
+   rdfs:subClassOf emmo1s:Process, evmpo:process.
+# otras:course rdfs:subClassOf otras:training_entity.
 
 # a focus is a symbolic entity
 #
 otras:focus a owl:Class;
-   rdfs:subClassOf emmo1s:Symbolic, otras:training_entity.
+   rdfs:subClassOf emmo1s:Symbolic, evmpo:annotation.
+# otras:focus rdfs:subClassOf otras:training_entity.
 
 # a topic is a sign
 #
@@ -2803,9 +2822,9 @@ mmto:has_represented_kpi a owl:ObjectProperty;
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 1.4.2 ###
+### VERSION 1.4.3 ###
 
-### DATED 30TH MARCH 2020 ###
+### DATED 8TH APRIL 2020 ###
 
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -3517,12 +3536,10 @@ osmo:use_case_entity a owl:Class;
 
 osmo:use_case_entity owl:disjointUnionOf (osmo:use_case osmo:use_case_aspect osmo:use_case_decision_support_system).
 
+# I am reinserting this for the time being, the previous change was non-trivial, let us discuss this
+#
 osmo:application_case a owl:Class;
-   rdfs:subClassOf 
-#		mmto:project_entity, 
-		evmpo:annotation,
-#		osmo:section,
-		osmo:application_case_entity;
+   rdfs:subClassOf mmto:project_entity, evmpo:annotation, osmo:section, osmo:application_case_entity;
    rdfs:comment "application case, i.e., a scenario, point of view, or subjective or negotiated set of aims"^^xs:string.
 
 osmo:application_case owl:disjointUnionOf (mmto:business_case mmto:industrial_case mmto:translation_case osmo:use_case).
@@ -4632,9 +4649,9 @@ osmo:use_case_decision_support_system a owl:Class;
 
 ### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
 
-### VERSION 0.9.3 ###
+### VERSION 0.9.4 ###
 
-### DATED 31ST MARCH 2020 ###
+### DATED 8TH APRIL 2020 ###
 
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 
@@ -4650,13 +4667,13 @@ osmo:use_case_decision_support_system a owl:Class;
 
 <http://www.vimmp.eu/semantics/otras/otras.ttl#> a owl:Ontology.
 
-otras:training_entity a owl:Class;
-   rdfs:comment "training entity, i.e., an entity related to training"^^xs:string;
-   rdfs:subClassOf evmpo:marketplace_related_entity.
+# otras:training_entity a owl:Class;
+#    rdfs:comment "training entity, i.e., an entity related to training"^^xs:string;
+#    rdfs:subClassOf evmpo:marketplace_related_entity.
 
 otras:carrier a owl:Class;
-   rdfs:comment "carrier, e.g, material, activity, event that carries the contents of a course"^^xs:string;
-   rdfs:subClassOf otras:training_entity.
+   rdfs:comment "carrier, e.g, material, activity, event that carries the contents of a course"^^xs:string.
+# otras:carrier rdfs:subClassOf otras:training_entity.
 
 otras:has_targeted_group a owl:ObjectProperty;
    rdfs:domain evmpo:carrier;
@@ -4753,7 +4770,8 @@ otras:has_offered_course a owl:ObjectProperty;
 
 otras:focus a owl:Class;
    rdfs:comment "focus, i.e., a studied object or topic or training objective (or an aspect or constitutive part thereof)";
-   rdfs:subClassOf otras:training_entity .
+   rdfs:subClassOf evmpo:annotation.
+# otras:focus rdfs:subClassOf otras:training_entity.
 
 otras:has_focus_descriptor a owl:DatatypeProperty;
    rdfs:domain otras:focus;
@@ -4940,8 +4958,9 @@ otras:has_recommended_literature a owl:ObjectProperty;
 
 otras:course a owl:Class;
    rdfs:comment "a course as defined by CCSO"^^xs:string;
-   rdfs:subClassOf otras:training_entity;
+   rdfs:subClassOf evmpo:process;
    owl:equivalentClass ccso:Course.
+# otras:course rdfs:subClassOf otras:training_entity.
 
 otras:has_carrier a owl:ObjectProperty;
    rdfs:domain otras:course;
@@ -6599,8 +6618,9 @@ otras:journal_article_citation rdfs:subClassOf [
    ].
 
 otras:author_identification_entity a owl:Class;
-   rdfs:subClassOf otras:training_entity;
+   rdfs:subClassOf evmpo:annotation;
    rdfs:comment "author identification entity, i.e., an entity related to the identification of authors"^^xs:string.
+# otras:author_identification_entity rdfs:subClassOf otras:training_entity.
 
 otras:author_identifier a owl:Class;
    rdfs:subClassOf otras:author_identification_entity;
@@ -7443,9 +7463,9 @@ _:C_PERSONAL_TITLE a owl:AllDifferent;
 
 ### VIMMP VALIDATION ONTOLOGY (VIVO) ###
 
-### VERSION 0.4.1 ###
+### VERSION 0.4.2 ###
 
-### DATED 30TH MARCH 2020 ###
+### DATED 8TH APRIL 2020 ###
 
 @prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
 
@@ -7462,26 +7482,29 @@ _:C_PERSONAL_TITLE a owl:AllDifferent;
 
 <http://www.vimmp.eu/semantics/vivo/vivo.ttl#> a owl:Ontology.
 
-vivo:validation_entity a owl:Class;
-   rdfs:comment "validation entity, i.e., a paradigmatic entity related to validation"^^xs:string;
-   rdfs:subClassOf evmpo:paradigmatic_entity.
+# vivo:validation_entity a owl:Class;
+#    rdfs:comment "validation entity, i.e., a paradigmatic entity related to validation"^^xs:string;
+#    rdfs:subClassOf evmpo:paradigmatic_entity.
 
-vivo:validation_entity owl:unionOf (vivo:assertion evmpo:assessment vivo:validation_statement vivo:validation_infrastructure vivo:material_property).
+# vivo:validation_entity owl:unionOf (vivo:assertion evmpo:assessment vivo:validation_statement vivo:validation_infrastructure vivo:material_property).
 
 vivo:accuracy_entity a owl:Class;
-   rdfs:subClassOf vivo:validation_entity.
+   rdfs:subClassOf evmpo:paradigmatic_entity.
+# vivo:accuracy_entity rdfs:subClassOf vivo:validation_entity.
 
 vivo:accuracy_entity owl:disjointUnionOf (vivo:accuracy_assertion vivo:accuracy_assessment);
    owl:disjointWith vivo:requirement_entity, vivo:review_entity.
 
 vivo:requirement_entity a owl:Class;
-   rdfs:subClassOf vivo:validation_entity.
+   rdfs:subClassOf evmpo:paradigmatic_entity.
+# vivo:requirement_entity rdfs:subClassOf vivo:validation_entity.
 
 vivo:requirement_entity owl:disjointUnionOf (vivo:requirement_assertion vivo:requirement_assessment);
    owl:disjointWith vivo:accuracy_entity, vivo:review_entity.
 
 vivo:review_entity a owl:Class;
-   rdfs:subClassOf vivo:validation_entity.
+   rdfs:subClassOf evmpo:paradigmatic_entity.
+# vivo:review_entity rdfs:subClassOf vivo:validation_entity.
 
 vivo:review_entity owl:disjointUnionOf (vivo:review_assertion vivo:review_assessment);
    owl:disjointWith vivo:accuracy_entity, vivo:requirement_entity.
@@ -7583,9 +7606,6 @@ vivo:review_assertion a owl:Class;
 ######################################
 # ASSESSMENT BRANCH OF VIVO: GENERAL #
 ######################################
-
-# evmpo:assessment a owl:Class;
-# rdfs:subClassOf vivo:validation_entity.
 
 vivo:evaluates a owl:ObjectProperty;
    rdfs:domain evmpo:assessment;
@@ -7794,19 +7814,20 @@ vivo:certificate rdfs:subClassOf [
 #################################
 
 vivo:validation_infrastructure a owl:Class;
-   rdfs:subClassOf vivo:validation_entity, evmpo:infrastructure;
-   owl:intersectionOf (vivo:validation_entity evmpo:infrastructure);
+   rdfs:subClassOf evmpo:infrastructure;
    rdfs:comment "validation infrastructure, i.e., an infrastructure which, as its main feature or purpose, relates to validation"^^xs:string.
+# vivo:validation_infrastructure rdfs:subClassOf vivo:validation_entity.
+# vivo:validation_infrastructure owl:intersectionOf (vivo:validation_entity evmpo:infrastructure).
 
 vivo:validation_infrastructure owl:disjointWith vivo:assertion, evmpo:assessment, vivo:material_property, vivo:validation_statement.
 
 vivo:validation_channel a owl:Class;
-   rdfs:subClassOf vivo:validation_infrastructure, macro:channel;
-   owl:intersectionOf (vivo:validation_entity macro:channel).
+   rdfs:subClassOf vivo:validation_infrastructure, macro:channel.
+# vivo:validation_channel owl:intersectionOf (vivo:validation_entity macro:channel).
 
 vivo:validation_repository a owl:Class;
-   rdfs:subClassOf vivo:validation_infrastructure, macro:repository, evmpo:agent, vico:agent;
-   owl:intersectionOf (vivo:validation_entity macro:repository).
+   rdfs:subClassOf vivo:validation_infrastructure, macro:repository, evmpo:agent, vico:agent.
+# vivo:validation_repository owl:intersectionOf (vivo:validation_entity macro:repository).
 
 
 ###########################
@@ -7814,9 +7835,10 @@ vivo:validation_repository a owl:Class;
 ###########################
 
 vivo:material_property a owl:Class;
-   rdfs:subClassOf vivo:validation_entity, evmpo:property, osmo:logical_variable;
+   rdfs:subClassOf evmpo:property, osmo:logical_variable;
    owl:equivalentClass evmpo:material_property;
    rdfs:comment "thermodynamic or mechanical behaviour of a material (referring either to the real material itself or a model thereof)"^^xs:string.
+# vivo:material_property rdfs:subClassOf vivo:validation_entity.
 
 vivo:is_quantity_kind a owl:ObjectProperty, owl:FunctionalProperty;
    rdfs:domain vivo:material_property;
