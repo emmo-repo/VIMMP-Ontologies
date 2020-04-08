@@ -1,7 +1,7 @@
 
 ### EMMO 1.0 SIMPLIFIED (EMMO1S) ###
 
-### VERSION 0.9.2 ###
+### VERSION 0.9.3 ###
 
 ### DATED 8TH APRIL 2020 ###
 
@@ -10,6 +10,7 @@
 @prefix emmo-holistic: <http://emmo.info/emmo/middle/holistic#>.
 @prefix emmo-manufacturing: <http://emmo.info/emmo/middle/manufacturing#>.
 @prefix emmo-math: <http://emmo.info/emmo/middle/math#>.
+@prefix emmo-metrology: <http://emmo.info/emmo/middle/metrology#>.
 @prefix emmo-mereotopology: <http://emmo.info/emmo/top/mereotopology#>.
 @prefix emmo-models: <http://emmo.info/emmo/middle/models#>.
 @prefix emmo-perceptual: <http://emmo.info/emmo/middle/perceptual#>.
@@ -17,14 +18,13 @@
 @prefix emmo-physicalistic: <http://emmo.info/emmo/middle/physicalistic#>.
 @prefix emmo-properties: <http://emmo.info/emmo/middle/properties#>.
 @prefix emmo-semiotics: <http://emmo.info/emmo/middle/semiotics#>.
-@prefix emmo-units: <http://emmo.info/emmo/middle/units#>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
 @prefix owl2: <http://www.w3.org/2006/12/owl2#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
-<http://www.vimmp.eu/semantics/emmo/emmo1s.ttl#> a owl:Ontology.
+<http://www.vimmp.eu/semantics/emmo/emmo1s.ttl> a owl:Ontology.
 
 
 #############################################
@@ -260,16 +260,20 @@ emmo1s:Index a owl:Class;
    rdfs:label "Index"^^xs:string;
    owl:sameAs emmo-semiotics:EMMO_0cd58641_824c_4851_907f_f4c3be76630c;
    rdfs:subClassOf emmo1s:Sign;
-   rdfs:comment "Index, i.e., a Sign that represents an Object by indication due to causal contiguity (like smoke signifies fire)"^^xs:string.
+   rdfs:comment "Index, i.e., a Sign that represents an Object by indication, due to causal contiguity (like smoke signifies fire, or like my facial expression represents my emotional status)"^^xs:string.
 emmo1s:Interpretant a owl:Class;
    rdfs:label "Interpretant"^^xs:string;
    owl:sameAs emmo-semiotics:EMMO_054af807_85cd_4a13_8eba_119dfdaaf38b;
    rdfs:subClassOf emmo1s:Sign;
-   rdfs:comment "Interpretant, i.e., a Sign that is used internally by the Interpreter to represent the Object (to himself only)"^^xs:string.
+   rdfs:comment "Interpretant, i.e., the Interpreter's internal representation of the Object in a Semiosis process (n.b., this definition from the EMMO is not necessarily 1:1 identical with Peirce's definition of the interpretant)"^^xs:string.
 emmo1s:Interpreter a owl:Class;
    rdfs:label "Interpreter"^^xs:string;
    owl:sameAs emmo-semiotics:EMMO_0527413c_b286_4e9c_b2d0_03fb2a038dee;
-   rdfs:subClassOf emmo1s:Semiotic;
+   rdfs:subClassOf emmo1s:Semiotic, [
+      a owl:Restriction;
+      owl:onProperty emmo1s:hasSpatialPart;
+      owl:someValuesFrom emmo1s:Interpretant
+   ];
    rdfs:comment "Interpreter, i.e., a Semiotic Participant that actively creates the connection between the Sign, the Object, and the Interpretant in a Semiosis Process"^^xs:string.
 emmo1s:Object a owl:Class;
    rdfs:label "Object"^^xs:string;
@@ -312,8 +316,8 @@ emmo1s:Sign a owl:Class;
 
 ## EMMO semiotics relations
 #
-emmo1s:hasConventional a owl:ObjectProperty;
-   rdfs:label "hasConventional"^^xs:string;
+emmo1s:hasConvention a owl:ObjectProperty;
+   rdfs:label "hasConvention"^^xs:string;
    owl:sameAs emmo-semiotics:EMMO_eb3518bf_f799_4f9e_8c3e_ce59af11453b;
    rdfs:domain emmo1s:Object;
    rdfs:range emmo1s:Conventional;
@@ -435,6 +439,11 @@ emmo1s:PhysicsEquation a owl:Class;
       owl:someValuesFrom emmo1s:PhysicalQuantity
    ];
    rdfs:comment "PhysicsEquation, i.e., a physical equation, e.g., belonging to any of the 25 physical equation types specified by OSMO on the basis of RoMM"^^xs:string.
+emmo1s:Theory a owl:Class;
+   rdfs:label "Theory"^^xs:string;
+   owl:sameAs emmo-models:EMMO_8d2d9374_ef3a_47e6_8595_6bc208e07519;
+   rdfs:subClassOf emmo1s:Conventional;
+   rdfs:comment "Theory, i.e., a Conventional that can represent a Physical, and more specifically (rdfs:comment from EMMO),  'whose sub-symbols suggest in the mind of the interpreter an interpretant structure that can represent a physical'"^^xs:string.
 
 ## EMMO models relations
 #
@@ -531,6 +540,49 @@ emmo1s:hasVariable a owl:ObjectProperty;
    rdfs:range emmo1s:Variable;
    rdfs:subPropertyOf emmo1s:hasConventional;
    rdfs:comment "relates a Mathematical object to a Variable that represents it"^^xs:string.
+
+## EMMO metrology classes
+#
+emmo1s:MeasurementUnit a owl:Class;
+   rdfs:label "MeasurementUnit"^^xs:string;
+   owl:sameAs emmo-metrology:EMMO_b081b346_7279_46ef_9a3d_2c088fcd79f4;
+   rdfs:subClassOf emmo1s:ReferenceUnit, emmo1s:Mathematical;
+   rdfs:comment "MeasurementUnit, i.e., a Mathematical ReferenceUnit that stands for the standard reference magnitude of a specific class of measurement processes, defined and adopted by convention or by law"^^xs:string.
+emmo1s:PhysicalQuantity a owl:Class;
+   rdfs:label "PhysicalQuantity"^^xs:string;
+   owl:sameAs emmo-metrology:EMMO_02c0621e_a527_4790_8a0f_2bb51973c819;
+   rdfs:subClassOf emmo1s:Quantity, emmo1s:Mathematical.
+emmo1s:Quantity a owl:Class;
+   rdfs:label "Quantity"^^xs:string;
+   owl:sameAs emmo-metrology:EMMO_f658c301_ce93_46cf_9639_4eace2c5d1d5;
+   rdfs:subClassOf emmo1s:WellFormedSymbolic, [
+      a owl:Restriction;
+      owl:onProperty emmo1s:hasQuantityValue;
+      owl:cardinality 1
+   ], [
+      a owl:Restriction;
+      owl:onProperty emmo1s:hasReferenceUnit;
+      owl:cardinality 1
+   ].
+emmo1s:ReferenceUnit a owl:Class;
+   rdfs:label "ReferenceUnit"^^xs:string;
+   owl:sameAs emmo-metrology:EMMO_18ce5200_00f5_45bb_8c6f_6fb128cd41ae;
+   rdfs:subClassOf emmo1s:WellFormedSymbolic.
+
+## EMMO metrology properties
+#
+emmo1s:hasQuantityValue a owl:ObjectProperty;
+   rdfs:label "hasQuantityValue"^^xs:string;
+   owl:sameAs emmo-metrology:EMMO_8ef3cd6d_ae58_4a8d_9fc0_ad8f49015cd0;
+   rdfs:domain emmo1s:Quantity;
+   rdfs:range emmo1s:Number;
+   rdfs:subPropertyOf emmo1s:hasSpatialPart.
+emmo1s:hasReferenceUnit a owl:ObjectProperty;
+   rdfs:label "hasReferenceUnit"^^xs:string;
+   owl:sameAs emmo-metrology:EMMO_67fc0a36_8dcb_4ffa_9a43_31074efa3296;
+   rdfs:domain emmo1s:Quantity;
+   rdfs:range emmo1s:ReferenceUnit;
+   rdfs:subPropertyOf emmo1s:hasSpatialPart.
 
 ## EMMO perceptual classes
 #
@@ -658,46 +710,3 @@ emmo1s:hasProperty a owl:ObjectProperty;
    rdfs:domain emmo1s:Object;
    rdfs:range emmo1s:Property;
    rdfs:subPropertyOf emmo1s:hasConventional.
-
-## EMMO units classes
-#
-emmo1s:MeasurementUnit a owl:Class;
-   rdfs:label "MeasurementUnit"^^xs:string;
-   owl:sameAs emmo-units:EMMO_b081b346_7279_46ef_9a3d_2c088fcd79f4;
-   rdfs:subClassOf emmo1s:ReferenceUnit, emmo1s:Mathematical;
-   rdfs:comment "MeasurementUnit, i.e., a Mathematical ReferenceUnit that stands for the standard reference magnitude of a specific class of measurement processes, defined and adopted by convention or by law"^^xs:string.
-emmo1s:PhysicalQuantity a owl:Class;
-   rdfs:label "PhysicalQuantity"^^xs:string;
-   owl:sameAs emmo-units:EMMO_02c0621e_a527_4790_8a0f_2bb51973c819;
-   rdfs:subClassOf emmo1s:Quantity, emmo1s:Mathematical.
-emmo1s:Quantity a owl:Class;
-   rdfs:label "Quantity"^^xs:string;
-   owl:sameAs emmo-units:EMMO_f658c301_ce93_46cf_9639_4eace2c5d1d5;
-   rdfs:subClassOf emmo1s:WellFormedSymbolic, [
-      a owl:Restriction;
-      owl:onProperty emmo1s:hasQuantityValue;
-      owl:cardinality 1
-   ], [
-      a owl:Restriction;
-      owl:onProperty emmo1s:hasUnit;
-      owl:cardinality 1
-   ].
-emmo1s:ReferenceUnit a owl:Class;
-   rdfs:label "ReferenceUnit"^^xs:string;
-   owl:sameAs emmo-units:EMMO_18ce5200_00f5_45bb_8c6f_6fb128cd41ae;
-   rdfs:subClassOf emmo1s:WellFormedSymbolic.
-
-## EMMO units properties
-#
-emmo1s:hasQuantityValue a owl:ObjectProperty;
-   rdfs:label "hasQuantityValue"^^xs:string;
-   owl:sameAs emmo-units:EMMO_8ef3cd6d_ae58_4a8d_9fc0_ad8f49015cd0;
-   rdfs:domain emmo1s:Quantity;
-   rdfs:range emmo1s:Number;
-   rdfs:subPropertyOf emmo1s:hasSpatialPart.
-emmo1s:hasUnit a owl:ObjectProperty;
-   rdfs:label "hasUnit"^^xs:string;
-   owl:sameAs emmo-units:EMMO_67fc0a36_8dcb_4ffa_9a43_31074efa3296;
-   rdfs:domain emmo1s:Quantity;
-   rdfs:range emmo1s:ReferenceUnit;
-   rdfs:subPropertyOf emmo1s:hasSpatialPart.
