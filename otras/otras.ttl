@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
 
-### VERSION 0.9.4 ###
+### VERSION 0.9.5 ###
 
-### DATED 8TH APRIL 2020 ###
+### DATED 23RD APRIL 2020 ###
 
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 
@@ -28,7 +28,7 @@ otras:carrier a owl:Class;
 # otras:carrier rdfs:subClassOf otras:training_entity.
 
 otras:has_targeted_group a owl:ObjectProperty;
-   rdfs:domain evmpo:carrier;
+   rdfs:domain otras:carrier;
    rdfs:range vico:interlocutor_group.
 
 otras:has_abstract a owl:ObjectProperty;
@@ -69,19 +69,19 @@ otras:presentation a owl:Class;
    rdfs:comment "presentation, i.e., a document that can be presented to a group of people as is"^^xs:string.
 
 otras:slide_presentation a owl:Class;
-   rdfs:subClassOf evmpo:presentation;
+   rdfs:subClassOf otras:presentation;
    rdfs:comment "slide presentation, i.e., a presentation in the form of slides"^^xs:string.
 
 otras:recording a owl:Class;
-   rdfs:subClassOf evmpo:presentation;
+   rdfs:subClassOf otras:presentation;
    rdfs:comment "recording, i.e., a recorded presentation"^^xs:string.
 
 otras:audio_recording a owl:Class;
-   rdfs:subClassOf evmpo:recording;
+   rdfs:subClassOf otras:recording;
    rdfs:comment "audio recording, i.e., a recording with audio-only content"^^xs:string.
 
 otras:video_recording a owl:Class;
-   rdfs:subClassOf evmpo:recording;
+   rdfs:subClassOf otras:recording;
    owl:disjointWith otras:audio_recording;
    rdfs:comment "video recording, i.e., a recording with video content"^^xs:string.
 
@@ -801,6 +801,14 @@ otras:MM_TOPIC_1300 a otras:mm_topic_basic_information;
    otras:has_topic_code 1300;
    otras:is_narrower_than otras:MM_TOPIC_1000;
    otras:has_topic_descriptor "Topic: Basic prerequisites in information technology, computer science, and progamming"^^xs:string.
+otras:MM_TOPIC_1360 a otras:mm_topic_basic_information;
+   otras:has_topic_code 1360;
+   otras:is_narrower_than otras:MM_TOPIC_1300;
+   otras:has_topic_descriptor "Topic: Foundations in data analysis/data science"^^xs:string.
+otras:MM_TOPIC_1370 a otras:mm_topic_basic_information;
+   otras:has_topic_code 1370;
+   otras:is_narrower_than otras:MM_TOPIC_1300;
+   otras:has_topic_descriptor "Topic: Foundations in data technology and/or (research) data management"^^xs:string.
 
 otras:MM_TOPIC_1400 a otras:mm_topic_basic_materials;
    otras:has_topic_code 1400;
@@ -821,6 +829,14 @@ otras:MM_TOPIC_1700 a otras:mm_topic_basic_physics;
    otras:has_topic_code 1700;
    otras:is_narrower_than otras:MM_TOPIC_1000;
    otras:has_topic_descriptor "Topic: Basic prerequisites in physics and theoretical or physical chemistry"^^xs:string.
+otras:MM_TOPIC_1730 a otras:mm_topic_basic_physics;
+   otras:has_topic_code 1730;
+   otras:is_narrower_than otras:MM_TOPIC_1700;
+   otras:has_topic_descriptor "Topic: Foundations in solid-state physics"^^xs:string.
+otras:MM_TOPIC_1750 a otras:mm_topic_basic_physics;
+   otras:has_topic_code 1750;
+   otras:is_narrower_than otras:MM_TOPIC_1700;
+   otras:has_topic_descriptor "Topic: Foundations in statistical mechanics and/or statistical physics"^^xs:string.
 
 otras:MM_TOPIC_1800 a otras:mm_topic_basic_interdisciplinary;
    otras:has_topic_code 1800;
@@ -846,11 +862,19 @@ otras:MM_TOPIC_3120 a otras:mm_topic_computational_EL1;
    otras:has_topic_code 3120;
    otras:is_narrower_than otras:MM_TOPIC_3100;
    otras:has_topic_descriptor "Topic: Computational aspects of physical equation EL.1"^^xs:string.
+otras:MM_TOPIC_3123 a otras:mm_topic_computational_EL1;
+   otras:has_topic_code 3123;
+   otras:is_narrower_than otras:MM_TOPIC_3120;
+   otras:has_topic_descriptor "Topic: Hartree-Fock approach (HF)"^^xs:string.
 
 otras:MM_TOPIC_3130 a otras:mm_topic_computational_EL2;
    otras:has_topic_code 3130;
    otras:is_narrower_than otras:MM_TOPIC_3100;
    otras:has_topic_descriptor "Topic: Computational aspects of physical equation EL.2"^^xs:string.
+otras:MM_TOPIC_3133 a otras:mm_topic_computational_EL2;
+   otras:has_topic_code 3133;
+   otras:is_narrower_than otras:MM_TOPIC_3130;
+   otras:has_topic_descriptor "Topic: Density matrix renormalization group (DMRG) method"^^xs:string.
 
 otras:MM_TOPIC_3140 a otras:mm_topic_computational_EL3;
    otras:has_topic_code 3140;
@@ -1174,21 +1198,29 @@ otras:MM_TOPIC_7120 a otras:mm_topic_theoretical_EL1;
    otras:has_topic_code 7120;
    otras:is_narrower_than otras:MM_TOPIC_7100;
    otras:has_topic_descriptor "Topic: Theoretical aspects of physical equation EL.1"^^xs:string.
+otras:MM_TOPIC_7124 a otras:mm_topic_theoretical_EL1;
+   otras:has_topic_code 7124;
+   otras:is_narrower_than otras:MM_TOPIC_7120;
+   otras:has_topic_descriptor "Topic: Time-dependent DFT (TD-DFT)"^^xs:string.
 
 otras:MM_TOPIC_7130 a otras:mm_topic_theoretical_EL2;
    otras:has_topic_code 7130;
    otras:is_narrower_than otras:MM_TOPIC_7100;
    otras:has_topic_descriptor "Topic: Theoretical aspects of physical equation EL.2"^^xs:string.
+otras:MM_TOPIC_7134 a otras:mm_topic_theoretical_EL2;
+   otras:has_topic_code 7134;
+   otras:is_narrower_than otras:MM_TOPIC_7130;
+   otras:has_topic_descriptor "Topic: Many-body perturbation theory (MBPT)"^^xs:string.
 
 otras:MM_TOPIC_7140 a otras:mm_topic_theoretical_EL3;
    otras:has_topic_code 7140;
    otras:is_narrower_than otras:MM_TOPIC_7100;
-   otras:has_topic_descriptor "Topic: Theoretical aspects of physical equation EL.3"^^xs:string.
+   otras:has_topic_descriptor "Topic: Theoretical aspects of physical equation EL.3, i.e., Dynamical Mean Field Theory (DMFT)"^^xs:string.
 
 otras:MM_TOPIC_7150 a otras:mm_topic_theoretical_EL4;
    otras:has_topic_code 7150;
    otras:is_narrower_than otras:MM_TOPIC_7100;
-   otras:has_topic_descriptor "Topic: Theoretical aspects of physical equation EL.4"^^xs:string.
+   otras:has_topic_descriptor "Topic: Theoretical aspects of physical equation EL.4, i.e., non-equilibrium Green's functions (NEGF)"^^xs:string.
 
 otras:MM_TOPIC_7160 a otras:mm_topic_theoretical_EL5;
    otras:has_topic_code 7160;
