@@ -3,7 +3,7 @@
 
 ### VERSION 0.9.6 ###
 
-### DATED 24RD APRIL 2020 ###
+### DATED 24TH APRIL 2020 ###
 
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 
