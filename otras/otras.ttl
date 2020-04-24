@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
 
-### VERSION 0.9.5 ###
+### VERSION 0.9.6 ###
 
-### DATED 23RD APRIL 2020 ###
+### DATED 24TH APRIL 2020 ###
 
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 
@@ -509,6 +509,24 @@ otras:mm_topic_computational_CO7 a owl:Class;
 otras:mm_topic_computational_CO8 a owl:Class;
    rdfs:comment "computational aspects of physical equation CO.8 (code 339X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_computational_continuum.
+otras:mm_topic_computational_non_equilibrium a owl:Class;
+   rdfs:comment "computational aspects of non-equilibrium states and physical processes (code 34XX)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_computational.
+otras:mm_topic_computational_rare_event a owl:Class;
+   rdfs:comment "rare-event simulation methods (code 346X)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_computational_non_equilibrium.
+otras:mm_topic_computational_multiphase a owl:Class;
+   rdfs:comment "computational aspects of interfacial phenomena and multiphase or heterogeneous systems (code 35XX)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_computational.
+otras:mm_topic_computational_statistical a owl:Class;
+   rdfs:comment "computational aspects of statistical mechanics and statistical approaches to materials modelling (code 36XX)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_computational.
+otras:mm_topic_computational_thermodynamics a owl:Class;
+   rdfs:comment "computational aspects of phenomenological thermodynamics (code 37XX)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_computational.
+otras:mm_topic_computational_mechanics a owl:Class;
+   rdfs:comment "computational aspects of classical and/or quantum mechanics (code 38XX)"^^xs:string;
+   rdfs:subClassOf otras:mm_topic_computational.
 
 otras:mm_topic_data a owl:Class;
    rdfs:comment "a topic related to data science and technology aspects of materials modelling (code 4XXX if unique, 8XXX if interdisciplinary)"^^xs:string;
@@ -1019,6 +1037,56 @@ otras:MM_TOPIC_3390 a otras:mm_topic_computational_CO8;
    otras:is_narrower_than otras:MM_TOPIC_3300;
    otras:has_topic_descriptor "Topic: Computational aspects of physical equation CO.8"^^xs:string.
 
+otras:MM_TOPIC_3400 a otras:mm_topic_computational_non_equilibrium;
+   otras:has_topic_code 3400;
+   otras:is_narrower_than otras:MM_TOPIC_3000;
+   otras:has_topic_descriptor "Topic: Computational aspects of non-equilibrium states and physical processes"^^xs:string.
+
+otras:MM_TOPIC_3460 a otras:mm_topic_computational_rare_event;
+   otras:has_topic_code 3460;
+   otras:is_narrower_than otras:MM_TOPIC_3400;
+   otras:has_topic_descriptor "Topic: Rare-event simulation methods"^^xs:string.
+
+otras:MM_TOPIC_3462 a otras:mm_topic_computational_rare_event;
+   otras:has_topic_code 3462;
+   otras:is_narrower_than otras:MM_TOPIC_3460;
+   otras:has_topic_descriptor "Topic: Rare-event simulation by biased/forced dynamics (metadynamics, methods based on Jarzynski's theorem, etc.)"^^xs:string.
+
+otras:MM_TOPIC_3464 a otras:mm_topic_computational_rare_event;
+   otras:has_topic_code 3464;
+   otras:is_narrower_than otras:MM_TOPIC_3460;
+   otras:has_topic_descriptor "Topic: Rare-event simulation by biased stochastic sampling (umbrella sampling, Wang-Landau sampling, etc.)"^^xs:string.
+
+otras:MM_TOPIC_3466 a otras:mm_topic_computational_rare_event;
+   otras:has_topic_code 3466;
+   otras:is_narrower_than otras:MM_TOPIC_3460;
+   otras:has_topic_descriptor "Topic: Rare-event simulation by replica-exchange methods"^^xs:string.
+
+otras:MM_TOPIC_3468 a otras:mm_topic_computational_rare_event;
+   otras:has_topic_code 3468;
+   otras:is_narrower_than otras:MM_TOPIC_3460;
+   otras:has_topic_descriptor "Topic: Rare-event simulation by statistics over trajectories, e.g., path-sampling based methods (FFS, TIS, TPS, etc.)"^^xs:string.
+
+otras:MM_TOPIC_3500 a otras:mm_topic_computational_multiphase;
+   otras:has_topic_code 3500;
+   otras:is_narrower_than otras:MM_TOPIC_3000;
+   otras:has_topic_descriptor "Topic: Computational aspects of interfacial phenomena and multiphase or heterogeneous systems"^^xs:string.
+
+otras:MM_TOPIC_3600 a otras:mm_topic_computational_statistical;
+   otras:has_topic_code 3600;
+   otras:is_narrower_than otras:MM_TOPIC_3000;
+   otras:has_topic_descriptor "Topic: Computational aspects of statistical mechanics and statistical approaches to materials modelling"^^xs:string.
+
+otras:MM_TOPIC_3700 a otras:mm_topic_computational_thermodynamics;
+   otras:has_topic_code 3700;
+   otras:is_narrower_than otras:MM_TOPIC_3000;
+   otras:has_topic_descriptor "Topic: Computational aspects of phenomenological thermodynamics"^^xs:string.
+
+otras:MM_TOPIC_3800 a otras:mm_topic_computational_mechanics;
+   otras:has_topic_code 3800;
+   otras:is_narrower_than otras:MM_TOPIC_3000;
+   otras:has_topic_descriptor "Topic: Computational aspects of classical and/or quantum mechanics"^^xs:string.
+
 otras:MM_TOPIC_4000 a otras:mm_topic_data;
    otras:has_topic_code 4000;
    otras:is_narrower_than otras:MM_TOPIC_0000;
@@ -1043,6 +1111,10 @@ otras:MM_TOPIC_5300 a otras:mm_topic_materials_bio;
    otras:has_topic_code 5300;
    otras:is_narrower_than otras:MM_TOPIC_5000;
    otras:has_topic_descriptor "Topic: Biomaterials"^^xs:string.
+otras:MM_TOPIC_5330 a otras:mm_topic_materials_bio;
+   otras:has_topic_code 5330;
+   otras:is_narrower_than otras:MM_TOPIC_5300;
+   otras:has_topic_descriptor "Topic: Living matter"^^xs:string.
 
 otras:MM_TOPIC_5350 a otras:mm_topic_materials_ceramic;
    otras:has_topic_code 5350;
@@ -1414,6 +1486,11 @@ otras:MM_TOPIC_8450 a otras:mm_topic_interdisciplinary_data_materials;
    otras:has_topic_code 8450;
    otras:is_narrower_than otras:MM_TOPIC_8000;
    otras:has_topic_descriptor "Topic: Interdisciplinary studies with significant data-science and material-property aspects"^^xs:string.
+
+otras:MM_TOPIC_8454 a otras:mm_topic_interdisciplinary_data_materials;
+   otras:has_topic_code 8454;
+   otras:is_narrower_than otras:MM_TOPIC_8450;
+   otras:has_topic_descriptor "Topic: Bioinformatics applied to genomics/genome analysis"^^xs:string.
 
 otras:MM_TOPIC_8460 a otras:mm_topic_interdisciplinary_data_social;
    otras:has_topic_code 8460;

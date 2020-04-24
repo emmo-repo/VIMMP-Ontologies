@@ -13,11 +13,11 @@
 
 ### EMMO 1.0 SIMPLIFIED (EMMO1S) ###
 
-### VERSION 0.9.3 ###
+### VERSION 0.9.4 ###
 
-### DATED 8TH APRIL 2020 ###
+### DATED 24TH APRIL 2020 ###
 
-@prefix emmo1s: <http://www.vimmp.eu/semantics/emmo/emmo1s.ttl#>.
+@prefix emmo1s: <http://www.vimmp.eu/semantics/alignment/emmo1s.ttl#>.
 
 @prefix emmo-holistic: <http://emmo.info/emmo/middle/holistic#>.
 @prefix emmo-manufacturing: <http://emmo.info/emmo/middle/manufacturing#>.
@@ -725,13 +725,13 @@ emmo1s:hasProperty a owl:ObjectProperty;
 
 ### EMMO-VIMMP INTEGRATION (EVI) ###
 
-### VERSION 0.4.2 ###
+### VERSION 0.4.3 ###
 
-### DATED 8TH APRIL 2020 ###
+### DATED 24TH APRIL 2020 ###
 
-@prefix evi: <http://www.vimmp.eu/semantics/evi/evi.ttl#>.
+@prefix evi: <http://www.vimmp.eu/semantics/alignment/evi.ttl#>.
 
-@prefix emmo1s: <http://www.vimmp.eu/semantics/emmo/emmo1s.ttl#>.
+@prefix emmo1s: <http://www.vimmp.eu/semantics/alignment/emmo1s.ttl#>.
 @prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.

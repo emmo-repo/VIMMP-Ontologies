@@ -1,11 +1,11 @@
 
 ### EMMO 1.0 SIMPLIFIED (EMMO1S) ###
 
-### VERSION 0.9.3 ###
+### VERSION 0.9.4 ###
 
-### DATED 8TH APRIL 2020 ###
+### DATED 24TH APRIL 2020 ###
 
-@prefix emmo1s: <http://www.vimmp.eu/semantics/emmo/emmo1s.ttl#>.
+@prefix emmo1s: <http://www.vimmp.eu/semantics/alignment/emmo1s.ttl#>.
 
 @prefix emmo-holistic: <http://emmo.info/emmo/middle/holistic#>.
 @prefix emmo-manufacturing: <http://emmo.info/emmo/middle/manufacturing#>.
