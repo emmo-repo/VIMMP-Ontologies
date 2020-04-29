@@ -7163,9 +7163,9 @@ ccso:Professor rdfs:subClassOf vico:agent.
 
 ### VIMMP COMMUNICATION ONTOLOGY (VICO) ###
 
-### VERSION 1.1.1 ###
+### VERSION 1.1.2 ###
 
-### DATED 28TH MARCH 2020 ###
+### DATED 29TH APRIL 2020 ###
 
 @prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
 
