@@ -84,8 +84,8 @@ vico:appendix a owl:Class;
    rdfs:comment "appendix, i.e., a statement that cannot stand alone and needs to be combined with a communication body"^^xs:string.
 
 vico:validation_communication a owl:Class;
-   rdfs:subClassOf evmpo:communication, vivo:validation_entity;
-   owl:intersectionOf (evmpo:communication vivo:validation_entity);
+   rdfs:subClassOf evmpo:communication;
+#   owl:intersectionOf (evmpo:communication vivo:validation_entity);
    rdfs:comment "validation communication, i.e., a communication which, as its main feature or purpose, relates to validation"^^xs:string.
 
 vico:access_rule a owl:Class;
