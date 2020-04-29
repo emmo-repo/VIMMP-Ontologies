@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 1.4.4 ###
+### VERSION 1.5.0 ###
 
-### DATED 22ND APRIL 2020 ###
+### DATED 29TH APRIL 2020 ###
 
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -414,18 +414,14 @@ osmo:pe_type_continuum_process_model a owl:Class;
    osmo:has_mm_topic otras:MM_TOPIC_3390, otras:MM_TOPIC_7390;
    rdfs:comment "RoMM model vocabulary category 4.7, OSMO PE type CO.8"^^xs:string.
 
-osmo:workflow_entity a owl:Class;
-   rdfs:subClassOf evmpo:marketplace_related_entity;
-   rdfs:comment "workflow entity, i.e., an element or aspect that can occur in a simulation workflow structure"^^xs:string.
-
-osmo:workflow_entity owl:disjointUnionOf (osmo:logical_entity osmo:section_entity osmo:workflow_graph).
+[owl:disjointUnionOf (osmo:logical_entity osmo:section osmo:section_aspect osmo:workflow_graph)] rdfs:subClassOf evmpo:marketplace_related_entity.
 
 osmo:workflow_resource a owl:Class;
-   rdfs:subClassOf osmo:workflow_entity;
+   rdfs:subClassOf evmpo:marketplace_related_entity;
    rdfs:comment "workflow resource, i.e., a workflow entity that can be contained as a node-like element or as a subgraph by a workflow graph"^^xs:string.
 
 osmo:has_resource_label a owl:DatatypeProperty;
-   rdfs:domain osmo:workflow_entity;
+   rdfs:domain evmpo:marketplace_related_entity, [owl:unionOf (osmo:logical_entity osmo:section osmo:section_aspect osmo:workflow_graph)];
    rdfs:range xs:string;
    rdfs:comment "label to be used, e.g., in graph representations and for other visualization purposes"^^xs:string.
 
@@ -490,14 +486,10 @@ osmo:indexed_graph rdfs:subClassOf [
       owl:minCardinality 2
    ].
 
-osmo:section_entity a owl:Class;
-   rdfs:subClassOf osmo:workflow_entity;
-   rdfs:comment "section entity, i.e., an OSMO/MODA section or an aspect thereof"^^xs:string.
-
-osmo:section_entity owl:disjointUnionOf (osmo:application_case_entity osmo:model_entity osmo:solver_entity osmo:processor_entity).
+[owl:disjointUnionOf (osmo:application_case osmo:application_case_aspect osmo:application_decision_support_system osmo:materials_model osmo:model_aspect osmo:solver osmo:solver_aspect osmo:processor osmo:processor_aspect)] rdfs:subPropertyOf evmpo:marketplace_related_entity.
 
 osmo:section a owl:Class;
-   rdfs:subClassOf osmo:workflow_resource, osmo:section_entity;
+   rdfs:subClassOf osmo:workflow_resource;
    rdfs:comment "section, i.e., a use case, model, solver, or processor (as in MODA)"^^xs:string.
 
 osmo:section owl:disjointUnionOf (osmo:application_case osmo:materials_model osmo:solver osmo:processor).
@@ -614,7 +606,7 @@ osmo:applies_to a owl:ObjectProperty;
    owl:inverseOf osmo:considers.
 
 osmo:section_aspect a owl:Class;
-   rdfs:subClassOf osmo:section_entity;
+   rdfs:subClassOf evmpo:marketplace_related_entity;
    rdfs:comment "section aspect, i.e., an aspect of a use case, model, solver, or processor that can be represented by a section"^^xs:string.
 
 osmo:has_aspect_text_content a owl:DatatypeProperty;
@@ -730,24 +722,10 @@ osmo:timespan_information a owl:Class;
    rdfs:subClassOf osmo:section_aspect;
    rdfs:comment "time span information, i.e., statement on the time interval considered, modelled, or represented by an OSMO/MODA section"^^xs:string.
 
-osmo:application_case_entity a owl:Class;
-   rdfs:subClassOf osmo:section_entity;
-   rdfs:comment "application case entity, i.e., an application case or an aspect thereof"^^xs:string.
-
-osmo:application_case_entity owl:disjointUnionOf (osmo:application_case osmo:application_case_aspect osmo:application_decision_support_system).
-
-osmo:application_case_entity owl:disjointUnionOf (mmto:bc_entity mmto:ic_entity mmto:tc_entity osmo:use_case_entity).
-
-osmo:use_case_entity a owl:Class;
-   rdfs:subClassOf osmo:application_case_entity;
-   rdfs:comment "use case entity, i.e., a use case or an aspect thereof"^^xs:string.
-
-osmo:use_case_entity owl:disjointUnionOf (osmo:use_case osmo:use_case_aspect osmo:use_case_decision_support_system).
-
 # I am reinserting this for the time being, the previous change was non-trivial, let us discuss this
 #
 osmo:application_case a owl:Class;
-   rdfs:subClassOf mmto:project_entity, evmpo:annotation, osmo:section, osmo:application_case_entity;
+   rdfs:subClassOf mmto:project_entity, evmpo:annotation, osmo:section;
    rdfs:comment "application case, i.e., a scenario, point of view, or subjective or negotiated set of aims"^^xs:string.
 
 osmo:application_case owl:disjointUnionOf (mmto:business_case mmto:industrial_case mmto:translation_case osmo:use_case).
@@ -774,7 +752,7 @@ osmo:has_decision_support a owl:ObjectProperty;
    rdfs:comment "points to information on the application decision support system"^^xs:string.
 
 osmo:use_case a owl:Class;
-   rdfs:subClassOf osmo:use_case_entity, osmo:application_case;
+   rdfs:subClassOf osmo:application_case;
    rdfs:comment "use case (i.e., in MODA: 'user case')"^^xs:string.
 
 osmo:has_use_case_summary a owl:DatatypeProperty;
@@ -831,7 +809,7 @@ osmo:use_case rdfs:subClassOf [
    ].
 
 osmo:application_case_aspect a owl:Class;
-   rdfs:subClassOf osmo:section_aspect, osmo:application_case_entity;
+   rdfs:subClassOf osmo:section_aspect;
    rdfs:comment "application-case aspect (similar as in MODA or extensions of MODA)"^^xs:string.
 
 osmo:application_case_aspect owl:disjointUnionOf (mmto:bc_aspect mmto:ic_aspect mmto:tc_aspect osmo:use_case_aspect).
@@ -847,10 +825,8 @@ osmo:application_case_decision_support rdfs:subClassOf [
    ].
 
 osmo:use_case_aspect a owl:Class;
-   rdfs:subClassOf osmo:application_case_aspect, osmo:use_case_entity;
+   rdfs:subClassOf osmo:application_case_aspect;
    rdfs:comment "use-case aspect (similar as in MODA)"^^xs:string.
-
-osmo:use_case_aspect owl:intersectionOf (osmo:application_case_aspect osmo:use_case_entity).
 
 osmo:use_case_description a owl:Class;
    rdfs:subClassOf osmo:use_case_aspect, osmo:section_description, [
@@ -890,14 +866,8 @@ osmo:use_case_decision_support rdfs:subClassOf [
       owl:someValuesFrom osmo:use_case_decision_support_system
    ].
 
-osmo:model_entity a owl:Class;
-   rdfs:subClassOf osmo:section_entity;
-   rdfs:comment "model entity, i.e., a materials model (as in MODA) or an aspect thereof"^^xs:string.
-
-osmo:model_entity owl:disjointUnionOf (osmo:materials_model osmo:model_aspect).
-
 osmo:materials_model a owl:Class;
-   rdfs:subClassOf osmo:section, evmpo:model, osmo:model_entity;
+   rdfs:subClassOf osmo:section, evmpo:model;
    rdfs:comment "materials model (as in MODA)"^^xs:string.
 
 osmo:has_model_aspect a owl:ObjectProperty;
@@ -959,10 +929,8 @@ osmo:materials_model rdfs:subClassOf [
    ].
 
 osmo:model_aspect a owl:Class;
-   rdfs:subClassOf osmo:section_aspect, osmo:model_entity;
+   rdfs:subClassOf osmo:section_aspect;
    rdfs:comment "model aspect, i.e., an aspect of a materials model"^^xs:string.
-
-osmo:model_aspect owl:intersectionOf (osmo:section_aspect osmo:model_entity).
 
 osmo:model_type a owl:Class;
    rdfs:subClassOf osmo:model_aspect, osmo:method_type;
@@ -1008,14 +976,8 @@ osmo:model_error_statement a owl:Class;
    rdfs:subClassOf osmo:error_statement;
    rdfs:comment "model error statement, characterizes/describes the error or uncertainty associated with a model"^^xs:string.
 
-osmo:solver_entity a owl:Class;
-   rdfs:subClassOf osmo:section_entity;
-   rdfs:comment "solver entity, i.e., a solver or an aspect thereof"^^xs:string.
-
-osmo:solver_entity owl:disjointUnionOf (osmo:solver osmo:solver_aspect).
-
 osmo:solver a owl:Class;
-   rdfs:subClassOf osmo:section, evmpo:annotation, osmo:solver_entity;
+   rdfs:subClassOf osmo:section, evmpo:annotation;
    rdfs:comment "solver (as in MODA)"^^xs:string.
 
 osmo:has_solver_aspect a owl:ObjectProperty;
@@ -1070,10 +1032,8 @@ osmo:solver rdfs:subClassOf [
    ].
 
 osmo:solver_aspect a owl:Class;
-   rdfs:subClassOf osmo:section_aspect, osmo:solver_entity;
+   rdfs:subClassOf osmo:section_aspect;
    rdfs:comment "MODA solver aspect, i.e., an aspect of a solver (similar to MODA)"^^xs:string.
-
-osmo:solver_aspect owl:intersectionOf (osmo:section_aspect osmo:solver_entity).
 
 osmo:solver_method_type a owl:Class;
    rdfs:subClassOf osmo:solver_aspect, osmo:method_type;
@@ -1142,14 +1102,8 @@ osmo:solver_error_statement a owl:Class;
    rdfs:subClassOf osmo:error_statement;
    rdfs:comment "solver error statement, characterizes/describes the error or uncertainty associated with a solver output"^^xs:string.
 
-osmo:processor_entity a owl:Class;
-   rdfs:subClassOf osmo:section_entity;
-   rdfs:comment "processor entity, i.e., a processor that can be described by MODA section 4, or an aspect thereof"^^xs:string.
-
-osmo:processor_entity owl:disjointUnionOf (osmo:processor osmo:processor_aspect).
-
 osmo:processor a owl:Class;
-   rdfs:subClassOf osmo:section, evmpo:annotation, osmo:processor_entity;
+   rdfs:subClassOf osmo:section, evmpo:annotation;
    rdfs:comment "processor (like a MODA postprocessor, however, without implying execution subsequent to a solver, which would correspond to the special case represented by the subclass osmo:postprocessor)"^^xs:string.
 
 osmo:has_processor_aspect a owl:ObjectProperty;
@@ -1194,10 +1148,8 @@ osmo:data_processor a owl:Class;
    rdfs:comment "data processor, i.e., a processor that is not coupled or immediately linked to a solver".
 
 osmo:processor_aspect a owl:Class;
-   rdfs:subClassOf osmo:section_aspect, osmo:processor_entity;
+   rdfs:subClassOf osmo:section_aspect;
    rdfs:comment "processor aspect, i.e., an aspect of a processor (as in MODA)"^^xs:string.
-
-osmo:processor_aspect owl:intersectionOf (osmo:section_aspect osmo:processor_entity).
 
 osmo:processor_method_type a owl:Class;
    rdfs:subClassOf osmo:processor_aspect, osmo:method_type, [
@@ -1445,7 +1397,7 @@ osmo:quantitative_condition a owl:Class;
 
 
 osmo:logical_entity a owl:Class;
-   rdfs:subClassOf osmo:workflow_entity;
+   rdfs:subClassOf evmpo:marketplace_related_entity;
    rdfs:comment "logical entity, i.e., a notational element of a simulation workflow related to data exchange and communication"^^xs:string.
 
 osmo:logical_resource a owl:Class;

@@ -1,7 +1,7 @@
 
 ### VIMMP COMMUNICATION ONTOLOGY (VICO) ###
 
-### VERSION 1.1.2 ###
+### VERSION 1.1.4 ###
 
 ### DATED 29TH APRIL 2020 ###
 
@@ -85,7 +85,6 @@ vico:appendix a owl:Class;
 
 vico:validation_communication a owl:Class;
    rdfs:subClassOf evmpo:communication;
-#   owl:intersectionOf (evmpo:communication vivo:validation_entity);
    rdfs:comment "validation communication, i.e., a communication which, as its main feature or purpose, relates to validation"^^xs:string.
 
 vico:access_rule a owl:Class;
@@ -198,14 +197,14 @@ vico:task owl:intersectionOf (vico:message [a owl:Restriction; owl:onProperty vi
 vico:declaration a owl:Class;
    rdfs:subClassOf vico:message;
    rdfs:comment "declaration, i.e., a message without recipient"^^xs:string;
-   owl:equivalentClass evmpo:declaration.
+   owl:sameAs evmpo:declaration.
 
 vico:declaration owl:intersectionOf (vico:message [a owl:Restriction; owl:onProperty vico:has_recipient; owl:cardinality 0]).
 
 vico:interlocution a owl:Class;
    rdfs:subClassOf vico:message;
    rdfs:comment "interlocution, i.e., a message that has at least one recipient"^^xs:string;
-   owl:equivalentClass evmpo:interlocution.
+   owl:sameAs evmpo:interlocution.
 
 vico:has_recipient a owl:ObjectProperty;
    rdfs:domain vico:interlocution;
@@ -375,7 +374,7 @@ vico:mobile_number a owl:Class;
 vico:agent a owl:Class;
    rdfs:subClassOf evmpo:interpreter;
    rdfs:comment "agent, i.e., an entity that has (in principle) the potential of acting at a virtual marketplace, whether that capability is exercised or not"^^xs:string;
-   owl:equivalentClass evmpo:agent.
+   owl:sameAs evmpo:agent.
 
 vico:acts_at a owl:ObjectProperty;
    rdfs:domain vico:agent;
@@ -558,11 +557,11 @@ vico:consultant a owl:Class;
 
 vico:data_provider a owl:Class;
    rdfs:subClassOf vico:interlocutor;
-   owl:equivalentClass evmpo:data_provider.
+   owl:sameAs evmpo:data_provider.
 
 vico:end_user a owl:Class;
    rdfs:subClassOf vico:interlocutor;
-   owl:equivalentClass evmpo:end_user.
+   owl:sameAs evmpo:end_user.
 
 vico:guest a owl:Class;
    rdfs:subClassOf vico:marketplace_subject.
@@ -572,19 +571,19 @@ vico:manufacturer a owl:Class;
 
 vico:model_provider a owl:Class;
    rdfs:subClassOf vico:interlocutor;
-   owl:equivalentClass evmpo:model_provider.
+   owl:sameAs evmpo:model_provider.
 
 vico:software_owner a owl:Class;
    rdfs:subClassOf vico:interlocutor;
-   owl:equivalentClass evmpo:software_owner.
+   owl:sameAs evmpo:software_owner.
 
 vico:training_provider a owl:Class;
    rdfs:subClassOf vico:interlocutor;
-   owl:equivalentClass evmpo:training_provider.
+   owl:sameAs evmpo:training_provider.
 
 vico:translator a owl:Class;
    rdfs:subClassOf vico:interlocutor;
-   owl:equivalentClass evmpo:translator;
+   owl:sameAs evmpo:translator;
    rdfs:comment "translator as characterized by the EMMC Translators' Guide and the EMMC Translation Case Template"^^xs:string.
 
 vico:technology_transfer_institute a owl:Class;

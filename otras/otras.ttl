@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
 
-### VERSION 0.9.7 ###
+### VERSION 0.9.8 ###
 
-### DATED 24TH APRIL 2020 ###
+### DATED 29TH APRIL 2020 ###
 
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 
@@ -22,13 +22,8 @@
 
 <http://www.vimmp.eu/semantics/otras/otras.ttl#> a owl:Ontology.
 
-# otras:training_entity a owl:Class;
-#    rdfs:comment "training entity, i.e., an entity related to training"^^xs:string;
-#    rdfs:subClassOf evmpo:marketplace_related_entity.
-
 otras:carrier a owl:Class;
    rdfs:comment "carrier, e.g, material, activity, event that carries the contents of a course"^^xs:string.
-# otras:carrier rdfs:subClassOf otras:training_entity.
 
 otras:has_targeted_group a owl:ObjectProperty;
    rdfs:domain otras:carrier;
@@ -126,7 +121,6 @@ otras:has_offered_course a owl:ObjectProperty;
 otras:focus a owl:Class;
    rdfs:comment "focus, i.e., a studied object or topic or training objective (or an aspect or constitutive part thereof)";
    rdfs:subClassOf evmpo:annotation.
-# otras:focus rdfs:subClassOf otras:training_entity.
 
 otras:has_focus_descriptor a owl:DatatypeProperty;
    rdfs:domain otras:focus;
@@ -315,7 +309,6 @@ otras:course a owl:Class;
    rdfs:comment "a course as defined by CCSO"^^xs:string;
    rdfs:subClassOf evmpo:process;
    owl:equivalentClass ccso:Course.
-# otras:course rdfs:subClassOf otras:training_entity.
 
 otras:has_carrier a owl:ObjectProperty;
    rdfs:domain otras:course;
@@ -2414,7 +2407,6 @@ otras:journal_article_citation rdfs:subClassOf [
 otras:author_identification_entity a owl:Class;
    rdfs:subClassOf evmpo:annotation;
    rdfs:comment "author identification entity, i.e., an entity related to the identification of authors"^^xs:string.
-# otras:author_identification_entity rdfs:subClassOf otras:training_entity.
 
 otras:author_identifier a owl:Class;
    rdfs:subClassOf otras:author_identification_entity;

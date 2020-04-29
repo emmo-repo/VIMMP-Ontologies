@@ -1,9 +1,9 @@
 
 ### MARKETPLACE-ACCESSIBLE COMPUTATIONAL RESOURCE ONTOLOGY (MACRO) ###
 
-### VERSION 0.4.2 ###
+### VERSION 0.4.3 ###
 
-### DATED 28TH MARCH 2020 ###
+### DATED 29TH APRIL 2020 ###
 
 @prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
 
@@ -20,24 +20,19 @@
 
 <http://www.vimmp.eu/semantics/macro/macro.ttl#> a owl:Ontology.
 
-macro:computational_entity a owl:Class;
-   rdfs:subClassOf evmpo:marketplace_related_entity;
-   rdfs:comment "computational entity, i.e., a computational resource or a pheonomenon or attribute associated with a computational resource"^^xs:string.
-
 macro:computational_resource a owl:Class;
-   rdfs:subClassOf evmpo:infrastructure, macro:computational_entity;
-   rdfs:comment "computational resource, i.e., an infrastructure that is a computational entity"^^xs:string;
-   owl:intersectionOf (evmpo:infrastructure macro:computational_entity).
+   rdfs:subClassOf evmpo:infrastructure;
+   rdfs:comment "computational resource, i.e., an infrastructure that is a computational entity"^^xs:string.
 
 macro:computational_resource owl:unionOf (macro:data_infrastructure macro:hardware_infrastructure macro:software_infrastructure).
 
 macro:data_infrastructure a owl:Class;
    rdfs:subClassOf macro:computational_resource;
-   owl:equivalentClass evmpo:data_infrastructure.
+   owl:sameAs evmpo:data_infrastructure.
 
 macro:hardware_infrastructure a owl:Class;
    rdfs:subClassOf macro:computational_resource;
-   owl:equivalentClass evmpo:hardware_infrastructure.
+   owl:sameAs evmpo:hardware_infrastructure.
 
 macro:hpc_infrastructure a owl:Class;
    rdfs:subClassOf macro:hardware_infrastructure.
@@ -50,7 +45,7 @@ macro:cloud_infrastructure a owl:Class;
 
 macro:software_infrastructure a owl:Class;
    rdfs:subClassOf macro:computational_resource;
-   owl:equivalentClass evmpo:software_infrastructure.
+   owl:sameAs evmpo:software_infrastructure.
 
 viso:software_tool rdfs:subClassOf macro:software_infrastructure.
 
@@ -135,7 +130,7 @@ macro:provides_access_to a owl:ObjectProperty;
 macro:infrastructure_service rdfs:subClassOf [a owl:Restriction; owl:onProperty macro:provides_access_to; owl:someValuesFrom evmpo:infrastructure].
 
 macro:cr_service a owl:Class;
-   rdfs:subClassOf macro:infrastructure_service, macro:computational_entity;
+   rdfs:subClassOf macro:infrastructure_service;
    owl:intersectionOf (macro:infrastructure_service [a owl:Restriction; owl:onProperty macro:provides_access_to; owl:someValuesFrom macro:computational_resource]);
    rdfs:comment "computational resource service, i.e., an infrastructure service providing access to (or use of) a computational resource"^^xs:string.
 
@@ -156,7 +151,7 @@ macro:software_service a owl:Class;
    owl:intersectionOf (macro:cr_service [a owl:Restriction; owl:onProperty macro:provides_access_to; owl:someValuesFrom evmpo:software_infrastructure]).
 
 macro:io_format a owl:Class;
-   rdfs:subClassOf macro:computational_entity, evmpo:annotation;
+   rdfs:subClassOf evmpo:annotation;
    rdfs:comment "I/O format, i.e., syntactical convention to which a technical I/O implementation can adhere"^^xs:string.
 
 macro:has_definition_uri a owl:DatatypeProperty;

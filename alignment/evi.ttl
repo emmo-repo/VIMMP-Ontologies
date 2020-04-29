@@ -365,11 +365,6 @@ osmo:materials_relation a owl:Class;
 # OTRAS-EMMO INTEGRATION #
 ##########################
 
-# # OTRAS top class
-# #
-# otras:training_entity a owl:Class;
-#    rdfs:subClassOf evi:meta_emmo.
-
 # a citation is a sign for an information content entity
 #
 otras:citation a owl:Class;
@@ -384,13 +379,11 @@ otras:citation a owl:Class;
 #
 otras:course a owl:Class;
    rdfs:subClassOf emmo1s:Process, evmpo:process.
-# otras:course rdfs:subClassOf otras:training_entity.
 
 # a focus is a symbolic entity
 #
 otras:focus a owl:Class;
    rdfs:subClassOf emmo1s:Symbolic, evmpo:annotation.
-# otras:focus rdfs:subClassOf otras:training_entity.
 
 # a topic is a sign
 #

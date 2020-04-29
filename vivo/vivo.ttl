@@ -1,9 +1,9 @@
 
 ### VIMMP VALIDATION ONTOLOGY (VIVO) ###
 
-### VERSION 0.4.2 ###
+### VERSION 0.4.3 ###
 
-### DATED 8TH APRIL 2020 ###
+### DATED 29TH APRIL 2020 ###
 
 @prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
 
@@ -20,32 +20,8 @@
 
 <http://www.vimmp.eu/semantics/vivo/vivo.ttl#> a owl:Ontology.
 
-# vivo:validation_entity a owl:Class;
-#    rdfs:comment "validation entity, i.e., a paradigmatic entity related to validation"^^xs:string;
-#    rdfs:subClassOf evmpo:paradigmatic_entity.
 
-# vivo:validation_entity owl:unionOf (vivo:assertion evmpo:assessment vivo:validation_statement vivo:validation_infrastructure vivo:material_property).
-
-vivo:accuracy_entity a owl:Class;
-   rdfs:subClassOf evmpo:paradigmatic_entity.
-# vivo:accuracy_entity rdfs:subClassOf vivo:validation_entity.
-
-vivo:accuracy_entity owl:disjointUnionOf (vivo:accuracy_assertion vivo:accuracy_assessment);
-   owl:disjointWith vivo:requirement_entity, vivo:review_entity.
-
-vivo:requirement_entity a owl:Class;
-   rdfs:subClassOf evmpo:paradigmatic_entity.
-# vivo:requirement_entity rdfs:subClassOf vivo:validation_entity.
-
-vivo:requirement_entity owl:disjointUnionOf (vivo:requirement_assertion vivo:requirement_assessment);
-   owl:disjointWith vivo:accuracy_entity, vivo:review_entity.
-
-vivo:review_entity a owl:Class;
-   rdfs:subClassOf evmpo:paradigmatic_entity.
-# vivo:review_entity rdfs:subClassOf vivo:validation_entity.
-
-vivo:review_entity owl:disjointUnionOf (vivo:review_assertion vivo:review_assessment);
-   owl:disjointWith vivo:accuracy_entity, vivo:requirement_entity.
+[owl:disjointUnionOf vivo:accuracy_assertion, vivo:accuracy_assessment, vivo:requirement_assertion, vivo:requirement_assessment, vivo:review_assertion, vivo:review_assessment] rdfs:subClassOf evmpo:paradigmatic_entity.
 
 
 #####################################
@@ -54,7 +30,7 @@ vivo:review_entity owl:disjointUnionOf (vivo:review_assertion vivo:review_assess
 
 vivo:data_item a owl:Class;
    rdfs:subClassOf evmpo:information_content_entity;
-   owl:equivalentClass evmpo:data_item.
+   owl:sameAs evmpo:data_item.
 
 vivo:assertion a owl:Class;
    rdfs:subClassOf vivo:data_item.
@@ -115,8 +91,7 @@ vivo:is_given_in a owl:ObjectProperty, owl:FunctionalProperty;
    rdfs:subPropertyOf evmpo:has_information_content_entity_annotation.
 
 vivo:accuracy_assertion a owl:Class;
-   rdfs:subClassOf vivo:assertion, vivo:accuracy_entity;
-   owl:intersectionOf (vivo:assertion vivo:accuracy_entity);
+   rdfs:subClassOf vivo:assertion;
    rdfs:comment "accuracy assertion, i.e., statement on an uncertainty, error, or deviation from the most accurate possible value"^^xs:string.
 
 vivo:has_deviation_magnitude a owl:DatatypeProperty, owl:FunctionalProperty;
@@ -133,12 +108,10 @@ vivo:relative_deviation a owl:Class;
    rdfs:subClassOf vivo:accuracy_assertion.
 
 vivo:requirement_assertion a owl:Class;
-   rdfs:subClassOf vivo:conceptual_assertion, vivo:requirement_entity;
-   owl:intersectionOf (vivo:assertion vivo:requirement_entity).
+   rdfs:subClassOf vivo:conceptual_assertion.
 
 vivo:review_assertion a owl:Class;
-   rdfs:subClassOf vivo:assertion, vivo:review_entity;
-   owl:intersectionOf (vivo:assertion vivo:review_entity).
+   rdfs:subClassOf vivo:assertion.
 
 
 ######################################
@@ -276,8 +249,7 @@ vivo:evaluates_workflow a owl:ObjectProperty;
    rdfs:subPropertyOf vivo:evaluates.
 
 vivo:accuracy_assessment a owl:Class;
-   rdfs:subClassOf vivo:accuracy_entity, evmpo:assessment, [owl:unionOf (vivo:data_item_assessment vivo:document_assessment vivo:infrastructure_assessment vivo:model_assessment vivo:workflow_assessment)];
-   owl:intersectionOf (vivo:accuracy_entity evmpo:assessment).
+   rdfs:subClassOf evmpo:assessment, [owl:unionOf (vivo:data_item_assessment vivo:document_assessment vivo:infrastructure_assessment vivo:model_assessment vivo:workflow_assessment)].
 
 vivo:has_accuracy_assertion a owl:ObjectProperty;
    rdfs:domain vivo:accuracy_assessment;
@@ -285,9 +257,8 @@ vivo:has_accuracy_assertion a owl:ObjectProperty;
    rdfs:subPropertyOf vivo:has_assertion.
 
 vivo:requirement_assessment a owl:Class;
-   rdfs:subClassOf vivo:requirement_entity, evmpo:assessment, [owl:unionOf (vivo:event_assessment vivo:infrastructure_assessment vivo:model_assessment vivo:project_assessment vivo:workflow_assessment)];
-   owl:intersectionOf (vivo:requirement_entity evmpo:assessment);
-   owl:equivalentClass evmpo:requirement_assessment.
+   rdfs:subClassOf evmpo:assessment, [owl:unionOf (vivo:event_assessment vivo:infrastructure_assessment vivo:model_assessment vivo:project_assessment vivo:workflow_assessment)];
+   owl:sameAs evmpo:requirement_assessment.
 
 vivo:has_requirement_assertion a owl:ObjectProperty;
    rdfs:domain vivo:requirement_assessment;
@@ -295,8 +266,7 @@ vivo:has_requirement_assertion a owl:ObjectProperty;
    rdfs:subPropertyOf vivo:has_assertion.
 
 vivo:review_assessment a owl:Class;
-   rdfs:subClassOf vivo:review_entity, evmpo:assessment;
-   owl:intersectionOf (vivo:review_entity evmpo:assessment).
+   rdfs:subClassOf evmpo:assessment.
 
 vivo:has_review_assertion a owl:ObjectProperty;
    rdfs:domain vivo:review_assessment;
@@ -309,7 +279,7 @@ vivo:has_stars a owl:DatatypeProperty;
 
 vivo:endorsement_assessment a owl:Class;
    rdfs:subClassOf vivo:review_assessment;
-   owl:equivalentClass evmpo:endorsement_assessment.
+   owl:sameAs evmpo:endorsement_assessment.
 
 
 ################################
@@ -354,18 +324,14 @@ vivo:certificate rdfs:subClassOf [
 vivo:validation_infrastructure a owl:Class;
    rdfs:subClassOf evmpo:infrastructure;
    rdfs:comment "validation infrastructure, i.e., an infrastructure which, as its main feature or purpose, relates to validation"^^xs:string.
-# vivo:validation_infrastructure rdfs:subClassOf vivo:validation_entity.
-# vivo:validation_infrastructure owl:intersectionOf (vivo:validation_entity evmpo:infrastructure).
 
 vivo:validation_infrastructure owl:disjointWith vivo:assertion, evmpo:assessment, vivo:material_property, vivo:validation_statement.
 
 vivo:validation_channel a owl:Class;
    rdfs:subClassOf vivo:validation_infrastructure, macro:channel.
-# vivo:validation_channel owl:intersectionOf (vivo:validation_entity macro:channel).
 
 vivo:validation_repository a owl:Class;
    rdfs:subClassOf vivo:validation_infrastructure, macro:repository, evmpo:agent, vico:agent.
-# vivo:validation_repository owl:intersectionOf (vivo:validation_entity macro:repository).
 
 
 ###########################
@@ -374,9 +340,8 @@ vivo:validation_repository a owl:Class;
 
 vivo:material_property a owl:Class;
    rdfs:subClassOf evmpo:property, osmo:logical_variable;
-   owl:equivalentClass evmpo:material_property;
+   owl:sameAs evmpo:material_property;
    rdfs:comment "thermodynamic or mechanical behaviour of a material (referring either to the real material itself or a model thereof)"^^xs:string.
-# vivo:material_property rdfs:subClassOf vivo:validation_entity.
 
 vivo:is_quantity_kind a owl:ObjectProperty, owl:FunctionalProperty;
    rdfs:domain vivo:material_property;

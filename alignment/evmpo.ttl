@@ -1,7 +1,7 @@
 
 ### EUROPEAN VIRTUAL MARKETPLACE ONTOLOGY (EVMPO) ###
 
-### VERSION 1.2.2, DATED 30TH MARCH 2020 ###
+### VERSION 1.2.3, DATED 29TH APRIL 2020 ###
 
 @prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
 
@@ -192,8 +192,7 @@ evmpo:interpreter a owl:Class;
 
 evmpo:agent a owl:Class;
    rdfs:subClassOf evmpo:interpreter;
-   rdfs:comment "agent, i.e., an entity that has (in principle) the potential of acting at a virtual marketplace, whether that capability is exercised or not"^^xs:string;
-   owl:equivalentClass evmpo:agent.
+   rdfs:comment "agent, i.e., an entity that has (in principle) the potential of acting at a virtual marketplace, whether that capability is exercised or not"^^xs:string.
 
 evmpo:stakeholder a owl:Class;
    rdfs:subClassOf evmpo:agent;
