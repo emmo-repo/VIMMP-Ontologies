@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
 
-### VERSION 0.9.8 ###
+### VERSION 0.9.9 ###
 
-### DATED 29TH APRIL 2020 ###
+### DATED 4TH MAY 2020 ###
 
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 
@@ -2404,12 +2404,8 @@ otras:journal_article_citation rdfs:subClassOf [
       owl:someValuesFrom xs:string
    ].
 
-otras:author_identification_entity a owl:Class;
-   rdfs:subClassOf evmpo:annotation;
-   rdfs:comment "author identification entity, i.e., an entity related to the identification of authors"^^xs:string.
-
 otras:author_identifier a owl:Class;
-   rdfs:subClassOf otras:author_identification_entity;
+   rdfs:subClassOf evmpo:annotation;
    rdfs:comment "author identifier, i.e., a descriptor by which an author can be identified"^^xs:string.
 
 otras:has_identified_given_name a owl:DatatypeProperty, owl:FunctionalProperty;
@@ -2432,7 +2428,7 @@ otras:author_identifier rdfs:subClassOf [
    ].
 
 otras:author_map a owl:Class;
-   rdfs:subClassOf otras:author_identification_entity;
+   rdfs:subClassOf evmpo:annotation;
    rdfs:comment "author map, i.e., an indexed collection of author identifiers (n.b., not a collection of the persons themselves, but of identifiers)"^^xs:string.
 
 otras:has_author_map_element a owl:ObjectProperty;
@@ -2441,7 +2437,7 @@ otras:has_author_map_element a owl:ObjectProperty;
    rdfs:subPropertyOf evmpo:has_meta_annotation.
 
 otras:author_map_element a owl:Class;
-   rdfs:subClassOf otras:author_identification_entity;
+   rdfs:subClassOf evmpo:annotation;
    rdfs:comment "author map element, i.e., a numbered entry within an indexed collection of author identifiers"^^xs:string.
 
 otras:has_ame_identifier a owl:ObjectProperty, owl:FunctionalProperty;
