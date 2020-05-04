@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 1.5.0 ###
+### VERSION 1.5.1 ###
 
-### DATED 29TH APRIL 2020 ###
+### DATED 4TH MAY 2020 ###
 
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -414,14 +414,14 @@ osmo:pe_type_continuum_process_model a owl:Class;
    osmo:has_mm_topic otras:MM_TOPIC_3390, otras:MM_TOPIC_7390;
    rdfs:comment "RoMM model vocabulary category 4.7, OSMO PE type CO.8"^^xs:string.
 
-[owl:disjointUnionOf (osmo:logical_entity osmo:section osmo:section_aspect osmo:workflow_graph)] rdfs:subClassOf evmpo:marketplace_related_entity.
+[owl:disjointUnionOf (osmo:logical_resource osmo:logical_term osmo:logical_access osmo:section osmo:section_aspect osmo:workflow_graph)] rdfs:subClassOf evmpo:marketplace_related_entity.
 
 osmo:workflow_resource a owl:Class;
    rdfs:subClassOf evmpo:marketplace_related_entity;
    rdfs:comment "workflow resource, i.e., a workflow entity that can be contained as a node-like element or as a subgraph by a workflow graph"^^xs:string.
 
 osmo:has_resource_label a owl:DatatypeProperty;
-   rdfs:domain evmpo:marketplace_related_entity, [owl:unionOf (osmo:logical_entity osmo:section osmo:section_aspect osmo:workflow_graph)];
+   rdfs:domain evmpo:marketplace_related_entity, [owl:unionOf (osmo:logical_resource osmo:logical_term osmo:logical_access osmo:section osmo:section_aspect osmo:workflow_graph)];
    rdfs:range xs:string;
    rdfs:comment "label to be used, e.g., in graph representations and for other visualization purposes"^^xs:string.
 
@@ -1396,12 +1396,8 @@ osmo:quantitative_condition a owl:Class;
    rdfs:comment "quantitative condition, i.e., a condition (e.g., an equation) that imposes a particular value for one of the considered quantities assuming that all others are given"^^xs:string.
 
 
-osmo:logical_entity a owl:Class;
-   rdfs:subClassOf evmpo:marketplace_related_entity;
-   rdfs:comment "logical entity, i.e., a notational element of a simulation workflow related to data exchange and communication"^^xs:string.
-
 osmo:logical_resource a owl:Class;
-   rdfs:subClassOf osmo:logical_entity, osmo:workflow_resource, evmpo:annotation;
+   rdfs:subClassOf osmo:workflow_resource, evmpo:annotation;
    rdfs:comment "logical resource, i.e., a notational element of a simulation workflow to which data (i.e., logical variables) are formally written and/or from where they can be formally read"^^xs:string.
 
 osmo:has_logical_label a owl:DatatypeProperty;
@@ -1422,7 +1418,7 @@ osmo:has_stored_variable a owl:ObjectProperty;
    rdfs:range osmo:logical_variable.
 
 osmo:logical_term a owl:Class;
-   rdfs:subClassOf osmo:logical_entity;
+   rdfs:subClassOf evmpo:marketplace_related_entity;
    rdfs:comment "logical term, i.e., a logical variable or a value that can be assigned to a logical variable"^^xs:string.
 
 osmo:has_term_index a owl:DatatypeProperty;
@@ -1650,7 +1646,7 @@ osmo:structure_collection a owl:Class;
 
 
 osmo:logical_access a owl:Class;
-   rdfs:subClassOf osmo:logical_entity, evmpo:annotation;
+   rdfs:subClassOf evmpo:annotation;
    rdfs:comment "logical access, i.e., a notational process/connection by which an OSMO/MODA section accesses a logical resource"^^xs:string.
 
 osmo:has_access_point a owl:ObjectProperty;
