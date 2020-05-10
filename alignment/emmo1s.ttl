@@ -1,9 +1,9 @@
 
 ### EMMO 1.0 SIMPLIFIED (EMMO1S) ###
 
-### VERSION 0.9.4 ###
+### VERSION 0.9.5 ###
 
-### DATED 24TH APRIL 2020 ###
+### DATED 10TH MAY 2020 ###
 
 @prefix emmo1s: <http://www.vimmp.eu/semantics/alignment/emmo1s.ttl#>.
 
@@ -24,7 +24,7 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
-<http://www.vimmp.eu/semantics/emmo/emmo1s.ttl> a owl:Ontology.
+<http://www.vimmp.eu/semantics/alignment/emmo1s.ttl> a owl:Ontology.
 
 
 #############################################

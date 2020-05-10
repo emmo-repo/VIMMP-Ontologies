@@ -1,9 +1,9 @@
 
 ### EMMO-VIMMP INTEGRATION (EVI) ###
 
-### VERSION 0.4.3 ###
+### VERSION 0.4.4 ###
 
-### DATED 24TH APRIL 2020 ###
+### DATED 10TH MAY 2020 ###
 
 @prefix evi: <http://www.vimmp.eu/semantics/alignment/evi.ttl#>.
 
@@ -11,11 +11,15 @@
 @prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix owl2: <http://www.w3.org/2006/12/owl2#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix viso: <http://www.vimmp.eu/semantics/viso/viso-general.ttl#>.
 @prefix viso-am: <http://www.vimmp.eu/semantics/viso/viso-atomistic-mesoscopic.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
-<http://www.vimmp.eu/semantics/evi/evi.ttl> a owl:Ontology.
+<http://www.vimmp.eu/semantics/alignment/evi.ttl> a owl:Ontology.
 
 
 #########################

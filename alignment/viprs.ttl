@@ -1,0 +1,192 @@
+
+### VIMMP PRIMITIVES (VIPRS) ###
+
+### VERSION 0.1.0 ###
+
+### DATED 10TH MAY 2020 ###
+
+# 1. Modal square of opposition
+#
+# 2. Below, categories of primitive properties for EMMO-based mereology and semiotics
+#
+# a) occurrence and requirement (implied co-occurrence) in the same scenario, possible world, environment, or realization 
+#    -> necessity/possibility
+#    -> positive/negative
+#    -> active/passive
+#
+# b) proper parthood (eight varieties) - below coexistence
+#    -> necessity/possibility
+#    -> positive/negative
+#    -> active/passive
+#
+# c) representation (eight varieties) - coexistence not explicitly implied (however, it is indirectly implied through the EMMO)
+#    -> necessity/possibility
+#    -> positive/negative
+#    -> active/passive
+#
+# 3. Additionally, non-primitives
+#
+# a) more specific high-level properties
+# b) chain properties: mereosemiotics
+
+@prefix viprs: <http://www.vimmp.eu/semantics/alignment/viprs.ttl#>.
+
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix owl2: <http://www.w3.org/2006/12/owl2#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xs: <http://www.w3.org/2001/XMLSchema#>.
+
+<http://www.vimmp.eu/semantics/alignment/viprs.ttl> a owl:Ontology.
+
+viprs:meta_emmo a owl:Class;
+   rdfs:subClassOf owl:Thing.
+viprs:realization a owl:Class;
+   rdfs:subClassOf viprs:meta_emmo;
+   owl:disjointWith viprs:entity;
+   rdfs:comment "realization, i.e., a scenario, possible world, or environment"^^xs:string.
+viprs:entity a owl:Class;
+   rdfs:subClassOf viprs:meta_emmo;
+   owl:disjointWith viprs:realization;
+   rdfs:comment "entity, i.e., something that may or may not occur within a realization"^^xs:string.
+viprs:occurs_in a owl:ObjectProperty;
+   rdfs:domain viprs:entity;
+   rdfs:range viprs:realization;
+   owl:propertyDisjointWith viprs:does_not_occur_in.
+viprs:does_not_occur_in a owl:ObjectProperty;
+   rdfs:domain viprs:entity;
+   rdfs:range viprs:realization;
+   owl:propertyDisjointWith viprs:occurs_in.
+
+#################################
+# 1. MODAL SQUARE OF OPPOSITION #
+#################################
+
+viprs:top_relation a owl:ObjectProperty;
+   rdfs:domain viprs:entity;
+   rdfs:range viprs:entity;
+   owl:sameAs owl:TopObjectProperty.
+viprs:necessary_relation a owl:ObjectProperty;
+   rdfs:domain viprs:entity;
+   rdfs:range viprs:entity;
+   rdfs:subPropertyOf viprs:possible_relation;
+   # owl:propertyDisjointWith viprs:non_necessary_relation;
+   rdfs:comment "X necessary_relation Y == in all realizations, X relates to Y"^^xs:string.
+viprs:possible_relation a owl:ObjectProperty;
+   rdfs:domain viprs:entity;
+   rdfs:range viprs:entity;
+   rdfs:subPropertyOf viprs:top_relation;
+   # owl:propertyDisjointWith viprs:impossible_relation;
+   rdfs:comment "X possible_relation Y == in at least one realization, X relates to Y"^^xs:string.
+viprs:non_necessary_relation a owl:ObjectProperty;
+   rdfs:domain viprs:entity;
+   rdfs:range viprs:entity;
+   rdfs:subPropertyOf viprs:top_relation;
+   # owl:propertyDisjointWith viprs:necessary_relation;
+   rdfs:comment "X possible_relation Y == in at least one realization, X does not relate to Y"^^xs:string.
+viprs:impossible_relation a owl:ObjectProperty;
+   rdfs:domain viprs:entity;
+   rdfs:range viprs:entity;
+   rdfs:subPropertyOf viprs:non_necessary_relation;
+   # owl:propertyDisjointWith viprs:possible_relation;
+   rdfs:comment "X impossible_relation Y == in all realizations, X does not relate to Y"^^xs:string.
+
+##########################################################
+# 2A. OCCURRENCE AND REQUIREMENT (IMPLIED CO-OCCURRENCE) #
+##########################################################
+
+# square of opposition for individuals
+#
+viprs:necessary_entity a owl:Class;
+   rdfs:subClassOf viprs:possible_entity;
+   owl:equivalentClass [
+      owl:intersectionOf (
+         viprs:entity [
+            a owl:Restriction;
+            owl:onProperty viprs:does_not_occur_in;
+            owl:cardinality 0
+         ]
+      )
+   ];
+   rdfs:comment "necessary entity, i.e., an entity that occurs in every realization"^^xs:string.
+viprs:possible_entity a owl:Class;
+   rdfs:subClassOf viprs:entity;
+   owl:equivalentClass [
+      owl:intersectionOf (
+         viprs:entity [
+            a owl:Restriction;
+            owl:onProperty viprs:occurs_in;
+            owl:someValuesFrom viprs:realization
+         ]
+      )
+   ];
+   rdfs:comment "possible entity, i.e., an entity that occurs in at least one realization"^^xs:string.
+viprs:non_necessary_entity a owl:Class;
+   rdfs:subClassOf viprs:entity;
+   owl:equivalentClass [
+      owl:intersectionOf (
+         viprs:entity [
+            a owl:Restriction;
+            owl:onProperty viprs:does_not_occur_in;
+            owl:someValuesFrom viprs:realization
+         ]
+      )
+   ];
+   rdfs:comment "non-necessary entity, i.e., an entity that does not occur in all realizations"^^xs:string.
+viprs:impossible_entity a owl:Class;
+   rdfs:subClassOf viprs:non_necessary_entity;
+   owl:equivalentClass [
+      owl:intersectionOf (
+         viprs:entity [
+            a owl:Restriction;
+            owl:onProperty viprs:occurs_in;
+            owl:cardinality 0
+         ]
+      )
+   ];
+   rdfs:comment "impossible entity, i.e., an entity that does not occur in any realization"^^xs:string.
+
+viprs:entity owl:disjointUnionOf (viprs:necessary_entity viprs:non_necessary_entity).
+viprs:entity owl:disjointUnionOf (viprs:possible_entity viprs:impossible_entity).
+
+# I, necessary, positive, active
+#
+viprs:requires a owl:ObjectProperty, owl:TransitiveProperty;
+   rdfs:subPropertyOf viprs:necessary_relation;
+   rdfs:comment "X requires Y == in all realizations, Y occurs or X does not occur"^^xs:string.
+
+# II, necessary, positive, passive
+#
+viprs:is_required_by a owl:ObjectProperty, owl:TransitiveProperty;
+   rdfs:subPropertyOf viprs:necessary_relation;
+   rdfs:comment "X is_required_by Y == in all realizations, X occurs or Y does not occur"^^xs:string.
+
+# III, necessary, negative, active
+#
+
+# IV, necessary, negative, passive
+
+# V, possible, positive, active
+
+# VI, possible, positive, passive
+
+# VII, possible, negative, active
+
+# VIII, possible, negative, passive
+
+
+#######################
+# 2B. PROPER PARTHOOD #
+#######################
+
+######################
+# 2C. REPRESENTATION #
+######################
+
+###########################################
+# 3A. MORE SPECIFIC HIGH-LEVEL PROPERTIES #
+###########################################
+
+#####################################
+# 3B. MEREOSEMIOTIC CHAIN RELATIONS #
+#####################################
