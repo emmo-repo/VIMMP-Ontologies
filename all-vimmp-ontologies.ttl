@@ -1572,11 +1572,14 @@ vcl:CL_SCHEME_MM_TOPIC a owl:NamedIndividual, skos:ConceptScheme;
 
 ### VIMMP PRIMITIVES (VIPRS) ###
 
-### VERSION 0.1.0 ###
+### VERSION 0.1.1 ###
 
-### DATED 10TH MAY 2020 ###
+### DATED 15TH MAY 2020 ###
 
 # 1. Modal square of opposition
+#
+# a) individual relations
+# b) conceptual relations
 #
 # 2. Below, categories of primitive properties for EMMO-based mereology and semiotics
 #
@@ -1584,6 +1587,7 @@ vcl:CL_SCHEME_MM_TOPIC a owl:NamedIndividual, skos:ConceptScheme;
 #    -> necessity/possibility
 #    -> positive/negative
 #    -> active/passive
+#    -> individual/conceptual
 #
 # b) proper parthood (eight varieties) - below coexistence
 #    -> necessity/possibility
@@ -1628,43 +1632,46 @@ viprs:does_not_occur_in a owl:ObjectProperty;
    rdfs:domain viprs:entity;
    rdfs:range viprs:realization;
    owl:propertyDisjointWith viprs:occurs_in.
+viprs:top_relation a owl:ObjectProperty;
+   rdfs:domain viprs:entity;
+   rdfs:range viprs:entity.
 
 #################################
 # 1. MODAL SQUARE OF OPPOSITION #
 #################################
 
-viprs:top_relation a owl:ObjectProperty;
-   rdfs:domain viprs:entity;
-   rdfs:range viprs:entity;
-   owl:sameAs owl:TopObjectProperty.
-viprs:necessary_relation a owl:ObjectProperty;
-   rdfs:domain viprs:entity;
-   rdfs:range viprs:entity;
-   rdfs:subPropertyOf viprs:possible_relation;
-   # owl:propertyDisjointWith viprs:non_necessary_relation;
-   rdfs:comment "X necessary_relation Y == in all realizations, X relates to Y"^^xs:string.
-viprs:possible_relation a owl:ObjectProperty;
-   rdfs:domain viprs:entity;
-   rdfs:range viprs:entity;
-   rdfs:subPropertyOf viprs:top_relation;
-   # owl:propertyDisjointWith viprs:impossible_relation;
-   rdfs:comment "X possible_relation Y == in at least one realization, X relates to Y"^^xs:string.
-viprs:non_necessary_relation a owl:ObjectProperty;
-   rdfs:domain viprs:entity;
-   rdfs:range viprs:entity;
-   rdfs:subPropertyOf viprs:top_relation;
-   # owl:propertyDisjointWith viprs:necessary_relation;
-   rdfs:comment "X possible_relation Y == in at least one realization, X does not relate to Y"^^xs:string.
-viprs:impossible_relation a owl:ObjectProperty;
-   rdfs:domain viprs:entity;
-   rdfs:range viprs:entity;
-   rdfs:subPropertyOf viprs:non_necessary_relation;
-   # owl:propertyDisjointWith viprs:possible_relation;
-   rdfs:comment "X impossible_relation Y == in all realizations, X does not relate to Y"^^xs:string.
+# note; for classification purposes, the top relations
+# are provided in two versions: individual and conceptual
 
-##########################################################
-# 2A. OCCURRENCE AND REQUIREMENT (IMPLIED CO-OCCURRENCE) #
-##########################################################
+## 1A. INDIVIDUAL RELATIONS: X relates to Y (below "X P Y", for some P) ##
+
+viprs:individual_necessity a owl:ObjectProperty;
+   rdfs:domain viprs:entity;
+   rdfs:range viprs:entity;
+   rdfs:subPropertyOf viprs:individual_possibility, viprs:conceptual_necessity;
+   rdfs:comment "X individual_necessity Y == for some P, in all realizations X P Y"^^xs:string.
+viprs:individual_possibility a owl:ObjectProperty;
+   rdfs:domain viprs:entity;
+   rdfs:range viprs:entity;
+   rdfs:subPropertyOf viprs:top_relation;
+   rdfs:comment "X individual_possibility Y == for some P, in some realization X P Y"^^xs:string.
+
+## 1B. CONCEPTUAL RELATIONS: X and Y are selected from sets/classes A and B, respectively ##
+
+viprs:conceptual_necessity a owl:ObjectProperty;
+   rdfs:domain viprs:entity;
+   rdfs:range viprs:entity;
+   rdfs:subPropertyOf viprs:top_relation;
+   rdfs:comment "X conceptual_necessity Y == for some property P, A concept for X, B concept for Y, in all realizations [some A] P [some B]"^^xs:string.
+viprs:conceptual_possibility a owl:ObjectProperty;
+   rdfs:domain viprs:entity;
+   rdfs:range viprs:entity;
+   rdfs:subPropertyOf viprs:individual_possibility;
+   rdfs:comment "X conceptual_possibility Y == for some property P, A concept for X, B concept for Y, in some realization [all A] P [all B]"^^xs:string.
+
+############################################
+# 2A. OCCURRENCE AND IMPLIED CO-OCCURRENCE #
+############################################
 
 # square of opposition for individuals
 #
@@ -1720,31 +1727,37 @@ viprs:impossible_entity a owl:Class;
 viprs:entity owl:disjointUnionOf (viprs:necessary_entity viprs:non_necessary_entity).
 viprs:entity owl:disjointUnionOf (viprs:possible_entity viprs:impossible_entity).
 
-# I, necessary, positive, active
+# necessary-positive, active, individual
 #
 viprs:requires a owl:ObjectProperty, owl:TransitiveProperty;
-   rdfs:subPropertyOf viprs:necessary_relation;
-   rdfs:comment "X requires Y == in all realizations, Y occurs or X does not occur"^^xs:string.
+   rdfs:domain viprs:entity;
+   rdfs:range viprs:entity;
+   rdfs:subPropertyOf viprs:individual_necessity;
+   rdfs:comment "X requires Y == in all realizations, Y occurs or X does not occur (i.e., X -> Y)"^^xs:string.
 
-# II, necessary, positive, passive
+# necessary-positive, passive, individual
 #
 viprs:is_required_by a owl:ObjectProperty, owl:TransitiveProperty;
-   rdfs:subPropertyOf viprs:necessary_relation;
-   rdfs:comment "X is_required_by Y == in all realizations, X occurs or Y does not occur"^^xs:string.
+   rdfs:domain viprs:entity;
+   rdfs:range viprs:entity;
+   rdfs:subPropertyOf viprs:individual_necessity;
+   rdfs:comment "X is_required_by Y == in all realizations, X occurs or Y does not occur (i.e., Y -> X)"^^xs:string.
 
-# III, necessary, negative, active
+# possible-negative, active, individual
 #
+viprs:does_not_require a owl:ObjectProperty;
+   rdfs:domain viprs:possible_entity;
+   rdfs:range viprs:non_necessary_entity;
+   rdfs:subPropertyOf viprs:individual_possibility;
+   rdfs:comment "X does_not_require Y == in some realization, X occurs and Y does not occur (i.e., ![X -> Y])"^^xs:string.
 
-# IV, necessary, negative, passive
-
-# V, possible, positive, active
-
-# VI, possible, positive, passive
-
-# VII, possible, negative, active
-
-# VIII, possible, negative, passive
-
+# possible-negative, passive, individual
+#
+viprs:is_not_required_by a owl:ObjectProperty;
+   rdfs:domain viprs:possible_entity;
+   rdfs:range viprs:non_necessary_entity;
+   rdfs:subPropertyOf viprs:individual_possibility;
+   rdfs:comment "X is_not_required_by Y == in some realization, Y occurs and X does not occur (i.e., ![Y -> X])"^^xs:string.
 
 #######################
 # 2B. PROPER PARTHOOD #
@@ -1761,6 +1774,7 @@ viprs:is_required_by a owl:ObjectProperty, owl:TransitiveProperty;
 #####################################
 # 3B. MEREOSEMIOTIC CHAIN RELATIONS #
 #####################################
+
 ### MARKETPLACE-ACCESSIBLE COMPUTATIONAL RESOURCE ONTOLOGY (MACRO) ###
 
 ### VERSION 0.4.3 ###
