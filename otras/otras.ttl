@@ -1,22 +1,21 @@
 
 ### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
 
-### VERSION 0.9.9 ###
+### VERSION 0.9.10 ###
 
-### DATED 4TH MAY 2020 ###
+### DATED 15TH MAY 2020 ###
 
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 
 @prefix ccso: <https://w3id.org/ccso/ccso#>.
-@prefix codelist: <http://purl.example.com/codelists/codelist#>.
 @prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
-@prefix ex: <http://purl.example.com/ontologies/solution#>.
 @prefix iao: <http://purl.obolibrary.org/obo/iao.owl#>.
 @prefix ical: <https://www.w3.org/2002/12/cal/icaltzd#>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix skos: <http://www.w3.org/2004/02/skos/core#>.
+@prefix vcl: <http://www.vimmp.eu/semantics/alignment/vcl.ttl#>.
 @prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
@@ -138,6 +137,7 @@ otras:has_topic_descriptor a owl:DatatypeProperty;
 otras:is_broader_than a owl:ObjectProperty, owl:TransitiveProperty;
    rdfs:domain otras:topic;
    rdfs:range otras:topic;
+   rdfs:subPropertyOf skos:narrower;  # in SKOS, "A narrower B" means that B is narrower (A is broader)
    owl:inverseOf otras:is_narrower_than.
 otras:is_discussed_by_document a owl:ObjectProperty;
    rdfs:domain otras:topic;
@@ -146,6 +146,7 @@ otras:is_discussed_by_document a owl:ObjectProperty;
 otras:is_narrower_than a owl:ObjectProperty, owl:TransitiveProperty;
    rdfs:domain otras:topic;
    rdfs:range otras:topic;
+   rdfs:subPropertyOf skos:broader;  # in SKOS, "A broader B" means that B is broader (A is narrower)
    owl:inverseOf otras:is_broader_than.
 
 otras:specifier a owl:Class;
@@ -389,7 +390,7 @@ otras:ccs_concept rdfs:subClassOf [
 
 otras:mm_topic a owl:Class;
    rdfs:comment "materials modelling topic, i.e., a topic related to the subject area of materials modelling, understood broadly"^^xs:string;
-   rdfs:subClassOf otras:topic, owl:NamedIndividual, ex:CodeList.
+   rdfs:subClassOf otras:topic, owl:NamedIndividual.
 
 otras:has_topic_code a owl:DatatypeProperty, owl:FunctionalProperty;
    rdfs:domain otras:mm_topic;
@@ -764,1108 +765,1104 @@ otras:mm_topic_side a owl:Class;
    rdfs:comment "a topic from other disciplines that can be a side interest from the point of view of materials modelling (code 9XXX)"^^xs:string;
    rdfs:subClassOf otras:mm_topic.
 
-codelist:CL_MM_TOPIC a owl:NamedIndividual, skos:ConceptScheme;
-   skos:prefLabel "mm_topic"^^xs:string;
-   skos:definition "materials modelling topic"^^xs:string.
-
-otras:MM_TOPIC_1000 a otras:mm_topic_basic;
+otras:MM_TOPIC_1000 a otras:mm_topic_basic, vcl:codelist_mm_topic;
    otras:has_topic_code 1000;
    otras:is_narrower_than otras:MM_TOPIC_0000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_1000"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_1000"^^xs:string, "MM_TOPIC_1000"@en;
    skos:prefLabel "Topic: Basic prerequisites (general)"^^xs:string.
 
-otras:MM_TOPIC_1100 a otras:mm_topic_basic_chemical;
+otras:MM_TOPIC_1100 a otras:mm_topic_basic_chemical, vcl:codelist_mm_topic;
    otras:has_topic_code 1100;
    otras:is_narrower_than otras:MM_TOPIC_1000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_1100"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_1100"^^xs:string, "MM_TOPIC_1100"@en;
    skos:prefLabel "Topic: Basic prerequisites in chemical and process engineering, biotechnology, petrochemistry, and organic chemistry"^^xs:string.
-otras:MM_TOPIC_1110 a otras:mm_topic_basic_chemical;
+otras:MM_TOPIC_1110 a otras:mm_topic_basic_chemical, vcl:codelist_mm_topic;
    otras:has_topic_code 1110;
    otras:is_narrower_than otras:MM_TOPIC_1100;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_1110"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_1110"^^xs:string, "MM_TOPIC_1110"@en;
    skos:prefLabel "Topic: Foundations in biotechnology and nutritional chemistry"^^xs:string.
-otras:MM_TOPIC_1120 a otras:mm_topic_basic_chemical;
+otras:MM_TOPIC_1120 a otras:mm_topic_basic_chemical, vcl:codelist_mm_topic;
    otras:has_topic_code 1120;
    otras:is_narrower_than otras:MM_TOPIC_1100;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_1120"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_1120"^^xs:string, "MM_TOPIC_1120"@en;
    skos:prefLabel "Topic: Foundations in fluid process engineering"^^xs:string.
-otras:MM_TOPIC_1130 a otras:mm_topic_basic_chemical;
+otras:MM_TOPIC_1130 a otras:mm_topic_basic_chemical, vcl:codelist_mm_topic;
    otras:has_topic_code 1130;
    otras:is_narrower_than otras:MM_TOPIC_1100;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_1130"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_1130"^^xs:string, "MM_TOPIC_1130"@en;
    skos:prefLabel "Topic: Foundations in industrial and applied chemistry and chemical reaction technology"^^xs:string.
-otras:MM_TOPIC_1140 a otras:mm_topic_basic_chemical;
+otras:MM_TOPIC_1140 a otras:mm_topic_basic_chemical, vcl:codelist_mm_topic;
    otras:has_topic_code 1140;
    otras:is_narrower_than otras:MM_TOPIC_1100;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_1140"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_1140"^^xs:string, "MM_TOPIC_1140"@en;
    skos:prefLabel "Topic: Foundations in organic chemistry"^^xs:string.
-otras:MM_TOPIC_1150 a otras:mm_topic_basic_chemical;
+otras:MM_TOPIC_1150 a otras:mm_topic_basic_chemical, vcl:codelist_mm_topic;
    otras:has_topic_code 1150;
    otras:is_narrower_than otras:MM_TOPIC_1100;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_1150"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_1150"^^xs:string, "MM_TOPIC_1150"@en;
    skos:prefLabel "Topic: Foundations in petrochemical engineering"^^xs:string.
-otras:MM_TOPIC_1160 a otras:mm_topic_basic_chemical;
+otras:MM_TOPIC_1160 a otras:mm_topic_basic_chemical, vcl:codelist_mm_topic;
    otras:has_topic_code 1160;
    otras:is_narrower_than otras:MM_TOPIC_1100;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_1160"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_1160"^^xs:string, "MM_TOPIC_1160"@en;
    skos:prefLabel "Topic: Foundations in thermal and general process engineering"^^xs:string.
-otras:MM_TOPIC_1170 a otras:mm_topic_basic_chemical;
+otras:MM_TOPIC_1170 a otras:mm_topic_basic_chemical, vcl:codelist_mm_topic;
    otras:has_topic_code 1170;
    otras:is_narrower_than otras:MM_TOPIC_1100;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_1170"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_1170"^^xs:string, "MM_TOPIC_1170"@en;
    skos:prefLabel "Topic: Foundations in mechanical process engineering and particle technology"^^xs:string.
-otras:MM_TOPIC_1180 a otras:mm_topic_basic_chemical;
+otras:MM_TOPIC_1180 a otras:mm_topic_basic_chemical, vcl:codelist_mm_topic;
    otras:has_topic_code 1180;
    otras:is_narrower_than otras:MM_TOPIC_1100;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_1180"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_1180"^^xs:string, "MM_TOPIC_1180"@en;
    skos:prefLabel "Topic: Foundations in chemical engineering thermodynamics"^^xs:string.
 
-otras:MM_TOPIC_1200 a otras:mm_topic_basic_economics;
+otras:MM_TOPIC_1200 a otras:mm_topic_basic_economics, vcl:codelist_mm_topic;
    otras:has_topic_code 1200;
    otras:is_narrower_than otras:MM_TOPIC_1000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_1200"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_1200"^^xs:string, "MM_TOPIC_1200"@en;
    skos:prefLabel "Topic: Basic prerequisites in economics, marketing, and business administration"^^xs:string.
 
-otras:MM_TOPIC_1300 a otras:mm_topic_basic_information;
+otras:MM_TOPIC_1300 a otras:mm_topic_basic_information, vcl:codelist_mm_topic;
    otras:has_topic_code 1300;
    otras:is_narrower_than otras:MM_TOPIC_1000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_1300"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_1300"^^xs:string, "MM_TOPIC_1300"@en;
    skos:prefLabel "Topic: Basic prerequisites in information technology, computer science, and progamming"^^xs:string.
-otras:MM_TOPIC_1360 a otras:mm_topic_basic_information;
+otras:MM_TOPIC_1360 a otras:mm_topic_basic_information, vcl:codelist_mm_topic;
    otras:has_topic_code 1360;
    otras:is_narrower_than otras:MM_TOPIC_1300;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_1300"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_1300"^^xs:string, "MM_TOPIC_1300"@en;
    skos:prefLabel "Topic: Foundations in data analysis/data science"^^xs:string.
-otras:MM_TOPIC_1370 a otras:mm_topic_basic_information;
+otras:MM_TOPIC_1370 a otras:mm_topic_basic_information, vcl:codelist_mm_topic;
    otras:has_topic_code 1370;
    otras:is_narrower_than otras:MM_TOPIC_1300;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_1370"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_1370"^^xs:string, "MM_TOPIC_1370"@en;
    skos:prefLabel "Topic: Foundations in data technology and/or (research) data management"^^xs:string.
 
-otras:MM_TOPIC_1400 a otras:mm_topic_basic_materials;
+otras:MM_TOPIC_1400 a otras:mm_topic_basic_materials, vcl:codelist_mm_topic;
    otras:has_topic_code 1400;
    otras:is_narrower_than otras:MM_TOPIC_1000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_1400"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_1400"^^xs:string, "MM_TOPIC_1400"@en;
    skos:prefLabel "Topic: Basic prerequisites in materials science and general or inorganic chemistry"^^xs:string.
 
-otras:MM_TOPIC_1500 a otras:mm_topic_basic_mathematics;
+otras:MM_TOPIC_1500 a otras:mm_topic_basic_mathematics, vcl:codelist_mm_topic;
    otras:has_topic_code 1500;
    otras:is_narrower_than otras:MM_TOPIC_1000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_1500"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_1500"^^xs:string, "MM_TOPIC_1500"@en;
    skos:prefLabel "Topic: Basic prerequisites in mathematics, statistics, and logic"^^xs:string.
 
-otras:MM_TOPIC_1600 a otras:mm_topic_basic_mechanical;
+otras:MM_TOPIC_1600 a otras:mm_topic_basic_mechanical, vcl:codelist_mm_topic;
    otras:has_topic_code 1600;
    otras:is_narrower_than otras:MM_TOPIC_1000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_1600"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_1600"^^xs:string, "MM_TOPIC_1600"@en;
    skos:prefLabel "Topic: Basic prerequisites in mechanical, aerospace, civil, electrical, and general engineering"^^xs:string.
 
-otras:MM_TOPIC_1700 a otras:mm_topic_basic_physics;
+otras:MM_TOPIC_1700 a otras:mm_topic_basic_physics, vcl:codelist_mm_topic;
    otras:has_topic_code 1700;
    otras:is_narrower_than otras:MM_TOPIC_1000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_1700"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_1700"^^xs:string, "MM_TOPIC_1700"@en;
    skos:prefLabel "Topic: Basic prerequisites in physics and theoretical or physical chemistry"^^xs:string.
-otras:MM_TOPIC_1730 a otras:mm_topic_basic_physics;
+otras:MM_TOPIC_1730 a otras:mm_topic_basic_physics, vcl:codelist_mm_topic;
    otras:has_topic_code 1730;
    otras:is_narrower_than otras:MM_TOPIC_1700;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_1730"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_1730"^^xs:string, "MM_TOPIC_1730"@en;
    skos:prefLabel "Topic: Foundations in solid-state physics"^^xs:string.
-otras:MM_TOPIC_1750 a otras:mm_topic_basic_physics;
+otras:MM_TOPIC_1750 a otras:mm_topic_basic_physics, vcl:codelist_mm_topic;
    otras:has_topic_code 1750;
    otras:is_narrower_than otras:MM_TOPIC_1700;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_1750"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_1750"^^xs:string, "MM_TOPIC_1750"@en;
    skos:prefLabel "Topic: Foundations in statistical mechanics and/or statistical physics"^^xs:string.
 
-otras:MM_TOPIC_1800 a otras:mm_topic_basic_interdisciplinary;
+otras:MM_TOPIC_1800 a otras:mm_topic_basic_interdisciplinary, vcl:codelist_mm_topic;
    otras:has_topic_code 1800;
    otras:is_narrower_than otras:MM_TOPIC_1000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_1800"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_1800"^^xs:string, "MM_TOPIC_1800"@en;
    skos:prefLabel "Topic: Interdisciplinary basic prerequisites"^^xs:string.
 
-otras:MM_TOPIC_1900 a otras:mm_topic_basic_secondary;
+otras:MM_TOPIC_1900 a otras:mm_topic_basic_secondary, vcl:codelist_mm_topic;
    otras:has_topic_code 1900;
    otras:is_narrower_than otras:MM_TOPIC_1000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_1900"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_1900"^^xs:string, "MM_TOPIC_1900"@en;
    skos:prefLabel "Topic: Secondary or pre-undergraduate level education and general basic knowledge"^^xs:string.
 
-otras:MM_TOPIC_3000 a otras:mm_topic_computational;
+otras:MM_TOPIC_3000 a otras:mm_topic_computational, vcl:codelist_mm_topic;
    otras:has_topic_code 3000;
    otras:is_narrower_than otras:MM_TOPIC_0000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_3000"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_3000"^^xs:string, "MM_TOPIC_3000"@en;
    skos:prefLabel "Topic: Computational or numerical (beyond basic prerequisites)"^^xs:string.
 
-otras:MM_TOPIC_3100 a otras:mm_topic_computational_electronic;
+otras:MM_TOPIC_3100 a otras:mm_topic_computational_electronic, vcl:codelist_mm_topic;
    otras:has_topic_code 3100;
    otras:is_narrower_than otras:MM_TOPIC_3000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_3100"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_3100"^^xs:string, "MM_TOPIC_3100"@en;
    skos:prefLabel "Topic: Computational aspects of electronic modelling"^^xs:string.
 
-otras:MM_TOPIC_3120 a otras:mm_topic_computational_EL1;
+otras:MM_TOPIC_3120 a otras:mm_topic_computational_EL1, vcl:codelist_mm_topic;
    otras:has_topic_code 3120;
    otras:is_narrower_than otras:MM_TOPIC_3100;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_3120"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_3120"^^xs:string, "MM_TOPIC_3120"@en;
    skos:prefLabel "Topic: Computational aspects of physical equation EL.1"^^xs:string.
-otras:MM_TOPIC_3123 a otras:mm_topic_computational_EL1;
+otras:MM_TOPIC_3123 a otras:mm_topic_computational_EL1, vcl:codelist_mm_topic;
    otras:has_topic_code 3123;
    otras:is_narrower_than otras:MM_TOPIC_3120;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_3123"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_3123"^^xs:string, "MM_TOPIC_3123"@en;
    skos:prefLabel "Topic: Hartree-Fock approach (HF)"^^xs:string.
 
-otras:MM_TOPIC_3130 a otras:mm_topic_computational_EL2;
+otras:MM_TOPIC_3130 a otras:mm_topic_computational_EL2, vcl:codelist_mm_topic;
    otras:has_topic_code 3130;
    otras:is_narrower_than otras:MM_TOPIC_3100;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_3130"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_3130"^^xs:string, "MM_TOPIC_3130"@en;
    skos:prefLabel "Topic: Computational aspects of physical equation EL.2"^^xs:string.
-otras:MM_TOPIC_3133 a otras:mm_topic_computational_EL2;
+otras:MM_TOPIC_3133 a otras:mm_topic_computational_EL2, vcl:codelist_mm_topic;
    otras:has_topic_code 3133;
    otras:is_narrower_than otras:MM_TOPIC_3130;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_3133"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_3133"^^xs:string, "MM_TOPIC_3133"@en;
    skos:prefLabel "Topic: Density matrix renormalization group (DMRG) method"^^xs:string.
 
-otras:MM_TOPIC_3140 a otras:mm_topic_computational_EL3;
+otras:MM_TOPIC_3140 a otras:mm_topic_computational_EL3, vcl:codelist_mm_topic;
    otras:has_topic_code 3140;
    otras:is_narrower_than otras:MM_TOPIC_3100;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_3140"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_3140"^^xs:string, "MM_TOPIC_3140"@en;
    skos:prefLabel "Topic: Computational aspects of physical equation EL.3"^^xs:string.
 
-otras:MM_TOPIC_3150 a otras:mm_topic_computational_EL4;
+otras:MM_TOPIC_3150 a otras:mm_topic_computational_EL4, vcl:codelist_mm_topic;
    otras:has_topic_code 3150;
    otras:is_narrower_than otras:MM_TOPIC_3100;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_3150"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_3150"^^xs:string, "MM_TOPIC_3150"@en;
    skos:prefLabel "Topic: Computational aspects of physical equation EL.4"^^xs:string.
 
-otras:MM_TOPIC_3160 a otras:mm_topic_computational_EL5;
+otras:MM_TOPIC_3160 a otras:mm_topic_computational_EL5, vcl:codelist_mm_topic;
    otras:has_topic_code 3160;
    otras:is_narrower_than otras:MM_TOPIC_3100;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_3160"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_3160"^^xs:string, "MM_TOPIC_3160"@en;
    skos:prefLabel "Topic: Computational aspects of physical equation EL.5"^^xs:string.
 
-otras:MM_TOPIC_3200 a otras:mm_topic_computational_discrete;
+otras:MM_TOPIC_3200 a otras:mm_topic_computational_discrete, vcl:codelist_mm_topic;
    otras:has_topic_code 3200;
    otras:is_narrower_than otras:MM_TOPIC_3000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_3200"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_3200"^^xs:string, "MM_TOPIC_3200"@en;
    skos:prefLabel "Topic: Computational aspects of discrete (atomistic and mesoscopic) modelling"^^xs:string.
 
-otras:MM_TOPIC_3220 a otras:mm_topic_computational_AM1;
+otras:MM_TOPIC_3220 a otras:mm_topic_computational_AM1, vcl:codelist_mm_topic;
    otras:has_topic_code 3220;
    otras:is_narrower_than otras:MM_TOPIC_3200;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_3220"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_3220"^^xs:string, "MM_TOPIC_3220"@en;
    skos:prefLabel "Topic: Computational aspects of physical equations A.1/M.1"^^xs:string.
-otras:MM_TOPIC_3222 a otras:mm_topic_computational_AM1;
+otras:MM_TOPIC_3222 a otras:mm_topic_computational_AM1, vcl:codelist_mm_topic;
    otras:has_topic_code 3222;
    otras:is_narrower_than otras:MM_TOPIC_3220;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_3222"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_3222"^^xs:string, "MM_TOPIC_3222"@en;
    skos:prefLabel "Topic: Computational aspects of physical equation A.1 specifically"^^xs:string.
-otras:MM_TOPIC_3225 a otras:mm_topic_computational_AM1;
+otras:MM_TOPIC_3225 a otras:mm_topic_computational_AM1, vcl:codelist_mm_topic;
    otras:has_topic_code 3225;
    otras:is_narrower_than otras:MM_TOPIC_3220;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_3225"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_3225"^^xs:string, "MM_TOPIC_3225"@en;
    skos:prefLabel "Topic: Computational aspects of physical equation M.1 specifically"^^xs:string.
 
-otras:MM_TOPIC_3230 a otras:mm_topic_computational_AM2;
+otras:MM_TOPIC_3230 a otras:mm_topic_computational_AM2, vcl:codelist_mm_topic;
    otras:has_topic_code 3230;
    otras:is_narrower_than otras:MM_TOPIC_3200;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_3230"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_3230"^^xs:string, "MM_TOPIC_3230"@en;
    skos:prefLabel "Topic: Computational aspects of physical equations A.2/M.2"^^xs:string.
-otras:MM_TOPIC_3232 a otras:mm_topic_computational_AM2;
+otras:MM_TOPIC_3232 a otras:mm_topic_computational_AM2, vcl:codelist_mm_topic;
    otras:has_topic_code 3232;
    otras:is_narrower_than otras:MM_TOPIC_3230;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_3232"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_3232"^^xs:string, "MM_TOPIC_3232"@en;
    skos:prefLabel "Topic: Computational aspects of physical equation A.2 specifically"^^xs:string.
-otras:MM_TOPIC_3235 a otras:mm_topic_computational_AM2;
+otras:MM_TOPIC_3235 a otras:mm_topic_computational_AM2, vcl:codelist_mm_topic;
    otras:has_topic_code 3235;
    otras:is_narrower_than otras:MM_TOPIC_3230;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_3235"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_3235"^^xs:string, "MM_TOPIC_3235"@en;
    skos:prefLabel "Topic: Computational aspects of physical equation M.2 specifically"^^xs:string.
 
-otras:MM_TOPIC_3240 a otras:mm_topic_computational_AM3;
+otras:MM_TOPIC_3240 a otras:mm_topic_computational_AM3, vcl:codelist_mm_topic;
    otras:has_topic_code 3240;
    otras:is_narrower_than otras:MM_TOPIC_3200;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_3240"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_3240"^^xs:string, "MM_TOPIC_3240"@en;
    skos:prefLabel "Topic: Computational aspects of physical equations A.3/M.3"^^xs:string.
-otras:MM_TOPIC_3242 a otras:mm_topic_computational_AM3;
+otras:MM_TOPIC_3242 a otras:mm_topic_computational_AM3, vcl:codelist_mm_topic;
    otras:has_topic_code 3242;
    otras:is_narrower_than otras:MM_TOPIC_3240;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_3242"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_3242"^^xs:string, "MM_TOPIC_3242"@en;
    skos:prefLabel "Topic: Computational aspects of physical equation A.3 specifically"^^xs:string.
-otras:MM_TOPIC_3245 a otras:mm_topic_computational_AM3;
+otras:MM_TOPIC_3245 a otras:mm_topic_computational_AM3, vcl:codelist_mm_topic;
    otras:has_topic_code 3245;
    otras:is_narrower_than otras:MM_TOPIC_3240;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_3245"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_3245"^^xs:string, "MM_TOPIC_3245"@en;
    skos:prefLabel "Topic: Computational aspects of physical equation M.3 specifically"^^xs:string.
 
-otras:MM_TOPIC_3250 a otras:mm_topic_computational_AM4;
+otras:MM_TOPIC_3250 a otras:mm_topic_computational_AM4, vcl:codelist_mm_topic;
    otras:has_topic_code 3250;
    otras:is_narrower_than otras:MM_TOPIC_3200;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_3250"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_3250"^^xs:string, "MM_TOPIC_3250"@en;
    skos:prefLabel "Topic: Computational aspects of physical equations A.4/M.4"^^xs:string.
-otras:MM_TOPIC_3252 a otras:mm_topic_computational_AM4;
+otras:MM_TOPIC_3252 a otras:mm_topic_computational_AM4, vcl:codelist_mm_topic;
    otras:has_topic_code 3252;
    otras:is_narrower_than otras:MM_TOPIC_3250;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_3252"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_3252"^^xs:string, "MM_TOPIC_3252"@en;
    skos:prefLabel "Topic: Computational aspects of physical equation A.4 specifically"^^xs:string.
-otras:MM_TOPIC_3255 a otras:mm_topic_computational_AM4;
+otras:MM_TOPIC_3255 a otras:mm_topic_computational_AM4, vcl:codelist_mm_topic;
    otras:has_topic_code 3255;
    otras:is_narrower_than otras:MM_TOPIC_3250;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_3255"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_3255"^^xs:string, "MM_TOPIC_3255"@en;
    skos:prefLabel "Topic: Computational aspects of physical equation M.4 specifically"^^xs:string.
 
-otras:MM_TOPIC_3260 a otras:mm_topic_computational_AM5;
+otras:MM_TOPIC_3260 a otras:mm_topic_computational_AM5, vcl:codelist_mm_topic;
    otras:has_topic_code 3260;
    otras:is_narrower_than otras:MM_TOPIC_3200;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_3260"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_3260"^^xs:string, "MM_TOPIC_3260"@en;
    skos:prefLabel "Topic: Computational aspects of physical equations A.5/M.5"^^xs:string.
-otras:MM_TOPIC_3262 a otras:mm_topic_computational_AM5;
+otras:MM_TOPIC_3262 a otras:mm_topic_computational_AM5, vcl:codelist_mm_topic;
    otras:has_topic_code 3262;
    otras:is_narrower_than otras:MM_TOPIC_3260;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_3262"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_3262"^^xs:string, "MM_TOPIC_3262"@en;
    skos:prefLabel "Topic: Computational aspects of physical equation A.5 specifically"^^xs:string.
-otras:MM_TOPIC_3265 a otras:mm_topic_computational_AM5;
+otras:MM_TOPIC_3265 a otras:mm_topic_computational_AM5, vcl:codelist_mm_topic;
    otras:has_topic_code 3265;
    otras:is_narrower_than otras:MM_TOPIC_3260;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_3265"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_3265"^^xs:string, "MM_TOPIC_3265"@en;
    skos:prefLabel "Topic: Computational aspects of physical equation M.5 specifically"^^xs:string.
 
-otras:MM_TOPIC_3270 a otras:mm_topic_computational_AM6;
+otras:MM_TOPIC_3270 a otras:mm_topic_computational_AM6, vcl:codelist_mm_topic;
    otras:has_topic_code 3270;
    otras:is_narrower_than otras:MM_TOPIC_3200;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_3270"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_3270"^^xs:string, "MM_TOPIC_3270"@en;
    skos:prefLabel "Topic: Computational aspects of physical equations A.6/M.6"^^xs:string.
-otras:MM_TOPIC_3272 a otras:mm_topic_computational_AM6;
+otras:MM_TOPIC_3272 a otras:mm_topic_computational_AM6, vcl:codelist_mm_topic;
    otras:has_topic_code 3272;
    otras:is_narrower_than otras:MM_TOPIC_3270;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_3272"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_3272"^^xs:string, "MM_TOPIC_3272"@en;
    skos:prefLabel "Topic: Computational aspects of physical equation A.6 specifically"^^xs:string.
-otras:MM_TOPIC_3275 a otras:mm_topic_computational_AM6;
+otras:MM_TOPIC_3275 a otras:mm_topic_computational_AM6, vcl:codelist_mm_topic;
    otras:has_topic_code 3275;
    otras:is_narrower_than otras:MM_TOPIC_3270;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_3275"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_3275"^^xs:string, "MM_TOPIC_3275"@en;
    skos:prefLabel "Topic: Computational aspects of physical equation M.6 specifically"^^xs:string.
 
-otras:MM_TOPIC_3300 a otras:mm_topic_computational_continuum;
+otras:MM_TOPIC_3300 a otras:mm_topic_computational_continuum, vcl:codelist_mm_topic;
    otras:has_topic_code 3300;
    otras:is_narrower_than otras:MM_TOPIC_3000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_3300"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_3300"^^xs:string, "MM_TOPIC_3300"@en;
    skos:prefLabel "Topic: Computational aspects of (non-electronic, classical-mechanical) continuum modelling"^^xs:string.
 
-otras:MM_TOPIC_3320 a otras:mm_topic_computational_CO1;
+otras:MM_TOPIC_3320 a otras:mm_topic_computational_CO1, vcl:codelist_mm_topic;
    otras:has_topic_code 3320;
    otras:is_narrower_than otras:MM_TOPIC_3300;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_3320"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_3320"^^xs:string, "MM_TOPIC_3320"@en;
    skos:prefLabel "Topic: Computational aspects of physical equation CO.1"^^xs:string.
 
-otras:MM_TOPIC_3330 a otras:mm_topic_computational_CO2;
+otras:MM_TOPIC_3330 a otras:mm_topic_computational_CO2, vcl:codelist_mm_topic;
    otras:has_topic_code 3330;
    otras:is_narrower_than otras:MM_TOPIC_3300;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_3330"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_3330"^^xs:string, "MM_TOPIC_3330"@en;
    skos:prefLabel "Topic: Computational aspects of physical equation CO.2"^^xs:string.
 
-otras:MM_TOPIC_3340 a otras:mm_topic_computational_CO3;
+otras:MM_TOPIC_3340 a otras:mm_topic_computational_CO3, vcl:codelist_mm_topic;
    otras:has_topic_code 3340;
    otras:is_narrower_than otras:MM_TOPIC_3300;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_3340"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_3340"^^xs:string, "MM_TOPIC_3340"@en;
    skos:prefLabel "Topic: Computational aspects of physical equation CO.3"^^xs:string.
 
-otras:MM_TOPIC_3350 a otras:mm_topic_computational_CO4;
+otras:MM_TOPIC_3350 a otras:mm_topic_computational_CO4, vcl:codelist_mm_topic;
    otras:has_topic_code 3350;
    otras:is_narrower_than otras:MM_TOPIC_3300;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_3350"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_3350"^^xs:string, "MM_TOPIC_3350"@en;
    skos:prefLabel "Topic: Computational aspects of physical equation CO.4"^^xs:string.
 
-otras:MM_TOPIC_3360 a otras:mm_topic_computational_CO5;
+otras:MM_TOPIC_3360 a otras:mm_topic_computational_CO5, vcl:codelist_mm_topic;
    otras:has_topic_code 3360;
    otras:is_narrower_than otras:MM_TOPIC_3300;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_3360"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_3360"^^xs:string, "MM_TOPIC_3360"@en;
    skos:prefLabel "Topic: Computational aspects of physical equation CO.5"^^xs:string.
 
-otras:MM_TOPIC_3370 a otras:mm_topic_computational_CO6;
+otras:MM_TOPIC_3370 a otras:mm_topic_computational_CO6, vcl:codelist_mm_topic;
    otras:has_topic_code 3370;
    otras:is_narrower_than otras:MM_TOPIC_3300;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_3370"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_3370"^^xs:string, "MM_TOPIC_3370"@en;
    skos:prefLabel "Topic: Computational aspects of physical equation CO.6"^^xs:string.
 
-otras:MM_TOPIC_3380 a otras:mm_topic_computational_CO7;
+otras:MM_TOPIC_3380 a otras:mm_topic_computational_CO7, vcl:codelist_mm_topic;
    otras:has_topic_code 3380;
    otras:is_narrower_than otras:MM_TOPIC_3300;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_3380"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_3380"^^xs:string, "MM_TOPIC_3380"@en;
    skos:prefLabel "Topic: Computational aspects of physical equation CO.7"^^xs:string.
 
-otras:MM_TOPIC_3390 a otras:mm_topic_computational_CO8;
+otras:MM_TOPIC_3390 a otras:mm_topic_computational_CO8, vcl:codelist_mm_topic;
    otras:has_topic_code 3390;
    otras:is_narrower_than otras:MM_TOPIC_3300;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_3390"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_3390"^^xs:string, "MM_TOPIC_3390"@en;
    skos:prefLabel "Topic: Computational aspects of physical equation CO.8"^^xs:string.
 
-otras:MM_TOPIC_3400 a otras:mm_topic_computational_non_equilibrium;
+otras:MM_TOPIC_3400 a otras:mm_topic_computational_non_equilibrium, vcl:codelist_mm_topic;
    otras:has_topic_code 3400;
    otras:is_narrower_than otras:MM_TOPIC_3000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_3400"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_3400"^^xs:string, "MM_TOPIC_3400"@en;
    skos:prefLabel "Topic: Computational aspects of non-equilibrium states and physical processes"^^xs:string.
 
-otras:MM_TOPIC_3460 a otras:mm_topic_computational_rare_event;
+otras:MM_TOPIC_3460 a otras:mm_topic_computational_rare_event, vcl:codelist_mm_topic;
    otras:has_topic_code 3460;
    otras:is_narrower_than otras:MM_TOPIC_3400;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_3460"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_3460"^^xs:string, "MM_TOPIC_3460"@en;
    skos:prefLabel "Topic: Rare-event simulation methods"^^xs:string.
 
-otras:MM_TOPIC_3462 a otras:mm_topic_computational_rare_event;
+otras:MM_TOPIC_3462 a otras:mm_topic_computational_rare_event, vcl:codelist_mm_topic;
    otras:has_topic_code 3462;
    otras:is_narrower_than otras:MM_TOPIC_3460;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_3462"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_3462"^^xs:string, "MM_TOPIC_3462"@en;
    skos:prefLabel "Topic: Rare-event simulation by biased/forced dynamics (metadynamics, methods based on Jarzynski's theorem, etc.)"^^xs:string.
 
-otras:MM_TOPIC_3464 a otras:mm_topic_computational_rare_event;
+otras:MM_TOPIC_3464 a otras:mm_topic_computational_rare_event, vcl:codelist_mm_topic;
    otras:has_topic_code 3464;
    otras:is_narrower_than otras:MM_TOPIC_3460;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_3464"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_3464"^^xs:string, "MM_TOPIC_3464"@en;
    skos:prefLabel "Topic: Rare-event simulation by biased stochastic sampling (umbrella sampling, Wang-Landau sampling, etc.)"^^xs:string.
 
-otras:MM_TOPIC_3466 a otras:mm_topic_computational_rare_event;
+otras:MM_TOPIC_3466 a otras:mm_topic_computational_rare_event, vcl:codelist_mm_topic;
    otras:has_topic_code 3466;
    otras:is_narrower_than otras:MM_TOPIC_3460;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_3466"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_3466"^^xs:string, "MM_TOPIC_3466"@en;
    skos:prefLabel "Topic: Rare-event simulation by replica-exchange methods"^^xs:string.
 
-otras:MM_TOPIC_3468 a otras:mm_topic_computational_rare_event;
+otras:MM_TOPIC_3468 a otras:mm_topic_computational_rare_event, vcl:codelist_mm_topic;
    otras:has_topic_code 3468;
    otras:is_narrower_than otras:MM_TOPIC_3460;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_3468"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_3468"^^xs:string, "MM_TOPIC_3468"@en;
    skos:prefLabel "Topic: Rare-event simulation by statistics over trajectories, e.g., path-sampling based methods (FFS, TIS, TPS, etc.)"^^xs:string.
 
-otras:MM_TOPIC_3500 a otras:mm_topic_computational_multiphase;
+otras:MM_TOPIC_3500 a otras:mm_topic_computational_multiphase, vcl:codelist_mm_topic;
    otras:has_topic_code 3500;
    otras:is_narrower_than otras:MM_TOPIC_3000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_3500"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_3500"^^xs:string, "MM_TOPIC_3500"@en;
    skos:prefLabel "Topic: Computational aspects of interfacial phenomena and multiphase or heterogeneous systems"^^xs:string.
 
-otras:MM_TOPIC_3600 a otras:mm_topic_computational_statistical;
+otras:MM_TOPIC_3600 a otras:mm_topic_computational_statistical, vcl:codelist_mm_topic;
    otras:has_topic_code 3600;
    otras:is_narrower_than otras:MM_TOPIC_3000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_3600"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_3600"^^xs:string, "MM_TOPIC_3600"@en;
    skos:prefLabel "Topic: Computational aspects of statistical mechanics and statistical approaches to materials modelling"^^xs:string.
 
-otras:MM_TOPIC_3700 a otras:mm_topic_computational_thermodynamics;
+otras:MM_TOPIC_3700 a otras:mm_topic_computational_thermodynamics, vcl:codelist_mm_topic;
    otras:has_topic_code 3700;
    otras:is_narrower_than otras:MM_TOPIC_3000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_3700"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_3700"^^xs:string, "MM_TOPIC_3700"@en;
    skos:prefLabel "Topic: Computational aspects of phenomenological thermodynamics"^^xs:string.
 
-otras:MM_TOPIC_3800 a otras:mm_topic_computational_mechanics;
+otras:MM_TOPIC_3800 a otras:mm_topic_computational_mechanics, vcl:codelist_mm_topic;
    otras:has_topic_code 3800;
    otras:is_narrower_than otras:MM_TOPIC_3000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_3800"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_3800"^^xs:string, "MM_TOPIC_3800"@en;
    skos:prefLabel "Topic: Computational aspects of classical and/or quantum mechanics"^^xs:string.
 
-otras:MM_TOPIC_4000 a otras:mm_topic_data;
+otras:MM_TOPIC_4000 a otras:mm_topic_data, vcl:codelist_mm_topic;
    otras:has_topic_code 4000;
    otras:is_narrower_than otras:MM_TOPIC_0000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_4000"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_4000"^^xs:string, "MM_TOPIC_4000"@en;
    skos:prefLabel "Topic: Data science and technology (beyond basic prerequisites)"^^xs:string.
 
-otras:MM_TOPIC_5000 a otras:mm_topic_materials;
+otras:MM_TOPIC_5000 a otras:mm_topic_materials, vcl:codelist_mm_topic;
    otras:has_topic_code 5000;
    otras:is_narrower_than otras:MM_TOPIC_0000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_5000"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_5000"^^xs:string, "MM_TOPIC_5000"@en;
    skos:prefLabel "Topic: Materials (beyond basic prerequisites)"^^xs:string.
 
-otras:MM_TOPIC_5100 a otras:mm_topic_materials_general;
+otras:MM_TOPIC_5100 a otras:mm_topic_materials_general, vcl:codelist_mm_topic;
    otras:has_topic_code 5100;
    otras:is_narrower_than otras:MM_TOPIC_5000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_5100"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_5100"^^xs:string, "MM_TOPIC_5100"@en;
    skos:prefLabel "Topic: Materials science and engineering (combining multiple or all fields)"^^xs:string.
 
-otras:MM_TOPIC_5200 a otras:mm_topic_materials_fluid;
+otras:MM_TOPIC_5200 a otras:mm_topic_materials_fluid, vcl:codelist_mm_topic;
    otras:has_topic_code 5200;
    otras:is_narrower_than otras:MM_TOPIC_5000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_5200"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_5200"^^xs:string, "MM_TOPIC_5200"@en;
    skos:prefLabel "Topic: Fluids"^^xs:string.
 
-otras:MM_TOPIC_5300 a otras:mm_topic_materials_bio;
+otras:MM_TOPIC_5300 a otras:mm_topic_materials_bio, vcl:codelist_mm_topic;
    otras:has_topic_code 5300;
    otras:is_narrower_than otras:MM_TOPIC_5000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_5300"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_5300"^^xs:string, "MM_TOPIC_5300"@en;
    skos:prefLabel "Topic: Biomaterials"^^xs:string.
-otras:MM_TOPIC_5330 a otras:mm_topic_materials_bio;
+otras:MM_TOPIC_5330 a otras:mm_topic_materials_bio, vcl:codelist_mm_topic;
    otras:has_topic_code 5330;
    otras:is_narrower_than otras:MM_TOPIC_5300;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_5330"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_5330"^^xs:string, "MM_TOPIC_5330"@en;
    skos:prefLabel "Topic: Living matter"^^xs:string.
 
-otras:MM_TOPIC_5350 a otras:mm_topic_materials_ceramic;
+otras:MM_TOPIC_5350 a otras:mm_topic_materials_ceramic, vcl:codelist_mm_topic;
    otras:has_topic_code 5350;
    otras:is_narrower_than otras:MM_TOPIC_5000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_5350"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_5350"^^xs:string, "MM_TOPIC_5350"@en;
    skos:prefLabel "Topic: Ceramics"^^xs:string.
 
-otras:MM_TOPIC_5400 a otras:mm_topic_materials_composite;
+otras:MM_TOPIC_5400 a otras:mm_topic_materials_composite, vcl:codelist_mm_topic;
    otras:has_topic_code 5400;
    otras:is_narrower_than otras:MM_TOPIC_5000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_5400"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_5400"^^xs:string, "MM_TOPIC_5400"@en;
    skos:prefLabel "Topic: Composites"^^xs:string.
 
-otras:MM_TOPIC_5450 a otras:mm_topic_materials_electrolyte;
+otras:MM_TOPIC_5450 a otras:mm_topic_materials_electrolyte, vcl:codelist_mm_topic;
    otras:has_topic_code 5450;
    otras:is_narrower_than otras:MM_TOPIC_5000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_5450"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_5450"^^xs:string, "MM_TOPIC_5450"@en;
    skos:prefLabel "Topic: Electrolytes"^^xs:string.
 
-otras:MM_TOPIC_5500 a otras:mm_topic_materials_metal;
+otras:MM_TOPIC_5500 a otras:mm_topic_materials_metal, vcl:codelist_mm_topic;
    otras:has_topic_code 5500;
    otras:is_narrower_than otras:MM_TOPIC_5000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_5500"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_5500"^^xs:string, "MM_TOPIC_5500"@en;
    skos:prefLabel "Topic: Metals"^^xs:string.
 
-otras:MM_TOPIC_5550 a otras:mm_topic_materials_mineral;
+otras:MM_TOPIC_5550 a otras:mm_topic_materials_mineral, vcl:codelist_mm_topic;
    otras:has_topic_code 5550;
    otras:is_narrower_than otras:MM_TOPIC_5000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_5550"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_5550"^^xs:string, "MM_TOPIC_5550"@en;
    skos:prefLabel "Topic: Minerals"^^xs:string.
 
-otras:MM_TOPIC_5600 a otras:mm_topic_materials_nano;
+otras:MM_TOPIC_5600 a otras:mm_topic_materials_nano, vcl:codelist_mm_topic;
    otras:has_topic_code 5600;
    otras:is_narrower_than otras:MM_TOPIC_5000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_5600"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_5600"^^xs:string, "MM_TOPIC_5600"@en;
    skos:prefLabel "Topic: Nanomaterials"^^xs:string.
 
-otras:MM_TOPIC_5650 a otras:mm_topic_materials_organic;
+otras:MM_TOPIC_5650 a otras:mm_topic_materials_organic, vcl:codelist_mm_topic;
    otras:has_topic_code 5650;
    otras:is_narrower_than otras:MM_TOPIC_5000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_5650"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_5650"^^xs:string, "MM_TOPIC_5650"@en;
    skos:prefLabel "Topic: Organic chemistry and related materials science and engineering"^^xs:string.
 
-otras:MM_TOPIC_5700 a otras:mm_topic_materials_polymer;
+otras:MM_TOPIC_5700 a otras:mm_topic_materials_polymer, vcl:codelist_mm_topic;
    otras:has_topic_code 5700;
    otras:is_narrower_than otras:MM_TOPIC_5000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_5700"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_5700"^^xs:string, "MM_TOPIC_5700"@en;
    skos:prefLabel "Topic: Polymers"^^xs:string.
 
-otras:MM_TOPIC_5750 a otras:mm_topic_materials_semiconductor;
+otras:MM_TOPIC_5750 a otras:mm_topic_materials_semiconductor, vcl:codelist_mm_topic;
    otras:has_topic_code 5750;
    otras:is_narrower_than otras:MM_TOPIC_5000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_5750"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_5750"^^xs:string, "MM_TOPIC_5750"@en;
    skos:prefLabel "Topic: Semiconductors"^^xs:string.
 
-otras:MM_TOPIC_5800 a otras:mm_topic_materials_ultracold;
+otras:MM_TOPIC_5800 a otras:mm_topic_materials_ultracold, vcl:codelist_mm_topic;
    otras:has_topic_code 5800;
    otras:is_narrower_than otras:MM_TOPIC_5000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_5800"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_5800"^^xs:string, "MM_TOPIC_5800"@en;
    skos:prefLabel "Topic: Low-temperature materials science and engineering"^^xs:string.
 
-otras:MM_TOPIC_5850 a otras:mm_topic_materials_unstable;
+otras:MM_TOPIC_5850 a otras:mm_topic_materials_unstable, vcl:codelist_mm_topic;
    otras:has_topic_code 5850;
    otras:is_narrower_than otras:MM_TOPIC_5000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_5850"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_5850"^^xs:string, "MM_TOPIC_5850"@en;
    skos:prefLabel "Topic: Unstable, metastable, and transition states of materials"^^xs:string.
 
-otras:MM_TOPIC_5900 a otras:mm_topic_materials_special;
+otras:MM_TOPIC_5900 a otras:mm_topic_materials_special, vcl:codelist_mm_topic;
    otras:has_topic_code 5900;
    otras:is_narrower_than otras:MM_TOPIC_5000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_5900"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_5900"^^xs:string, "MM_TOPIC_5900"@en;
    skos:prefLabel "Topic: Specific phenomena in materials science and engineering"^^xs:string.
 
-otras:MM_TOPIC_6000 a otras:mm_topic_social;
+otras:MM_TOPIC_6000 a otras:mm_topic_social, vcl:codelist_mm_topic;
    otras:has_topic_code 6000;
    otras:is_narrower_than otras:MM_TOPIC_0000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_6000"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_6000"^^xs:string, "MM_TOPIC_6000"@en;
    skos:prefLabel "Topic: Social, economic, community (beyond basic prerequisites)"^^xs:string.
 
-otras:MM_TOPIC_6100 a otras:mm_topic_social_industrial;
+otras:MM_TOPIC_6100 a otras:mm_topic_social_industrial, vcl:codelist_mm_topic;
    otras:has_topic_code 6100;
    otras:is_narrower_than otras:MM_TOPIC_6000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_6100"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_6100"^^xs:string, "MM_TOPIC_6100"@en;
    skos:prefLabel "Topic: Industrial production/manufacturing"^^xs:string.
 
-otras:MM_TOPIC_6120 a otras:mm_topic_social_industrial_chemical;
+otras:MM_TOPIC_6120 a otras:mm_topic_social_industrial_chemical, vcl:codelist_mm_topic;
    otras:has_topic_code 6120;
    otras:is_narrower_than otras:MM_TOPIC_6100;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_6120"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_6120"^^xs:string, "MM_TOPIC_6120"@en;
    skos:prefLabel "Topic: Production/manufacturing in the chemical industry (including polymers, excluding the petrochemical industry)"^^xs:string.
 
-otras:MM_TOPIC_6130 a otras:mm_topic_social_industrial_petrochemical;
+otras:MM_TOPIC_6130 a otras:mm_topic_social_industrial_petrochemical, vcl:codelist_mm_topic;
    otras:has_topic_code 6130;
    otras:is_narrower_than otras:MM_TOPIC_6100;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_6130"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_6130"^^xs:string, "MM_TOPIC_6130"@en;
    skos:prefLabel "Topic: Production/manufacturing in the petrochemical industry"^^xs:string.
 
-otras:MM_TOPIC_6140 a otras:mm_topic_social_industrial_transport;
+otras:MM_TOPIC_6140 a otras:mm_topic_social_industrial_transport, vcl:codelist_mm_topic;
    otras:has_topic_code 6140;
    otras:is_narrower_than otras:MM_TOPIC_6100;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_6140"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_6140"^^xs:string, "MM_TOPIC_6140"@en;
    skos:prefLabel "Topic: Production/manufacturing in transportation-related industries (e.g., automotive, aerospace, and railway related manufacturing)"^^xs:string.
 
-otras:MM_TOPIC_6142 a otras:mm_topic_social_industrial_aerospace;
+otras:MM_TOPIC_6142 a otras:mm_topic_social_industrial_aerospace, vcl:codelist_mm_topic;
    otras:has_topic_code 6142;
    otras:is_narrower_than otras:MM_TOPIC_6140;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_6142"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_6142"^^xs:string, "MM_TOPIC_6142"@en;
    skos:prefLabel "Topic: Production/manufacturing in the aerospace sector"^^xs:string.
 
-otras:MM_TOPIC_6144 a otras:mm_topic_social_industrial_automotive;
+otras:MM_TOPIC_6144 a otras:mm_topic_social_industrial_automotive, vcl:codelist_mm_topic;
    otras:has_topic_code 6144;
    otras:is_narrower_than otras:MM_TOPIC_6140;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_6144"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_6144"^^xs:string, "MM_TOPIC_6144"@en;
    skos:prefLabel "Topic: Production/manufacturing in the automotive sector"^^xs:string.
 
-otras:MM_TOPIC_6148 a otras:mm_topic_social_industrial_railway;
+otras:MM_TOPIC_6148 a otras:mm_topic_social_industrial_railway, vcl:codelist_mm_topic;
    otras:has_topic_code 6148;
    otras:is_narrower_than otras:MM_TOPIC_6140;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_6148"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_6148"^^xs:string, "MM_TOPIC_6148"@en;
    skos:prefLabel "Topic: Production/manufacturing in the railway sector"^^xs:string.
 
-otras:MM_TOPIC_6150 a otras:mm_topic_social_industrial_biotechnology;
+otras:MM_TOPIC_6150 a otras:mm_topic_social_industrial_biotechnology, vcl:codelist_mm_topic;
    otras:has_topic_code 6150;
    otras:is_narrower_than otras:MM_TOPIC_6100;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_6150"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_6150"^^xs:string, "MM_TOPIC_6150"@en;
    skos:prefLabel "Topic: Production/manufacturing in biotechnology (excluding pharmaceutical applications)"^^xs:string.
 
-otras:MM_TOPIC_6155 a otras:mm_topic_social_industrial_food;
+otras:MM_TOPIC_6155 a otras:mm_topic_social_industrial_food, vcl:codelist_mm_topic;
    otras:has_topic_code 6155;
    otras:is_narrower_than otras:MM_TOPIC_6100;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_6155"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_6155"^^xs:string, "MM_TOPIC_6155"@en;
    skos:prefLabel "Topic: Production/manufacturing in food-related industries (including beverages and tobacco)"^^xs:string.
 
-otras:MM_TOPIC_6160 a otras:mm_topic_social_industrial_medicine;
+otras:MM_TOPIC_6160 a otras:mm_topic_social_industrial_medicine, vcl:codelist_mm_topic;
    otras:has_topic_code 6160;
    otras:is_narrower_than otras:MM_TOPIC_6100;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_6160"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_6160"^^xs:string, "MM_TOPIC_6160"@en;
    skos:prefLabel "Topic: Production/manufacturing in industries related to pharmaceutical and medical applications"^^xs:string.
 
-otras:MM_TOPIC_6165 a otras:mm_topic_social_industrial_paper;
+otras:MM_TOPIC_6165 a otras:mm_topic_social_industrial_paper, vcl:codelist_mm_topic;
    otras:has_topic_code 6165;
    otras:is_narrower_than otras:MM_TOPIC_6100;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_6165"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_6165"^^xs:string, "MM_TOPIC_6165"@en;
    skos:prefLabel "Topic: Production/manufacturing of wood and paper based products (including printing)"^^xs:string.
 
-otras:MM_TOPIC_6170 a otras:mm_topic_social_industrial_electrical;
+otras:MM_TOPIC_6170 a otras:mm_topic_social_industrial_electrical, vcl:codelist_mm_topic;
    otras:has_topic_code 6170;
    otras:is_narrower_than otras:MM_TOPIC_6100;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_6170"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_6170"^^xs:string, "MM_TOPIC_6170"@en;
    skos:prefLabel "Topic: Production/manufacturing of electrical products and equipment"^^xs:string.
 
-otras:MM_TOPIC_6175 a otras:mm_topic_social_industrial_machinery;
+otras:MM_TOPIC_6175 a otras:mm_topic_social_industrial_machinery, vcl:codelist_mm_topic;
    otras:has_topic_code 6175;
    otras:is_narrower_than otras:MM_TOPIC_6100;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_6175"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_6175"^^xs:string, "MM_TOPIC_6175"@en;
    skos:prefLabel "Topic: Production/manufacturing of industrial machinery and equipment"^^xs:string.
 
-otras:MM_TOPIC_6180 a otras:mm_topic_social_industrial_metal;
+otras:MM_TOPIC_6180 a otras:mm_topic_social_industrial_metal, vcl:codelist_mm_topic;
    otras:has_topic_code 6180;
    otras:is_narrower_than otras:MM_TOPIC_6100;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_6180"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_6180"^^xs:string, "MM_TOPIC_6180"@en;
    skos:prefLabel "Topic: Production/manufacturing of basic and fabricated metal"^^xs:string.
 
-otras:MM_TOPIC_6190 a otras:mm_topic_social_industrial_special;
+otras:MM_TOPIC_6190 a otras:mm_topic_social_industrial_special, vcl:codelist_mm_topic;
    otras:has_topic_code 6190;
    otras:is_narrower_than otras:MM_TOPIC_6100;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_6190"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_6190"^^xs:string, "MM_TOPIC_6190"@en;
    skos:prefLabel "Topic: Specific aspects or fields of industrial production/manufacturing"^^xs:string.
 
-otras:MM_TOPIC_7000 a otras:mm_topic_theoretical;
+otras:MM_TOPIC_7000 a otras:mm_topic_theoretical, vcl:codelist_mm_topic;
    otras:has_topic_code 7000;
    otras:is_narrower_than otras:MM_TOPIC_0000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_7000"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_7000"^^xs:string, "MM_TOPIC_7000"@en;
    skos:prefLabel "Topic: Theoretical (beyond basic prerequisites; excluding computational and numerical aspects)"^^xs:string.
 
-otras:MM_TOPIC_7100 a otras:mm_topic_theoretical_electronic;
+otras:MM_TOPIC_7100 a otras:mm_topic_theoretical_electronic, vcl:codelist_mm_topic;
    otras:has_topic_code 7100;
    otras:is_narrower_than otras:MM_TOPIC_7000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_7100"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_7100"^^xs:string, "MM_TOPIC_7100"@en;
    skos:prefLabel "Topic: Theoretical aspects of electronic modelling"^^xs:string.
 
-otras:MM_TOPIC_7120 a otras:mm_topic_theoretical_EL1;
+otras:MM_TOPIC_7120 a otras:mm_topic_theoretical_EL1, vcl:codelist_mm_topic;
    otras:has_topic_code 7120;
    otras:is_narrower_than otras:MM_TOPIC_7100;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_7120"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_7120"^^xs:string, "MM_TOPIC_7120"@en;
    skos:prefLabel "Topic: Theoretical aspects of physical equation EL.1"^^xs:string.
-otras:MM_TOPIC_7124 a otras:mm_topic_theoretical_EL1;
+otras:MM_TOPIC_7124 a otras:mm_topic_theoretical_EL1, vcl:codelist_mm_topic;
    otras:has_topic_code 7124;
    otras:is_narrower_than otras:MM_TOPIC_7120;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_7124"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_7124"^^xs:string, "MM_TOPIC_7124"@en;
    skos:prefLabel "Topic: Time-dependent DFT (TD-DFT)"^^xs:string.
 
-otras:MM_TOPIC_7130 a otras:mm_topic_theoretical_EL2;
+otras:MM_TOPIC_7130 a otras:mm_topic_theoretical_EL2, vcl:codelist_mm_topic;
    otras:has_topic_code 7130;
    otras:is_narrower_than otras:MM_TOPIC_7100;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_7130"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_7130"^^xs:string, "MM_TOPIC_7130"@en;
    skos:prefLabel "Topic: Theoretical aspects of physical equation EL.2"^^xs:string.
-otras:MM_TOPIC_7134 a otras:mm_topic_theoretical_EL2;
+otras:MM_TOPIC_7134 a otras:mm_topic_theoretical_EL2, vcl:codelist_mm_topic;
    otras:has_topic_code 7134;
    otras:is_narrower_than otras:MM_TOPIC_7130;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_7134"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_7134"^^xs:string, "MM_TOPIC_7134"@en;
    skos:prefLabel "Topic: Many-body perturbation theory (MBPT)"^^xs:string.
 
-otras:MM_TOPIC_7140 a otras:mm_topic_theoretical_EL3;
+otras:MM_TOPIC_7140 a otras:mm_topic_theoretical_EL3, vcl:codelist_mm_topic;
    otras:has_topic_code 7140;
    otras:is_narrower_than otras:MM_TOPIC_7100;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_7140"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_7140"^^xs:string, "MM_TOPIC_7140"@en;
    skos:prefLabel "Topic: Theoretical aspects of physical equation EL.3, i.e., Dynamical Mean Field Theory (DMFT)"^^xs:string.
 
-otras:MM_TOPIC_7150 a otras:mm_topic_theoretical_EL4;
+otras:MM_TOPIC_7150 a otras:mm_topic_theoretical_EL4, vcl:codelist_mm_topic;
    otras:has_topic_code 7150;
    otras:is_narrower_than otras:MM_TOPIC_7100;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_7150"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_7150"^^xs:string, "MM_TOPIC_7150"@en;
    skos:prefLabel "Topic: Theoretical aspects of physical equation EL.4, i.e., non-equilibrium Green's functions (NEGF)"^^xs:string.
 
-otras:MM_TOPIC_7160 a otras:mm_topic_theoretical_EL5;
+otras:MM_TOPIC_7160 a otras:mm_topic_theoretical_EL5, vcl:codelist_mm_topic;
    otras:has_topic_code 7160;
    otras:is_narrower_than otras:MM_TOPIC_7100;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_7160"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_7160"^^xs:string, "MM_TOPIC_7160"@en;
    skos:prefLabel "Topic: Theoretical aspects of physical equation EL.5"^^xs:string.
 
-otras:MM_TOPIC_7200 a otras:mm_topic_theoretical_discrete;
+otras:MM_TOPIC_7200 a otras:mm_topic_theoretical_discrete, vcl:codelist_mm_topic;
    otras:has_topic_code 7200;
    otras:is_narrower_than otras:MM_TOPIC_7000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_7200"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_7200"^^xs:string, "MM_TOPIC_7200"@en;
    skos:prefLabel "Topic: Theoretical aspects of discrete (atomistic and mesoscopic) modelling"^^xs:string.
 
-otras:MM_TOPIC_7220 a otras:mm_topic_theoretical_AM1;
+otras:MM_TOPIC_7220 a otras:mm_topic_theoretical_AM1, vcl:codelist_mm_topic;
    otras:has_topic_code 7220;
    otras:is_narrower_than otras:MM_TOPIC_7200;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_7220"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_7220"^^xs:string, "MM_TOPIC_7220"@en;
    skos:prefLabel "Topic: Theoretical aspects of physical equations A.1/M.1"^^xs:string.
-otras:MM_TOPIC_7222 a otras:mm_topic_theoretical_AM1;
+otras:MM_TOPIC_7222 a otras:mm_topic_theoretical_AM1, vcl:codelist_mm_topic;
    otras:has_topic_code 7222;
    otras:is_narrower_than otras:MM_TOPIC_7220;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_7222"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_7222"^^xs:string, "MM_TOPIC_7222"@en;
    skos:prefLabel "Topic: Theoretical aspects of physical equation A.1 specifically"^^xs:string.
-otras:MM_TOPIC_7225 a otras:mm_topic_theoretical_AM1;
+otras:MM_TOPIC_7225 a otras:mm_topic_theoretical_AM1, vcl:codelist_mm_topic;
    otras:has_topic_code 7225;
    otras:is_narrower_than otras:MM_TOPIC_7220;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_7225"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_7225"^^xs:string, "MM_TOPIC_7225"@en;
    skos:prefLabel "Topic: Theoretical aspects of physical equation M.1 specifically"^^xs:string.
 
-otras:MM_TOPIC_7230 a otras:mm_topic_theoretical_AM2;
+otras:MM_TOPIC_7230 a otras:mm_topic_theoretical_AM2, vcl:codelist_mm_topic;
    otras:has_topic_code 7230;
    otras:is_narrower_than otras:MM_TOPIC_7200;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_7230"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_7230"^^xs:string, "MM_TOPIC_7230"@en;
    skos:prefLabel "Topic: Theoretical aspects of physical equations A.2/M.2"^^xs:string.
-otras:MM_TOPIC_7232 a otras:mm_topic_theoretical_AM2;
+otras:MM_TOPIC_7232 a otras:mm_topic_theoretical_AM2, vcl:codelist_mm_topic;
    otras:has_topic_code 7232;
    otras:is_narrower_than otras:MM_TOPIC_7230;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_7232"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_7232"^^xs:string, "MM_TOPIC_7232"@en;
    skos:prefLabel "Topic: Theoretical aspects of physical equation A.2 specifically"^^xs:string.
-otras:MM_TOPIC_7235 a otras:mm_topic_theoretical_AM2;
+otras:MM_TOPIC_7235 a otras:mm_topic_theoretical_AM2, vcl:codelist_mm_topic;
    otras:has_topic_code 7235;
    otras:is_narrower_than otras:MM_TOPIC_7230;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_7235"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_7235"^^xs:string, "MM_TOPIC_7235"@en;
    skos:prefLabel "Topic: Theoretical aspects of physical equation M.2 specifically"^^xs:string.
 
-otras:MM_TOPIC_7240 a otras:mm_topic_theoretical_AM3;
+otras:MM_TOPIC_7240 a otras:mm_topic_theoretical_AM3, vcl:codelist_mm_topic;
    otras:has_topic_code 7240;
    otras:is_narrower_than otras:MM_TOPIC_7200;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_7240"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_7240"^^xs:string, "MM_TOPIC_7240"@en;
    skos:prefLabel "Topic: Theoretical aspects of physical equations A.3/M.3"^^xs:string.
-otras:MM_TOPIC_7242 a otras:mm_topic_theoretical_AM3;
+otras:MM_TOPIC_7242 a otras:mm_topic_theoretical_AM3, vcl:codelist_mm_topic;
    otras:has_topic_code 7242;
    otras:is_narrower_than otras:MM_TOPIC_7240;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_7242"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_7242"^^xs:string, "MM_TOPIC_7242"@en;
    skos:prefLabel "Topic: Theoretical aspects of physical equation A.3 specifically"^^xs:string.
-otras:MM_TOPIC_7245 a otras:mm_topic_theoretical_AM3;
+otras:MM_TOPIC_7245 a otras:mm_topic_theoretical_AM3, vcl:codelist_mm_topic;
    otras:has_topic_code 7245;
    otras:is_narrower_than otras:MM_TOPIC_7240;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_7245"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_7245"^^xs:string, "MM_TOPIC_7245"@en;
    skos:prefLabel "Topic: Theoretical aspects of physical equation M.3 specifically"^^xs:string.
 
-otras:MM_TOPIC_7250 a otras:mm_topic_theoretical_AM4;
+otras:MM_TOPIC_7250 a otras:mm_topic_theoretical_AM4, vcl:codelist_mm_topic;
    otras:has_topic_code 7250;
    otras:is_narrower_than otras:MM_TOPIC_7200;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_7250"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_7250"^^xs:string, "MM_TOPIC_7250"@en;
    skos:prefLabel "Topic: Theoretical aspects of physical equations A.4/M.4"^^xs:string.
-otras:MM_TOPIC_7252 a otras:mm_topic_theoretical_AM4;
+otras:MM_TOPIC_7252 a otras:mm_topic_theoretical_AM4, vcl:codelist_mm_topic;
    otras:has_topic_code 7252;
    otras:is_narrower_than otras:MM_TOPIC_7250;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_7252"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_7252"^^xs:string, "MM_TOPIC_7252"@en;
    skos:prefLabel "Topic: Theoretical aspects of physical equation A.4 specifically"^^xs:string.
-otras:MM_TOPIC_7255 a otras:mm_topic_theoretical_AM4;
+otras:MM_TOPIC_7255 a otras:mm_topic_theoretical_AM4, vcl:codelist_mm_topic;
    otras:has_topic_code 7255;
    otras:is_narrower_than otras:MM_TOPIC_7250;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_7255"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_7255"^^xs:string, "MM_TOPIC_7255"@en;
    skos:prefLabel "Topic: Theoretical aspects of physical equation M.4 specifically"^^xs:string.
 
-otras:MM_TOPIC_7260 a otras:mm_topic_theoretical_AM5;
+otras:MM_TOPIC_7260 a otras:mm_topic_theoretical_AM5, vcl:codelist_mm_topic;
    otras:has_topic_code 7260;
    otras:is_narrower_than otras:MM_TOPIC_7200;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_7260"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_7260"^^xs:string, "MM_TOPIC_7260"@en;
    skos:prefLabel "Topic: Theoretical aspects of physical equations A.5/M.5"^^xs:string.
-otras:MM_TOPIC_7262 a otras:mm_topic_theoretical_AM5;
+otras:MM_TOPIC_7262 a otras:mm_topic_theoretical_AM5, vcl:codelist_mm_topic;
    otras:has_topic_code 7262;
    otras:is_narrower_than otras:MM_TOPIC_7260;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_7262"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_7262"^^xs:string, "MM_TOPIC_7262"@en;
    skos:prefLabel "Topic: Theoretical aspects of physical equation A.5 specifically"^^xs:string.
-otras:MM_TOPIC_7265 a otras:mm_topic_theoretical_AM5;
+otras:MM_TOPIC_7265 a otras:mm_topic_theoretical_AM5, vcl:codelist_mm_topic;
    otras:has_topic_code 7265;
    otras:is_narrower_than otras:MM_TOPIC_7260;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_7265"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_7265"^^xs:string, "MM_TOPIC_7265"@en;
    skos:prefLabel "Topic: Theoretical aspects of physical equation M.5 specifically"^^xs:string.
 
-otras:MM_TOPIC_7270 a otras:mm_topic_theoretical_AM6;
+otras:MM_TOPIC_7270 a otras:mm_topic_theoretical_AM6, vcl:codelist_mm_topic;
    otras:has_topic_code 7270;
    otras:is_narrower_than otras:MM_TOPIC_7200;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_7270"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_7270"^^xs:string, "MM_TOPIC_7270"@en;
    skos:prefLabel "Topic: Computational aspects of physical equations A.6/M.6"^^xs:string.
-otras:MM_TOPIC_7272 a otras:mm_topic_theoretical_AM6;
+otras:MM_TOPIC_7272 a otras:mm_topic_theoretical_AM6, vcl:codelist_mm_topic;
    otras:has_topic_code 7272;
    otras:is_narrower_than otras:MM_TOPIC_7270;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_7272"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_7272"^^xs:string, "MM_TOPIC_7272"@en;
    skos:prefLabel "Topic: Computational aspects of physical equation A.6 specifically"^^xs:string.
-otras:MM_TOPIC_7275 a otras:mm_topic_theoretical_AM6;
+otras:MM_TOPIC_7275 a otras:mm_topic_theoretical_AM6, vcl:codelist_mm_topic;
    otras:has_topic_code 7275;
    otras:is_narrower_than otras:MM_TOPIC_7270;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_7275"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_7275"^^xs:string, "MM_TOPIC_7275"@en;
    skos:prefLabel "Topic: Computational aspects of physical equation M.6 specifically"^^xs:string.
 
-otras:MM_TOPIC_7300 a otras:mm_topic_theoretical_continuum;
+otras:MM_TOPIC_7300 a otras:mm_topic_theoretical_continuum, vcl:codelist_mm_topic;
    otras:has_topic_code 7300;
    otras:is_narrower_than otras:MM_TOPIC_7000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_7300"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_7300"^^xs:string, "MM_TOPIC_7300"@en;
    skos:prefLabel "Topic: Theoretical aspects of (non-electronic, classical-mechanical) continuum modelling"^^xs:string.
 
-otras:MM_TOPIC_7320 a otras:mm_topic_theoretical_CO1;
+otras:MM_TOPIC_7320 a otras:mm_topic_theoretical_CO1, vcl:codelist_mm_topic;
    otras:has_topic_code 7320;
    otras:is_narrower_than otras:MM_TOPIC_7300;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_7320"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_7320"^^xs:string, "MM_TOPIC_7320"@en;
    skos:prefLabel "Topic: Theoretical aspects of physical equation CO.1"^^xs:string.
 
-otras:MM_TOPIC_7330 a otras:mm_topic_theoretical_CO2;
+otras:MM_TOPIC_7330 a otras:mm_topic_theoretical_CO2, vcl:codelist_mm_topic;
    otras:has_topic_code 7330;
    otras:is_narrower_than otras:MM_TOPIC_7300;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_7330"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_7330"^^xs:string, "MM_TOPIC_7330"@en;
    skos:prefLabel "Topic: Theoretical aspects of physical equation CO.2"^^xs:string.
 
-otras:MM_TOPIC_7340 a otras:mm_topic_theoretical_CO3;
+otras:MM_TOPIC_7340 a otras:mm_topic_theoretical_CO3, vcl:codelist_mm_topic;
    otras:has_topic_code 7340;
    otras:is_narrower_than otras:MM_TOPIC_7300;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_7340"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_7340"^^xs:string, "MM_TOPIC_7340"@en;
    skos:prefLabel "Topic: Theoretical aspects of physical equation CO.3"^^xs:string.
 
-otras:MM_TOPIC_7350 a otras:mm_topic_theoretical_CO4;
+otras:MM_TOPIC_7350 a otras:mm_topic_theoretical_CO4, vcl:codelist_mm_topic;
    otras:has_topic_code 7350;
    otras:is_narrower_than otras:MM_TOPIC_7300;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_7350"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_7350"^^xs:string, "MM_TOPIC_7350"@en;
    skos:prefLabel "Topic: Theoretical aspects of physical equation CO.4"^^xs:string.
 
-otras:MM_TOPIC_7360 a otras:mm_topic_theoretical_CO5;
+otras:MM_TOPIC_7360 a otras:mm_topic_theoretical_CO5, vcl:codelist_mm_topic;
    otras:has_topic_code 7360;
    otras:is_narrower_than otras:MM_TOPIC_7300;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_7360"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_7360"^^xs:string, "MM_TOPIC_7360"@en;
    skos:prefLabel "Topic: Theoretical aspects of physical equation CO.5"^^xs:string.
 
-otras:MM_TOPIC_7370 a otras:mm_topic_theoretical_CO6;
+otras:MM_TOPIC_7370 a otras:mm_topic_theoretical_CO6, vcl:codelist_mm_topic;
    otras:has_topic_code 7370;
    otras:is_narrower_than otras:MM_TOPIC_7300;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_7370"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_7370"^^xs:string, "MM_TOPIC_7370"@en;
    skos:prefLabel "Topic: Theoretical aspects of physical equation CO.6"^^xs:string.
 
-otras:MM_TOPIC_7380 a otras:mm_topic_theoretical_CO7;
+otras:MM_TOPIC_7380 a otras:mm_topic_theoretical_CO7, vcl:codelist_mm_topic;
    otras:has_topic_code 7380;
    otras:is_narrower_than otras:MM_TOPIC_7300;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_7380"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_7380"^^xs:string, "MM_TOPIC_7380"@en;
    skos:prefLabel "Topic: Theoretical aspects of physical equation CO.7"^^xs:string.
 
-otras:MM_TOPIC_7390 a otras:mm_topic_theoretical_CO8;
+otras:MM_TOPIC_7390 a otras:mm_topic_theoretical_CO8, vcl:codelist_mm_topic;
    otras:has_topic_code 7390;
    otras:is_narrower_than otras:MM_TOPIC_7300;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_7390"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_7390"^^xs:string, "MM_TOPIC_7390"@en;
    skos:prefLabel "Topic: Theoretical aspects of physical equation CO.8"^^xs:string.
 
-otras:MM_TOPIC_7400 a otras:mm_topic_theoretical_non_equilibrium;
+otras:MM_TOPIC_7400 a otras:mm_topic_theoretical_non_equilibrium, vcl:codelist_mm_topic;
    otras:has_topic_code 7400;
    otras:is_narrower_than otras:MM_TOPIC_7000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_7400"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_7400"^^xs:string, "MM_TOPIC_7400"@en;
    skos:prefLabel "Topic: Theoretical aspects of non-equilibrium states and physical processes"^^xs:string.
 
-otras:MM_TOPIC_7500 a otras:mm_topic_theoretical_multiphase;
+otras:MM_TOPIC_7500 a otras:mm_topic_theoretical_multiphase, vcl:codelist_mm_topic;
    otras:has_topic_code 7500;
    otras:is_narrower_than otras:MM_TOPIC_7000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_7500"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_7500"^^xs:string, "MM_TOPIC_7500"@en;
    skos:prefLabel "Topic: Theoretical aspects of interfacial phenomena and multiphase or heterogeneous systems"^^xs:string.
 
-otras:MM_TOPIC_7600 a otras:mm_topic_theoretical_statistical;
+otras:MM_TOPIC_7600 a otras:mm_topic_theoretical_statistical, vcl:codelist_mm_topic;
    otras:has_topic_code 7600;
    otras:is_narrower_than otras:MM_TOPIC_7000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_7600"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_7600"^^xs:string, "MM_TOPIC_7600"@en;
    skos:prefLabel "Topic: Theoretical aspects of statistical mechanics and statistical approaches to materials modelling"^^xs:string.
 
-otras:MM_TOPIC_7700 a otras:mm_topic_theoretical_thermodynamics;
+otras:MM_TOPIC_7700 a otras:mm_topic_theoretical_thermodynamics, vcl:codelist_mm_topic;
    otras:has_topic_code 7700;
    otras:is_narrower_than otras:MM_TOPIC_7000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_7700"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_7700"^^xs:string, "MM_TOPIC_7700"@en;
    skos:prefLabel "Topic: Theoretical aspects of phenomenological thermodynamics"^^xs:string.
 
-otras:MM_TOPIC_7800 a otras:mm_topic_theoretical_mechanics;
+otras:MM_TOPIC_7800 a otras:mm_topic_theoretical_mechanics, vcl:codelist_mm_topic;
    otras:has_topic_code 7800;
    otras:is_narrower_than otras:MM_TOPIC_7000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_7800"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_7800"^^xs:string, "MM_TOPIC_7800"@en;
    skos:prefLabel "Topic: Theoretical aspects of classical and/or quantum mechanics"^^xs:string.
 
-otras:MM_TOPIC_8000 a otras:mm_topic_interdisciplinary;
+otras:MM_TOPIC_8000 a otras:mm_topic_interdisciplinary, vcl:codelist_mm_topic;
    otras:has_topic_code 8000;
    otras:is_narrower_than otras:MM_TOPIC_0000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_8000"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_8000"^^xs:string, "MM_TOPIC_8000"@en;
    skos:prefLabel "Topic: Interdisciplinary (beyond basic prerequisites)"^^xs:string.
 
-otras:MM_TOPIC_8340 a otras:mm_topic_interdisciplinary_comp_data;
+otras:MM_TOPIC_8340 a otras:mm_topic_interdisciplinary_comp_data, vcl:codelist_mm_topic;
    otras:has_topic_code 8340;
    otras:is_narrower_than otras:MM_TOPIC_8000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_8340"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_8340"^^xs:string, "MM_TOPIC_8340"@en;
    skos:prefLabel "Topic: Interdisciplinary studies with significant computational and data-science aspects"^^xs:string.
 
-otras:MM_TOPIC_8350 a otras:mm_topic_interdisciplinary_comp_materials;
+otras:MM_TOPIC_8350 a otras:mm_topic_interdisciplinary_comp_materials, vcl:codelist_mm_topic;
    otras:has_topic_code 8350;
    otras:is_narrower_than otras:MM_TOPIC_8000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_8350"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_8350"^^xs:string, "MM_TOPIC_8350"@en;
    skos:prefLabel "Topic: Interdisciplinary studies with significant computational and material-property aspects"^^xs:string.
 
-otras:MM_TOPIC_8360 a otras:mm_topic_interdisciplinary_comp_social;
+otras:MM_TOPIC_8360 a otras:mm_topic_interdisciplinary_comp_social, vcl:codelist_mm_topic;
    otras:has_topic_code 8360;
    otras:is_narrower_than otras:MM_TOPIC_8000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_8360"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_8360"^^xs:string, "MM_TOPIC_8360"@en;
    skos:prefLabel "Topic: Interdisciplinary studies with significant computational and socio-economic aspects"^^xs:string.
 
-otras:MM_TOPIC_8370 a otras:mm_topic_interdisciplinary_comp_theoretical;
+otras:MM_TOPIC_8370 a otras:mm_topic_interdisciplinary_comp_theoretical, vcl:codelist_mm_topic;
    otras:has_topic_code 8370;
    otras:is_narrower_than otras:MM_TOPIC_8000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_8370"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_8370"^^xs:string, "MM_TOPIC_8370"@en;
    skos:prefLabel "Topic: Interdisciplinary studies with significant computational and theoretical aspects"^^xs:string.
 
-otras:MM_TOPIC_8390 a otras:mm_topic_interdisciplinary_comp_side;
+otras:MM_TOPIC_8390 a otras:mm_topic_interdisciplinary_comp_side, vcl:codelist_mm_topic;
    otras:has_topic_code 8390;
    otras:is_narrower_than otras:MM_TOPIC_8000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_8390"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_8390"^^xs:string, "MM_TOPIC_8390"@en;
    skos:prefLabel "Topic: Interdisciplinary studies with significant computational and side-interest aspects"^^xs:string.
 
-otras:MM_TOPIC_8450 a otras:mm_topic_interdisciplinary_data_materials;
+otras:MM_TOPIC_8450 a otras:mm_topic_interdisciplinary_data_materials, vcl:codelist_mm_topic;
    otras:has_topic_code 8450;
    otras:is_narrower_than otras:MM_TOPIC_8000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_8450"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_8450"^^xs:string, "MM_TOPIC_8450"@en;
    skos:prefLabel "Topic: Interdisciplinary studies with significant data-science and material-property aspects"^^xs:string.
 
-otras:MM_TOPIC_8454 a otras:mm_topic_interdisciplinary_data_materials;
+otras:MM_TOPIC_8454 a otras:mm_topic_interdisciplinary_data_materials, vcl:codelist_mm_topic;
    otras:has_topic_code 8454;
    otras:is_narrower_than otras:MM_TOPIC_8450;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_8454"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_8454"^^xs:string, "MM_TOPIC_8454"@en;
    skos:prefLabel "Topic: Bioinformatics applied to genomics/genome analysis"^^xs:string.
 
-otras:MM_TOPIC_8460 a otras:mm_topic_interdisciplinary_data_social;
+otras:MM_TOPIC_8460 a otras:mm_topic_interdisciplinary_data_social, vcl:codelist_mm_topic;
    otras:has_topic_code 8460;
    otras:is_narrower_than otras:MM_TOPIC_8000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_8460"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_8460"^^xs:string, "MM_TOPIC_8460"@en;
    skos:prefLabel "Topic: Interdisciplinary studies with significant data-science and socio-economic aspects"^^xs:string.
 
-otras:MM_TOPIC_8470 a otras:mm_topic_interdisciplinary_data_theoretical;
+otras:MM_TOPIC_8470 a otras:mm_topic_interdisciplinary_data_theoretical, vcl:codelist_mm_topic;
    otras:has_topic_code 8470;
    otras:is_narrower_than otras:MM_TOPIC_8000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_8470"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_8470"^^xs:string, "MM_TOPIC_8470"@en;
    skos:prefLabel "Topic: Interdisciplinary studies with significant data-science and theoretical aspects"^^xs:string.
 
-otras:MM_TOPIC_8490 a otras:mm_topic_interdisciplinary_data_side;
+otras:MM_TOPIC_8490 a otras:mm_topic_interdisciplinary_data_side, vcl:codelist_mm_topic;
    otras:has_topic_code 8490;
    otras:is_narrower_than otras:MM_TOPIC_8000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_8490"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_8490"^^xs:string, "MM_TOPIC_8490"@en;
    skos:prefLabel "Topic: Interdisciplinary studies with significant data-science and side-interest aspects"^^xs:string.
 
-otras:MM_TOPIC_8560 a otras:mm_topic_interdisciplinary_materials_social;
+otras:MM_TOPIC_8560 a otras:mm_topic_interdisciplinary_materials_social, vcl:codelist_mm_topic;
    otras:has_topic_code 8560;
    otras:is_narrower_than otras:MM_TOPIC_8000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_8560"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_8560"^^xs:string, "MM_TOPIC_8560"@en;
    skos:prefLabel "Topic: Interdisciplinary studies with significant material-property and socio-economic aspects"^^xs:string.
 
-otras:MM_TOPIC_8570 a otras:mm_topic_interdisciplinary_materials_theoretical;
+otras:MM_TOPIC_8570 a otras:mm_topic_interdisciplinary_materials_theoretical, vcl:codelist_mm_topic;
    otras:has_topic_code 8570;
    otras:is_narrower_than otras:MM_TOPIC_8000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_8570"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_8570"^^xs:string, "MM_TOPIC_8570"@en;
    skos:prefLabel "Topic: Interdisciplinary studies with significant material-property and theoretical aspects"^^xs:string.
 
-otras:MM_TOPIC_8590 a otras:mm_topic_interdisciplinary_materials_side;
+otras:MM_TOPIC_8590 a otras:mm_topic_interdisciplinary_materials_side, vcl:codelist_mm_topic;
    otras:has_topic_code 8590;
    otras:is_narrower_than otras:MM_TOPIC_8000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_8590"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_8590"^^xs:string, "MM_TOPIC_8590"@en;
    skos:prefLabel "Topic: Interdisciplinary studies with significant material-property and side-interest aspects"^^xs:string.
 
-otras:MM_TOPIC_8670 a otras:mm_topic_interdisciplinary_social_theoretical;
+otras:MM_TOPIC_8670 a otras:mm_topic_interdisciplinary_social_theoretical, vcl:codelist_mm_topic;
    otras:has_topic_code 8670;
    otras:is_narrower_than otras:MM_TOPIC_8000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_8670"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_8670"^^xs:string, "MM_TOPIC_8670"@en;
    skos:prefLabel "Topic: Interdisciplinary studies with significant socio-economic and theoretical aspects"^^xs:string.
 
-otras:MM_TOPIC_8690 a otras:mm_topic_interdisciplinary_social_side;
+otras:MM_TOPIC_8690 a otras:mm_topic_interdisciplinary_social_side, vcl:codelist_mm_topic;
    otras:has_topic_code 8690;
    otras:is_narrower_than otras:MM_TOPIC_8000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_8690"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_8690"^^xs:string, "MM_TOPIC_8690"@en;
    skos:prefLabel "Topic: Interdisciplinary studies with significant socio-economic and side-interest aspects"^^xs:string.
 
-otras:MM_TOPIC_8790 a otras:mm_topic_interdisciplinary_theoretical_side;
+otras:MM_TOPIC_8790 a otras:mm_topic_interdisciplinary_theoretical_side, vcl:codelist_mm_topic;
    otras:has_topic_code 8790;
    otras:is_narrower_than otras:MM_TOPIC_8000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_8790"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_8790"^^xs:string, "MM_TOPIC_8790"@en;
    skos:prefLabel "Topic: Interdisciplinary studies with significant theoretical and side-interest aspects"^^xs:string.
 
-otras:MM_TOPIC_9000 a otras:mm_topic_side;
+otras:MM_TOPIC_9000 a otras:mm_topic_side, vcl:codelist_mm_topic;
    otras:has_topic_code 9000;
    otras:is_narrower_than otras:MM_TOPIC_0000;
-   skos:inScheme codelist:CL_MM_TOPIC;
-   skos:notation "MM_TOPIC_9000"^^xs:string;
+   skos:inScheme vcl:CL_SCHEME_MM_TOPIC;
+   skos:notation "MM_TOPIC_9000"^^xs:string, "MM_TOPIC_9000"@en;
    skos:prefLabel "Topic: Side interests (general)"^^xs:string.
 
 
