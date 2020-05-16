@@ -725,9 +725,9 @@ emmo1s:hasProperty a owl:ObjectProperty;
 
 ### EMMO-VIMMP INTEGRATION (EVI) ###
 
-### VERSION 0.4.4 ###
+### VERSION 0.4.5 ###
 
-### DATED 10TH MAY 2020 ###
+### DATED 16TH MAY 2020 ###
 
 @prefix evi: <http://www.vimmp.eu/semantics/alignment/evi.ttl#>.
 
@@ -739,6 +739,7 @@ emmo1s:hasProperty a owl:ObjectProperty;
 @prefix owl2: <http://www.w3.org/2006/12/owl2#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix viprs: <http://www.vimmp.eu/semantics/alignment/viprs.ttl#>.
 @prefix viso: <http://www.vimmp.eu/semantics/viso/viso-general.ttl#>.
 @prefix viso-am: <http://www.vimmp.eu/semantics/viso/viso-atomistic-mesoscopic.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
@@ -757,6 +758,39 @@ evi:non_emmo a owl:Class;
    rdfs:subClassOf evi:meta_emmo;
    rdfs:comment "any non-spacetime entities (hence, not covered by the EMMO) are to be subsumed under this class"^^xs:string.
 
+#########
+# VIPRS #
+#########
+
+viprs:top_entity a owl:Class;
+   owl:sameAs evi:meta_emmo.
+viprs:transcendent_entity a owl:Class;
+   rdfs:subClassOf viprs:top_entity;
+   owl:disjointWith emmo1s:EMMO, viprs:immanent_entity.
+viprs:immanent_entity a owl:Class;
+   rdfs:subClassOf viprs:top_entity.
+emmo1s:EMMO rdfs:subClassOf viprs:immanent_entity.
+
+viprs:has_proper_part a owl:ObjectProperty;
+   owl:inverseOf viprs:is_proper_part_of;
+   owl:sameAs emmo1s:hasProperPart.
+viprs:has_sign a owl:ObjectProperty;
+   owl:inverseOf viprs:is_sign_for;
+   owl:sameAs emmo1s:hasSign.
+viprs:is_proper_part_of a owl:ObjectProperty;
+   owl:inverseOf emmo1s:hasProperPart, viprs:has_proper_part.
+viprs:is_sign_for a owl:ObjectProperty;
+   owl:inverseOf emmo1s:hasSign, viprs:has_sign.
+
+viprs:has_model a owl:ObjectProperty;
+   rdfs:subProperty viprs:has_sign;
+   owl:sameAs emmo1s:hasModel.
+viprs:is_model_for a owl:ObjectProperty;
+   rdfs:subPropertyOf viprs:is_sign_for;
+   owl:inverseOf emmo1s:hasModel, viprs:has_model.
+
+viprs:mereosemiotics_hp_ip a owl:ObjectProperty;
+   owl:equivalentProperty emmo1s:hasOverlapWith.
 
 ####################
 # EVMPO CATEGORIES #
@@ -773,7 +807,7 @@ evmpo:assessment a owl:Class;
    rdfs:subClassOf emmo1s:Sign, evmpo:paradigmatic_entity;
    rdfs:subClassOf [
       a owl:Restriction;
-      owl:onProperty evi:is_sign_for;
+      owl:onProperty [owl:inverseOf emmo1s:hasSign];
       owl:someValuesFrom evmpo:information_content_entity
    ].
 
@@ -783,7 +817,7 @@ evmpo:calendar_event a owl:Class;
    rdfs:subClassOf emmo1s:Sign, evmpo:paradigmatic_entity;
    rdfs:subClassOf [
       a owl:Restriction;
-      owl:onProperty evi:is_sign_for;
+      owl:onProperty [owl:inverseOf emmo1s:hasSign];
       owl:someValuesFrom emmo1s:Process
    ].
 
@@ -832,7 +866,7 @@ evmpo:business_process a owl:Class;
    rdfs:subClassOf evmpo:model, evmpo:process;
    rdfs:subClassOf [
       a owl:Restriction;
-      owl:onProperty evi:is_model_for;
+      owl:onProperty [owl:inverseOf emmo1s:hasModel];
       owl:someValuesFrom emmo1s:Process
    ].
 evmpo:physical_process a owl:Class;
@@ -851,7 +885,7 @@ evmpo:service a owl:Class;
    rdfs:subClassOf emmo1s:Sign, evmpo:product;
    rdfs:subClassOf [
       a owl:Restriction;
-      owl:onProperty evi:is_sign_for;
+      owl:onProperty [owl:inverseOf emmo1s:hasSign];
       owl:someValuesFrom emmo1s:Process
    ].
 
@@ -865,216 +899,6 @@ evmpo:property a owl:Class;
 #
 evmpo:annotation a owl:Class;
    rdfs:subClassOf evmpo:marketplace_related_entity.
-
-
-##################
-# MEREOSEMIOTICS #
-##################
-
-evi:has_mereosemiotic_relation_with a owl:ObjectProperty, owl:SymmetricProperty, owl:TransitiveProperty;
-   rdfs:domain emmo1s:EMMO;
-   rdfs:range emmo1s:EMMO.
-
-evi:is_proper_part_of a owl:ObjectProperty;
-   rdfs:domain emmo1s:EMMO;
-   rdfs:range emmo1s:EMMO;
-   owl:inverseOf emmo1s:hasProperPart;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with.
-emmo1s:hasProperPart rdfs:subPropertyOf evi:has_mereosemiotic_relation_with.
-evi:is_sign_for a owl:ObjectProperty;
-   rdfs:domain emmo1s:Sign;
-   rdfs:range emmo1s:Object;
-   owl:inverseOf emmo1s:hasSign;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with.
-evi:is_model_for a owl:ObjectProperty;
-   rdfs:domain emmo1s:Model;
-   rdfs:range emmo1s:Object;
-   owl:inverseOf emmo1s:hasModel;
-   rdfs:subPropertyOf evi:is_sign_for.
-emmo1s:hasSign rdfs:subPropertyOf evi:has_mereosemiotic_relation_with.
-
-# :a evi:mereosemiotics_hp_ip :b  <=>  :a emmo1s:hasProperPart [evi:is_proper_part_of :b].
-#
-evi:mereosemiotics_hp_ip a owl:ObjectProperty, owl:SymmetricProperty;
-   rdfs:domain emmo1s:EMMO;
-   rdfs:range emmo1s:EMMO;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with;
-   owl:equivalentProperty emmo1s:hasOverlapWith;
-   owl:propertyChainAxiom (emmo1s:hasProperPart evi:is_proper_part_of).
-
-# :a evi:mereosemiotics_ip_is :b  <=>  :a evi:is_proper_part_of [evi:is_sign_for :b].
-#
-evi:mereosemiotics_ip_is a owl:ObjectProperty;
-   rdfs:domain emmo1s:EMMO;
-   rdfs:range emmo1s:Object;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with;
-   owl:propertyChainAxiom (evi:is_proper_part_of evi:is_sign_for).
-
-evi:mereosemiotics_ip_hs a owl:ObjectProperty;
-   rdfs:domain emmo1s:EMMO;
-   rdfs:range emmo1s:Sign;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with;
-   owl:propertyChainAxiom (evi:is_proper_part_of emmo1s:hasSign).
-
-evi:mereosemiotics_hp_is a owl:ObjectProperty;
-   rdfs:domain emmo1s:EMMO;
-   rdfs:range emmo1s:Object;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with;
-   owl:propertyChainAxiom (emmo1s:hasProperPart evi:is_sign_for).
-
-evi:mereosemiotics_hp_hs a owl:ObjectProperty;
-   rdfs:domain emmo1s:EMMO;
-   rdfs:range emmo1s:Sign;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with;
-   owl:propertyChainAxiom (emmo1s:hasProperPart emmo1s:hasSign).
-
-evi:mereosemiotics_is_is a owl:ObjectProperty;
-   rdfs:domain emmo1s:Sign;
-   rdfs:range emmo1s:Object;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with;
-   owl:propertyChainAxiom (evi:is_sign_for evi:is_sign_for).
-
-evi:mereosemiotics_is_hs a owl:ObjectProperty, owl:SymmetricProperty;
-   rdfs:domain emmo1s:Sign;
-   rdfs:range emmo1s:EMMO;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with;
-   owl:propertyChainAxiom (evi:is_sign_for emmo1s:hasSign).
-
-evi:mereosemiotics_hs_is a owl:ObjectProperty, owl:SymmetricProperty;
-   rdfs:domain emmo1s:Object;
-   rdfs:range emmo1s:Object;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with;
-   owl:propertyChainAxiom (emmo1s:hasSign evi:is_sign_for).
-
-# :a evi:mereosemiotics_hp_ip_is :b  <=>  :a emmo1s:hasProperPart [evi:is_proper_part_of [evi:is_sign_for :b]].
-#
-evi:mereosemiotics_hp_ip_is a owl:ObjectProperty;
-   rdfs:domain emmo1s:EMMO;
-   rdfs:range emmo1s:Object;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with;
-   owl:propertyChainAxiom (evi:mereosemiotics_hp_ip evi:is_sign_for);
-   owl:propertyChainAxiom (emmo1s:hasProperPart evi:mereosemiotics_ip_is).
-
-# :a evi:mereosemiotics_hp_ip_hs :b  <=>  :a emmo1s:hasProperPart [evi:is_proper_part_of [emmo1s:hasSign :b]].
-#
-evi:mereosemiotics_hp_ip_hs a owl:ObjectProperty;
-   rdfs:domain emmo1s:EMMO;
-   rdfs:range emmo1s:Sign;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with;
-   owl:propertyChainAxiom (evi:mereosemiotics_hp_ip emmo1s:hasSign);
-   owl:propertyChainAxiom (emmo1s:hasProperPart evi:mereosemiotics_ip_hs).
-
-evi:mereosemiotics_ip_is_ip a owl:ObjectProperty;
-   rdfs:domain emmo1s:EMMO;
-   rdfs:range emmo1s:EMMO;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with;
-   owl:propertyChainAxiom (evi:mereosemiotics_ip_is evi:is_proper_part_of);
-   owl:propertyChainAxiom (evi:is_proper_part_of [owl:inverseOf evi:mereosemiotics_hp_hs]).
-
-evi:mereosemiotics_ip_is_hp a owl:ObjectProperty;
-   rdfs:domain emmo1s:EMMO;
-   rdfs:range emmo1s:EMMO;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with;
-   owl:propertyChainAxiom (evi:mereosemiotics_ip_is emmo1s:hasProperPart);
-   owl:propertyChainAxiom (evi:is_proper_part_of [owl:inverseOf evi:mereosemiotics_ip_hs]).
-
-evi:mereosemiotics_ip_is_is a owl:ObjectProperty;
-   rdfs:domain emmo1s:EMMO;
-   rdfs:range emmo1s:Object;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with;
-   owl:propertyChainAxiom (evi:mereosemiotics_ip_is evi:is_sign_for);
-   owl:propertyChainAxiom (evi:is_proper_part_of evi:mereosemiotics_is_is).
-
-evi:mereosemiotics_ip_is_hs a owl:ObjectProperty;
-   rdfs:domain emmo1s:EMMO;
-   rdfs:range emmo1s:Sign;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with;
-   owl:propertyChainAxiom (evi:mereosemiotics_ip_is emmo1s:hasSign);
-   owl:propertyChainAxiom (evi:is_proper_part_of evi:mereosemiotics_is_hs).
-
-evi:mereosemiotics_ip_hs_ip a owl:ObjectProperty;
-   rdfs:domain emmo1s:EMMO;
-   rdfs:range emmo1s:EMMO;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with;
-   owl:propertyChainAxiom (evi:mereosemiotics_ip_hs evi:is_proper_part_of);
-   owl:propertyChainAxiom (evi:is_proper_part_of [owl:inverseOf evi:mereosemiotics_hp_is]).
-
-evi:mereosemiotics_ip_hs_is a owl:ObjectProperty;
-   rdfs:domain emmo1s:EMMO;
-   rdfs:range emmo1s:Object;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with;
-   owl:propertyChainAxiom (evi:mereosemiotics_ip_hs evi:is_sign_for);
-   owl:propertyChainAxiom (evi:is_proper_part_of evi:mereosemiotics_hs_is).
-
-evi:mereosemiotics_ip_hs_hs a owl:ObjectProperty;
-   rdfs:domain emmo1s:EMMO;
-   rdfs:range emmo1s:Sign;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with;
-   owl:propertyChainAxiom (evi:mereosemiotics_ip_hs emmo1s:hasSign);
-   owl:propertyChainAxiom (evi:is_proper_part_of [owl:inverseOf evi:mereosemiotics_is_is]).
-
-evi:mereosemiotics_hp_is_ip a owl:ObjectProperty;
-   rdfs:domain emmo1s:EMMO;
-   rdfs:range emmo1s:EMMO;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with;
-   owl:propertyChainAxiom (evi:mereosemiotics_hp_is evi:is_proper_part_of);
-   owl:propertyChainAxiom (emmo1s:hasProperPart [owl:inverseOf evi:mereosemiotics_hp_hs]).
-
-evi:mereosemiotics_hp_is_is a owl:ObjectProperty;
-   rdfs:domain emmo1s:EMMO;
-   rdfs:range emmo1s:Object;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with;
-   owl:propertyChainAxiom (evi:mereosemiotics_hp_is evi:is_sign_for);
-   owl:propertyChainAxiom (emmo1s:hasProperPart evi:mereosemiotics_is_is).
-
-evi:mereosemiotics_hp_is_hs a owl:ObjectProperty;
-   rdfs:domain emmo1s:EMMO;
-   rdfs:range emmo1s:Sign;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with;
-   owl:propertyChainAxiom (evi:mereosemiotics_hp_is emmo1s:hasSign);
-   owl:propertyChainAxiom (emmo1s:hasProperPart evi:mereosemiotics_is_hs).
-
-evi:mereosemiotics_hp_hs_is a owl:ObjectProperty;
-   rdfs:domain emmo1s:EMMO;
-   rdfs:range emmo1s:Object;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with;
-   owl:propertyChainAxiom (evi:mereosemiotics_hp_hs evi:is_sign_for);
-   owl:propertyChainAxiom (emmo1s:hasProperPart evi:mereosemiotics_hs_is).
-
-evi:mereosemiotics_hp_hs_hs a owl:ObjectProperty;
-   rdfs:domain emmo1s:EMMO;
-   rdfs:range emmo1s:Sign;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with;
-   owl:propertyChainAxiom (evi:mereosemiotics_hp_hs emmo1s:hasSign);
-   owl:propertyChainAxiom (emmo1s:hasProperPart [owl:inverseOf evi:mereosemiotics_is_is]).
-
-evi:mereosemiotics_is_ip_is a owl:ObjectProperty;
-   rdfs:domain emmo1s:Sign;
-   rdfs:range emmo1s:Object;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with;
-   owl:propertyChainAxiom ([owl:inverseOf evi:mereosemiotics_hp_hs] evi:is_sign_for);
-   owl:propertyChainAxiom (evi:is_sign_for evi:mereosemiotics_ip_is).
-
-evi:mereosemiotics_is_ip_hs a owl:ObjectProperty;
-   rdfs:domain emmo1s:Sign;
-   rdfs:range emmo1s:Sign;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with;
-   owl:propertyChainAxiom ([owl:inverseOf evi:mereosemiotics_hp_hs] emmo1s:hasSign);
-   owl:propertyChainAxiom (evi:is_sign_for evi:mereosemiotics_ip_hs).
-
-evi:mereosemiotics_is_hp_is a owl:ObjectProperty;
-   rdfs:domain emmo1s:Sign;
-   rdfs:range emmo1s:Object;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with;
-   owl:propertyChainAxiom ([owl:inverseOf evi:mereosemiotics_ip_hs] evi:is_sign_for);
-   owl:propertyChainAxiom (evi:is_sign_for evi:mereosemiotics_hp_is).
-
-evi:mereosemiotics_hs_ip_is a owl:ObjectProperty;
-   rdfs:domain emmo1s:Object;
-   rdfs:range emmo1s:Object;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with;
-   owl:propertyChainAxiom ([owl:inverseOf evi:mereosemiotics_hp_is] evi:is_sign_for);
-   owl:propertyChainAxiom (emmo1s:hasSign evi:mereosemiotics_ip_is).
 
 
 #########################
@@ -1099,7 +923,7 @@ otras:citation a owl:Class;
    rdfs:subClassOf emmo1s:Sign, evmpo:information_content_entity;
    rdfs:subClassOf [
       a owl:Restriction;
-      owl:onProperty evi:is_sign_for;
+      owl:onProperty [owl:inverseOf emmo1s:hasSign];
       owl:someValuesFrom evmpo:information_content_entity
    ].
 
@@ -1117,16 +941,7 @@ otras:focus a owl:Class;
 #
 otras:topic a owl:Class;
    rdfs:subClassOf emmo1s:Sign, otras:focus.
-
-otras:has_abstract a owl:ObjectProperty;
-   rdfs:subPropertyOf emmo1s:hasProperPart.
-otras:has_offered_course a owl:ObjectProperty;
-   rdfs:subPropertyOf [owl:inverseOf evi:mereosemiotics_ip_hs], evi:has_mereosemiotic_relation_with.
-otras:is_citation_about_document a owl:ObjectProperty;
-   rdfs:subPropertyOf evi:is_sign_for.
-otras:is_cited_as a owl:ObjectProperty;
-   rdfs:subPropertyOf emmo1s:hasSign.
-
+   
 
 #########################
 # VISO-EMMO INTEGRATION #
@@ -1143,12 +958,9 @@ viso-am:interaction_site a owl:Class;
 viso:model_object a owl:Class;
    rdfs:subClassOf emmo1s:Symbolic, evmpo:marketplace_related_entity.
 
-viso:has_part a owl:ObjectProperty;
-   rdfs:subPropertyOf emmo1s:hasPart.
-
 ### EUROPEAN VIRTUAL MARKETPLACE ONTOLOGY (EVMPO) ###
 
-### VERSION 1.2.3, DATED 29TH APRIL 2020 ###
+### VERSION 1.2.4, DATED 16TH MAY 2020 ###
 
 @prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
 
@@ -1158,11 +970,13 @@ viso:has_part a owl:ObjectProperty;
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix viprs: <http://www.vimmp.eu/semantics/alignment/viprs.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
 <http://emmc.info/semantics/evmpo/evmpo.ttl> a owl:Ontology.
 
-evmpo:marketplace_related_entity a owl:Class.
+evmpo:marketplace_related_entity a owl:Class;
+   rdfs:subClassOf viprs:immanent_entity.
 
 evmpo:marketplace_related_entity owl:disjointUnionOf (evmpo:paradigmatic_entity evmpo:annotation).
 
@@ -1570,11 +1384,12 @@ vcl:CL_SCHEME_MM_TOPIC a owl:NamedIndividual, skos:ConceptScheme;
    skos:prefLabel "mm_topic"^^xs:string;
    skos:definition "materials modelling topic"^^xs:string.
 
+
 ### VIMMP PRIMITIVES (VIPRS) ###
 
-### VERSION 0.1.1 ###
+### VERSION 0.2.0 ###
 
-### DATED 15TH MAY 2020 ###
+### DATED 16TH MAY 2020 ###
 
 # 1. Modal square of opposition
 #
@@ -1585,23 +1400,16 @@ vcl:CL_SCHEME_MM_TOPIC a owl:NamedIndividual, skos:ConceptScheme;
 #
 # a) occurrence and requirement (implied co-occurrence) in the same scenario, possible world, environment, or realization 
 #    -> necessity/possibility
-#    -> positive/negative
-#    -> active/passive
 #    -> individual/conceptual
+#    -> occurrence/non-occurrence of subject and object
 #
-# b) proper parthood (eight varieties) - below coexistence
-#    -> necessity/possibility
-#    -> positive/negative
-#    -> active/passive
+# b) proper parthood
 #
-# c) representation (eight varieties) - coexistence not explicitly implied (however, it is indirectly implied through the EMMO)
-#    -> necessity/possibility
-#    -> positive/negative
-#    -> active/passive
+# c) representation
 #
 # 3. Additionally, non-primitives
 #
-# a) more specific high-level properties
+# a) specific high-level properties
 # b) chain properties: mereosemiotics
 
 @prefix viprs: <http://www.vimmp.eu/semantics/alignment/viprs.ttl#>.
@@ -1614,27 +1422,47 @@ vcl:CL_SCHEME_MM_TOPIC a owl:NamedIndividual, skos:ConceptScheme;
 
 <http://www.vimmp.eu/semantics/alignment/viprs.ttl> a owl:Ontology.
 
-viprs:meta_emmo a owl:Class;
-   rdfs:subClassOf owl:Thing.
+viprs:top_entity a owl:Class;
+   rdfs:subClassOf owl:Thing;
+   owl:disjointUnionOf (viprs:immanent_entity viprs:transcendent_entity).
+viprs:immanent_entity a owl:Class;
+   rdfs:subClassOf viprs:top_entity;
+   owl:disjointWith viprs:transcendent_entity;
+   rdfs:comment "immanent entity, i.e., something that may or may not occur within a realization"^^xs:string.
+viprs:transcendent_entity a owl:Class;
+   rdfs:subClassOf viprs:top_entity;
+   owl:disjointWith viprs:immanent_entity;
+   rdfs:comment "transcendent entity, i.e., a non-immanent entity (e.g., a realization)"^^xs:string.
+
 viprs:realization a owl:Class;
-   rdfs:subClassOf viprs:meta_emmo;
-   owl:disjointWith viprs:entity;
+   rdfs:subClassOf viprs:transcendent_entity;
    rdfs:comment "realization, i.e., a scenario, possible world, or environment"^^xs:string.
-viprs:entity a owl:Class;
-   rdfs:subClassOf viprs:meta_emmo;
-   owl:disjointWith viprs:realization;
-   rdfs:comment "entity, i.e., something that may or may not occur within a realization"^^xs:string.
+viprs:FACTUAL a viprs:realization;
+   rdfs:comment "the factual realization (scenario, possible world, or environment that is there in reality)"^^xs:string.
+
+viprs:top_relation a owl:ObjectProperty;
+   rdfs:domain viprs:top_entity;
+   rdfs:range viprs:top_entity.
+viprs:transcendent_relation a owl:ObjectProperty;
+   rdfs:domain viprs:top_entity;
+   rdfs:range viprs:top_entity;
+   rdfs:subPropertyOf viprs:top_relation;
+   rdfs:comment "transcendent relation, i.e., a non-immanent relation (involving a transcendent entity)"^^xs:string.
 viprs:occurs_in a owl:ObjectProperty;
-   rdfs:domain viprs:entity;
+   rdfs:domain viprs:immanent_entity;
    rdfs:range viprs:realization;
+   rdfs:subPropertyOf viprs:transcendent_relation;
    owl:propertyDisjointWith viprs:does_not_occur_in.
 viprs:does_not_occur_in a owl:ObjectProperty;
-   rdfs:domain viprs:entity;
+   rdfs:domain viprs:immanent_entity;
    rdfs:range viprs:realization;
+   rdfs:subPropertyOf viprs:transcendent_relation;
    owl:propertyDisjointWith viprs:occurs_in.
-viprs:top_relation a owl:ObjectProperty;
-   rdfs:domain viprs:entity;
-   rdfs:range viprs:entity.
+viprs:immanent_relation a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:top_relation;
+   rdfs:comment "immanent relation, i.e., a relation between immanent entities"^^xs:string.
 
 #################################
 # 1. MODAL SQUARE OF OPPOSITION #
@@ -1646,26 +1474,26 @@ viprs:top_relation a owl:ObjectProperty;
 ## 1A. INDIVIDUAL RELATIONS: X relates to Y (below "X P Y", for some P) ##
 
 viprs:individual_necessity a owl:ObjectProperty;
-   rdfs:domain viprs:entity;
-   rdfs:range viprs:entity;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
    rdfs:subPropertyOf viprs:individual_possibility, viprs:conceptual_necessity;
    rdfs:comment "X individual_necessity Y == for some P, in all realizations X P Y"^^xs:string.
 viprs:individual_possibility a owl:ObjectProperty;
-   rdfs:domain viprs:entity;
-   rdfs:range viprs:entity;
-   rdfs:subPropertyOf viprs:top_relation;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:immanent_relation;
    rdfs:comment "X individual_possibility Y == for some P, in some realization X P Y"^^xs:string.
 
 ## 1B. CONCEPTUAL RELATIONS: X and Y are selected from sets/classes A and B, respectively ##
 
 viprs:conceptual_necessity a owl:ObjectProperty;
-   rdfs:domain viprs:entity;
-   rdfs:range viprs:entity;
-   rdfs:subPropertyOf viprs:top_relation;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:immanent_relation;
    rdfs:comment "X conceptual_necessity Y == for some property P, A concept for X, B concept for Y, in all realizations [some A] P [some B]"^^xs:string.
 viprs:conceptual_possibility a owl:ObjectProperty;
-   rdfs:domain viprs:entity;
-   rdfs:range viprs:entity;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
    rdfs:subPropertyOf viprs:individual_possibility;
    rdfs:comment "X conceptual_possibility Y == for some property P, A concept for X, B concept for Y, in some realization [all A] P [all B]"^^xs:string.
 
@@ -1679,7 +1507,7 @@ viprs:necessary_entity a owl:Class;
    rdfs:subClassOf viprs:possible_entity;
    owl:equivalentClass [
       owl:intersectionOf (
-         viprs:entity [
+         viprs:immanent_entity [
             a owl:Restriction;
             owl:onProperty viprs:does_not_occur_in;
             owl:cardinality 0
@@ -1688,10 +1516,10 @@ viprs:necessary_entity a owl:Class;
    ];
    rdfs:comment "necessary entity, i.e., an entity that occurs in every realization"^^xs:string.
 viprs:possible_entity a owl:Class;
-   rdfs:subClassOf viprs:entity;
+   rdfs:subClassOf viprs:immanent_entity;
    owl:equivalentClass [
       owl:intersectionOf (
-         viprs:entity [
+         viprs:immanent_entity [
             a owl:Restriction;
             owl:onProperty viprs:occurs_in;
             owl:someValuesFrom viprs:realization
@@ -1700,10 +1528,10 @@ viprs:possible_entity a owl:Class;
    ];
    rdfs:comment "possible entity, i.e., an entity that occurs in at least one realization"^^xs:string.
 viprs:non_necessary_entity a owl:Class;
-   rdfs:subClassOf viprs:entity;
+   rdfs:subClassOf viprs:immanent_entity;
    owl:equivalentClass [
       owl:intersectionOf (
-         viprs:entity [
+         viprs:immanent_entity [
             a owl:Restriction;
             owl:onProperty viprs:does_not_occur_in;
             owl:someValuesFrom viprs:realization
@@ -1715,7 +1543,7 @@ viprs:impossible_entity a owl:Class;
    rdfs:subClassOf viprs:non_necessary_entity;
    owl:equivalentClass [
       owl:intersectionOf (
-         viprs:entity [
+         viprs:immanent_entity [
             a owl:Restriction;
             owl:onProperty viprs:occurs_in;
             owl:cardinality 0
@@ -1724,56 +1552,417 @@ viprs:impossible_entity a owl:Class;
    ];
    rdfs:comment "impossible entity, i.e., an entity that does not occur in any realization"^^xs:string.
 
-viprs:entity owl:disjointUnionOf (viprs:necessary_entity viprs:non_necessary_entity).
-viprs:entity owl:disjointUnionOf (viprs:possible_entity viprs:impossible_entity).
+viprs:immanent_entity owl:disjointUnionOf (viprs:necessary_entity viprs:non_necessary_entity).
+viprs:immanent_entity owl:disjointUnionOf (viprs:possible_entity viprs:impossible_entity).
 
-# necessary-positive, active, individual
+# distinction between factual (really occurring) and fictional (hypothesized, but non-factual) entities
 #
-viprs:requires a owl:ObjectProperty, owl:TransitiveProperty;
-   rdfs:domain viprs:entity;
-   rdfs:range viprs:entity;
-   rdfs:subPropertyOf viprs:individual_necessity;
-   rdfs:comment "X requires Y == in all realizations, Y occurs or X does not occur (i.e., X -> Y)"^^xs:string.
+viprs:factual_entity a owl:Class;
+   rdfs:subClassOf viprs:possible_entity;
+   owl:equivalentClass [
+      owl:intersectionOf (
+         viprs:immanent_entity [
+            a owl:Restriction;
+            owl:onProperty viprs:occurs_in;
+            owl:hasValue viprs:FACTUAL
+         ]
+      )
+   ];
+   rdfs:comment "factual entity, i.e., an entity that occurs in fact"^^xs:string.
+viprs:fictional_entity a owl:Class;
+   rdfs:subClassOf viprs:non_necessary_entity;
+   owl:disjointWith [
+      a owl:Restriction;
+      owl:onProperty viprs:occurs_in;
+      owl:hasValue viprs:FACTUAL
+   ];
+   rdfs:comment "fictional_entity entity, i.e., an entity that, in fact, does not occur"^^xs:string.
 
-# necessary-positive, passive, individual
-#
-viprs:is_required_by a owl:ObjectProperty, owl:TransitiveProperty;
-   rdfs:domain viprs:entity;
-   rdfs:range viprs:entity;
-   rdfs:subPropertyOf viprs:individual_necessity;
-   rdfs:comment "X is_required_by Y == in all realizations, X occurs or Y does not occur (i.e., Y -> X)"^^xs:string.
+viprs:immanent_entity owl:disjointUnionOf (viprs:factual_entity viprs:fictional_entity).
 
-# possible-negative, active, individual
-#
-viprs:does_not_require a owl:ObjectProperty;
-   rdfs:domain viprs:possible_entity;
-   rdfs:range viprs:non_necessary_entity;
-   rdfs:subPropertyOf viprs:individual_possibility;
-   rdfs:comment "X does_not_require Y == in some realization, X occurs and Y does not occur (i.e., ![X -> Y])"^^xs:string.
+##
+# co-occurrence class: individual logical disjunction (or)
+# necessary disjunction, subject ('l' for left) occuring/non-occuring, object ('r' for right) occuring/non-occuring
+##
 
-# possible-negative, passive, individual
-#
-viprs:is_not_required_by a owl:ObjectProperty;
-   rdfs:domain viprs:possible_entity;
-   rdfs:range viprs:non_necessary_entity;
-   rdfs:subPropertyOf viprs:individual_possibility;
-   rdfs:comment "X is_not_required_by Y == in some realization, Y occurs and X does not occur (i.e., ![Y -> X])"^^xs:string.
+viprs:individual_cooccurrence_necessity a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:individual_necessity, viprs:conceptual_cooccurrence_necessity.
+
+viprs:n_loc_or_roc a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:individual_cooccurrence_necessity, viprs:n_loc_cor_roc;
+   rdfs:comment "X n_loc_or_roc Y == in all realizations, X occurs or Y occurs"^^xs:string.
+viprs:n_loc_or_rnoc a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:individual_cooccurrence_necessity, viprs:n_loc_cor_rnoc;
+   rdfs:comment "X n_loc_or_rnoc Y == in all realizations, X occurs or Y does not occur"^^xs:string.
+viprs:n_lnoc_or_roc a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:individual_cooccurrence_necessity, viprs:n_lnoc_cor_roc;
+   rdfs:comment "X n_lnoc_or_roc Y == in all realizations, X does not occur or Y occurs"^^xs:string.
+viprs:n_lnoc_or_rnoc a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:individual_cooccurrence_necessity, viprs:n_lnoc_cor_rnoc;
+   rdfs:comment "X n_lnoc_or_rnoc Y == in all realizations, X does not occur or Y does not occur"^^xs:string.
+
+##
+# co-occurrence class: individual logical conjunction (and)
+# possible conjunction, subject yes/no, object yes/no
+##
+
+viprs:individual_cooccurrence_possibility a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:individual_possibility.
+
+viprs:p_loc_and_roc a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:individual_cooccurrence_possibility;
+   rdfs:comment "X p_loc_and_roc Y == in some realization, X occurs and Y occurs"^^xs:string.
+viprs:p_loc_and_rnoc a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:individual_cooccurrence_possibility;
+   rdfs:comment "X p_loc_and_rnoc Y == in some realization, X occurs and Y does not occur"^^xs:string.
+viprs:p_lnoc_and_roc a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:individual_cooccurrence_possibility;
+   rdfs:comment "X p_lnoc_and_roc Y == in some realization, X does not occur and Y occurs"^^xs:string.
+viprs:p_lnoc_and_rnoc a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:individual_cooccurrence_possibility;
+   rdfs:comment "X p_lnoc_and_rnoc Y == in some realization, X does not occur and Y does not occur"^^xs:string.
+
+##
+# co-occurrence class: conceptual logical disjunction (cor)
+# necessary disjunction, subject yes/no, object yes/no
+##
+
+viprs:conceptual_cooccurrence_necessity a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:conceptual_necessity.
+
+viprs:n_loc_cor_roc a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:conceptual_cooccurrence_necessity;
+   rdfs:comment "X n_loc_cor_roc Y == in all realizations, [some A] occurs or [some B] occurs; therein, A conceptualizes X, and B conceptualizes Y"^^xs:string.
+viprs:n_loc_cor_rnoc a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:conceptual_cooccurrence_necessity;
+   rdfs:comment "X n_loc_cor_rnoc Y == in all realizations, [some A] occurs or [some B] does not occur; therein, A conceptualizes X, and B conceptualizes Y"^^xs:string.
+viprs:n_lnoc_cor_roc a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:conceptual_cooccurrence_necessity;
+   rdfs:comment "X n_lnoc_cor_roc Y == in all realizations, [some A] does not occur or [some B] occurs; therein, A conceptualizes X, and B conceptualizes Y"^^xs:string.
+viprs:n_lnoc_cor_rnoc a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:conceptual_cooccurrence_necessity;
+   rdfs:comment "X n_lnoc_cor_rnoc Y == in all realizations, [some A] does not occur or [some B] does not occur; therein, A conceptualizes X, and B conceptualizes Y"^^xs:string.
+
+##
+# co-occurrence class: conceptual logical conjunction (cand)
+# possible conjunction, subject yes/no, object yes/no
+##
+
+viprs:conceptual_cooccurrence_possibility a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:conceptual_possibility.
+
+viprs:p_loc_cand_roc a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:conceptual_cooccurrence_possibility, viprs:p_loc_and_roc;
+   rdfs:comment "X p_loc_cand_roc Y == in some realization, [all A] occur and [all B] occur; therein, A conceptualizes X, and B conceptualizes Y"^^xs:string.
+viprs:p_loc_cand_rnoc a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:conceptual_cooccurrence_possibility, viprs:p_loc_and_rnoc;
+   rdfs:comment "X p_loc_cand_rnoc Y == in some realization, [all A] occur and [no B] occurs; therein, A conceptualizes X, and B conceptualizes Y"^^xs:string.
+viprs:p_lnoc_cand_roc a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:conceptual_cooccurrence_possibility, viprs:p_lnoc_and_roc;
+   rdfs:comment "X p_lnoc_cand_roc Y == in some realization, [all A] occur and [no B] occurs; therein, A conceptualizes X, and B conceptualizes Y"^^xs:string.
+viprs:p_lnoc_cand_rnoc a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:conceptual_cooccurrence_possibility, viprs:p_lnoc_and_rnoc;
+   rdfs:comment "X p_lnoc_cand_rnoc Y == in some realization, [no A] occurs and [no B] occurs; therein, A conceptualizes X, and B conceptualizes Y"^^xs:string.
 
 #######################
 # 2B. PROPER PARTHOOD #
 #######################
 
+viprs:mereosemiotic_relation a owl:ObjectProperty, owl:SymmetricProperty, owl:TransitiveProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:immanent_relation.
+
+viprs:is_proper_part_of a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   owl:inverseOf viprs:has_proper_part;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation.
+viprs:has_proper_part a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   owl:inverseOf viprs:is_proper_part_of;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation.
+
 ######################
 # 2C. REPRESENTATION #
 ######################
 
-###########################################
-# 3A. MORE SPECIFIC HIGH-LEVEL PROPERTIES #
-###########################################
+viprs:is_sign_for a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   owl:inverseOf viprs:has_sign;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation.
+viprs:has_sign a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   owl:inverseOf viprs:is_sign_for;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation.
+
+######################################
+# 3A. SPECIFIC HIGH-LEVEL PROPERTIES #
+######################################
+
+viprs:has_model a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:has_sign;
+   owl:inverseOf viprs:is_model_for.
+viprs:is_model_for a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:is_sign_for;
+   owl:inverseOf viprs:has_model.
 
 #####################################
 # 3B. MEREOSEMIOTIC CHAIN RELATIONS #
 #####################################
+
+# :a viprs:mereosemiotics_hp_ip :b  <=>  :a viprs:has_proper_part [viprs:is_proper_part_of :b].
+#
+viprs:mereosemiotics_hp_ip a owl:ObjectProperty, owl:SymmetricProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation;
+   owl:propertyChainAxiom (viprs:has_proper_part viprs:is_proper_part_of).
+
+# :a viprs:mereosemiotics_ip_is :b  <=>  :a viprs:is_proper_part_of [viprs:is_sign_for :b].
+#
+viprs:mereosemiotics_ip_is a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation;
+   owl:propertyChainAxiom (viprs:is_proper_part_of viprs:is_sign_for).
+viprs:mereosemiotics_hs_hp a owl:ObjectProperty; owl:inverseOf viprs:mereosemiotics_ip_is.
+
+viprs:mereosemiotics_ip_hs a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation;
+   owl:propertyChainAxiom (viprs:is_proper_part_of viprs:has_sign).
+viprs:mereosemiotics_is_hp a owl:ObjectProperty; owl:inverseOf viprs:mereosemiotics_ip_hs.
+
+viprs:mereosemiotics_hp_is a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation;
+   owl:propertyChainAxiom (viprs:has_proper_part viprs:is_sign_for).
+viprs:mereosemiotics_hs_ip a owl:ObjectProperty; owl:inverseOf viprs:mereosemiotics_hp_is.
+
+viprs:mereosemiotics_hp_hs a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation;
+   owl:propertyChainAxiom (viprs:has_proper_part viprs:has_sign).
+viprs:mereosemiotics_is_ip a owl:ObjectProperty; owl:inverseOf viprs:mereosemiotics_hp_hs.
+
+viprs:mereosemiotics_is_is a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation;
+   owl:propertyChainAxiom (viprs:is_sign_for viprs:is_sign_for).
+viprs:mereosemiotics_hs_hs a owl:ObjectProperty; owl:inverseOf viprs:mereosemiotics_is_is.
+
+viprs:mereosemiotics_is_hs a owl:ObjectProperty, owl:SymmetricProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation;
+   owl:propertyChainAxiom (viprs:is_sign_for viprs:has_sign).
+
+viprs:mereosemiotics_hs_is a owl:ObjectProperty, owl:SymmetricProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation;
+   owl:propertyChainAxiom (viprs:has_sign viprs:is_sign_for).
+
+# :a viprs:mereosemiotics_hp_ip_is :b  <=>  :a viprs:has_proper_part [viprs:is_proper_part_of [viprs:is_sign_for :b]].
+#
+viprs:mereosemiotics_hp_ip_is a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation;
+   owl:propertyChainAxiom (viprs:mereosemiotics_hp_ip viprs:is_sign_for);
+   owl:propertyChainAxiom (viprs:has_proper_part viprs:mereosemiotics_ip_is).
+viprs:mereosemiotics_hs_hp_ip a owl:ObjectProperty; owl:inverseOf viprs:mereosemiotics_hp_ip_is.
+
+# :a viprs:mereosemiotics_hp_ip_hs :b  <=>  :a viprs:has_proper_part [viprs:is_proper_part_of [viprs:has_sign :b]].
+#
+viprs:mereosemiotics_hp_ip_hs a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation;
+   owl:propertyChainAxiom (viprs:mereosemiotics_hp_ip viprs:has_sign);
+   owl:propertyChainAxiom (viprs:has_proper_part viprs:mereosemiotics_ip_hs).
+viprs:mereosemiotics_is_hp_ip a owl:ObjectProperty; owl:inverseOf viprs:mereosemiotics_hp_ip_hs.
+
+viprs:mereosemiotics_ip_is_ip a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation;
+   owl:propertyChainAxiom (viprs:mereosemiotics_ip_is viprs:is_proper_part_of);
+   owl:propertyChainAxiom (viprs:is_proper_part_of [owl:inverseOf viprs:mereosemiotics_hp_hs]).
+viprs:mereosemiotics_hp_hs_hp a owl:ObjectProperty; owl:inverseOf viprs:mereosemiotics_ip_is_ip.
+
+viprs:mereosemiotics_ip_is_hp a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation;
+   owl:propertyChainAxiom (viprs:mereosemiotics_ip_is viprs:has_proper_part);
+   owl:propertyChainAxiom (viprs:is_proper_part_of [owl:inverseOf viprs:mereosemiotics_ip_hs]).
+viprs:mereosemiotics_ip_hs_hp a owl:ObjectProperty; owl:inverseOf viprs:mereosemiotics_ip_is_hp.
+
+viprs:mereosemiotics_ip_is_is a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation;
+   owl:propertyChainAxiom (viprs:mereosemiotics_ip_is viprs:is_sign_for);
+   owl:propertyChainAxiom (viprs:is_proper_part_of viprs:mereosemiotics_is_is).
+viprs:mereosemiotics_hs_hs_hp a owl:ObjectProperty; owl:inverseOf viprs:mereosemiotics_ip_is_is.
+
+viprs:mereosemiotics_ip_is_hs a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation;
+   owl:propertyChainAxiom (viprs:mereosemiotics_ip_is viprs:has_sign);
+   owl:propertyChainAxiom (viprs:is_proper_part_of viprs:mereosemiotics_is_hs).
+viprs:mereosemiotics_is_hs_hp a owl:ObjectProperty; owl:inverseOf viprs:mereosemiotics_ip_is_hs.
+
+viprs:mereosemiotics_ip_hs_ip a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation;
+   owl:propertyChainAxiom (viprs:mereosemiotics_ip_hs viprs:is_proper_part_of);
+   owl:propertyChainAxiom (viprs:is_proper_part_of [owl:inverseOf viprs:mereosemiotics_hp_is]).
+viprs:mereosemiotics_hp_is_hp a owl:ObjectProperty; owl:inverseOf viprs:mereosemiotics_ip_hs_ip.
+
+viprs:mereosemiotics_ip_hs_is a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation;
+   owl:propertyChainAxiom (viprs:mereosemiotics_ip_hs viprs:is_sign_for);
+   owl:propertyChainAxiom (viprs:is_proper_part_of viprs:mereosemiotics_hs_is).
+viprs:mereosemiotics_hs_is_hp a owl:ObjectProperty; owl:inverseOf viprs:mereosemiotics_ip_hs_is.
+
+viprs:mereosemiotics_ip_hs_hs a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation;
+   owl:propertyChainAxiom (viprs:mereosemiotics_ip_hs viprs:has_sign);
+   owl:propertyChainAxiom (viprs:is_proper_part_of [owl:inverseOf viprs:mereosemiotics_is_is]).
+viprs:mereosemiotics_is_is_hp a owl:ObjectProperty; owl:inverseOf viprs:mereosemiotics_ip_hs_hs.
+
+viprs:mereosemiotics_hp_is_ip a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation;
+   owl:propertyChainAxiom (viprs:mereosemiotics_hp_is viprs:is_proper_part_of);
+   owl:propertyChainAxiom (viprs:has_proper_part [owl:inverseOf viprs:mereosemiotics_hp_hs]).
+viprs:mereosemiotics_hp_hs_ip a owl:ObjectProperty; owl:inverseOf viprs:mereosemiotics_hp_is_ip.
+
+viprs:mereosemiotics_hp_is_is a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation;
+   owl:propertyChainAxiom (viprs:mereosemiotics_hp_is viprs:is_sign_for);
+   owl:propertyChainAxiom (viprs:has_proper_part viprs:mereosemiotics_is_is).
+viprs:mereosemiotics_hs_hs_ip a owl:ObjectProperty; owl:inverseOf viprs:mereosemiotics_hp_is_is.
+
+viprs:mereosemiotics_hp_is_hs a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation;
+   owl:propertyChainAxiom (viprs:mereosemiotics_hp_is viprs:has_sign);
+   owl:propertyChainAxiom (viprs:has_proper_part viprs:mereosemiotics_is_hs).
+viprs:mereosemiotics_is_hs_ip a owl:ObjectProperty; owl:inverseOf viprs:mereosemiotics_hp_is_hs.
+
+viprs:mereosemiotics_hp_hs_is a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation;
+   owl:propertyChainAxiom (viprs:mereosemiotics_hp_hs viprs:is_sign_for);
+   owl:propertyChainAxiom (viprs:has_proper_part viprs:mereosemiotics_hs_is).
+viprs:mereosemiotics_hs_is_ip a owl:ObjectProperty; owl:inverseOf viprs:mereosemiotics_hp_hs_is.
+
+viprs:mereosemiotics_hp_hs_hs a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation;
+   owl:propertyChainAxiom (viprs:mereosemiotics_hp_hs viprs:has_sign);
+   owl:propertyChainAxiom (viprs:has_proper_part [owl:inverseOf viprs:mereosemiotics_is_is]).
+viprs:mereosemiotics_is_is_ip a owl:ObjectProperty; owl:inverseOf viprs:mereosemiotics_hp_hs_hs.
+
+viprs:mereosemiotics_is_ip_is a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation;
+   owl:propertyChainAxiom ([owl:inverseOf viprs:mereosemiotics_hp_hs] viprs:is_sign_for);
+   owl:propertyChainAxiom (viprs:is_sign_for viprs:mereosemiotics_ip_is).
+viprs:mereosemiotics_hs_hp_hs a owl:ObjectProperty; owl:inverseOf viprs:mereosemiotics_is_ip_is.
+
+viprs:mereosemiotics_is_ip_hs a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation;
+   owl:propertyChainAxiom ([owl:inverseOf viprs:mereosemiotics_hp_hs] viprs:has_sign);
+   owl:propertyChainAxiom (viprs:is_sign_for viprs:mereosemiotics_ip_hs).
+viprs:mereosemiotics_is_hp_hs a owl:ObjectProperty; owl:inverseOf viprs:mereosemiotics_is_ip_hs.
+
+viprs:mereosemiotics_is_hp_is a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation;
+   owl:propertyChainAxiom ([owl:inverseOf viprs:mereosemiotics_ip_hs] viprs:is_sign_for);
+   owl:propertyChainAxiom (viprs:is_sign_for viprs:mereosemiotics_hp_is).
+viprs:mereosemiotics_hs_ip_hs a owl:ObjectProperty; owl:inverseOf viprs:mereosemiotics_is_hp_is.
+
+viprs:mereosemiotics_hs_ip_is a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation;
+   owl:propertyChainAxiom ([owl:inverseOf viprs:mereosemiotics_hp_is] viprs:is_sign_for);
+   owl:propertyChainAxiom (viprs:has_sign viprs:mereosemiotics_ip_is).
+viprs:mereosemiotics_hs_hp_is a owl:ObjectProperty; owl:inverseOf viprs:mereosemiotics_hs_ip_is.
+
 
 ### MARKETPLACE-ACCESSIBLE COMPUTATIONAL RESOURCE ONTOLOGY (MACRO) ###
 
@@ -4839,9 +5028,9 @@ osmo:use_case_decision_support_system a owl:Class;
 
 ### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
 
-### VERSION 0.9.10 ###
+### VERSION 0.9.11 ###
 
-### DATED 15TH MAY 2020 ###
+### DATED 16TH MAY 2020 ###
 
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 
@@ -4855,6 +5044,7 @@ osmo:use_case_decision_support_system a owl:Class;
 @prefix skos: <http://www.w3.org/2004/02/skos/core#>.
 @prefix vcl: <http://www.vimmp.eu/semantics/alignment/vcl.ttl#>.
 @prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
+@prefix viprs: <http://www.vimmp.eu/semantics/alignment/viprs.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
 <http://www.vimmp.eu/semantics/otras/otras.ttl#> a owl:Ontology.
@@ -4869,10 +5059,11 @@ otras:has_targeted_group a owl:ObjectProperty;
 otras:has_abstract a owl:ObjectProperty;
    rdfs:domain evmpo:document;
    rdfs:range otras:abstract;
-   rdfs:subPropertyOf iao:BFO_0000051.  # BFO "has_part" referenced through the IAO
+   rdfs:subPropertyOf viprs:has_proper_part, iao:BFO_0000051.  # BFO "has_part" referenced through the IAO
 otras:is_cited_as a owl:ObjectProperty;
    rdfs:domain evmpo:document;
    rdfs:range otras:citation;
+   rdfs:subPropertyOf viprs:has_sign;
    owl:inverseOf otras:is_citation_about_document.
 
 otras:has_text_form a owl:DatatypeProperty;
@@ -4953,7 +5144,8 @@ otras:training_service a owl:Class;
 
 otras:has_offered_course a owl:ObjectProperty;
    rdfs:domain otras:training_service;
-   rdfs:range otras:course.
+   rdfs:range otras:course;
+   rdfs:subPropertyOf viprs:mereosemiotics_is_hp.
 
 otras:focus a owl:Class;
    rdfs:comment "focus, i.e., a studied object or topic or training objective (or an aspect or constitutive part thereof)";
@@ -7108,7 +7300,7 @@ otras:is_about a owl:ObjectProperty;
 otras:is_citation_about_document a owl:ObjectProperty;
    rdfs:domain otras:citation;
    rdfs:range evmpo:document;
-   rdfs:subPropertyOf otras:is_about;
+   rdfs:subPropertyOf otras:is_about, viprs:is_sign_for;
    owl:inverseOf otras:is_cited_as.
 
 otras:has_document_topic a owl:ObjectProperty;

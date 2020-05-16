@@ -29,3 +29,4 @@ vcl:codelist_mm_topic a owl:Class;
 vcl:CL_SCHEME_MM_TOPIC a owl:NamedIndividual, skos:ConceptScheme;
    skos:prefLabel "mm_topic"^^xs:string;
    skos:definition "materials modelling topic"^^xs:string.
+

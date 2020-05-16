@@ -1,9 +1,9 @@
 
 ### EMMO-VIMMP INTEGRATION (EVI) ###
 
-### VERSION 0.4.4 ###
+### VERSION 0.4.5 ###
 
-### DATED 10TH MAY 2020 ###
+### DATED 16TH MAY 2020 ###
 
 @prefix evi: <http://www.vimmp.eu/semantics/alignment/evi.ttl#>.
 
@@ -15,6 +15,7 @@
 @prefix owl2: <http://www.w3.org/2006/12/owl2#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix viprs: <http://www.vimmp.eu/semantics/alignment/viprs.ttl#>.
 @prefix viso: <http://www.vimmp.eu/semantics/viso/viso-general.ttl#>.
 @prefix viso-am: <http://www.vimmp.eu/semantics/viso/viso-atomistic-mesoscopic.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
@@ -33,6 +34,39 @@ evi:non_emmo a owl:Class;
    rdfs:subClassOf evi:meta_emmo;
    rdfs:comment "any non-spacetime entities (hence, not covered by the EMMO) are to be subsumed under this class"^^xs:string.
 
+#########
+# VIPRS #
+#########
+
+viprs:top_entity a owl:Class;
+   owl:sameAs evi:meta_emmo.
+viprs:transcendent_entity a owl:Class;
+   rdfs:subClassOf viprs:top_entity;
+   owl:disjointWith emmo1s:EMMO, viprs:immanent_entity.
+viprs:immanent_entity a owl:Class;
+   rdfs:subClassOf viprs:top_entity.
+emmo1s:EMMO rdfs:subClassOf viprs:immanent_entity.
+
+viprs:has_proper_part a owl:ObjectProperty;
+   owl:inverseOf viprs:is_proper_part_of;
+   owl:sameAs emmo1s:hasProperPart.
+viprs:has_sign a owl:ObjectProperty;
+   owl:inverseOf viprs:is_sign_for;
+   owl:sameAs emmo1s:hasSign.
+viprs:is_proper_part_of a owl:ObjectProperty;
+   owl:inverseOf emmo1s:hasProperPart, viprs:has_proper_part.
+viprs:is_sign_for a owl:ObjectProperty;
+   owl:inverseOf emmo1s:hasSign, viprs:has_sign.
+
+viprs:has_model a owl:ObjectProperty;
+   rdfs:subProperty viprs:has_sign;
+   owl:sameAs emmo1s:hasModel.
+viprs:is_model_for a owl:ObjectProperty;
+   rdfs:subPropertyOf viprs:is_sign_for;
+   owl:inverseOf emmo1s:hasModel, viprs:has_model.
+
+viprs:mereosemiotics_hp_ip a owl:ObjectProperty;
+   owl:equivalentProperty emmo1s:hasOverlapWith.
 
 ####################
 # EVMPO CATEGORIES #
@@ -49,7 +83,7 @@ evmpo:assessment a owl:Class;
    rdfs:subClassOf emmo1s:Sign, evmpo:paradigmatic_entity;
    rdfs:subClassOf [
       a owl:Restriction;
-      owl:onProperty evi:is_sign_for;
+      owl:onProperty [owl:inverseOf emmo1s:hasSign];
       owl:someValuesFrom evmpo:information_content_entity
    ].
 
@@ -59,7 +93,7 @@ evmpo:calendar_event a owl:Class;
    rdfs:subClassOf emmo1s:Sign, evmpo:paradigmatic_entity;
    rdfs:subClassOf [
       a owl:Restriction;
-      owl:onProperty evi:is_sign_for;
+      owl:onProperty [owl:inverseOf emmo1s:hasSign];
       owl:someValuesFrom emmo1s:Process
    ].
 
@@ -108,7 +142,7 @@ evmpo:business_process a owl:Class;
    rdfs:subClassOf evmpo:model, evmpo:process;
    rdfs:subClassOf [
       a owl:Restriction;
-      owl:onProperty evi:is_model_for;
+      owl:onProperty [owl:inverseOf emmo1s:hasModel];
       owl:someValuesFrom emmo1s:Process
    ].
 evmpo:physical_process a owl:Class;
@@ -127,7 +161,7 @@ evmpo:service a owl:Class;
    rdfs:subClassOf emmo1s:Sign, evmpo:product;
    rdfs:subClassOf [
       a owl:Restriction;
-      owl:onProperty evi:is_sign_for;
+      owl:onProperty [owl:inverseOf emmo1s:hasSign];
       owl:someValuesFrom emmo1s:Process
    ].
 
@@ -141,216 +175,6 @@ evmpo:property a owl:Class;
 #
 evmpo:annotation a owl:Class;
    rdfs:subClassOf evmpo:marketplace_related_entity.
-
-
-##################
-# MEREOSEMIOTICS #
-##################
-
-evi:has_mereosemiotic_relation_with a owl:ObjectProperty, owl:SymmetricProperty, owl:TransitiveProperty;
-   rdfs:domain emmo1s:EMMO;
-   rdfs:range emmo1s:EMMO.
-
-evi:is_proper_part_of a owl:ObjectProperty;
-   rdfs:domain emmo1s:EMMO;
-   rdfs:range emmo1s:EMMO;
-   owl:inverseOf emmo1s:hasProperPart;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with.
-emmo1s:hasProperPart rdfs:subPropertyOf evi:has_mereosemiotic_relation_with.
-evi:is_sign_for a owl:ObjectProperty;
-   rdfs:domain emmo1s:Sign;
-   rdfs:range emmo1s:Object;
-   owl:inverseOf emmo1s:hasSign;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with.
-evi:is_model_for a owl:ObjectProperty;
-   rdfs:domain emmo1s:Model;
-   rdfs:range emmo1s:Object;
-   owl:inverseOf emmo1s:hasModel;
-   rdfs:subPropertyOf evi:is_sign_for.
-emmo1s:hasSign rdfs:subPropertyOf evi:has_mereosemiotic_relation_with.
-
-# :a evi:mereosemiotics_hp_ip :b  <=>  :a emmo1s:hasProperPart [evi:is_proper_part_of :b].
-#
-evi:mereosemiotics_hp_ip a owl:ObjectProperty, owl:SymmetricProperty;
-   rdfs:domain emmo1s:EMMO;
-   rdfs:range emmo1s:EMMO;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with;
-   owl:equivalentProperty emmo1s:hasOverlapWith;
-   owl:propertyChainAxiom (emmo1s:hasProperPart evi:is_proper_part_of).
-
-# :a evi:mereosemiotics_ip_is :b  <=>  :a evi:is_proper_part_of [evi:is_sign_for :b].
-#
-evi:mereosemiotics_ip_is a owl:ObjectProperty;
-   rdfs:domain emmo1s:EMMO;
-   rdfs:range emmo1s:Object;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with;
-   owl:propertyChainAxiom (evi:is_proper_part_of evi:is_sign_for).
-
-evi:mereosemiotics_ip_hs a owl:ObjectProperty;
-   rdfs:domain emmo1s:EMMO;
-   rdfs:range emmo1s:Sign;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with;
-   owl:propertyChainAxiom (evi:is_proper_part_of emmo1s:hasSign).
-
-evi:mereosemiotics_hp_is a owl:ObjectProperty;
-   rdfs:domain emmo1s:EMMO;
-   rdfs:range emmo1s:Object;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with;
-   owl:propertyChainAxiom (emmo1s:hasProperPart evi:is_sign_for).
-
-evi:mereosemiotics_hp_hs a owl:ObjectProperty;
-   rdfs:domain emmo1s:EMMO;
-   rdfs:range emmo1s:Sign;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with;
-   owl:propertyChainAxiom (emmo1s:hasProperPart emmo1s:hasSign).
-
-evi:mereosemiotics_is_is a owl:ObjectProperty;
-   rdfs:domain emmo1s:Sign;
-   rdfs:range emmo1s:Object;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with;
-   owl:propertyChainAxiom (evi:is_sign_for evi:is_sign_for).
-
-evi:mereosemiotics_is_hs a owl:ObjectProperty, owl:SymmetricProperty;
-   rdfs:domain emmo1s:Sign;
-   rdfs:range emmo1s:EMMO;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with;
-   owl:propertyChainAxiom (evi:is_sign_for emmo1s:hasSign).
-
-evi:mereosemiotics_hs_is a owl:ObjectProperty, owl:SymmetricProperty;
-   rdfs:domain emmo1s:Object;
-   rdfs:range emmo1s:Object;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with;
-   owl:propertyChainAxiom (emmo1s:hasSign evi:is_sign_for).
-
-# :a evi:mereosemiotics_hp_ip_is :b  <=>  :a emmo1s:hasProperPart [evi:is_proper_part_of [evi:is_sign_for :b]].
-#
-evi:mereosemiotics_hp_ip_is a owl:ObjectProperty;
-   rdfs:domain emmo1s:EMMO;
-   rdfs:range emmo1s:Object;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with;
-   owl:propertyChainAxiom (evi:mereosemiotics_hp_ip evi:is_sign_for);
-   owl:propertyChainAxiom (emmo1s:hasProperPart evi:mereosemiotics_ip_is).
-
-# :a evi:mereosemiotics_hp_ip_hs :b  <=>  :a emmo1s:hasProperPart [evi:is_proper_part_of [emmo1s:hasSign :b]].
-#
-evi:mereosemiotics_hp_ip_hs a owl:ObjectProperty;
-   rdfs:domain emmo1s:EMMO;
-   rdfs:range emmo1s:Sign;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with;
-   owl:propertyChainAxiom (evi:mereosemiotics_hp_ip emmo1s:hasSign);
-   owl:propertyChainAxiom (emmo1s:hasProperPart evi:mereosemiotics_ip_hs).
-
-evi:mereosemiotics_ip_is_ip a owl:ObjectProperty;
-   rdfs:domain emmo1s:EMMO;
-   rdfs:range emmo1s:EMMO;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with;
-   owl:propertyChainAxiom (evi:mereosemiotics_ip_is evi:is_proper_part_of);
-   owl:propertyChainAxiom (evi:is_proper_part_of [owl:inverseOf evi:mereosemiotics_hp_hs]).
-
-evi:mereosemiotics_ip_is_hp a owl:ObjectProperty;
-   rdfs:domain emmo1s:EMMO;
-   rdfs:range emmo1s:EMMO;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with;
-   owl:propertyChainAxiom (evi:mereosemiotics_ip_is emmo1s:hasProperPart);
-   owl:propertyChainAxiom (evi:is_proper_part_of [owl:inverseOf evi:mereosemiotics_ip_hs]).
-
-evi:mereosemiotics_ip_is_is a owl:ObjectProperty;
-   rdfs:domain emmo1s:EMMO;
-   rdfs:range emmo1s:Object;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with;
-   owl:propertyChainAxiom (evi:mereosemiotics_ip_is evi:is_sign_for);
-   owl:propertyChainAxiom (evi:is_proper_part_of evi:mereosemiotics_is_is).
-
-evi:mereosemiotics_ip_is_hs a owl:ObjectProperty;
-   rdfs:domain emmo1s:EMMO;
-   rdfs:range emmo1s:Sign;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with;
-   owl:propertyChainAxiom (evi:mereosemiotics_ip_is emmo1s:hasSign);
-   owl:propertyChainAxiom (evi:is_proper_part_of evi:mereosemiotics_is_hs).
-
-evi:mereosemiotics_ip_hs_ip a owl:ObjectProperty;
-   rdfs:domain emmo1s:EMMO;
-   rdfs:range emmo1s:EMMO;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with;
-   owl:propertyChainAxiom (evi:mereosemiotics_ip_hs evi:is_proper_part_of);
-   owl:propertyChainAxiom (evi:is_proper_part_of [owl:inverseOf evi:mereosemiotics_hp_is]).
-
-evi:mereosemiotics_ip_hs_is a owl:ObjectProperty;
-   rdfs:domain emmo1s:EMMO;
-   rdfs:range emmo1s:Object;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with;
-   owl:propertyChainAxiom (evi:mereosemiotics_ip_hs evi:is_sign_for);
-   owl:propertyChainAxiom (evi:is_proper_part_of evi:mereosemiotics_hs_is).
-
-evi:mereosemiotics_ip_hs_hs a owl:ObjectProperty;
-   rdfs:domain emmo1s:EMMO;
-   rdfs:range emmo1s:Sign;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with;
-   owl:propertyChainAxiom (evi:mereosemiotics_ip_hs emmo1s:hasSign);
-   owl:propertyChainAxiom (evi:is_proper_part_of [owl:inverseOf evi:mereosemiotics_is_is]).
-
-evi:mereosemiotics_hp_is_ip a owl:ObjectProperty;
-   rdfs:domain emmo1s:EMMO;
-   rdfs:range emmo1s:EMMO;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with;
-   owl:propertyChainAxiom (evi:mereosemiotics_hp_is evi:is_proper_part_of);
-   owl:propertyChainAxiom (emmo1s:hasProperPart [owl:inverseOf evi:mereosemiotics_hp_hs]).
-
-evi:mereosemiotics_hp_is_is a owl:ObjectProperty;
-   rdfs:domain emmo1s:EMMO;
-   rdfs:range emmo1s:Object;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with;
-   owl:propertyChainAxiom (evi:mereosemiotics_hp_is evi:is_sign_for);
-   owl:propertyChainAxiom (emmo1s:hasProperPart evi:mereosemiotics_is_is).
-
-evi:mereosemiotics_hp_is_hs a owl:ObjectProperty;
-   rdfs:domain emmo1s:EMMO;
-   rdfs:range emmo1s:Sign;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with;
-   owl:propertyChainAxiom (evi:mereosemiotics_hp_is emmo1s:hasSign);
-   owl:propertyChainAxiom (emmo1s:hasProperPart evi:mereosemiotics_is_hs).
-
-evi:mereosemiotics_hp_hs_is a owl:ObjectProperty;
-   rdfs:domain emmo1s:EMMO;
-   rdfs:range emmo1s:Object;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with;
-   owl:propertyChainAxiom (evi:mereosemiotics_hp_hs evi:is_sign_for);
-   owl:propertyChainAxiom (emmo1s:hasProperPart evi:mereosemiotics_hs_is).
-
-evi:mereosemiotics_hp_hs_hs a owl:ObjectProperty;
-   rdfs:domain emmo1s:EMMO;
-   rdfs:range emmo1s:Sign;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with;
-   owl:propertyChainAxiom (evi:mereosemiotics_hp_hs emmo1s:hasSign);
-   owl:propertyChainAxiom (emmo1s:hasProperPart [owl:inverseOf evi:mereosemiotics_is_is]).
-
-evi:mereosemiotics_is_ip_is a owl:ObjectProperty;
-   rdfs:domain emmo1s:Sign;
-   rdfs:range emmo1s:Object;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with;
-   owl:propertyChainAxiom ([owl:inverseOf evi:mereosemiotics_hp_hs] evi:is_sign_for);
-   owl:propertyChainAxiom (evi:is_sign_for evi:mereosemiotics_ip_is).
-
-evi:mereosemiotics_is_ip_hs a owl:ObjectProperty;
-   rdfs:domain emmo1s:Sign;
-   rdfs:range emmo1s:Sign;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with;
-   owl:propertyChainAxiom ([owl:inverseOf evi:mereosemiotics_hp_hs] emmo1s:hasSign);
-   owl:propertyChainAxiom (evi:is_sign_for evi:mereosemiotics_ip_hs).
-
-evi:mereosemiotics_is_hp_is a owl:ObjectProperty;
-   rdfs:domain emmo1s:Sign;
-   rdfs:range emmo1s:Object;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with;
-   owl:propertyChainAxiom ([owl:inverseOf evi:mereosemiotics_ip_hs] evi:is_sign_for);
-   owl:propertyChainAxiom (evi:is_sign_for evi:mereosemiotics_hp_is).
-
-evi:mereosemiotics_hs_ip_is a owl:ObjectProperty;
-   rdfs:domain emmo1s:Object;
-   rdfs:range emmo1s:Object;
-   rdfs:subPropertyOf evi:has_mereosemiotic_relation_with;
-   owl:propertyChainAxiom ([owl:inverseOf evi:mereosemiotics_hp_is] evi:is_sign_for);
-   owl:propertyChainAxiom (emmo1s:hasSign evi:mereosemiotics_ip_is).
 
 
 #########################
@@ -375,7 +199,7 @@ otras:citation a owl:Class;
    rdfs:subClassOf emmo1s:Sign, evmpo:information_content_entity;
    rdfs:subClassOf [
       a owl:Restriction;
-      owl:onProperty evi:is_sign_for;
+      owl:onProperty [owl:inverseOf emmo1s:hasSign];
       owl:someValuesFrom evmpo:information_content_entity
    ].
 
@@ -393,16 +217,7 @@ otras:focus a owl:Class;
 #
 otras:topic a owl:Class;
    rdfs:subClassOf emmo1s:Sign, otras:focus.
-
-otras:has_abstract a owl:ObjectProperty;
-   rdfs:subPropertyOf emmo1s:hasProperPart.
-otras:has_offered_course a owl:ObjectProperty;
-   rdfs:subPropertyOf [owl:inverseOf evi:mereosemiotics_ip_hs], evi:has_mereosemiotic_relation_with.
-otras:is_citation_about_document a owl:ObjectProperty;
-   rdfs:subPropertyOf evi:is_sign_for.
-otras:is_cited_as a owl:ObjectProperty;
-   rdfs:subPropertyOf emmo1s:hasSign.
-
+   
 
 #########################
 # VISO-EMMO INTEGRATION #
@@ -418,6 +233,3 @@ viso-am:interaction_site a owl:Class;
 #
 viso:model_object a owl:Class;
    rdfs:subClassOf emmo1s:Symbolic, evmpo:marketplace_related_entity.
-
-viso:has_part a owl:ObjectProperty;
-   rdfs:subPropertyOf emmo1s:hasPart.
