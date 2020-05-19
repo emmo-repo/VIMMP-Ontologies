@@ -1,14 +1,16 @@
 
 ### EMMO-VIMMP INTEGRATION (EVI) ###
 
-### VERSION 0.4.5 ###
+### VERSION 0.5.0 ###
 
-### DATED 16TH MAY 2020 ###
+### DATED 19TH MAY 2020 ###
 
 @prefix evi: <http://www.vimmp.eu/semantics/alignment/evi.ttl#>.
 
 @prefix emmo1s: <http://www.vimmp.eu/semantics/alignment/emmo1s.ttl#>.
 @prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
+@prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
+@prefix mmto: <http://www.vimmp.eu/semantics/mmto/mmto.ttl#>.
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
@@ -34,12 +36,14 @@ evi:non_emmo a owl:Class;
    rdfs:subClassOf evi:meta_emmo;
    rdfs:comment "any non-spacetime entities (hence, not covered by the EMMO) are to be subsumed under this class"^^xs:string.
 
+
 #########
 # VIPRS #
 #########
 
 viprs:top_entity a owl:Class;
-   owl:sameAs evi:meta_emmo.
+   owl:sameAs evi:meta_emmo;
+   owl:equivalentClass evi:meta_emmo.
 viprs:transcendent_entity a owl:Class;
    rdfs:subClassOf viprs:top_entity;
    owl:disjointWith emmo1s:EMMO, viprs:immanent_entity.
@@ -49,10 +53,10 @@ emmo1s:EMMO rdfs:subClassOf viprs:immanent_entity.
 
 viprs:has_proper_part a owl:ObjectProperty;
    owl:inverseOf viprs:is_proper_part_of;
-   owl:sameAs emmo1s:hasProperPart.
+   owl:equivalentProperty emmo1s:hasProperPart.
 viprs:has_sign a owl:ObjectProperty;
    owl:inverseOf viprs:is_sign_for;
-   owl:sameAs emmo1s:hasSign.
+   owl:equivalentProperty emmo1s:hasSign.
 viprs:is_proper_part_of a owl:ObjectProperty;
    owl:inverseOf emmo1s:hasProperPart, viprs:has_proper_part.
 viprs:is_sign_for a owl:ObjectProperty;
@@ -60,7 +64,7 @@ viprs:is_sign_for a owl:ObjectProperty;
 
 viprs:has_model a owl:ObjectProperty;
    rdfs:subProperty viprs:has_sign;
-   owl:sameAs emmo1s:hasModel.
+   owl:equivalentProperty emmo1s:hasModel.
 viprs:is_model_for a owl:ObjectProperty;
    rdfs:subPropertyOf viprs:is_sign_for;
    owl:inverseOf emmo1s:hasModel, viprs:has_model.
@@ -68,14 +72,15 @@ viprs:is_model_for a owl:ObjectProperty;
 viprs:mereosemiotics_hp_ip a owl:ObjectProperty;
    owl:equivalentProperty emmo1s:hasOverlapWith.
 
+   
 ####################
 # EVMPO CATEGORIES #
 ####################
 
 evmpo:marketplace_related_entity a owl:Class;
-   rdfs:subClassOf evi:meta_emmo.
+   rdfs:subClassOf viprs:immanent_entity.
 evmpo:paradigmatic_entity a owl:Class;
-   rdfs:subClassOf evi:meta_emmo, evmpo:marketplace_related_entity.
+   rdfs:subClassOf evmpo:marketplace_related_entity.
 
 # category (1): assessment
 #
@@ -111,10 +116,8 @@ evmpo:document a owl:Class;
 
 # category (5): infrastructure
 #
-# unsure what to do with this
-#
 evmpo:infrastructure a owl:Class;
-   rdfs:subClassOf evmpo:paradigmatic_entity.
+   rdfs:subClassOf emmo1s:Engineered, evmpo:paradigmatic_entity.
 
 # category (6): interpreter
 #
@@ -157,6 +160,9 @@ evmpo:product a owl:Class;
    rdfs:subClassOf evmpo:paradigmatic_entity.
 evmpo:good a owl:Class;
    rdfs:subClassOf emmo1s:Engineered, evmpo:product.
+#
+# a service is a sign for a process (by which the service is carried out or provided)
+#
 evmpo:service a owl:Class;
    rdfs:subClassOf emmo1s:Sign, evmpo:product;
    rdfs:subClassOf [
@@ -177,9 +183,64 @@ evmpo:annotation a owl:Class;
    rdfs:subClassOf evmpo:marketplace_related_entity.
 
 
+##########################
+# MACRO-EMMO INTEGRATION #
+##########################
+
+# Channels: A channel is an engineered process that hasPart some semiosis
+#
+macro:channel a owl:Class;
+   rdfs:subClassOf macro:computational_resource, emmo1s:Process, [
+      a owl:Restriction;
+      owl:onProperty emmo1s:hasPart;
+      owl:someValuesFrom emmo1s:Semiosis
+   ].
+
+# Computational resources: As an infrastructure, a computational resource is an engineered entity and, hence, a participant
+#
+macro:computational_resource a owl:Class;
+   rdfs:subClassOf evmpo:infrastructure.
+
+# I/O formats: An I/O format is a language and, hence, a symbolic entity; it is also a conventional sign (descriptor of a pattern for words)
+#
+macro:io_format a owl:Class;
+   rdfs:subClassOf evmpo:annotation, emmo1s:Language, emmo1s:Conventional.
+
+# Services: A service is a sign for a process (in the process, the service is provided/carried out)
+
+
+#########################
+# MMTO-EMMO INTEGRATION #
+#########################
+
+# A kpi_model is a model for a property
+#
+mmto:kpi_model a owl:Class;
+   rdfs:subClassOf evmpo:model, [
+      a owl:Restriction;
+      owl:onProperty [owl:inverseOf emmo1s:hasModel];
+      owl:someValuesFrom emmo1s:Property
+   ].
+
+# An indicator is a property
+# An objective_kpi is an objective property, and a subjective_kpi is a subjective_property
+#
+mmto:indicator a owl:Class;
+   rdfs:subClassOf evmpo:property.
+mmto:objective_kpi a owl:Class;
+   rdfs:subClassOf mmto:indicator, emmo1s:ObjectiveProperty.
+mmto:subjective_kpi a owl:Class;
+   rdfs:subClassOf mmto:indicator, emmo1s:SubjectiveProperty.
+
+
 #########################
 # OSMO-EMMO INTEGRATION #
 #########################
+
+# An application_case is a sign
+#
+osmo:application_case a owl:Class;
+   rdfs:subClassOf evmpo:annotation, osmo:section, emmo1s:Sign.
 
 # the OSMO concept "materials_relation" and the EMMO concept "material_relation"
 # both refer to the same entity, namely, a materials relation (MR) according to RoMM
@@ -187,6 +248,11 @@ evmpo:annotation a owl:Class;
 osmo:materials_relation a owl:Class;
    rdfs:subClassOf evmpo:marketplace_related_entity;
    owl:equivalentClass emmo1s:MaterialRelation.
+
+# A section_aspect is a symbolic entity
+#
+osmo:section_aspect a owl:Class;
+   rdfs:subClassOf evmpo:marketplace_related_entity, emmo1s:Symbolic.
 
 
 ##########################

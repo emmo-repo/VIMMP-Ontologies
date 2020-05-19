@@ -1,9 +1,9 @@
 
 ### EMMO 1.0 SIMPLIFIED (EMMO1S) ###
 
-### VERSION 0.9.5 ###
+### VERSION 0.9.6 ###
 
-### DATED 10TH MAY 2020 ###
+### DATED 19TH MAY 2020 ###
 
 @prefix emmo1s: <http://www.vimmp.eu/semantics/alignment/emmo1s.ttl#>.
 
@@ -600,6 +600,11 @@ emmo1s:Geometrical a owl:Class;
    owl:sameAs emmo-perceptual:EMMO_b5957cef_a287_442d_a3ce_fd39f20ba1cd;
    rdfs:subClassOf emmo1s:Perceptual;
    rdfs:comment "Geometrical, i.e., an entity that expresses a (non-4D) geometrical object; n.b., these are not Signs according to the EMMO, since non-4D geometrical objects cannot be EMMO individuals"^^xs:string.
+emmo1s:Language a owl:Class;
+   rdfs:label "Language"^^xs:string;
+   owl:sameAs emmo-perceptual:EMMO_d8d2144e_5c8d_455d_a643_5caf4d8d9df8;
+   rdfs:subClassOf emmo1s:Symbolic;
+   rdfs:comment "Language, i.e., a formal language, defined by syntactic rules"^^xs:string.
 emmo1s:Perceptual a owl:Class;
    rdfs:label "Perceptual"^^xs:string;
    owl:sameAs emmo-perceptual:EMMO_649bf97b_4397_4005_90d9_219755d92e34;

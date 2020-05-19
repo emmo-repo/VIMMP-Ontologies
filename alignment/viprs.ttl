@@ -236,23 +236,23 @@ viprs:individual_cooccurrence_possibility a owl:ObjectProperty;
    rdfs:subPropertyOf viprs:individual_possibility.
 
 viprs:p_loc_and_roc a owl:ObjectProperty;
-   rdfs:domain viprs:immanent_entity;
-   rdfs:range viprs:immanent_entity;
+   rdfs:domain viprs:possible_entity;
+   rdfs:range viprs:possible_entity;
    rdfs:subPropertyOf viprs:individual_cooccurrence_possibility;
    rdfs:comment "X p_loc_and_roc Y == in some realization, X occurs and Y occurs"^^xs:string.
 viprs:p_loc_and_rnoc a owl:ObjectProperty;
-   rdfs:domain viprs:immanent_entity;
-   rdfs:range viprs:immanent_entity;
+   rdfs:domain viprs:possible_entity;
+   rdfs:range viprs:non_necessary_entity;
    rdfs:subPropertyOf viprs:individual_cooccurrence_possibility;
    rdfs:comment "X p_loc_and_rnoc Y == in some realization, X occurs and Y does not occur"^^xs:string.
 viprs:p_lnoc_and_roc a owl:ObjectProperty;
-   rdfs:domain viprs:immanent_entity;
-   rdfs:range viprs:immanent_entity;
+   rdfs:domain viprs:non_necessary_entity;
+   rdfs:range viprs:possible_entity;
    rdfs:subPropertyOf viprs:individual_cooccurrence_possibility;
    rdfs:comment "X p_lnoc_and_roc Y == in some realization, X does not occur and Y occurs"^^xs:string.
 viprs:p_lnoc_and_rnoc a owl:ObjectProperty;
-   rdfs:domain viprs:immanent_entity;
-   rdfs:range viprs:immanent_entity;
+   rdfs:domain viprs:non_necessary_entity;
+   rdfs:range viprs:non_necessary_entity;
    rdfs:subPropertyOf viprs:individual_cooccurrence_possibility;
    rdfs:comment "X p_lnoc_and_rnoc Y == in some realization, X does not occur and Y does not occur"^^xs:string.
 
@@ -367,6 +367,20 @@ viprs:is_model_for a owl:ObjectProperty;
    rdfs:range viprs:immanent_entity;
    rdfs:subPropertyOf viprs:is_sign_for;
    owl:inverseOf viprs:has_model.
+
+viprs:can_coocur_with a owl:ObjectProperty;  # simple name for frequently-used relation
+   owl:sameAs viprs:p_loc_and_roc;
+   owl:equivalentProperty viprs:p_loc_and_roc.
+
+##
+# modal signification relations
+##
+viprs:is_sign_for_potential_coocurrent_of a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:individual_cooccurrence_possibility, viprs:mereosemiotic_relation;
+   owl:propertyChainAxiom (viprs:is_sign_for viprs:can_coocur_with);
+   rdfs:comment "X is_sign_for_potential_coocurrent_of Y == X is_sign_for Z, and Z can_cooccur_with Y"^^xs:string.
 
 #####################################
 # 3B. MEREOSEMIOTIC CHAIN RELATIONS #

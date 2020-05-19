@@ -1,9 +1,9 @@
 
 ### MARKETPLACE-ACCESSIBLE COMPUTATIONAL RESOURCE ONTOLOGY (MACRO) ###
 
-### VERSION 0.4.3 ###
+### VERSION 0.5.0 ###
 
-### DATED 29TH APRIL 2020 ###
+### DATED 19TH MAY 2020 ###
 
 @prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
 
@@ -15,6 +15,7 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
+@prefix viprs: <http://www.vimmp.eu/semantics/alignment/viprs.ttl#>.
 @prefix viso: <http://www.vimmp.eu/semantics/viso/viso-general.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
@@ -28,11 +29,13 @@ macro:computational_resource owl:unionOf (macro:data_infrastructure macro:hardwa
 
 macro:data_infrastructure a owl:Class;
    rdfs:subClassOf macro:computational_resource;
-   owl:sameAs evmpo:data_infrastructure.
+   owl:sameAs evmpo:data_infrastructure;
+   owl:equivalentClass evmpo:data_infrastructure.
 
 macro:hardware_infrastructure a owl:Class;
    rdfs:subClassOf macro:computational_resource;
-   owl:sameAs evmpo:hardware_infrastructure.
+   owl:sameAs evmpo:hardware_infrastructure;
+   owl:equivalentClass evmpo:hardware_infrastructure.
 
 macro:hpc_infrastructure a owl:Class;
    rdfs:subClassOf macro:hardware_infrastructure.
@@ -45,7 +48,8 @@ macro:cloud_infrastructure a owl:Class;
 
 macro:software_infrastructure a owl:Class;
    rdfs:subClassOf macro:computational_resource;
-   owl:sameAs evmpo:software_infrastructure.
+   owl:sameAs evmpo:software_infrastructure;
+   owl:equivalentClass evmpo:software_infrastructure.
 
 viso:software_tool rdfs:subClassOf macro:software_infrastructure.
 
@@ -136,19 +140,19 @@ macro:cr_service a owl:Class;
 
 macro:data_service a owl:Class;
    rdfs:subClassOf macro:cr_service;
-   owl:intersectionOf (macro:cr_service [a owl:Restriction; owl:onProperty macro:provides_access_to; owl:someValuesFrom evmpo:data_infrastructure]).
+   owl:intersectionOf (macro:cr_service [a owl:Restriction; owl:onProperty macro:provides_access_to; owl:someValuesFrom macro:data_infrastructure]).
 
 macro:hardware_service a owl:Class;
    rdfs:subClassOf macro:cr_service;
-   owl:intersectionOf (macro:cr_service [a owl:Restriction; owl:onProperty macro:provides_access_to; owl:someValuesFrom evmpo:hardware_infrastructure]).
+   owl:intersectionOf (macro:cr_service [a owl:Restriction; owl:onProperty macro:provides_access_to; owl:someValuesFrom macro:hardware_infrastructure]).
 
 macro:hpc_service a owl:Class;
    rdfs:subClassOf macro:hardware_service;
-   owl:intersectionOf (macro:hardware_service [a owl:Restriction; owl:onProperty macro:provides_access_to; owl:someValuesFrom evmpo:hpc_infrastructure]).
+   owl:intersectionOf (macro:hardware_service [a owl:Restriction; owl:onProperty macro:provides_access_to; owl:someValuesFrom macro:hpc_infrastructure]).
 
 macro:software_service a owl:Class;
    rdfs:subClassOf macro:cr_service;
-   owl:intersectionOf (macro:cr_service [a owl:Restriction; owl:onProperty macro:provides_access_to; owl:someValuesFrom evmpo:software_infrastructure]).
+   owl:intersectionOf (macro:cr_service [a owl:Restriction; owl:onProperty macro:provides_access_to; owl:someValuesFrom macro:software_infrastructure]).
 
 macro:io_format a owl:Class;
    rdfs:subClassOf evmpo:annotation;
@@ -168,7 +172,8 @@ macro:has_format_version a owl:DatatypeProperty;
    rdfs:range xs:string.
 macro:is_io_format_of a owl:ObjectProperty;
    rdfs:domain macro:io_format;
-   rdfs:range viso:software_tool.
+   rdfs:range viso:software_tool;
+   rdfs:subPropertyOf viprs:is_sign_for_potential_coocurrent_of.
 macro:is_input_format_of a owl:ObjectProperty;
    rdfs:domain macro:io_format;
    rdfs:range viso:software_tool;
@@ -182,6 +187,7 @@ macro:io_format owl:unionOf (macro:file_format macro:stream_format).
 
 macro:file_format a owl:Class;
    rdfs:subClassOf macro:io_format;
+   owl:sameAs edam:format_1915;
    owl:equivalentClass edam:format_1915;  # "Format" in EDAM
    rdfs:comment "file format, i.e., a syntactical standard for files"^^xs:string.
 
@@ -193,6 +199,7 @@ macro:file_format owl:disjointUnionOf (macro:binary_file_format macro:textual_fi
 
 macro:textual_file_format a owl:Class;
    rdfs:subClassOf macro:file_format;
+   owl:sameAs edam:format_2330;  # "Textual format" in EDAM
    owl:equivalentClass edam:format_2330;  # "Textual format" in EDAM
    rdfs:comment "textual file format, i.e., any file format encoded in ASCII, Unicode, or comparable"^^xs:string.
 
@@ -211,6 +218,7 @@ macro:textual_xml_format a owl:Class;
 
 macro:textual_csv_format a owl:Class;
    rdfs:subClassOf macro:textual_file_format;
+   owl:sameAs edam:format_3752;  # "CSV" in EDAM
    owl:equivalentClass edam:format_3752;  # "CSV" in EDAM
    rdfs:subClassOf [
       a owl:Restriction;
@@ -225,16 +233,19 @@ macro:textual_csv_format a owl:Class;
 
 macro:binary_file_format a owl:Class;
    rdfs:subClassOf macro:file_format;
+   owl:sameAs edam:format_2333;  # "Binary format" in EDAM
    owl:equivalentClass edam:format_2333;  # "Binary format" in EDAM
    rdfs:comment "binary file format, i.e., any file format not encoded in ASCII, Unicode, or comparable"^^xs:string.
 
 macro:image_format a owl:Class;
    rdfs:subClassOf macro:file_format;
+   owl:sameAs edam:format_3547;  # "Image format" in EDAM
    owl:equivalentClass edam:format_3547;  # "Image format" in EDAM
    rdfs:comment "format for representing images/graphics"^^xs:string.
 
 macro:png_format a owl:Class;
    rdfs:subClassOf macro:image_format, macro:binary_file_format;
+   owl:sameAs edam:format_3602;  # "PNG" in EDAM
    owl:equivalentClass edam:format_3602;  # "PNG" in EDAM
    rdfs:subClassOf [
       a owl:Restriction;
@@ -433,3 +444,28 @@ macro:PNG_FORMAT_ISO macro:is_output_format_of macro:SOFTWARE_TOOL_STARCCM_PLUS.
 macro:SOFTWARE_TOOL_VOCTA a viso:software_tool.
 macro:VOCTA_DATA_FORMAT macro:is_input_format_of macro:SOFTWARE_TOOL_VOCTA.
 macro:VOCTA_XML_FORMAT macro:is_input_format_of macro:SOFTWARE_TOOL_VOCTA.
+
+###
+# NOTES ON ALIGNMENT
+###
+
+# Channels: A channel is an engineered process that hasPart some semiosis
+
+# Computational resources: As an infrastructure, a computational resource is an engineered entity and, hence, a participant
+
+# I/O formats: An I/O format is a language and, hence, a symbolic entity; it is also a conventional sign (descriptor of a pattern for words)
+
+# Services: A service is a sign for a process (in the process, the service is provided/carried out)
+
+# A is_io_format_of B, where A is an io_format, B is a software_tool:
+#
+# There can be a process (e.g., a simulation, execution of the software, or similar)
+# In this process, there is an input/output item C (a file, stream, or similar)
+# There are interpretation (semiosis) processes, e.g., parsing, by which it is checked whether C conforms to A
+# In such a process, the sign is A, the object is C, and the interpretant is success/failure of parsing
+#
+# A is_sign_for C
+# C can co-occur with B
+# ==
+# A is_sign_for_potential_coocurrent_of B
+

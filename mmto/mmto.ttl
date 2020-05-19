@@ -1,9 +1,9 @@
 
 ### MATERIALS MODELLING TRANSLATION ONTOLOGY (MMTO) ###
 
-### VERSION 1.2.0 ###
+### VERSION 1.2.1 ###
 
-### DATED 29TH APRIL 2020 ###
+### DATED 19TH MAY 2020 ###
 
 @prefix mmto: <http://www.vimmp.eu/semantics/mmto/mmto.ttl#>.
 
@@ -70,10 +70,9 @@ mmto:has_translation_step a owl:ObjectProperty;
    rdfs:comment "points to a translation step that occurs within the materials modelling project"^^xs:string;
    rdfs:subPropertyOf mmto:has_project_step.
 
-[owl:disjointUnionOf (mmto:business_case mmto:bc_aspect mmto:business_decision_support_system)] rdfs:subClassOf evmpo:marketplace_related_entity.
-
 mmto:business_case a owl:Class;
    rdfs:subClassOf osmo:application_case;
+   owl:disjointWith mmto:bc_aspect, mmto:business_decision_support_system;
    rdfs:comment "business case, i.e., an application case with a focus on economic/business aspects"^^xs:string.
 
 mmto:has_bc_aspect a owl:ObjectProperty;
@@ -151,6 +150,7 @@ mmto:has_bca_decision_support a owl:ObjectProperty;
 
 mmto:bc_aspect a owl:Class;
    rdfs:subClassOf osmo:application_case_aspect;
+   owl:disjointWith mmto:business_decision_support_system;
    rdfs:comment "business-case aspect"^^xs:string.
 
 mmto:bc_aspect owl:disjointUnionOf (mmto:bca_description mmto:bca_industrial_case mmto:bca_red_zone mmto:bca_context mmto:bca_currency mmto:bca_contribution_to_cost mmto:bca_total_cost mmto:bca_contribution_to_benefit mmto:bca_total_benefit mmto:bca_return_on_investment mmto:bca_decision_support).
@@ -273,16 +273,16 @@ mmto:bca_decision_support rdfs:subClassOf [
       owl:someValuesFrom mmto:business_decision_support_system
    ].
 
-[owl:disjointUnionOf (mmto:industrial_case mmto:ic_aspect mmto:industrial_decision_support_system)] rdfs:subClassOf evmpo:marketplace_related_entity.
-
 mmto:industrial_case a owl:Class;
    rdfs:subClassOf osmo:application_case;
+   owl:disjointWith mmto:ic_aspect, mmto:industrial_decision_support_system;
    rdfs:comment "industrial case, i.e., an application case with a focus on industrial/manufacturing aspects"^^xs:string.
 
 mmto:has_ic_aspect a owl:ObjectProperty;
    rdfs:domain mmto:industrial_case;
    rdfs:range mmto:ic_aspect;
    rdfs:subPropertyOf osmo:has_application_case_aspect;
+   owl:disjointWith mmto:industrial_decision_support_system;
    rdfs:comment "points to an industrial-case aspect"^^xs:string.
 mmto:has_ic_kpi a owl:ObjectProperty;
    rdfs:domain mmto:industrial_case;
@@ -362,10 +362,9 @@ mmto:ica_decision_support rdfs:subClassOf [
       owl:someValuesFrom mmto:industrial_decision_support_system
    ].
 
-[owl:disjointUnionOf (mmto:translation_case mmto:tc_aspect mmto:translation_decision_support_system)] rdfs:subClassOf evmpo:marketplace_related_entity.
-
 mmto:translation_case a owl:Class;
    rdfs:subClassOf osmo:application_case;
+   owl:disjointWith mmto:tc_aspect, mmto:translation_decision_support_system;
    rdfs:comment "translation case, i.e., an application case that can be described as specified by the EMMC Translation Case Template"^^xs:string.
 
 mmto:has_tc_summary a owl:DatatypeProperty;
@@ -437,6 +436,7 @@ mmto:has_tca_decision_support a owl:ObjectProperty;
 
 mmto:tc_aspect a owl:Class;
    rdfs:subClassOf osmo:application_case_aspect;
+   owl:disjointWith mmto:translation_decision_support_system;
    rdfs:comment "translation-case aspect"^^xs:string.
 
 mmto:tc_aspect owl:disjointUnionOf (mmto:tca_translator mmto:tca_end_user mmto:tca_industrial_case mmto:tca_business_case mmto:tca_expected_outcome mmto:tca_pe_type mmto:tca_discussion mmto:tca_kpi_model mmto:tca_evaluation mmto:tca_impact mmto:tca_decision_support).
@@ -754,7 +754,7 @@ mmto:considers_kpi_model a owl:ObjectProperty;
    rdfs:comment "points to a KPI model developed/considered/employed within translation stage no. 6"^^xs:string.
 mmto:has_decision_support a owl:ObjectProperty;
    rdfs:domain mmto:translation_step_decision;
-   rdfs:range mmto:application_decision_support_system;
+   rdfs:range osmo:application_decision_support_system;
    rdfs:comment "points to a decision support system employed within translation stage no. 6"^^xs:string.
 
 
@@ -821,3 +821,16 @@ mmto:has_model_variable a owl:ObjectProperty;
 mmto:has_represented_kpi a owl:ObjectProperty;
    rdfs:domain mmto:key_performance_indicator;
    rdfs:comment "points to a KPI that is represented (modelled) by the present KPI model"^^xs:string.
+
+###
+# NOTES ON ALIGNMENT
+###
+
+# An application_case is a sign
+
+# A kpi_model is a model for a property
+
+# An indicator is a property
+# An objective_kpi is an objective property, and a subjective_kpi is a subjective_property
+
+# A section_aspect is a symbolic entity

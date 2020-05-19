@@ -13,9 +13,9 @@
 
 ### EMMO 1.0 SIMPLIFIED (EMMO1S) ###
 
-### VERSION 0.9.5 ###
+### VERSION 0.9.6 ###
 
-### DATED 10TH MAY 2020 ###
+### DATED 19TH MAY 2020 ###
 
 @prefix emmo1s: <http://www.vimmp.eu/semantics/alignment/emmo1s.ttl#>.
 
@@ -612,6 +612,11 @@ emmo1s:Geometrical a owl:Class;
    owl:sameAs emmo-perceptual:EMMO_b5957cef_a287_442d_a3ce_fd39f20ba1cd;
    rdfs:subClassOf emmo1s:Perceptual;
    rdfs:comment "Geometrical, i.e., an entity that expresses a (non-4D) geometrical object; n.b., these are not Signs according to the EMMO, since non-4D geometrical objects cannot be EMMO individuals"^^xs:string.
+emmo1s:Language a owl:Class;
+   rdfs:label "Language"^^xs:string;
+   owl:sameAs emmo-perceptual:EMMO_d8d2144e_5c8d_455d_a643_5caf4d8d9df8;
+   rdfs:subClassOf emmo1s:Symbolic;
+   rdfs:comment "Language, i.e., a formal language, defined by syntactic rules"^^xs:string.
 emmo1s:Perceptual a owl:Class;
    rdfs:label "Perceptual"^^xs:string;
    owl:sameAs emmo-perceptual:EMMO_649bf97b_4397_4005_90d9_219755d92e34;
@@ -725,14 +730,16 @@ emmo1s:hasProperty a owl:ObjectProperty;
 
 ### EMMO-VIMMP INTEGRATION (EVI) ###
 
-### VERSION 0.4.5 ###
+### VERSION 0.5.0 ###
 
-### DATED 16TH MAY 2020 ###
+### DATED 19TH MAY 2020 ###
 
 @prefix evi: <http://www.vimmp.eu/semantics/alignment/evi.ttl#>.
 
 @prefix emmo1s: <http://www.vimmp.eu/semantics/alignment/emmo1s.ttl#>.
 @prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
+@prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
+@prefix mmto: <http://www.vimmp.eu/semantics/mmto/mmto.ttl#>.
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
@@ -758,12 +765,14 @@ evi:non_emmo a owl:Class;
    rdfs:subClassOf evi:meta_emmo;
    rdfs:comment "any non-spacetime entities (hence, not covered by the EMMO) are to be subsumed under this class"^^xs:string.
 
+
 #########
 # VIPRS #
 #########
 
 viprs:top_entity a owl:Class;
-   owl:sameAs evi:meta_emmo.
+   owl:sameAs evi:meta_emmo;
+   owl:equivalentClass evi:meta_emmo.
 viprs:transcendent_entity a owl:Class;
    rdfs:subClassOf viprs:top_entity;
    owl:disjointWith emmo1s:EMMO, viprs:immanent_entity.
@@ -773,10 +782,10 @@ emmo1s:EMMO rdfs:subClassOf viprs:immanent_entity.
 
 viprs:has_proper_part a owl:ObjectProperty;
    owl:inverseOf viprs:is_proper_part_of;
-   owl:sameAs emmo1s:hasProperPart.
+   owl:equivalentProperty emmo1s:hasProperPart.
 viprs:has_sign a owl:ObjectProperty;
    owl:inverseOf viprs:is_sign_for;
-   owl:sameAs emmo1s:hasSign.
+   owl:equivalentProperty emmo1s:hasSign.
 viprs:is_proper_part_of a owl:ObjectProperty;
    owl:inverseOf emmo1s:hasProperPart, viprs:has_proper_part.
 viprs:is_sign_for a owl:ObjectProperty;
@@ -784,7 +793,7 @@ viprs:is_sign_for a owl:ObjectProperty;
 
 viprs:has_model a owl:ObjectProperty;
    rdfs:subProperty viprs:has_sign;
-   owl:sameAs emmo1s:hasModel.
+   owl:equivalentProperty emmo1s:hasModel.
 viprs:is_model_for a owl:ObjectProperty;
    rdfs:subPropertyOf viprs:is_sign_for;
    owl:inverseOf emmo1s:hasModel, viprs:has_model.
@@ -792,14 +801,15 @@ viprs:is_model_for a owl:ObjectProperty;
 viprs:mereosemiotics_hp_ip a owl:ObjectProperty;
    owl:equivalentProperty emmo1s:hasOverlapWith.
 
+   
 ####################
 # EVMPO CATEGORIES #
 ####################
 
 evmpo:marketplace_related_entity a owl:Class;
-   rdfs:subClassOf evi:meta_emmo.
+   rdfs:subClassOf viprs:immanent_entity.
 evmpo:paradigmatic_entity a owl:Class;
-   rdfs:subClassOf evi:meta_emmo, evmpo:marketplace_related_entity.
+   rdfs:subClassOf evmpo:marketplace_related_entity.
 
 # category (1): assessment
 #
@@ -835,10 +845,8 @@ evmpo:document a owl:Class;
 
 # category (5): infrastructure
 #
-# unsure what to do with this
-#
 evmpo:infrastructure a owl:Class;
-   rdfs:subClassOf evmpo:paradigmatic_entity.
+   rdfs:subClassOf emmo1s:Engineered, evmpo:paradigmatic_entity.
 
 # category (6): interpreter
 #
@@ -881,6 +889,9 @@ evmpo:product a owl:Class;
    rdfs:subClassOf evmpo:paradigmatic_entity.
 evmpo:good a owl:Class;
    rdfs:subClassOf emmo1s:Engineered, evmpo:product.
+#
+# a service is a sign for a process (by which the service is carried out or provided)
+#
 evmpo:service a owl:Class;
    rdfs:subClassOf emmo1s:Sign, evmpo:product;
    rdfs:subClassOf [
@@ -901,9 +912,64 @@ evmpo:annotation a owl:Class;
    rdfs:subClassOf evmpo:marketplace_related_entity.
 
 
+##########################
+# MACRO-EMMO INTEGRATION #
+##########################
+
+# Channels: A channel is an engineered process that hasPart some semiosis
+#
+macro:channel a owl:Class;
+   rdfs:subClassOf macro:computational_resource, emmo1s:Process, [
+      a owl:Restriction;
+      owl:onProperty emmo1s:hasPart;
+      owl:someValuesFrom emmo1s:Semiosis
+   ].
+
+# Computational resources: As an infrastructure, a computational resource is an engineered entity and, hence, a participant
+#
+macro:computational_resource a owl:Class;
+   rdfs:subClassOf evmpo:infrastructure.
+
+# I/O formats: An I/O format is a language and, hence, a symbolic entity; it is also a conventional sign (descriptor of a pattern for words)
+#
+macro:io_format a owl:Class;
+   rdfs:subClassOf evmpo:annotation, emmo1s:Language, emmo1s:Conventional.
+
+# Services: A service is a sign for a process (in the process, the service is provided/carried out)
+
+
+#########################
+# MMTO-EMMO INTEGRATION #
+#########################
+
+# A kpi_model is a model for a property
+#
+mmto:kpi_model a owl:Class;
+   rdfs:subClassOf evmpo:model, [
+      a owl:Restriction;
+      owl:onProperty [owl:inverseOf emmo1s:hasModel];
+      owl:someValuesFrom emmo1s:Property
+   ].
+
+# An indicator is a property
+# An objective_kpi is an objective property, and a subjective_kpi is a subjective_property
+#
+mmto:indicator a owl:Class;
+   rdfs:subClassOf evmpo:property.
+mmto:objective_kpi a owl:Class;
+   rdfs:subClassOf mmto:indicator, emmo1s:ObjectiveProperty.
+mmto:subjective_kpi a owl:Class;
+   rdfs:subClassOf mmto:indicator, emmo1s:SubjectiveProperty.
+
+
 #########################
 # OSMO-EMMO INTEGRATION #
 #########################
+
+# An application_case is a sign
+#
+osmo:application_case a owl:Class;
+   rdfs:subClassOf evmpo:annotation, osmo:section, emmo1s:Sign.
 
 # the OSMO concept "materials_relation" and the EMMO concept "material_relation"
 # both refer to the same entity, namely, a materials relation (MR) according to RoMM
@@ -911,6 +977,11 @@ evmpo:annotation a owl:Class;
 osmo:materials_relation a owl:Class;
    rdfs:subClassOf evmpo:marketplace_related_entity;
    owl:equivalentClass emmo1s:MaterialRelation.
+
+# A section_aspect is a symbolic entity
+#
+osmo:section_aspect a owl:Class;
+   rdfs:subClassOf evmpo:marketplace_related_entity, emmo1s:Symbolic.
 
 
 ##########################
@@ -1622,23 +1693,23 @@ viprs:individual_cooccurrence_possibility a owl:ObjectProperty;
    rdfs:subPropertyOf viprs:individual_possibility.
 
 viprs:p_loc_and_roc a owl:ObjectProperty;
-   rdfs:domain viprs:immanent_entity;
-   rdfs:range viprs:immanent_entity;
+   rdfs:domain viprs:possible_entity;
+   rdfs:range viprs:possible_entity;
    rdfs:subPropertyOf viprs:individual_cooccurrence_possibility;
    rdfs:comment "X p_loc_and_roc Y == in some realization, X occurs and Y occurs"^^xs:string.
 viprs:p_loc_and_rnoc a owl:ObjectProperty;
-   rdfs:domain viprs:immanent_entity;
-   rdfs:range viprs:immanent_entity;
+   rdfs:domain viprs:possible_entity;
+   rdfs:range viprs:non_necessary_entity;
    rdfs:subPropertyOf viprs:individual_cooccurrence_possibility;
    rdfs:comment "X p_loc_and_rnoc Y == in some realization, X occurs and Y does not occur"^^xs:string.
 viprs:p_lnoc_and_roc a owl:ObjectProperty;
-   rdfs:domain viprs:immanent_entity;
-   rdfs:range viprs:immanent_entity;
+   rdfs:domain viprs:non_necessary_entity;
+   rdfs:range viprs:possible_entity;
    rdfs:subPropertyOf viprs:individual_cooccurrence_possibility;
    rdfs:comment "X p_lnoc_and_roc Y == in some realization, X does not occur and Y occurs"^^xs:string.
 viprs:p_lnoc_and_rnoc a owl:ObjectProperty;
-   rdfs:domain viprs:immanent_entity;
-   rdfs:range viprs:immanent_entity;
+   rdfs:domain viprs:non_necessary_entity;
+   rdfs:range viprs:non_necessary_entity;
    rdfs:subPropertyOf viprs:individual_cooccurrence_possibility;
    rdfs:comment "X p_lnoc_and_rnoc Y == in some realization, X does not occur and Y does not occur"^^xs:string.
 
@@ -1753,6 +1824,20 @@ viprs:is_model_for a owl:ObjectProperty;
    rdfs:range viprs:immanent_entity;
    rdfs:subPropertyOf viprs:is_sign_for;
    owl:inverseOf viprs:has_model.
+
+viprs:can_coocur_with a owl:ObjectProperty;  # simple name for frequently-used relation
+   owl:sameAs viprs:p_loc_and_roc;
+   owl:equivalentProperty viprs:p_loc_and_roc.
+
+##
+# modal signification relations
+##
+viprs:is_sign_for_potential_coocurrent_of a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:individual_cooccurrence_possibility, viprs:mereosemiotic_relation;
+   owl:propertyChainAxiom (viprs:is_sign_for viprs:can_coocur_with);
+   rdfs:comment "X is_sign_for_potential_coocurrent_of Y == X is_sign_for Z, and Z can_cooccur_with Y"^^xs:string.
 
 #####################################
 # 3B. MEREOSEMIOTIC CHAIN RELATIONS #
@@ -1966,9 +2051,9 @@ viprs:mereosemiotics_hs_hp_is a owl:ObjectProperty; owl:inverseOf viprs:mereosem
 
 ### MARKETPLACE-ACCESSIBLE COMPUTATIONAL RESOURCE ONTOLOGY (MACRO) ###
 
-### VERSION 0.4.3 ###
+### VERSION 0.5.0 ###
 
-### DATED 29TH APRIL 2020 ###
+### DATED 19TH MAY 2020 ###
 
 @prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
 
@@ -1980,6 +2065,7 @@ viprs:mereosemiotics_hs_hp_is a owl:ObjectProperty; owl:inverseOf viprs:mereosem
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
+@prefix viprs: <http://www.vimmp.eu/semantics/alignment/viprs.ttl#>.
 @prefix viso: <http://www.vimmp.eu/semantics/viso/viso-general.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
@@ -1993,11 +2079,13 @@ macro:computational_resource owl:unionOf (macro:data_infrastructure macro:hardwa
 
 macro:data_infrastructure a owl:Class;
    rdfs:subClassOf macro:computational_resource;
-   owl:sameAs evmpo:data_infrastructure.
+   owl:sameAs evmpo:data_infrastructure;
+   owl:equivalentClass evmpo:data_infrastructure.
 
 macro:hardware_infrastructure a owl:Class;
    rdfs:subClassOf macro:computational_resource;
-   owl:sameAs evmpo:hardware_infrastructure.
+   owl:sameAs evmpo:hardware_infrastructure;
+   owl:equivalentClass evmpo:hardware_infrastructure.
 
 macro:hpc_infrastructure a owl:Class;
    rdfs:subClassOf macro:hardware_infrastructure.
@@ -2010,7 +2098,8 @@ macro:cloud_infrastructure a owl:Class;
 
 macro:software_infrastructure a owl:Class;
    rdfs:subClassOf macro:computational_resource;
-   owl:sameAs evmpo:software_infrastructure.
+   owl:sameAs evmpo:software_infrastructure;
+   owl:equivalentClass evmpo:software_infrastructure.
 
 viso:software_tool rdfs:subClassOf macro:software_infrastructure.
 
@@ -2101,19 +2190,19 @@ macro:cr_service a owl:Class;
 
 macro:data_service a owl:Class;
    rdfs:subClassOf macro:cr_service;
-   owl:intersectionOf (macro:cr_service [a owl:Restriction; owl:onProperty macro:provides_access_to; owl:someValuesFrom evmpo:data_infrastructure]).
+   owl:intersectionOf (macro:cr_service [a owl:Restriction; owl:onProperty macro:provides_access_to; owl:someValuesFrom macro:data_infrastructure]).
 
 macro:hardware_service a owl:Class;
    rdfs:subClassOf macro:cr_service;
-   owl:intersectionOf (macro:cr_service [a owl:Restriction; owl:onProperty macro:provides_access_to; owl:someValuesFrom evmpo:hardware_infrastructure]).
+   owl:intersectionOf (macro:cr_service [a owl:Restriction; owl:onProperty macro:provides_access_to; owl:someValuesFrom macro:hardware_infrastructure]).
 
 macro:hpc_service a owl:Class;
    rdfs:subClassOf macro:hardware_service;
-   owl:intersectionOf (macro:hardware_service [a owl:Restriction; owl:onProperty macro:provides_access_to; owl:someValuesFrom evmpo:hpc_infrastructure]).
+   owl:intersectionOf (macro:hardware_service [a owl:Restriction; owl:onProperty macro:provides_access_to; owl:someValuesFrom macro:hpc_infrastructure]).
 
 macro:software_service a owl:Class;
    rdfs:subClassOf macro:cr_service;
-   owl:intersectionOf (macro:cr_service [a owl:Restriction; owl:onProperty macro:provides_access_to; owl:someValuesFrom evmpo:software_infrastructure]).
+   owl:intersectionOf (macro:cr_service [a owl:Restriction; owl:onProperty macro:provides_access_to; owl:someValuesFrom macro:software_infrastructure]).
 
 macro:io_format a owl:Class;
    rdfs:subClassOf evmpo:annotation;
@@ -2133,7 +2222,8 @@ macro:has_format_version a owl:DatatypeProperty;
    rdfs:range xs:string.
 macro:is_io_format_of a owl:ObjectProperty;
    rdfs:domain macro:io_format;
-   rdfs:range viso:software_tool.
+   rdfs:range viso:software_tool;
+   rdfs:subPropertyOf viprs:is_sign_for_potential_coocurrent_of.
 macro:is_input_format_of a owl:ObjectProperty;
    rdfs:domain macro:io_format;
    rdfs:range viso:software_tool;
@@ -2147,6 +2237,7 @@ macro:io_format owl:unionOf (macro:file_format macro:stream_format).
 
 macro:file_format a owl:Class;
    rdfs:subClassOf macro:io_format;
+   owl:sameAs edam:format_1915;
    owl:equivalentClass edam:format_1915;  # "Format" in EDAM
    rdfs:comment "file format, i.e., a syntactical standard for files"^^xs:string.
 
@@ -2158,6 +2249,7 @@ macro:file_format owl:disjointUnionOf (macro:binary_file_format macro:textual_fi
 
 macro:textual_file_format a owl:Class;
    rdfs:subClassOf macro:file_format;
+   owl:sameAs edam:format_2330;  # "Textual format" in EDAM
    owl:equivalentClass edam:format_2330;  # "Textual format" in EDAM
    rdfs:comment "textual file format, i.e., any file format encoded in ASCII, Unicode, or comparable"^^xs:string.
 
@@ -2176,6 +2268,7 @@ macro:textual_xml_format a owl:Class;
 
 macro:textual_csv_format a owl:Class;
    rdfs:subClassOf macro:textual_file_format;
+   owl:sameAs edam:format_3752;  # "CSV" in EDAM
    owl:equivalentClass edam:format_3752;  # "CSV" in EDAM
    rdfs:subClassOf [
       a owl:Restriction;
@@ -2190,16 +2283,19 @@ macro:textual_csv_format a owl:Class;
 
 macro:binary_file_format a owl:Class;
    rdfs:subClassOf macro:file_format;
+   owl:sameAs edam:format_2333;  # "Binary format" in EDAM
    owl:equivalentClass edam:format_2333;  # "Binary format" in EDAM
    rdfs:comment "binary file format, i.e., any file format not encoded in ASCII, Unicode, or comparable"^^xs:string.
 
 macro:image_format a owl:Class;
    rdfs:subClassOf macro:file_format;
+   owl:sameAs edam:format_3547;  # "Image format" in EDAM
    owl:equivalentClass edam:format_3547;  # "Image format" in EDAM
    rdfs:comment "format for representing images/graphics"^^xs:string.
 
 macro:png_format a owl:Class;
    rdfs:subClassOf macro:image_format, macro:binary_file_format;
+   owl:sameAs edam:format_3602;  # "PNG" in EDAM
    owl:equivalentClass edam:format_3602;  # "PNG" in EDAM
    rdfs:subClassOf [
       a owl:Restriction;
@@ -2399,11 +2495,36 @@ macro:SOFTWARE_TOOL_VOCTA a viso:software_tool.
 macro:VOCTA_DATA_FORMAT macro:is_input_format_of macro:SOFTWARE_TOOL_VOCTA.
 macro:VOCTA_XML_FORMAT macro:is_input_format_of macro:SOFTWARE_TOOL_VOCTA.
 
+###
+# NOTES ON ALIGNMENT
+###
+
+# Channels: A channel is an engineered process that hasPart some semiosis
+
+# Computational resources: As an infrastructure, a computational resource is an engineered entity and, hence, a participant
+
+# I/O formats: An I/O format is a language and, hence, a symbolic entity; it is also a conventional sign (descriptor of a pattern for words)
+
+# Services: A service is a sign for a process (in the process, the service is provided/carried out)
+
+# A is_io_format_of B, where A is an io_format, B is a software_tool:
+#
+# There can be a process (e.g., a simulation, execution of the software, or similar)
+# In this process, there is an input/output item C (a file, stream, or similar)
+# There are interpretation (semiosis) processes, e.g., parsing, by which it is checked whether C conforms to A
+# In such a process, the sign is A, the object is C, and the interpretant is success/failure of parsing
+#
+# A is_sign_for C
+# C can co-occur with B
+# ==
+# A is_sign_for_potential_coocurrent_of B
+
+
 ### MATERIALS MODELLING TRANSLATION ONTOLOGY (MMTO) ###
 
-### VERSION 1.2.0 ###
+### VERSION 1.2.1 ###
 
-### DATED 29TH APRIL 2020 ###
+### DATED 19TH MAY 2020 ###
 
 @prefix mmto: <http://www.vimmp.eu/semantics/mmto/mmto.ttl#>.
 
@@ -2470,10 +2591,9 @@ mmto:has_translation_step a owl:ObjectProperty;
    rdfs:comment "points to a translation step that occurs within the materials modelling project"^^xs:string;
    rdfs:subPropertyOf mmto:has_project_step.
 
-[owl:disjointUnionOf (mmto:business_case mmto:bc_aspect mmto:business_decision_support_system)] rdfs:subClassOf evmpo:marketplace_related_entity.
-
 mmto:business_case a owl:Class;
    rdfs:subClassOf osmo:application_case;
+   owl:disjointWith mmto:bc_aspect, mmto:business_decision_support_system;
    rdfs:comment "business case, i.e., an application case with a focus on economic/business aspects"^^xs:string.
 
 mmto:has_bc_aspect a owl:ObjectProperty;
@@ -2551,6 +2671,7 @@ mmto:has_bca_decision_support a owl:ObjectProperty;
 
 mmto:bc_aspect a owl:Class;
    rdfs:subClassOf osmo:application_case_aspect;
+   owl:disjointWith mmto:business_decision_support_system;
    rdfs:comment "business-case aspect"^^xs:string.
 
 mmto:bc_aspect owl:disjointUnionOf (mmto:bca_description mmto:bca_industrial_case mmto:bca_red_zone mmto:bca_context mmto:bca_currency mmto:bca_contribution_to_cost mmto:bca_total_cost mmto:bca_contribution_to_benefit mmto:bca_total_benefit mmto:bca_return_on_investment mmto:bca_decision_support).
@@ -2673,16 +2794,16 @@ mmto:bca_decision_support rdfs:subClassOf [
       owl:someValuesFrom mmto:business_decision_support_system
    ].
 
-[owl:disjointUnionOf (mmto:industrial_case mmto:ic_aspect mmto:industrial_decision_support_system)] rdfs:subClassOf evmpo:marketplace_related_entity.
-
 mmto:industrial_case a owl:Class;
    rdfs:subClassOf osmo:application_case;
+   owl:disjointWith mmto:ic_aspect, mmto:industrial_decision_support_system;
    rdfs:comment "industrial case, i.e., an application case with a focus on industrial/manufacturing aspects"^^xs:string.
 
 mmto:has_ic_aspect a owl:ObjectProperty;
    rdfs:domain mmto:industrial_case;
    rdfs:range mmto:ic_aspect;
    rdfs:subPropertyOf osmo:has_application_case_aspect;
+   owl:disjointWith mmto:industrial_decision_support_system;
    rdfs:comment "points to an industrial-case aspect"^^xs:string.
 mmto:has_ic_kpi a owl:ObjectProperty;
    rdfs:domain mmto:industrial_case;
@@ -2762,10 +2883,9 @@ mmto:ica_decision_support rdfs:subClassOf [
       owl:someValuesFrom mmto:industrial_decision_support_system
    ].
 
-[owl:disjointUnionOf (mmto:translation_case mmto:tc_aspect mmto:translation_decision_support_system)] rdfs:subClassOf evmpo:marketplace_related_entity.
-
 mmto:translation_case a owl:Class;
    rdfs:subClassOf osmo:application_case;
+   owl:disjointWith mmto:tc_aspect, mmto:translation_decision_support_system;
    rdfs:comment "translation case, i.e., an application case that can be described as specified by the EMMC Translation Case Template"^^xs:string.
 
 mmto:has_tc_summary a owl:DatatypeProperty;
@@ -2837,6 +2957,7 @@ mmto:has_tca_decision_support a owl:ObjectProperty;
 
 mmto:tc_aspect a owl:Class;
    rdfs:subClassOf osmo:application_case_aspect;
+   owl:disjointWith mmto:translation_decision_support_system;
    rdfs:comment "translation-case aspect"^^xs:string.
 
 mmto:tc_aspect owl:disjointUnionOf (mmto:tca_translator mmto:tca_end_user mmto:tca_industrial_case mmto:tca_business_case mmto:tca_expected_outcome mmto:tca_pe_type mmto:tca_discussion mmto:tca_kpi_model mmto:tca_evaluation mmto:tca_impact mmto:tca_decision_support).
@@ -3154,7 +3275,7 @@ mmto:considers_kpi_model a owl:ObjectProperty;
    rdfs:comment "points to a KPI model developed/considered/employed within translation stage no. 6"^^xs:string.
 mmto:has_decision_support a owl:ObjectProperty;
    rdfs:domain mmto:translation_step_decision;
-   rdfs:range mmto:application_decision_support_system;
+   rdfs:range osmo:application_decision_support_system;
    rdfs:comment "points to a decision support system employed within translation stage no. 6"^^xs:string.
 
 
@@ -3222,11 +3343,24 @@ mmto:has_represented_kpi a owl:ObjectProperty;
    rdfs:domain mmto:key_performance_indicator;
    rdfs:comment "points to a KPI that is represented (modelled) by the present KPI model"^^xs:string.
 
+###
+# NOTES ON ALIGNMENT
+###
+
+# An application_case is a sign
+
+# A kpi_model is a model for a property
+
+# An indicator is a property
+# An objective_kpi is an objective property, and a subjective_kpi is a subjective_property
+
+# A section_aspect is a symbolic entity
+
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 1.5.1 ###
+### VERSION 1.5.2 ###
 
-### DATED 4TH MAY 2020 ###
+### DATED 19TH MAY 2020 ###
 
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -3945,10 +4079,8 @@ osmo:timespan_information a owl:Class;
    rdfs:subClassOf osmo:section_aspect;
    rdfs:comment "time span information, i.e., statement on the time interval considered, modelled, or represented by an OSMO/MODA section"^^xs:string.
 
-# I am reinserting this for the time being, the previous change was non-trivial, let us discuss this
-#
 osmo:application_case a owl:Class;
-   rdfs:subClassOf mmto:project_entity, evmpo:annotation, osmo:section;
+   rdfs:subClassOf evmpo:annotation, osmo:section;
    rdfs:comment "application case, i.e., a scenario, point of view, or subjective or negotiated set of aims"^^xs:string.
 
 osmo:application_case owl:disjointUnionOf (mmto:business_case mmto:industrial_case mmto:translation_case osmo:use_case).
@@ -4980,23 +5112,20 @@ osmo:material_information_uf a owl:Class;
    rdfs:comment "Unit function of an MI"^^xs:string.
 
 
-osmo:optimization_entity a owl:Class;
-   rdfs:subClassOf evmpo:marketplace_related_entity.
-
 osmo:optimization_objective a owl:Class;
-   rdfs:subClassOf osmo:unique_elementary, osmo:optimization_entity;
-   rdfs:comment "optimization objective, i.e., a target quantity employed as a criterion during optimization"^^xs:string.
+   rdfs:subClassOf osmo:logical_variable;
+   rdfs:comment "optimization objective, i.e., a logical variable that is employed as a criterion during optimization"^^xs:string.
 
 osmo:maximization_objective a owl:Class;
-   rdfs:subClassOf osmo:optimization_objective;
+   rdfs:subClassOf osmo:optimization_objective, osmo:unique_elementary;
    rdfs:comment "maximization objective, i.e., a target quantity that is to be maximized"^^xs:string.
 
 osmo:minimization_objective a owl:Class;
-   rdfs:subClassOf osmo:optimization_objective;
+   rdfs:subClassOf osmo:optimization_objective, osmo:unique_elementary;
    rdfs:comment "minimization objective, i.e., a target quantity that is to be minimized"^^xs:string.
 
 osmo:decision_support_system a owl:Class;
-   rdfs:subClassOf osmo:optimization_entity, macro:data_infrastructure, macro:software_infrastructure;
+   rdfs:subClassOf macro:data_infrastructure, macro:software_infrastructure;
    rdfs:comment "decision support system, i.e., a data and software infrastructure that facilitates decision support"^^xs:string.
 
 osmo:has_constraint a owl:ObjectProperty;
@@ -5025,6 +5154,15 @@ osmo:application_decision_support_system a owl:Class;
 osmo:use_case_decision_support_system a owl:Class;
    rdfs:subClassOf osmo:application_decision_support_system;
    rdfs:comment "use-case decision support system (UDSS), i.e., a decision support system that is applied to a use case"^^xs:string.
+
+###
+# NOTES ON ALIGNMENT
+###
+
+# An application_case is a sign
+
+# A section_aspect is a symbolic entity
+
 
 ### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
 

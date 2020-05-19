@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 1.5.1 ###
+### VERSION 1.5.2 ###
 
-### DATED 4TH MAY 2020 ###
+### DATED 19TH MAY 2020 ###
 
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -722,10 +722,8 @@ osmo:timespan_information a owl:Class;
    rdfs:subClassOf osmo:section_aspect;
    rdfs:comment "time span information, i.e., statement on the time interval considered, modelled, or represented by an OSMO/MODA section"^^xs:string.
 
-# I am reinserting this for the time being, the previous change was non-trivial, let us discuss this
-#
 osmo:application_case a owl:Class;
-   rdfs:subClassOf mmto:project_entity, evmpo:annotation, osmo:section;
+   rdfs:subClassOf evmpo:annotation, osmo:section;
    rdfs:comment "application case, i.e., a scenario, point of view, or subjective or negotiated set of aims"^^xs:string.
 
 osmo:application_case owl:disjointUnionOf (mmto:business_case mmto:industrial_case mmto:translation_case osmo:use_case).
@@ -1757,23 +1755,20 @@ osmo:material_information_uf a owl:Class;
    rdfs:comment "Unit function of an MI"^^xs:string.
 
 
-osmo:optimization_entity a owl:Class;
-   rdfs:subClassOf evmpo:marketplace_related_entity.
-
 osmo:optimization_objective a owl:Class;
-   rdfs:subClassOf osmo:unique_elementary, osmo:optimization_entity;
-   rdfs:comment "optimization objective, i.e., a target quantity employed as a criterion during optimization"^^xs:string.
+   rdfs:subClassOf osmo:logical_variable;
+   rdfs:comment "optimization objective, i.e., a logical variable that is employed as a criterion during optimization"^^xs:string.
 
 osmo:maximization_objective a owl:Class;
-   rdfs:subClassOf osmo:optimization_objective;
+   rdfs:subClassOf osmo:optimization_objective, osmo:unique_elementary;
    rdfs:comment "maximization objective, i.e., a target quantity that is to be maximized"^^xs:string.
 
 osmo:minimization_objective a owl:Class;
-   rdfs:subClassOf osmo:optimization_objective;
+   rdfs:subClassOf osmo:optimization_objective, osmo:unique_elementary;
    rdfs:comment "minimization objective, i.e., a target quantity that is to be minimized"^^xs:string.
 
 osmo:decision_support_system a owl:Class;
-   rdfs:subClassOf osmo:optimization_entity, macro:data_infrastructure, macro:software_infrastructure;
+   rdfs:subClassOf macro:data_infrastructure, macro:software_infrastructure;
    rdfs:comment "decision support system, i.e., a data and software infrastructure that facilitates decision support"^^xs:string.
 
 osmo:has_constraint a owl:ObjectProperty;
@@ -1802,3 +1797,12 @@ osmo:application_decision_support_system a owl:Class;
 osmo:use_case_decision_support_system a owl:Class;
    rdfs:subClassOf osmo:application_decision_support_system;
    rdfs:comment "use-case decision support system (UDSS), i.e., a decision support system that is applied to a use case"^^xs:string.
+
+###
+# NOTES ON ALIGNMENT
+###
+
+# An application_case is a sign
+
+# A section_aspect is a symbolic entity
+
