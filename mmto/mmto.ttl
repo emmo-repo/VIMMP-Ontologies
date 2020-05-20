@@ -1,9 +1,9 @@
 
 ### MATERIALS MODELLING TRANSLATION ONTOLOGY (MMTO) ###
 
-### VERSION 1.2.1 ###
+### VERSION 1.2.2 ###
 
-### DATED 19TH MAY 2020 ###
+### DATED 20TH MAY 2020 ###
 
 @prefix mmto: <http://www.vimmp.eu/semantics/mmto/mmto.ttl#>.
 
@@ -25,7 +25,7 @@ mmto:project a owl:Class;
 
 mmto:has_project_coordinator a owl:ObjectProperty;
    rdfs:domain mmto:project;
-   rdfs:range vico:agent;
+   rdfs:range evmpo:agent;
    rdfs:comment "agent that carries the main responsibility for the project"^^xs:string;
    rdfs:subPropertyOf mmto:has_project_participant.
 mmto:has_project_description a owl:DatatypeProperty;
@@ -38,7 +38,7 @@ mmto:has_project_identifier a owl:DatatypeProperty;
    rdfs:comment "identifier of the project in text form"^^xs:string.
 mmto:has_project_participant a owl:ObjectProperty;
    rdfs:domain mmto:project;
-   rdfs:range vico:agent;
+   rdfs:range evmpo:agent;
    rdfs:comment "agent that participates in the project"^^xs:string.
 mmto:has_project_step a owl:ObjectProperty;
    rdfs:domain mmto:project;
@@ -655,7 +655,7 @@ mmto:has_step_content a owl:ObjectProperty;
    rdfs:comment "points to a document produced by or associated with the project step"^^xs:string.
 mmto:has_step_coordinator a owl:ObjectProperty;
    rdfs:domain mmto:project_step;
-   rdfs:range vico:agent;
+   rdfs:range evmpo:agent;
    rdfs:comment "agent that carries the main responsibility for the project step"^^xs:string;
    rdfs:subPropertyOf mmto:has_step_participant.
 mmto:has_step_description a owl:DatatypeProperty;
@@ -668,7 +668,7 @@ mmto:has_step_identifier a owl:DatatypeProperty;
    rdfs:comment "identifier of the project step"^^xs:string.
 mmto:has_step_participant a owl:ObjectProperty;
    rdfs:domain mmto:project_step;
-   rdfs:range vico:agent;
+   rdfs:range evmpo:agent;
    rdfs:comment "agent that participates in the project step"^^xs:string.
 
 mmto:translation_step a owl:Class;

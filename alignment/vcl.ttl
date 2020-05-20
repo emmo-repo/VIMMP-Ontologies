@@ -1,9 +1,9 @@
 
 ### VIMMP CODELISTS (VCL) FOR ZONTAL ###
 
-### VERSION 0.1.0 ###
+### VERSION 0.1.1 ###
 
-### DATED 15TH MAY 2020 ###
+### DATED 20TH MAY 2020 ###
 
 @prefix vcl: <http://www.vimmp.eu/semantics/alignment/vcl.ttl#>.
 
@@ -14,6 +14,7 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix skos: <http://www.w3.org/2004/02/skos/core#>.
+@prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
 <http://www.vimmp.eu/semantics/alignment/vcl.ttl> a owl:Ontology.
@@ -30,3 +31,14 @@ vcl:CL_SCHEME_MM_TOPIC a owl:NamedIndividual, skos:ConceptScheme;
    skos:prefLabel "mm_topic"^^xs:string;
    skos:definition "materials modelling topic"^^xs:string.
 
+vcl:codelist_interlocutor_group a owl:Class;
+   rdfs:subClassOf evmpo:annotation;
+   owl:equivalentClass vico:interlocutor_group, [
+      a owl:Restriction;
+      owl:onProperty skos:inScheme;
+      owl:hasValue vcl:CL_SCHEME_INTERLOCUTOR_GROUP
+   ];
+   rdfs:comment "interlocutor group"^^xs:string.
+vcl:CL_SCHEME_MM_TOPIC a owl:NamedIndividual, skos:ConceptScheme;
+   skos:prefLabel "interlocutor_group"^^xs:string;
+   skos:definition "interlocutor group"^^xs:string.

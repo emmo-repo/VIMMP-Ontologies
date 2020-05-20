@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
 
-### VERSION 0.9.10 ###
+### VERSION 0.9.12 ###
 
-### DATED 15TH MAY 2020 ###
+### DATED 20TH MAY 2020 ###
 
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 
@@ -17,6 +17,7 @@
 @prefix skos: <http://www.w3.org/2004/02/skos/core#>.
 @prefix vcl: <http://www.vimmp.eu/semantics/alignment/vcl.ttl#>.
 @prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
+@prefix viprs: <http://www.vimmp.eu/semantics/alignment/viprs.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
 <http://www.vimmp.eu/semantics/otras/otras.ttl#> a owl:Ontology.
@@ -31,10 +32,11 @@ otras:has_targeted_group a owl:ObjectProperty;
 otras:has_abstract a owl:ObjectProperty;
    rdfs:domain evmpo:document;
    rdfs:range otras:abstract;
-   rdfs:subPropertyOf iao:BFO_0000051.  # BFO "has_part" referenced through the IAO
+   rdfs:subPropertyOf viprs:has_proper_part, iao:BFO_0000051.  # BFO "has_part" referenced through the IAO
 otras:is_cited_as a owl:ObjectProperty;
    rdfs:domain evmpo:document;
    rdfs:range otras:citation;
+   rdfs:subPropertyOf viprs:has_sign;
    owl:inverseOf otras:is_citation_about_document.
 
 otras:has_text_form a owl:DatatypeProperty;
@@ -45,12 +47,14 @@ otras:has_text_form a owl:DatatypeProperty;
 otras:abstract a owl:Class;
    rdfs:subClassOf evmpo:information_content_entity;
    rdfs:comment "abstract as defined by the IAO"^^xs:string;
-   owl:equivalentClass iao:IAO_0000315.  # iao label "abstract"
+   owl:equivalentClass iao:IAO_0000315;  # iao label "abstract"
+   owl:sameAs iao:IAO_0000315.
 
 otras:publication a owl:Class;
    rdfs:subClassOf evmpo:document;
    rdfs:comment "publication as defined by the IAO"^^xs:string;
-   owl:equivalentClass iao:IAO_0000311.  # iao label "publication"
+   owl:equivalentClass iao:IAO_0000311;  # iao label "publication"
+   owl:sameAs iao:IAO_0000311.
 
 otras:book a owl:Class;
    rdfs:subClassOf otras:publication;
@@ -85,7 +89,8 @@ otras:video_recording a owl:Class;
 otras:scientific_publication a owl:Class;
    rdfs:subClassOf otras:publication;
    rdfs:comment "scientific publication, i.e., a publication about an investigation, as defined by the IAO"^^xs:string;
-   owl:equivalentClass iao:IAO_0000312.  # iao label "scientific publication" or equivalently "publication about an investigation"
+   owl:equivalentClass iao:IAO_0000312;  # iao label "scientific publication" or equivalently "publication about an investigation"
+   owl:sameAs iao:IAO_0000312.
 
 otras:scientific_publication rdfs:subClassOf [
       a owl:Restriction;
@@ -104,9 +109,10 @@ otras:training_document a owl:Class;
    owl:intersectionOf (evmpo:document otras:carrier).
 
 otras:training_event a owl:Class;
-   rdfs:comment "a training event is a (potential) virtual marketplace calendar event at which training activities occur, equivalent to Event from CCSO"^^xs:string;
+   rdfs:comment "a training event is a (potential) virtual marketplace calendar event at which training activities occur, same as Event from CCSO"^^xs:string;
    rdfs:subClassOf evmpo:calendar_event, ical:Vevent, otras:carrier;
    owl:equivalentClass ccso:Event;
+   owl:sameAs ccso:Event;
    owl:intersectionOf (evmpo:calendar_event otras:carrier).
 
 otras:training_service a owl:Class;
@@ -115,7 +121,8 @@ otras:training_service a owl:Class;
 
 otras:has_offered_course a owl:ObjectProperty;
    rdfs:domain otras:training_service;
-   rdfs:range otras:course.
+   rdfs:range otras:course;
+   rdfs:subPropertyOf viprs:mereosemiotics_is_hp.
 
 otras:focus a owl:Class;
    rdfs:comment "focus, i.e., a studied object or topic or training objective (or an aspect or constitutive part thereof)";
@@ -128,7 +135,8 @@ otras:has_focus_descriptor a owl:DatatypeProperty;
 otras:topic a owl:Class;
    rdfs:comment "a topic as defined by CCSO"^^xs:string;
    rdfs:subClassOf otras:focus;
-   owl:equivalentClass ccso:Topic.
+   owl:equivalentClass ccso:Topic;
+   owl:sameAs ccso:Topic.
 
 otras:has_topic_descriptor a owl:DatatypeProperty;
    rdfs:domain otras:topic;
@@ -224,9 +232,10 @@ otras:has_example_topic a owl:ObjectProperty;
    rdfs:subPropertyOf evmpo:has_meta_annotation.
 
 otras:learning_outcome a owl:Class;
-   rdfs:comment "a learning outcome (i.e., competency), equivalent to LearningOutcome from CCSO, further characterized by OTRAS"^^xs:string;
+   rdfs:comment "a learning outcome (i.e., competency), same as LearningOutcome from CCSO, further characterized by OTRAS"^^xs:string;
    rdfs:subClassOf otras:focus;
-   owl:equivalentClass ccso:LearningOutcome.
+   owl:equivalentClass ccso:LearningOutcome;
+   owl:sameAs ccso:LearningOutcome.
 
 otras:has_l_o_descriptor a owl:DatatypeProperty;
    rdfs:domain otras:learning_outcome;
@@ -277,18 +286,21 @@ otras:expert_competency rdfs:subClassOf [
 otras:syllabus a owl:Class;
    rdfs:comment "a syllabus as defined by CCSO"^^xs:string;
    rdfs:subClassOf evmpo:document;
-   owl:equivalentClass ccso:Syllabus.
+   owl:equivalentClass ccso:Syllabus;
+   owl:sameAs ccso:Syllabus.
 
 otras:aims_to a owl:ObjectProperty;
    rdfs:domain otras:syllabus;
    rdfs:range otras:learning_outcome;
    rdfs:subPropertyOf evmpo:has_information_content_entity_annotation;
-   owl:equivalentProperty ccso:aimsToLO.
+   owl:equivalentProperty ccso:aimsToLO;
+   owl:sameAs ccso:aimsToLO.
 otras:covers_topic a owl:ObjectProperty;
    rdfs:domain otras:syllabus;
    rdfs:range otras:topic;
    rdfs:subPropertyOf evmpo:has_information_content_entity_annotation;
-   owl:equivalentProperty ccso:coversTopic.
+   owl:equivalentProperty ccso:coversTopic;
+   owl:sameAs ccso:coversTopic.
 otras:has_learning_material_citation a owl:ObjectProperty;
    rdfs:domain otras:syllabus;
    rdfs:range otras:citation;
@@ -309,7 +321,8 @@ otras:has_recommended_literature a owl:ObjectProperty;
 otras:course a owl:Class;
    rdfs:comment "a course as defined by CCSO"^^xs:string;
    rdfs:subClassOf evmpo:process;
-   owl:equivalentClass ccso:Course.
+   owl:equivalentClass ccso:Course;
+   owl:sameAs ccso:Course.
 
 otras:has_carrier a owl:ObjectProperty;
    rdfs:domain otras:course;
@@ -325,7 +338,8 @@ otras:has_event a owl:ObjectProperty;
 otras:has_syllabus a owl:ObjectProperty;
    rdfs:domain otras:course;
    rdfs:range otras:syllabus;
-   owl:equivalentProperty ccso:hasSyllabus.
+   owl:equivalentProperty ccso:hasSyllabus;
+   owl:sameAs ccso:hasSyllabus.
 otras:is_offered_by a owl:ObjectProperty;
    rdfs:domain otras:course;
    rdfs:range otras:training_service;
@@ -2214,7 +2228,8 @@ _:C_LEVEL_IV a owl:AllDifferent;
 otras:citation a owl:Class;
    rdfs:subClassOf evmpo:information_content_entity, iao:IAO_0000030;  # iao label "information content entity"
    rdfs:comment "citation as defined by IAO; n.b., OTRAS adds some properties to this beyond what is specified by the IAO"^^xs:string;
-   owl:equivalentClass iao:IAO_0000301.  # iao label "citation"
+   owl:equivalentClass iao:IAO_0000301;  # iao label "citation"
+   owl:sameAs iao:IAO_0000301.
 
 otras:has_author_map a owl:ObjectProperty;
    rdfs:domain otras:citation;
@@ -2270,7 +2285,7 @@ otras:is_about a owl:ObjectProperty;
 otras:is_citation_about_document a owl:ObjectProperty;
    rdfs:domain otras:citation;
    rdfs:range evmpo:document;
-   rdfs:subPropertyOf otras:is_about;
+   rdfs:subPropertyOf otras:is_about, viprs:is_sign_for;
    owl:inverseOf otras:is_cited_as.
 
 otras:has_document_topic a owl:ObjectProperty;
@@ -2458,4 +2473,4 @@ otras:author_map_element rdfs:subClassOf [
 otras:instructor a owl:Class;
    rdfs:subClassOf evmpo:expert, vico:training_provider, ccso:Professor;
    rdfs:comment "instructor, i.e., an individual human agent with expertise who can take responsibility for courses, training units, or training services"^^xs:string.
-ccso:Professor rdfs:subClassOf vico:agent.
+ccso:Professor rdfs:subClassOf evmpo:agent.

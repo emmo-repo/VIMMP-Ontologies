@@ -1,9 +1,9 @@
 
 ### MARKETPLACE-ACCESSIBLE COMPUTATIONAL RESOURCE ONTOLOGY (MACRO) ###
 
-### VERSION 0.5.0 ###
+### VERSION 0.5.1 ###
 
-### DATED 19TH MAY 2020 ###
+### DATED 20TH MAY 2020 ###
 
 @prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
 
@@ -54,7 +54,7 @@ macro:software_infrastructure a owl:Class;
 viso:software_tool rdfs:subClassOf macro:software_infrastructure.
 
 macro:repository a owl:Class;
-   rdfs:subClassOf macro:data_infrastructure, macro:hardware_infrastructure, vico:agent.
+   rdfs:subClassOf macro:data_infrastructure, macro:hardware_infrastructure, evmpo:agent.
 
 macro:VIMMP_CERTIFICATE_REGISTRY a macro:repository;
    vico:acts_on macro:VIMMP_MARKETPLACE;
@@ -72,7 +72,7 @@ macro:channel a owl:Class;
 
 macro:has_channel_member a owl:ObjectProperty;
    rdfs:domain macro:channel;
-   rdfs:range vico:agent;
+   rdfs:range evmpo:agent;
    owl:inverseOf vico:has_access_to.
 macro:has_channel_name a owl:DatatypeProperty;
    rdfs:domain macro:channel;
@@ -85,12 +85,12 @@ macro:unidirectional_channel a owl:Class;
 
 macro:has_channel_owner a owl:ObjectProperty;
    rdfs:domain macro:unidirectional_channel;
-   rdfs:range vico:agent;
+   rdfs:range evmpo:agent;
    rdfs:subPropertyOf macro:has_channel_member;
    owl:inverseOf vico:is_owner_of.
 macro:has_channel_subscriber a owl:ObjectProperty;
    rdfs:domain macro:unidirectional_channel;
-   rdfs:range vico:agent;
+   rdfs:range evmpo:agent;
    rdfs:subPropertyOf macro:has_channel_member;
    owl:inverseOf vico:is_subscribed_to.
 
@@ -113,7 +113,7 @@ macro:virtual_marketplace a owl:Class;
 
 macro:has_stakeholder a owl:ObjectProperty;
    rdfs:domain macro:virtual_marketplace;
-   rdfs:range vico:agent;
+   rdfs:range evmpo:agent;
    owl:inverseOf vico:acts_at;
    rdfs:subPropertyOf macro:has_channel_member.
 

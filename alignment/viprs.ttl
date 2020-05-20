@@ -204,22 +204,24 @@ viprs:individual_cooccurrence_necessity a owl:ObjectProperty;
    rdfs:range viprs:immanent_entity;
    rdfs:subPropertyOf viprs:individual_necessity, viprs:conceptual_cooccurrence_necessity.
 
-viprs:n_loc_or_roc a owl:ObjectProperty;
+viprs:n_loc_or_roc a owl:ObjectProperty, owl:SymmetricProperty;
    rdfs:domain viprs:immanent_entity;
    rdfs:range viprs:immanent_entity;
    rdfs:subPropertyOf viprs:individual_cooccurrence_necessity, viprs:n_loc_cor_roc;
    rdfs:comment "X n_loc_or_roc Y == in all realizations, X occurs or Y occurs"^^xs:string.
-viprs:n_loc_or_rnoc a owl:ObjectProperty;
+viprs:n_loc_or_rnoc a owl:ObjectProperty, owl:TransitiveProperty;
    rdfs:domain viprs:immanent_entity;
    rdfs:range viprs:immanent_entity;
    rdfs:subPropertyOf viprs:individual_cooccurrence_necessity, viprs:n_loc_cor_rnoc;
+   owl:inverseOf viprs:n_lnoc_or_roc;
    rdfs:comment "X n_loc_or_rnoc Y == in all realizations, X occurs or Y does not occur"^^xs:string.
-viprs:n_lnoc_or_roc a owl:ObjectProperty;
+viprs:n_lnoc_or_roc a owl:ObjectProperty, owl:TransitiveProperty;
    rdfs:domain viprs:immanent_entity;
    rdfs:range viprs:immanent_entity;
+   owl:inverseOf viprs:n_loc_or_rnoc;
    rdfs:subPropertyOf viprs:individual_cooccurrence_necessity, viprs:n_lnoc_cor_roc;
    rdfs:comment "X n_lnoc_or_roc Y == in all realizations, X does not occur or Y occurs"^^xs:string.
-viprs:n_lnoc_or_rnoc a owl:ObjectProperty;
+viprs:n_lnoc_or_rnoc a owl:ObjectProperty, owl:SymmetricProperty;
    rdfs:domain viprs:immanent_entity;
    rdfs:range viprs:immanent_entity;
    rdfs:subPropertyOf viprs:individual_cooccurrence_necessity, viprs:n_lnoc_cor_rnoc;
@@ -235,7 +237,7 @@ viprs:individual_cooccurrence_possibility a owl:ObjectProperty;
    rdfs:range viprs:immanent_entity;
    rdfs:subPropertyOf viprs:individual_possibility.
 
-viprs:p_loc_and_roc a owl:ObjectProperty;
+viprs:p_loc_and_roc a owl:ObjectProperty, owl:SymmetricProperty;
    rdfs:domain viprs:possible_entity;
    rdfs:range viprs:possible_entity;
    rdfs:subPropertyOf viprs:individual_cooccurrence_possibility;
@@ -244,13 +246,15 @@ viprs:p_loc_and_rnoc a owl:ObjectProperty;
    rdfs:domain viprs:possible_entity;
    rdfs:range viprs:non_necessary_entity;
    rdfs:subPropertyOf viprs:individual_cooccurrence_possibility;
+   owl:inverseOf viprs:p_lnoc_and_roc;
    rdfs:comment "X p_loc_and_rnoc Y == in some realization, X occurs and Y does not occur"^^xs:string.
 viprs:p_lnoc_and_roc a owl:ObjectProperty;
    rdfs:domain viprs:non_necessary_entity;
    rdfs:range viprs:possible_entity;
    rdfs:subPropertyOf viprs:individual_cooccurrence_possibility;
+   owl:inverseOf viprs:p_loc_and_rnoc;
    rdfs:comment "X p_lnoc_and_roc Y == in some realization, X does not occur and Y occurs"^^xs:string.
-viprs:p_lnoc_and_rnoc a owl:ObjectProperty;
+viprs:p_lnoc_and_rnoc a owl:ObjectProperty, owl:SymmetricProperty;
    rdfs:domain viprs:non_necessary_entity;
    rdfs:range viprs:non_necessary_entity;
    rdfs:subPropertyOf viprs:individual_cooccurrence_possibility;
@@ -266,7 +270,7 @@ viprs:conceptual_cooccurrence_necessity a owl:ObjectProperty;
    rdfs:range viprs:immanent_entity;
    rdfs:subPropertyOf viprs:conceptual_necessity.
 
-viprs:n_loc_cor_roc a owl:ObjectProperty;
+viprs:n_loc_cor_roc a owl:ObjectProperty, owl:SymmetricProperty;
    rdfs:domain viprs:immanent_entity;
    rdfs:range viprs:immanent_entity;
    rdfs:subPropertyOf viprs:conceptual_cooccurrence_necessity;
@@ -275,13 +279,15 @@ viprs:n_loc_cor_rnoc a owl:ObjectProperty;
    rdfs:domain viprs:immanent_entity;
    rdfs:range viprs:immanent_entity;
    rdfs:subPropertyOf viprs:conceptual_cooccurrence_necessity;
+   owl:inverseOf viprs:n_lnoc_cor_roc;
    rdfs:comment "X n_loc_cor_rnoc Y == in all realizations, [some A] occurs or [some B] does not occur; therein, A conceptualizes X, and B conceptualizes Y"^^xs:string.
 viprs:n_lnoc_cor_roc a owl:ObjectProperty;
    rdfs:domain viprs:immanent_entity;
    rdfs:range viprs:immanent_entity;
    rdfs:subPropertyOf viprs:conceptual_cooccurrence_necessity;
+   owl:inverseOf viprs:n_loc_cor_rnoc;
    rdfs:comment "X n_lnoc_cor_roc Y == in all realizations, [some A] does not occur or [some B] occurs; therein, A conceptualizes X, and B conceptualizes Y"^^xs:string.
-viprs:n_lnoc_cor_rnoc a owl:ObjectProperty;
+viprs:n_lnoc_cor_rnoc a owl:ObjectProperty, owl:SymmetricProperty;
    rdfs:domain viprs:immanent_entity;
    rdfs:range viprs:immanent_entity;
    rdfs:subPropertyOf viprs:conceptual_cooccurrence_necessity;
@@ -297,24 +303,26 @@ viprs:conceptual_cooccurrence_possibility a owl:ObjectProperty;
    rdfs:range viprs:immanent_entity;
    rdfs:subPropertyOf viprs:conceptual_possibility.
 
-viprs:p_loc_cand_roc a owl:ObjectProperty;
-   rdfs:domain viprs:immanent_entity;
-   rdfs:range viprs:immanent_entity;
+viprs:p_loc_cand_roc a owl:ObjectProperty, owl:SymmetricProperty;
+   rdfs:domain viprs:possible_entity;
+   rdfs:range viprs:possible_entity;
    rdfs:subPropertyOf viprs:conceptual_cooccurrence_possibility, viprs:p_loc_and_roc;
    rdfs:comment "X p_loc_cand_roc Y == in some realization, [all A] occur and [all B] occur; therein, A conceptualizes X, and B conceptualizes Y"^^xs:string.
 viprs:p_loc_cand_rnoc a owl:ObjectProperty;
-   rdfs:domain viprs:immanent_entity;
-   rdfs:range viprs:immanent_entity;
+   rdfs:domain viprs:possible_entity;
+   rdfs:range viprs:non_necessary_entity;
    rdfs:subPropertyOf viprs:conceptual_cooccurrence_possibility, viprs:p_loc_and_rnoc;
+   owl:inverseOf viprs:p_lnoc_cand_roc;
    rdfs:comment "X p_loc_cand_rnoc Y == in some realization, [all A] occur and [no B] occurs; therein, A conceptualizes X, and B conceptualizes Y"^^xs:string.
 viprs:p_lnoc_cand_roc a owl:ObjectProperty;
-   rdfs:domain viprs:immanent_entity;
-   rdfs:range viprs:immanent_entity;
+   rdfs:domain viprs:non_necessary_entity;
+   rdfs:range viprs:possible_entity;
    rdfs:subPropertyOf viprs:conceptual_cooccurrence_possibility, viprs:p_lnoc_and_roc;
-   rdfs:comment "X p_lnoc_cand_roc Y == in some realization, [all A] occur and [no B] occurs; therein, A conceptualizes X, and B conceptualizes Y"^^xs:string.
-viprs:p_lnoc_cand_rnoc a owl:ObjectProperty;
-   rdfs:domain viprs:immanent_entity;
-   rdfs:range viprs:immanent_entity;
+   owl:inverseOf viprs:p_loc_cand_rnoc;
+   rdfs:comment "X p_lnoc_cand_roc Y == in some realization, [no A] occurs and [all B] occur; therein, A conceptualizes X, and B conceptualizes Y"^^xs:string.
+viprs:p_lnoc_cand_rnoc a owl:ObjectProperty, owl:SymmetricProperty;
+   rdfs:domain viprs:non_necessary_entity;
+   rdfs:range viprs:non_necessary_entity;
    rdfs:subPropertyOf viprs:conceptual_cooccurrence_possibility, viprs:p_lnoc_and_rnoc;
    rdfs:comment "X p_lnoc_cand_rnoc Y == in some realization, [no A] occurs and [no B] occurs; therein, A conceptualizes X, and B conceptualizes Y"^^xs:string.
 
@@ -357,6 +365,9 @@ viprs:has_sign a owl:ObjectProperty;
 # 3A. SPECIFIC HIGH-LEVEL PROPERTIES #
 ######################################
 
+##
+# semiosis/representation/signification
+##
 viprs:has_model a owl:ObjectProperty;
    rdfs:domain viprs:immanent_entity;
    rdfs:range viprs:immanent_entity;
@@ -368,9 +379,19 @@ viprs:is_model_for a owl:ObjectProperty;
    rdfs:subPropertyOf viprs:is_sign_for;
    owl:inverseOf viprs:has_model.
 
+##
+# co-occurrence
+##
 viprs:can_coocur_with a owl:ObjectProperty;  # simple name for frequently-used relation
    owl:sameAs viprs:p_loc_and_roc;
    owl:equivalentProperty viprs:p_loc_and_roc.
+viprs:has_requirement_satisfied_by a owl:ObjectProperty;
+   rdfs:subPropertyOf viprs:n_lnoc_cor_roc;
+   rdfs:comment "X has_requirement_satisfied_by Y == in all realizations, X does not occur or [some B] occurs, where B conceptualizes Y"^^xs:string.
+viprs:satisfies_requirement_of a owl:ObjectProperty;
+   rdfs:subPropertyOf viprs:n_loc_cor_rnoc;
+   owl:inverseOf viprs:has_requirement_satisfied_by;
+   rdfs:comment "X satisfies_requirement_of Y == in all realizations, [some A] occurs or Y does not occur, where A conceptualizes X"^^xs:string.
 
 ##
 # modal signification relations

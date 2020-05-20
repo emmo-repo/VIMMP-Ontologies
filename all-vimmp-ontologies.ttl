@@ -730,9 +730,9 @@ emmo1s:hasProperty a owl:ObjectProperty;
 
 ### EMMO-VIMMP INTEGRATION (EVI) ###
 
-### VERSION 0.5.0 ###
+### VERSION 0.5.1 ###
 
-### DATED 19TH MAY 2020 ###
+### DATED 20TH MAY 2020 ###
 
 @prefix evi: <http://www.vimmp.eu/semantics/alignment/evi.ttl#>.
 
@@ -749,6 +749,7 @@ emmo1s:hasProperty a owl:ObjectProperty;
 @prefix viprs: <http://www.vimmp.eu/semantics/alignment/viprs.ttl#>.
 @prefix viso: <http://www.vimmp.eu/semantics/viso/viso-general.ttl#>.
 @prefix viso-am: <http://www.vimmp.eu/semantics/viso/viso-atomistic-mesoscopic.ttl#>.
+@prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
 <http://www.vimmp.eu/semantics/alignment/evi.ttl> a owl:Ontology.
@@ -814,12 +815,7 @@ evmpo:paradigmatic_entity a owl:Class;
 # category (1): assessment
 #
 evmpo:assessment a owl:Class;
-   rdfs:subClassOf emmo1s:Sign, evmpo:paradigmatic_entity;
-   rdfs:subClassOf [
-      a owl:Restriction;
-      owl:onProperty [owl:inverseOf emmo1s:hasSign];
-      owl:someValuesFrom evmpo:information_content_entity
-   ].
+   rdfs:subClassOf emmo1s:Sign, evmpo:paradigmatic_entity.
 
 # category (2): calendar_event
 #
@@ -834,7 +830,7 @@ evmpo:calendar_event a owl:Class;
 # category (3): communication
 #
 evmpo:communication a owl:Class;
-   rdfs:subClassOf emmo1s:Sign, evmpo:paradigmatic_entity.
+   rdfs:subClassOf emmo1s:Symbolic, evmpo:paradigmatic_entity.
 
 # category (4): information_content_entity
 #
@@ -983,6 +979,21 @@ osmo:materials_relation a owl:Class;
 osmo:section_aspect a owl:Class;
    rdfs:subClassOf evmpo:marketplace_related_entity, emmo1s:Symbolic.
 
+# a workflow_resource is a symbolic entity
+# a workflow_graph is a well-formed symbolic entity
+# a simulation is a semiosis (process), and a simulation_workflow is a sign for a simulation
+#
+osmo:workflow_resource a owl:Class;
+   rdfs:subClassOf evmpo:marketplace_related_entity, emmo1s:Symbolic.
+osmo:workflow_graph a owl:Class;
+   rdfs:subClassOf osmo:workflow_resource, emmo1s:WellFormedSymbolic.
+osmo:simulation_workflow a owl:Class;
+   rdfs:subClassOf osmo:workflow_resource, [
+      a owl:Restriction;
+      owl:onProperty [owl:inverseOf emmo1s:hasSign];
+      owl:someValuesFrom emmo1s:Semiosis
+   ].
+
 
 ##########################
 # OTRAS-EMMO INTEGRATION #
@@ -1012,7 +1023,7 @@ otras:focus a owl:Class;
 #
 otras:topic a owl:Class;
    rdfs:subClassOf emmo1s:Sign, otras:focus.
-   
+
 
 #########################
 # VISO-EMMO INTEGRATION #
@@ -1028,6 +1039,121 @@ viso-am:interaction_site a owl:Class;
 #
 viso:model_object a owl:Class;
    rdfs:subClassOf emmo1s:Symbolic, evmpo:marketplace_related_entity.
+
+
+#########################
+# VIVO-EMMO INTEGRATION #
+#########################
+
+# An assertion is a symbolic entity
+# a material_assertion is also a sign for a material
+# a material_property_information is also a sign for a property, and a sign for a sign for a material
+#
+vivo:assertion a owl:Class;
+   rdfs:subClassOf evmpo:information_content_entity, emmo1s:Symbolic.
+vivo:material_assertion a owl:Class;
+   rdfs:subClassOf vivo:assertion, emmo1s:Sign, [
+      a owl:Restriction;
+      owl:onProperty [owl:inverseOf emmo1s:hasSign];
+      owl:someValuesFrom emmo1s:Material
+   ].
+vivo:material_property_information a owl:Class;
+   rdfs:subClassOf vivo:material_assertion, emmo1s:Sign, [
+      a owl:Restriction;
+      owl:onProperty [owl:inverseOf emmo1s:hasSign];
+      owl:someValuesFrom emmo1s:Property
+   ], [
+      a owl:Restriction;
+      owl:onProperty viprs:mereosemiotics_is_is;
+      owl:someValuesFrom emmo1s:Material
+   ].
+
+# An assessment is a sign; specifically:
+#    an agent_assessment is a sign for an agent (i.e., for an interpreter)
+#    a data_item_assessment is a sign for a data item (i.e., for a symbolic entity)
+#    a document_assessment is a sign for a document (i.e., for a symbolic entity)
+#    an event_assessment is a sign for a calendar event (i.e., for a sign that represents a process)
+#    an infrastructure_assessment is a sign for an infrastructure (i.e., for an engineered entity)
+#    a model_assessment is a sign for a model
+#    a project_assessment is a sign for a project (i.e., for a process)
+#    a service_assessment is a sign for a service (i.e., for a sign that represents a process)
+#    a workflow_assessment is a sign for a simulation workflow (i.e., for a symbolic entity that is also a sign for a semiosis)
+#
+vivo:agent_assessment a owl:Class;
+   rdfs:subClassOf vivo:assessment, [
+      a owl:Restriction;
+      owl:onProperty [owl:inverseOf emmo1s:hasSign];
+      owl:someValuesFrom emmo1s:Interpreter
+   ].
+vivo:data_item_assessment a owl:Class;
+   rdfs:subClassOf vivo:assessment, [
+      a owl:Restriction;
+      owl:onProperty [owl:inverseOf emmo1s:hasSign];
+      owl:someValuesFrom emmo1s:Symbolic
+   ].
+vivo:document_assessment a owl:Class;
+   rdfs:subClassOf vivo:assessment, [
+      a owl:Restriction;
+      owl:onProperty [owl:inverseOf emmo1s:hasSign];
+      owl:someValuesFrom emmo1s:Symbolic
+   ].
+vivo:event_assessment a owl:Class;
+   rdfs:subClassOf vivo:assessment, [
+      a owl:Restriction;
+      owl:onProperty [owl:inverseOf emmo1s:hasSign];
+      owl:someValuesFrom emmo1s:Sign
+   ], [
+      a owl:Restriction;
+      owl:onProperty viprs:mereosemiotics_is_is;
+      owl:someValuesFrom emmo1s:Process
+   ].
+vivo:infrastructure_assessment a owl:Class;
+   rdfs:subClassOf vivo:assessment, [
+      a owl:Restriction;
+      owl:onProperty [owl:inverseOf emmo1s:hasSign];
+      owl:someValuesFrom emmo1s:Engineered
+   ].
+vivo:model_assessment a owl:Class;
+   rdfs:subClassOf vivo:assessment, [
+      a owl:Restriction;
+      owl:onProperty [owl:inverseOf emmo1s:hasSign];
+      owl:someValuesFrom emmo1s:Model
+   ].
+vivo:project_assessment a owl:Class;
+   rdfs:subClassOf vivo:assessment, [
+      a owl:Restriction;
+      owl:onProperty [owl:inverseOf emmo1s:hasSign];
+      owl:someValuesFrom emmo1s:Process
+   ].
+vivo:service_assessment a owl:Class;
+   rdfs:subClassOf vivo:assessment, [
+      a owl:Restriction;
+      owl:onProperty [owl:inverseOf emmo1s:hasSign];
+      owl:someValuesFrom emmo1s:Sign
+   ], [
+      a owl:Restriction;
+      owl:onProperty viprs:mereosemiotics_is_is;
+      owl:someValuesFrom emmo1s:Process
+   ].
+vivo:workflow_assessment a owl:Class;
+   rdfs:subClassOf vivo:assessment, [
+      a owl:Restriction;
+      owl:onProperty [owl:inverseOf emmo1s:hasSign];
+      owl:someValuesFrom [owl:intersectionOf (emmo1s:Sign emmo1s:Symbolic)]
+   ], [
+      a owl:Restriction;
+      owl:onProperty viprs:mereosemiotics_is_is;
+      owl:someValuesFrom emmo1s:Semiosis
+   ].
+
+# a material_property is a property that (inverse of hasProperty) some material
+#
+vivo:material_property a owl:Class;
+   rdfs:subClassOf evmpo:property, [
+      a owl:Restriction;
+      owl:onProperty [owl:inverseOf emmo1s:hasProperty];
+      owl:someValuesFrom emmo1s:Material
+   ].
 
 ### EUROPEAN VIRTUAL MARKETPLACE ONTOLOGY (EVMPO) ###
 
@@ -1426,9 +1552,9 @@ evmpo:has_meta_annotation a owl:ObjectProperty;
 
 ### VIMMP CODELISTS (VCL) FOR ZONTAL ###
 
-### VERSION 0.1.0 ###
+### VERSION 0.1.1 ###
 
-### DATED 15TH MAY 2020 ###
+### DATED 20TH MAY 2020 ###
 
 @prefix vcl: <http://www.vimmp.eu/semantics/alignment/vcl.ttl#>.
 
@@ -1439,6 +1565,7 @@ evmpo:has_meta_annotation a owl:ObjectProperty;
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix skos: <http://www.w3.org/2004/02/skos/core#>.
+@prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
 <http://www.vimmp.eu/semantics/alignment/vcl.ttl> a owl:Ontology.
@@ -1455,6 +1582,17 @@ vcl:CL_SCHEME_MM_TOPIC a owl:NamedIndividual, skos:ConceptScheme;
    skos:prefLabel "mm_topic"^^xs:string;
    skos:definition "materials modelling topic"^^xs:string.
 
+vcl:codelist_interlocutor_group a owl:Class;
+   rdfs:subClassOf evmpo:annotation;
+   owl:equivalentClass vico:interlocutor_group, [
+      a owl:Restriction;
+      owl:onProperty skos:inScheme;
+      owl:hasValue vcl:CL_SCHEME_INTERLOCUTOR_GROUP
+   ];
+   rdfs:comment "interlocutor group"^^xs:string.
+vcl:CL_SCHEME_MM_TOPIC a owl:NamedIndividual, skos:ConceptScheme;
+   skos:prefLabel "interlocutor_group"^^xs:string;
+   skos:definition "interlocutor group"^^xs:string.
 
 ### VIMMP PRIMITIVES (VIPRS) ###
 
@@ -1661,22 +1799,24 @@ viprs:individual_cooccurrence_necessity a owl:ObjectProperty;
    rdfs:range viprs:immanent_entity;
    rdfs:subPropertyOf viprs:individual_necessity, viprs:conceptual_cooccurrence_necessity.
 
-viprs:n_loc_or_roc a owl:ObjectProperty;
+viprs:n_loc_or_roc a owl:ObjectProperty, owl:SymmetricProperty;
    rdfs:domain viprs:immanent_entity;
    rdfs:range viprs:immanent_entity;
    rdfs:subPropertyOf viprs:individual_cooccurrence_necessity, viprs:n_loc_cor_roc;
    rdfs:comment "X n_loc_or_roc Y == in all realizations, X occurs or Y occurs"^^xs:string.
-viprs:n_loc_or_rnoc a owl:ObjectProperty;
+viprs:n_loc_or_rnoc a owl:ObjectProperty, owl:TransitiveProperty;
    rdfs:domain viprs:immanent_entity;
    rdfs:range viprs:immanent_entity;
    rdfs:subPropertyOf viprs:individual_cooccurrence_necessity, viprs:n_loc_cor_rnoc;
+   owl:inverseOf viprs:n_lnoc_or_roc;
    rdfs:comment "X n_loc_or_rnoc Y == in all realizations, X occurs or Y does not occur"^^xs:string.
-viprs:n_lnoc_or_roc a owl:ObjectProperty;
+viprs:n_lnoc_or_roc a owl:ObjectProperty, owl:TransitiveProperty;
    rdfs:domain viprs:immanent_entity;
    rdfs:range viprs:immanent_entity;
+   owl:inverseOf viprs:n_loc_or_rnoc;
    rdfs:subPropertyOf viprs:individual_cooccurrence_necessity, viprs:n_lnoc_cor_roc;
    rdfs:comment "X n_lnoc_or_roc Y == in all realizations, X does not occur or Y occurs"^^xs:string.
-viprs:n_lnoc_or_rnoc a owl:ObjectProperty;
+viprs:n_lnoc_or_rnoc a owl:ObjectProperty, owl:SymmetricProperty;
    rdfs:domain viprs:immanent_entity;
    rdfs:range viprs:immanent_entity;
    rdfs:subPropertyOf viprs:individual_cooccurrence_necessity, viprs:n_lnoc_cor_rnoc;
@@ -1692,7 +1832,7 @@ viprs:individual_cooccurrence_possibility a owl:ObjectProperty;
    rdfs:range viprs:immanent_entity;
    rdfs:subPropertyOf viprs:individual_possibility.
 
-viprs:p_loc_and_roc a owl:ObjectProperty;
+viprs:p_loc_and_roc a owl:ObjectProperty, owl:SymmetricProperty;
    rdfs:domain viprs:possible_entity;
    rdfs:range viprs:possible_entity;
    rdfs:subPropertyOf viprs:individual_cooccurrence_possibility;
@@ -1701,13 +1841,15 @@ viprs:p_loc_and_rnoc a owl:ObjectProperty;
    rdfs:domain viprs:possible_entity;
    rdfs:range viprs:non_necessary_entity;
    rdfs:subPropertyOf viprs:individual_cooccurrence_possibility;
+   owl:inverseOf viprs:p_lnoc_and_roc;
    rdfs:comment "X p_loc_and_rnoc Y == in some realization, X occurs and Y does not occur"^^xs:string.
 viprs:p_lnoc_and_roc a owl:ObjectProperty;
    rdfs:domain viprs:non_necessary_entity;
    rdfs:range viprs:possible_entity;
    rdfs:subPropertyOf viprs:individual_cooccurrence_possibility;
+   owl:inverseOf viprs:p_loc_and_rnoc;
    rdfs:comment "X p_lnoc_and_roc Y == in some realization, X does not occur and Y occurs"^^xs:string.
-viprs:p_lnoc_and_rnoc a owl:ObjectProperty;
+viprs:p_lnoc_and_rnoc a owl:ObjectProperty, owl:SymmetricProperty;
    rdfs:domain viprs:non_necessary_entity;
    rdfs:range viprs:non_necessary_entity;
    rdfs:subPropertyOf viprs:individual_cooccurrence_possibility;
@@ -1723,7 +1865,7 @@ viprs:conceptual_cooccurrence_necessity a owl:ObjectProperty;
    rdfs:range viprs:immanent_entity;
    rdfs:subPropertyOf viprs:conceptual_necessity.
 
-viprs:n_loc_cor_roc a owl:ObjectProperty;
+viprs:n_loc_cor_roc a owl:ObjectProperty, owl:SymmetricProperty;
    rdfs:domain viprs:immanent_entity;
    rdfs:range viprs:immanent_entity;
    rdfs:subPropertyOf viprs:conceptual_cooccurrence_necessity;
@@ -1732,13 +1874,15 @@ viprs:n_loc_cor_rnoc a owl:ObjectProperty;
    rdfs:domain viprs:immanent_entity;
    rdfs:range viprs:immanent_entity;
    rdfs:subPropertyOf viprs:conceptual_cooccurrence_necessity;
+   owl:inverseOf viprs:n_lnoc_cor_roc;
    rdfs:comment "X n_loc_cor_rnoc Y == in all realizations, [some A] occurs or [some B] does not occur; therein, A conceptualizes X, and B conceptualizes Y"^^xs:string.
 viprs:n_lnoc_cor_roc a owl:ObjectProperty;
    rdfs:domain viprs:immanent_entity;
    rdfs:range viprs:immanent_entity;
    rdfs:subPropertyOf viprs:conceptual_cooccurrence_necessity;
+   owl:inverseOf viprs:n_loc_cor_rnoc;
    rdfs:comment "X n_lnoc_cor_roc Y == in all realizations, [some A] does not occur or [some B] occurs; therein, A conceptualizes X, and B conceptualizes Y"^^xs:string.
-viprs:n_lnoc_cor_rnoc a owl:ObjectProperty;
+viprs:n_lnoc_cor_rnoc a owl:ObjectProperty, owl:SymmetricProperty;
    rdfs:domain viprs:immanent_entity;
    rdfs:range viprs:immanent_entity;
    rdfs:subPropertyOf viprs:conceptual_cooccurrence_necessity;
@@ -1754,24 +1898,26 @@ viprs:conceptual_cooccurrence_possibility a owl:ObjectProperty;
    rdfs:range viprs:immanent_entity;
    rdfs:subPropertyOf viprs:conceptual_possibility.
 
-viprs:p_loc_cand_roc a owl:ObjectProperty;
-   rdfs:domain viprs:immanent_entity;
-   rdfs:range viprs:immanent_entity;
+viprs:p_loc_cand_roc a owl:ObjectProperty, owl:SymmetricProperty;
+   rdfs:domain viprs:possible_entity;
+   rdfs:range viprs:possible_entity;
    rdfs:subPropertyOf viprs:conceptual_cooccurrence_possibility, viprs:p_loc_and_roc;
    rdfs:comment "X p_loc_cand_roc Y == in some realization, [all A] occur and [all B] occur; therein, A conceptualizes X, and B conceptualizes Y"^^xs:string.
 viprs:p_loc_cand_rnoc a owl:ObjectProperty;
-   rdfs:domain viprs:immanent_entity;
-   rdfs:range viprs:immanent_entity;
+   rdfs:domain viprs:possible_entity;
+   rdfs:range viprs:non_necessary_entity;
    rdfs:subPropertyOf viprs:conceptual_cooccurrence_possibility, viprs:p_loc_and_rnoc;
+   owl:inverseOf viprs:p_lnoc_cand_roc;
    rdfs:comment "X p_loc_cand_rnoc Y == in some realization, [all A] occur and [no B] occurs; therein, A conceptualizes X, and B conceptualizes Y"^^xs:string.
 viprs:p_lnoc_cand_roc a owl:ObjectProperty;
-   rdfs:domain viprs:immanent_entity;
-   rdfs:range viprs:immanent_entity;
+   rdfs:domain viprs:non_necessary_entity;
+   rdfs:range viprs:possible_entity;
    rdfs:subPropertyOf viprs:conceptual_cooccurrence_possibility, viprs:p_lnoc_and_roc;
-   rdfs:comment "X p_lnoc_cand_roc Y == in some realization, [all A] occur and [no B] occurs; therein, A conceptualizes X, and B conceptualizes Y"^^xs:string.
-viprs:p_lnoc_cand_rnoc a owl:ObjectProperty;
-   rdfs:domain viprs:immanent_entity;
-   rdfs:range viprs:immanent_entity;
+   owl:inverseOf viprs:p_loc_cand_rnoc;
+   rdfs:comment "X p_lnoc_cand_roc Y == in some realization, [no A] occurs and [all B] occur; therein, A conceptualizes X, and B conceptualizes Y"^^xs:string.
+viprs:p_lnoc_cand_rnoc a owl:ObjectProperty, owl:SymmetricProperty;
+   rdfs:domain viprs:non_necessary_entity;
+   rdfs:range viprs:non_necessary_entity;
    rdfs:subPropertyOf viprs:conceptual_cooccurrence_possibility, viprs:p_lnoc_and_rnoc;
    rdfs:comment "X p_lnoc_cand_rnoc Y == in some realization, [no A] occurs and [no B] occurs; therein, A conceptualizes X, and B conceptualizes Y"^^xs:string.
 
@@ -1814,6 +1960,9 @@ viprs:has_sign a owl:ObjectProperty;
 # 3A. SPECIFIC HIGH-LEVEL PROPERTIES #
 ######################################
 
+##
+# semiosis/representation/signification
+##
 viprs:has_model a owl:ObjectProperty;
    rdfs:domain viprs:immanent_entity;
    rdfs:range viprs:immanent_entity;
@@ -1825,9 +1974,19 @@ viprs:is_model_for a owl:ObjectProperty;
    rdfs:subPropertyOf viprs:is_sign_for;
    owl:inverseOf viprs:has_model.
 
+##
+# co-occurrence
+##
 viprs:can_coocur_with a owl:ObjectProperty;  # simple name for frequently-used relation
    owl:sameAs viprs:p_loc_and_roc;
    owl:equivalentProperty viprs:p_loc_and_roc.
+viprs:has_requirement_satisfied_by a owl:ObjectProperty;
+   rdfs:subPropertyOf viprs:n_lnoc_cor_roc;
+   rdfs:comment "X has_requirement_satisfied_by Y == in all realizations, X does not occur or [some B] occurs, where B conceptualizes Y"^^xs:string.
+viprs:satisfies_requirement_of a owl:ObjectProperty;
+   rdfs:subPropertyOf viprs:n_loc_cor_rnoc;
+   owl:inverseOf viprs:has_requirement_satisfied_by;
+   rdfs:comment "X satisfies_requirement_of Y == in all realizations, [some A] occurs or Y does not occur, where A conceptualizes X"^^xs:string.
 
 ##
 # modal signification relations
@@ -2051,9 +2210,9 @@ viprs:mereosemiotics_hs_hp_is a owl:ObjectProperty; owl:inverseOf viprs:mereosem
 
 ### MARKETPLACE-ACCESSIBLE COMPUTATIONAL RESOURCE ONTOLOGY (MACRO) ###
 
-### VERSION 0.5.0 ###
+### VERSION 0.5.1 ###
 
-### DATED 19TH MAY 2020 ###
+### DATED 20TH MAY 2020 ###
 
 @prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
 
@@ -2104,7 +2263,7 @@ macro:software_infrastructure a owl:Class;
 viso:software_tool rdfs:subClassOf macro:software_infrastructure.
 
 macro:repository a owl:Class;
-   rdfs:subClassOf macro:data_infrastructure, macro:hardware_infrastructure, vico:agent.
+   rdfs:subClassOf macro:data_infrastructure, macro:hardware_infrastructure, evmpo:agent.
 
 macro:VIMMP_CERTIFICATE_REGISTRY a macro:repository;
    vico:acts_on macro:VIMMP_MARKETPLACE;
@@ -2122,7 +2281,7 @@ macro:channel a owl:Class;
 
 macro:has_channel_member a owl:ObjectProperty;
    rdfs:domain macro:channel;
-   rdfs:range vico:agent;
+   rdfs:range evmpo:agent;
    owl:inverseOf vico:has_access_to.
 macro:has_channel_name a owl:DatatypeProperty;
    rdfs:domain macro:channel;
@@ -2135,12 +2294,12 @@ macro:unidirectional_channel a owl:Class;
 
 macro:has_channel_owner a owl:ObjectProperty;
    rdfs:domain macro:unidirectional_channel;
-   rdfs:range vico:agent;
+   rdfs:range evmpo:agent;
    rdfs:subPropertyOf macro:has_channel_member;
    owl:inverseOf vico:is_owner_of.
 macro:has_channel_subscriber a owl:ObjectProperty;
    rdfs:domain macro:unidirectional_channel;
-   rdfs:range vico:agent;
+   rdfs:range evmpo:agent;
    rdfs:subPropertyOf macro:has_channel_member;
    owl:inverseOf vico:is_subscribed_to.
 
@@ -2163,7 +2322,7 @@ macro:virtual_marketplace a owl:Class;
 
 macro:has_stakeholder a owl:ObjectProperty;
    rdfs:domain macro:virtual_marketplace;
-   rdfs:range vico:agent;
+   rdfs:range evmpo:agent;
    owl:inverseOf vico:acts_at;
    rdfs:subPropertyOf macro:has_channel_member.
 
@@ -2522,9 +2681,9 @@ macro:VOCTA_XML_FORMAT macro:is_input_format_of macro:SOFTWARE_TOOL_VOCTA.
 
 ### MATERIALS MODELLING TRANSLATION ONTOLOGY (MMTO) ###
 
-### VERSION 1.2.1 ###
+### VERSION 1.2.2 ###
 
-### DATED 19TH MAY 2020 ###
+### DATED 20TH MAY 2020 ###
 
 @prefix mmto: <http://www.vimmp.eu/semantics/mmto/mmto.ttl#>.
 
@@ -2546,7 +2705,7 @@ mmto:project a owl:Class;
 
 mmto:has_project_coordinator a owl:ObjectProperty;
    rdfs:domain mmto:project;
-   rdfs:range vico:agent;
+   rdfs:range evmpo:agent;
    rdfs:comment "agent that carries the main responsibility for the project"^^xs:string;
    rdfs:subPropertyOf mmto:has_project_participant.
 mmto:has_project_description a owl:DatatypeProperty;
@@ -2559,7 +2718,7 @@ mmto:has_project_identifier a owl:DatatypeProperty;
    rdfs:comment "identifier of the project in text form"^^xs:string.
 mmto:has_project_participant a owl:ObjectProperty;
    rdfs:domain mmto:project;
-   rdfs:range vico:agent;
+   rdfs:range evmpo:agent;
    rdfs:comment "agent that participates in the project"^^xs:string.
 mmto:has_project_step a owl:ObjectProperty;
    rdfs:domain mmto:project;
@@ -3176,7 +3335,7 @@ mmto:has_step_content a owl:ObjectProperty;
    rdfs:comment "points to a document produced by or associated with the project step"^^xs:string.
 mmto:has_step_coordinator a owl:ObjectProperty;
    rdfs:domain mmto:project_step;
-   rdfs:range vico:agent;
+   rdfs:range evmpo:agent;
    rdfs:comment "agent that carries the main responsibility for the project step"^^xs:string;
    rdfs:subPropertyOf mmto:has_step_participant.
 mmto:has_step_description a owl:DatatypeProperty;
@@ -3189,7 +3348,7 @@ mmto:has_step_identifier a owl:DatatypeProperty;
    rdfs:comment "identifier of the project step"^^xs:string.
 mmto:has_step_participant a owl:ObjectProperty;
    rdfs:domain mmto:project_step;
-   rdfs:range vico:agent;
+   rdfs:range evmpo:agent;
    rdfs:comment "agent that participates in the project step"^^xs:string.
 
 mmto:translation_step a owl:Class;
@@ -3358,9 +3517,9 @@ mmto:has_represented_kpi a owl:ObjectProperty;
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 1.5.2 ###
+### VERSION 1.5.3 ###
 
-### DATED 19TH MAY 2020 ###
+### DATED 20TH MAY 2020 ###
 
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -4036,7 +4195,7 @@ osmo:has_material_information_uf a owl:ObjectProperty;
 osmo:material_information rdfs:subClassOf [
       a owl:Restriction;
       owl:onProperty osmo:has_aspect_paradigmatic_content;
-      owl:someValuesFrom osmo:material
+      owl:someValuesFrom evmpo:material
    ].
 
 osmo:method_type a owl:Class;
@@ -4648,7 +4807,11 @@ osmo:logical_node rdfs:subClassOf [
    ].
 
 osmo:simulation_workflow a owl:Class;
-   rdfs:subClassOf osmo:workflow_graph, evmpo:simulation;
+   rdfs:subClassOf osmo:workflow_graph, [
+      a owl:Restriction;
+      owl:onProperty viprs:is_sign_for;
+      owl:someValuesFrom evmpo:simulation
+   ];
    rdfs:comment "simulation workflow, i.e., a (complete) workflow graph of an actually executable simulation workflow"^^xs:string.
 
 osmo:simulation_workflow owl:intersectionOf (osmo:workflow_graph evmpo:simulation).
@@ -5039,32 +5202,29 @@ osmo:logical_write_access a owl:Class;
    rdfs:comment "logical write access, i.e., a notational process/connection by which an OSMO/MODA section writes to a logical resource"^^xs:string.
 
 
-osmo:material a owl:Class;
-   rdfs:subClassOf evmpo:paradigmatic_entity;
-   owl:sameAs evmpo:material;
-   rdfs:comment "material, i.e., a material as characterized by the EMMO"^^xs:string.
-
+# OSMO properties of evmpo:material
+#
 osmo:has_cas_number a owl:DatatypeProperty, owl:FunctionalProperty;
-   rdfs:domain osmo:material;
+   rdfs:domain evmpo:material;
    rdfs:range xs:string;
    rdfs:comment "points to the Chemical Abstracts Service Registry Number (CASRN, or CAS number) associated with a material"^^xs:string.
 
 osmo:has_ec_number a owl:DatatypeProperty, owl:FunctionalProperty;
-   rdfs:domain osmo:material;
+   rdfs:domain evmpo:material;
    rdfs:range xs:string;
    rdfs:comment "points to the EC number (i.e., the European common market number) associated with a material"^^xs:string.
 
 osmo:cas_listed_material a owl:Class;
-   rdfs:subClassOf osmo:material;
+   rdfs:subClassOf evmpo:material;
    rdfs:comment "CAS listed material, i.e., a material that has a Chemical Abstracts Service Registry Number (CASRN, or CAS number)"^^xs:string.
 
-osmo:cas_listed_material owl:intersectionOf (osmo:material [a owl:Restriction; owl:onProperty osmo:has_cas_number; owl:someValuesFrom xs:string]).
+osmo:cas_listed_material owl:intersectionOf (evmpo:material [a owl:Restriction; owl:onProperty osmo:has_cas_number; owl:someValuesFrom xs:string]).
 
 osmo:ec_listed_material a owl:Class;
-   rdfs:subClassOf osmo:material;
+   rdfs:subClassOf evmpo:material;
    rdfs:comment "EC listed material, i.e., a material that has an EC number and is traded on the European common market"^^xs:string.
 
-osmo:ec_listed_material owl:intersectionOf (osmo:material [a owl:Restriction; owl:onProperty osmo:has_ec_number; owl:someValuesFrom xs:string]).
+osmo:ec_listed_material owl:intersectionOf (evmpo:material [a owl:Restriction; owl:onProperty osmo:has_ec_number; owl:someValuesFrom xs:string]).
 
 osmo:einecs_listed_material a owl:Class;
    rdfs:subClassOf osmo:ec_listed_material;
@@ -5163,12 +5323,15 @@ osmo:use_case_decision_support_system a owl:Class;
 
 # A section_aspect is a symbolic entity
 
+# a workflow_resource is a symbolic entity
+# a workflow_graph is a well-formed symbolic entity
+# a simulation is a semiosis (process), and a simulation_workflow is a sign for a simulation
 
 ### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
 
-### VERSION 0.9.11 ###
+### VERSION 0.9.12 ###
 
-### DATED 16TH MAY 2020 ###
+### DATED 20TH MAY 2020 ###
 
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 
@@ -5212,12 +5375,14 @@ otras:has_text_form a owl:DatatypeProperty;
 otras:abstract a owl:Class;
    rdfs:subClassOf evmpo:information_content_entity;
    rdfs:comment "abstract as defined by the IAO"^^xs:string;
-   owl:equivalentClass iao:IAO_0000315.  # iao label "abstract"
+   owl:equivalentClass iao:IAO_0000315;  # iao label "abstract"
+   owl:sameAs iao:IAO_0000315.
 
 otras:publication a owl:Class;
    rdfs:subClassOf evmpo:document;
    rdfs:comment "publication as defined by the IAO"^^xs:string;
-   owl:equivalentClass iao:IAO_0000311.  # iao label "publication"
+   owl:equivalentClass iao:IAO_0000311;  # iao label "publication"
+   owl:sameAs iao:IAO_0000311.
 
 otras:book a owl:Class;
    rdfs:subClassOf otras:publication;
@@ -5252,7 +5417,8 @@ otras:video_recording a owl:Class;
 otras:scientific_publication a owl:Class;
    rdfs:subClassOf otras:publication;
    rdfs:comment "scientific publication, i.e., a publication about an investigation, as defined by the IAO"^^xs:string;
-   owl:equivalentClass iao:IAO_0000312.  # iao label "scientific publication" or equivalently "publication about an investigation"
+   owl:equivalentClass iao:IAO_0000312;  # iao label "scientific publication" or equivalently "publication about an investigation"
+   owl:sameAs iao:IAO_0000312.
 
 otras:scientific_publication rdfs:subClassOf [
       a owl:Restriction;
@@ -5271,9 +5437,10 @@ otras:training_document a owl:Class;
    owl:intersectionOf (evmpo:document otras:carrier).
 
 otras:training_event a owl:Class;
-   rdfs:comment "a training event is a (potential) virtual marketplace calendar event at which training activities occur, equivalent to Event from CCSO"^^xs:string;
+   rdfs:comment "a training event is a (potential) virtual marketplace calendar event at which training activities occur, same as Event from CCSO"^^xs:string;
    rdfs:subClassOf evmpo:calendar_event, ical:Vevent, otras:carrier;
    owl:equivalentClass ccso:Event;
+   owl:sameAs ccso:Event;
    owl:intersectionOf (evmpo:calendar_event otras:carrier).
 
 otras:training_service a owl:Class;
@@ -5296,7 +5463,8 @@ otras:has_focus_descriptor a owl:DatatypeProperty;
 otras:topic a owl:Class;
    rdfs:comment "a topic as defined by CCSO"^^xs:string;
    rdfs:subClassOf otras:focus;
-   owl:equivalentClass ccso:Topic.
+   owl:equivalentClass ccso:Topic;
+   owl:sameAs ccso:Topic.
 
 otras:has_topic_descriptor a owl:DatatypeProperty;
    rdfs:domain otras:topic;
@@ -5392,9 +5560,10 @@ otras:has_example_topic a owl:ObjectProperty;
    rdfs:subPropertyOf evmpo:has_meta_annotation.
 
 otras:learning_outcome a owl:Class;
-   rdfs:comment "a learning outcome (i.e., competency), equivalent to LearningOutcome from CCSO, further characterized by OTRAS"^^xs:string;
+   rdfs:comment "a learning outcome (i.e., competency), same as LearningOutcome from CCSO, further characterized by OTRAS"^^xs:string;
    rdfs:subClassOf otras:focus;
-   owl:equivalentClass ccso:LearningOutcome.
+   owl:equivalentClass ccso:LearningOutcome;
+   owl:sameAs ccso:LearningOutcome.
 
 otras:has_l_o_descriptor a owl:DatatypeProperty;
    rdfs:domain otras:learning_outcome;
@@ -5445,18 +5614,21 @@ otras:expert_competency rdfs:subClassOf [
 otras:syllabus a owl:Class;
    rdfs:comment "a syllabus as defined by CCSO"^^xs:string;
    rdfs:subClassOf evmpo:document;
-   owl:equivalentClass ccso:Syllabus.
+   owl:equivalentClass ccso:Syllabus;
+   owl:sameAs ccso:Syllabus.
 
 otras:aims_to a owl:ObjectProperty;
    rdfs:domain otras:syllabus;
    rdfs:range otras:learning_outcome;
    rdfs:subPropertyOf evmpo:has_information_content_entity_annotation;
-   owl:equivalentProperty ccso:aimsToLO.
+   owl:equivalentProperty ccso:aimsToLO;
+   owl:sameAs ccso:aimsToLO.
 otras:covers_topic a owl:ObjectProperty;
    rdfs:domain otras:syllabus;
    rdfs:range otras:topic;
    rdfs:subPropertyOf evmpo:has_information_content_entity_annotation;
-   owl:equivalentProperty ccso:coversTopic.
+   owl:equivalentProperty ccso:coversTopic;
+   owl:sameAs ccso:coversTopic.
 otras:has_learning_material_citation a owl:ObjectProperty;
    rdfs:domain otras:syllabus;
    rdfs:range otras:citation;
@@ -5477,7 +5649,8 @@ otras:has_recommended_literature a owl:ObjectProperty;
 otras:course a owl:Class;
    rdfs:comment "a course as defined by CCSO"^^xs:string;
    rdfs:subClassOf evmpo:process;
-   owl:equivalentClass ccso:Course.
+   owl:equivalentClass ccso:Course;
+   owl:sameAs ccso:Course.
 
 otras:has_carrier a owl:ObjectProperty;
    rdfs:domain otras:course;
@@ -5493,7 +5666,8 @@ otras:has_event a owl:ObjectProperty;
 otras:has_syllabus a owl:ObjectProperty;
    rdfs:domain otras:course;
    rdfs:range otras:syllabus;
-   owl:equivalentProperty ccso:hasSyllabus.
+   owl:equivalentProperty ccso:hasSyllabus;
+   owl:sameAs ccso:hasSyllabus.
 otras:is_offered_by a owl:ObjectProperty;
    rdfs:domain otras:course;
    rdfs:range otras:training_service;
@@ -7382,7 +7556,8 @@ _:C_LEVEL_IV a owl:AllDifferent;
 otras:citation a owl:Class;
    rdfs:subClassOf evmpo:information_content_entity, iao:IAO_0000030;  # iao label "information content entity"
    rdfs:comment "citation as defined by IAO; n.b., OTRAS adds some properties to this beyond what is specified by the IAO"^^xs:string;
-   owl:equivalentClass iao:IAO_0000301.  # iao label "citation"
+   owl:equivalentClass iao:IAO_0000301;  # iao label "citation"
+   owl:sameAs iao:IAO_0000301.
 
 otras:has_author_map a owl:ObjectProperty;
    rdfs:domain otras:citation;
@@ -7626,13 +7801,13 @@ otras:author_map_element rdfs:subClassOf [
 otras:instructor a owl:Class;
    rdfs:subClassOf evmpo:expert, vico:training_provider, ccso:Professor;
    rdfs:comment "instructor, i.e., an individual human agent with expertise who can take responsibility for courses, training units, or training services"^^xs:string.
-ccso:Professor rdfs:subClassOf vico:agent.
+ccso:Professor rdfs:subClassOf evmpo:agent.
 
 ### VIMMP COMMUNICATION ONTOLOGY (VICO) ###
 
-### VERSION 1.1.4 ###
+### VERSION 1.1.5 ###
 
-### DATED 29TH APRIL 2020 ###
+### DATED 20TH MAY 2020 ###
 
 @prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
 
@@ -7644,6 +7819,8 @@ ccso:Professor rdfs:subClassOf vico:agent.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix vcl: <http://www.vimmp.eu/semantics/alignment/vcl.ttl#>.
+@prefix viprs: <http://www.vimmp.eu/semantics/alignment/viprs.ttl#>.
 @prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
@@ -7652,6 +7829,7 @@ ccso:Professor rdfs:subClassOf vico:agent.
 vico:contains a owl:ObjectProperty, owl:TransitiveProperty;
    rdfs:domain evmpo:communication;
    rdfs:range evmpo:communication;
+   rdfs:subPropertyOf viprs:has_proper_part;
    rdfs:comment "The expression [A contains B] means that B is a proper part of A, where A and B are both communications"^^xs:string.
 vico:has_access_rule a owl:ObjectProperty, owl:FunctionalProperty;
    rdfs:domain evmpo:communication;
@@ -7660,7 +7838,7 @@ vico:has_access_rule a owl:ObjectProperty, owl:FunctionalProperty;
    rdfs:comment "regulates (read) access to the communicated content"^^xs:string.
 vico:has_author a owl:ObjectProperty, owl:FunctionalProperty;
    rdfs:domain evmpo:communication;
-   rdfs:range vico:agent;
+   rdfs:range evmpo:agent;
    owl:inverseOf vico:is_author_of.
 vico:has_expiry_date a owl:ObjectProperty, owl:FunctionalProperty;
    rdfs:domain evmpo:communication;
@@ -7703,7 +7881,7 @@ evmpo:communication
    rdfs:subClassOf [
       a owl:Restriction;
       owl:onProperty vico:has_author;
-      owl:someValuesFrom vico:agent
+      owl:someValuesFrom evmpo:agent
    ].
 
 evmpo:statement owl:intersectionOf (evmpo:communication [a owl:Restriction; owl:onProperty vico:contains; owl:cardinality 0]).
@@ -7779,7 +7957,7 @@ vico:has_appendix a owl:ObjectProperty;
    rdfs:subPropertyOf vico:contains.
 vico:has_assignee a owl:ObjectProperty;
    rdfs:domain vico:message;
-   rdfs:range vico:agent;
+   rdfs:range evmpo:agent;
    owl:inverseOf vico:is_assignee_of.
 vico:has_certificate a owl:ObjectProperty;
    rdfs:domain vico:message;
@@ -7795,7 +7973,7 @@ vico:follows a owl:ObjectProperty;
    rdfs:range vico:message.
 vico:has_listener a owl:ObjectProperty;
    rdfs:domain vico:message;
-   rdfs:range vico:agent;
+   rdfs:range evmpo:agent;
    owl:inverseOf vico:is_listener_of.
 vico:has_signal a owl:ObjectProperty;
    rdfs:domain vico:message;
@@ -7821,7 +7999,7 @@ vico:task a owl:Class;
    rdfs:subClassOf vico:message;
    rdfs:comment "task, i.e., a message that has an assignee"^^xs:string.
 
-vico:task owl:intersectionOf (vico:message [a owl:Restriction; owl:onProperty vico:has_assignee; owl:someValuesFrom vico:agent]).
+vico:task owl:intersectionOf (vico:message [a owl:Restriction; owl:onProperty vico:has_assignee; owl:someValuesFrom evmpo:agent]).
 
 vico:declaration a owl:Class;
    rdfs:subClassOf vico:message;
@@ -7837,10 +8015,10 @@ vico:interlocution a owl:Class;
 
 vico:has_recipient a owl:ObjectProperty;
    rdfs:domain vico:interlocution;
-   rdfs:range vico:agent;
+   rdfs:range evmpo:agent;
    owl:inverseOf vico:is_recipient_of.
 
-vico:interlocution owl:intersectionOf (vico:message [a owl:Restriction; owl:onProperty vico:has_recipient; owl:someValuesFrom vico:agent]).
+vico:interlocution owl:intersectionOf (vico:message [a owl:Restriction; owl:onProperty vico:has_recipient; owl:someValuesFrom evmpo:agent]).
 
 vico:collocution a owl:Class;
    rdfs:subClassOf vico:interlocution;
@@ -7999,75 +8177,71 @@ vico:landline_number a owl:Class;
 vico:mobile_number a owl:Class;
    rdfs:subClassOf vico:phone_number.
 
-
-vico:agent a owl:Class;
-   rdfs:subClassOf evmpo:interpreter;
-   rdfs:comment "agent, i.e., an entity that has (in principle) the potential of acting at a virtual marketplace, whether that capability is exercised or not"^^xs:string;
-   owl:sameAs evmpo:agent.
-
+# VICO properties of evmpo:agent
+#
 vico:acts_at a owl:ObjectProperty;
-   rdfs:domain vico:agent;
+   rdfs:domain evmpo:agent;
    rdfs:range macro:virtual_marketplace;
    owl:inverseOf macro:has_stakeholder;
    rdfs:subPropertyOf vico:has_access_to.
 vico:has_access_to a owl:ObjectProperty;
-   rdfs:domain vico:agent;
+   rdfs:domain evmpo:agent;
    rdfs:range macro:channel;
    owl:inverseOf macro:has_channel_member.
 vico:has_address a owl:ObjectProperty;
-   rdfs:domain vico:agent;
+   rdfs:domain evmpo:agent;
    rdfs:range vico:address;
    rdfs:subPropertyOf evmpo:has_interpreter_annotation.
 vico:has_agentid a owl:DatatypeProperty;
-   rdfs:domain vico:agent;
+   rdfs:domain evmpo:agent;
    rdfs:range xs:nonNegativeInteger.
 vico:has_interest a owl:ObjectProperty;
-   rdfs:domain vico:agent;
+   rdfs:domain evmpo:agent;
    rdfs:range otras:topic;
    rdfs:subPropertyOf evmpo:has_interpreter_annotation.
 vico:has_name a owl:DatatypeProperty;
-   rdfs:domain vico:agent;
+   rdfs:domain evmpo:agent;
    rdfs:range xs:string.
 vico:is_assignee_of a owl:ObjectProperty;
-   rdfs:domain vico:agent;
+   rdfs:domain evmpo:agent;
    rdfs:range vico:message;
    owl:inverseOf vico:has_assignee.
 vico:is_author_of a owl:ObjectProperty;
-   rdfs:domain vico:agent;
+   rdfs:domain evmpo:agent;
    rdfs:range evmpo:communication;
    owl:inverseOf vico:has_author.
 vico:is_listener_of a owl:ObjectProperty;
-   rdfs:domain vico:agent;
+   rdfs:domain evmpo:agent;
    rdfs:range vico:message;
    owl:inverseOf vico:has_listener.
 vico:is_member_of a owl:ObjectProperty;
-   rdfs:domain vico:agent;
+   rdfs:domain evmpo:agent;
    rdfs:range vico:agent_assembly;
    owl:inverseOf vico:has_member.
 vico:is_recipient_of a owl:ObjectProperty;
-   rdfs:domain vico:agent;
+   rdfs:domain evmpo:agent;
    rdfs:range vico:interlocution;
    owl:inverseOf vico:has_recipient.
 vico:is_subscribed_to a owl:ObjectProperty;
-   rdfs:domain vico:agent;
+   rdfs:domain evmpo:agent;
    rdfs:range macro:unidirectional_channel;
    owl:inverseOf macro:has_channel_subscriber;
    rdfs:subPropertyOf vico:has_access_to.
 vico:is_owner_of a owl:ObjectProperty;
-   rdfs:domain vico:agent;
+   rdfs:domain evmpo:agent;
    rdfs:range macro:unidirectional_channel;
    owl:inverseOf macro:has_channel_owner;
    rdfs:subPropertyOf vico:has_access_to.
 
-vico:agent owl:disjointUnionOf (evmpo:agent_group evmpo:institution vico:person).
+evmpo:agent owl:disjointUnionOf (evmpo:agent_group evmpo:institution vico:person).
 
 vico:agent_assembly a owl:Class;
-   rdfs:subClassOf vico:agent;
+   rdfs:subClassOf evmpo:agent;
    rdfs:comment "agent assembly, i.e., an agent entity that can have other agents as temporary or permanent constituent members"^^xs:string.
 
 vico:has_member a owl:ObjectProperty;
    rdfs:domain vico:agent_assembly;
-   rdfs:range vico:agent;
+   rdfs:range evmpo:agent;
    owl:inverseOf vico:is_member_of.
 
 vico:has_institutional_address a owl:ObjectProperty;
@@ -8076,7 +8250,7 @@ vico:has_institutional_address a owl:ObjectProperty;
    rdfs:subPropertyOf vico:has_address.
 
 vico:person a owl:Class;
-   rdfs:subClassOf vico:agent;
+   rdfs:subClassOf evmpo:agent;
    rdfs:comment "person, i.e., a stand-alone agent that does not have multiple constituent parts or components that could by themselves act at a virtual marketplace"^^xs:string.
 
 vico:person owl:disjointUnionOf (evmpo:human_agent vico:virtual_agent).
@@ -8127,7 +8301,7 @@ vico:virtual_agent a owl:Class;
    rdfs:subClassOf vico:person;
    rdfs:comment "virtual agent, i.e., any person that is not a human agent (this includes bots/engines, agent pseudonyms, etc.)"^^xs:string.
 
-evmpo:stakeholder owl:intersectionOf (vico:agent [a owl:Restriction; owl:onProperty vico:acts_at; owl:someValuesFrom macro:virtual_marketplace]).
+evmpo:stakeholder owl:intersectionOf (evmpo:agent [a owl:Restriction; owl:onProperty vico:acts_at; owl:someValuesFrom macro:virtual_marketplace]).
 
 vico:has_competency a owl:ObjectProperty;
    rdfs:domain evmpo:expert;
@@ -8139,12 +8313,13 @@ vico:has_expertise_in a owl:ObjectProperty;
    rdfs:subPropertyOf vico:has_interest.
 
 vico:certifier a owl:Class;
-   rdfs:subClassOf vico:agent;
+   rdfs:subClassOf evmpo:agent;
    rdfs:comment "certifier, i.e., an agent who can issue certificates (communications hat contain assessments)"^^xs:string.
 
 vico:is_certifier_of a owl:ObjectProperty;
    rdfs:domain vico:certifier;
    rdfs:range vivo:certificate;
+   rdfs:subPropertyOf viprs:satisfies_requirement_of;
    owl:inverseOf vivo:has_certifier.
 
 vico:certifier owl:disjointUnionOf (vico:certifying_expert vico:certifying_resource).
@@ -8172,7 +8347,7 @@ vico:certifying_database a owl:Class;
    rdfs:subClassOf vico:certifying_resource, macro:repository.
 
 vico:interlocutor a owl:Class;
-   rdfs:subClassOf vico:agent;
+   rdfs:subClassOf evmpo:agent;
    rdfs:comment "interlocutor, i.e., an entity that can (potentially) send and receive communications at a virtual marketplace"^^xs:string.
 
 vico:marketplace_subject a owl:Class;
@@ -8186,10 +8361,12 @@ vico:consultant a owl:Class;
 
 vico:data_provider a owl:Class;
    rdfs:subClassOf vico:interlocutor;
+   owl:equivalentClass evmpo:data_provider;
    owl:sameAs evmpo:data_provider.
 
 vico:end_user a owl:Class;
    rdfs:subClassOf vico:interlocutor;
+   owl:equivalentClass evmpo:end_user;
    owl:sameAs evmpo:end_user.
 
 vico:guest a owl:Class;
@@ -8200,18 +8377,22 @@ vico:manufacturer a owl:Class;
 
 vico:model_provider a owl:Class;
    rdfs:subClassOf vico:interlocutor;
+   owl:equivalentClass evmpo:model_provider;
    owl:sameAs evmpo:model_provider.
 
 vico:software_owner a owl:Class;
    rdfs:subClassOf vico:interlocutor;
+   owl:equivalentClass evmpo:software_owner;
    owl:sameAs evmpo:software_owner.
 
 vico:training_provider a owl:Class;
    rdfs:subClassOf vico:interlocutor;
+   owl:equivalentClass evmpo:training_provider;
    owl:sameAs evmpo:training_provider.
 
 vico:translator a owl:Class;
    rdfs:subClassOf vico:interlocutor;
+   owl:equivalentClass evmpo:translator;
    owl:sameAs evmpo:translator;
    rdfs:comment "translator as characterized by the EMMC Translators' Guide and the EMMC Translation Case Template"^^xs:string.
 
@@ -8229,6 +8410,43 @@ vico:interlocutor_group a owl:Class;
    rdfs:subClassOf vico:interlocutor_type.
 
 vico:interlocutor_group owl:oneOf (vico:IG_CONSULTANT vico:IG_DATA_PROVIDER vico:IG_END_USER vico:IG_GUEST vico:IG_MANUFACTURER vico:IG_MODEL_PROVIDER vico:IG_SOFTWARE_OWNER vico:IG_TRAINING_PROVIDER vico:IG_TRANSLATOR).
+
+vico:IG_CONSULTANT a vico:interlocutor_group, vcl:codelist_interlocutor_group;
+   skos:inScheme vcl:CL_SCHEME_INTERLOCUTOR_GROUP;
+   skos:notation "Consultant"^^xs:string;
+   skos:prefLabel "Consultant"^^xs:string.
+vico:IG_DATA_PROVIDER a vico:interlocutor_group, vcl:codelist_interlocutor_group;
+   skos:inScheme vcl:CL_SCHEME_INTERLOCUTOR_GROUP;
+   skos:notation "Data provider"^^xs:string;
+   skos:prefLabel "Data provider"^^xs:string.
+vico:IG_END_USER a vico:interlocutor_group, vcl:codelist_interlocutor_group;
+   skos:inScheme vcl:CL_SCHEME_INTERLOCUTOR_GROUP;
+   skos:notation "End user"^^xs:string;
+   skos:prefLabel "End user"^^xs:string.
+vico:IG_GUEST a vico:interlocutor_group, vcl:codelist_interlocutor_group;
+   skos:inScheme vcl:CL_SCHEME_INTERLOCUTOR_GROUP;
+   skos:notation "Guest"^^xs:string;
+   skos:prefLabel "Guest"^^xs:string.
+vico:IG_MANUFACTURER a vico:interlocutor_group, vcl:codelist_interlocutor_group;
+   skos:inScheme vcl:CL_SCHEME_INTERLOCUTOR_GROUP;
+   skos:notation "Manufacturer"^^xs:string;
+   skos:prefLabel "Manufacturer"^^xs:string.
+vico:IG_MODEL_PROVIDER a vico:interlocutor_group, vcl:codelist_interlocutor_group;
+   skos:inScheme vcl:CL_SCHEME_INTERLOCUTOR_GROUP;
+   skos:notation "Model provider"^^xs:string;
+   skos:prefLabel "Model provider"^^xs:string.
+vico:IG_SOFTWARE_OWNER a vico:interlocutor_group, vcl:codelist_interlocutor_group;
+   skos:inScheme vcl:CL_SCHEME_INTERLOCUTOR_GROUP;
+   skos:notation "Software owner"^^xs:string;
+   skos:prefLabel "Software owner"^^xs:string.
+vico:IG_TRAINING_PROVIDER a vico:interlocutor_group, vcl:codelist_interlocutor_group;
+   skos:inScheme vcl:CL_SCHEME_INTERLOCUTOR_GROUP;
+   skos:notation "Training provider"^^xs:string;
+   skos:prefLabel "Training provider"^^xs:string.
+vico:IG_TRANSLATOR a vico:interlocutor_group, vcl:codelist_interlocutor_group;
+   skos:inScheme vcl:CL_SCHEME_INTERLOCUTOR_GROUP;
+   skos:notation "Translator"^^xs:string;
+   skos:prefLabel "Translator"^^xs:string.
 
 vico:interlocutor_tag a owl:Class;
    rdfs:subClassOf vico:interlocutor_type.
@@ -8265,6 +8483,7 @@ vico:is_sme a owl:DatatypeProperty;
 vico:country a owl:Class;
    rdfs:subClassOf evmpo:interpreter;
    owl:equivalentClass lcc-cr:Country;
+   owl:sameAs lcc-cr:Country;
    rdfs:comment "country defined following ISO 3166 as implemented by the LCR ontology"^^xs:string.
 
 
@@ -8407,11 +8626,25 @@ vico:TITLE_PROFESSOR_GENERIC_SHORT a vico:postdoctoral_title;
 _:C_PERSONAL_TITLE a owl:AllDifferent;
    owl:members (vico:TITLE_FEMALE_GENERIC vico:TITLE_MALE_GENERIC vico:TITLE_DOCTOR_GENERIC vico:TITLE_PROFESSOR_GENERIC_LONG vico:TITLE_PROFESSOR_GENERIC_SHORT).
 
+
+###
+# NOTES ON ALIGNMENT
+###
+
+# a communication is a symbolic entity
+
+# contains is a subproperty of has_proper_part
+
+# "X has_certifier Y" is a subproperty of "A can only occur if some B occurs" where A = {X} and B conceptualizes Y
+#    hence, has_certifier subPropertyOf has_requirement_satisfied_by
+# "X is_cerfifier_of Y" is a subproperty of the inverse relation of the above
+#    hence, is_certifier_of subPropertyOf satisfies_requirement_of
+
 ### VIMMP VALIDATION ONTOLOGY (VIVO) ###
 
-### VERSION 0.4.3 ###
+### VERSION 0.4.4 ###
 
-### DATED 29TH APRIL 2020 ###
+### DATED 20TH MAY 2020 ###
 
 @prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
 
@@ -8424,24 +8657,19 @@ _:C_PERSONAL_TITLE a owl:AllDifferent;
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
+@prefix viprs: <http://www.vimmp.eu/semantics/alignment/viprs.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
 <http://www.vimmp.eu/semantics/vivo/vivo.ttl#> a owl:Ontology.
-
-
-[owl:disjointUnionOf vivo:accuracy_assertion, vivo:accuracy_assessment, vivo:requirement_assertion, vivo:requirement_assessment, vivo:review_assertion, vivo:review_assessment] rdfs:subClassOf evmpo:paradigmatic_entity.
 
 
 #####################################
 # ASSERTION BRANCH OF VIVO: GENERAL #
 #####################################
 
-vivo:data_item a owl:Class;
-   rdfs:subClassOf evmpo:information_content_entity;
-   owl:sameAs evmpo:data_item.
-
 vivo:assertion a owl:Class;
-   rdfs:subClassOf vivo:data_item.
+   rdfs:subClassOf evmpo:data_item;
+   owl:disjointWith evmpo:assessment.
 
 vivo:asserts_magnitude a owl:DatatypeProperty, owl:FunctionalProperty;
    rdfs:domain vivo:assertion;
@@ -8453,7 +8681,8 @@ vivo:has_unit a owl:ObjectProperty, owl:FunctionalProperty;
    rdfs:subPropertyOf evmpo:has_information_content_entity_annotation.
 vivo:refers_to_property a owl:ObjectProperty;
    rdfs:domain vivo:assertion;
-   rdfs:range evmpo:property.
+   rdfs:range evmpo:property;
+   rdfs:subPropertyOf viprs:is_sign_for.
 
 vivo:assertion owl:disjointWith evmpo:assessment, vivo:material_property, vivo:validation_infrastructure.
 
@@ -8467,14 +8696,19 @@ vivo:material_assertion a owl:Class;
 
 vivo:refers_to_material a owl:ObjectProperty, owl:FunctionalProperty;
    rdfs:domain vivo:material_assertion;
-   rdfs:range evmpo:material.
+   rdfs:range evmpo:material;
+   rdfs:subPropertyOf viprs:is_sign_for.
 vivo:refers_to_mp a owl:ObjectProperty, owl:FunctionalProperty;
    rdfs:domain vivo:material_assertion;
    rdfs:range vivo:material_property;
    rdfs:subPropertyOf vivo:refers_to_property.
 
 vivo:material_property_information a owl:Class;
-   rdfs:subClassOf vivo:material_assertion;
+   rdfs:subClassOf vivo:material_assertion, [
+      a owl:Restriction;
+      owl:onProperty viprs:mereosemiotics_is_is;
+      owl:someValuesFrom evmpo:material
+   ];
    rdfs:comment "material property information, i.e., an assertion/datum referring to a (thermodynamic or mechanical) material property"^^xs:string.
 
 vivo:has_error_statement a owl:ObjectProperty;
@@ -8516,7 +8750,7 @@ vivo:relative_deviation a owl:Class;
    rdfs:subClassOf vivo:accuracy_assertion.
 
 vivo:requirement_assertion a owl:Class;
-   rdfs:subClassOf vivo:conceptual_assertion.
+   owl:disjointWith vivo:review_assertion.
 
 vivo:review_assertion a owl:Class;
    rdfs:subClassOf vivo:assertion.
@@ -8528,7 +8762,8 @@ vivo:review_assertion a owl:Class;
 
 vivo:evaluates a owl:ObjectProperty;
    rdfs:domain evmpo:assessment;
-   rdfs:range evmpo:marketplace_related_entity.
+   rdfs:range evmpo:marketplace_related_entity;
+   rdfs:subPropertyOf viprs:is_sign_for.
 vivo:has_assertion a owl:ObjectProperty;
    rdfs:domain evmpo:assessment;
    rdfs:range vivo:assertion.
@@ -8547,7 +8782,7 @@ vivo:agent_assessment a owl:Class;
 
 vivo:evaluates_agent a owl:ObjectProperty;
    rdfs:domain vivo:agent_assessment;
-   rdfs:range evmpo:agent, vico:agent;
+   rdfs:range evmpo:agent;
    rdfs:subPropertyOf vivo:evaluates.
 
 vivo:agent_assessment owl:disjointWith vivo:accuracy_assessment, vivo:requirement_assessment.
@@ -8557,7 +8792,7 @@ vivo:data_item_assessment a owl:Class;
 
 vivo:evaluates_data_item a owl:ObjectProperty;
    rdfs:domain vivo:data_item_assessment;
-   rdfs:range vivo:data_item;
+   rdfs:range evmpo:data_item;
    rdfs:subPropertyOf vivo:evaluates.
 
 vivo:data_item_assessment owl:disjointWith vivo:requirement_assessment.
@@ -8573,7 +8808,13 @@ vivo:evaluates_document a owl:ObjectProperty;
 vivo:document_assessment owl:disjointWith vivo:accuracy_assessment.
 
 vivo:event_assessment a owl:Class;
-   rdfs:subClassOf evmpo:assessment, [owl:unionOf (vivo:review_assessment vivo:requirement_assessment)].
+   rdfs:subClassOf evmpo:assessment, [
+      owl:unionOf (vivo:review_assessment vivo:requirement_assessment)
+      ], [
+         a owl:Restriction;
+         owl:onProperty viprs:mereosemiotics_is_is;
+         owl:someValuesFrom evmpo:physical_process
+      ].
 
 vivo:evaluates_event a owl:ObjectProperty;
    rdfs:domain vivo:event_assessment;
@@ -8619,7 +8860,11 @@ vivo:evaluates_project a owl:ObjectProperty;
 vivo:project_assessment owl:disjointWith vivo:accuracy_assessment.
 
 vivo:service_assessment a owl:Class;
-   rdfs:subClassOf vivo:review_assessment.
+   rdfs:subClassOf vivo:review_assessment, [
+      a owl:Restriction;
+      owl:onProperty viprs:mereosemiotics_is_is;
+      owl:someValuesFrom evmpo:physical_process
+   ].
 
 vivo:evaluates_service a owl:ObjectProperty;
    rdfs:domain vivo:service_assessment;
@@ -8649,7 +8894,11 @@ vivo:other_service_assessment a owl:Class;
    rdfs:subClassOf vivo:service_assessment.
 
 vivo:workflow_assessment a owl:Class;
-   rdfs:subClassOf evmpo:assessment.
+   rdfs:subClassOf evmpo:assessment, [
+      a owl:Restriction;
+      owl:onProperty viprs:mereosemiotics_is_is;
+      owl:someValuesFrom evmpo:simulation
+   ].
 
 vivo:evaluates_workflow a owl:ObjectProperty;
    rdfs:domain vivo:workflow_assessment;
@@ -8666,6 +8915,7 @@ vivo:has_accuracy_assertion a owl:ObjectProperty;
 
 vivo:requirement_assessment a owl:Class;
    rdfs:subClassOf evmpo:assessment, [owl:unionOf (vivo:event_assessment vivo:infrastructure_assessment vivo:model_assessment vivo:project_assessment vivo:workflow_assessment)];
+   owl:equivalentClass evmpo:requirement_assessment;
    owl:sameAs evmpo:requirement_assessment.
 
 vivo:has_requirement_assertion a owl:ObjectProperty;
@@ -8687,6 +8937,7 @@ vivo:has_stars a owl:DatatypeProperty;
 
 vivo:endorsement_assessment a owl:Class;
    rdfs:subClassOf vivo:review_assessment;
+   owl:equivalentClass evmpo:endorsement_assessment;
    owl:sameAs evmpo:endorsement_assessment.
 
 
@@ -8708,11 +8959,13 @@ vivo:certificate a owl:Class;
 vivo:has_certifier a owl:ObjectProperty;
    rdfs:domain vivo:certificate;
    rdfs:range vico:certifier;
+   rdfs:subPropertyOf viprs:has_requirement_satisfied_by;
    owl:inverseOf vico:is_certifier_of;
    rdfs:comment "connects a certificate to the certifier who is responsible for the included assessment (not necessarily identical with the author who communicates the certificate)"^^xs:string.
 vivo:states_assessment a owl:ObjectProperty;
    rdfs:domain vivo:certificate;
-   rdfs:range evmpo:assessment.
+   rdfs:range evmpo:assessment;
+   rdfs:subPropertyOf viprs:has_proper_part.
 
 vivo:certificate rdfs:subClassOf [
       a owl:Restriction;
@@ -8739,7 +8992,7 @@ vivo:validation_channel a owl:Class;
    rdfs:subClassOf vivo:validation_infrastructure, macro:channel.
 
 vivo:validation_repository a owl:Class;
-   rdfs:subClassOf vivo:validation_infrastructure, macro:repository, evmpo:agent, vico:agent.
+   rdfs:subClassOf vivo:validation_infrastructure, macro:repository, evmpo:agent.
 
 
 ###########################
@@ -8748,6 +9001,7 @@ vivo:validation_repository a owl:Class;
 
 vivo:material_property a owl:Class;
    rdfs:subClassOf evmpo:property, osmo:logical_variable;
+   owl:equivalentClass evmpo:material_property;
    owl:sameAs evmpo:material_property;
    rdfs:comment "thermodynamic or mechanical behaviour of a material (referring either to the real material itself or a model thereof)"^^xs:string.
 
@@ -8766,6 +9020,7 @@ vivo:material_property owl:disjointWith vivo:assertion, evmpo:assessment, vivo:v
 vivo:unit a owl:Class;
    rdfs:subClassOf evmpo:annotation;
    owl:equivalentClass qudt:Unit;
+   owl:sameAs qudt:Unit;
    rdfs:comment "this class will be used to define units (individuals of the unit class) that are absent from qudt-unit"^^xs:string.
 
 vivo:UNIT_DEBYE_ANGSTROM a vivo:unit, qudt:ElectricityAndMagnetismUnit;
@@ -8786,3 +9041,38 @@ vivo:UNIT_U a vivo:unit, qudt:MassUnit;  # note: this exists within qudt, but th
    qudt:symbol "u"^^xs:string;
    qudt:description "Unit of mass corresponding to 1 g/mol, also referred to as Dalton"^^xs:string.
 qudt:MassUnit rdfs:subClassOf vivo:unit.
+
+
+###
+# NOTES ON ALIGNMENT
+###
+
+# An assertion is a symbolic entity
+# a material_assertion is also a sign for a material
+# a material_property_information is also a sign for a property, and a sign for a sign for a material
+
+# An assessment is a sign; specifically:
+#    an agent_assessment is a sign for an agent (i.e., for an interpreter)
+#    a data_item_assessment is a sign for a data item (i.e., for a symbolic entity)
+#    a document_assessment is a sign for a document (i.e., for a symbolic entity)
+#    an event_assessment is a sign for a calendar event (i.e., for a sign that represents a process)
+#    an infrastructure_assessment is a sign for an infrastructure (i.e., for an engineered entity)
+#    a model_assessment is a sign for a model
+#    a project_assessment is a sign for a project (i.e., for a process)
+#    a service_assessment is a sign for a service (i.e., for a sign that represents a process)
+#    a workflow_assessment is a sign for a simulation workflow (i.e., for a symbolic entity that is also a sign for a semiosis)
+
+# a communication, hence a statement, hence a validation_statement, is a symbolic entity
+
+# a material_property is a property that (inverse of hasProperty) some material
+
+# evaluates is a subproperty of is_sign_for
+
+# "X has_certifier Y" is a subproperty of "A can only occur if some B occurs" where A = {X} and B conceptualizes Y
+#    hence, has_certifier subPropertyOf has_requirement_satisfied_by
+# "X is_cerfifier_of Y" is a subproperty of the inverse relation of the above
+#    hence, is_certifier_of subPropertyOf satisfies_requirement_of
+
+# refers_to_material and refers_to_property are subproperties of is_sign_for
+
+# states_assessment is a subproperty of has_proper_part

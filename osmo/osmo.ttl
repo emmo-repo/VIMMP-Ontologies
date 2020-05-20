@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 1.5.2 ###
+### VERSION 1.5.3 ###
 
-### DATED 19TH MAY 2020 ###
+### DATED 20TH MAY 2020 ###
 
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -679,7 +679,7 @@ osmo:has_material_information_uf a owl:ObjectProperty;
 osmo:material_information rdfs:subClassOf [
       a owl:Restriction;
       owl:onProperty osmo:has_aspect_paradigmatic_content;
-      owl:someValuesFrom osmo:material
+      owl:someValuesFrom evmpo:material
    ].
 
 osmo:method_type a owl:Class;
@@ -1291,7 +1291,11 @@ osmo:logical_node rdfs:subClassOf [
    ].
 
 osmo:simulation_workflow a owl:Class;
-   rdfs:subClassOf osmo:workflow_graph, evmpo:simulation;
+   rdfs:subClassOf osmo:workflow_graph, [
+      a owl:Restriction;
+      owl:onProperty viprs:is_sign_for;
+      owl:someValuesFrom evmpo:simulation
+   ];
    rdfs:comment "simulation workflow, i.e., a (complete) workflow graph of an actually executable simulation workflow"^^xs:string.
 
 osmo:simulation_workflow owl:intersectionOf (osmo:workflow_graph evmpo:simulation).
@@ -1682,32 +1686,29 @@ osmo:logical_write_access a owl:Class;
    rdfs:comment "logical write access, i.e., a notational process/connection by which an OSMO/MODA section writes to a logical resource"^^xs:string.
 
 
-osmo:material a owl:Class;
-   rdfs:subClassOf evmpo:paradigmatic_entity;
-   owl:sameAs evmpo:material;
-   rdfs:comment "material, i.e., a material as characterized by the EMMO"^^xs:string.
-
+# OSMO properties of evmpo:material
+#
 osmo:has_cas_number a owl:DatatypeProperty, owl:FunctionalProperty;
-   rdfs:domain osmo:material;
+   rdfs:domain evmpo:material;
    rdfs:range xs:string;
    rdfs:comment "points to the Chemical Abstracts Service Registry Number (CASRN, or CAS number) associated with a material"^^xs:string.
 
 osmo:has_ec_number a owl:DatatypeProperty, owl:FunctionalProperty;
-   rdfs:domain osmo:material;
+   rdfs:domain evmpo:material;
    rdfs:range xs:string;
    rdfs:comment "points to the EC number (i.e., the European common market number) associated with a material"^^xs:string.
 
 osmo:cas_listed_material a owl:Class;
-   rdfs:subClassOf osmo:material;
+   rdfs:subClassOf evmpo:material;
    rdfs:comment "CAS listed material, i.e., a material that has a Chemical Abstracts Service Registry Number (CASRN, or CAS number)"^^xs:string.
 
-osmo:cas_listed_material owl:intersectionOf (osmo:material [a owl:Restriction; owl:onProperty osmo:has_cas_number; owl:someValuesFrom xs:string]).
+osmo:cas_listed_material owl:intersectionOf (evmpo:material [a owl:Restriction; owl:onProperty osmo:has_cas_number; owl:someValuesFrom xs:string]).
 
 osmo:ec_listed_material a owl:Class;
-   rdfs:subClassOf osmo:material;
+   rdfs:subClassOf evmpo:material;
    rdfs:comment "EC listed material, i.e., a material that has an EC number and is traded on the European common market"^^xs:string.
 
-osmo:ec_listed_material owl:intersectionOf (osmo:material [a owl:Restriction; owl:onProperty osmo:has_ec_number; owl:someValuesFrom xs:string]).
+osmo:ec_listed_material owl:intersectionOf (evmpo:material [a owl:Restriction; owl:onProperty osmo:has_ec_number; owl:someValuesFrom xs:string]).
 
 osmo:einecs_listed_material a owl:Class;
    rdfs:subClassOf osmo:ec_listed_material;
@@ -1806,3 +1807,6 @@ osmo:use_case_decision_support_system a owl:Class;
 
 # A section_aspect is a symbolic entity
 
+# a workflow_resource is a symbolic entity
+# a workflow_graph is a well-formed symbolic entity
+# a simulation is a semiosis (process), and a simulation_workflow is a sign for a simulation
