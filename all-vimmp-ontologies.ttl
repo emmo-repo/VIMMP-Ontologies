@@ -1978,7 +1978,7 @@ viprs:is_model_for a owl:ObjectProperty;
 ##
 # co-occurrence
 ##
-viprs:can_coocur_with a owl:ObjectProperty;  # user-friendly IRI for the frequently-used relation "p_loc_and_roc"
+viprs:can_cooccur_with a owl:ObjectProperty;  # user-friendly IRI for the frequently-used relation "p_loc_and_roc"
    owl:sameAs viprs:p_loc_and_roc;
    owl:equivalentProperty viprs:p_loc_and_roc.
 viprs:has_requirement_satisfied_by a owl:ObjectProperty;
@@ -1990,23 +1990,23 @@ viprs:satisfies_requirement_of a owl:ObjectProperty;
    owl:inverseOf viprs:has_requirement_satisfied_by;
    rdfs:comment "X satisfies_requirement_of Y == in all realizations, [some A] occurs or Y does not occur, where A conceptualizes X"^^xs:string.
 viprs:is_enabled_by a owl:ObjectProperty;
-   rdfs:subPropertyOf viprs:can_coocur_with, viprs:has_requirement_satisfied_by;
+   rdfs:subPropertyOf viprs:can_cooccur_with, viprs:has_requirement_satisfied_by;
    owl:inverseOf viprs:enables;
-   rdfs:comment "X is_enabled_by Y == (X has_requirement_satisfied_by Y) and (X can_coocur_with Y), i.e., a) there is a requirement for the occurrence of Y that is satisfied by the occurrence of X, and b) it is actually possible that X occurs in this way"^^xs:string.
+   rdfs:comment "X is_enabled_by Y == (X has_requirement_satisfied_by Y) and (X can_cooccur_with Y), i.e., a) there is a requirement for the occurrence of Y that is satisfied by the occurrence of X, and b) it is actually possible that X occurs in this way"^^xs:string.
 viprs:enables a owl:ObjectProperty;
-   rdfs:subPropertyOf viprs:can_coocur_with, viprs:satisfies_requirement_of;
+   rdfs:subPropertyOf viprs:can_cooccur_with, viprs:satisfies_requirement_of;
    owl:inverseOf viprs:is_enabled_by;
-   rdfs:comment "X enables Y == (X satisfies_requirement_of Y) and (X can_coocur_with Y), fitting the semantics commonly associated with providing a feature or capability"^^xs:string.
+   rdfs:comment "X enables Y == (X satisfies_requirement_of Y) and (X can_cooccur_with Y), fitting the semantics commonly associated with providing a feature or capability"^^xs:string.
 
 ##
 # modal signification relations
 ##
-viprs:is_sign_for_potential_coocurrent_of a owl:ObjectProperty;
+viprs:is_sign_for_potential_cooccurrent_of a owl:ObjectProperty;
    rdfs:domain viprs:immanent_entity;
    rdfs:range viprs:immanent_entity;
    rdfs:subPropertyOf viprs:individual_cooccurrence_possibility, viprs:mereosemiotic_relation;
-   owl:propertyChainAxiom (viprs:is_sign_for viprs:can_coocur_with);
-   rdfs:comment "X is_sign_for_potential_coocurrent_of Y == X is_sign_for Z, and Z can_cooccur_with Y"^^xs:string.
+   owl:propertyChainAxiom (viprs:is_sign_for viprs:can_cooccur_with);
+   rdfs:comment "X is_sign_for_potential_cooccurrent_of Y == X is_sign_for Z, and Z can_cooccur_with Y"^^xs:string.
 
 #####################################
 # 3B. MEREOSEMIOTIC CHAIN RELATIONS #
