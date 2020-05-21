@@ -1157,7 +1157,7 @@ vivo:material_property a owl:Class;
 
 ### EUROPEAN VIRTUAL MARKETPLACE ONTOLOGY (EVMPO) ###
 
-### VERSION 1.2.4, DATED 16TH MAY 2020 ###
+### VERSION 1.2.5, DATED 21ST MAY 2020 ###
 
 @prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
 
@@ -1541,7 +1541,8 @@ evmpo:annotation a owl:Class;
 
 evmpo:has_annotation a owl:ObjectProperty;
    rdfs:domain evmpo:marketplace_related_entity;
-   rdfs:range evmpo:annotation.
+   rdfs:range evmpo:annotation;
+   rdfs:subPropertyOf viprs:immanent_relation.
 
 ### annotations to the fundamental class ###
 
@@ -1596,9 +1597,9 @@ vcl:CL_SCHEME_MM_TOPIC a owl:NamedIndividual, skos:ConceptScheme;
 
 ### VIMMP PRIMITIVES (VIPRS) ###
 
-### VERSION 0.2.0 ###
+### VERSION 0.2.1 ###
 
-### DATED 16TH MAY 2020 ###
+### DATED 21ST MAY 2020 ###
 
 # 1. Modal square of opposition
 #
@@ -1977,16 +1978,25 @@ viprs:is_model_for a owl:ObjectProperty;
 ##
 # co-occurrence
 ##
-viprs:can_coocur_with a owl:ObjectProperty;  # simple name for frequently-used relation
+viprs:can_coocur_with a owl:ObjectProperty;  # user-friendly IRI for the frequently-used relation "p_loc_and_roc"
    owl:sameAs viprs:p_loc_and_roc;
    owl:equivalentProperty viprs:p_loc_and_roc.
 viprs:has_requirement_satisfied_by a owl:ObjectProperty;
    rdfs:subPropertyOf viprs:n_lnoc_cor_roc;
+   owl:inverseOf viprs:satisfies_requirement_of;
    rdfs:comment "X has_requirement_satisfied_by Y == in all realizations, X does not occur or [some B] occurs, where B conceptualizes Y"^^xs:string.
 viprs:satisfies_requirement_of a owl:ObjectProperty;
    rdfs:subPropertyOf viprs:n_loc_cor_rnoc;
    owl:inverseOf viprs:has_requirement_satisfied_by;
    rdfs:comment "X satisfies_requirement_of Y == in all realizations, [some A] occurs or Y does not occur, where A conceptualizes X"^^xs:string.
+viprs:is_enabled_by a owl:ObjectProperty;
+   rdfs:subPropertyOf viprs:can_coocur_with, viprs:has_requirement_satisfied_by;
+   owl:inverseOf viprs:enables;
+   rdfs:comment "X is_enabled_by Y == (X has_requirement_satisfied_by Y) and (X can_coocur_with Y), i.e., a) there is a requirement for the occurrence of Y that is satisfied by the occurrence of X, and b) it is actually possible that X occurs in this way"^^xs:string.
+viprs:enables a owl:ObjectProperty;
+   rdfs:subPropertyOf viprs:can_coocur_with, viprs:satisfies_requirement_of;
+   owl:inverseOf viprs:is_enabled_by;
+   rdfs:comment "X enables Y == (X satisfies_requirement_of Y) and (X can_coocur_with Y), fitting the semantics commonly associated with providing a feature or capability"^^xs:string.
 
 ##
 # modal signification relations
@@ -2017,35 +2027,45 @@ viprs:mereosemiotics_ip_is a owl:ObjectProperty;
    rdfs:range viprs:immanent_entity;
    rdfs:subPropertyOf viprs:mereosemiotic_relation;
    owl:propertyChainAxiom (viprs:is_proper_part_of viprs:is_sign_for).
-viprs:mereosemiotics_hs_hp a owl:ObjectProperty; owl:inverseOf viprs:mereosemiotics_ip_is.
+viprs:mereosemiotics_hs_hp a owl:ObjectProperty;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation;
+   owl:inverseOf viprs:mereosemiotics_ip_is.
 
 viprs:mereosemiotics_ip_hs a owl:ObjectProperty;
    rdfs:domain viprs:immanent_entity;
    rdfs:range viprs:immanent_entity;
    rdfs:subPropertyOf viprs:mereosemiotic_relation;
    owl:propertyChainAxiom (viprs:is_proper_part_of viprs:has_sign).
-viprs:mereosemiotics_is_hp a owl:ObjectProperty; owl:inverseOf viprs:mereosemiotics_ip_hs.
+viprs:mereosemiotics_is_hp a owl:ObjectProperty;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation;
+   owl:inverseOf viprs:mereosemiotics_ip_hs.
 
 viprs:mereosemiotics_hp_is a owl:ObjectProperty;
    rdfs:domain viprs:immanent_entity;
    rdfs:range viprs:immanent_entity;
    rdfs:subPropertyOf viprs:mereosemiotic_relation;
    owl:propertyChainAxiom (viprs:has_proper_part viprs:is_sign_for).
-viprs:mereosemiotics_hs_ip a owl:ObjectProperty; owl:inverseOf viprs:mereosemiotics_hp_is.
+viprs:mereosemiotics_hs_ip a owl:ObjectProperty;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation;
+   owl:inverseOf viprs:mereosemiotics_hp_is.
 
 viprs:mereosemiotics_hp_hs a owl:ObjectProperty;
    rdfs:domain viprs:immanent_entity;
    rdfs:range viprs:immanent_entity;
    rdfs:subPropertyOf viprs:mereosemiotic_relation;
    owl:propertyChainAxiom (viprs:has_proper_part viprs:has_sign).
-viprs:mereosemiotics_is_ip a owl:ObjectProperty; owl:inverseOf viprs:mereosemiotics_hp_hs.
+viprs:mereosemiotics_is_ip a owl:ObjectProperty;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation;
+   owl:inverseOf viprs:mereosemiotics_hp_hs.
 
 viprs:mereosemiotics_is_is a owl:ObjectProperty;
    rdfs:domain viprs:immanent_entity;
    rdfs:range viprs:immanent_entity;
    rdfs:subPropertyOf viprs:mereosemiotic_relation;
    owl:propertyChainAxiom (viprs:is_sign_for viprs:is_sign_for).
-viprs:mereosemiotics_hs_hs a owl:ObjectProperty; owl:inverseOf viprs:mereosemiotics_is_is.
+viprs:mereosemiotics_hs_hs a owl:ObjectProperty;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation;
+   owl:inverseOf viprs:mereosemiotics_is_is.
 
 viprs:mereosemiotics_is_hs a owl:ObjectProperty, owl:SymmetricProperty;
    rdfs:domain viprs:immanent_entity;
@@ -2067,7 +2087,9 @@ viprs:mereosemiotics_hp_ip_is a owl:ObjectProperty;
    rdfs:subPropertyOf viprs:mereosemiotic_relation;
    owl:propertyChainAxiom (viprs:mereosemiotics_hp_ip viprs:is_sign_for);
    owl:propertyChainAxiom (viprs:has_proper_part viprs:mereosemiotics_ip_is).
-viprs:mereosemiotics_hs_hp_ip a owl:ObjectProperty; owl:inverseOf viprs:mereosemiotics_hp_ip_is.
+viprs:mereosemiotics_hs_hp_ip a owl:ObjectProperty;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation;
+   owl:inverseOf viprs:mereosemiotics_hp_ip_is.
 
 # :a viprs:mereosemiotics_hp_ip_hs :b  <=>  :a viprs:has_proper_part [viprs:is_proper_part_of [viprs:has_sign :b]].
 #
@@ -2077,7 +2099,9 @@ viprs:mereosemiotics_hp_ip_hs a owl:ObjectProperty;
    rdfs:subPropertyOf viprs:mereosemiotic_relation;
    owl:propertyChainAxiom (viprs:mereosemiotics_hp_ip viprs:has_sign);
    owl:propertyChainAxiom (viprs:has_proper_part viprs:mereosemiotics_ip_hs).
-viprs:mereosemiotics_is_hp_ip a owl:ObjectProperty; owl:inverseOf viprs:mereosemiotics_hp_ip_hs.
+viprs:mereosemiotics_is_hp_ip a owl:ObjectProperty;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation;
+   owl:inverseOf viprs:mereosemiotics_hp_ip_hs.
 
 viprs:mereosemiotics_ip_is_ip a owl:ObjectProperty;
    rdfs:domain viprs:immanent_entity;
@@ -2085,7 +2109,9 @@ viprs:mereosemiotics_ip_is_ip a owl:ObjectProperty;
    rdfs:subPropertyOf viprs:mereosemiotic_relation;
    owl:propertyChainAxiom (viprs:mereosemiotics_ip_is viprs:is_proper_part_of);
    owl:propertyChainAxiom (viprs:is_proper_part_of [owl:inverseOf viprs:mereosemiotics_hp_hs]).
-viprs:mereosemiotics_hp_hs_hp a owl:ObjectProperty; owl:inverseOf viprs:mereosemiotics_ip_is_ip.
+viprs:mereosemiotics_hp_hs_hp a owl:ObjectProperty;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation;
+   owl:inverseOf viprs:mereosemiotics_ip_is_ip.
 
 viprs:mereosemiotics_ip_is_hp a owl:ObjectProperty;
    rdfs:domain viprs:immanent_entity;
@@ -2093,7 +2119,9 @@ viprs:mereosemiotics_ip_is_hp a owl:ObjectProperty;
    rdfs:subPropertyOf viprs:mereosemiotic_relation;
    owl:propertyChainAxiom (viprs:mereosemiotics_ip_is viprs:has_proper_part);
    owl:propertyChainAxiom (viprs:is_proper_part_of [owl:inverseOf viprs:mereosemiotics_ip_hs]).
-viprs:mereosemiotics_ip_hs_hp a owl:ObjectProperty; owl:inverseOf viprs:mereosemiotics_ip_is_hp.
+viprs:mereosemiotics_ip_hs_hp a owl:ObjectProperty;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation;
+   owl:inverseOf viprs:mereosemiotics_ip_is_hp.
 
 viprs:mereosemiotics_ip_is_is a owl:ObjectProperty;
    rdfs:domain viprs:immanent_entity;
@@ -2101,7 +2129,9 @@ viprs:mereosemiotics_ip_is_is a owl:ObjectProperty;
    rdfs:subPropertyOf viprs:mereosemiotic_relation;
    owl:propertyChainAxiom (viprs:mereosemiotics_ip_is viprs:is_sign_for);
    owl:propertyChainAxiom (viprs:is_proper_part_of viprs:mereosemiotics_is_is).
-viprs:mereosemiotics_hs_hs_hp a owl:ObjectProperty; owl:inverseOf viprs:mereosemiotics_ip_is_is.
+viprs:mereosemiotics_hs_hs_hp a owl:ObjectProperty;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation;
+   owl:inverseOf viprs:mereosemiotics_ip_is_is.
 
 viprs:mereosemiotics_ip_is_hs a owl:ObjectProperty;
    rdfs:domain viprs:immanent_entity;
@@ -2109,7 +2139,9 @@ viprs:mereosemiotics_ip_is_hs a owl:ObjectProperty;
    rdfs:subPropertyOf viprs:mereosemiotic_relation;
    owl:propertyChainAxiom (viprs:mereosemiotics_ip_is viprs:has_sign);
    owl:propertyChainAxiom (viprs:is_proper_part_of viprs:mereosemiotics_is_hs).
-viprs:mereosemiotics_is_hs_hp a owl:ObjectProperty; owl:inverseOf viprs:mereosemiotics_ip_is_hs.
+viprs:mereosemiotics_is_hs_hp a owl:ObjectProperty;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation;
+   owl:inverseOf viprs:mereosemiotics_ip_is_hs.
 
 viprs:mereosemiotics_ip_hs_ip a owl:ObjectProperty;
    rdfs:domain viprs:immanent_entity;
@@ -2117,7 +2149,9 @@ viprs:mereosemiotics_ip_hs_ip a owl:ObjectProperty;
    rdfs:subPropertyOf viprs:mereosemiotic_relation;
    owl:propertyChainAxiom (viprs:mereosemiotics_ip_hs viprs:is_proper_part_of);
    owl:propertyChainAxiom (viprs:is_proper_part_of [owl:inverseOf viprs:mereosemiotics_hp_is]).
-viprs:mereosemiotics_hp_is_hp a owl:ObjectProperty; owl:inverseOf viprs:mereosemiotics_ip_hs_ip.
+viprs:mereosemiotics_hp_is_hp a owl:ObjectProperty;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation;
+   owl:inverseOf viprs:mereosemiotics_ip_hs_ip.
 
 viprs:mereosemiotics_ip_hs_is a owl:ObjectProperty;
    rdfs:domain viprs:immanent_entity;
@@ -2125,7 +2159,9 @@ viprs:mereosemiotics_ip_hs_is a owl:ObjectProperty;
    rdfs:subPropertyOf viprs:mereosemiotic_relation;
    owl:propertyChainAxiom (viprs:mereosemiotics_ip_hs viprs:is_sign_for);
    owl:propertyChainAxiom (viprs:is_proper_part_of viprs:mereosemiotics_hs_is).
-viprs:mereosemiotics_hs_is_hp a owl:ObjectProperty; owl:inverseOf viprs:mereosemiotics_ip_hs_is.
+viprs:mereosemiotics_hs_is_hp a owl:ObjectProperty;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation;
+   owl:inverseOf viprs:mereosemiotics_ip_hs_is.
 
 viprs:mereosemiotics_ip_hs_hs a owl:ObjectProperty;
    rdfs:domain viprs:immanent_entity;
@@ -2133,7 +2169,9 @@ viprs:mereosemiotics_ip_hs_hs a owl:ObjectProperty;
    rdfs:subPropertyOf viprs:mereosemiotic_relation;
    owl:propertyChainAxiom (viprs:mereosemiotics_ip_hs viprs:has_sign);
    owl:propertyChainAxiom (viprs:is_proper_part_of [owl:inverseOf viprs:mereosemiotics_is_is]).
-viprs:mereosemiotics_is_is_hp a owl:ObjectProperty; owl:inverseOf viprs:mereosemiotics_ip_hs_hs.
+viprs:mereosemiotics_is_is_hp a owl:ObjectProperty;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation;
+   owl:inverseOf viprs:mereosemiotics_ip_hs_hs.
 
 viprs:mereosemiotics_hp_is_ip a owl:ObjectProperty;
    rdfs:domain viprs:immanent_entity;
@@ -2141,7 +2179,9 @@ viprs:mereosemiotics_hp_is_ip a owl:ObjectProperty;
    rdfs:subPropertyOf viprs:mereosemiotic_relation;
    owl:propertyChainAxiom (viprs:mereosemiotics_hp_is viprs:is_proper_part_of);
    owl:propertyChainAxiom (viprs:has_proper_part [owl:inverseOf viprs:mereosemiotics_hp_hs]).
-viprs:mereosemiotics_hp_hs_ip a owl:ObjectProperty; owl:inverseOf viprs:mereosemiotics_hp_is_ip.
+viprs:mereosemiotics_hp_hs_ip a owl:ObjectProperty;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation;
+   owl:inverseOf viprs:mereosemiotics_hp_is_ip.
 
 viprs:mereosemiotics_hp_is_is a owl:ObjectProperty;
    rdfs:domain viprs:immanent_entity;
@@ -2149,7 +2189,9 @@ viprs:mereosemiotics_hp_is_is a owl:ObjectProperty;
    rdfs:subPropertyOf viprs:mereosemiotic_relation;
    owl:propertyChainAxiom (viprs:mereosemiotics_hp_is viprs:is_sign_for);
    owl:propertyChainAxiom (viprs:has_proper_part viprs:mereosemiotics_is_is).
-viprs:mereosemiotics_hs_hs_ip a owl:ObjectProperty; owl:inverseOf viprs:mereosemiotics_hp_is_is.
+viprs:mereosemiotics_hs_hs_ip a owl:ObjectProperty;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation;
+   owl:inverseOf viprs:mereosemiotics_hp_is_is.
 
 viprs:mereosemiotics_hp_is_hs a owl:ObjectProperty;
    rdfs:domain viprs:immanent_entity;
@@ -2157,7 +2199,9 @@ viprs:mereosemiotics_hp_is_hs a owl:ObjectProperty;
    rdfs:subPropertyOf viprs:mereosemiotic_relation;
    owl:propertyChainAxiom (viprs:mereosemiotics_hp_is viprs:has_sign);
    owl:propertyChainAxiom (viprs:has_proper_part viprs:mereosemiotics_is_hs).
-viprs:mereosemiotics_is_hs_ip a owl:ObjectProperty; owl:inverseOf viprs:mereosemiotics_hp_is_hs.
+viprs:mereosemiotics_is_hs_ip a owl:ObjectProperty;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation;
+   owl:inverseOf viprs:mereosemiotics_hp_is_hs.
 
 viprs:mereosemiotics_hp_hs_is a owl:ObjectProperty;
    rdfs:domain viprs:immanent_entity;
@@ -2165,7 +2209,9 @@ viprs:mereosemiotics_hp_hs_is a owl:ObjectProperty;
    rdfs:subPropertyOf viprs:mereosemiotic_relation;
    owl:propertyChainAxiom (viprs:mereosemiotics_hp_hs viprs:is_sign_for);
    owl:propertyChainAxiom (viprs:has_proper_part viprs:mereosemiotics_hs_is).
-viprs:mereosemiotics_hs_is_ip a owl:ObjectProperty; owl:inverseOf viprs:mereosemiotics_hp_hs_is.
+viprs:mereosemiotics_hs_is_ip a owl:ObjectProperty;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation;
+   owl:inverseOf viprs:mereosemiotics_hp_hs_is.
 
 viprs:mereosemiotics_hp_hs_hs a owl:ObjectProperty;
    rdfs:domain viprs:immanent_entity;
@@ -2173,7 +2219,9 @@ viprs:mereosemiotics_hp_hs_hs a owl:ObjectProperty;
    rdfs:subPropertyOf viprs:mereosemiotic_relation;
    owl:propertyChainAxiom (viprs:mereosemiotics_hp_hs viprs:has_sign);
    owl:propertyChainAxiom (viprs:has_proper_part [owl:inverseOf viprs:mereosemiotics_is_is]).
-viprs:mereosemiotics_is_is_ip a owl:ObjectProperty; owl:inverseOf viprs:mereosemiotics_hp_hs_hs.
+viprs:mereosemiotics_is_is_ip a owl:ObjectProperty;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation;
+   owl:inverseOf viprs:mereosemiotics_hp_hs_hs.
 
 viprs:mereosemiotics_is_ip_is a owl:ObjectProperty;
    rdfs:domain viprs:immanent_entity;
@@ -2181,7 +2229,9 @@ viprs:mereosemiotics_is_ip_is a owl:ObjectProperty;
    rdfs:subPropertyOf viprs:mereosemiotic_relation;
    owl:propertyChainAxiom ([owl:inverseOf viprs:mereosemiotics_hp_hs] viprs:is_sign_for);
    owl:propertyChainAxiom (viprs:is_sign_for viprs:mereosemiotics_ip_is).
-viprs:mereosemiotics_hs_hp_hs a owl:ObjectProperty; owl:inverseOf viprs:mereosemiotics_is_ip_is.
+viprs:mereosemiotics_hs_hp_hs a owl:ObjectProperty;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation;
+   owl:inverseOf viprs:mereosemiotics_is_ip_is.
 
 viprs:mereosemiotics_is_ip_hs a owl:ObjectProperty;
    rdfs:domain viprs:immanent_entity;
@@ -2189,7 +2239,9 @@ viprs:mereosemiotics_is_ip_hs a owl:ObjectProperty;
    rdfs:subPropertyOf viprs:mereosemiotic_relation;
    owl:propertyChainAxiom ([owl:inverseOf viprs:mereosemiotics_hp_hs] viprs:has_sign);
    owl:propertyChainAxiom (viprs:is_sign_for viprs:mereosemiotics_ip_hs).
-viprs:mereosemiotics_is_hp_hs a owl:ObjectProperty; owl:inverseOf viprs:mereosemiotics_is_ip_hs.
+viprs:mereosemiotics_is_hp_hs a owl:ObjectProperty;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation;
+   owl:inverseOf viprs:mereosemiotics_is_ip_hs.
 
 viprs:mereosemiotics_is_hp_is a owl:ObjectProperty;
    rdfs:domain viprs:immanent_entity;
@@ -2197,7 +2249,9 @@ viprs:mereosemiotics_is_hp_is a owl:ObjectProperty;
    rdfs:subPropertyOf viprs:mereosemiotic_relation;
    owl:propertyChainAxiom ([owl:inverseOf viprs:mereosemiotics_ip_hs] viprs:is_sign_for);
    owl:propertyChainAxiom (viprs:is_sign_for viprs:mereosemiotics_hp_is).
-viprs:mereosemiotics_hs_ip_hs a owl:ObjectProperty; owl:inverseOf viprs:mereosemiotics_is_hp_is.
+viprs:mereosemiotics_hs_ip_hs a owl:ObjectProperty;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation;
+   owl:inverseOf viprs:mereosemiotics_is_hp_is.
 
 viprs:mereosemiotics_hs_ip_is a owl:ObjectProperty;
    rdfs:domain viprs:immanent_entity;
@@ -2205,7 +2259,9 @@ viprs:mereosemiotics_hs_ip_is a owl:ObjectProperty;
    rdfs:subPropertyOf viprs:mereosemiotic_relation;
    owl:propertyChainAxiom ([owl:inverseOf viprs:mereosemiotics_hp_is] viprs:is_sign_for);
    owl:propertyChainAxiom (viprs:has_sign viprs:mereosemiotics_ip_is).
-viprs:mereosemiotics_hs_hp_is a owl:ObjectProperty; owl:inverseOf viprs:mereosemiotics_hs_ip_is.
+viprs:mereosemiotics_hs_hp_is a owl:ObjectProperty;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation;
+   owl:inverseOf viprs:mereosemiotics_hs_ip_is.
 
 
 ### MARKETPLACE-ACCESSIBLE COMPUTATIONAL RESOURCE ONTOLOGY (MACRO) ###
