@@ -1,7 +1,7 @@
 
 ### VIMMP COMMUNICATION ONTOLOGY (VICO) ###
 
-### VERSION 1.1.6 ###
+### VERSION 1.1.7 ###
 
 ### DATED 21ST MAY 2020 ###
 
@@ -238,7 +238,7 @@ vico:comment rdfs:subClassOf [
       owl:someValuesFrom vico:message
    ], [
       a owl:Restriction;
-      owl:onProperty vico:has_text;
+      owl:onProperty vico:has_text_content;
       owl:someValuesFrom xs:string
    ].
 
@@ -396,7 +396,7 @@ vico:has_interest a owl:ObjectProperty;
    rdfs:domain evmpo:agent;
    rdfs:range otras:topic;
    rdfs:subPropertyOf evmpo:has_interpreter_annotation.
-vico:has_name a owl:DatatypeProperty;
+vico:has_agent_name a owl:DatatypeProperty;
    rdfs:domain evmpo:agent;
    rdfs:range xs:string.
 vico:is_assignee_of a owl:ObjectProperty;
@@ -484,7 +484,7 @@ vico:has_first_name a owl:DatatypeProperty;
 vico:has_last_name a owl:DatatypeProperty;
    rdfs:domain evmpo:human_agent;
    rdfs:range xs:string;
-   rdfs:subPropertyOf vico:has_name.
+   rdfs:subPropertyOf vico:has_agent_name.
 vico:has_private_address a owl:ObjectProperty;
    rdfs:domain evmpo:human_agent;
    rdfs:range vico:address;
@@ -822,6 +822,38 @@ vico:TITLE_PROFESSOR_GENERIC_SHORT a vico:postdoctoral_title;
 
 _:C_PERSONAL_TITLE a owl:AllDifferent;
    owl:members (vico:TITLE_FEMALE_GENERIC vico:TITLE_MALE_GENERIC vico:TITLE_DOCTOR_GENERIC vico:TITLE_PROFESSOR_GENERIC_LONG vico:TITLE_PROFESSOR_GENERIC_SHORT).
+
+
+###
+# DATATYPE PROPERTIES
+###
+
+vico:has_number_representation rdfs:subPropertyOf viprs:has_numerical_content.
+vico:has_text_content rdfs:subPropertyOf viprs:has_textual_content.
+vico:has_textual_representation rdfs:subPropertyOf viprs:has_textual_content.
+vico:has_prefix_text rdfs:subPropertyOf viprs:has_textual_content.
+vico:has_suffix_text rdfs:subPropertyOf viprs:has_textual_content.
+vico:has_agentid rdfs:subPropertyOf viprs:has_numerical_identifier.
+vico:has_token_index rdfs:subPropertyOf viprs:has_numerical_identifier.
+vico:has_interpreter_label rdfs:subPropertyOf viprs:has_label.
+vico:has_file_content_locator rdfs:subPropertyOf viprs:has_standardized_reference.
+vico:has_agent_name rdfs:subPropertyOf viprs:has_name.
+vico:has_first_name rdfs:subPropertyOf viprs:has_name.
+vico:has_last_name rdfs:subPropertyOf viprs:has_name.
+vico:is_po_box rdfs:subPropertyOf viprs:has_flag.
+vico:is_at_uri rdfs:subPropertyOf viprs:has_flag.
+vico:is_academic rdfs:subPropertyOf viprs:has_flag.
+vico:is_for_profit rdfs:subPropertyOf viprs:has_flag.
+vico:is_military rdfs:subPropertyOf viprs:has_flag.
+vico:is_nuclear rdfs:subPropertyOf viprs:has_flag.
+vico:is_sme rdfs:subPropertyOf viprs:has_flag.
+vico:has_prefix_element rdfs:subPropertyOf viprs:has_flag.
+vico:has_suffix_element rdfs:subPropertyOf viprs:has_flag.
+vico:has_fractional_progress rdfs:subPropertyOf viprs:has_numerical_specifier.
+vico:has_title rdfs:subPropertyOf viprs:has_contextual_metadata_item.
+vico:has_profile_text rdfs:subPropertyOf viprs:has_descriptor.
+vico:has_file_content_format rdfs:subPropertyOf viprs:has_file_metadata_item.
+vico:has_profile_image rdfs:subPropertyOf viprs:has_file_metadata_item.
 
 
 ###

@@ -1611,9 +1611,18 @@ vcl:CL_SCHEME_MM_TOPIC a owl:NamedIndividual, skos:ConceptScheme;
    skos:prefLabel "interlocutor_group"^^xs:string;
    skos:definition "interlocutor group"^^xs:string.
 
+###
+# DATATYPE PROPERTIES
+###
+
+skos:definition a owl:DatatypeProperty;
+   rdfs:subPropertyOf viprs:has_descriptor.
+skos:prefLabel a owl:DatatypeProperty;
+   rdfs:subPropertyOf viprs:has_label.
+
 ### VIMMP PRIMITIVES (VIPRS) ###
 
-### VERSION 0.2.1 ###
+### VERSION 0.2.2 ###
 
 ### DATED 21ST MAY 2020 ###
 
@@ -1637,6 +1646,8 @@ vcl:CL_SCHEME_MM_TOPIC a owl:NamedIndividual, skos:ConceptScheme;
 #
 # a) specific high-level properties
 # b) chain properties: mereosemiotics
+#
+# 4. Top-level datatype properties
 
 @prefix viprs: <http://www.vimmp.eu/semantics/alignment/viprs.ttl#>.
 
@@ -1990,11 +2001,14 @@ viprs:is_model_for a owl:ObjectProperty;
    rdfs:range viprs:immanent_entity;
    rdfs:subPropertyOf viprs:is_sign_for;
    owl:inverseOf viprs:has_model.
+viprs:shares_a_sign_with a owl:ObjectProperty;  # user-friendly IRI for the important relation "mereosemiotics_hs_is"
+   owl:sameAs viprs:mereosemiotics_hs_is;
+   owl:equivalentProperty viprs:mereosemiotics_hs_is.
 
 ##
 # co-occurrence
 ##
-viprs:can_cooccur_with a owl:ObjectProperty;  # user-friendly IRI for the frequently-used relation "p_loc_and_roc"
+viprs:can_cooccur_with a owl:ObjectProperty;  # user-friendly IRI for the important relation "p_loc_and_roc"
    owl:sameAs viprs:p_loc_and_roc;
    owl:equivalentProperty viprs:p_loc_and_roc.
 viprs:has_requirement_satisfied_by a owl:ObjectProperty;
@@ -2279,10 +2293,64 @@ viprs:mereosemiotics_hs_hp_is a owl:ObjectProperty;
    rdfs:subPropertyOf viprs:mereosemiotic_relation;
    owl:inverseOf viprs:mereosemiotics_hs_ip_is.
 
+##########################
+# 4. DATATYPE PROPERTIES #
+##########################
+
+viprs:top_datatype_property a owl:DatatypeProperty;
+   rdfs:domain viprs:top_entity.
+viprs:immanent_datatype_property a owl:DatatypeProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:top_datatype_property.
+viprs:transcendent_datatype_property a owl:DatatypeProperty;
+   rdfs:domain viprs:transcendent_entity;
+   rdfs:subPropertyOf viprs:top_datatype_property.
+
+viprs:has_content a owl:DatatypeProperty;
+   rdfs:subPropertyOf viprs:immanent_datatype_property.
+viprs:has_numerical_content a owl:DatatypeProperty;
+   rdfs:range xs:decimal;
+   rdfs:subPropertyOf viprs:has_content.
+viprs:has_textual_content a owl:DatatypeProperty;
+   rdfs:range xs:string;
+   rdfs:subPropertyOf viprs:has_content.
+
+viprs:has_identifier a owl:DatatypeProperty;
+   rdfs:subPropertyOf viprs:immanent_datatype_property.
+viprs:has_numerical_identifier a owl:DatatypeProperty;
+   rdfs:range xs:decimal;
+   rdfs:subPropertyOf viprs:has_identifier.
+viprs:has_textual_identifier a owl:DatatypeProperty;
+   rdfs:range xs:string;
+   rdfs:subPropertyOf viprs:has_identifier.
+viprs:has_label a owl:DatatypeProperty;
+   rdfs:subPropertyOf viprs:has_textual_identifier.
+viprs:has_name a owl:DatatypeProperty;
+   rdfs:subPropertyOf viprs:has_textual_identifier.
+viprs:has_standardized_reference a owl:DatatypeProperty;
+   rdfs:subPropertyOf viprs:has_textual_identifier.
+
+viprs:has_specifier a owl:DatatypeProperty;
+   rdfs:subPropertyOf viprs:immanent_datatype_property.
+viprs:has_flag a owl:DatatypeProperty;
+   rdfs:range xs:boolean;
+   rdfs:subPropertyOf viprs:has_specifier.
+viprs:has_numerical_specifier a owl:DatatypeProperty;
+   rdfs:range xs:decimal;
+   rdfs:subPropertyOf viprs:has_specifier.
+viprs:has_textual_specifier a owl:DatatypeProperty;
+   rdfs:range xs:string;
+   rdfs:subPropertyOf viprs:has_specifier.
+viprs:has_contextual_metadata_item a owl:DatatypeProperty;
+   rdfs:subPropertyOf viprs:has_textual_specifier.
+viprs:has_descriptor a owl:DatatypeProperty;
+   rdfs:subPropertyOf viprs:has_textual_specifier.
+viprs:has_file_metadata_item a owl:DatatypeProperty;
+   rdfs:subPropertyOf viprs:has_textual_specifier.
 
 ### MARKETPLACE-ACCESSIBLE COMPUTATIONAL RESOURCE ONTOLOGY (MACRO) ###
 
-### VERSION 0.5.2 ###
+### VERSION 0.5.3 ###
 
 ### DATED 21ST MAY 2020 ###
 
@@ -2339,14 +2407,14 @@ macro:repository a owl:Class;
 
 macro:VIMMP_CERTIFICATE_REGISTRY a macro:repository;
    vico:acts_on macro:VIMMP_MARKETPLACE;
-   vico:has_name "VIMMP Marketplace Certificate Registry"^^xs:string.
+   vico:has_agent_name "VIMMP Marketplace Certificate Registry"^^xs:string.
 
 macro:model_database a owl:Class;
    rdfs:subClassOf macro:repository, vico:model_provider.
 
 macro:BOTTLED_SAFT a macro:model_database;
    vico:acts_on macro:VIMMP_MARKETPLACE;
-   vico:has_name "Bottled SAFT"^^xs:string.
+   vico:has_agent_name "Bottled SAFT"^^xs:string.
 
 macro:channel a owl:Class;
    rdfs:subClassOf macro:data_infrastructure.
@@ -2730,6 +2798,17 @@ macro:VOCTA_DATA_FORMAT macro:is_input_format_of macro:SOFTWARE_TOOL_VOCTA.
 macro:VOCTA_XML_FORMAT macro:is_input_format_of macro:SOFTWARE_TOOL_VOCTA.
 
 ###
+# DATATYPE PROPERTIES
+###
+
+macro:has_definition_uri rdfs:subPropertyOf viprs:has_standardized_reference.
+macro:has_channel_name rdfs:subPropertyOf viprs:has_name.
+macro:has_format_name rdfs:subPropertyOf viprs:has_name.
+macro:has_format_abbreviation rdfs:subPropertyOf viprs:has_file_metadata_item.
+macro:has_format_version rdfs:subPropertyOf viprs:has_file_metadata_item.
+macro:has_file_ending rdfs:subPropertyOf viprs:has_file_metadata_item.
+
+###
 # NOTES ON ALIGNMENT
 ###
 
@@ -2778,7 +2857,7 @@ macro:VOCTA_XML_FORMAT macro:is_input_format_of macro:SOFTWARE_TOOL_VOCTA.
 
 ### MATERIALS MODELLING TRANSLATION ONTOLOGY (MMTO) ###
 
-### VERSION 1.2.3 ###
+### VERSION 1.2.4 ###
 
 ### DATED 21ST MAY 2020 ###
 
@@ -3618,6 +3697,21 @@ mmto:has_represented_kpi a owl:ObjectProperty;
    rdfs:comment "points to a KPI that is represented (modelled) by the present KPI model"^^xs:string.
 
 ###
+# DATATYPE PROPERTIES
+###
+
+mmto:has_bc_summary rdfs:subPropertyOf viprs:has_textual_content.
+mmto:has_ic_summary rdfs:subPropertyOf viprs:has_textual_content.
+mmto:has_tc_summary rdfs:subPropertyOf viprs:has_textual_content.
+mmto:has_emmc_guide_no rdfs:subPropertyOf viprs:has_numerical_identifier.
+mmto:has_project_identifier rdfs:subPropertyOf viprs:has_label.
+mmto:has_step_identifier rdfs:subPropertyOf viprs:has_label.
+mmto:has_model_name rdfs:subPropertyOf viprs:has_name.
+mmto:has_project_description rdfs:subPropertyOf viprs:has_descriptor.
+mmto:has_objective_description rdfs:subPropertyOf viprs:has_descriptor.
+mmto:has_step_description rdfs:subPropertyOf viprs:has_descriptor.
+
+###
 # NOTES ON ALIGNMENT
 ###
 
@@ -3667,7 +3761,7 @@ mmto:has_represented_kpi a owl:ObjectProperty;
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 1.5.4 ###
+### VERSION 1.5.5 ###
 
 ### DATED 21ST MAY 2020 ###
 
@@ -3681,6 +3775,7 @@ mmto:has_represented_kpi a owl:ObjectProperty;
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix viprs: <http://www.vimmp.eu/semantics/alignment/viprs.ttl#>.
 @prefix viso: <http://www.vimmp.eu/semantics/viso/viso-general.ttl#>.
 @prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
@@ -5274,7 +5369,7 @@ osmo:has_generic_element a owl:ObjectProperty;
    rdfs:range osmo:logical_variable;
    rdfs:subPropertyOf osmo:has_array_element;
    rdfs:comment "points to the generic representation of the array elements (which is the same for all index values)"^^xs:string.
-osmo:has_index_name a owl:ObjectProperty;
+osmo:has_index_name a owl:DatatypeProperty;
    rdfs:domain osmo:logical_array;
    rdfs:range xs:string;
    rdfs:comment "this property can be used to assign a variable name to the array index"^^xs:string.
@@ -5471,6 +5566,44 @@ osmo:use_case_decision_support_system a owl:Class;
    rdfs:comment "use-case decision support system (UDSS), i.e., a decision support system that is applied to a use case"^^xs:string.
 
 ###
+# DATATYPE PROPERTIES
+###
+
+osmo:has_index_value rdfs:subPropertyOf viprs:has_numerical_content.
+osmo:has_aspect_scalar_content rdfs:subPropertyOf viprs:has_numerical_content.
+osmo:is_decimal rdfs:subPropertyOf viprs:has_numerical_content.
+osmo:is_string rdfs:subPropertyOf viprs:has_textual_content.
+osmo:has_aspect_text_content rdfs:subPropertyOf viprs:has_textual_content.
+osmo:has_application_case_summary rdfs:subPropertyOf viprs:has_textual_content.
+osmo:has_use_case_summary rdfs:subPropertyOf viprs:has_textual_content.
+osmo:has_term_index rdfs:subPropertyOf viprs:has_numerical_identifier.
+osmo:has_variable_index rdfs:subPropertyOf viprs:has_numerical_identifier.
+osmo:has_resource_label rdfs:subPropertyOf viprs:has_label.
+osmo:has_section_label rdfs:subPropertyOf viprs:has_label.
+osmo:has_logical_label rdfs:subPropertyOf viprs:has_label.
+osmo:has_lrid rdfs:subPropertyOf viprs:has_label.
+osmo:has_pe_type_id rdfs:subPropertyOf viprs:has_standardized_reference.
+osmo:has_cas_number rdfs:subPropertyOf viprs:has_standardized_reference.
+osmo:has_ec_number rdfs:subPropertyOf viprs:has_standardized_reference.
+osmo:has_index_name rdfs:subPropertyOf viprs:has_name.
+osmo:has_term_name rdfs:subPropertyOf viprs:has_name.
+osmo:has_variable_name rdfs:subPropertyOf viprs:has_name.
+osmo:has_coupled_instances rdfs:subPropertyOf viprs:has_flag.
+osmo:has_linked_instances rdfs:subPropertyOf viprs:has_flag.
+osmo:is_concrete rdfs:subPropertyOf viprs:has_flag.
+osmo:is_virtual rdfs:subPropertyOf viprs:has_flag.
+osmo:is_interactive rdfs:subPropertyOf viprs:has_flag.
+osmo:is_constant rdfs:subPropertyOf viprs:has_flag.
+osmo:is_at_runtime rdfs:subPropertyOf viprs:has_flag.
+osmo:is_final rdfs:subPropertyOf viprs:has_flag.
+osmo:is_initial rdfs:subPropertyOf viprs:has_flag.
+osmo:is_parameterization rdfs:subPropertyOf viprs:has_flag.
+osmo:has_collection_size rdfs:subPropertyOf viprs:has_numerical_specifier.
+osmo:has_static_array_size rdfs:subPropertyOf viprs:has_numerical_specifier.
+osmo:has_pe_type_descriptor rdfs:subPropertyOf viprs:has_descriptor.
+osmo:has_uf_descriptor rdfs:subPropertyOf viprs:has_descriptor.
+
+###
 # NOTES ON ALIGNMENT
 ###
 
@@ -5486,9 +5619,9 @@ osmo:use_case_decision_support_system a owl:Class;
 
 ### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
 
-### VERSION 0.9.12 ###
+### VERSION 0.9.13 ###
 
-### DATED 20TH MAY 2020 ###
+### DATED 21ST MAY 2020 ###
 
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 
@@ -7960,9 +8093,62 @@ otras:instructor a owl:Class;
    rdfs:comment "instructor, i.e., an individual human agent with expertise who can take responsibility for courses, training units, or training services"^^xs:string.
 ccso:Professor rdfs:subClassOf evmpo:agent.
 
+###
+# DATATYPE PROPERTIES
+###
+
+otras:has_text_form rdfs:subPropertyOf viprs:has_textual_content.
+otras:has_ccs_descriptor rdfs:subPropertyOf viprs:has_textual_content.
+otras:has_illustration_of_content rdfs:subPropertyOf viprs:has_textual_content.
+otras:has_operator_code rdfs:subPropertyOf viprs:has_numerical_identifier.
+otras:has_topic_code rdfs:subPropertyOf viprs:has_numerical_identifier.
+otras:has_ame_index rdfs:subPropertyOf viprs:has_numerical_identifier.
+otras:has_physh_label rdfs:subPropertyOf viprs:has_label.
+otras:has_document_isbn rdfs:subPropertyOf viprs:has_standardized_reference.
+otras:has_physh_label rdfs:subPropertyOf viprs:has_standardized_reference.
+otras:has_physh_id rdfs:subPropertyOf viprs:has_standardized_reference.
+otras:has_ccs_id rdfs:subPropertyOf viprs:has_standardized_reference.
+otras:has_doi rdfs:subPropertyOf viprs:has_standardized_reference.
+otras:has_url rdfs:subPropertyOf viprs:has_standardized_reference.
+otras:has_external_url rdfs:subPropertyOf viprs:has_standardized_reference.
+otras:has_internal_url rdfs:subPropertyOf viprs:has_standardized_reference.
+otras:has_resource_identifier rdfs:subPropertyOf viprs:has_standardized_reference.
+otras:has_non_resolvable_identifier rdfs:subPropertyOf viprs:has_standardized_reference.
+otras:has_resolvable_identifier rdfs:subPropertyOf viprs:has_standardized_reference.
+otras:has_cited_book_isbn rdfs:subPropertyOf viprs:has_standardized_reference.
+otras:has_publication_title rdfs:subPropertyOf viprs:has_name.
+otras:has_identified_given_name rdfs:subPropertyOf viprs:has_name.
+otras:has_identified_given_name_initials rdfs:subPropertyOf viprs:has_name.
+otras:has_identified_surname rdfs:subPropertyOf viprs:has_name.
+otras:has_cited_book_edition rdfs:subPropertyOf viprs:has_numerical_specifier.
+otras:has_cited_video_duration_seconds rdfs:subPropertyOf viprs:has_numerical_specifier.
+otras:is_at_numerical_level rdfs:subPropertyOf viprs:has_numerical_specifier.
+otras:has_publication_year rdfs:subPropertyOf viprs:has_numerical_specifier.
+otras:has_cited_book_number_of_pages rdfs:subPropertyOf viprs:has_numerical_specifier.
+otras:has_publication_journal_volume rdfs:subPropertyOf viprs:has_numerical_specifier.
+otras:has_publication_journal_issue rdfs:subPropertyOf viprs:has_numerical_specifier.
+otras:has_first_author_surname rdfs:subPropertyOf viprs:has_contextual_metadata_item.
+otras:has_cited_book_publisher_name rdfs:subPropertyOf viprs:has_contextual_metadata_item.
+otras:has_cited_book_publisher_city rdfs:subPropertyOf viprs:has_contextual_metadata_item.
+otras:has_publication_journal_identifier rdfs:subPropertyOf viprs:has_contextual_metadata_item.
+otras:has_publication_journal_name rdfs:subPropertyOf viprs:has_contextual_metadata_item.
+otras:has_publication_journal_abbreviation rdfs:subPropertyOf viprs:has_contextual_metadata_item.
+otras:has_publication_journal_issn rdfs:subPropertyOf viprs:has_contextual_metadata_item.
+otras:has_publication_journal_pages rdfs:subPropertyOf viprs:has_contextual_metadata_item.
+otras:has_focus_descriptor rdfs:subPropertyOf viprs:has_descriptor.
+otras:has_topic_descriptor rdfs:subPropertyOf viprs:has_descriptor.
+otras:has_specifier_descriptor rdfs:subPropertyOf viprs:has_descriptor.
+otras:has_operator_descriptor rdfs:subPropertyOf viprs:has_descriptor.
+otras:has_operand_descriptor rdfs:subPropertyOf viprs:has_descriptor.
+otras:has_implementation_descriptor rdfs:subPropertyOf viprs:has_descriptor.
+otras:has_example_descriptor rdfs:subPropertyOf viprs:has_descriptor.
+otras:has_l_o_descriptor rdfs:subPropertyOf viprs:has_descriptor.
+otras:is_expressed_by rdfs:subPropertyOf viprs:has_descriptor.
+otras:is_defined_by rdfs:subPropertyOf viprs:has_descriptor.
+
 ### VIMMP COMMUNICATION ONTOLOGY (VICO) ###
 
-### VERSION 1.1.6 ###
+### VERSION 1.1.7 ###
 
 ### DATED 21ST MAY 2020 ###
 
@@ -8199,7 +8385,7 @@ vico:comment rdfs:subClassOf [
       owl:someValuesFrom vico:message
    ], [
       a owl:Restriction;
-      owl:onProperty vico:has_text;
+      owl:onProperty vico:has_text_content;
       owl:someValuesFrom xs:string
    ].
 
@@ -8357,7 +8543,7 @@ vico:has_interest a owl:ObjectProperty;
    rdfs:domain evmpo:agent;
    rdfs:range otras:topic;
    rdfs:subPropertyOf evmpo:has_interpreter_annotation.
-vico:has_name a owl:DatatypeProperty;
+vico:has_agent_name a owl:DatatypeProperty;
    rdfs:domain evmpo:agent;
    rdfs:range xs:string.
 vico:is_assignee_of a owl:ObjectProperty;
@@ -8445,7 +8631,7 @@ vico:has_first_name a owl:DatatypeProperty;
 vico:has_last_name a owl:DatatypeProperty;
    rdfs:domain evmpo:human_agent;
    rdfs:range xs:string;
-   rdfs:subPropertyOf vico:has_name.
+   rdfs:subPropertyOf vico:has_agent_name.
 vico:has_private_address a owl:ObjectProperty;
    rdfs:domain evmpo:human_agent;
    rdfs:range vico:address;
@@ -8786,6 +8972,38 @@ _:C_PERSONAL_TITLE a owl:AllDifferent;
 
 
 ###
+# DATATYPE PROPERTIES
+###
+
+vico:has_number_representation rdfs:subPropertyOf viprs:has_numerical_content.
+vico:has_text_content rdfs:subPropertyOf viprs:has_textual_content.
+vico:has_textual_representation rdfs:subPropertyOf viprs:has_textual_content.
+vico:has_prefix_text rdfs:subPropertyOf viprs:has_textual_content.
+vico:has_suffix_text rdfs:subPropertyOf viprs:has_textual_content.
+vico:has_agentid rdfs:subPropertyOf viprs:has_numerical_identifier.
+vico:has_token_index rdfs:subPropertyOf viprs:has_numerical_identifier.
+vico:has_interpreter_label rdfs:subPropertyOf viprs:has_label.
+vico:has_file_content_locator rdfs:subPropertyOf viprs:has_standardized_reference.
+vico:has_agent_name rdfs:subPropertyOf viprs:has_name.
+vico:has_first_name rdfs:subPropertyOf viprs:has_name.
+vico:has_last_name rdfs:subPropertyOf viprs:has_name.
+vico:is_po_box rdfs:subPropertyOf viprs:has_flag.
+vico:is_at_uri rdfs:subPropertyOf viprs:has_flag.
+vico:is_academic rdfs:subPropertyOf viprs:has_flag.
+vico:is_for_profit rdfs:subPropertyOf viprs:has_flag.
+vico:is_military rdfs:subPropertyOf viprs:has_flag.
+vico:is_nuclear rdfs:subPropertyOf viprs:has_flag.
+vico:is_sme rdfs:subPropertyOf viprs:has_flag.
+vico:has_prefix_element rdfs:subPropertyOf viprs:has_flag.
+vico:has_suffix_element rdfs:subPropertyOf viprs:has_flag.
+vico:has_fractional_progress rdfs:subPropertyOf viprs:has_numerical_specifier.
+vico:has_title rdfs:subPropertyOf viprs:has_contextual_metadata_item.
+vico:has_profile_text rdfs:subPropertyOf viprs:has_descriptor.
+vico:has_file_content_format rdfs:subPropertyOf viprs:has_file_metadata_item.
+vico:has_profile_image rdfs:subPropertyOf viprs:has_file_metadata_item.
+
+
+###
 # NOTES ON ALIGNMENT
 ###
 
@@ -8800,9 +9018,9 @@ _:C_PERSONAL_TITLE a owl:AllDifferent;
 
 ### VIMMP VALIDATION ONTOLOGY (VIVO) ###
 
-### VERSION 0.4.4 ###
+### VERSION 0.4.5 ###
 
-### DATED 20TH MAY 2020 ###
+### DATED 21ST MAY 2020 ###
 
 @prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
 
@@ -8882,7 +9100,7 @@ vivo:has_lower_bound a owl:DatatypeProperty;
 vivo:has_upper_bound a owl:DatatypeProperty;
    rdfs:domain vivo:material_property_information;
    rdfs:range xs:decimal.
-vivo:has_value a owl:DatatypeProperty, owl:FunctionalProperty;
+vivo:has_property_value a owl:DatatypeProperty, owl:FunctionalProperty;
    rdfs:domain vivo:material_property_information;
    rdfs:range xs:decimal.
 vivo:is_given_in a owl:ObjectProperty, owl:FunctionalProperty;
@@ -9199,6 +9417,19 @@ vivo:UNIT_U a vivo:unit, qudt:MassUnit;  # note: this exists within qudt, but th
    qudt:symbol "u"^^xs:string;
    qudt:description "Unit of mass corresponding to 1 g/mol, also referred to as Dalton"^^xs:string.
 qudt:MassUnit rdfs:subClassOf vivo:unit.
+
+
+###
+# DATATYPE PROPERTIES
+###
+
+vivo:asserts_magnitude rdfs:subPropertyOf viprs:has_numerical_content.
+vivo:has_lower_bound rdfs:subPropertyOf viprs:has_numerical_content.
+vivo:has_upper_bound rdfs:subPropertyOf viprs:has_numerical_content.
+vivo:has_property_value rdfs:subPropertyOf viprs:has_numerical_content.
+vivo:has_stars rdfs:subPropertyOf viprs:has_numerical_content.
+vivo:has_text_content rdfs:subPropertyOf viprs:has_textual_content.
+vivo:has_deviation_magnitude rdfs:subPropertyOf viprs:has_numerical_specifier.
 
 
 ###

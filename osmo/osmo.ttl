@@ -1,7 +1,7 @@
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 1.5.4 ###
+### VERSION 1.5.5 ###
 
 ### DATED 21ST MAY 2020 ###
 
@@ -15,6 +15,7 @@
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix viprs: <http://www.vimmp.eu/semantics/alignment/viprs.ttl#>.
 @prefix viso: <http://www.vimmp.eu/semantics/viso/viso-general.ttl#>.
 @prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
@@ -1608,7 +1609,7 @@ osmo:has_generic_element a owl:ObjectProperty;
    rdfs:range osmo:logical_variable;
    rdfs:subPropertyOf osmo:has_array_element;
    rdfs:comment "points to the generic representation of the array elements (which is the same for all index values)"^^xs:string.
-osmo:has_index_name a owl:ObjectProperty;
+osmo:has_index_name a owl:DatatypeProperty;
    rdfs:domain osmo:logical_array;
    rdfs:range xs:string;
    rdfs:comment "this property can be used to assign a variable name to the array index"^^xs:string.
@@ -1803,6 +1804,44 @@ osmo:application_decision_support_system a owl:Class;
 osmo:use_case_decision_support_system a owl:Class;
    rdfs:subClassOf osmo:application_decision_support_system;
    rdfs:comment "use-case decision support system (UDSS), i.e., a decision support system that is applied to a use case"^^xs:string.
+
+###
+# DATATYPE PROPERTIES
+###
+
+osmo:has_index_value rdfs:subPropertyOf viprs:has_numerical_content.
+osmo:has_aspect_scalar_content rdfs:subPropertyOf viprs:has_numerical_content.
+osmo:is_decimal rdfs:subPropertyOf viprs:has_numerical_content.
+osmo:is_string rdfs:subPropertyOf viprs:has_textual_content.
+osmo:has_aspect_text_content rdfs:subPropertyOf viprs:has_textual_content.
+osmo:has_application_case_summary rdfs:subPropertyOf viprs:has_textual_content.
+osmo:has_use_case_summary rdfs:subPropertyOf viprs:has_textual_content.
+osmo:has_term_index rdfs:subPropertyOf viprs:has_numerical_identifier.
+osmo:has_variable_index rdfs:subPropertyOf viprs:has_numerical_identifier.
+osmo:has_resource_label rdfs:subPropertyOf viprs:has_label.
+osmo:has_section_label rdfs:subPropertyOf viprs:has_label.
+osmo:has_logical_label rdfs:subPropertyOf viprs:has_label.
+osmo:has_lrid rdfs:subPropertyOf viprs:has_label.
+osmo:has_pe_type_id rdfs:subPropertyOf viprs:has_standardized_reference.
+osmo:has_cas_number rdfs:subPropertyOf viprs:has_standardized_reference.
+osmo:has_ec_number rdfs:subPropertyOf viprs:has_standardized_reference.
+osmo:has_index_name rdfs:subPropertyOf viprs:has_name.
+osmo:has_term_name rdfs:subPropertyOf viprs:has_name.
+osmo:has_variable_name rdfs:subPropertyOf viprs:has_name.
+osmo:has_coupled_instances rdfs:subPropertyOf viprs:has_flag.
+osmo:has_linked_instances rdfs:subPropertyOf viprs:has_flag.
+osmo:is_concrete rdfs:subPropertyOf viprs:has_flag.
+osmo:is_virtual rdfs:subPropertyOf viprs:has_flag.
+osmo:is_interactive rdfs:subPropertyOf viprs:has_flag.
+osmo:is_constant rdfs:subPropertyOf viprs:has_flag.
+osmo:is_at_runtime rdfs:subPropertyOf viprs:has_flag.
+osmo:is_final rdfs:subPropertyOf viprs:has_flag.
+osmo:is_initial rdfs:subPropertyOf viprs:has_flag.
+osmo:is_parameterization rdfs:subPropertyOf viprs:has_flag.
+osmo:has_collection_size rdfs:subPropertyOf viprs:has_numerical_specifier.
+osmo:has_static_array_size rdfs:subPropertyOf viprs:has_numerical_specifier.
+osmo:has_pe_type_descriptor rdfs:subPropertyOf viprs:has_descriptor.
+osmo:has_uf_descriptor rdfs:subPropertyOf viprs:has_descriptor.
 
 ###
 # NOTES ON ALIGNMENT

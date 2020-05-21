@@ -1,7 +1,7 @@
 
 ### VIMMP PRIMITIVES (VIPRS) ###
 
-### VERSION 0.2.1 ###
+### VERSION 0.2.2 ###
 
 ### DATED 21ST MAY 2020 ###
 
@@ -25,6 +25,8 @@
 #
 # a) specific high-level properties
 # b) chain properties: mereosemiotics
+#
+# 4. Top-level datatype properties
 
 @prefix viprs: <http://www.vimmp.eu/semantics/alignment/viprs.ttl#>.
 
@@ -378,11 +380,14 @@ viprs:is_model_for a owl:ObjectProperty;
    rdfs:range viprs:immanent_entity;
    rdfs:subPropertyOf viprs:is_sign_for;
    owl:inverseOf viprs:has_model.
+viprs:shares_a_sign_with a owl:ObjectProperty;  # user-friendly IRI for the important relation "mereosemiotics_hs_is"
+   owl:sameAs viprs:mereosemiotics_hs_is;
+   owl:equivalentProperty viprs:mereosemiotics_hs_is.
 
 ##
 # co-occurrence
 ##
-viprs:can_cooccur_with a owl:ObjectProperty;  # user-friendly IRI for the frequently-used relation "p_loc_and_roc"
+viprs:can_cooccur_with a owl:ObjectProperty;  # user-friendly IRI for the important relation "p_loc_and_roc"
    owl:sameAs viprs:p_loc_and_roc;
    owl:equivalentProperty viprs:p_loc_and_roc.
 viprs:has_requirement_satisfied_by a owl:ObjectProperty;
@@ -667,3 +672,57 @@ viprs:mereosemiotics_hs_hp_is a owl:ObjectProperty;
    rdfs:subPropertyOf viprs:mereosemiotic_relation;
    owl:inverseOf viprs:mereosemiotics_hs_ip_is.
 
+##########################
+# 4. DATATYPE PROPERTIES #
+##########################
+
+viprs:top_datatype_property a owl:DatatypeProperty;
+   rdfs:domain viprs:top_entity.
+viprs:immanent_datatype_property a owl:DatatypeProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:top_datatype_property.
+viprs:transcendent_datatype_property a owl:DatatypeProperty;
+   rdfs:domain viprs:transcendent_entity;
+   rdfs:subPropertyOf viprs:top_datatype_property.
+
+viprs:has_content a owl:DatatypeProperty;
+   rdfs:subPropertyOf viprs:immanent_datatype_property.
+viprs:has_numerical_content a owl:DatatypeProperty;
+   rdfs:range xs:decimal;
+   rdfs:subPropertyOf viprs:has_content.
+viprs:has_textual_content a owl:DatatypeProperty;
+   rdfs:range xs:string;
+   rdfs:subPropertyOf viprs:has_content.
+
+viprs:has_identifier a owl:DatatypeProperty;
+   rdfs:subPropertyOf viprs:immanent_datatype_property.
+viprs:has_numerical_identifier a owl:DatatypeProperty;
+   rdfs:range xs:decimal;
+   rdfs:subPropertyOf viprs:has_identifier.
+viprs:has_textual_identifier a owl:DatatypeProperty;
+   rdfs:range xs:string;
+   rdfs:subPropertyOf viprs:has_identifier.
+viprs:has_label a owl:DatatypeProperty;
+   rdfs:subPropertyOf viprs:has_textual_identifier.
+viprs:has_name a owl:DatatypeProperty;
+   rdfs:subPropertyOf viprs:has_textual_identifier.
+viprs:has_standardized_reference a owl:DatatypeProperty;
+   rdfs:subPropertyOf viprs:has_textual_identifier.
+
+viprs:has_specifier a owl:DatatypeProperty;
+   rdfs:subPropertyOf viprs:immanent_datatype_property.
+viprs:has_flag a owl:DatatypeProperty;
+   rdfs:range xs:boolean;
+   rdfs:subPropertyOf viprs:has_specifier.
+viprs:has_numerical_specifier a owl:DatatypeProperty;
+   rdfs:range xs:decimal;
+   rdfs:subPropertyOf viprs:has_specifier.
+viprs:has_textual_specifier a owl:DatatypeProperty;
+   rdfs:range xs:string;
+   rdfs:subPropertyOf viprs:has_specifier.
+viprs:has_contextual_metadata_item a owl:DatatypeProperty;
+   rdfs:subPropertyOf viprs:has_textual_specifier.
+viprs:has_descriptor a owl:DatatypeProperty;
+   rdfs:subPropertyOf viprs:has_textual_specifier.
+viprs:has_file_metadata_item a owl:DatatypeProperty;
+   rdfs:subPropertyOf viprs:has_textual_specifier.

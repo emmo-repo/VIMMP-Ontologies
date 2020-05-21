@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
 
-### VERSION 0.9.12 ###
+### VERSION 0.9.13 ###
 
-### DATED 20TH MAY 2020 ###
+### DATED 21ST MAY 2020 ###
 
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 
@@ -2474,3 +2474,56 @@ otras:instructor a owl:Class;
    rdfs:subClassOf evmpo:expert, vico:training_provider, ccso:Professor;
    rdfs:comment "instructor, i.e., an individual human agent with expertise who can take responsibility for courses, training units, or training services"^^xs:string.
 ccso:Professor rdfs:subClassOf evmpo:agent.
+
+###
+# DATATYPE PROPERTIES
+###
+
+otras:has_text_form rdfs:subPropertyOf viprs:has_textual_content.
+otras:has_ccs_descriptor rdfs:subPropertyOf viprs:has_textual_content.
+otras:has_illustration_of_content rdfs:subPropertyOf viprs:has_textual_content.
+otras:has_operator_code rdfs:subPropertyOf viprs:has_numerical_identifier.
+otras:has_topic_code rdfs:subPropertyOf viprs:has_numerical_identifier.
+otras:has_ame_index rdfs:subPropertyOf viprs:has_numerical_identifier.
+otras:has_physh_label rdfs:subPropertyOf viprs:has_label.
+otras:has_document_isbn rdfs:subPropertyOf viprs:has_standardized_reference.
+otras:has_physh_label rdfs:subPropertyOf viprs:has_standardized_reference.
+otras:has_physh_id rdfs:subPropertyOf viprs:has_standardized_reference.
+otras:has_ccs_id rdfs:subPropertyOf viprs:has_standardized_reference.
+otras:has_doi rdfs:subPropertyOf viprs:has_standardized_reference.
+otras:has_url rdfs:subPropertyOf viprs:has_standardized_reference.
+otras:has_external_url rdfs:subPropertyOf viprs:has_standardized_reference.
+otras:has_internal_url rdfs:subPropertyOf viprs:has_standardized_reference.
+otras:has_resource_identifier rdfs:subPropertyOf viprs:has_standardized_reference.
+otras:has_non_resolvable_identifier rdfs:subPropertyOf viprs:has_standardized_reference.
+otras:has_resolvable_identifier rdfs:subPropertyOf viprs:has_standardized_reference.
+otras:has_cited_book_isbn rdfs:subPropertyOf viprs:has_standardized_reference.
+otras:has_publication_title rdfs:subPropertyOf viprs:has_name.
+otras:has_identified_given_name rdfs:subPropertyOf viprs:has_name.
+otras:has_identified_given_name_initials rdfs:subPropertyOf viprs:has_name.
+otras:has_identified_surname rdfs:subPropertyOf viprs:has_name.
+otras:has_cited_book_edition rdfs:subPropertyOf viprs:has_numerical_specifier.
+otras:has_cited_video_duration_seconds rdfs:subPropertyOf viprs:has_numerical_specifier.
+otras:is_at_numerical_level rdfs:subPropertyOf viprs:has_numerical_specifier.
+otras:has_publication_year rdfs:subPropertyOf viprs:has_numerical_specifier.
+otras:has_cited_book_number_of_pages rdfs:subPropertyOf viprs:has_numerical_specifier.
+otras:has_publication_journal_volume rdfs:subPropertyOf viprs:has_numerical_specifier.
+otras:has_publication_journal_issue rdfs:subPropertyOf viprs:has_numerical_specifier.
+otras:has_first_author_surname rdfs:subPropertyOf viprs:has_contextual_metadata_item.
+otras:has_cited_book_publisher_name rdfs:subPropertyOf viprs:has_contextual_metadata_item.
+otras:has_cited_book_publisher_city rdfs:subPropertyOf viprs:has_contextual_metadata_item.
+otras:has_publication_journal_identifier rdfs:subPropertyOf viprs:has_contextual_metadata_item.
+otras:has_publication_journal_name rdfs:subPropertyOf viprs:has_contextual_metadata_item.
+otras:has_publication_journal_abbreviation rdfs:subPropertyOf viprs:has_contextual_metadata_item.
+otras:has_publication_journal_issn rdfs:subPropertyOf viprs:has_contextual_metadata_item.
+otras:has_publication_journal_pages rdfs:subPropertyOf viprs:has_contextual_metadata_item.
+otras:has_focus_descriptor rdfs:subPropertyOf viprs:has_descriptor.
+otras:has_topic_descriptor rdfs:subPropertyOf viprs:has_descriptor.
+otras:has_specifier_descriptor rdfs:subPropertyOf viprs:has_descriptor.
+otras:has_operator_descriptor rdfs:subPropertyOf viprs:has_descriptor.
+otras:has_operand_descriptor rdfs:subPropertyOf viprs:has_descriptor.
+otras:has_implementation_descriptor rdfs:subPropertyOf viprs:has_descriptor.
+otras:has_example_descriptor rdfs:subPropertyOf viprs:has_descriptor.
+otras:has_l_o_descriptor rdfs:subPropertyOf viprs:has_descriptor.
+otras:is_expressed_by rdfs:subPropertyOf viprs:has_descriptor.
+otras:is_defined_by rdfs:subPropertyOf viprs:has_descriptor.

@@ -42,3 +42,12 @@ vcl:codelist_interlocutor_group a owl:Class;
 vcl:CL_SCHEME_MM_TOPIC a owl:NamedIndividual, skos:ConceptScheme;
    skos:prefLabel "interlocutor_group"^^xs:string;
    skos:definition "interlocutor group"^^xs:string.
+
+###
+# DATATYPE PROPERTIES
+###
+
+skos:definition a owl:DatatypeProperty;
+   rdfs:subPropertyOf viprs:has_descriptor.
+skos:prefLabel a owl:DatatypeProperty;
+   rdfs:subPropertyOf viprs:has_label.

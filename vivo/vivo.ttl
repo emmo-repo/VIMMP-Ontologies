@@ -1,9 +1,9 @@
 
 ### VIMMP VALIDATION ONTOLOGY (VIVO) ###
 
-### VERSION 0.4.4 ###
+### VERSION 0.4.5 ###
 
-### DATED 20TH MAY 2020 ###
+### DATED 21ST MAY 2020 ###
 
 @prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
 
@@ -83,7 +83,7 @@ vivo:has_lower_bound a owl:DatatypeProperty;
 vivo:has_upper_bound a owl:DatatypeProperty;
    rdfs:domain vivo:material_property_information;
    rdfs:range xs:decimal.
-vivo:has_value a owl:DatatypeProperty, owl:FunctionalProperty;
+vivo:has_property_value a owl:DatatypeProperty, owl:FunctionalProperty;
    rdfs:domain vivo:material_property_information;
    rdfs:range xs:decimal.
 vivo:is_given_in a owl:ObjectProperty, owl:FunctionalProperty;
@@ -400,6 +400,19 @@ vivo:UNIT_U a vivo:unit, qudt:MassUnit;  # note: this exists within qudt, but th
    qudt:symbol "u"^^xs:string;
    qudt:description "Unit of mass corresponding to 1 g/mol, also referred to as Dalton"^^xs:string.
 qudt:MassUnit rdfs:subClassOf vivo:unit.
+
+
+###
+# DATATYPE PROPERTIES
+###
+
+vivo:asserts_magnitude rdfs:subPropertyOf viprs:has_numerical_content.
+vivo:has_lower_bound rdfs:subPropertyOf viprs:has_numerical_content.
+vivo:has_upper_bound rdfs:subPropertyOf viprs:has_numerical_content.
+vivo:has_property_value rdfs:subPropertyOf viprs:has_numerical_content.
+vivo:has_stars rdfs:subPropertyOf viprs:has_numerical_content.
+vivo:has_text_content rdfs:subPropertyOf viprs:has_textual_content.
+vivo:has_deviation_magnitude rdfs:subPropertyOf viprs:has_numerical_specifier.
 
 
 ###

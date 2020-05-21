@@ -1,7 +1,7 @@
 
 ### MARKETPLACE-ACCESSIBLE COMPUTATIONAL RESOURCE ONTOLOGY (MACRO) ###
 
-### VERSION 0.5.2 ###
+### VERSION 0.5.3 ###
 
 ### DATED 21ST MAY 2020 ###
 
@@ -58,14 +58,14 @@ macro:repository a owl:Class;
 
 macro:VIMMP_CERTIFICATE_REGISTRY a macro:repository;
    vico:acts_on macro:VIMMP_MARKETPLACE;
-   vico:has_name "VIMMP Marketplace Certificate Registry"^^xs:string.
+   vico:has_agent_name "VIMMP Marketplace Certificate Registry"^^xs:string.
 
 macro:model_database a owl:Class;
    rdfs:subClassOf macro:repository, vico:model_provider.
 
 macro:BOTTLED_SAFT a macro:model_database;
    vico:acts_on macro:VIMMP_MARKETPLACE;
-   vico:has_name "Bottled SAFT"^^xs:string.
+   vico:has_agent_name "Bottled SAFT"^^xs:string.
 
 macro:channel a owl:Class;
    rdfs:subClassOf macro:data_infrastructure.
@@ -447,6 +447,17 @@ macro:PNG_FORMAT_ISO macro:is_output_format_of macro:SOFTWARE_TOOL_STARCCM_PLUS.
 macro:SOFTWARE_TOOL_VOCTA a viso:software_tool.
 macro:VOCTA_DATA_FORMAT macro:is_input_format_of macro:SOFTWARE_TOOL_VOCTA.
 macro:VOCTA_XML_FORMAT macro:is_input_format_of macro:SOFTWARE_TOOL_VOCTA.
+
+###
+# DATATYPE PROPERTIES
+###
+
+macro:has_definition_uri rdfs:subPropertyOf viprs:has_standardized_reference.
+macro:has_channel_name rdfs:subPropertyOf viprs:has_name.
+macro:has_format_name rdfs:subPropertyOf viprs:has_name.
+macro:has_format_abbreviation rdfs:subPropertyOf viprs:has_file_metadata_item.
+macro:has_format_version rdfs:subPropertyOf viprs:has_file_metadata_item.
+macro:has_file_ending rdfs:subPropertyOf viprs:has_file_metadata_item.
 
 ###
 # NOTES ON ALIGNMENT

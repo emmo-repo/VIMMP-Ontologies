@@ -1,7 +1,7 @@
 
 ### MATERIALS MODELLING TRANSLATION ONTOLOGY (MMTO) ###
 
-### VERSION 1.2.3 ###
+### VERSION 1.2.4 ###
 
 ### DATED 21ST MAY 2020 ###
 
@@ -839,6 +839,21 @@ mmto:has_represented_kpi a owl:ObjectProperty;
    rdfs:domain mmto:key_performance_indicator;
    rdfs:subPropertyOf viprs:is_model_for;
    rdfs:comment "points to a KPI that is represented (modelled) by the present KPI model"^^xs:string.
+
+###
+# DATATYPE PROPERTIES
+###
+
+mmto:has_bc_summary rdfs:subPropertyOf viprs:has_textual_content.
+mmto:has_ic_summary rdfs:subPropertyOf viprs:has_textual_content.
+mmto:has_tc_summary rdfs:subPropertyOf viprs:has_textual_content.
+mmto:has_emmc_guide_no rdfs:subPropertyOf viprs:has_numerical_identifier.
+mmto:has_project_identifier rdfs:subPropertyOf viprs:has_label.
+mmto:has_step_identifier rdfs:subPropertyOf viprs:has_label.
+mmto:has_model_name rdfs:subPropertyOf viprs:has_name.
+mmto:has_project_description rdfs:subPropertyOf viprs:has_descriptor.
+mmto:has_objective_description rdfs:subPropertyOf viprs:has_descriptor.
+mmto:has_step_description rdfs:subPropertyOf viprs:has_descriptor.
 
 ###
 # NOTES ON ALIGNMENT
