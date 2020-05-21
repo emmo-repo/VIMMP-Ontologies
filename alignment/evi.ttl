@@ -1,9 +1,9 @@
 
 ### EMMO-VIMMP INTEGRATION (EVI) ###
 
-### VERSION 0.5.1 ###
+### VERSION 0.5.2 ###
 
-### DATED 20TH MAY 2020 ###
+### DATED 21ST MAY 2020 ###
 
 @prefix evi: <http://www.vimmp.eu/semantics/alignment/evi.ttl#>.
 
@@ -203,7 +203,14 @@ macro:io_format a owl:Class;
    rdfs:subClassOf evmpo:annotation, emmo1s:Language, emmo1s:Conventional.
 
 # Services: A service is a sign for a process (in the process, the service is provided/carried out)
-
+# An infrastructure_service (is_sign_for o has_part) an engineered entity (namely, an infrastructure)
+#
+macro:infrastructure_service a owl:Class;
+   rdfs:subClassOf evmpo:service, [
+      a owl:Restriction;
+      owl:onProperty viprs:mereosemiotics_is_hp;
+      owl:someValuesFrom emmo1s:Engineered
+   ].
 
 #########################
 # MMTO-EMMO INTEGRATION #
@@ -237,6 +244,15 @@ mmto:subjective_kpi a owl:Class;
 #
 osmo:application_case a owl:Class;
    rdfs:subClassOf evmpo:annotation, osmo:section, emmo1s:Sign.
+
+# A materials_model_classifier is a sign for a materials model
+#
+osmo:materials_model_classifier a owl:Class;
+   rdfs:subClassOf evmpo:annotation, emmo1s:Sign, [
+      a owl:Restriction;
+      owl:onProperty [owl:inverseOf emmo1s:hasSign];
+      owl:someValuesFrom emmo1s:Model
+   ].
 
 # the OSMO concept "materials_relation" and the EMMO concept "material_relation"
 # both refer to the same entity, namely, a materials relation (MR) according to RoMM

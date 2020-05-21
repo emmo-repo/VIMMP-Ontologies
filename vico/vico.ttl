@@ -1,9 +1,9 @@
 
 ### VIMMP COMMUNICATION ONTOLOGY (VICO) ###
 
-### VERSION 1.1.5 ###
+### VERSION 1.1.6 ###
 
-### DATED 20TH MAY 2020 ###
+### DATED 21ST MAY 2020 ###
 
 @prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
 
@@ -383,6 +383,7 @@ vico:acts_at a owl:ObjectProperty;
 vico:has_access_to a owl:ObjectProperty;
    rdfs:domain evmpo:agent;
    rdfs:range macro:channel;
+   rdfs:subPropertyOf viprs:is_proper_part_of;
    owl:inverseOf macro:has_channel_member.
 vico:has_address a owl:ObjectProperty;
    rdfs:domain evmpo:agent;

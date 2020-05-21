@@ -1,9 +1,9 @@
 
 ### MARKETPLACE-ACCESSIBLE COMPUTATIONAL RESOURCE ONTOLOGY (MACRO) ###
 
-### VERSION 0.5.1 ###
+### VERSION 0.5.2 ###
 
-### DATED 20TH MAY 2020 ###
+### DATED 21ST MAY 2020 ###
 
 @prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
 
@@ -73,6 +73,7 @@ macro:channel a owl:Class;
 macro:has_channel_member a owl:ObjectProperty;
    rdfs:domain macro:channel;
    rdfs:range evmpo:agent;
+   rdfs:subPropertyOf viprs:has_proper_part;
    owl:inverseOf vico:has_access_to.
 macro:has_channel_name a owl:DatatypeProperty;
    rdfs:domain macro:channel;
@@ -130,7 +131,8 @@ macro:infrastructure_service a owl:Class;
 
 macro:provides_access_to a owl:ObjectProperty;
    rdfs:domain macro:infrastructure_service;
-   rdfs:range evmpo:infrastructure.
+   rdfs:range evmpo:infrastructure;
+   rdfs:subPropertyOf viprs:mereosemiotics_is_hp, viprs:satisfies_requirement_of.
 macro:infrastructure_service rdfs:subClassOf [a owl:Restriction; owl:onProperty macro:provides_access_to; owl:someValuesFrom evmpo:infrastructure].
 
 macro:cr_service a owl:Class;
@@ -276,6 +278,7 @@ macro:materials_modelling_format a owl:Class;
 macro:has_granularity a owl:ObjectProperty;
    rdfs:domain macro:materials_modelling_format;
    rdfs:range osmo:granularity_level;
+   rdfs:subPropertyOf evmpo:has_meta_annotation, viprs:mereosemiotics_is_hp_hs;
    rdfs:comment "points to the granularity level to which the entities represented in the file format belong"^^xs:string.
 
 macro:materials_relation_format a owl:Class;
@@ -453,9 +456,21 @@ macro:VOCTA_XML_FORMAT macro:is_input_format_of macro:SOFTWARE_TOOL_VOCTA.
 
 # Computational resources: As an infrastructure, a computational resource is an engineered entity and, hence, a participant
 
-# I/O formats: An I/O format is a language and, hence, a symbolic entity; it is also a conventional sign (descriptor of a pattern for words)
+# I/O formats: An I/O format is a language and, hence, a symbolic entity; it is also a conventional sign (descriptor of a pattern for words) for the file, stream, or communicated content
 
 # Services: A service is a sign for a process (in the process, the service is provided/carried out)
+# An infrastructure_service (is_sign_for o has_part) an engineered entity (namely, an infrastructure)
+
+# A macro:has_granularity B, where A is a materials_modelling_format, B is a granularity_level
+#
+# There is a file C, adhering to format A
+# That file has contents D, which are at granularity level B
+#
+# A is_sign_for C
+# C has_proper_part D
+# D has_sign B
+# ==
+# A mereosemiotics_is_hp_hs B
 
 # A is_io_format_of B, where A is an io_format, B is a software_tool:
 #
@@ -469,3 +484,13 @@ macro:VOCTA_XML_FORMAT macro:is_input_format_of macro:SOFTWARE_TOOL_VOCTA.
 # ==
 # A is_sign_for_potential_coocurrent_of B
 
+# A provides_access_to B, where A is a service, B is an infrastructure
+#
+# A satisfies_requirement_of B
+#   (assuming that here, "occurrence of a service" means that the service is provided)
+#   (assuming that here, "occurrence of an infrastructure" means that the infrastructure is accessed)
+# additionally, where C is the service-provision process in which B participates:
+# A is_sign_for C
+# C has_proper_part B
+# ==
+# A mereosemiotics_is_hp B

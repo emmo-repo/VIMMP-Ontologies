@@ -396,7 +396,7 @@ viprs:satisfies_requirement_of a owl:ObjectProperty;
 viprs:is_enabled_by a owl:ObjectProperty;
    rdfs:subPropertyOf viprs:can_cooccur_with, viprs:has_requirement_satisfied_by;
    owl:inverseOf viprs:enables;
-   rdfs:comment "X is_enabled_by Y == (X has_requirement_satisfied_by Y) and (X can_cooccur_with Y), i.e., a) there is a requirement for the occurrence of Y that is satisfied by the occurrence of X, and b) it is actually possible that X occurs in this way"^^xs:string.
+   rdfs:comment "X is_enabled_by Y == (X has_requirement_satisfied_by Y) and (X can_cooccur_with Y), i.e., a) there is a requirement for the occurrence of X that is satisfied by the occurrence of Y, and b) it is actually possible that X occurs in this way, facilitated by Y"^^xs:string.
 viprs:enables a owl:ObjectProperty;
    rdfs:subPropertyOf viprs:can_cooccur_with, viprs:satisfies_requirement_of;
    owl:inverseOf viprs:is_enabled_by;

@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 1.5.3 ###
+### VERSION 1.5.4 ###
 
-### DATED 20TH MAY 2020 ###
+### DATED 21ST MAY 2020 ###
 
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -23,7 +23,11 @@
 
 
 osmo:materials_model_classifier a owl:Class;
-   rdfs:subClassOf evmpo:annotation;
+   rdfs:subClassOf evmpo:annotation, [
+      a owl:Restriction;
+      owl:onProperty viprs:is_sign_for;
+      owl:someValuesFrom osmo:materials_model
+   ];
    rdfs:comment "materials model classifier, i.e., a symbol for categories of materials-model related entities, following RoMM (note: these are descriptors, not identical with the described entities)"^^xs:string.
 
 osmo:granularity_level a owl:Class;
@@ -740,10 +744,11 @@ osmo:has_application_case_summary a owl:DatatypeProperty;
 osmo:is_addressed_by a owl:ObjectProperty;
    rdfs:domain osmo:application_case;
    rdfs:range mmto:mm_project;
+   rdfs:subPropertyOf viprs:mereosemiotics_is_hp_ip;  # for an explanation, cf. "addresses" in MMTO
    owl:inverseOf mmto:addresses;
    rdfs:comment "points to a materials modelling project that addresses the present application case"^^xs:string.
 
-osmo:has_decision_support a owl:ObjectProperty;
+osmo:has_case_decision_support a owl:ObjectProperty;
    rdfs:domain osmo:application_case;
    rdfs:range osmo:application_case_decision_support;
    rdfs:subPropertyOf osmo:has_application_case_aspect;
@@ -797,7 +802,7 @@ osmo:has_use_case_literature a owl:ObjectProperty;
 osmo:has_use_case_decision_support a owl:ObjectProperty;
    rdfs:domain osmo:use_case;
    rdfs:range osmo:use_case_decision_support;
-   rdfs:subPropertyOf osmo:has_use_case_aspect, osmo:has_decision_support;
+   rdfs:subPropertyOf osmo:has_use_case_aspect, osmo:has_case_decision_support;
    rdfs:comment "points to information on the use-case decision support system (UDSS)"^^xs:string.
 
 osmo:use_case rdfs:subClassOf [
@@ -1804,6 +1809,8 @@ osmo:use_case_decision_support_system a owl:Class;
 ###
 
 # An application_case is a sign
+
+# A materials_model_classifier is a sign for a materials model
 
 # A section_aspect is a symbolic entity
 
