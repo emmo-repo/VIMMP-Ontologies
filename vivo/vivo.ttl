@@ -1,9 +1,9 @@
 
 ### VIMMP VALIDATION ONTOLOGY (VIVO) ###
 
-### VERSION 0.4.5 ###
+### VERSION 1.0.0 ###
 
-### DATED 21ST MAY 2020 ###
+### DATED 22ND MAY 2020 ###
 
 @prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
 
@@ -72,7 +72,8 @@ vivo:material_property_information a owl:Class;
 
 vivo:has_error_statement a owl:ObjectProperty;
    rdfs:domain vivo:material_property_information;
-   rdfs:range vivo:accuracy_assertion.
+   rdfs:range vivo:accuracy_assertion;
+   rdfs:subPropertyOf viprs:has_proper_part.
 vivo:has_given_property a owl:ObjectProperty;
    rdfs:domain vivo:material_property_information;
    rdfs:range vivo:material_property;
@@ -109,6 +110,7 @@ vivo:relative_deviation a owl:Class;
    rdfs:subClassOf vivo:accuracy_assertion.
 
 vivo:requirement_assertion a owl:Class;
+   rdfs:subClassOf vivo:assertion;
    owl:disjointWith vivo:review_assertion.
 
 vivo:review_assertion a owl:Class;
@@ -125,8 +127,9 @@ vivo:evaluates a owl:ObjectProperty;
    rdfs:subPropertyOf viprs:is_sign_for.
 vivo:has_assertion a owl:ObjectProperty;
    rdfs:domain evmpo:assessment;
-   rdfs:range vivo:assertion.
-vivo:has_text_content a owl:DatatypeProperty;
+   rdfs:range vivo:assertion;
+   rdfs:subPropertyOf viprs:has_proper_part.
+vivo:has_assessment_text a owl:DatatypeProperty;
    rdfs:domain evmpo:assessment;
    rdfs:range xs:string.
 
@@ -324,7 +327,7 @@ vivo:has_certifier a owl:ObjectProperty;
 vivo:states_assessment a owl:ObjectProperty;
    rdfs:domain vivo:certificate;
    rdfs:range evmpo:assessment;
-   rdfs:subPropertyOf viprs:has_proper_part.
+   rdfs:subPropertyOf viprs:enables, viprs:has_proper_part.
 
 vivo:certificate rdfs:subClassOf [
       a owl:Restriction;
@@ -332,7 +335,7 @@ vivo:certificate rdfs:subClassOf [
       owl:someValuesFrom vico:certifier
    ], [
       a owl:Restriction;
-      owl:onProperty vico:states_assessment;
+      owl:onProperty vivo:states_assessment;
       owl:someValuesFrom evmpo:assessment
    ].
 
@@ -367,6 +370,7 @@ vivo:material_property a owl:Class;
 vivo:is_quantity_kind a owl:ObjectProperty, owl:FunctionalProperty;
    rdfs:domain vivo:material_property;
    rdfs:range qudt:QuantityKind;
+   rdfs:subPropertyOf viprs:has_sign;
    rdfs:comment "points to the physical property characterization following QUDT"^^xs:string.
 
 vivo:material_property owl:disjointWith vivo:assertion, evmpo:assessment, vivo:validation_statement, vivo:validation_infrastructure.
@@ -407,12 +411,12 @@ qudt:MassUnit rdfs:subClassOf vivo:unit.
 ###
 
 vivo:asserts_magnitude rdfs:subPropertyOf viprs:has_numerical_content.
+vivo:has_deviation_magnitude rdfs:subPropertyOf viprs:has_numerical_content.
 vivo:has_lower_bound rdfs:subPropertyOf viprs:has_numerical_content.
 vivo:has_upper_bound rdfs:subPropertyOf viprs:has_numerical_content.
 vivo:has_property_value rdfs:subPropertyOf viprs:has_numerical_content.
 vivo:has_stars rdfs:subPropertyOf viprs:has_numerical_content.
-vivo:has_text_content rdfs:subPropertyOf viprs:has_textual_content.
-vivo:has_deviation_magnitude rdfs:subPropertyOf viprs:has_numerical_specifier.
+vivo:has_assessment_text rdfs:subPropertyOf viprs:has_textual_content.
 
 
 ###
@@ -447,4 +451,4 @@ vivo:has_deviation_magnitude rdfs:subPropertyOf viprs:has_numerical_specifier.
 
 # refers_to_material and refers_to_property are subproperties of is_sign_for
 
-# states_assessment is a subproperty of has_proper_part
+# states_assessment is a subproperty of has_proper_part & of enables

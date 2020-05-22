@@ -1,9 +1,9 @@
 
 ### VIMMP PRIMITIVES (VIPRS) ###
 
-### VERSION 0.2.2 ###
+### VERSION 1.0.0 ###
 
-### DATED 21ST MAY 2020 ###
+### DATED 22ND MAY 2020 ###
 
 # 1. Modal square of opposition
 #
@@ -382,14 +382,47 @@ viprs:is_model_for a owl:ObjectProperty;
    owl:inverseOf viprs:has_model.
 viprs:shares_a_sign_with a owl:ObjectProperty;  # user-friendly IRI for the important relation "mereosemiotics_hs_is"
    owl:sameAs viprs:mereosemiotics_hs_is;
-   owl:equivalentProperty viprs:mereosemiotics_hs_is.
+   owl:equivalentProperty viprs:mereosemiotics_hs_is;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation.
+
+##
+# mereosemiotic object properties corresponding to:
+#  * annotations (has_annotation property)
+#  * an object-based replacement for datatype properties
+##
+viprs:has_symbolic_part_of_sign a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:mereosemiotics_hs_hp;
+   owl:inverseOf viprs:has_symbolic_part_of_sign;
+   rdfs:comment "X has_symbolic_part_of_sign Y == there is a sign Z for X; the sign Z has a proper part Y that is a symbolic entity"^^xs:string.
+viprs:is_symbolic_part_of_sign_for a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:mereosemiotics_ip_is;
+   owl:inverseOf viprs:has_symbolic_part_of_sign.
+viprs:has_numerical_part_of_sign a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:has_symbolic_part_of_sign;
+   rdfs:comment "X has_numerical_part_of_sign Y == there is a sign Z for X; the sign Z has a proper part Y that is a number object"^^xs:string.
+viprs:has_textual_part_of_sign a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:has_symbolic_part_of_sign;
+   rdfs:comment "X has_symbolic_part_of_sign Y == there is a sign Z for X; the sign Z has a proper part Y that is a string object"^^xs:string.
 
 ##
 # co-occurrence
 ##
 viprs:can_cooccur_with a owl:ObjectProperty;  # user-friendly IRI for the important relation "p_loc_and_roc"
    owl:sameAs viprs:p_loc_and_roc;
-   owl:equivalentProperty viprs:p_loc_and_roc.
+   owl:equivalentProperty viprs:p_loc_and_roc;
+   rdfs:subPropertyOf viprs:individual_possibility.
+viprs:cannot_cooccur_with a owl:ObjectProperty;  # user-friendly IRI for the important relation "n_lnoc_or_rnoc"
+   owl:sameAs viprs:n_lnoc_or_rnoc;
+   owl:equivalentProperty viprs:n_lnoc_or_rnoc;
+   rdfs:subPropertyOf viprs:individual_necessity.
 viprs:has_requirement_satisfied_by a owl:ObjectProperty;
    rdfs:subPropertyOf viprs:n_lnoc_cor_roc;
    owl:inverseOf viprs:satisfies_requirement_of;
@@ -406,6 +439,24 @@ viprs:enables a owl:ObjectProperty;
    rdfs:subPropertyOf viprs:can_cooccur_with, viprs:satisfies_requirement_of;
    owl:inverseOf viprs:is_enabled_by;
    rdfs:comment "X enables Y == (X satisfies_requirement_of Y) and (X can_cooccur_with Y), fitting the semantics commonly associated with providing a feature or capability"^^xs:string.
+viprs:mutual_requirement a owl:ObjectProperty, owl:SymmetricProperty;
+   rdfs:subPropertyOf viprs:has_requirement_satisfied_by, viprs:satisfies_requirement_of;
+   rdfs:comment "X mutual_requirement Y == (X satisfies_requirement_of Y) and (Y satisfies_requirement_of X)"^^xs:string.
+viprs:mutual_independence a owl:ObjectProperty, owl:SymmetricProperty;
+   rdfs:subPropertyOf viprs:p_loc_and_rnoc, viprs:p_lnoc_and_roc;
+   rdfs:comment "X mutual_independence Y == (X can occur without Y) and (Y can occur without X)"^^xs:string.
+
+##
+# co-occurrence o parthood
+##
+viprs:enables_entity_containing a owl:ObjectProperty;
+   rdfs:subPropertyOf viprs:individual_possibility;
+   owl:inverseOf viprs:is_proper_part_of_entity_enabled_by;
+   owl:propertyChainAxiom (viprs:enables viprs:has_proper_part).
+viprs:is_proper_part_of_entity_enabled_by a owl:ObjectProperty;
+   rdfs:subPropertyOf viprs:individual_possibility;
+   owl:inverseOf viprs:enables_entity_containing;
+   owl:propertyChainAxiom (viprs:is_proper_part_of viprs:is_enabled_by).
 
 ##
 # modal signification relations
@@ -415,7 +466,8 @@ viprs:is_sign_for_potential_cooccurrent_of a owl:ObjectProperty;
    rdfs:range viprs:immanent_entity;
    rdfs:subPropertyOf viprs:individual_cooccurrence_possibility, viprs:mereosemiotic_relation;
    owl:propertyChainAxiom (viprs:is_sign_for viprs:can_cooccur_with);
-   rdfs:comment "X is_sign_for_potential_cooccurrent_of Y == X is_sign_for Z, and Z can_cooccur_with Y"^^xs:string.
+   rdfs:comment "X is_sign_for_potential_cooccurrent_of Y == X is_sign_for Z, and Z can_cooccur_with Y"^^xs:string.  
+
 
 #####################################
 # 3B. MEREOSEMIOTIC CHAIN RELATIONS #

@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 1.5.5 ###
+### VERSION 1.6.0 ###
 
-### DATED 21ST MAY 2020 ###
+### DATED 22ND MAY 2020 ###
 
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -419,14 +419,13 @@ osmo:pe_type_continuum_process_model a owl:Class;
    osmo:has_mm_topic otras:MM_TOPIC_3390, otras:MM_TOPIC_7390;
    rdfs:comment "RoMM model vocabulary category 4.7, OSMO PE type CO.8"^^xs:string.
 
-[owl:disjointUnionOf (osmo:logical_resource osmo:logical_term osmo:logical_access osmo:section osmo:section_aspect osmo:workflow_graph)] rdfs:subClassOf evmpo:marketplace_related_entity.
-
 osmo:workflow_resource a owl:Class;
    rdfs:subClassOf evmpo:marketplace_related_entity;
+   owl:disjointWith osmo:logical_term, osmo:logical_access, osmo:section_aspect;
    rdfs:comment "workflow resource, i.e., a workflow entity that can be contained as a node-like element or as a subgraph by a workflow graph"^^xs:string.
 
 osmo:has_resource_label a owl:DatatypeProperty;
-   rdfs:domain evmpo:marketplace_related_entity, [owl:unionOf (osmo:logical_resource osmo:logical_term osmo:logical_access osmo:section osmo:section_aspect osmo:workflow_graph)];
+   rdfs:domain evmpo:marketplace_related_entity;
    rdfs:range xs:string;
    rdfs:comment "label to be used, e.g., in graph representations and for other visualization purposes"^^xs:string.
 
@@ -446,6 +445,7 @@ osmo:contingent_graph a owl:Class;
 osmo:is_contingent_on a owl:ObjectProperty;
    rdfs:domain osmo:contingent_graph;
    rdfs:range osmo:condition;
+   rdfs:subPropertyOf viprs:has_symbolic_part_of_sign;
    rdfs:comment "whenever one or several conditions are not fulfilled, a resource that is contingent on them is absent/inactive"^^xs:string.
 
 osmo:contingent_graph rdfs:subClassOf [
@@ -470,6 +470,7 @@ osmo:has_linked_instances a owl:DatatypeProperty;
 osmo:has_index a owl:ObjectProperty;
    rdfs:domain osmo:indexed_graph;
    rdfs:range osmo:logical_variable;
+   rdfs:subPropertyOf viprs:has_proper_part;
    rdfs:comment "points to the logical variable/index to which multiple values are assigned"^^xs:string.
 osmo:has_index_unit a owl:ObjectProperty, owl:FunctionalProperty;
    rdfs:domain osmo:indexed_graph;
@@ -491,10 +492,9 @@ osmo:indexed_graph rdfs:subClassOf [
       owl:minCardinality 2
    ].
 
-[owl:disjointUnionOf (osmo:application_case osmo:application_case_aspect osmo:application_decision_support_system osmo:materials_model osmo:model_aspect osmo:solver osmo:solver_aspect osmo:processor osmo:processor_aspect)] rdfs:subPropertyOf evmpo:marketplace_related_entity.
-
 osmo:section a owl:Class;
    rdfs:subClassOf osmo:workflow_resource;
+   owl:disjointWith osmo:section_aspect;
    rdfs:comment "section, i.e., a use case, model, solver, or processor (as in MODA)"^^xs:string.
 
 osmo:section owl:disjointUnionOf (osmo:application_case osmo:materials_model osmo:solver osmo:processor).
@@ -502,6 +502,7 @@ osmo:section owl:disjointUnionOf (osmo:application_case osmo:materials_model osm
 osmo:has_internal_lv a owl:ObjectProperty;
    rdfs:domain osmo:section;
    rdfs:range osmo:logical_variable;
+   rdfs:subPropertyOf viprs:has_symbolic_part_of_sign;
    rdfs:comment "points to information that plays a role within the respective OSMO/MODA section"^^xs:string.
 osmo:has_input_format a owl:ObjectProperty;
    rdfs:domain osmo:section;
@@ -522,6 +523,7 @@ osmo:has_logical_input a owl:ObjectProperty;
 osmo:has_logical_io a owl:ObjectProperty;
    rdfs:domain osmo:section;
    rdfs:range osmo:logical_variable;
+   rdfs:subPropertyOf viprs:has_symbolic_part_of_sign;
    rdfs:comment "points to information required or produced by a OSMO/MODA section"^^xs:string.
 osmo:has_logical_output a owl:ObjectProperty;
    rdfs:domain osmo:section;
@@ -570,7 +572,8 @@ osmo:has_employed_software a owl:ObjectProperty;
    rdfs:subPropertyOf osmo:has_aspect.
 osmo:has_error_statement a owl:ObjectProperty;
    rdfs:domain osmo:section;
-   rdfs:range osmo:error_statement.
+   rdfs:range osmo:error_statement;
+   rdfs:subPropertyOf viprs:has_symbolic_part_of_sign.
 osmo:has_geometry_information a owl:ObjectProperty;
    rdfs:domain osmo:section;
    rdfs:range osmo:geometry_information;
@@ -607,12 +610,15 @@ osmo:has_timespan a owl:ObjectProperty;
 osmo:applies_to a owl:ObjectProperty;
    rdfs:domain osmo:section, [a owl:Class; owl:unionOf (osmo:use_case osmo:materials_model)];
    rdfs:range osmo:workflow_graph;
+   rdfs:subPropertyOf viprs:shares_a_sign_with;
    rdfs:comment "points to the workflow (sub)graph to which a particular use case or materials model applies"^^xs:string;
    owl:inverseOf osmo:considers.
 
 osmo:section_aspect a owl:Class;
    rdfs:subClassOf evmpo:marketplace_related_entity;
    rdfs:comment "section aspect, i.e., an aspect of a use case, model, solver, or processor that can be represented by a section"^^xs:string.
+
+osmo:section_aspect owl:disjointUnionOf (osmo:application_case_aspect osmo:model_aspect osmo:solver osmo:processor_aspect).
 
 osmo:has_aspect_text_content a owl:DatatypeProperty;
    rdfs:domain osmo:section_aspect;
@@ -626,6 +632,7 @@ osmo:has_aspect_scalar_content a owl:DatatypeProperty;
 osmo:has_aspect_object_content a owl:ObjectProperty;
    rdfs:domain osmo:section_aspect;
    rdfs:range evmpo:marketplace_related_entity;
+   rdfs:subPropertyOf viprs:has_proper_part;
    rdfs:comment "points to an object associated with an aspect/subsection"^^xs:string;
    owl:inverseOf osmo:is_aspect_content_of.
 osmo:has_aspect_annotation_content a owl:ObjectProperty;
@@ -643,7 +650,7 @@ osmo:is_aspect_content_of a owl:ObjectProperty;
    rdfs:domain evmpo:marketplace_related_entity;
    rdfs:range osmo:section_aspect;
    owl:inverseOf osmo:has_aspect_object_content;
-   rdfs:subPropertyOf evmpo:has_annotation.
+   rdfs:subPropertyOf viprs:is_proper_part_of.
 
 osmo:boundary_condition a owl:Class;
    rdfs:subClassOf osmo:section_aspect;
@@ -1204,6 +1211,7 @@ osmo:considers a owl:ObjectProperty;
    rdfs:domain osmo:workflow_graph;
    rdfs:range osmo:section, [a owl:Class; owl:unionOf (osmo:use_case osmo:materials_model)];
    rdfs:comment "points to the use case or materials model considered by a workflow (sub)graph"^^xs:string;
+   rdfs:subPropertyOf viprs:shares_a_sign_with;
    owl:inverseOf osmo:applies_to.
 osmo:considers_model a owl:ObjectProperty;
    rdfs:domain osmo:workflow_graph;
@@ -1219,6 +1227,7 @@ osmo:considers_use_case a owl:ObjectProperty;
 osmo:has_subgraph a owl:ObjectProperty, owl:TransitiveProperty;
    rdfs:domain osmo:workflow_graph;
    rdfs:range osmo:workflow_graph;
+   rdfs:subPropertyOf viprs:has_proper_part, viprs:n_lnoc_or_roc;  # parthood & individual-level requirement
    rdfs:comment "points to a subgraph, i.e., a graph that is subordinate (to the present graph) by containment and/or instantiation"^^xs:string.
 
 osmo:has_starting_point a owl:ObjectProperty;
@@ -1235,14 +1244,18 @@ osmo:has_terminal_point a owl:ObjectProperty;
 osmo:has_cause a owl:ObjectProperty, owl:TransitiveProperty;
    rdfs:domain osmo:workflow_graph;
    rdfs:range osmo:workflow_graph;
+   rdfs:subPropertyOf viprs:has_requirement_satisfied_by;
+   owl:inverseOf osmo:has_effect;
    rdfs:comment "[G has_cause F] means that in every execution, F needs to finish before G can begin"^^xs:string.
 osmo:has_effect a owl:ObjectProperty, owl:TransitiveProperty;
    rdfs:domain osmo:workflow_graph;
    rdfs:range osmo:workflow_graph;
+   rdfs:subPropertyOf viprs:satisfies_requirement_of;
    owl:inverseOf osmo:has_cause.
 osmo:is_coupled_with a owl:ObjectProperty;
    rdfs:domain osmo:workflow_graph;
    rdfs:range osmo:workflow_graph;
+   rdfs:subPropertyOf viprs:mutual_requirement;
    rdfs:comment "if [F is_coupled_with G] they must occur synchronously when a workflow that contains them is executed"^^xs:string.
 osmo:is_direct_cause_of a owl:ObjectProperty;
    rdfs:domain osmo:workflow_graph;
@@ -1257,16 +1270,19 @@ osmo:is_direct_effect_of a owl:ObjectProperty;
 osmo:is_independent_of a owl:ObjectProperty;
    rdfs:domain osmo:workflow_graph;
    rdfs:range osmo:workflow_graph;
+   rdfs:subPropertyOf viprs:mutual_independence;
    rdfs:comment "two workflow graphs F and G are independent if they (and any of their subgraphs) are not coupled or linked to each other"^^xs:string.
 osmo:is_linked_to a owl:ObjectProperty;
    rdfs:domain osmo:workflow_graph;
    rdfs:range osmo:workflow_graph;
+   rdfs:subPropertyOf viprs:mutual_requirement;
    rdfs:comment "if [F is linked to G] they cannot be executed concurrently; one side depends on the completion of the other side"^^xs:string.
-osmo:is_part_of a owl:ObjectProperty, owl:TransitiveProperty;
+osmo:is_contained_within a owl:ObjectProperty, owl:TransitiveProperty;
    rdfs:domain osmo:workflow_graph;
    rdfs:range osmo:concrete_graph;
    owl:inverseOf osmo:contains_graph;
-   rdfs:comment "[F is_part_of G] if F is a subgraph of graph G"^^xs:string.
+   rdfs:subPropertyOf viprs:is_proper_part_of;
+   rdfs:comment "[F is_contained_within G] if F is contained within graph G, e.g., as a subgraph"^^xs:string.
 
 osmo:workflow_node a owl:Class;
    rdfs:subClassOf osmo:workflow_graph, evmpo:annotation;
@@ -1329,7 +1345,8 @@ osmo:concrete_graph a owl:Class;
 osmo:contains a owl:ObjectProperty;
    rdfs:domain osmo:concrete_graph;
    rdfs:range osmo:workflow_resource;
-   rdfs:comment "[G contains R] if R occurs as a part/component of graph G"^^xs:string.
+   rdfs:subPropertyOf viprs:has_proper_part;
+   rdfs:comment "[G contains R] if R occurs as a proper part/component of graph G"^^xs:string.
 osmo:contains_logical a owl:ObjectProperty;
    rdfs:domain osmo:concrete_graph;
    rdfs:range osmo:logical_resource;
@@ -1343,7 +1360,7 @@ osmo:contains_graph a owl:ObjectProperty, owl:TransitiveProperty;
    rdfs:domain osmo:concrete_graph;
    rdfs:range osmo:workflow_graph;
    rdfs:subPropertyOf osmo:contains, osmo:has_subgraph;
-   owl:inverseOf osmo:is_part_of.
+   owl:inverseOf osmo:is_contained_within.
 osmo:instantiates a owl:ObjectProperty;
    rdfs:domain osmo:concrete_graph;
    rdfs:range osmo:virtual_graph;
@@ -1371,6 +1388,7 @@ osmo:condition a owl:Class;
 osmo:contains_variable a owl:ObjectProperty;
    rdfs:domain osmo:condition;
    rdfs:range osmo:logical_variable;
+   rdfs:subPropertyOf viprs:has_proper_part;
    rdfs:comment "points to a parameter (e.g., variable or input value) occurring in a condition"^^xs:string.
 osmo:contains_predetermined_variable a owl:ObjectProperty;
    rdfs:domain osmo:condition;
@@ -1423,10 +1441,12 @@ osmo:is_interactive a owl:DatatypeProperty;
 
 osmo:has_stored_variable a owl:ObjectProperty;
    rdfs:domain osmo:logical_resource;
-   rdfs:range osmo:logical_variable.
+   rdfs:range osmo:logical_variable;
+   rdfs:subPropertyOf viprs:has_proper_part, viprs:satisfies_requirement_of.
 
 osmo:logical_term a owl:Class;
    rdfs:subClassOf evmpo:marketplace_related_entity;
+   owl:disjointWith osmo:logical_access, osmo:section_aspect;
    rdfs:comment "logical term, i.e., a logical variable or a value that can be assigned to a logical variable"^^xs:string.
 
 osmo:has_term_index a owl:DatatypeProperty;
@@ -1460,6 +1480,7 @@ osmo:structure_term a owl:Class;
 osmo:has_structure_element a owl:ObjectProperty;
    rdfs:domain osmo:structure_term;
    rdfs:range osmo:logical_term;
+   rdfs:subPropertyOf viprs:has_proper_part;
    rdfs:comment "points to an element of a structure"^^xs:string.
 
 osmo:structure_term owl:disjointUnionOf (osmo:logical_structure osmo:structure_value).
@@ -1598,6 +1619,7 @@ osmo:has_array_element a owl:ObjectProperty;
 osmo:has_dynamic_array_size a owl:ObjectProperty;
    rdfs:domain osmo:logical_array;
    rdfs:range osmo:unique_elementary;
+   rdfs:subPropertyOf viprs:has_symbolic_part_of_sign;
    rdfs:comment "points to a variable that contains the (dynamic) array size; convention: element indices run from 0 to the array size minus one"^^xs:string.
 osmo:has_element_unit a owl:ObjectProperty, owl:FunctionalProperty;
    rdfs:domain osmo:logical_array;
@@ -1655,14 +1677,17 @@ osmo:structure_collection a owl:Class;
 
 osmo:logical_access a owl:Class;
    rdfs:subClassOf evmpo:annotation;
+   owl:disjointWith osmo:section_aspect;
    rdfs:comment "logical access, i.e., a notational process/connection by which an OSMO/MODA section accesses a logical resource"^^xs:string.
 
 osmo:has_access_point a owl:ObjectProperty;
    rdfs:domain osmo:logical_access;
-   rdfs:range osmo:section.
+   rdfs:range osmo:section;
+   rdfs:subPropertyOf viprs:satisfies_requirement_of.
 osmo:has_carried_variable a owl:ObjectProperty;
    rdfs:domain osmo:logical_access;
-   rdfs:range osmo:logical_variable.
+   rdfs:range osmo:logical_variable;
+   rdfs:subPropertyOf viprs:satisfies_requirement_of.
 osmo:has_resource a owl:ObjectProperty;
    rdfs:domain osmo:logical_access;
    rdfs:range osmo:logical_resource;
@@ -1739,6 +1764,7 @@ osmo:has_uf_descriptor a owl:DatatypeProperty;
 osmo:refers_to_unit a owl:ObjectProperty;
    rdfs:domain osmo:unit_function;
    rdfs:range evmpo:marketplace_related_entity;
+   rdfs:subPropertyOf [owl:inverseOf evmpo:has_annotation], viprs:is_symbolic_part_of_sign_for;
    owl:inverseOf osmo:has_unit_function.
 
 osmo:unit_function rdfs:subClassOf [
@@ -1781,6 +1807,7 @@ osmo:decision_support_system a owl:Class;
 osmo:has_constraint a owl:ObjectProperty;
    rdfs:domain osmo:decision_support_system;
    rdfs:range osmo:condition;
+   rdfs:subPropertyOf viprs:has_proper_part;
    rdfs:comment "points to a constraint of the optimization problem"^^xs:string.
 osmo:has_maximization_objective a owl:ObjectProperty;
    rdfs:domain osmo:decision_support_system;
@@ -1795,6 +1822,7 @@ osmo:has_minimization_objective a owl:ObjectProperty;
 osmo:has_objective a owl:ObjectProperty;
    rdfs:domain osmo:decision_support_system;
    rdfs:range osmo:optimization_objective;
+   rdfs:subPropertyOf viprs:has_proper_part;
    rdfs:comment "points to a target quantity"^^xs:string.
 
 osmo:application_decision_support_system a owl:Class;
@@ -1848,6 +1876,8 @@ osmo:has_uf_descriptor rdfs:subPropertyOf viprs:has_descriptor.
 ###
 
 # An application_case is a sign
+
+# A condition is a mathematical entity
 
 # A materials_model_classifier is a sign for a materials model
 

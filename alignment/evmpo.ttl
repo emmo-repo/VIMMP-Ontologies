@@ -1,7 +1,7 @@
 
 ### EUROPEAN VIRTUAL MARKETPLACE ONTOLOGY (EVMPO) ###
 
-### VERSION 1.2.5, DATED 21ST MAY 2020 ###
+### VERSION 1.3.0, DATED 22ND MAY 2020 ###
 
 @prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
 
@@ -386,7 +386,7 @@ evmpo:annotation a owl:Class;
 evmpo:has_annotation a owl:ObjectProperty;
    rdfs:domain evmpo:marketplace_related_entity;
    rdfs:range evmpo:annotation;
-   rdfs:subPropertyOf viprs:immanent_relation.
+   rdfs:subPropertyOf viprs:has_symbolic_part_of_sign.
 
 ### annotations to the fundamental class ###
 

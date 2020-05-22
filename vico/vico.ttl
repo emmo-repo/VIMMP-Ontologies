@@ -1,9 +1,9 @@
 
 ### VIMMP COMMUNICATION ONTOLOGY (VICO) ###
 
-### VERSION 1.1.7 ###
+### VERSION 1.2.0 ###
 
-### DATED 21ST MAY 2020 ###
+### DATED 22ND MAY 2020 ###
 
 @prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
 
@@ -35,17 +35,20 @@ vico:has_access_rule a owl:ObjectProperty, owl:FunctionalProperty;
 vico:has_author a owl:ObjectProperty, owl:FunctionalProperty;
    rdfs:domain evmpo:communication;
    rdfs:range evmpo:agent;
+   rdfs:subPropertyOf viprs:is_enabled_by;
    owl:inverseOf vico:is_author_of.
 vico:has_expiry_date a owl:ObjectProperty, owl:FunctionalProperty;
    rdfs:domain evmpo:communication;
-   rdfs:range dcterms:W3C-DTF.
+   rdfs:range dcterms:W3C-DTF;
+   rdfs:subPropertyOf viprs:has_symbolic_part_of_sign.
 vico:has_file_content_locator a owl:DatatypeProperty;
    rdfs:domain evmpo:communication;
    rdfs:range xs:string;
    rdfs:comment "this may be a URL or a path where the file can be accessed"^^xs:string.
-vico:has_file_content_format a owl:DatatypeProperty;
+vico:has_file_content_format a owl:ObjectProperty;
    rdfs:domain evmpo:communication;
-   rdfs:range macro:file_format.
+   rdfs:range macro:file_format;
+   rdfs:subPropertyOf evmpo:has_communication_annotation.
 vico:has_label a owl:ObjectProperty;
    rdfs:domain evmpo:communication;
    rdfs:range vico:label;
@@ -56,7 +59,8 @@ vico:has_status a owl:ObjectProperty;
    rdfs:subPropertyOf vico:has_label.
 vico:has_submission_date a owl:ObjectProperty, owl:FunctionalProperty;
    rdfs:domain evmpo:communication;
-   rdfs:range dcterms:W3C-DTF.
+   rdfs:range dcterms:W3C-DTF;
+   rdfs:subPropertyOf viprs:has_symbolic_part_of_sign.
 vico:has_text_content a owl:DatatypeProperty;
    rdfs:domain evmpo:communication;
    rdfs:range xs:string.
@@ -65,8 +69,9 @@ vico:has_title a owl:DatatypeProperty;
    rdfs:range xs:string.
 
 vico:is_on_channel a owl:ObjectProperty;
-   rdfs:domain evmpo:communication;
-   rdfs:range macro:channel.
+   rdfs:domain evmpo:communication;  # communication is a symbolic entity
+   rdfs:range macro:channel;         # the channel is an engineered entity, containing the communication
+   rdfs:subPropertyOf viprs:is_proper_part_of.
 vico:is_on_marketplace a owl:ObjectProperty;
    rdfs:domain evmpo:communication;
    rdfs:range macro:virtual_marketplace;
@@ -97,18 +102,22 @@ vico:access_rule a owl:Class;
 vico:allows a owl:ObjectProperty;
    rdfs:domain vico:access_rule;
    rdfs:range vico:interlocutor;
+   rdfs:subPropertyOf [owl:inverseOf evmpo:has_interpreter_annotation], viprs:is_symbolic_part_of_sign_for;
    rdfs:comment "[A allows B] means that B, who is an interlocutor, must be granted access"^^xs:string.
 vico:excludes a owl:ObjectProperty;
    rdfs:domain vico:access_rule;
    rdfs:range vico:interlocutor;
+   rdfs:subPropertyOf [owl:inverseOf evmpo:has_interpreter_annotation], viprs:is_symbolic_part_of_sign_for;
    rdfs:comment "[A excludes B] means that B, who is an interlocutor, must be denied access"^^xs:string.
 vico:allows_all a owl:ObjectProperty;
    rdfs:domain vico:access_rule;
    rdfs:range vico:interlocutor_group;
+   rdfs:subPropertyOf [owl:inverseOf evmpo:has_interpreter_annotation], viprs:is_symbolic_part_of_sign_for;
    rdfs:comment "[A allows_all C] means that all interlocutors from group C must be granted access"^^xs:string.
 vico:excludes_all a owl:ObjectProperty;
    rdfs:domain vico:access_rule;
    rdfs:range vico:interlocutor_group;
+   rdfs:subPropertyOf [owl:inverseOf evmpo:has_interpreter_annotation], viprs:is_symbolic_part_of_sign_for;
    rdfs:comment "[A excludes_all C] means that all interlocutors from group C must be denied access"^^xs:string.
 
 vico:allows owl:propertyDisjointWith vico:excludes.
@@ -124,7 +133,8 @@ vico:status a owl:Class;
 
 vico:has_status_timestamp a owl:ObjectProperty, owl:FunctionalProperty;
    rdfs:domain vico:status;
-   rdfs:range dcterms:W3C-DTF.
+   rdfs:range dcterms:W3C-DTF;
+   rdfs:subPropertyOf viprs:has_symbolic_part_of_sign.
 
 vico:processed_status a owl:Class;
    rdfs:subClassOf vico:status;
@@ -154,6 +164,7 @@ vico:has_appendix a owl:ObjectProperty;
 vico:has_assignee a owl:ObjectProperty;
    rdfs:domain vico:message;
    rdfs:range evmpo:agent;
+   rdfs:subPropertyOf viprs:enables_entity_containing;
    owl:inverseOf vico:is_assignee_of.
 vico:has_certificate a owl:ObjectProperty;
    rdfs:domain vico:message;
@@ -166,10 +177,13 @@ vico:has_comment a owl:ObjectProperty;
    owl:inverseOf vico:has_commented_message.
 vico:follows a owl:ObjectProperty;
    rdfs:domain vico:message;
-   rdfs:range vico:message.
+   rdfs:range vico:message;
+   rdfs:subPropertyOf viprs:is_enabled_by, viprs:is_sign_for;
+   owl:inverseOf vico:is_followed_by.
 vico:has_listener a owl:ObjectProperty;
    rdfs:domain vico:message;
    rdfs:range evmpo:agent;
+   rdfs:subPropertyOf viprs:enables_entity_containing;
    owl:inverseOf vico:is_listener_of.
 vico:has_signal a owl:ObjectProperty;
    rdfs:domain vico:message;
@@ -178,6 +192,7 @@ vico:has_signal a owl:ObjectProperty;
 vico:is_followed_by a owl:ObjectProperty;
    rdfs:domain vico:message;
    rdfs:range vico:message;
+   rdfs:subPropertyOf viprs:enables, viprs:has_sign;
    owl:inverseOf vico:follows.
 
 vico:message rdfs:subClassOf [
@@ -212,6 +227,7 @@ vico:interlocution a owl:Class;
 vico:has_recipient a owl:ObjectProperty;
    rdfs:domain vico:interlocution;
    rdfs:range evmpo:agent;
+   rdfs:subPropertyOf viprs:has_proper_part;  # "has participant"
    owl:inverseOf vico:is_recipient_of.
 
 vico:interlocution owl:intersectionOf (vico:message [a owl:Restriction; owl:onProperty vico:has_recipient; owl:someValuesFrom evmpo:agent]).
@@ -288,7 +304,8 @@ vico:has_address_qualifier a owl:ObjectProperty;
    rdfs:subPropertyOf vico:has_address_content.
 vico:is_in_country a owl:ObjectProperty;
    rdfs:domain vico:address;
-   rdfs:range vico:country.
+   rdfs:range vico:country;
+   rdfs:subPropertyOf evmpo:has_meta_annotation.
 
 vico:address_content a owl:Class;
    rdfs:subClassOf vico:address_entity.
@@ -400,24 +417,29 @@ vico:has_agent_name a owl:DatatypeProperty;
    rdfs:domain evmpo:agent;
    rdfs:range xs:string.
 vico:is_assignee_of a owl:ObjectProperty;
-   rdfs:domain evmpo:agent;
+   rdfs:domain evmpo:agent;    # the agent participates in a process enabled by the message
    rdfs:range vico:message;
+   rdfs:subPropertyOf viprs:is_proper_part_of_entity_enabled_by;
    owl:inverseOf vico:has_assignee.
 vico:is_author_of a owl:ObjectProperty;
    rdfs:domain evmpo:agent;
    rdfs:range evmpo:communication;
+   rdfs:subPropertyOf viprs:enables;
    owl:inverseOf vico:has_author.
 vico:is_listener_of a owl:ObjectProperty;
-   rdfs:domain evmpo:agent;
+   rdfs:domain evmpo:agent;    # the agent participates in a process enabled by the message
    rdfs:range vico:message;
+   rdfs:subPropertyOf viprs:is_proper_part_of_entity_enabled_by;
    owl:inverseOf vico:has_listener.
 vico:is_member_of a owl:ObjectProperty;
    rdfs:domain evmpo:agent;
    rdfs:range vico:agent_assembly;
+   rdfs:subPropertyOf viprs:is_proper_part_of;
    owl:inverseOf vico:has_member.
 vico:is_recipient_of a owl:ObjectProperty;
    rdfs:domain evmpo:agent;
    rdfs:range vico:interlocution;
+   rdfs:subPropertyOf viprs:is_proper_part_of;  # "is participant of"
    owl:inverseOf vico:has_recipient.
 vico:is_subscribed_to a owl:ObjectProperty;
    rdfs:domain evmpo:agent;
@@ -439,6 +461,7 @@ vico:agent_assembly a owl:Class;
 vico:has_member a owl:ObjectProperty;
    rdfs:domain vico:agent_assembly;
    rdfs:range evmpo:agent;
+   rdfs:subPropertyOf viprs:has_proper_part;
    owl:inverseOf vico:is_member_of.
 
 vico:has_institutional_address a owl:ObjectProperty;
@@ -655,7 +678,8 @@ vico:has_interlocutor_tag a owl:ObjectProperty;
 
 vico:is_based_in a owl:ObjectProperty;
    rdfs:domain vico:interlocutor_tag;
-   rdfs:range vico:country.
+   rdfs:range vico:country;
+   rdfs:subPropertyOf evmpo:has_meta_annotation.
 vico:is_in_group a owl:ObjectProperty;
    rdfs:domain vico:interlocutor_tag;
    rdfs:range vico:interlocutor_group;
@@ -678,10 +702,10 @@ vico:is_sme a owl:DatatypeProperty;
 
 
 vico:country a owl:Class;
-   rdfs:subClassOf evmpo:interpreter;
+   rdfs:subClassOf evmpo:annotation;
    owl:equivalentClass lcc-cr:Country;
    owl:sameAs lcc-cr:Country;
-   rdfs:comment "country defined following ISO 3166 as implemented by the LCR ontology"^^xs:string.
+   rdfs:comment "country code defined following ISO 3166 as implemented by the LCR ontology"^^xs:string.
 
 
 vico:personal_title a owl:Class;
@@ -735,29 +759,32 @@ vico:has_suffix_text a owl:DatatypeProperty;
 vico:is_local_to a owl:ObjectProperty;
    rdfs:domain vico:personal_title;
    rdfs:range vico:country;
+   rdfs:subPropertyOf evmpo:has_meta_annotation;
    rdfs:comment "points to a country where this title is recognized and used in the given form"^^xs:string.
 vico:prefix_is_prior_to a owl:ObjectProperty, owl:TransitiveProperty;
    rdfs:domain vico:personal_title;
    rdfs:range vico:personal_title;
+   rdfs:subPropertyOf viprs:can_cooccur_with;
    rdfs:comment "relation that determines the order in which title prefixes are written down"^^xs:string;
    owl:inverseOf vico:prefix_is_posterior_to.
 vico:prefix_is_posterior_to a owl:ObjectProperty, owl:TransitiveProperty;
    rdfs:domain vico:personal_title;
    rdfs:range vico:personal_title;
    rdfs:comment "relation that determines the order in which title prefixes are written down"^^xs:string;
-   owl:inverseOf vico:prefix_is_prior_to;
-   rdfs:subPropertyOf evmpo:has_meta_annotation.
+   rdfs:subPropertyOf viprs:can_cooccur_with;
+   owl:inverseOf vico:prefix_is_prior_to.
 vico:suffix_is_prior_to a owl:ObjectProperty, owl:TransitiveProperty;
    rdfs:domain vico:personal_title;
    rdfs:range vico:personal_title;
    rdfs:comment "relation that determines the order in which title suffixes are written down"^^xs:string;
+   rdfs:subPropertyOf viprs:can_cooccur_with;
    owl:inverseOf vico:suffix_is_posterior_to.
 vico:suffix_is_posterior_to a owl:ObjectProperty, owl:TransitiveProperty;
    rdfs:domain vico:personal_title;
    rdfs:range vico:personal_title;
    rdfs:comment "relation that determines the order in which title suffixes are written down"^^xs:string;
-   owl:inverseOf vico:suffix_is_prior_to;
-   rdfs:subPropertyOf evmpo:has_meta_annotation.
+   rdfs:subPropertyOf viprs:can_cooccur_with;
+   owl:inverseOf vico:suffix_is_prior_to.
 
 vico:titular_rank a owl:Class;
    rdfs:subClassOf vico:personal_title;
@@ -767,13 +794,14 @@ vico:is_inferior_to a owl:ObjectProperty, owl:TransitiveProperty;
    rdfs:domain vico:titular_rank;
    rdfs:range vico:titular_rank;
    rdfs:comment "relation corresponding to the hierarchical order of titles"^^xs:string;
+   rdfs:subPropertyOf viprs:shares_a_sign_with;
    owl:inverseOf vico:is_superior_to.
 vico:is_superior_to a owl:ObjectProperty, owl:TransitiveProperty;
    rdfs:domain vico:titular_rank;
    rdfs:range vico:titular_rank;
    rdfs:comment "relation corresponding to the hierarchical order of titles"^^xs:string;
-   owl:inverseOf vico:is_inferior_to;
-   rdfs:subPropertyOf evmpo:has_meta_annotation.
+   rdfs:subPropertyOf viprs:shares_a_sign_with;
+   owl:inverseOf vico:is_inferior_to.
 
 vico:academic_title a owl:Class;
    rdfs:subClassOf vico:titular_rank;
@@ -852,7 +880,6 @@ vico:has_suffix_element rdfs:subPropertyOf viprs:has_flag.
 vico:has_fractional_progress rdfs:subPropertyOf viprs:has_numerical_specifier.
 vico:has_title rdfs:subPropertyOf viprs:has_contextual_metadata_item.
 vico:has_profile_text rdfs:subPropertyOf viprs:has_descriptor.
-vico:has_file_content_format rdfs:subPropertyOf viprs:has_file_metadata_item.
 vico:has_profile_image rdfs:subPropertyOf viprs:has_file_metadata_item.
 
 
@@ -868,3 +895,11 @@ vico:has_profile_image rdfs:subPropertyOf viprs:has_file_metadata_item.
 #    hence, has_certifier subPropertyOf has_requirement_satisfied_by
 # "X is_cerfifier_of Y" is a subproperty of the inverse relation of the above
 #    hence, is_certifier_of subPropertyOf satisfies_requirement_of
+
+# X is_followed_by Y, where X and Y are messages
+#
+# a) the second message is a sign (index) for the first message, "like smoke indicates (is an index for) fire"
+#    more relevantly, however, by "following", the second message actually points to the first message
+#    hence, is_followed_by subPropertyOf has_sign
+# b) the first message enables the second message (otherwise it would not be able to exist in this form, as "following" message)
+#    hence, is_followed_by subPropertyOf enables

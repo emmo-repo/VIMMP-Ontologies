@@ -1,9 +1,9 @@
 
 ### VIMMP CODELISTS (VCL) FOR ZONTAL ###
 
-### VERSION 0.1.1 ###
+### VERSION 0.2.0 ###
 
-### DATED 20TH MAY 2020 ###
+### DATED 22ND MAY 2020 ###
 
 @prefix vcl: <http://www.vimmp.eu/semantics/alignment/vcl.ttl#>.
 
@@ -15,6 +15,7 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix skos: <http://www.w3.org/2004/02/skos/core#>.
 @prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
+@prefix viprs: <http://www.vimmp.eu/semantics/alignment/viprs.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
 <http://www.vimmp.eu/semantics/alignment/vcl.ttl> a owl:Ontology.
@@ -51,3 +52,5 @@ skos:definition a owl:DatatypeProperty;
    rdfs:subPropertyOf viprs:has_descriptor.
 skos:prefLabel a owl:DatatypeProperty;
    rdfs:subPropertyOf viprs:has_label.
+skos:inScheme a owl:ObjectProperty;
+   rdfs:subPropertyOf viprs:is_proper_part_of.
