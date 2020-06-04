@@ -1,9 +1,9 @@
 
 ### VIMMP CODELISTS (VCL) FOR ZONTAL ###
 
-### VERSION 0.2.0 ###
+### VERSION 0.2.1 ###
 
-### DATED 22ND MAY 2020 ###
+### DATED 4TH JUNE 2020 ###
 
 @prefix vcl: <http://www.vimmp.eu/semantics/alignment/vcl.ttl#>.
 
@@ -40,7 +40,7 @@ vcl:codelist_interlocutor_group a owl:Class;
       owl:hasValue vcl:CL_SCHEME_INTERLOCUTOR_GROUP
    ];
    rdfs:comment "interlocutor group"^^xs:string.
-vcl:CL_SCHEME_MM_TOPIC a owl:NamedIndividual, skos:ConceptScheme;
+vcl:CL_SCHEME_INTERLOCUTOR_GROUP a owl:NamedIndividual, skos:ConceptScheme;
    skos:prefLabel "interlocutor_group"^^xs:string;
    skos:definition "interlocutor group"^^xs:string.
 

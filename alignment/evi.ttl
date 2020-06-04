@@ -1,9 +1,9 @@
 
 ### EMMO-VIMMP INTEGRATION (EVI) ###
 
-### VERSION 1.0.0 ###
+### VERSION 1.0.1 ###
 
-### DATED 22ND MAY 2020 ###
+### DATED 4TH JUNE 2020 ###
 
 @prefix evi: <http://www.vimmp.eu/semantics/alignment/evi.ttl#>.
 
@@ -55,7 +55,8 @@ emmo1s:EMMO rdfs:subClassOf viprs:immanent_entity.
 
 viprs:has_proper_part a owl:ObjectProperty;
    owl:inverseOf viprs:is_proper_part_of;
-   owl:equivalentProperty emmo1s:hasProperPart.
+   # owl:equivalentProperty emmo1s:hasProperPart;
+   rdfs:subPropertyOf emmo1s:hasProperPart.
 viprs:has_sign a owl:ObjectProperty;
    owl:inverseOf viprs:is_sign_for;
    owl:equivalentProperty emmo1s:hasSign.
@@ -72,7 +73,8 @@ viprs:is_model_for a owl:ObjectProperty;
    owl:inverseOf emmo1s:hasModel, viprs:has_model.
 
 viprs:mereosemiotics_hp_ip a owl:ObjectProperty;
-   owl:equivalentProperty emmo1s:hasOverlapWith.
+   # owl:equivalentProperty emmo1s:hasOverlapWith;
+   rdfs:subPropertyOf emmo1s:hasOverlapWith.
 
    
 ####################

@@ -730,9 +730,9 @@ emmo1s:hasProperty a owl:ObjectProperty;
 
 ### EMMO-VIMMP INTEGRATION (EVI) ###
 
-### VERSION 1.0.0 ###
+### VERSION 1.0.1 ###
 
-### DATED 22ND MAY 2020 ###
+### DATED 4TH JUNE 2020 ###
 
 @prefix evi: <http://www.vimmp.eu/semantics/alignment/evi.ttl#>.
 
@@ -784,7 +784,8 @@ emmo1s:EMMO rdfs:subClassOf viprs:immanent_entity.
 
 viprs:has_proper_part a owl:ObjectProperty;
    owl:inverseOf viprs:is_proper_part_of;
-   owl:equivalentProperty emmo1s:hasProperPart.
+   # owl:equivalentProperty emmo1s:hasProperPart;
+   rdfs:subPropertyOf emmo1s:hasProperPart.
 viprs:has_sign a owl:ObjectProperty;
    owl:inverseOf viprs:is_sign_for;
    owl:equivalentProperty emmo1s:hasSign.
@@ -801,7 +802,8 @@ viprs:is_model_for a owl:ObjectProperty;
    owl:inverseOf emmo1s:hasModel, viprs:has_model.
 
 viprs:mereosemiotics_hp_ip a owl:ObjectProperty;
-   owl:equivalentProperty emmo1s:hasOverlapWith.
+   # owl:equivalentProperty emmo1s:hasOverlapWith;
+   rdfs:subPropertyOf emmo1s:hasOverlapWith.
 
    
 ####################
@@ -1581,9 +1583,9 @@ evmpo:has_meta_annotation a owl:ObjectProperty;
 
 ### VIMMP CODELISTS (VCL) FOR ZONTAL ###
 
-### VERSION 0.2.0 ###
+### VERSION 0.2.1 ###
 
-### DATED 22ND MAY 2020 ###
+### DATED 4TH JUNE 2020 ###
 
 @prefix vcl: <http://www.vimmp.eu/semantics/alignment/vcl.ttl#>.
 
@@ -1620,7 +1622,7 @@ vcl:codelist_interlocutor_group a owl:Class;
       owl:hasValue vcl:CL_SCHEME_INTERLOCUTOR_GROUP
    ];
    rdfs:comment "interlocutor group"^^xs:string.
-vcl:CL_SCHEME_MM_TOPIC a owl:NamedIndividual, skos:ConceptScheme;
+vcl:CL_SCHEME_INTERLOCUTOR_GROUP a owl:NamedIndividual, skos:ConceptScheme;
    skos:prefLabel "interlocutor_group"^^xs:string;
    skos:definition "interlocutor group"^^xs:string.
 
@@ -1637,9 +1639,9 @@ skos:inScheme a owl:ObjectProperty;
 
 ### VIMMP PRIMITIVES (VIPRS) ###
 
-### VERSION 1.0.0 ###
+### VERSION 1.0.1 ###
 
-### DATED 22ND MAY 2020 ###
+### DATED 4TH JUNE 2020 ###
 
 # 1. Modal square of opposition
 #
@@ -2017,9 +2019,9 @@ viprs:is_model_for a owl:ObjectProperty;
    rdfs:subPropertyOf viprs:is_sign_for;
    owl:inverseOf viprs:has_model.
 viprs:shares_a_sign_with a owl:ObjectProperty;  # user-friendly IRI for the important relation "mereosemiotics_hs_is"
-   owl:sameAs viprs:mereosemiotics_hs_is;
-   owl:equivalentProperty viprs:mereosemiotics_hs_is;
-   rdfs:subPropertyOf viprs:mereosemiotic_relation.
+   # owl:sameAs viprs:mereosemiotics_hs_is;
+   # owl:equivalentProperty viprs:mereosemiotics_hs_is;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation, viprs:mereosemiotics_hs_is.
 
 ##
 # mereosemiotic object properties corresponding to:
@@ -2051,14 +2053,14 @@ viprs:has_textual_part_of_sign a owl:ObjectProperty;
 ##
 # co-occurrence
 ##
-viprs:can_cooccur_with a owl:ObjectProperty;  # user-friendly IRI for the important relation "p_loc_and_roc"
-   owl:sameAs viprs:p_loc_and_roc;
-   owl:equivalentProperty viprs:p_loc_and_roc;
-   rdfs:subPropertyOf viprs:individual_possibility.
-viprs:cannot_cooccur_with a owl:ObjectProperty;  # user-friendly IRI for the important relation "n_lnoc_or_rnoc"
-   owl:sameAs viprs:n_lnoc_or_rnoc;
-   owl:equivalentProperty viprs:n_lnoc_or_rnoc;
-   rdfs:subPropertyOf viprs:individual_necessity.
+viprs:can_cooccur_with a owl:ObjectProperty, owl:SymmetricProperty;  # user-friendly IRI for the important relation "p_loc_and_roc"
+   # owl:sameAs viprs:p_loc_and_roc;
+   # owl:equivalentProperty viprs:p_loc_and_roc;
+   rdfs:subPropertyOf viprs:individual_possibility, viprs:p_loc_and_roc.
+viprs:cannot_cooccur_with a owl:ObjectProperty, owl:SymmetricProperty;  # user-friendly IRI for the important relation "n_lnoc_or_rnoc"
+   # owl:sameAs viprs:n_lnoc_or_rnoc;
+   # owl:equivalentProperty viprs:n_lnoc_or_rnoc;
+   rdfs:subPropertyOf viprs:individual_necessity, viprs:n_lnoc_or_rnoc.
 viprs:has_requirement_satisfied_by a owl:ObjectProperty;
    rdfs:subPropertyOf viprs:n_lnoc_cor_roc;
    owl:inverseOf viprs:satisfies_requirement_of;
@@ -5715,9 +5717,9 @@ osmo:has_uf_descriptor rdfs:subPropertyOf viprs:has_descriptor.
 
 ### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
 
-### VERSION 1.0.0 ###
+### VERSION 1.0.1 ###
 
-### DATED 22ND MAY 2020 ###
+### DATED 4TH JUNE 2020 ###
 
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 
@@ -5892,7 +5894,8 @@ otras:operator_specifier a owl:Class;
 
 otras:is_expressed_by a owl:DatatypeProperty;
    rdfs:domain otras:operator_specifier;
-   rdfs:range rdfs:Literal.
+   rdfs:range rdfs:Literal;
+   rdfs:subPropertyOf otras:has_operator_descriptor.
 otras:is_defined_by a owl:DatatypeProperty;
    rdfs:domain otras:operator_specifier;
    rdfs:range rdfs:Literal;
@@ -5903,8 +5906,7 @@ otras:has_operator_code a owl:DatatypeProperty;
 otras:has_operator_descriptor a owl:DatatypeProperty;
    rdfs:domain otras:operator_specifier;
    rdfs:range rdfs:Literal;
-   rdfs:subPropertyOf otras:has_specifier_descriptor;
-   owl:equivalentProperty otras:is_expressed_by.
+   rdfs:subPropertyOf otras:has_specifier_descriptor.
 otras:has_operator_level a owl:ObjectProperty;
    rdfs:domain otras:operator_specifier;
    rdfs:range otras:operator_level;
@@ -6012,15 +6014,15 @@ otras:syllabus a owl:Class;
 otras:aims_to a owl:ObjectProperty;
    rdfs:domain otras:syllabus;
    rdfs:range otras:learning_outcome;
-   rdfs:subPropertyOf evmpo:has_information_content_entity_annotation;
-   owl:equivalentProperty ccso:aimsToLO;
-   owl:sameAs ccso:aimsToLO.
+   # owl:equivalentProperty ccso:aimsToLO;
+   # owl:sameAs ccso:aimsToLO;
+   rdfs:subPropertyOf evmpo:has_information_content_entity_annotation, ccso:aimsToLO.
 otras:covers_topic a owl:ObjectProperty;
    rdfs:domain otras:syllabus;
    rdfs:range otras:topic;
-   rdfs:subPropertyOf evmpo:has_information_content_entity_annotation;
-   owl:equivalentProperty ccso:coversTopic;
-   owl:sameAs ccso:coversTopic.
+   # owl:equivalentProperty ccso:coversTopic;
+   # owl:sameAs ccso:coversTopic;
+   rdfs:subPropertyOf evmpo:has_information_content_entity_annotation, ccso:coversTopic.
 otras:has_learning_material_citation a owl:ObjectProperty;
    rdfs:domain otras:syllabus;
    rdfs:range otras:citation;  # the citation is part of the syllabus
@@ -6060,9 +6062,9 @@ otras:has_event a owl:ObjectProperty;
 otras:has_syllabus a owl:ObjectProperty;
    rdfs:domain otras:course;
    rdfs:range otras:syllabus;
-   rdfs:subPropertyOf viprs:has_sign;
-   owl:equivalentProperty ccso:hasSyllabus;
-   owl:sameAs ccso:hasSyllabus.
+   # owl:equivalentProperty ccso:hasSyllabus;
+   # owl:sameAs ccso:hasSyllabus;
+   rdfs:subPropertyOf viprs:has_sign, ccso:hasSyllabus.
 otras:is_offered_by a owl:ObjectProperty;
    rdfs:domain otras:course;
    rdfs:range otras:training_service;
