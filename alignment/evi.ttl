@@ -1,9 +1,9 @@
 
 ### EMMO-VIMMP INTEGRATION (EVI) ###
 
-### VERSION 1.0.1 ###
+### VERSION 1.1.0 ###
 
-### DATED 4TH JUNE 2020 ###
+### DATED 5TH JUNE 2020 ###
 
 @prefix evi: <http://www.vimmp.eu/semantics/alignment/evi.ttl#>.
 
@@ -51,7 +51,7 @@ viprs:transcendent_entity a owl:Class;
    owl:disjointWith emmo1s:EMMO, viprs:immanent_entity.
 viprs:immanent_entity a owl:Class;
    rdfs:subClassOf viprs:top_entity.
-emmo1s:EMMO rdfs:subClassOf viprs:immanent_entity.
+emmo1s:EMMO rdfs:subClassOf viprs:immanent_entity, evi:meta_emmo.
 
 viprs:has_proper_part a owl:ObjectProperty;
    owl:inverseOf viprs:is_proper_part_of;
@@ -82,7 +82,7 @@ viprs:mereosemiotics_hp_ip a owl:ObjectProperty;
 ####################
 
 evmpo:marketplace_related_entity a owl:Class;
-   rdfs:subClassOf viprs:immanent_entity.
+   rdfs:subClassOf viprs:immanent_entity, emmo1s:Physical.  # explanation: all subclasses are under Physical
 evmpo:paradigmatic_entity a owl:Class;
    rdfs:subClassOf evmpo:marketplace_related_entity.
 
@@ -122,24 +122,29 @@ evmpo:infrastructure a owl:Class;
 #
 evmpo:interpreter a owl:Class;
    owl:equivalentClass emmo1s:Interpreter;
+   owl:sameAs emmo1s:Interpreter;
    rdfs:subClassOf evmpo:paradigmatic_entity.
 
 # category (7): material
 #
 evmpo:material a owl:Class;
    owl:equivalentClass emmo1s:Material;
+   owl:sameAs emmo1s:Material;
    rdfs:subClassOf evmpo:paradigmatic_entity.
 
 # category (8): model
 #
 evmpo:model a owl:Class;
    owl:equivalentClass emmo1s:Model;
+   owl:sameAs emmo1s:Model;
    rdfs:subClassOf evmpo:paradigmatic_entity.
 
 # category (9): process
 #
 evmpo:process a owl:Class;
-   rdfs:subClassOf evmpo:paradigmatic_entity.
+   rdfs:subClassOf evmpo:paradigmatic_entity, emmo1s:Physical, [
+      owl:unionOf (emmo1s:Model emmo1s:Process)
+   ].
 evmpo:business_process a owl:Class;
    rdfs:subClassOf evmpo:model, evmpo:process;
    rdfs:subClassOf [
@@ -149,6 +154,7 @@ evmpo:business_process a owl:Class;
    ].
 evmpo:physical_process a owl:Class;
    owl:equivalentClass emmo1s:Process;
+   owl:sameAs emmo1s:Process;
    rdfs:subClassOf evmpo:process.
 evmpo:simulation a owl:Class;
    rdfs:subClassOf emmo1s:Semiosis, evmpo:process.
@@ -156,7 +162,9 @@ evmpo:simulation a owl:Class;
 # category (10): product
 #
 evmpo:product a owl:Class;
-   rdfs:subClassOf evmpo:paradigmatic_entity.
+   rdfs:subClassOf evmpo:paradigmatic_entity, emmo1s:Physical, [
+      owl:unionOf (emmo1s:Engineered emmo1s:Sign)
+   ].
 evmpo:good a owl:Class;
    rdfs:subClassOf emmo1s:Engineered, evmpo:product.
 #
@@ -174,6 +182,7 @@ evmpo:service a owl:Class;
 #
 evmpo:property a owl:Class;
    owl:equivalentClass emmo1s:Property;
+   owl:sameAs emmo1s:Property;
    rdfs:subClassOf evmpo:paradigmatic_entity.
 
 # category (0): annotation
@@ -273,7 +282,8 @@ osmo:materials_model_classifier a owl:Class;
 #
 osmo:materials_relation a owl:Class;
    rdfs:subClassOf evmpo:marketplace_related_entity;
-   owl:equivalentClass emmo1s:MaterialRelation.
+   owl:equivalentClass emmo1s:MaterialRelation;
+   owl:sameAs emmo1s:MaterialRelation.
 
 # A section_aspect is a symbolic entity
 #

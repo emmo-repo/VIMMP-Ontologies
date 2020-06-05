@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
 
-### VERSION 1.0.1 ###
+### VERSION 1.0.2 ###
 
-### DATED 4TH JUNE 2020 ###
+### DATED 5TH JUNE 2020 ###
 
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 
@@ -301,12 +301,14 @@ otras:aims_to a owl:ObjectProperty;
    # owl:equivalentProperty ccso:aimsToLO;
    # owl:sameAs ccso:aimsToLO;
    rdfs:subPropertyOf evmpo:has_information_content_entity_annotation, ccso:aimsToLO.
+ccso:aimsToLO rdfs:subPropertyOf evmpo:has_information_content_entity_annotation.
 otras:covers_topic a owl:ObjectProperty;
    rdfs:domain otras:syllabus;
    rdfs:range otras:topic;
    # owl:equivalentProperty ccso:coversTopic;
    # owl:sameAs ccso:coversTopic;
    rdfs:subPropertyOf evmpo:has_information_content_entity_annotation, ccso:coversTopic.
+ccso:coversTopic rdfs:subPropertyOf evmpo:has_information_content_entity_annotation.
 otras:has_learning_material_citation a owl:ObjectProperty;
    rdfs:domain otras:syllabus;
    rdfs:range otras:citation;  # the citation is part of the syllabus
@@ -349,6 +351,7 @@ otras:has_syllabus a owl:ObjectProperty;
    # owl:equivalentProperty ccso:hasSyllabus;
    # owl:sameAs ccso:hasSyllabus;
    rdfs:subPropertyOf viprs:has_sign, ccso:hasSyllabus.
+ccso:hasSyllabus rdfs:subPropertyOf viprs:has_sign.
 otras:is_offered_by a owl:ObjectProperty;
    rdfs:domain otras:course;
    rdfs:range otras:training_service;
