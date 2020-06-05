@@ -1,0 +1,208 @@
+##########################################################
+##                                                      ##
+##  EXAMPLE: INTERMOLECULAR PAIR POTENTIALS (EXPANDED)  ##
+##                                                      ##
+##           LAST UPDATED: 26TH DECEMBER 2019           ##
+##                                                      ##
+##########################################################
+
+<http://www.vimmp.eu/semantics/scenario/molecular-models/molecular-models.ttl#> a owl:Ontology.
+
+@prefix molmod: <http://www.vimmp.eu/semantics/scenario/molecular-models/molecular-models.ttl#>.
+
+
+################################
+# IMPORTED EXTERNAL ONTOLOGIES #
+################################
+
+@prefix qudt-qk: <http://qudt.org/vocab/quantitykind#>.
+@prefix qudt-unit: <http://qudt.org/vocab/unit#>.
+@prefix xs: <http://www.w3.org/2001/XMLSchema#>.
+
+
+#############################
+# IMPORTED VIMMP ONTOLOGIES #
+#############################
+
+@prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
+@prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
+@prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
+@prefix viso: <http://www.vimmp.eu/semantics/viso/viso-general.ttl#>.
+@prefix viso-am: <http://www.vimmp.eu/semantics/viso/viso-atomistic-mesoscopic.ttl#>.
+@prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
+@prefix vov: <http://www.vimmp.eu/semantics/viso/vov.ttl#>.
+
+
+###########################################
+# BOTTLED SAFT ADJUSTED MODEL FOR AMMONIA #
+###########################################
+
+# Note on ammonia model design at the Bottled SAFT web frontend
+#
+# The user guidance here was: Two Mie segments, and rho'(0.7 T_c) = 36.626 mol/l.
+
+molmod:AMMONIA a osmo:cas_listed_material, osmo:einecs_listed_material;
+   osmo:has_cas_number "7664-41-7"^^xs:string;
+   osmo:has_ec_number "231-635-3"^^xs:string.  # identifies ammonia
+
+molmod:NH3_RIGID_UNIT a viso-am:rigid_object;
+   viso:has_part molmod:NH3_SITE_A, molmod:NH3_SITE_B, molmod:NH3_SITE_COM.
+molmod:NH3_POTENTIAL a osmo:materials_relation, viso-am:two_body_potential;
+   osmo:has_aspect_paradigmatic_content molmod:AMMONIA, molmod:ERVIK_ET_AL_2016;
+   vov:involves molmod:NH3_RIGID_UNIT;
+   osmo:has_aspect_object_content molmod:NH3_POTENTIAL_SITE_A, molmod:NH3_MASS_SITE_A, molmod:NH3_CONSTRAINT_SITE_A, molmod:NH3_POTENTIAL_SITE_B, molmod:NH3_MASS_SITE_B, molmod:NH3_CONSTRAINT_SITE_B.
+
+molmod:NH3_SITE_COM a viso-am:structureless_object.  # centre of mass
+
+molmod:NH3_SITE_A a viso-am:mie_site, viso-am:mass_site.  # first Mie site
+molmod:NH3_SITE_B a viso-am:mie_site, viso-am:mass_site.  # second Mie site
+
+molmod:NH3_POTENTIAL_SITE_A a osmo:materials_relation, viso-am:two_body_potential;
+   osmo:has_aspect_object_content molmod:NH3_CONDITION_POT_A;
+   vov:involves molmod:NH3_SITE_A.
+molmod:NH3_POTENTIAL_SITE_B a osmo:materials_relation, viso-am:two_body_potential;
+   osmo:has_aspect_object_content molmod:NH3_CONDITION_POT_B;
+   vov:involves molmod:NH3_SITE_B.
+molmod:NH3_CONDITION_POT_A a osmo:quantitative_condition;
+   osmo:contains_predetermined_variable molmod:NH3_PARAMETER_SIG, molmod:NH3_PARAMETER_EPS, molmod:NH3_PARAMETER_M, molmod:NH3_PARAMETER_N.
+molmod:NH3_CONDITION_POT_B a osmo:quantitative_condition;
+   osmo:contains_predetermined_variable molmod:NH3_PARAMETER_SIG, molmod:NH3_PARAMETER_EPS, molmod:NH3_PARAMETER_M, molmod:NH3_PARAMETER_N.
+
+molmod:NH3_MASS_SITE_A a osmo:materials_relation;
+   osmo:has_aspect_object_content molmod:NH3_CONDITION_MASS_A;
+   vov:involves molmod:NH3_SITE_A.
+molmod:NH3_MASS_SITE_B a osmo:materials_relation;
+   osmo:has_aspect_object_content molmod:NH3_CONDITION_MASS_B;
+   vov:involves molmod:NH3_SITE_B.
+molmod:NH3_CONDITION_MASS_A a osmo:quantitative_condition;
+   osmo:contains_predetermined_variable molmod:NH3_HALF_MASS.
+molmod:NH3_CONDITION_MASS_B a osmo:quantitative_condition;
+   osmo:contains_predetermined_variable molmod:NH3_HALF_MASS.
+
+molmod:NH3_CONSTRAINT_SITE_A a osmo:materials_relation, viso-am:two_body_potential, viso-am:bonding_potential;
+   osmo:has_aspect_object_content molmod:NH3_CONDITION_RAD_A;
+   vov:involves molmod:NH3_RIGID_UNIT, molmod:NH3_SITE_COM, molmod:NH3_SITE_A.
+molmod:NH3_CONSTRAINT_SITE_B a osmo:materials_relation, viso-am:two_body_potential, viso-am:bonding_potential;
+   osmo:has_aspect_object_content molmod:NH3_CONDITION_RAD_B;
+   vov:involves molmod:NH3_RIGID_UNIT, molmod:NH3_SITE_COM, molmod:NH3_SITE_B.
+molmod:NH3_CONDITION_RAD_A a osmo:quantitative_condition;
+   osmo:contains_predetermined_variable molmod:NH3_PARAMETER_SITE_A_RAD.
+molmod:NH3_CONDITION_RAD_B a osmo:quantitative_condition;
+   osmo:contains_predetermined_variable molmod:NH3_PARAMETER_SITE_B_RAD.
+
+molmod:NH3_PARAMETER_SIG a osmo:unique_elementary, osmo:logical_constant;
+   osmo:has_variable_name "sigma"^^xs:string;
+   osmo:has_initial_elementary_value molmod:NH3_ELEMENTARY_SIG;
+   osmo:has_variable_unit qudt-unit:Angstrom.
+molmod:NH3_PARAMETER_EPS a osmo:unique_elementary, osmo:logical_constant;
+   osmo:has_variable_name "epsilon"^^xs:string;
+   osmo:has_initial_elementary_value molmod:NH3_ELEMENTARY_EPS;
+   osmo:has_variable_unit vivo:UNIT_KELVIN_BOLTZMANN.
+molmod:NH3_PARAMETER_M a osmo:unique_elementary, osmo:logical_constant;
+   osmo:has_variable_name "m"^^xs:string;
+   osmo:has_initial_elementary_value molmod:NH3_ELEMENTARY_M;
+   osmo:has_variable_unit qudt-unit:Unitless.
+molmod:NH3_PARAMETER_N a osmo:unique_elementary, osmo:logical_constant;
+   osmo:has_variable_name "n"^^xs:string;
+   osmo:has_initial_elementary_value molmod:NH3_ELEMENTARY_N;
+   osmo:has_variable_unit qudt-unit:Unitless.
+molmod:NH3_HALF_MASS a osmo:unique_physical_constant;
+   osmo:is_constant "true"^^xs:boolean;
+   osmo:has_variable_name "mass"^^xs:string;
+   osmo:has_initial_elementary_value molmod:NH3_ELEMENTARY_HALF_MASS;
+   osmo:is_quantity_kind qudt-qk:Mass;
+   osmo:has_variable_unit vivo:UNIT_U.
+molmod:NH3_ELEMENTARY_SIG a osmo:elementary_value;
+   osmo:is_decimal 2.5764.
+molmod:NH3_ELEMENTARY_EPS a osmo:elementary_value;
+   osmo:is_decimal 275.06.
+molmod:NH3_ELEMENTARY_M a osmo:elementary_value;
+   osmo:is_decimal 6.
+molmod:NH3_ELEMENTARY_N a osmo:elementary_value;
+   osmo:is_decimal 16.151.
+molmod:NH3_ELEMENTARY_HALF_MASS a osmo:elementary_value;
+   osmo:is_decimal 8.515.
+
+molmod:NH3_PARAMETER_SITE_A_RAD a osmo:logical_array, osmo:logical_constant;
+   osmo:has_variable_name "radius"^^xs:string;
+   osmo:has_index_name "d"^^xs:string;
+   osmo:has_static_array_size 3;
+   osmo:has_element_unit qudt-unit:Angstrom;
+   osmo:has_specific_element molmod:NH3_PARAMETER_SITE_A_RX, molmod:NH3_PARAMETER_SITE_A_RY, molmod:NH3_PARAMETER_SITE_A_RZ.
+molmod:NH3_PARAMETER_SITE_B_RAD a osmo:logical_array, osmo:logical_constant;
+   osmo:has_variable_name "radius"^^xs:string;
+   osmo:has_index_name "d"^^xs:string;
+   osmo:has_static_array_size 3;
+   osmo:has_element_unit qudt-unit:Angstrom;
+   osmo:has_specific_element molmod:NH3_PARAMETER_SITE_B_RX, molmod:NH3_PARAMETER_SITE_B_RY, molmod:NH3_PARAMETER_SITE_B_RZ.
+molmod:NH3_PARAMETER_SITE_A_RX a osmo:unique_elementary, osmo:logical_constant;
+   osmo:has_variable_index 0;
+   osmo:has_initial_elementary_value molmod:NH3_ELEMENTARY_A_RX.
+molmod:NH3_PARAMETER_SITE_A_RY a osmo:unique_elementary, osmo:logical_constant;
+   osmo:has_variable_index 1;
+   osmo:has_initial_elementary_value molmod:NH3_ELEMENTARY_A_RY.
+molmod:NH3_PARAMETER_SITE_A_RZ a osmo:unique_elementary, osmo:logical_constant;
+   osmo:has_variable_index 2;
+   osmo:has_initial_elementary_value molmod:NH3_ELEMENTARY_A_RZ.
+molmod:NH3_PARAMETER_SITE_B_RX a osmo:unique_elementary, osmo:logical_constant;
+   osmo:has_variable_index 0;
+   osmo:has_initial_elementary_value molmod:NH3_ELEMENTARY_B_RX.
+molmod:NH3_PARAMETER_SITE_B_RY a osmo:unique_elementary, osmo:logical_constant;
+   osmo:has_variable_index 1;
+   osmo:has_initial_elementary_value molmod:NH3_ELEMENTARY_B_RY.
+molmod:NH3_PARAMETER_SITE_B_RZ a osmo:unique_elementary, osmo:logical_constant;
+   osmo:has_variable_index 2;
+   osmo:has_initial_elementary_value molmod:NH3_ELEMENTARY_B_RZ.
+molmod:NH3_ELEMENTARY_A_RX a osmo:elementary_value;
+   osmo:is_decimal 0.0.
+molmod:NH3_ELEMENTARY_A_RY a osmo:elementary_value;
+   osmo:is_decimal 1.2882.
+molmod:NH3_ELEMENTARY_A_RZ a osmo:elementary_value;
+   osmo:is_decimal 0.0.
+molmod:NH3_ELEMENTARY_B_RX a osmo:elementary_value;
+   osmo:is_decimal 0.0.
+molmod:NH3_ELEMENTARY_B_RY a osmo:elementary_value;
+   osmo:is_decimal -1.2882.
+molmod:NH3_ELEMENTARY_B_RZ a osmo:elementary_value;
+   osmo:is_decimal 0.0.
+
+########################
+# LITERATURE REFERENCE #
+########################
+
+# SAFT bottled
+#
+molmod:ERVIK_ET_AL_2016 a otras:citation;
+   otras:has_first_author_surname "Ervik"^^xs:string;
+   otras:has_publication_year 2016;
+   otras:has_author_map molmod:MAP_ERVIK_ET_AL_2016;
+   otras:has_publication_title "Bottled SAFT: A web app providing SAFT-γ Mie force field parameters for thousands of molecular fluids"^^xs:string;
+   otras:has_publication_journal_name "Journal of Chemical Information and Modeling"^^xs:string;
+   otras:has_publication_journal_abbreviation "J. Chem. Inf. Model."^^xs:string;
+   otras:has_publication_journal_issn "1549-9596"^^xs:string;
+   otras:has_publication_journal_volume 56;
+   otras:has_publication_journal_issue 9;
+   otras:has_publication_journal_pages "1609-1614"^^xs:string;
+   otras:has_doi "10.1021/acs.jcim.6b00149"^^xs:string;
+   otras:is_about macro:BOTTLED_SAFT.
+
+molmod:MAP_ERVIK_ET_AL_2016 a otras:author_map;
+   otras:has_author_map_element molmod:MAP_ELEMENT_ERVIK, molmod:MAP_ELEMENT_MEJIA, molmod:MAP_ELEMENT_MULLER.
+molmod:MAP_ELEMENT_ERVIK a otras:author_map_element;
+   otras:has_ame_index 1;
+   otras:has_ame_identifier molmod:COAUTHOR_ASMUND_ERVIK.
+molmod:MAP_ELEMENT_MEJIA a otras:author_map_element;
+   otras:has_ame_index 2;
+   otras:has_ame_identifier molmod:COAUTHOR_ANDRES_MEJIA.
+molmod:MAP_ELEMENT_MULLER a otras:author_map_element;
+   otras:has_ame_index 3;
+   otras:has_ame_identifier molmod:COAUTHOR_ERICH_MULLER.
+molmod:COAUTHOR_ASMUND_ERVIK a otras:author_identifier;
+   otras:has_identified_given_name_initials "Å."^^xs:string;
+   otras:has_identified_surname "Ervik"^^xs:string.
+molmod:COAUTHOR_ANDRES_MEJIA a otras:author_identifier;
+   otras:has_identified_given_name_initials "A."^^xs:string;
+   otras:has_identified_surname "Mejía"^^xs:string.
+molmod:COAUTHOR_ERICH_MULLER a otras:author_identifier;
+   otras:has_identified_given_name_initials "E. A."^^xs:string;
+   otras:has_identified_surname "Müller"^^xs:string.

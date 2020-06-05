@@ -1,0 +1,42 @@
+###############################################
+##                                           ##
+##  EXAMPLE: INTERMOLECULAR PAIR POTENTIALS  ##
+##                                           ##
+##             EMMO/EVI VERSION              ##
+##                                           ##
+##        LAST UPDATED: 5TH JUNE 2020        ##
+##                                           ##
+##    THE PLAN HERE IS TO REPLACE AS MANY    ##
+##   CLASSES AND RELATIONS AS POSSIBLE BY    ##
+##  REFERENCES TO EMMO-VIMMP INTEGRATION AS  ##
+##          A FEASIBILITY EXERCISE.          ##
+##                                           ##
+###############################################
+
+<http://www.vimmp.eu/semantics/scenario/molecular-models/molecular-models.ttl#> a owl:Ontology.
+
+@prefix molmod: <http://www.vimmp.eu/semantics/scenario/molecular-models/molecular-models.ttl#>.
+
+
+##########################
+# EMMO-VIMMP INTEGRATION #
+##########################
+
+@prefix emmo1s: <http://www.vimmp.eu/semantics/alignment/emmo1s.ttl#>.
+
+molmod:AMMONIA a emmo1s:Material.  # emmo-physicalistic:Material
+
+molmod:NH3_POTENTIAL a emmo1s:MaterialRelation.  # emmo-models:MaterialRelation
+molmod:AMMONIA emmo1s:hasModel [  # emmo-models:hasModel
+      a emmo1s:PhysicsBasedModel;  # emmo-models:PhysicsBasedModel
+      emmo1s:hasProperPart molmod:NH3_POTENTIAL, molmod:NH3_RIGID_UNIT  # emmo-mereotopology:hasProperPart
+   ].
+
+molmod:NH3_RIGID_UNIT a emmo1s:Symbolic, emmo1s:Sign;  # emmo-perceptual:Symbolic, emmo-semiotics:Sign
+   emmo1s:hasProperPart molmod:NH3_SITE_A, molmod:NH3_SITE_B, molmod:NH3_SITE_COM.  # emmo-mereotopology:hasProperPart
+
+molmod:NH3_SITE_A a emmo1s:Symbol.  # emmo-perceptual:Symbol
+
+molmod:NH3_SITE_B a emmo1s:Symbol.  # emmo-perceptual:Symbol
+
+molmod:NH3_SITE_COM a emmo1s:Symbol.  # emmo-perceptual:Symbol

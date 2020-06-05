@@ -2,7 +2,7 @@
 ##                                           ##
 ##  EXAMPLE: MOLECULAR SIMULATION TUTORIALS  ##
 ##                                           ##
-##      LAST UPDATED: 15TH JANUARY 2020      ##
+##        LAST UPDATED: 5TH JUNE 2020        ##
 ##                                           ##
 ###############################################
 
@@ -134,7 +134,7 @@ molsim-tutorial:DOCUMENT_AT17 a otras:book, otras:training_document;
       otras:has_text_form "This book is both an introduction to computer simulation of liquids for upper level undergraduates and a how-to guide for specialists. The authors discuss the latest simulation techniques of molecular dynamics and the Monte Carlo methods as well as how to avoid common programming pitfalls. Theoretical concepts and practical programming advice are amply reinforced with examples of computer simulation in action and samples of Fortran code."^^xs:string
    ].
 
-molsim-tutorial:DOCUMENT_HESS07 a otras:slides, otras:training_document;
+molsim-tutorial:DOCUMENT_HESS07 a otras:slide_presentation, otras:training_document;
    otras:has_document_topic otras:MM_TOPIC_3240.  # molecular dynamics implementation
 
 molsim-tutorial:DOCUMENT_KERRACHE17 a otras:video_recording, otras:training_document;
@@ -144,7 +144,7 @@ molsim-tutorial:DOCUMENT_KERRACHE17 a otras:video_recording, otras:training_docu
       otras:has_text_form "This online webinar gives an introduction to molecular dynamics (MD) simulation and explores some of the basic features and capabilities of the LAMMPS code."^^xs:string.
    ].
 
-molsim-tutorial:DOCUMENT_SEATON07 a otras:slides, otras:training_document;
+molsim-tutorial:DOCUMENT_SEATON07 a otras:slide_presentation, otras:training_document;
    otras:has_document_topic
       otras:MM_TOPIC_3245,  # mesoscopic equations of motion (implementation)
       otras:MM_TOPIC_3275,  # mesoscopic statistical transport models (implementation)

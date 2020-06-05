@@ -2,7 +2,7 @@
 ##                                    ##
 ##  EXAMPLE: INGEST OF PERSONAL DATA  ##
 ##                                    ##
-##  LAST UPDATED: 25TH NOVEMBER 2019  ##
+##    LAST UPDATED: 5TH JUNE 2020     ##
 ##                                    ##
 ########################################
 
@@ -23,6 +23,7 @@
 # IMPORTED VIMMP ONTOLOGIES #
 #############################
 
+@prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
 @prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 @prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
@@ -32,7 +33,7 @@
 # PROFILE DATA #
 ################
 
-self-descriptions:MARTIN_THOMAS_HORSCH a vico:expert, vico:human_agent, vico:marketplace_subject, vico:model_provider, vico:translator;
+self-descriptions:MARTIN_THOMAS_HORSCH a evmpo:expert, evmpo:human_agent, vico:marketplace_subject, vico:model_provider, vico:translator;
    vico:has_first_name "Martin Thomas"^^xs:string;
    vico:has_last_name "Horsch"^^xs:string;
    vico:has_academic_title vico:TITLE_DOCTOR_GENERIC;
@@ -83,7 +84,7 @@ self-descriptions:MARTIN_THOMAS_HORSCH a vico:expert, vico:human_agent, vico:mar
    vico:has_role_label "computational data scientist"^^xs:string;
    vico:is_subscribed_to macro:EMMC_NEWSLETTER, macro:VIMMP_NEWSLETTER.
 
-self-descriptions:STFC_DARESBURY_LABORATORY a vico:institution, vico:model_provider, vico:software_owner, vico:training_provider, vico:translator;
+self-descriptions:STFC_DARESBURY_LABORATORY a evmpo:institution, vico:model_provider, vico:software_owner, vico:training_provider, vico:translator;
    vico:has_name "STFC Daresbury Laboratory"^^xs:string;
    vico:has_institutional_address self-descriptions:DARESBURY_ADDRESS;
    vico:has_interest otras:MM_TOPIC_3000, otras:MM_TOPIC_6120, otras:MM_TOPIC_7200, otras:MM_TOPIC_8350;
