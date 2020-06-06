@@ -730,9 +730,9 @@ emmo1s:hasProperty a owl:ObjectProperty;
 
 ### EMMO-VIMMP INTEGRATION (EVI) ###
 
-### VERSION 1.1.0 ###
+### VERSION 1.1.1 ###
 
-### DATED 5TH JUNE 2020 ###
+### DATED 6TH JUNE 2020 ###
 
 @prefix evi: <http://www.vimmp.eu/semantics/alignment/evi.ttl#>.
 
@@ -995,7 +995,7 @@ osmo:application_case a owl:Class;
 # A condition is a mathematical entity
 #
 osmo:condition a owl:Class;
-   rdfs:subPropertyOf evmpo:marketplace_related_entity, emmo1s:Mathematical.
+   rdfs:subClassOf evmpo:marketplace_related_entity, emmo1s:Mathematical.
 
 # A materials_model_classifier is a sign for a materials model
 #
