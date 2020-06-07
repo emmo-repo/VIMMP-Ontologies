@@ -1,9 +1,9 @@
 
 ### VIMMP VALIDATION ONTOLOGY (VIVO) ###
 
-### VERSION 1.0.0 ###
+### VERSION 1.0.1 ###
 
-### DATED 22ND MAY 2020 ###
+### DATED 7TH JUNE 2020 ###
 
 @prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
 
@@ -43,7 +43,7 @@ vivo:refers_to_property a owl:ObjectProperty;
    rdfs:range evmpo:property;
    rdfs:subPropertyOf viprs:is_sign_for.
 
-vivo:assertion owl:disjointWith evmpo:assessment, vivo:material_property, vivo:validation_infrastructure.
+vivo:assertion owl:disjointWith evmpo:assessment, evmpo:material_property, vivo:validation_infrastructure.
 
 vivo:assertion owl:disjointUnionOf (vivo:accuracy_assertion vivo:requirement_assertion vivo:review_assertion).
 
@@ -59,10 +59,10 @@ vivo:refers_to_material a owl:ObjectProperty, owl:FunctionalProperty;
    rdfs:subPropertyOf viprs:is_sign_for.
 vivo:refers_to_mp a owl:ObjectProperty, owl:FunctionalProperty;
    rdfs:domain vivo:material_assertion;
-   rdfs:range vivo:material_property;
+   rdfs:range evmpo:material_property;
    rdfs:subPropertyOf vivo:refers_to_property.
 
-vivo:material_property_information a owl:Class;
+evmpo:material_property_information a owl:Class;
    rdfs:subClassOf vivo:material_assertion, [
       a owl:Restriction;
       owl:onProperty viprs:mereosemiotics_is_is;
@@ -71,24 +71,24 @@ vivo:material_property_information a owl:Class;
    rdfs:comment "material property information, i.e., an assertion/datum referring to a (thermodynamic or mechanical) material property"^^xs:string.
 
 vivo:has_error_statement a owl:ObjectProperty;
-   rdfs:domain vivo:material_property_information;
+   rdfs:domain evmpo:material_property_information;
    rdfs:range vivo:accuracy_assertion;
    rdfs:subPropertyOf viprs:has_proper_part.
 vivo:has_given_property a owl:ObjectProperty;
-   rdfs:domain vivo:material_property_information;
-   rdfs:range vivo:material_property;
+   rdfs:domain evmpo:material_property_information;
+   rdfs:range evmpo:material_property;
    rdfs:subPropertyOf vivo:refers_to_mp.
 vivo:has_lower_bound a owl:DatatypeProperty;
-   rdfs:domain vivo:material_property_information;
+   rdfs:domain evmpo:material_property_information;
    rdfs:range xs:decimal.
 vivo:has_upper_bound a owl:DatatypeProperty;
-   rdfs:domain vivo:material_property_information;
+   rdfs:domain evmpo:material_property_information;
    rdfs:range xs:decimal.
 vivo:has_property_value a owl:DatatypeProperty, owl:FunctionalProperty;
-   rdfs:domain vivo:material_property_information;
+   rdfs:domain evmpo:material_property_information;
    rdfs:range xs:decimal.
 vivo:is_given_in a owl:ObjectProperty, owl:FunctionalProperty;
-   rdfs:domain vivo:material_property_information;
+   rdfs:domain evmpo:material_property_information;
    rdfs:range vivo:unit;
    rdfs:subPropertyOf evmpo:has_information_content_entity_annotation.
 
@@ -133,7 +133,7 @@ vivo:has_assessment_text a owl:DatatypeProperty;
    rdfs:domain evmpo:assessment;
    rdfs:range xs:string.
 
-evmpo:assessment owl:disjointWith vivo:assertion, vivo:material_property, vivo:validation_infrastructure.
+evmpo:assessment owl:disjointWith vivo:assertion, evmpo:material_property, vivo:validation_infrastructure.
 
 evmpo:assessment owl:disjointUnionOf (vivo:accuracy_assessment vivo:requirement_assessment vivo:review_assessment).
 
@@ -312,7 +312,7 @@ vivo:validation_statement a owl:Class;
    owl:intersectionOf (vico:validation_communication evmpo:statement);
    rdfs:comment "validation statement, i.e., a statement which, as its main feature or purpose, relates to validation"^^xs:string.
 
-vivo:validation_statement owl:disjointWith vivo:material_property, vivo:validation_infrastructure.
+vivo:validation_statement owl:disjointWith evmpo:material_property, vivo:validation_infrastructure.
 
 vivo:certificate a owl:Class;
    rdfs:subClassOf vivo:validation_statement;
@@ -348,7 +348,7 @@ vivo:validation_infrastructure a owl:Class;
    rdfs:subClassOf evmpo:infrastructure;
    rdfs:comment "validation infrastructure, i.e., an infrastructure which, as its main feature or purpose, relates to validation"^^xs:string.
 
-vivo:validation_infrastructure owl:disjointWith vivo:assertion, evmpo:assessment, vivo:material_property, vivo:validation_statement.
+vivo:validation_infrastructure owl:disjointWith vivo:assertion, evmpo:assessment, evmpo:material_property, vivo:validation_statement.
 
 vivo:validation_channel a owl:Class;
    rdfs:subClassOf vivo:validation_infrastructure, macro:channel.
@@ -361,19 +361,16 @@ vivo:validation_repository a owl:Class;
 # PROPERTY BRANCH OF VIVO #
 ###########################
 
-vivo:material_property a owl:Class;
-   rdfs:subClassOf evmpo:property, osmo:logical_variable;
-   owl:equivalentClass evmpo:material_property;
-   owl:sameAs evmpo:material_property;
+evmpo:material_property rdfs:subClassOf osmo:logical_variable;
    rdfs:comment "thermodynamic or mechanical behaviour of a material (referring either to the real material itself or a model thereof)"^^xs:string.
 
 vivo:is_quantity_kind a owl:ObjectProperty, owl:FunctionalProperty;
-   rdfs:domain vivo:material_property;
+   rdfs:domain evmpo:material_property;
    rdfs:range qudt:QuantityKind;
    rdfs:subPropertyOf viprs:has_sign;
    rdfs:comment "points to the physical property characterization following QUDT"^^xs:string.
 
-vivo:material_property owl:disjointWith vivo:assertion, evmpo:assessment, vivo:validation_statement, vivo:validation_infrastructure.
+evmpo:material_property owl:disjointWith vivo:assertion, evmpo:assessment, vivo:validation_statement, vivo:validation_infrastructure.
 
 
 ################################################################

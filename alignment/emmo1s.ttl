@@ -1,9 +1,9 @@
 
 ### EMMO 1.0 SIMPLIFIED (EMMO1S) ###
 
-### VERSION 1.0.0 ###
+### VERSION 1.0.1 ###
 
-### DATED 22ND MAY 2020 ###
+### DATED 7TH JUNE 2020 ###
 
 @prefix emmo1s: <http://www.vimmp.eu/semantics/alignment/emmo1s.ttl#>.
 
@@ -505,8 +505,13 @@ emmo1s:Matrix a owl:Class;
 emmo1s:Number a owl:Class;
    rdfs:label "Number"^^xs:string;
    owl:sameAs emmo-math:EMMO_21f56795_ee72_4858_b571_11cfaa59c1a8;
-   rdfs:subClassOf emmo1s:Mathematical, emmo1s:Symbol;
+   rdfs:subClassOf emmo1s:Numerical, emmo1s:Symbol;
    rdfs:comment "n.b., a Number is defined to be a Symbol (rather than just a Symbolic)"^^xs:string.
+emmo1s:Numerical a owl:Class;
+   rdfs:label "Numerical"^^xs:string;
+   owl:sameAs emmo-math:EMMO_4ce76d7f_03f8_45b6_9003_90052a79bfaa;
+   rdfs:subClassOf emmo1s:Mathematical;
+   rdfs:comment "Numerical, i.e., either a scalar number or a composite numerical data structure"^^xs:string.
 emmo1s:Parameter a owl:Class;
    rdfs:label "Parameter"^^xs:string;
    owl:sameAs emmo-math:EMMO_d1d436e7_72fc_49cd_863b_7bfb4ba5276a;

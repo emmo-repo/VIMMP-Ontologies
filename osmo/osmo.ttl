@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 1.6.0 ###
+### VERSION 1.6.1 ###
 
-### DATED 22ND MAY 2020 ###
+### DATED 7TH JUNE 2020 ###
 
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -495,7 +495,7 @@ osmo:indexed_graph rdfs:subClassOf [
 osmo:section a owl:Class;
    rdfs:subClassOf osmo:workflow_resource;
    owl:disjointWith osmo:section_aspect;
-   rdfs:comment "section, i.e., a use case, model, solver, or processor (as in MODA)"^^xs:string.
+   rdfs:comment "section, i.e., an application case, model, solver, or processor (as in MODA)"^^xs:string.
 
 osmo:section owl:disjointUnionOf (osmo:application_case osmo:materials_model osmo:solver osmo:processor).
 
@@ -560,7 +560,7 @@ osmo:has_aspect a owl:ObjectProperty;
    rdfs:domain osmo:section;
    rdfs:range osmo:section_aspect;
    rdfs:comment "points to an aspect associated with the respective OSMO/MODA section"^^xs:string;
-   rdfs:subPropertyOf evmpo:has_annotation.
+   rdfs:subPropertyOf viprs:has_symbolic_part_of_sign.
 
 osmo:has_boundary_condition a owl:ObjectProperty;
    rdfs:domain osmo:section;
@@ -616,7 +616,7 @@ osmo:applies_to a owl:ObjectProperty;
 
 osmo:section_aspect a owl:Class;
    rdfs:subClassOf evmpo:marketplace_related_entity;
-   rdfs:comment "section aspect, i.e., an aspect of a use case, model, solver, or processor that can be represented by a section"^^xs:string.
+   rdfs:comment "section aspect, i.e., a descriptor of an application case, model, solver, or processor that can be represented by a section"^^xs:string.
 
 osmo:section_aspect owl:disjointUnionOf (osmo:application_case_aspect osmo:model_aspect osmo:solver osmo:processor_aspect).
 
@@ -632,7 +632,7 @@ osmo:has_aspect_scalar_content a owl:DatatypeProperty;
 osmo:has_aspect_object_content a owl:ObjectProperty;
    rdfs:domain osmo:section_aspect;
    rdfs:range evmpo:marketplace_related_entity;
-   rdfs:subPropertyOf viprs:has_proper_part;
+   rdfs:subPropertyOf viprs:mereosemiotics_hp_is;
    rdfs:comment "points to an object associated with an aspect/subsection"^^xs:string;
    owl:inverseOf osmo:is_aspect_content_of.
 osmo:has_aspect_annotation_content a owl:ObjectProperty;
@@ -650,7 +650,7 @@ osmo:is_aspect_content_of a owl:ObjectProperty;
    rdfs:domain evmpo:marketplace_related_entity;
    rdfs:range osmo:section_aspect;
    owl:inverseOf osmo:has_aspect_object_content;
-   rdfs:subPropertyOf viprs:is_proper_part_of.
+   rdfs:subPropertyOf viprs:mereosemiotics_hs_ip.
 
 osmo:boundary_condition a owl:Class;
    rdfs:subClassOf osmo:section_aspect;
@@ -1196,7 +1196,7 @@ osmo:processor_error_statement a owl:Class;
 
 osmo:workflow_graph a owl:Class;
    rdfs:subClassOf osmo:workflow_resource;
-   rdfs:comment "workflow graph, i.e., a model, simulation, or aspects thereof that can be represented by a combination of OSMO/MODA sections"^^xs:string.
+   rdfs:comment "workflow graph, i.e., a model, a simulation workflow, or a composition of constituent elements and aspects thereof that can be represented in logical data transfer (LDT) notation"^^xs:string.
 
 osmo:is_concrete a owl:DatatypeProperty;
    rdfs:domain osmo:workflow_graph;
@@ -1469,7 +1469,7 @@ osmo:has_term_unit a owl:ObjectProperty, owl:FunctionalProperty;
    rdfs:domain osmo:elementary_term;
    rdfs:range qudt:Unit, vivo:unit;
    rdfs:comment "unit associated with any assigned decimal values"^^xs:string;
-   rdfs:subPropertyOf evmpo:has_annotation.
+   rdfs:subPropertyOf viprs:has_proper_part.
 
 osmo:elementary_term owl:disjointUnionOf (osmo:elementary_logical osmo:elementary_value).
 
@@ -1510,12 +1510,13 @@ osmo:structure_value a owl:Class;
 
 osmo:logical_variable a owl:Class;
    rdfs:subClassOf osmo:logical_term;
-   rdfs:comment "logical variable, i.e., property which can be exchanged between logical resources"^^xs:string.
+   rdfs:comment "logical variable, i.e., a term that can be exchanged by interaction with logical resources"^^xs:string.
 
 osmo:has_value a owl:ObjectProperty;
    rdfs:domain osmo:logical_variable;
    rdfs:range osmo:logical_value;
-   rdfs:subPropertyOf evmpo:has_annotation.
+   rdfs:subPropertyOf viprs:is_sign_for;
+   rdfs:comment "points to a value associated with a logical variable"^^xs:string.
 osmo:has_current_value a owl:ObjectProperty;
    rdfs:domain osmo:logical_variable;
    rdfs:range osmo:logical_value;
@@ -1879,6 +1880,11 @@ osmo:has_uf_descriptor rdfs:subPropertyOf viprs:has_descriptor.
 
 # A condition is a mathematical entity
 
+# A logical term is a symbolic
+# A logical variable is a numerical entity
+# A unique elementary is a variable and a quantity
+# A logical array is an array
+
 # A materials_model_classifier is a sign for a materials model
 
 # A section_aspect is a symbolic entity
@@ -1886,3 +1892,6 @@ osmo:has_uf_descriptor rdfs:subPropertyOf viprs:has_descriptor.
 # a workflow_resource is a symbolic entity
 # a workflow_graph is a well-formed symbolic entity
 # a simulation is a semiosis (process), and a simulation_workflow is a sign for a simulation
+
+# has_value is a subproperty of [owl:inverseOf hasConvention]
+# has_variable_unit is a subproperty of hasReferenceUnit

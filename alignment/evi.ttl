@@ -1,9 +1,9 @@
 
 ### EMMO-VIMMP INTEGRATION (EVI) ###
 
-### VERSION 1.1.1 ###
+### VERSION 1.1.2 ###
 
-### DATED 6TH JUNE 2020 ###
+### DATED 7TH JUNE 2020 ###
 
 @prefix evi: <http://www.vimmp.eu/semantics/alignment/evi.ttl#>.
 
@@ -184,6 +184,15 @@ evmpo:property a owl:Class;
    owl:equivalentClass emmo1s:Property;
    owl:sameAs emmo1s:Property;
    rdfs:subClassOf evmpo:paradigmatic_entity.
+#
+# a material_property is a property that (inverse of hasProperty) some material
+#
+evmpo:material_property a owl:Class;
+   rdfs:subClassOf evmpo:property, [
+      a owl:Restriction;
+      owl:onProperty [owl:inverseOf emmo1s:hasProperty];
+      owl:someValuesFrom emmo1s:Material
+   ].
 
 # category (0): annotation
 #
@@ -268,6 +277,26 @@ osmo:application_case a owl:Class;
 osmo:condition a owl:Class;
    rdfs:subClassOf evmpo:marketplace_related_entity, emmo1s:Mathematical.
 
+# A logical array is an array
+#
+osmo:elementary_collection a owl:Class;
+   rdfs:subClassOf osmo:logical_array, emmo1s:Array.
+
+# A logical term is a symbolic
+#
+osmo:logical_term a owl:Class;
+   rdfs:subClassOf evmpo:marketplace_related_entity, emmo1s:Symbolic.
+
+# A logical variable is a numerical entity
+#
+osmo:logical_variable a owl:Class;
+   rdfs:subClassOf osmo:logical_term, emmo1s:Numerical.
+
+# A unique elementary is a variable and a quantity
+#
+osmo:unique_elementary a owl:Class;
+   rdfs:subClassOf osmo:logical_variable, emmo1s:Variable, emmo1s:Quantity.
+
 # A materials_model_classifier is a sign for a materials model
 #
 osmo:materials_model_classifier a owl:Class;
@@ -304,6 +333,14 @@ osmo:simulation_workflow a owl:Class;
       owl:onProperty [owl:inverseOf emmo1s:hasSign];
       owl:someValuesFrom emmo1s:Semiosis
    ].
+
+# has_value is a subproperty of [owl:inverseOf hasConvention]
+#
+osmo:has_value rdfs:subPropertyOf [owl:inverseOf emmo1s:hasConvention].
+
+# has_variable_unit is a subproperty of hasReferenceUnit
+#
+osmo:has_variable_unit rdfs:subPropertyOf emmo1s:hasReferenceUnit.
 
 
 ##########################
@@ -455,13 +492,4 @@ vivo:workflow_assessment a owl:Class;
       a owl:Restriction;
       owl:onProperty viprs:mereosemiotics_is_is;
       owl:someValuesFrom emmo1s:Semiosis
-   ].
-
-# a material_property is a property that (inverse of hasProperty) some material
-#
-vivo:material_property a owl:Class;
-   rdfs:subClassOf evmpo:property, [
-      a owl:Restriction;
-      owl:onProperty [owl:inverseOf emmo1s:hasProperty];
-      owl:someValuesFrom emmo1s:Material
    ].
