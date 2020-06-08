@@ -1,9 +1,9 @@
 
 ### VIMMP COMMUNICATION ONTOLOGY (VICO) ###
 
-### VERSION 1.2.0 ###
+### VERSION 1.2.1 ###
 
-### DATED 22ND MAY 2020 ###
+### DATED 8TH JUNE 2020 ###
 
 @prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
 
@@ -74,7 +74,7 @@ vico:is_on_channel a owl:ObjectProperty;
    rdfs:subPropertyOf viprs:is_proper_part_of.
 vico:is_on_marketplace a owl:ObjectProperty;
    rdfs:domain evmpo:communication;
-   rdfs:range macro:virtual_marketplace;
+   rdfs:range macro:digital_marketplace;
    rdfs:subPropertyOf vico:is_on_channel.
 
 evmpo:communication
@@ -202,7 +202,7 @@ vico:message rdfs:subClassOf [
    ], [
       a owl:Restriction;
       owl:onProperty vico:is_on_marketplace;
-      owl:someValuesFrom macro:virtual_marketplace
+      owl:someValuesFrom macro:digital_marketplace
    ].
 vico:message owl:disjointUnionOf (vico:declaration vico:interlocution).
 
@@ -394,8 +394,8 @@ vico:mobile_number a owl:Class;
 #
 vico:acts_at a owl:ObjectProperty;
    rdfs:domain evmpo:agent;
-   rdfs:range macro:virtual_marketplace;
-   owl:inverseOf macro:has_stakeholder;
+   rdfs:range macro:digital_marketplace;
+   owl:inverseOf macro:has_marketplace_participant;
    rdfs:subPropertyOf vico:has_access_to.
 vico:has_access_to a owl:ObjectProperty;
    rdfs:domain evmpo:agent;
@@ -521,7 +521,7 @@ vico:virtual_agent a owl:Class;
    rdfs:subClassOf vico:person;
    rdfs:comment "virtual agent, i.e., any person that is not a human agent (this includes bots/engines, agent pseudonyms, etc.)"^^xs:string.
 
-evmpo:stakeholder owl:intersectionOf (evmpo:agent [a owl:Restriction; owl:onProperty vico:acts_at; owl:someValuesFrom macro:virtual_marketplace]).
+evmpo:stakeholder owl:intersectionOf (evmpo:agent [a owl:Restriction; owl:onProperty vico:acts_at; owl:someValuesFrom macro:digital_marketplace]).
 
 vico:has_competency a owl:ObjectProperty;
    rdfs:domain evmpo:expert;

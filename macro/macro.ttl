@@ -1,9 +1,9 @@
 
 ### MARKETPLACE-ACCESSIBLE COMPUTATIONAL RESOURCE ONTOLOGY (MACRO) ###
 
-### VERSION 1.0.0 ###
+### VERSION 1.0.1 ###
 
-### DATED 22ND MAY 2020 ###
+### DATED 8TH JUNE 2020 ###
 
 @prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
 
@@ -109,20 +109,20 @@ _:C_NEWSLETTER a owl:AllDifferent;
 macro:bidirectional_channel a owl:Class;
    rdfs:subClassOf macro:channel.
 
-macro:virtual_marketplace a owl:Class;
+macro:digital_marketplace a owl:Class;
    rdfs:subClassOf macro:bidirectional_channel.
 
-macro:has_stakeholder a owl:ObjectProperty;
-   rdfs:domain macro:virtual_marketplace;
+macro:has_marketplace_participant a owl:ObjectProperty;
+   rdfs:domain macro:digital_marketplace;
    rdfs:range evmpo:agent;
    owl:inverseOf vico:acts_at;
    rdfs:subPropertyOf macro:has_channel_member.
 
-macro:VIMMP_MARKETPLACE a macro:virtual_marketplace.
-macro:MARKETPLACE_MARKETPLACE a macro:virtual_marketplace.
-macro:MARKET40_MARKETPLACE a macro:virtual_marketplace.
+macro:VIMMP_MARKETPLACE a macro:digital_marketplace.
+macro:MARKETPLACE_MARKETPLACE a macro:digital_marketplace.
+macro:MARKET40_MARKETPLACE a macro:digital_marketplace.
 
-_:C_VIRTUAL_MARKETPLACE a owl:AllDifferent;
+_:C_digital_marketplace a owl:AllDifferent;
    owl:members (macro:VIMMP_MARKETPLACE macro:MARKETPLACE_MARKETPLACE macro:MARKET40_MARKETPLACE).
 
 macro:infrastructure_service a owl:Class;

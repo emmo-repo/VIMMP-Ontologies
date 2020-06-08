@@ -394,11 +394,14 @@ viso:model_object a owl:Class;
 #########################
 
 # An assertion is a symbolic entity
+# an accuracy_assertion is a mathematical entity
 # a material_assertion is also a sign for a material
 # a material_property_information is also a sign for a property, and a sign for a sign for a material
 #
 vivo:assertion a owl:Class;
    rdfs:subClassOf evmpo:information_content_entity, emmo1s:Symbolic.
+vivo:accuracy_assertion a owl:Class;
+   rdfs:subClassOf vivo:assertion, emmo1s:Mathematical.
 vivo:material_assertion a owl:Class;
    rdfs:subClassOf vivo:assertion, emmo1s:Sign, [
       a owl:Restriction;
@@ -493,3 +496,10 @@ vivo:workflow_assessment a owl:Class;
       owl:onProperty viprs:mereosemiotics_is_is;
       owl:someValuesFrom emmo1s:Semiosis
    ].
+
+# the classes vivo:unit and emmo1s:ReferenceUnit are the same
+#
+vivo:unit a owl:Class;
+   rdfs:subClassOf evmpo:annotation;
+   owl:equivalentClass emmo1s:ReferenceUnit;
+   owl:sameAs emmo1s:ReferenceUnit.
