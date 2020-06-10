@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 1.6.1 ###
+### VERSION 1.6.2 ###
 
-### DATED 7TH JUNE 2020 ###
+### DATED 10TH JUNE 2020 ###
 
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -1802,7 +1802,7 @@ osmo:minimization_objective a owl:Class;
    rdfs:comment "minimization objective, i.e., a target quantity that is to be minimized"^^xs:string.
 
 osmo:decision_support_system a owl:Class;
-   rdfs:subClassOf macro:data_infrastructure, macro:software_infrastructure;
+   rdfs:subClassOf evmpo:data_infrastructure, evmpo:software_infrastructure;
    rdfs:comment "decision support system, i.e., a data and software infrastructure that facilitates decision support"^^xs:string.
 
 osmo:has_constraint a owl:ObjectProperty;

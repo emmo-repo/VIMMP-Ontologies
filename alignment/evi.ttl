@@ -1,9 +1,9 @@
 
 ### EMMO-VIMMP INTEGRATION (EVI) ###
 
-### VERSION 1.1.2 ###
+### VERSION 1.1.3 ###
 
-### DATED 7TH JUNE 2020 ###
+### DATED 10TH JUNE 2020 ###
 
 @prefix evi: <http://www.vimmp.eu/semantics/alignment/evi.ttl#>.
 
@@ -218,6 +218,8 @@ macro:channel a owl:Class;
       owl:onProperty emmo1s:hasPart;
       owl:someValuesFrom emmo1s:Semiosis
    ].
+macro:has_channel_member a owl:ObjectProperty;
+   rdfs:subPropertyOf emmo1s:hasProperParticipant.
 
 # Computational resources: As an infrastructure, a computational resource is an engineered entity and, hence, a participant
 #

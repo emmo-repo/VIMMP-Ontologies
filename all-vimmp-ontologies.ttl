@@ -735,9 +735,9 @@ emmo1s:hasProperty a owl:ObjectProperty;
 
 ### EMMO-VIMMP INTEGRATION (EVI) ###
 
-### VERSION 1.1.2 ###
+### VERSION 1.1.3 ###
 
-### DATED 7TH JUNE 2020 ###
+### DATED 10TH JUNE 2020 ###
 
 @prefix evi: <http://www.vimmp.eu/semantics/alignment/evi.ttl#>.
 
@@ -952,6 +952,8 @@ macro:channel a owl:Class;
       owl:onProperty emmo1s:hasPart;
       owl:someValuesFrom emmo1s:Semiosis
    ].
+macro:has_channel_member a owl:ObjectProperty;
+   rdfs:subPropertyOf emmo1s:hasProperParticipant.
 
 # Computational resources: As an infrastructure, a computational resource is an engineered entity and, hence, a participant
 #
@@ -2472,9 +2474,9 @@ viprs:has_file_metadata_item a owl:DatatypeProperty;
 
 ### MARKETPLACE-ACCESSIBLE COMPUTATIONAL RESOURCE ONTOLOGY (MACRO) ###
 
-### VERSION 1.0.1 ###
+### VERSION 1.1.0 ###
 
-### DATED 8TH JUNE 2020 ###
+### DATED 10TH JUNE 2020 ###
 
 @prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
 
@@ -2494,22 +2496,16 @@ viprs:has_file_metadata_item a owl:DatatypeProperty;
 
 macro:computational_resource a owl:Class;
    rdfs:subClassOf evmpo:infrastructure;
-   rdfs:comment "computational resource, i.e., an infrastructure that is a computational entity"^^xs:string.
+   rdfs:comment "computational resource, i.e., an infrastructure that can be accessed by means of data, hardware, or software related services"^^xs:string.
 
-macro:computational_resource owl:unionOf (macro:data_infrastructure macro:hardware_infrastructure macro:software_infrastructure).
+macro:computational_resource owl:unionOf (evmpo:data_infrastructure evmpo:hardware_infrastructure evmpo:software_infrastructure).
 
-macro:data_infrastructure a owl:Class;
-   rdfs:subClassOf macro:computational_resource;
-   owl:sameAs evmpo:data_infrastructure;
-   owl:equivalentClass evmpo:data_infrastructure.
-
-macro:hardware_infrastructure a owl:Class;
-   rdfs:subClassOf macro:computational_resource;
-   owl:sameAs evmpo:hardware_infrastructure;
-   owl:equivalentClass evmpo:hardware_infrastructure.
+evmpo:data_infrastructure rdfs:subClassOf macro:computational_resource.
+evmpo:hardware_infrastructure rdfs:subClassOf macro:computational_resource.
+evmpo:software_infrastructure rdfs:subClassOf macro:computational_resource.
 
 macro:hpc_infrastructure a owl:Class;
-   rdfs:subClassOf macro:hardware_infrastructure.
+   rdfs:subClassOf evmpo:hardware_infrastructure.
 
 macro:supercomputer a owl:Class;
    rdfs:subClassOf macro:hpc_infrastructure.
@@ -2517,35 +2513,33 @@ macro:supercomputer a owl:Class;
 macro:cloud_infrastructure a owl:Class;
    rdfs:subClassOf macro:hpc_infrastructure.
 
-macro:software_infrastructure a owl:Class;
-   rdfs:subClassOf macro:computational_resource;
-   owl:sameAs evmpo:software_infrastructure;
-   owl:equivalentClass evmpo:software_infrastructure.
-
-viso:software_tool rdfs:subClassOf macro:software_infrastructure.
+viso:software_tool rdfs:subClassOf evmpo:software_infrastructure.
 
 macro:repository a owl:Class;
-   rdfs:subClassOf macro:data_infrastructure, macro:hardware_infrastructure, evmpo:agent.
+   rdfs:subClassOf evmpo:data_infrastructure, evmpo:hardware_infrastructure, evmpo:agent.
 
 macro:VIMMP_CERTIFICATE_REGISTRY a macro:repository;
    vico:acts_on macro:VIMMP_MARKETPLACE;
    vico:has_agent_name "VIMMP Marketplace Certificate Registry"^^xs:string.
 
 macro:model_database a owl:Class;
-   rdfs:subClassOf macro:repository, vico:model_provider.
+   rdfs:subClassOf macro:repository, vico:model_provider;
+   rdfs:comment "model database, i.e., a repository that can act as a model provider"^^xs:string.
 
 macro:BOTTLED_SAFT a macro:model_database;
    vico:acts_on macro:VIMMP_MARKETPLACE;
    vico:has_agent_name "Bottled SAFT"^^xs:string.
 
 macro:channel a owl:Class;
-   rdfs:subClassOf macro:data_infrastructure.
+   rdfs:subClassOf evmpo:data_infrastructure, evmpo:process;
+   rdfs:comment "channel (for communication), i.e., a data infrastructure in which communication processes (semioses) occur"^^xs:string.
 
 macro:has_channel_member a owl:ObjectProperty;
    rdfs:domain macro:channel;
    rdfs:range evmpo:agent;
    rdfs:subPropertyOf viprs:has_proper_part;
-   owl:inverseOf vico:has_access_to.
+   owl:inverseOf vico:has_access_to;
+   rdfs:comment "points to an agent that participates in connunicating through a channel"^^xs:string.
 macro:has_channel_name a owl:DatatypeProperty;
    rdfs:domain macro:channel;
    rdfs:range xs:string.
@@ -2613,11 +2607,11 @@ macro:cr_service a owl:Class;
 
 macro:data_service a owl:Class;
    rdfs:subClassOf macro:cr_service;
-   owl:intersectionOf (macro:cr_service [a owl:Restriction; owl:onProperty macro:provides_access_to; owl:someValuesFrom macro:data_infrastructure]).
+   owl:intersectionOf (macro:cr_service [a owl:Restriction; owl:onProperty macro:provides_access_to; owl:someValuesFrom evmpo:data_infrastructure]).
 
 macro:hardware_service a owl:Class;
    rdfs:subClassOf macro:cr_service;
-   owl:intersectionOf (macro:cr_service [a owl:Restriction; owl:onProperty macro:provides_access_to; owl:someValuesFrom macro:hardware_infrastructure]).
+   owl:intersectionOf (macro:cr_service [a owl:Restriction; owl:onProperty macro:provides_access_to; owl:someValuesFrom evmpo:hardware_infrastructure]).
 
 macro:hpc_service a owl:Class;
    rdfs:subClassOf macro:hardware_service;
@@ -2625,7 +2619,7 @@ macro:hpc_service a owl:Class;
 
 macro:software_service a owl:Class;
    rdfs:subClassOf macro:cr_service;
-   owl:intersectionOf (macro:cr_service [a owl:Restriction; owl:onProperty macro:provides_access_to; owl:someValuesFrom macro:software_infrastructure]).
+   owl:intersectionOf (macro:cr_service [a owl:Restriction; owl:onProperty macro:provides_access_to; owl:someValuesFrom evmpo:software_infrastructure]).
 
 macro:io_format a owl:Class;
    rdfs:subClassOf evmpo:annotation;
@@ -2646,7 +2640,8 @@ macro:has_format_version a owl:DatatypeProperty;
 macro:is_io_format_of a owl:ObjectProperty;
    rdfs:domain macro:io_format;
    rdfs:range viso:software_tool;
-   rdfs:subPropertyOf viprs:is_sign_for_potential_cooccurrent_of.
+   rdfs:subPropertyOf viprs:is_sign_for_potential_cooccurrent_of;
+   rdfs:comment "points to a software tool that can process files in a given I/O format"^^xs:string.
 macro:is_input_format_of a owl:ObjectProperty;
    rdfs:domain macro:io_format;
    rdfs:range viso:software_tool;
@@ -3882,9 +3877,9 @@ mmto:has_step_description rdfs:subPropertyOf viprs:has_descriptor.
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 1.6.1 ###
+### VERSION 1.6.2 ###
 
-### DATED 7TH JUNE 2020 ###
+### DATED 10TH JUNE 2020 ###
 
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -5683,7 +5678,7 @@ osmo:minimization_objective a owl:Class;
    rdfs:comment "minimization objective, i.e., a target quantity that is to be minimized"^^xs:string.
 
 osmo:decision_support_system a owl:Class;
-   rdfs:subClassOf macro:data_infrastructure, macro:software_infrastructure;
+   rdfs:subClassOf evmpo:data_infrastructure, evmpo:software_infrastructure;
    rdfs:comment "decision support system, i.e., a data and software infrastructure that facilitates decision support"^^xs:string.
 
 osmo:has_constraint a owl:ObjectProperty;
