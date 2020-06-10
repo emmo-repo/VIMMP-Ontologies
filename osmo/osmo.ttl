@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 1.6.2 ###
+### VERSION 1.6.3 ###
 
-### DATED 10TH JUNE 2020 ###
+### DATED 11TH JUNE 2020 ###
 
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -11,7 +11,6 @@
 @prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
 @prefix mmto: <http://www.vimmp.eu/semantics/mmto/mmto.ttl#>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
-@prefix qudt: <http://qudt.org/schema/qudt/>.
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
@@ -474,7 +473,7 @@ osmo:has_index a owl:ObjectProperty;
    rdfs:comment "points to the logical variable/index to which multiple values are assigned"^^xs:string.
 osmo:has_index_unit a owl:ObjectProperty, owl:FunctionalProperty;
    rdfs:domain osmo:indexed_graph;
-   rdfs:range qudt:Unit, vivo:unit;
+   rdfs:range vivo:unit;
    rdfs:comment "unit in which the index values are given (not required; in many typical cases, the index is dimensionless)"^^xs:string;
    rdfs:subPropertyOf evmpo:has_annotation.
 osmo:has_index_value a owl:DatatypeProperty;
@@ -1371,12 +1370,6 @@ osmo:physical_variable a owl:Class;
    rdfs:subClassOf osmo:logical_variable, evmpo:material_property, evmpo:paradigmatic_entity;
    rdfs:comment "physical variable, i.e., a logical variable defined in terms of a material property"^^xs:string.
 
-osmo:is_quantity_kind a owl:ObjectProperty, owl:FunctionalProperty;
-   rdfs:domain osmo:physical_variable;
-   rdfs:range qudt:QuantityKind;
-   rdfs:subPropertyOf vivo:is_quantity_kind;
-   rdfs:comment "points to the physical property characterization following QUDT"^^xs:string.
-
 osmo:unique_physical_constant a owl:Class;
    rdfs:subClassOf osmo:logical_constant, osmo:unique_elementary, osmo:physical_variable;
    rdfs:comment "unique physical constant, i.e., a physical variable with a unique constant value"^^xs:string.
@@ -1467,7 +1460,7 @@ osmo:elementary_term a owl:Class;
 
 osmo:has_term_unit a owl:ObjectProperty, owl:FunctionalProperty;
    rdfs:domain osmo:elementary_term;
-   rdfs:range qudt:Unit, vivo:unit;
+   rdfs:range vivo:unit;
    rdfs:comment "unit associated with any assigned decimal values"^^xs:string;
    rdfs:subPropertyOf viprs:has_proper_part.
 
@@ -1582,7 +1575,7 @@ osmo:has_initial_elementary_value a owl:ObjectProperty;
 
 osmo:has_variable_unit a owl:ObjectProperty, owl:FunctionalProperty;
    rdfs:domain osmo:elementary_logical;
-   rdfs:range qudt:Unit, vivo:unit;
+   rdfs:range vivo:unit;
    rdfs:comment "unit associated with any assigned decimal values"^^xs:string;
    rdfs:subPropertyOf osmo:has_term_unit.
 
@@ -1624,7 +1617,7 @@ osmo:has_dynamic_array_size a owl:ObjectProperty;
    rdfs:comment "points to a variable that contains the (dynamic) array size; convention: element indices run from 0 to the array size minus one"^^xs:string.
 osmo:has_element_unit a owl:ObjectProperty, owl:FunctionalProperty;
    rdfs:domain osmo:logical_array;
-   rdfs:range qudt:Unit, vivo:unit;
+   rdfs:range vivo:unit;
    rdfs:comment "unit in which values of array elements are given (does not apply if the array elements are logical structures)"^^xs:string;
    rdfs:subPropertyOf evmpo:has_annotation.
 osmo:has_generic_element a owl:ObjectProperty;

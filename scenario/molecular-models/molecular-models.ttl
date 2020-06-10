@@ -2,7 +2,7 @@
 ##                                           ##
 ##  EXAMPLE: INTERMOLECULAR PAIR POTENTIALS  ##
 ##                                           ##
-##     LAST UPDATED: 26TH DECEMBER 2019      ##
+##       LAST UPDATED: 11TH JUNE 2020        ##
 ##                                           ##
 ###############################################
 
@@ -524,32 +524,32 @@ molmod:HALF_MASS_NH3 a osmo:unique_physical_constant;
    osmo:is_constant "true"^^xs:boolean;
    osmo:has_variable_name "mass"^^xs:string;
    osmo:has_initial_elementary_value [osmo:is_decimal 8.515];
-   osmo:is_quantity_kind qudt-qk:Mass;
+   vivo:is_quantity_kind qudt-qk:Mass;
    osmo:has_variable_unit vivo:UNIT_U.
 molmod:HALF_MASS_R1234YF a osmo:unique_physical_constant;
    osmo:is_constant "true"^^xs:boolean;
    osmo:has_variable_name "mass"^^xs:string;
    osmo:has_initial_elementary_value [osmo:is_decimal 57.02];
-   osmo:is_quantity_kind qudt-qk:Mass;
+   vivo:is_quantity_kind qudt-qk:Mass;
    osmo:has_variable_unit vivo:UNIT_U.
 
 molmod:SITE_MASS_C a osmo:unique_physical_constant;
    osmo:is_constant "true"^^xs:boolean;
    osmo:has_variable_name "mass"^^xs:string;
    osmo:has_initial_elementary_value [osmo:is_decimal 12.011];
-   osmo:is_quantity_kind qudt-qk:Mass;
+   vivo:is_quantity_kind qudt-qk:Mass;
    osmo:has_variable_unit vivo:UNIT_U.
 molmod:SITE_MASS_O a osmo:unique_physical_constant;
    osmo:is_constant "true"^^xs:boolean;
    osmo:has_variable_name "mass"^^xs:string;
    osmo:has_initial_elementary_value [osmo:is_decimal 15.999];
-   osmo:is_quantity_kind qudt-qk:Mass;
+   vivo:is_quantity_kind qudt-qk:Mass;
    osmo:has_variable_unit vivo:UNIT_U.
 molmod:SITE_MASS_CL a osmo:unique_physical_constant;
    osmo:is_constant "true"^^xs:boolean;
    osmo:has_variable_name "mass"^^xs:string;
    osmo:has_initial_elementary_value [osmo:is_decimal 35.458];
-   osmo:is_quantity_kind qudt-qk:Mass;
+   vivo:is_quantity_kind qudt-qk:Mass;
    osmo:has_variable_unit vivo:UNIT_U.
 
 

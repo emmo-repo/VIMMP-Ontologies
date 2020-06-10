@@ -2,7 +2,7 @@
 ##                                                      ##
 ##  EXAMPLE: INTERMOLECULAR PAIR POTENTIALS (EXPANDED)  ##
 ##                                                      ##
-##           LAST UPDATED: 26TH DECEMBER 2019           ##
+##             LAST UPDATED: 11TH JUNE 2020             ##
 ##                                                      ##
 ##########################################################
 
@@ -110,7 +110,7 @@ molmod:NH3_HALF_MASS a osmo:unique_physical_constant;
    osmo:is_constant "true"^^xs:boolean;
    osmo:has_variable_name "mass"^^xs:string;
    osmo:has_initial_elementary_value molmod:NH3_ELEMENTARY_HALF_MASS;
-   osmo:is_quantity_kind qudt-qk:Mass;
+   vivo:is_quantity_kind qudt-qk:Mass;
    osmo:has_variable_unit vivo:UNIT_U.
 molmod:NH3_ELEMENTARY_SIG a osmo:elementary_value;
    osmo:is_decimal 2.5764.
