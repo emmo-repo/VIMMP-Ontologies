@@ -1,9 +1,9 @@
 
 ### VIMMP VALIDATION ONTOLOGY (VIVO) ###
 
-### VERSION 1.1.0 ###
+### VERSION 1.1.1 ###
 
-### DATED 7TH JUNE 2020 ###
+### DATED 11TH JUNE 2020 ###
 
 @prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
 
@@ -37,7 +37,7 @@ vivo:asserts_magnitude a owl:DatatypeProperty, owl:FunctionalProperty;
 vivo:has_unit a owl:ObjectProperty, owl:FunctionalProperty;
    rdfs:domain vivo:assertion;
    rdfs:range vivo:unit;
-   rdfs:comment "oints to the unit in which any numerical contents of an assertion are given"^^xs:string;
+   rdfs:comment "points to the unit in which any numerical contents of an assertion are given"^^xs:string;
    rdfs:subPropertyOf evmpo:has_information_content_entity_annotation.
 vivo:refers_to_property a owl:ObjectProperty;
    rdfs:domain vivo:assertion;
