@@ -9231,9 +9231,9 @@ vico:has_profile_image rdfs:subPropertyOf viprs:has_file_metadata_item.
 
 ### VIMMP VALIDATION ONTOLOGY (VIVO) ###
 
-### VERSION 1.1.1 ###
+### VERSION 1.1.2 ###
 
-### DATED 11TH JUNE 2020 ###
+### DATED 13TH JUNE 2020 ###
 
 @prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
 
@@ -9644,7 +9644,7 @@ vivo:unit a owl:Class;
    rdfs:subClassOf evmpo:annotation;
    owl:equivalentClass qudt:Unit;
    owl:sameAs qudt:Unit;
-   rdfs:comment "this class, defined by identity with ReferenceUnit from the EMMO, cf. EVI, can be used to specify units (individuals of the unit class) that are absent from qudt-unit"^^xs:string.
+   rdfs:comment "A unit that can be expressed as a scalar multiple of an algebraic combination of SI units. This class, defined by identity with ReferenceUnit from the EMMO, cf. EVI, can be used to specify units (individuals of the unit class) that are absent from qudt-unit"^^xs:string.
 
 vivo:UNIT_DEBYE_ANGSTROM a vivo:unit, qudt:ElectricityAndMagnetismUnit;
    qudt:conversionMultiplier 3.33564e-40;
