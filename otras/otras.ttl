@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
 
-### VERSION 1.0.2 ###
+### VERSION 1.0.3 ###
 
-### DATED 5TH JUNE 2020 ###
+### DATED 14TH JUNE 2020 ###
 
 @prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
 
@@ -119,16 +119,17 @@ otras:training_event a owl:Class;
    owl:intersectionOf (evmpo:calendar_event otras:carrier).
 
 otras:training_service a owl:Class;
-   rdfs:comment "a training service is a tradeable object that has a content related to training activities on a virtual marketplace"^^xs:string;
+   rdfs:comment "a training service is a tradeable object that provides training contents or activities"^^xs:string;
    rdfs:subClassOf evmpo:tradeable_object.
 
 otras:has_offered_course a owl:ObjectProperty;
    rdfs:domain otras:training_service;
    rdfs:range otras:course;
-   rdfs:subPropertyOf viprs:mereosemiotics_is_hp.
+   rdfs:subPropertyOf viprs:mereosemiotics_is_hp;
+   rdfs:comment "points to a course that is offered as part of the activities carried out as a training service"^^xs:string.
 
 otras:focus a owl:Class;
-   rdfs:comment "focus, i.e., a studied object or topic or training objective (or an aspect or constitutive part thereof)";
+   rdfs:comment "focus, i.e., a studied object, topic, training objective, or an aspect or constitutive part thereof"^^xs:string;
    rdfs:subClassOf evmpo:annotation.
 
 otras:has_focus_descriptor a owl:DatatypeProperty;
@@ -149,7 +150,8 @@ otras:is_broader_than a owl:ObjectProperty, owl:TransitiveProperty;
    rdfs:domain otras:topic;
    rdfs:range otras:topic;
    rdfs:subPropertyOf skos:narrower;  # in SKOS, "A narrower B" means that B is narrower (A is broader)
-   owl:inverseOf otras:is_narrower_than.
+   owl:inverseOf otras:is_narrower_than;
+   rdfs:comment "(A is broader than B): A and B are topics such that if B is a sign for an object, A is also a sign for that object"^^xs:string.
 otras:is_discussed_by_document a owl:ObjectProperty;
    rdfs:domain otras:topic;
    rdfs:range evmpo:document;
@@ -159,7 +161,8 @@ otras:is_narrower_than a owl:ObjectProperty, owl:TransitiveProperty;
    rdfs:domain otras:topic;
    rdfs:range otras:topic;
    rdfs:subPropertyOf skos:broader;  # in SKOS, "A broader B" means that B is broader (A is narrower)
-   owl:inverseOf otras:is_broader_than.
+   owl:inverseOf otras:is_broader_than;
+   rdfs:comment "(A is narrower than B): A and B are topics such that if A is a sign for an object, B is also a sign for that object"^^xs:string.
 skos:broader rdfs:subPropertyOf viprs:mereosemiotics_is_hs.  # there is an object for which both topics are signs
 skos:narrower rdfs:subPropertyOf viprs:mereosemiotics_is_hs.  # there is an object for which both topics are signs
 
@@ -251,7 +254,8 @@ otras:has_l_o_descriptor a owl:DatatypeProperty;
 otras:has_specifier a owl:ObjectProperty;
    rdfs:domain otras:learning_outcome;
    rdfs:range otras:specifier;
-   rdfs:subPropertyOf evmpo:has_meta_annotation.
+   rdfs:subPropertyOf evmpo:has_meta_annotation;
+   rdfs:comment "points to an operator, operand, implementation, or example specifier of a learning outcome"^^xs:string.
 otras:has_operator_specifier a owl:ObjectProperty;
    rdfs:domain otras:learning_outcome;
    rdfs:range otras:operator_specifier;
@@ -312,8 +316,8 @@ ccso:coversTopic rdfs:subPropertyOf evmpo:has_information_content_entity_annotat
 otras:has_learning_material_citation a owl:ObjectProperty;
    rdfs:domain otras:syllabus;
    rdfs:range otras:citation;  # the citation is part of the syllabus
-   rdfs:subPropertyOf ccso:hasLM, viprs:is_proper_part_of.
-ccso:hasLM rdfs:subPropertyOf viprs:is_proper_part_of.
+   rdfs:subPropertyOf ccso:hasLM, viprs:has_proper_part.
+ccso:hasLM rdfs:subPropertyOf viprs:has_proper_part.
 otras:has_literature_citation a owl:ObjectProperty;
    rdfs:domain otras:syllabus;
    rdfs:range otras:citation;
@@ -359,13 +363,14 @@ otras:is_offered_by a owl:ObjectProperty;
    owl:inverseOf otras:has_offered_course.
 
 otras:training_unit a owl:Class;
-   rdfs:comment "a training unit is an elementary (part of a) course that is not further subdivided into (proper) parts"^^xs:string;
+   rdfs:comment "an elementary (part of a) course that is not further subdivided into course parts"^^xs:string;
    rdfs:subClassOf otras:course.
 
 otras:is_part_of_course a owl:ObjectProperty, owl:FunctionalProperty;
    rdfs:domain otras:training_unit;
    rdfs:range otras:course;
-   rdfs:subPropertyOf viprs:is_proper_part_of.
+   rdfs:subPropertyOf viprs:is_proper_part_of;
+   rdfs:comment "points to the course to which the given training unit belongs"^^xs:string.
 otras:has_training_unit a owl:ObjectProperty;
    rdfs:domain otras:course;
    rdfs:range otras:training_unit;
@@ -2305,11 +2310,12 @@ otras:has_resource_identifier a owl:DatatypeProperty;
    rdfs:domain otras:citation;
    rdfs:range xs:string.
 
-iao:IAO_0000136 rdfs:subPropertyOf viprs:is_sign_for.  # iao property labelled "is_about"
+iao:IAO_0000136 rdfs:subPropertyOf viprs:is_sign_for.  # iao property labelled "is about"
 otras:is_about a owl:ObjectProperty;
    rdfs:domain evmpo:information_content_entity;
    rdfs:range evmpo:marketplace_related_entity;
-   rdfs:subPropertyOf iao:IAO_0000136, viprs:is_sign_for.
+   rdfs:subPropertyOf iao:IAO_0000136, viprs:is_sign_for;
+   rdfs:comment "points to an object to which an information content entity refers"^^xs:string.
 otras:is_citation_about_document a owl:ObjectProperty;
    rdfs:domain otras:citation;
    rdfs:range evmpo:document;
@@ -2501,7 +2507,7 @@ otras:author_map_element rdfs:subClassOf [
    ].
 
 otras:instructor a owl:Class;
-   rdfs:subClassOf evmpo:expert, vico:training_provider, ccso:Professor;
+   rdfs:subClassOf evmpo:expert, evmpo:training_provider, ccso:Professor;
    rdfs:comment "instructor, i.e., an individual human agent with expertise who can take responsibility for courses, training units, or training services"^^xs:string.
 ccso:Professor rdfs:subClassOf evmpo:agent.
 

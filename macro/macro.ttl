@@ -1,9 +1,9 @@
 
 ### MARKETPLACE-ACCESSIBLE COMPUTATIONAL RESOURCE ONTOLOGY (MACRO) ###
 
-### VERSION 1.1.0 ###
+### VERSION 1.1.1 ###
 
-### DATED 10TH JUNE 2020 ###
+### DATED 14TH JUNE 2020 ###
 
 @prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
 
@@ -50,7 +50,7 @@ macro:VIMMP_CERTIFICATE_REGISTRY a macro:repository;
    vico:has_agent_name "VIMMP Marketplace Certificate Registry"^^xs:string.
 
 macro:model_database a owl:Class;
-   rdfs:subClassOf macro:repository, vico:model_provider;
+   rdfs:subClassOf macro:repository, evmpo:model_provider;
    rdfs:comment "model database, i.e., a repository that can act as a model provider"^^xs:string.
 
 macro:BOTTLED_SAFT a macro:model_database;

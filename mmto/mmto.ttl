@@ -1,9 +1,9 @@
 
 ### MATERIALS MODELLING TRANSLATION ONTOLOGY (MMTO) ###
 
-### VERSION 1.3.1 ###
+### VERSION 1.3.2 ###
 
-### DATED 8TH JUNE 2020 ###
+### DATED 14TH JUNE 2020 ###
 
 @prefix mmto: <http://www.vimmp.eu/semantics/mmto/mmto.ttl#>.
 
@@ -455,7 +455,7 @@ mmto:tca_translator a owl:Class;
 mmto:tca_translator rdfs:subClassOf [
       a owl:Restriction;
       owl:onProperty osmo:has_aspect_paradigmatic_content;
-      owl:someValuesFrom vico:translator
+      owl:someValuesFrom evmpo:translator
    ].
 
 mmto:tca_end_user a owl:Class;
@@ -465,7 +465,7 @@ mmto:tca_end_user a owl:Class;
 mmto:tca_end_user rdfs:subClassOf [
       a owl:Restriction;
       owl:onProperty osmo:has_aspect_paradigmatic_content;
-      owl:someValuesFrom vico:end_user
+      owl:someValuesFrom evmpo:end_user
    ].
 
 # EMMC Translation Case Template: Industrial, business, and use case

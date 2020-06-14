@@ -1,9 +1,9 @@
 
 ### VIMMP COMMUNICATION ONTOLOGY (VICO) ###
 
-### VERSION 1.2.1 ###
+### VERSION 1.2.2 ###
 
-### DATED 8TH JUNE 2020 ###
+### DATED 14TH JUNE 2020 ###
 
 @prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
 
@@ -36,7 +36,8 @@ vico:has_author a owl:ObjectProperty, owl:FunctionalProperty;
    rdfs:domain evmpo:communication;
    rdfs:range evmpo:agent;
    rdfs:subPropertyOf viprs:is_enabled_by;
-   owl:inverseOf vico:is_author_of.
+   owl:inverseOf vico:is_author_of;
+   rdfs:comments "points to the agent that has issued the given communication"^^xs:string.
 vico:has_expiry_date a owl:ObjectProperty, owl:FunctionalProperty;
    rdfs:domain evmpo:communication;
    rdfs:range dcterms:W3C-DTF;
@@ -179,7 +180,8 @@ vico:follows a owl:ObjectProperty;
    rdfs:domain vico:message;
    rdfs:range vico:message;
    rdfs:subPropertyOf viprs:is_enabled_by, viprs:is_sign_for;
-   owl:inverseOf vico:is_followed_by.
+   owl:inverseOf vico:is_followed_by;
+   rdfs:comment "(C follows D): C and D are messages, and C addresses or refers to D"^^xs:string.
 vico:has_listener a owl:ObjectProperty;
    rdfs:domain vico:message;
    rdfs:range evmpo:agent;
@@ -204,7 +206,7 @@ vico:message rdfs:subClassOf [
       owl:onProperty vico:is_on_marketplace;
       owl:someValuesFrom macro:digital_marketplace
    ].
-vico:message owl:disjointUnionOf (vico:declaration vico:interlocution).
+vico:message owl:disjointUnionOf (evmpo:declaration evmpo:interlocution).
 
 vico:task a owl:Class;
    rdfs:subClassOf vico:message;
@@ -212,28 +214,24 @@ vico:task a owl:Class;
 
 vico:task owl:intersectionOf (vico:message [a owl:Restriction; owl:onProperty vico:has_assignee; owl:someValuesFrom evmpo:agent]).
 
-vico:declaration a owl:Class;
-   rdfs:subClassOf vico:message;
-   rdfs:comment "declaration, i.e., a message without recipient"^^xs:string;
-   owl:sameAs evmpo:declaration.
+evmpo:declaration rdfs:subClassOf vico:message;
+   rdfs:comment "declaration, i.e., a message without recipient"^^xs:string.
 
-vico:declaration owl:intersectionOf (vico:message [a owl:Restriction; owl:onProperty vico:has_recipient; owl:cardinality 0]).
+evmpo:declaration owl:intersectionOf (vico:message [a owl:Restriction; owl:onProperty vico:has_recipient; owl:cardinality 0]).
 
-vico:interlocution a owl:Class;
-   rdfs:subClassOf vico:message;
-   rdfs:comment "interlocution, i.e., a message that has at least one recipient"^^xs:string;
-   owl:sameAs evmpo:interlocution.
+evmpo:interlocution rdfs:subClassOf vico:message;
+   rdfs:comment "interlocution, i.e., a message that has at least one recipient"^^xs:string.
 
 vico:has_recipient a owl:ObjectProperty;
-   rdfs:domain vico:interlocution;
+   rdfs:domain evmpo:interlocution;
    rdfs:range evmpo:agent;
    rdfs:subPropertyOf viprs:has_proper_part;  # "has participant"
    owl:inverseOf vico:is_recipient_of.
 
-vico:interlocution owl:intersectionOf (vico:message [a owl:Restriction; owl:onProperty vico:has_recipient; owl:someValuesFrom evmpo:agent]).
+evmpo:interlocution owl:intersectionOf (vico:message [a owl:Restriction; owl:onProperty vico:has_recipient; owl:someValuesFrom evmpo:agent]).
 
 vico:collocution a owl:Class;
-   rdfs:subClassOf vico:interlocution;
+   rdfs:subClassOf evmpo:interlocution;
    rdfs:comment "collocution, i.e., an interlocution which, as its main feature or purpose, comments or adds material or data to another message"^^xs:string.
 
 vico:collocution rdfs:subClassOf [a owl:Restriction; owl:onProperty vico:follows; owl:someValuesFrom vico:message].
@@ -438,7 +436,7 @@ vico:is_member_of a owl:ObjectProperty;
    owl:inverseOf vico:has_member.
 vico:is_recipient_of a owl:ObjectProperty;
    rdfs:domain evmpo:agent;
-   rdfs:range vico:interlocution;
+   rdfs:range evmpo:interlocution;
    rdfs:subPropertyOf viprs:is_proper_part_of;  # "is participant of"
    owl:inverseOf vico:has_recipient.
 vico:is_subscribed_to a owl:ObjectProperty;
@@ -471,14 +469,15 @@ vico:has_institutional_address a owl:ObjectProperty;
 
 vico:person a owl:Class;
    rdfs:subClassOf evmpo:agent;
-   rdfs:comment "person, i.e., a stand-alone agent that does not have multiple constituent parts or components that could by themselves act at a virtual marketplace"^^xs:string.
+   rdfs:comment "person, i.e., a stand-alone agent that does not have multiple constituent parts or components each of which could, e.g., act at a digital marketplace by themselves"^^xs:string.
 
 vico:person owl:disjointUnionOf (evmpo:human_agent vico:virtual_agent).
 
 vico:has_affiliation a owl:ObjectProperty;
    rdfs:domain vico:person;
    rdfs:range evmpo:institution;
-   rdfs:subPropertyOf vico:is_member_of.
+   rdfs:subPropertyOf vico:is_member_of;
+   rdfs:comment "indicates an institutional affiliation"^^xs:string.
 vico:has_business_address a owl:ObjectProperty;
    rdfs:domain vico:person;
    rdfs:range vico:address;
@@ -534,13 +533,14 @@ vico:has_expertise_in a owl:ObjectProperty;
 
 vico:certifier a owl:Class;
    rdfs:subClassOf evmpo:agent;
-   rdfs:comment "certifier, i.e., an agent who can issue certificates (communications hat contain assessments)"^^xs:string.
+   rdfs:comment "certifier, i.e., an agent who can issue certificates (communications that contain assessments)"^^xs:string.
 
 vico:is_certifier_of a owl:ObjectProperty;
    rdfs:domain vico:certifier;
    rdfs:range vivo:certificate;
    rdfs:subPropertyOf viprs:satisfies_requirement_of;
-   owl:inverseOf vivo:has_certifier.
+   owl:inverseOf vivo:has_certifier;
+   rdfs:comment "points to a certificate for which a certifier is (co-)responsible, having either issued the certificate or formally approved of its content"^^xs:string.
 
 vico:certifier owl:disjointUnionOf (vico:certifying_expert vico:certifying_resource).
 
@@ -579,15 +579,9 @@ vico:marketplace_subject owl:intersectionOf (vico:interlocutor evmpo:stakeholder
 vico:consultant a owl:Class;
    rdfs:subClassOf vico:interlocutor.
 
-vico:data_provider a owl:Class;
-   rdfs:subClassOf vico:interlocutor;
-   owl:equivalentClass evmpo:data_provider;
-   owl:sameAs evmpo:data_provider.
+evmpo:data_provider rdfs:subClassOf vico:interlocutor.
 
-vico:end_user a owl:Class;
-   rdfs:subClassOf vico:interlocutor;
-   owl:equivalentClass evmpo:end_user;
-   owl:sameAs evmpo:end_user.
+evmpo:end_user rdfs:subClassOf vico:interlocutor.
 
 vico:guest a owl:Class;
    rdfs:subClassOf vico:marketplace_subject.
@@ -595,29 +589,17 @@ vico:guest a owl:Class;
 vico:manufacturer a owl:Class;
    rdfs:subClassOf vico:interlocutor.
 
-vico:model_provider a owl:Class;
-   rdfs:subClassOf vico:interlocutor;
-   owl:equivalentClass evmpo:model_provider;
-   owl:sameAs evmpo:model_provider.
+evmpo:model_provider rdfs:subClassOf vico:interlocutor.
 
-vico:software_owner a owl:Class;
-   rdfs:subClassOf vico:interlocutor;
-   owl:equivalentClass evmpo:software_owner;
-   owl:sameAs evmpo:software_owner.
+evmpo:software_owner rdfs:subClassOf vico:interlocutor.
 
-vico:training_provider a owl:Class;
-   rdfs:subClassOf vico:interlocutor;
-   owl:equivalentClass evmpo:training_provider;
-   owl:sameAs evmpo:training_provider.
+evmpo:training_provider rdfs:subClassOf vico:interlocutor.
 
-vico:translator a owl:Class;
-   rdfs:subClassOf vico:interlocutor;
-   owl:equivalentClass evmpo:translator;
-   owl:sameAs evmpo:translator;
+evmpo:translator rdfs:subClassOf vico:interlocutor;
    rdfs:comment "translator as characterized by the EMMC Translators' Guide and the EMMC Translation Case Template"^^xs:string.
 
 vico:technology_transfer_institute a owl:Class;
-   rdfs:subClassOf vico:translator, evmpo:institution;
+   rdfs:subClassOf evmpo:translator, evmpo:institution;
    rdfs:comment "Technology Transfer Institute (TTI), cf. the EMMC Translation Case Template"^^xs:string.
 
 vico:pseudonym a owl:Class;
@@ -669,7 +651,8 @@ vico:IG_TRANSLATOR a vico:interlocutor_group, vcl:codelist_interlocutor_group;
    skos:prefLabel "Translator"^^xs:string.
 
 vico:interlocutor_tag a owl:Class;
-   rdfs:subClassOf vico:interlocutor_type.
+   rdfs:subClassOf vico:interlocutor_type;
+   rdfs:comment "interlocutor tag, i.e., an interlocutor type that specifies properties of an interlocutor which may co-determine the ability/suitability for trading with certain partners at a digital marketplace"^^xs:string.
 
 vico:has_interlocutor_tag a owl:ObjectProperty;
    rdfs:domain vico:interlocutor;
@@ -805,7 +788,7 @@ vico:is_superior_to a owl:ObjectProperty, owl:TransitiveProperty;
 
 vico:academic_title a owl:Class;
    rdfs:subClassOf vico:titular_rank;
-   rdfs:comment "academic title, i.e., a titular rank that signifies possession of an academic degree"^^xs:string.
+   rdfs:comment "academic title, i.e., a titular rank that corresponds to an academic degree"^^xs:string.
 
 vico:academic_title owl:disjointUnionOf (vico:nondoctoral_title vico:doctoral_title vico:postdoctoral_title).
 
