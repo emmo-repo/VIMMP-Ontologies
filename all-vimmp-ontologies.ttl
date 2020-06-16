@@ -2492,9 +2492,9 @@ viprs:has_file_metadata_item a owl:DatatypeProperty;
 
 ### MARKETPLACE-ACCESSIBLE COMPUTATIONAL RESOURCE ONTOLOGY (MACRO) ###
 
-### VERSION 1.1.1 ###
+### VERSION 1.1.2 ###
 
-### DATED 14TH JUNE 2020 ###
+### DATED 16TH JUNE 2020 ###
 
 @prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
 
@@ -2502,7 +2502,6 @@ viprs:has_file_metadata_item a owl:DatatypeProperty;
 @prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
 @prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
-@prefix paasport: <http://lpis.csd.auth.gr/ontologies/paasport/paasport1.owl#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
@@ -8350,9 +8349,9 @@ otras:is_defined_by rdfs:subPropertyOf viprs:has_descriptor.
 
 ### VIMMP COMMUNICATION ONTOLOGY (VICO) ###
 
-### VERSION 1.2.2 ###
+### VERSION 1.2.3 ###
 
-### DATED 14TH JUNE 2020 ###
+### DATED 16TH JUNE 2020 ###
 
 @prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
 
@@ -8364,6 +8363,7 @@ otras:is_defined_by rdfs:subPropertyOf viprs:has_descriptor.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix skos: <http://www.w3.org/2004/02/skos/core#>.
 @prefix vcl: <http://www.vimmp.eu/semantics/alignment/vcl.ttl#>.
 @prefix viprs: <http://www.vimmp.eu/semantics/alignment/viprs.ttl#>.
 @prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
