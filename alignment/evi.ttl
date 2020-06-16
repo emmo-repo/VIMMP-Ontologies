@@ -1,9 +1,9 @@
 
 ### EMMO-VIMMP INTEGRATION (EVI) ###
 
-### VERSION 1.1.3 ###
+### VERSION 1.1.4 ###
 
-### DATED 10TH JUNE 2020 ###
+### DATED 16TH JUNE 2020 ###
 
 @prefix evi: <http://www.vimmp.eu/semantics/alignment/evi.ttl#>.
 
@@ -21,6 +21,7 @@
 @prefix viso: <http://www.vimmp.eu/semantics/viso/viso-general.ttl#>.
 @prefix viso-am: <http://www.vimmp.eu/semantics/viso/viso-atomistic-mesoscopic.ttl#>.
 @prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
+@prefix vov: <http://www.vimmp.eu/semantics/vov/vov.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
 <http://www.vimmp.eu/semantics/alignment/evi.ttl> a owl:Ontology.
@@ -390,6 +391,10 @@ viso-am:interaction_site a owl:Class;
 viso:model_object a owl:Class;
    rdfs:subClassOf emmo1s:Symbolic, evmpo:marketplace_related_entity.
 
+viso:programming_language rdfs:subClassOf emmo1s:Language, evmpo:annotation.
+viso:software_update rdfs:subClassOf emmo1s:Process, evmpo:process.
+viso:model_type rdfs:subClassOf emmo1s:Symbolic, evmpo:marketplace_related_entity.
+
 
 #########################
 # VIVO-EMMO INTEGRATION #
@@ -505,3 +510,11 @@ vivo:unit a owl:Class;
    rdfs:subClassOf evmpo:annotation;
    owl:equivalentClass emmo1s:ReferenceUnit;
    owl:sameAs emmo1s:ReferenceUnit.
+
+
+########################
+# VOV-EMMO INTEGRATION #
+########################
+
+vov:variable rdfs:subClassOf emmo1s:Variable, evmpo:marketplace_related_entity.
+vov:function rdfs:subClassOf emmo1s:Graphical, evmpo:marketplace_related_entity.

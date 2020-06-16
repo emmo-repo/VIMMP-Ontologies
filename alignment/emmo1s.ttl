@@ -1,9 +1,9 @@
 
 ### EMMO 1.0 SIMPLIFIED (EMMO1S) ###
 
-### VERSION 1.0.1 ###
+### VERSION 1.0.2 ###
 
-### DATED 7TH JUNE 2020 ###
+### DATED 16TH JUNE 2020 ###
 
 @prefix emmo1s: <http://www.vimmp.eu/semantics/alignment/emmo1s.ttl#>.
 
@@ -603,8 +603,13 @@ emmo1s:Composition a owl:Class;
 emmo1s:Geometrical a owl:Class;
    rdfs:label "Geometrical"^^xs:string;
    owl:sameAs emmo-perceptual:EMMO_b5957cef_a287_442d_a3ce_fd39f20ba1cd;
+   rdfs:subClassOf emmo1s:Graphical;
+   rdfs:comment "Geometrical, i.e., a graphical entity that expresses a (non-4D) geometrical object; n.b., these are not Signs according to the EMMO, since non-4D geometrical objects cannot be EMMO individuals"^^xs:string.
+emmo1s:Graphical a owl:Class;
+   rdfs:label "Graphical"^^xs:string;
+   owl:sameAs emmo-perceptual:EMMO_c74da218_9147_4f03_92d1_8894abca55f3;
    rdfs:subClassOf emmo1s:Perceptual;
-   rdfs:comment "Geometrical, i.e., an entity that expresses a (non-4D) geometrical object; n.b., these are not Signs according to the EMMO, since non-4D geometrical objects cannot be EMMO individuals"^^xs:string.
+   rdfs:comment "Graphical, i.e., a writing, drawing, painting, or similar"^^xs:string.
 emmo1s:Language a owl:Class;
    rdfs:label "Language"^^xs:string;
    owl:sameAs emmo-perceptual:EMMO_d8d2144e_5c8d_455d_a643_5caf4d8d9df8;
@@ -637,7 +642,7 @@ emmo1s:Symbol a owl:Class;
 emmo1s:Symbolic a owl:Class;
    rdfs:label "Symbolic"^^xs:string;
    owl:sameAs emmo-perceptual:EMMO_057e7d57_aff0_49de_911a_8861d85cef40;
-   rdfs:subClassOf emmo1s:Perceptual;
+   rdfs:subClassOf emmo1s:Graphical;
    rdfs:comment "Symbolic, i.e., a graphical combination or arrangement ultimately based on 'tokens' (presumably, 'token' here means Symbol)"^^xs:string.
 emmo1s:WellFormedSymbolic a owl:Class;
    rdfs:label "WellFormedSymbolic"^^xs:string;
