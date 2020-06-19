@@ -2,7 +2,7 @@
 ##                                                      ##
 ##  EXAMPLE: INTERMOLECULAR PAIR POTENTIALS (EXPANDED)  ##
 ##                                                      ##
-##             LAST UPDATED: 11TH JUNE 2020             ##
+##             LAST UPDATED: 19TH JUNE 2020             ##
 ##                                                      ##
 ##########################################################
 
@@ -49,7 +49,7 @@ molmod:NH3_RIGID_UNIT a viso-am:rigid_object;
    viso:has_part molmod:NH3_SITE_A, molmod:NH3_SITE_B, molmod:NH3_SITE_COM.
 molmod:NH3_POTENTIAL a osmo:materials_relation, viso-am:two_body_potential;
    osmo:has_aspect_paradigmatic_content molmod:AMMONIA, molmod:ERVIK_ET_AL_2016;
-   vov:involves molmod:NH3_RIGID_UNIT;
+   viso:involves molmod:NH3_RIGID_UNIT;
    osmo:has_aspect_object_content molmod:NH3_POTENTIAL_SITE_A, molmod:NH3_MASS_SITE_A, molmod:NH3_CONSTRAINT_SITE_A, molmod:NH3_POTENTIAL_SITE_B, molmod:NH3_MASS_SITE_B, molmod:NH3_CONSTRAINT_SITE_B.
 
 molmod:NH3_SITE_COM a viso-am:structureless_object.  # centre of mass
@@ -59,10 +59,10 @@ molmod:NH3_SITE_B a viso-am:mie_site, viso-am:mass_site.  # second Mie site
 
 molmod:NH3_POTENTIAL_SITE_A a osmo:materials_relation, viso-am:two_body_potential;
    osmo:has_aspect_object_content molmod:NH3_CONDITION_POT_A;
-   vov:involves molmod:NH3_SITE_A.
+   viso:involves molmod:NH3_SITE_A.
 molmod:NH3_POTENTIAL_SITE_B a osmo:materials_relation, viso-am:two_body_potential;
    osmo:has_aspect_object_content molmod:NH3_CONDITION_POT_B;
-   vov:involves molmod:NH3_SITE_B.
+   viso:involves molmod:NH3_SITE_B.
 molmod:NH3_CONDITION_POT_A a osmo:quantitative_condition;
    osmo:contains_predetermined_variable molmod:NH3_PARAMETER_SIG, molmod:NH3_PARAMETER_EPS, molmod:NH3_PARAMETER_M, molmod:NH3_PARAMETER_N.
 molmod:NH3_CONDITION_POT_B a osmo:quantitative_condition;
@@ -70,10 +70,10 @@ molmod:NH3_CONDITION_POT_B a osmo:quantitative_condition;
 
 molmod:NH3_MASS_SITE_A a osmo:materials_relation;
    osmo:has_aspect_object_content molmod:NH3_CONDITION_MASS_A;
-   vov:involves molmod:NH3_SITE_A.
+   viso:involves molmod:NH3_SITE_A.
 molmod:NH3_MASS_SITE_B a osmo:materials_relation;
    osmo:has_aspect_object_content molmod:NH3_CONDITION_MASS_B;
-   vov:involves molmod:NH3_SITE_B.
+   viso:involves molmod:NH3_SITE_B.
 molmod:NH3_CONDITION_MASS_A a osmo:quantitative_condition;
    osmo:contains_predetermined_variable molmod:NH3_HALF_MASS.
 molmod:NH3_CONDITION_MASS_B a osmo:quantitative_condition;
@@ -81,10 +81,10 @@ molmod:NH3_CONDITION_MASS_B a osmo:quantitative_condition;
 
 molmod:NH3_CONSTRAINT_SITE_A a osmo:materials_relation, viso-am:two_body_potential, viso-am:bonding_potential;
    osmo:has_aspect_object_content molmod:NH3_CONDITION_RAD_A;
-   vov:involves molmod:NH3_RIGID_UNIT, molmod:NH3_SITE_COM, molmod:NH3_SITE_A.
+   viso:involves molmod:NH3_RIGID_UNIT, molmod:NH3_SITE_COM, molmod:NH3_SITE_A.
 molmod:NH3_CONSTRAINT_SITE_B a osmo:materials_relation, viso-am:two_body_potential, viso-am:bonding_potential;
    osmo:has_aspect_object_content molmod:NH3_CONDITION_RAD_B;
-   vov:involves molmod:NH3_RIGID_UNIT, molmod:NH3_SITE_COM, molmod:NH3_SITE_B.
+   viso:involves molmod:NH3_RIGID_UNIT, molmod:NH3_SITE_COM, molmod:NH3_SITE_B.
 molmod:NH3_CONDITION_RAD_A a osmo:quantitative_condition;
    osmo:contains_predetermined_variable molmod:NH3_PARAMETER_SITE_A_RAD.
 molmod:NH3_CONDITION_RAD_B a osmo:quantitative_condition;
