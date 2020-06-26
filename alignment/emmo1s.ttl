@@ -1,11 +1,11 @@
 
 ### EMMO 1.0 SIMPLIFIED (EMMO1S) ###
 
-### VERSION 1.0.2 ###
+### VERSION 1.0.3 ###
 
-### DATED 16TH JUNE 2020 ###
+### DATED 27TH JUNE 2020 ###
 
-@prefix emmo1s: <http://www.vimmp.eu/semantics/alignment/emmo1s.ttl#>.
+@prefix emmo1s: <https://purl.vimmp.eu/semantics/alignment/emmo1s.ttl#>.
 
 @prefix emmo-holistic: <http://emmo.info/emmo/middle/holistic#>.
 @prefix emmo-manufacturing: <http://emmo.info/emmo/middle/manufacturing#>.
@@ -24,7 +24,7 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
-<http://www.vimmp.eu/semantics/alignment/emmo1s.ttl> a owl:Ontology.
+<https://purl.vimmp.eu/semantics/alignment/emmo1s.ttl> a owl:Ontology.
 
 
 #############################################

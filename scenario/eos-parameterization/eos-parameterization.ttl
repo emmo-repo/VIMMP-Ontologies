@@ -4,13 +4,13 @@
 ##  EXAMPLE: PHOSGENE EOS PARAMETERIZATION  ##
 ##  BY NVT ENSEMBLE MONTE CARLO SIMULATION  ##
 ##                                          ##
-##     LAST UPDATED: 6TH NOVEMBER 2019      ##
+##       LAST UPDATED: 27TH JUNE 2020       ##
 ##                                          ##
 ##############################################
 
-<http://www.vimmp.eu/semantics/scenario/eos-parameterization/eos-parameterization.ttl#> a owl:Ontology.
+<https://purl.vimmp.eu/semantics/scenario/eos-parameterization/eos-parameterization.ttl> a owl:Ontology.
 
-@prefix scenario-eosmd: <http://www.vimmp.eu/semantics/scenario/eos-parameterization/eos-parameterization.ttl#>.
+@prefix scenario-eosmd: <https://purl.vimmp.eu/semantics/scenario/eos-parameterization/eos-parameterization.ttl#>.
 
 
 ################################
@@ -25,8 +25,8 @@
 # IMPORTED VIMMP ONTOLOGIES #
 #############################
 
-@prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
-@prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
+@prefix osmo: <https://purl.vimmp.eu/semantics/osmo/osmo.ttl#>.
+@prefix otras: <https://purl.vimmp.eu/semantics/otras/otras.ttl#>.
 
 
 ##############################

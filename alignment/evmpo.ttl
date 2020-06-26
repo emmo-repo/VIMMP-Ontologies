@@ -1,9 +1,9 @@
 
 ### EUROPEAN VIRTUAL MARKETPLACE ONTOLOGY (EVMPO) ###
 
-### VERSION 1.3.0, DATED 22ND MAY 2020 ###
+### VERSION 1.3.1, DATED 27TH JUNE 2020 ###
 
-@prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
+@prefix evmpo: <https://emmc.eu/semantics/evmpo/evmpo.ttl#>.
 
 @prefix ccso: <https://w3id.org/ccso/ccso#>.
 @prefix iao: <http://purl.obolibrary.org/obo/iao.owl#>.
@@ -11,10 +11,10 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
-@prefix viprs: <http://www.vimmp.eu/semantics/alignment/viprs.ttl#>.
+@prefix viprs: <https://purl.vimmp.eu/semantics/alignment/viprs.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
-<http://emmc.info/semantics/evmpo/evmpo.ttl> a owl:Ontology.
+<https://emmc.eu/semantics/evmpo/evmpo.ttl> a owl:Ontology.
 
 evmpo:marketplace_related_entity a owl:Class;
    rdfs:subClassOf viprs:immanent_entity.

@@ -2,13 +2,13 @@
 ##                                           ##
 ##  EXAMPLE: MOLECULAR SIMULATION TUTORIALS  ##
 ##                                           ##
-##        LAST UPDATED: 5TH JUNE 2020        ##
+##       LAST UPDATED: 27TH JUNE 2020        ##
 ##                                           ##
 ###############################################
 
-<http://www.vimmp.eu/semantics/scenario/training/tutorials.ttl#> a owl:Ontology.
+<https://purl.vimmp.eu/semantics/scenario/training/tutorials.ttl> a owl:Ontology.
 
-@prefix molsim-tutorial: <http://www.vimmp.eu/semantics/scenario/training/tutorials.ttl#>.
+@prefix molsim-tutorial: <https://purl.vimmp.eu/semantics/scenario/training/tutorials.ttl#>.
 
 ################################
 # IMPORTED EXTERNAL ONTOLOGIES #
@@ -23,7 +23,7 @@
 # IMPORTED VIMMP ONTOLOGIES #
 #############################
 
-@prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
+@prefix otras: <https://purl.vimmp.eu/semantics/otras/otras.ttl#>.
 
 #############
 # CITATIONS #

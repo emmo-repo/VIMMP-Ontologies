@@ -13,11 +13,11 @@
 
 ### EMMO 1.0 SIMPLIFIED (EMMO1S) ###
 
-### VERSION 1.0.2 ###
+### VERSION 1.0.3 ###
 
-### DATED 16TH JUNE 2020 ###
+### DATED 27TH JUNE 2020 ###
 
-@prefix emmo1s: <http://www.vimmp.eu/semantics/alignment/emmo1s.ttl#>.
+@prefix emmo1s: <https://purl.vimmp.eu/semantics/alignment/emmo1s.ttl#>.
 
 @prefix emmo-holistic: <http://emmo.info/emmo/middle/holistic#>.
 @prefix emmo-manufacturing: <http://emmo.info/emmo/middle/manufacturing#>.
@@ -36,7 +36,7 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
-<http://www.vimmp.eu/semantics/alignment/emmo1s.ttl> a owl:Ontology.
+<https://purl.vimmp.eu/semantics/alignment/emmo1s.ttl> a owl:Ontology.
 
 
 #############################################
@@ -740,30 +740,30 @@ emmo1s:hasProperty a owl:ObjectProperty;
 
 ### EMMO-VIMMP INTEGRATION (EVI) ###
 
-### VERSION 1.1.4 ###
+### VERSION 1.1.5 ###
 
-### DATED 16TH JUNE 2020 ###
+### DATED 27TH JUNE 2020 ###
 
-@prefix evi: <http://www.vimmp.eu/semantics/alignment/evi.ttl#>.
+@prefix evi: <https://purl.vimmp.eu/semantics/alignment/evi.ttl#>.
 
-@prefix emmo1s: <http://www.vimmp.eu/semantics/alignment/emmo1s.ttl#>.
-@prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
-@prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
-@prefix mmto: <http://www.vimmp.eu/semantics/mmto/mmto.ttl#>.
-@prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
-@prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
+@prefix emmo1s: <https://purl.vimmp.eu/semantics/alignment/emmo1s.ttl#>.
+@prefix evmpo: <https://emmc.eu/semantics/evmpo/evmpo.ttl#>.
+@prefix macro: <https://purl.vimmp.eu/semantics/macro/macro.ttl#>.
+@prefix mmto: <https://purl.vimmp.eu/semantics/mmto/mmto.ttl#>.
+@prefix osmo: <https://purl.vimmp.eu/semantics/osmo/osmo.ttl#>.
+@prefix otras: <https://purl.vimmp.eu/semantics/otras/otras.ttl#>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
 @prefix owl2: <http://www.w3.org/2006/12/owl2#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
-@prefix viprs: <http://www.vimmp.eu/semantics/alignment/viprs.ttl#>.
-@prefix viso: <http://www.vimmp.eu/semantics/viso/viso-general.ttl#>.
-@prefix viso-am: <http://www.vimmp.eu/semantics/viso/viso-atomistic-mesoscopic.ttl#>.
-@prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
-@prefix vov: <http://www.vimmp.eu/semantics/vov/vov.ttl#>.
+@prefix viprs: <https://purl.vimmp.eu/semantics/alignment/viprs.ttl#>.
+@prefix viso: <https://purl.vimmp.eu/semantics/viso/viso-general.ttl#>.
+@prefix viso-am: <https://purl.vimmp.eu/semantics/viso/viso-atomistic-mesoscopic.ttl#>.
+@prefix vivo: <https://purl.vimmp.eu/semantics/vivo/vivo.ttl#>.
+@prefix vov: <https://purl.vimmp.eu/semantics/vov/vov.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
-<http://www.vimmp.eu/semantics/alignment/evi.ttl> a owl:Ontology.
+<https://purl.vimmp.eu/semantics/alignment/evi.ttl> a owl:Ontology.
 
 
 #########################
@@ -1260,9 +1260,9 @@ vov:function rdfs:subClassOf emmo1s:Graphical, evmpo:marketplace_related_entity.
 
 ### EUROPEAN VIRTUAL MARKETPLACE ONTOLOGY (EVMPO) ###
 
-### VERSION 1.3.0, DATED 22ND MAY 2020 ###
+### VERSION 1.3.1, DATED 27TH JUNE 2020 ###
 
-@prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
+@prefix evmpo: <https://emmc.eu/semantics/evmpo/evmpo.ttl#>.
 
 @prefix ccso: <https://w3id.org/ccso/ccso#>.
 @prefix iao: <http://purl.obolibrary.org/obo/iao.owl#>.
@@ -1270,10 +1270,10 @@ vov:function rdfs:subClassOf emmo1s:Graphical, evmpo:marketplace_related_entity.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
-@prefix viprs: <http://www.vimmp.eu/semantics/alignment/viprs.ttl#>.
+@prefix viprs: <https://purl.vimmp.eu/semantics/alignment/viprs.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
-<http://emmc.info/semantics/evmpo/evmpo.ttl> a owl:Ontology.
+<https://emmc.eu/semantics/evmpo/evmpo.ttl> a owl:Ontology.
 
 evmpo:marketplace_related_entity a owl:Class;
    rdfs:subClassOf viprs:immanent_entity.
@@ -1656,24 +1656,24 @@ evmpo:has_meta_annotation a owl:ObjectProperty;
 
 ### VIMMP CODELISTS (VCL) FOR ZONTAL ###
 
-### VERSION 0.2.1 ###
+### VERSION 0.2.2 ###
 
-### DATED 4TH JUNE 2020 ###
+### DATED 27TH JUNE 2020 ###
 
-@prefix vcl: <http://www.vimmp.eu/semantics/alignment/vcl.ttl#>.
+@prefix vcl: <https://purl.vimmp.eu/semantics/alignment/vcl.ttl#>.
 
-@prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
-@prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
+@prefix evmpo: <https://emmc.eu/semantics/evmpo/evmpo.ttl#>.
+@prefix otras: <https://purl.vimmp.eu/semantics/otras/otras.ttl#>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
 @prefix owl2: <http://www.w3.org/2006/12/owl2#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix skos: <http://www.w3.org/2004/02/skos/core#>.
-@prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
-@prefix viprs: <http://www.vimmp.eu/semantics/alignment/viprs.ttl#>.
+@prefix vico: <https://purl.vimmp.eu/semantics/vico/vico.ttl#>.
+@prefix viprs: <https://purl.vimmp.eu/semantics/alignment/viprs.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
-<http://www.vimmp.eu/semantics/alignment/vcl.ttl> a owl:Ontology.
+<https://purl.vimmp.eu/semantics/alignment/vcl.ttl> a owl:Ontology.
 
 vcl:codelist_mm_topic a owl:Class;
    rdfs:subClassOf evmpo:marketplace_related_entity;
@@ -1712,9 +1712,9 @@ skos:inScheme a owl:ObjectProperty;
 
 ### VIMMP PRIMITIVES (VIPRS) ###
 
-### VERSION 1.0.1 ###
+### VERSION 1.0.2 ###
 
-### DATED 4TH JUNE 2020 ###
+### DATED 27TH JUNE 2020 ###
 
 # 1. Modal square of opposition
 #
@@ -1739,7 +1739,7 @@ skos:inScheme a owl:ObjectProperty;
 #
 # 4. Top-level datatype properties
 
-@prefix viprs: <http://www.vimmp.eu/semantics/alignment/viprs.ttl#>.
+@prefix viprs: <https://purl.vimmp.eu/semantics/alignment/viprs.ttl#>.
 
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
 @prefix owl2: <http://www.w3.org/2006/12/owl2#>.
@@ -1747,7 +1747,7 @@ skos:inScheme a owl:ObjectProperty;
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
-<http://www.vimmp.eu/semantics/alignment/viprs.ttl> a owl:Ontology.
+<https://purl.vimmp.eu/semantics/alignment/viprs.ttl> a owl:Ontology.
 
 viprs:top_entity a owl:Class;
    rdfs:subClassOf owl:Thing;
@@ -2492,24 +2492,24 @@ viprs:has_file_metadata_item a owl:DatatypeProperty;
 
 ### MARKETPLACE-ACCESSIBLE COMPUTATIONAL RESOURCE ONTOLOGY (MACRO) ###
 
-### VERSION 1.1.2 ###
+### VERSION 1.1.3 ###
 
-### DATED 16TH JUNE 2020 ###
+### DATED 27TH JUNE 2020 ###
 
-@prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
+@prefix macro: <https://purl.vimmp.eu/semantics/macro/macro.ttl#>.
 
 @prefix edam: <http://edamontology.org/>.
-@prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
-@prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
+@prefix evmpo: <https://emmc.eu/semantics/evmpo/evmpo.ttl#>.
+@prefix osmo: <https://purl.vimmp.eu/semantics/osmo/osmo.ttl#>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
-@prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
-@prefix viprs: <http://www.vimmp.eu/semantics/alignment/viprs.ttl#>.
-@prefix viso: <http://www.vimmp.eu/semantics/viso/viso-general.ttl#>.
+@prefix vico: <https://purl.vimmp.eu/semantics/vico/vico.ttl#>.
+@prefix viprs: <https://purl.vimmp.eu/semantics/alignment/viprs.ttl#>.
+@prefix viso: <https://purl.vimmp.eu/semantics/viso/viso-general.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
-<http://www.vimmp.eu/semantics/macro/macro.ttl#> a owl:Ontology.
+<https://purl.vimmp.eu/semantics/macro/macro.ttl> a owl:Ontology.
 
 macro:computational_resource a owl:Class;
    rdfs:subClassOf evmpo:infrastructure;
@@ -2991,24 +2991,24 @@ macro:has_file_ending rdfs:subPropertyOf viprs:has_file_metadata_item.
 
 ### MATERIALS MODELLING TRANSLATION ONTOLOGY (MMTO) ###
 
-### VERSION 1.3.2 ###
+### VERSION 1.3.3 ###
 
-### DATED 14TH JUNE 2020 ###
+### DATED 27TH JUNE 2020 ###
 
-@prefix mmto: <http://www.vimmp.eu/semantics/mmto/mmto.ttl#>.
+@prefix mmto: <https://purl.vimmp.eu/semantics/mmto/mmto.ttl#>.
 
 @prefix cao: <http://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/>.
-@prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
-@prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
+@prefix evmpo: <https://emmc.eu/semantics/evmpo/evmpo.ttl#>.
+@prefix osmo: <https://purl.vimmp.eu/semantics/osmo/osmo.ttl#>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
-@prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
-@prefix viprs: <http://www.vimmp.eu/semantics/alignment/viprs.ttl#>.
-@prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
+@prefix vico: <https://purl.vimmp.eu/semantics/vico/vico.ttl#>.
+@prefix viprs: <https://purl.vimmp.eu/semantics/alignment/viprs.ttl#>.
+@prefix vivo: <https://purl.vimmp.eu/semantics/vivo/vivo.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
-<http://www.vimmp.eu/semantics/mmto/mmto.ttl#> a owl:Ontology.
+<https://purl.vimmp.eu/semantics/mmto/mmto.ttl> a owl:Ontology.
 
 mmto:project a owl:Class;
    rdfs:subClassOf evmpo:process;
@@ -3894,25 +3894,25 @@ mmto:has_step_description rdfs:subPropertyOf viprs:has_descriptor.
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 1.6.3 ###
+### VERSION 1.6.4 ###
 
-### DATED 11TH JUNE 2020 ###
+### DATED 27TH JUNE 2020 ###
 
-@prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
+@prefix osmo: <https://purl.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
-@prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
-@prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
-@prefix mmto: <http://www.vimmp.eu/semantics/mmto/mmto.ttl#>.
+@prefix evmpo: <https://emmc.eu/semantics/evmpo/evmpo.ttl#>.
+@prefix macro: <https://purl.vimmp.eu/semantics/macro/macro.ttl#>.
+@prefix mmto: <https://purl.vimmp.eu/semantics/mmto/mmto.ttl#>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
-@prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
+@prefix otras: <https://purl.vimmp.eu/semantics/otras/otras.ttl#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
-@prefix viprs: <http://www.vimmp.eu/semantics/alignment/viprs.ttl#>.
-@prefix viso: <http://www.vimmp.eu/semantics/viso/viso-general.ttl#>.
-@prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
+@prefix viprs: <https://purl.vimmp.eu/semantics/alignment/viprs.ttl#>.
+@prefix viso: <https://purl.vimmp.eu/semantics/viso/viso-general.ttl#>.
+@prefix vivo: <https://purl.vimmp.eu/semantics/vivo/vivo.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
-<http://www.vimmp.eu/semantics/osmo/osmo.ttl#> a owl:Ontology.
+<https://purl.vimmp.eu/semantics/osmo/osmo.ttl> a owl:Ontology.
 
 
 osmo:materials_model_classifier a owl:Class;
@@ -5784,26 +5784,26 @@ osmo:has_uf_descriptor rdfs:subPropertyOf viprs:has_descriptor.
 
 ### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
 
-### VERSION 1.0.3 ###
+### VERSION 1.0.4 ###
 
-### DATED 14TH JUNE 2020 ###
+### DATED 27TH JUNE 2020 ###
 
-@prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
+@prefix otras: <https://purl.vimmp.eu/semantics/otras/otras.ttl#>.
 
 @prefix ccso: <https://w3id.org/ccso/ccso#>.
-@prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
+@prefix evmpo: <https://emmc.eu/semantics/evmpo/evmpo.ttl#>.
 @prefix iao: <http://purl.obolibrary.org/obo/iao.owl#>.
 @prefix ical: <https://www.w3.org/2002/12/cal/icaltzd#>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix skos: <http://www.w3.org/2004/02/skos/core#>.
-@prefix vcl: <http://www.vimmp.eu/semantics/alignment/vcl.ttl#>.
-@prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
-@prefix viprs: <http://www.vimmp.eu/semantics/alignment/viprs.ttl#>.
+@prefix vcl: <https://purl.vimmp.eu/semantics/alignment/vcl.ttl#>.
+@prefix vico: <https://purl.vimmp.eu/semantics/vico/vico.ttl#>.
+@prefix viprs: <https://purl.vimmp.eu/semantics/alignment/viprs.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
-<http://www.vimmp.eu/semantics/otras/otras.ttl#> a owl:Ontology.
+<https://purl.vimmp.eu/semantics/otras/otras.ttl> a owl:Ontology.
 
 otras:carrier a owl:Class;
    rdfs:subClassOf evmpo:paradigmatic_entity, [owl:unionOf (evmpo:calendar_event evmpo:information_content_entity)];
@@ -8349,27 +8349,27 @@ otras:is_defined_by rdfs:subPropertyOf viprs:has_descriptor.
 
 ### VIMMP COMMUNICATION ONTOLOGY (VICO) ###
 
-### VERSION 1.2.3 ###
+### VERSION 1.2.4 ###
 
-### DATED 16TH JUNE 2020 ###
+### DATED 27TH JUNE 2020 ###
 
-@prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
+@prefix vico: <https://purl.vimmp.eu/semantics/vico/vico.ttl#>.
 
 @prefix dcterms: <http://purl.org/dc/terms#>.
-@prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
+@prefix evmpo: <https://emmc.eu/semantics/evmpo/evmpo.ttl#>.
 @prefix lcc-cr: <https://www.omg.org/spec/LCC/Countries/CountryRepresentation/>.
-@prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
-@prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
+@prefix macro: <https://purl.vimmp.eu/semantics/macro/macro.ttl#>.
+@prefix otras: <https://purl.vimmp.eu/semantics/otras/otras.ttl#>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix skos: <http://www.w3.org/2004/02/skos/core#>.
-@prefix vcl: <http://www.vimmp.eu/semantics/alignment/vcl.ttl#>.
-@prefix viprs: <http://www.vimmp.eu/semantics/alignment/viprs.ttl#>.
-@prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
+@prefix vcl: <https://purl.vimmp.eu/semantics/alignment/vcl.ttl#>.
+@prefix viprs: <https://purl.vimmp.eu/semantics/alignment/viprs.ttl#>.
+@prefix vivo: <https://purl.vimmp.eu/semantics/vivo/vivo.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
-<http://www.vimmp.eu/semantics/vico/vico.ttl#> a owl:Ontology.
+<https://purl.vimmp.eu/semantics/vico/vico.ttl> a owl:Ontology.
 
 vico:contains a owl:ObjectProperty, owl:TransitiveProperty;
    rdfs:domain evmpo:communication;
@@ -9238,25 +9238,25 @@ vico:has_profile_image rdfs:subPropertyOf viprs:has_file_metadata_item.
 
 ### VIMMP VALIDATION ONTOLOGY (VIVO) ###
 
-### VERSION 1.1.2 ###
+### VERSION 1.1.3 ###
 
-### DATED 13TH JUNE 2020 ###
+### DATED 27TH JUNE 2020 ###
 
-@prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
+@prefix vivo: <https://purl.vimmp.eu/semantics/vivo/vivo.ttl#>.
 
-@prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
-@prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
-@prefix mmto: <http://www.vimmp.eu/semantics/mmto/mmto.ttl#>.
-@prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
+@prefix evmpo: <https://emmc.eu/semantics/evmpo/evmpo.ttl#>.
+@prefix macro: <https://purl.vimmp.eu/semantics/macro/macro.ttl#>.
+@prefix mmto: <https://purl.vimmp.eu/semantics/mmto/mmto.ttl#>.
+@prefix osmo: <https://purl.vimmp.eu/semantics/osmo/osmo.ttl#>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
 @prefix qudt: <http://qudt.org/schema/qudt/>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
-@prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
-@prefix viprs: <http://www.vimmp.eu/semantics/alignment/viprs.ttl#>.
+@prefix vico: <https://purl.vimmp.eu/semantics/vico/vico.ttl#>.
+@prefix viprs: <https://purl.vimmp.eu/semantics/alignment/viprs.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
-<http://www.vimmp.eu/semantics/vivo/vivo.ttl#> a owl:Ontology.
+<https://purl.vimmp.eu/semantics/vivo/vivo.ttl> a owl:Ontology.
 
 
 #####################################

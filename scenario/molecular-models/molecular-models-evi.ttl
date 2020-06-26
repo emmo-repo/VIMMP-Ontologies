@@ -4,7 +4,7 @@
 ##                                           ##
 ##             EMMO/EVI VERSION              ##
 ##                                           ##
-##        LAST UPDATED: 5TH JUNE 2020        ##
+##       LAST UPDATED: 27TH JUNE 2020        ##
 ##                                           ##
 ##    THE PLAN HERE IS TO REPLACE AS MANY    ##
 ##   CLASSES AND RELATIONS AS POSSIBLE BY    ##
@@ -13,16 +13,16 @@
 ##                                           ##
 ###############################################
 
-<http://www.vimmp.eu/semantics/scenario/molecular-models/molecular-models.ttl#> a owl:Ontology.
+<https://purl.vimmp.eu/semantics/scenario/molecular-models/molecular-models.ttl> a owl:Ontology.
 
-@prefix molmod: <http://www.vimmp.eu/semantics/scenario/molecular-models/molecular-models.ttl#>.
+@prefix molmod: <https://purl.vimmp.eu/semantics/scenario/molecular-models/molecular-models.ttl#>.
 
 
 ##########################
 # EMMO-VIMMP INTEGRATION #
 ##########################
 
-@prefix emmo1s: <http://www.vimmp.eu/semantics/alignment/emmo1s.ttl#>.
+@prefix emmo1s: <https://purl.vimmp.eu/semantics/alignment/emmo1s.ttl#>.
 
 molmod:AMMONIA a emmo1s:Material.  # emmo-physicalistic:Material
 

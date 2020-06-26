@@ -1,24 +1,24 @@
 
 ### MATERIALS MODELLING TRANSLATION ONTOLOGY (MMTO) ###
 
-### VERSION 1.3.2 ###
+### VERSION 1.3.3 ###
 
-### DATED 14TH JUNE 2020 ###
+### DATED 27TH JUNE 2020 ###
 
-@prefix mmto: <http://www.vimmp.eu/semantics/mmto/mmto.ttl#>.
+@prefix mmto: <https://purl.vimmp.eu/semantics/mmto/mmto.ttl#>.
 
 @prefix cao: <http://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/>.
-@prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
-@prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
+@prefix evmpo: <https://emmc.eu/semantics/evmpo/evmpo.ttl#>.
+@prefix osmo: <https://purl.vimmp.eu/semantics/osmo/osmo.ttl#>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
-@prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
-@prefix viprs: <http://www.vimmp.eu/semantics/alignment/viprs.ttl#>.
-@prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
+@prefix vico: <https://purl.vimmp.eu/semantics/vico/vico.ttl#>.
+@prefix viprs: <https://purl.vimmp.eu/semantics/alignment/viprs.ttl#>.
+@prefix vivo: <https://purl.vimmp.eu/semantics/vivo/vivo.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
-<http://www.vimmp.eu/semantics/mmto/mmto.ttl#> a owl:Ontology.
+<https://purl.vimmp.eu/semantics/mmto/mmto.ttl> a owl:Ontology.
 
 mmto:project a owl:Class;
    rdfs:subClassOf evmpo:process;

@@ -2,13 +2,13 @@
 ##                                                      ##
 ##  EXAMPLE: INTERMOLECULAR PAIR POTENTIALS (EXPANDED)  ##
 ##                                                      ##
-##             LAST UPDATED: 19TH JUNE 2020             ##
+##             LAST UPDATED: 27TH JUNE 2020             ##
 ##                                                      ##
 ##########################################################
 
-<http://www.vimmp.eu/semantics/scenario/molecular-models/molecular-models.ttl#> a owl:Ontology.
+<https://purl.vimmp.eu/semantics/scenario/molecular-models/molecular-models.ttl> a owl:Ontology.
 
-@prefix molmod: <http://www.vimmp.eu/semantics/scenario/molecular-models/molecular-models.ttl#>.
+@prefix molmod: <https://purl.vimmp.eu/semantics/scenario/molecular-models/molecular-models.ttl#>.
 
 
 ################################
@@ -24,13 +24,13 @@
 # IMPORTED VIMMP ONTOLOGIES #
 #############################
 
-@prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
-@prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
-@prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
-@prefix viso: <http://www.vimmp.eu/semantics/viso/viso-general.ttl#>.
-@prefix viso-am: <http://www.vimmp.eu/semantics/viso/viso-atomistic-mesoscopic.ttl#>.
-@prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
-@prefix vov: <http://www.vimmp.eu/semantics/viso/vov.ttl#>.
+@prefix macro: <https://purl.vimmp.eu/semantics/macro/macro.ttl#>.
+@prefix osmo: <https://purl.vimmp.eu/semantics/osmo/osmo.ttl#>.
+@prefix otras: <https://purl.vimmp.eu/semantics/otras/otras.ttl#>.
+@prefix viso: <https://purl.vimmp.eu/semantics/viso/viso-general.ttl#>.
+@prefix viso-am: <https://purl.vimmp.eu/semantics/viso/viso-atomistic-mesoscopic.ttl#>.
+@prefix vivo: <https://purl.vimmp.eu/semantics/vivo/vivo.ttl#>.
+@prefix vov: <https://purl.vimmp.eu/semantics/viso/vov.ttl#>.
 
 
 ###########################################

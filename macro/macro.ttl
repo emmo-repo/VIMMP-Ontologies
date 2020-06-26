@@ -1,24 +1,24 @@
 
 ### MARKETPLACE-ACCESSIBLE COMPUTATIONAL RESOURCE ONTOLOGY (MACRO) ###
 
-### VERSION 1.1.2 ###
+### VERSION 1.1.3 ###
 
-### DATED 16TH JUNE 2020 ###
+### DATED 27TH JUNE 2020 ###
 
-@prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
+@prefix macro: <https://purl.vimmp.eu/semantics/macro/macro.ttl#>.
 
 @prefix edam: <http://edamontology.org/>.
-@prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
-@prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
+@prefix evmpo: <https://emmc.eu/semantics/evmpo/evmpo.ttl#>.
+@prefix osmo: <https://purl.vimmp.eu/semantics/osmo/osmo.ttl#>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
-@prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
-@prefix viprs: <http://www.vimmp.eu/semantics/alignment/viprs.ttl#>.
-@prefix viso: <http://www.vimmp.eu/semantics/viso/viso-general.ttl#>.
+@prefix vico: <https://purl.vimmp.eu/semantics/vico/vico.ttl#>.
+@prefix viprs: <https://purl.vimmp.eu/semantics/alignment/viprs.ttl#>.
+@prefix viso: <https://purl.vimmp.eu/semantics/viso/viso-general.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
-<http://www.vimmp.eu/semantics/macro/macro.ttl#> a owl:Ontology.
+<https://purl.vimmp.eu/semantics/macro/macro.ttl> a owl:Ontology.
 
 macro:computational_resource a owl:Class;
    rdfs:subClassOf evmpo:infrastructure;

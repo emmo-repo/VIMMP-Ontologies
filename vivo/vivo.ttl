@@ -1,25 +1,25 @@
 
 ### VIMMP VALIDATION ONTOLOGY (VIVO) ###
 
-### VERSION 1.1.2 ###
+### VERSION 1.1.3 ###
 
-### DATED 13TH JUNE 2020 ###
+### DATED 27TH JUNE 2020 ###
 
-@prefix vivo: <http://www.vimmp.eu/semantics/vivo/vivo.ttl#>.
+@prefix vivo: <https://purl.vimmp.eu/semantics/vivo/vivo.ttl#>.
 
-@prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
-@prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
-@prefix mmto: <http://www.vimmp.eu/semantics/mmto/mmto.ttl#>.
-@prefix osmo: <http://www.vimmp.eu/semantics/osmo/osmo.ttl#>.
+@prefix evmpo: <https://emmc.eu/semantics/evmpo/evmpo.ttl#>.
+@prefix macro: <https://purl.vimmp.eu/semantics/macro/macro.ttl#>.
+@prefix mmto: <https://purl.vimmp.eu/semantics/mmto/mmto.ttl#>.
+@prefix osmo: <https://purl.vimmp.eu/semantics/osmo/osmo.ttl#>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
 @prefix qudt: <http://qudt.org/schema/qudt/>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
-@prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
-@prefix viprs: <http://www.vimmp.eu/semantics/alignment/viprs.ttl#>.
+@prefix vico: <https://purl.vimmp.eu/semantics/vico/vico.ttl#>.
+@prefix viprs: <https://purl.vimmp.eu/semantics/alignment/viprs.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
-<http://www.vimmp.eu/semantics/vivo/vivo.ttl#> a owl:Ontology.
+<https://purl.vimmp.eu/semantics/vivo/vivo.ttl> a owl:Ontology.
 
 
 #####################################

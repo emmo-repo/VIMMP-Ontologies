@@ -3,13 +3,13 @@
 ##                                          ##
 ##  EXAMPLE: SWiMM 2020 SCHOOL DESCRIPTION  ##
 ##                                          ##
-##     LAST UPDATED: 25TH NOVEMBER 2019     ##
+##       LAST UPDATED: 27TH JUNE 2020       ##
 ##                                          ##
 ##############################################
 
-<http://www.vimmp.eu/semantics/scenario/summer-school/swimm-2020.ttl#> a owl:Ontology.
+<https://purl.vimmp.eu/semantics/scenario/summer-school/swimm-2020.ttl> a owl:Ontology.
 
-@prefix swimm: <http://www.vimmp.eu/semantics/scenario/summer-school/swimm-2020.ttl#>.
+@prefix swimm: <https://purl.vimmp.eu/semantics/scenario/summer-school/swimm-2020.ttl#>.
 
 
 ################################
@@ -26,9 +26,9 @@
 # IMPORTED VIMMP ONTOLOGIES #
 #############################
 
-@prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
-@prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
-@prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
+@prefix evmpo: <https://emmc.eu/semantics/evmpo/evmpo.ttl#>.
+@prefix otras: <https://purl.vimmp.eu/semantics/otras/otras.ttl#>.
+@prefix vico: <https://purl.vimmp.eu/semantics/vico/vico.ttl#>.
 
 
 #######################

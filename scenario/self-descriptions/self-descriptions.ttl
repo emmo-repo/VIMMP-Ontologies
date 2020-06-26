@@ -2,13 +2,13 @@
 ##                                    ##
 ##  EXAMPLE: INGEST OF PERSONAL DATA  ##
 ##                                    ##
-##    LAST UPDATED: 14TH JUNE 2020    ##
+##    LAST UPDATED: 27TH JUNE 2020    ##
 ##                                    ##
 ########################################
 
-<http://www.vimmp.eu/semantics/scenario/self-descriptions/self-descriptions.ttl#> a owl:Ontology.
+<https://purl.vimmp.eu/semantics/scenario/self-descriptions/self-descriptions.ttl> a owl:Ontology.
 
-@prefix self-descriptions: <http://www.vimmp.eu/semantics/scenario/self-descriptions/self-descriptions.ttl#>.
+@prefix self-descriptions: <https://purl.vimmp.eu/semantics/scenario/self-descriptions/self-descriptions.ttl#>.
 
 
 ################################
@@ -23,10 +23,10 @@
 # IMPORTED VIMMP ONTOLOGIES #
 #############################
 
-@prefix evmpo: <http://emmc.info/semantics/evmpo/evmpo.ttl#>.
-@prefix macro: <http://www.vimmp.eu/semantics/macro/macro.ttl#>.
-@prefix otras: <http://www.vimmp.eu/semantics/otras/otras.ttl#>.
-@prefix vico: <http://www.vimmp.eu/semantics/vico/vico.ttl#>.
+@prefix evmpo: <https://emmc.eu/semantics/evmpo/evmpo.ttl#>.
+@prefix macro: <https://purl.vimmp.eu/semantics/macro/macro.ttl#>.
+@prefix otras: <https://purl.vimmp.eu/semantics/otras/otras.ttl#>.
+@prefix vico: <https://purl.vimmp.eu/semantics/vico/vico.ttl#>.
 
 
 ################
