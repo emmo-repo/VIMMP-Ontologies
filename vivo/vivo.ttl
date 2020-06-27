@@ -1,7 +1,7 @@
 
 ### VIMMP VALIDATION ONTOLOGY (VIVO) ###
 
-### VERSION 1.1.3 ###
+### VERSION 1.1.4 ###
 
 ### DATED 27TH JUNE 2020 ###
 
@@ -19,7 +19,20 @@
 @prefix viprs: <https://purl.vimmp.eu/semantics/alignment/viprs.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
-<https://purl.vimmp.eu/semantics/vivo/vivo.ttl> a owl:Ontology.
+<https://purl.vimmp.eu/semantics/vivo/vivo.ttl> a owl:Ontology;
+   dcterms:title "VIVO: VIMMP Validation Ontology"^^xs:string;
+   owl:versionInfo "version 1.1.4"^^xs:string;
+   dcterms:modified "2020-06-27"^^xs:date;
+   dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
+   dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
+   dcterms:bibliographicCitation "doi:10.1007/s13218-020-00648-9"^^xs:string;
+   dcterms:creator "Martin Thomas Horsch (ORCID 0000-0002-9464-6739)"^^xs:string;
+   dcterms:creator "Silvia Chiacchiera (ORCID 0000-0003-0422-7870)"^^xs:string;
+   dcterms:creator "Michael A. Seaton (ORCID 0000-0002-4708-573X)"^^xs:string;
+   dcterms:creator "Ilian T. Todorov (ORCID 0000-0001-7275-1784)"^^xs:string;
+   dcterms:contributor "Welchy Leite Cavalcanti"^^xs:string;
+   dcterms:contributor "Gerhard Goldbeck (ORCID 0000-0002-4181-2852)"^^xs:string;
+   dcterms:contributor "Daniele Toti (ORCID 0000-0002-9668-6961)"^^xs:string.
 
 
 #####################################

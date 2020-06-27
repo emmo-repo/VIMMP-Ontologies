@@ -1,7 +1,7 @@
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 1.6.4 ###
+### VERSION 1.6.5 ###
 
 ### DATED 27TH JUNE 2020 ###
 
@@ -19,8 +19,29 @@
 @prefix vivo: <https://purl.vimmp.eu/semantics/vivo/vivo.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
-<https://purl.vimmp.eu/semantics/osmo/osmo.ttl> a owl:Ontology.
-
+<https://purl.vimmp.eu/semantics/osmo/osmo.ttl> a owl:Ontology;
+   dcterms:title "OSMO: Ontology for Simulation, Modelling, and Optimization"^^xs:string;
+   owl:versionInfo "version 1.6.5"^^xs:string;
+   dcterms:modified "2020-06-27"^^xs:date;
+   dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
+   dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
+   dcterms:bibliographicCitation "10.1021/acs.jced.9b00739"^^xs:string;
+   dcterms:creator "Martin Thomas Horsch (ORCID 0000-0002-9464-6739)"^^xs:string;
+   dcterms:creator "Silvia Chiacchiera (ORCID 0000-0003-0422-7870)"^^xs:string;
+   dcterms:creator "Michael A. Seaton (ORCID 0000-0002-4708-573X)"^^xs:string;
+   dcterms:creator "Ilian T. Todorov (ORCID 0000-0001-7275-1784)"^^xs:string;
+   dcterms:contributor "Gianluca Boccardo (ORCID 0000-0003-1264-8237)"^^xs:string;
+   dcterms:contributor "Paola Carbone (ORCID 0000-0001-9927-8376)"^^xs:string;
+   dcterms:contributor "Welchy Leite Cavalcanti"^^xs:string;
+   dcterms:contributor "Mara Chiricotto (ORCID 0000-0003-1609-5254)"^^xs:string;
+   dcterms:contributor "Joshua D. Elliott (ORCID 0000-0002-0729-246X)"^^xs:string;
+   dcterms:contributor "Gerhard Goldbeck (ORCID 0000-0002-4181-2852)"^^xs:string;
+   dcterms:contributor "Vladimir Lobaskin (ORCID 0000-0002-5231-0639)"^^xs:string;
+   dcterms:contributor "Philipp Neumann"^^xs:string;
+   dcterms:contributor "Christoph Niethammer"^^xs:string;
+   dcterms:contributor "Peter Schiffels"^^xs:string;
+   dcterms:contributor "Daniele Toti (ORCID 0000-0002-9668-6961)"^^xs:string;
+   dcterms:contributor "Jadran Vrabec (ORCID 0000-0002-7947-4051)"^^xs:string.
 
 osmo:materials_model_classifier a owl:Class;
    rdfs:subClassOf evmpo:annotation, [
@@ -1873,9 +1894,10 @@ osmo:has_uf_descriptor rdfs:subPropertyOf viprs:has_descriptor.
 
 # A condition is a mathematical entity
 
-# A logical term is a symbolic
-# A logical variable is a numerical entity
-# A unique elementary is a variable and a quantity
+# A logical term is a mathematical entity
+# A logical value is a numerical entity
+# A logical variable is a variable
+# A unique elementary is a quantity
 # A logical array is an array
 
 # A materials_model_classifier is a sign for a materials model

@@ -1,7 +1,7 @@
 
 ### EMMO-VIMMP INTEGRATION (EVI) ###
 
-### VERSION 1.1.5 ###
+### VERSION 1.1.6 ###
 
 ### DATED 27TH JUNE 2020 ###
 
@@ -24,7 +24,20 @@
 @prefix vov: <https://purl.vimmp.eu/semantics/vov/vov.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
-<https://purl.vimmp.eu/semantics/alignment/evi.ttl> a owl:Ontology.
+<https://purl.vimmp.eu/semantics/alignment/evi.ttl> a owl:Ontology;
+   dcterms:title "EVI: EMMO-VIMMP Integration"^^xs:string;
+   owl:versionInfo "version 1.1.6"^^xs:string;
+   dcterms:modified "2020-06-27"^^xs:date;
+   dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
+   dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
+   dcterms:bibliographicCitation "doi:10.1007/s13218-020-00648-9"^^xs:string;
+   dcterms:creator "Martin Thomas Horsch (ORCID 0000-0002-9464-6739)"^^xs:string;
+   dcterms:creator "Silvia Chiacchiera (ORCID 0000-0003-0422-7870)"^^xs:string;
+   dcterms:creator "Michael A. Seaton (ORCID 0000-0002-4708-573X)"^^xs:string;
+   dcterms:creator "Ilian T. Todorov (ORCID 0000-0001-7275-1784)"^^xs:string;
+   dcterms:contributor "Welchy Leite Cavalcanti"^^xs:string;
+   dcterms:contributor "Gerhard Goldbeck (ORCID 0000-0002-4181-2852)"^^xs:string;
+   dcterms:contributor "Daniele Toti (ORCID 0000-0002-9668-6961)"^^xs:string.
 
 
 #########################
@@ -282,23 +295,36 @@ osmo:condition a owl:Class;
 
 # A logical array is an array
 #
-osmo:elementary_collection a owl:Class;
-   rdfs:subClassOf osmo:logical_array, emmo1s:Array.
+osmo:logical_array a owl:Class;
+   rdfs:subClassOf osmo:logical_variable;
+   owl:sameAs emmo1s:Array;
+   owl:equivalentClass emmo1s:Array.
 
-# A logical term is a symbolic
+# A logical term is a mathematical entity
 #
 osmo:logical_term a owl:Class;
-   rdfs:subClassOf evmpo:marketplace_related_entity, emmo1s:Symbolic.
+   rdfs:subClassOf evmpo:marketplace_related_entity, emmo1s:Mathematical, [
+      owl:unionOf (emmo1s:Numerical emmo1s:Variable)
+   ].
 
-# A logical variable is a numerical entity
+# A logical value is a numerical entity
+#
+osmo:logical_value a owl:Class;
+   rdfs:subClassOf osmo:logical_term;
+   owl:sameAs emmo1s:Numerical;
+   owl:equivalentClass emmo1s:Numerical.
+
+# A logical variable is a variable
 #
 osmo:logical_variable a owl:Class;
-   rdfs:subClassOf osmo:logical_term, emmo1s:Numerical.
+   rdfs:subClassOf osmo:logical_term;
+   owl:sameAs emmo1s:Variable;
+   owl:equivalentClass emmo1s:Variable.
 
-# A unique elementary is a variable and a quantity
+# A unique elementary is a quantity
 #
 osmo:unique_elementary a owl:Class;
-   rdfs:subClassOf osmo:logical_variable, emmo1s:Variable, emmo1s:Quantity.
+   rdfs:subClassOf osmo:logical_variable, emmo1s:Quantity.
 
 # A materials_model_classifier is a sign for a materials model
 #
