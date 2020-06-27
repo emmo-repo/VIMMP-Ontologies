@@ -758,6 +758,7 @@ emmo1s:hasProperty a owl:ObjectProperty;
 
 @prefix evi: <https://purl.vimmp.eu/semantics/alignment/evi.ttl#>.
 
+@prefix dcterms: <http://purl.org/dc/terms/>.
 @prefix emmo1s: <https://purl.vimmp.eu/semantics/alignment/emmo1s.ttl#>.
 @prefix evmpo: <https://emmc.eu/semantics/evmpo/evmpo.ttl#>.
 @prefix macro: <https://purl.vimmp.eu/semantics/macro/macro.ttl#>.
@@ -1303,6 +1304,7 @@ vov:function rdfs:subClassOf emmo1s:Graphical, evmpo:marketplace_related_entity.
 @prefix evmpo: <https://emmc.eu/semantics/evmpo/evmpo.ttl#>.
 
 @prefix ccso: <https://w3id.org/ccso/ccso#>.
+@prefix dcterms: <http://purl.org/dc/terms/>.
 @prefix iao: <http://purl.obolibrary.org/obo/iao.owl#>.
 @prefix ical: <https://www.w3.org/2002/12/cal/icaltzd#>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
@@ -1715,6 +1717,7 @@ evmpo:has_meta_annotation a owl:ObjectProperty;
 
 @prefix vcl: <https://purl.vimmp.eu/semantics/alignment/vcl.ttl#>.
 
+@prefix dcterms: <http://purl.org/dc/terms/>.
 @prefix evmpo: <https://emmc.eu/semantics/evmpo/evmpo.ttl#>.
 @prefix otras: <https://purl.vimmp.eu/semantics/otras/otras.ttl#>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
@@ -1805,6 +1808,7 @@ skos:inScheme a owl:ObjectProperty;
 
 @prefix viprs: <https://purl.vimmp.eu/semantics/alignment/viprs.ttl#>.
 
+@prefix dcterms: <http://purl.org/dc/terms/>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
 @prefix owl2: <http://www.w3.org/2006/12/owl2#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
@@ -2572,6 +2576,7 @@ viprs:has_file_metadata_item a owl:DatatypeProperty;
 
 @prefix macro: <https://purl.vimmp.eu/semantics/macro/macro.ttl#>.
 
+@prefix dcterms: <http://purl.org/dc/terms/>.
 @prefix edam: <http://edamontology.org/>.
 @prefix evmpo: <https://emmc.eu/semantics/evmpo/evmpo.ttl#>.
 @prefix osmo: <https://purl.vimmp.eu/semantics/osmo/osmo.ttl#>.
@@ -3090,6 +3095,7 @@ macro:has_file_ending rdfs:subPropertyOf viprs:has_file_metadata_item.
 @prefix mmto: <https://purl.vimmp.eu/semantics/mmto/mmto.ttl#>.
 
 @prefix cao: <http://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/>.
+@prefix dcterms: <http://purl.org/dc/terms/>.
 @prefix evmpo: <https://emmc.eu/semantics/evmpo/evmpo.ttl#>.
 @prefix osmo: <https://purl.vimmp.eu/semantics/osmo/osmo.ttl#>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
@@ -4008,6 +4014,7 @@ mmto:has_step_description rdfs:subPropertyOf viprs:has_descriptor.
 
 @prefix osmo: <https://purl.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
+@prefix dcterms: <http://purl.org/dc/terms/>.
 @prefix evmpo: <https://emmc.eu/semantics/evmpo/evmpo.ttl#>.
 @prefix macro: <https://purl.vimmp.eu/semantics/macro/macro.ttl#>.
 @prefix mmto: <https://purl.vimmp.eu/semantics/mmto/mmto.ttl#>.
@@ -5921,6 +5928,7 @@ osmo:has_uf_descriptor rdfs:subPropertyOf viprs:has_descriptor.
 @prefix otras: <https://purl.vimmp.eu/semantics/otras/otras.ttl#>.
 
 @prefix ccso: <https://w3id.org/ccso/ccso#>.
+@prefix dcterms: <http://purl.org/dc/terms/>.
 @prefix evmpo: <https://emmc.eu/semantics/evmpo/evmpo.ttl#>.
 @prefix iao: <http://purl.obolibrary.org/obo/iao.owl#>.
 @prefix ical: <https://www.w3.org/2002/12/cal/icaltzd#>.
@@ -9412,6 +9420,7 @@ vico:has_profile_image rdfs:subPropertyOf viprs:has_file_metadata_item.
 
 @prefix vivo: <https://purl.vimmp.eu/semantics/vivo/vivo.ttl#>.
 
+@prefix dcterms: <http://purl.org/dc/terms/>.
 @prefix evmpo: <https://emmc.eu/semantics/evmpo/evmpo.ttl#>.
 @prefix macro: <https://purl.vimmp.eu/semantics/macro/macro.ttl#>.
 @prefix mmto: <https://purl.vimmp.eu/semantics/mmto/mmto.ttl#>.

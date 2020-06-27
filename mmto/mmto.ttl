@@ -8,6 +8,7 @@
 @prefix mmto: <https://purl.vimmp.eu/semantics/mmto/mmto.ttl#>.
 
 @prefix cao: <http://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/>.
+@prefix dcterms: <http://purl.org/dc/terms/>.
 @prefix evmpo: <https://emmc.eu/semantics/evmpo/evmpo.ttl#>.
 @prefix osmo: <https://purl.vimmp.eu/semantics/osmo/osmo.ttl#>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.

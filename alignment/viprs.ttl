@@ -30,6 +30,7 @@
 
 @prefix viprs: <https://purl.vimmp.eu/semantics/alignment/viprs.ttl#>.
 
+@prefix dcterms: <http://purl.org/dc/terms/>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
 @prefix owl2: <http://www.w3.org/2006/12/owl2#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.

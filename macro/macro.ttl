@@ -7,6 +7,7 @@
 
 @prefix macro: <https://purl.vimmp.eu/semantics/macro/macro.ttl#>.
 
+@prefix dcterms: <http://purl.org/dc/terms/>.
 @prefix edam: <http://edamontology.org/>.
 @prefix evmpo: <https://emmc.eu/semantics/evmpo/evmpo.ttl#>.
 @prefix osmo: <https://purl.vimmp.eu/semantics/osmo/osmo.ttl#>.

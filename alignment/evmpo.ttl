@@ -6,6 +6,7 @@
 @prefix evmpo: <https://emmc.eu/semantics/evmpo/evmpo.ttl#>.
 
 @prefix ccso: <https://w3id.org/ccso/ccso#>.
+@prefix dcterms: <http://purl.org/dc/terms/>.
 @prefix iao: <http://purl.obolibrary.org/obo/iao.owl#>.
 @prefix ical: <https://www.w3.org/2002/12/cal/icaltzd#>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.

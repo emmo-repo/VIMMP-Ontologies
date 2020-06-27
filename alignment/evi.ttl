@@ -7,6 +7,7 @@
 
 @prefix evi: <https://purl.vimmp.eu/semantics/alignment/evi.ttl#>.
 
+@prefix dcterms: <http://purl.org/dc/terms/>.
 @prefix emmo1s: <https://purl.vimmp.eu/semantics/alignment/emmo1s.ttl#>.
 @prefix evmpo: <https://emmc.eu/semantics/evmpo/evmpo.ttl#>.
 @prefix macro: <https://purl.vimmp.eu/semantics/macro/macro.ttl#>.
