@@ -13,12 +13,13 @@
 
 ### EMMO 1.0 SIMPLIFIED (EMMO1S) ###
 
-### VERSION 1.0.3 ###
+### VERSION 1.0.4 ###
 
 ### DATED 27TH JUNE 2020 ###
 
 @prefix emmo1s: <https://purl.vimmp.eu/semantics/alignment/emmo1s.ttl#>.
 
+@prefix dcterms: <http://purl.org/dc/terms/>.
 @prefix emmo-holistic: <http://emmo.info/emmo/middle/holistic#>.
 @prefix emmo-manufacturing: <http://emmo.info/emmo/middle/manufacturing#>.
 @prefix emmo-math: <http://emmo.info/emmo/middle/math#>.
@@ -36,8 +37,19 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
-<https://purl.vimmp.eu/semantics/alignment/emmo1s.ttl> a owl:Ontology.
-
+<https://purl.vimmp.eu/semantics/alignment/emmo1s.ttl> a owl:Ontology;
+   dcterms:title "EMMO1s: European Materials Modelling Ontology (EMMO) version 1 simplified"^^xs:string;
+   owl:versionInfo "version 1.0.4"^^xs:string;
+   dcterms:modified "2020-06-27"^^xs:date;
+   dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
+   dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
+   dcterms:creator "Martin Thomas Horsch (ORCID 0000-0002-9464-6739)"^^xs:string;
+   dcterms:creator "Silvia Chiacchiera (ORCID 0000-0003-0422-7870)"^^xs:string;
+   dcterms:creator "Michael A. Seaton (ORCID 0000-0002-4708-573X)"^^xs:string;
+   dcterms:creator "Ilian T. Todorov (ORCID 0000-0001-7275-1784)"^^xs:string;
+   dcterms:contributor "Welchy Leite Cavalcanti"^^xs:string;
+   dcterms:contributor "Gerhard Goldbeck (ORCID 0000-0002-4181-2852)"^^xs:string;
+   dcterms:contributor "Daniele Toti (ORCID 0000-0002-9668-6961)"^^xs:string.
 
 #############################################
 #                                           #
@@ -489,7 +501,7 @@ emmo1s:Engineered a owl:Class;
 emmo1s:Array a owl:Class;
    rdfs:label "Array"^^xs:string;
    owl:sameAs emmo-math:EMMO_28fbea28_2204_4613_87ff_6d877b855fcd;
-   rdfs:subClassOf emmo1s:Mathematical.
+   rdfs:subClassOf emmo1s:Variable.
 emmo1s:Constant a owl:Class;
    rdfs:label "Constant"^^xs:string;
    owl:sameAs emmo-math:EMMO_ae15fb4f_8e4d_41de_a0f9_3997f89ba6a2;
@@ -740,7 +752,7 @@ emmo1s:hasProperty a owl:ObjectProperty;
 
 ### EMMO-VIMMP INTEGRATION (EVI) ###
 
-### VERSION 1.1.5 ###
+### VERSION 1.1.6 ###
 
 ### DATED 27TH JUNE 2020 ###
 
@@ -763,7 +775,20 @@ emmo1s:hasProperty a owl:ObjectProperty;
 @prefix vov: <https://purl.vimmp.eu/semantics/vov/vov.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
-<https://purl.vimmp.eu/semantics/alignment/evi.ttl> a owl:Ontology.
+<https://purl.vimmp.eu/semantics/alignment/evi.ttl> a owl:Ontology;
+   dcterms:title "EVI: EMMO-VIMMP Integration"^^xs:string;
+   owl:versionInfo "version 1.1.6"^^xs:string;
+   dcterms:modified "2020-06-27"^^xs:date;
+   dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
+   dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
+   dcterms:bibliographicCitation "doi:10.1007/s13218-020-00648-9"^^xs:string;
+   dcterms:creator "Martin Thomas Horsch (ORCID 0000-0002-9464-6739)"^^xs:string;
+   dcterms:creator "Silvia Chiacchiera (ORCID 0000-0003-0422-7870)"^^xs:string;
+   dcterms:creator "Michael A. Seaton (ORCID 0000-0002-4708-573X)"^^xs:string;
+   dcterms:creator "Ilian T. Todorov (ORCID 0000-0001-7275-1784)"^^xs:string;
+   dcterms:contributor "Welchy Leite Cavalcanti"^^xs:string;
+   dcterms:contributor "Gerhard Goldbeck (ORCID 0000-0002-4181-2852)"^^xs:string;
+   dcterms:contributor "Daniele Toti (ORCID 0000-0002-9668-6961)"^^xs:string.
 
 
 #########################
@@ -1021,23 +1046,36 @@ osmo:condition a owl:Class;
 
 # A logical array is an array
 #
-osmo:elementary_collection a owl:Class;
-   rdfs:subClassOf osmo:logical_array, emmo1s:Array.
+osmo:logical_array a owl:Class;
+   rdfs:subClassOf osmo:logical_variable;
+   owl:sameAs emmo1s:Array;
+   owl:equivalentClass emmo1s:Array.
 
-# A logical term is a symbolic
+# A logical term is a mathematical entity
 #
 osmo:logical_term a owl:Class;
-   rdfs:subClassOf evmpo:marketplace_related_entity, emmo1s:Symbolic.
+   rdfs:subClassOf evmpo:marketplace_related_entity, emmo1s:Mathematical, [
+      owl:unionOf (emmo1s:Numerical emmo1s:Variable)
+   ].
 
-# A logical variable is a numerical entity
+# A logical value is a numerical entity
+#
+osmo:logical_value a owl:Class;
+   rdfs:subClassOf osmo:logical_term;
+   owl:sameAs emmo1s:Numerical;
+   owl:equivalentClass emmo1s:Numerical.
+
+# A logical variable is a variable
 #
 osmo:logical_variable a owl:Class;
-   rdfs:subClassOf osmo:logical_term, emmo1s:Numerical.
+   rdfs:subClassOf osmo:logical_term;
+   owl:sameAs emmo1s:Variable;
+   owl:equivalentClass emmo1s:Variable.
 
-# A unique elementary is a variable and a quantity
+# A unique elementary is a quantity
 #
 osmo:unique_elementary a owl:Class;
-   rdfs:subClassOf osmo:logical_variable, emmo1s:Variable, emmo1s:Quantity.
+   rdfs:subClassOf osmo:logical_variable, emmo1s:Quantity.
 
 # A materials_model_classifier is a sign for a materials model
 #
@@ -1273,7 +1311,22 @@ vov:function rdfs:subClassOf emmo1s:Graphical, evmpo:marketplace_related_entity.
 @prefix viprs: <https://purl.vimmp.eu/semantics/alignment/viprs.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
-<https://emmc.eu/semantics/evmpo/evmpo.ttl> a owl:Ontology.
+<https://emmc.eu/semantics/evmpo/evmpo.ttl> a owl:Ontology;
+   dcterms:title "EVI: EMMO-VIMMP Integration"^^xs:string;
+   owl:versionInfo "version 1.1.6"^^xs:string;
+   dcterms:modified "2020-06-27"^^xs:date;
+   dcterms:bibliographicCitation "doi:10.1007/s13218-020-00648-9"^^xs:string;
+   dcterms:creator "Martin Thomas Horsch (ORCID 0000-0002-9464-6739)"^^xs:string;
+   dcterms:creator "Youness Bami"^^xs:string;
+   dcterms:creator "Silvia Chiacchiera (ORCID 0000-0003-0422-7870)"^^xs:string;
+   dcterms:creator "Emanuele Ghedini (ORCID 0000-0003-3805-8761)"^^xs:string;
+   dcterms:creator "Gerhard Goldbeck (ORCID 0000-0002-4181-2852)"^^xs:string;
+   dcterms:creator "Georg J. Schmitz (0000-0003-4065-9742)"^^xs:string;
+   dcterms:creator "Welchy Leite Cavalcanti"^^xs:string;
+   dcterms:creator "Adham Hashibon"^^xs:string;
+   dcterms:contributor "Michael A. Seaton (ORCID 0000-0002-4708-573X)"^^xs:string;
+   dcterms:contributor "Ilian T. Todorov (ORCID 0000-0001-7275-1784)"^^xs:string;
+   dcterms:contributor "Daniele Toti (ORCID 0000-0002-9668-6961)"^^xs:string.
 
 evmpo:marketplace_related_entity a owl:Class;
    rdfs:subClassOf viprs:immanent_entity.
@@ -1656,7 +1709,7 @@ evmpo:has_meta_annotation a owl:ObjectProperty;
 
 ### VIMMP CODELISTS (VCL) FOR ZONTAL ###
 
-### VERSION 0.2.2 ###
+### VERSION 0.2.3 ###
 
 ### DATED 27TH JUNE 2020 ###
 
@@ -1673,7 +1726,18 @@ evmpo:has_meta_annotation a owl:ObjectProperty;
 @prefix viprs: <https://purl.vimmp.eu/semantics/alignment/viprs.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
-<https://purl.vimmp.eu/semantics/alignment/vcl.ttl> a owl:Ontology.
+<https://purl.vimmp.eu/semantics/alignment/vcl.ttl> a owl:Ontology;
+   dcterms:title "VCL: VIMMP Codelists"^^xs:string;
+   owl:versionInfo "version 0.2.3"^^xs:string;
+   dcterms:modified "2020-06-27"^^xs:date;
+   dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
+   dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
+   dcterms:creator "Martin Thomas Horsch (ORCID 0000-0002-9464-6739)"^^xs:string;
+   dcterms:creator "Silvia Chiacchiera (ORCID 0000-0003-0422-7870)"^^xs:string;
+   dcterms:creator "Michael A. Seaton (ORCID 0000-0002-4708-573X)"^^xs:string;
+   dcterms:creator "Ilian T. Todorov (ORCID 0000-0001-7275-1784)"^^xs:string;
+   dcterms:contributor "Welchy Leite Cavalcanti"^^xs:string;
+   dcterms:contributor "Andreas Fiseni"^^xs:string.
 
 vcl:codelist_mm_topic a owl:Class;
    rdfs:subClassOf evmpo:marketplace_related_entity;
@@ -1712,7 +1776,7 @@ skos:inScheme a owl:ObjectProperty;
 
 ### VIMMP PRIMITIVES (VIPRS) ###
 
-### VERSION 1.0.2 ###
+### VERSION 1.0.3 ###
 
 ### DATED 27TH JUNE 2020 ###
 
@@ -1747,7 +1811,17 @@ skos:inScheme a owl:ObjectProperty;
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
-<https://purl.vimmp.eu/semantics/alignment/viprs.ttl> a owl:Ontology.
+<https://purl.vimmp.eu/semantics/alignment/viprs.ttl> a owl:Ontology;
+   dcterms:title "VIPRS: VIMMP Primitives"^^xs:string;
+   owl:versionInfo "version 1.0.3"^^xs:string;
+   dcterms:modified "2020-06-27"^^xs:date;
+   dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
+   dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
+   dcterms:creator "Martin Thomas Horsch (ORCID 0000-0002-9464-6739)"^^xs:string;
+   dcterms:creator "Silvia Chiacchiera (ORCID 0000-0003-0422-7870)"^^xs:string;
+   dcterms:creator "Michael A. Seaton (ORCID 0000-0002-4708-573X)"^^xs:string;
+   dcterms:creator "Ilian T. Todorov (ORCID 0000-0001-7275-1784)"^^xs:string;
+   dcterms:contributor "Welchy Leite Cavalcanti"^^xs:string.
 
 viprs:top_entity a owl:Class;
    rdfs:subClassOf owl:Thing;
@@ -2492,7 +2566,7 @@ viprs:has_file_metadata_item a owl:DatatypeProperty;
 
 ### MARKETPLACE-ACCESSIBLE COMPUTATIONAL RESOURCE ONTOLOGY (MACRO) ###
 
-### VERSION 1.1.3 ###
+### VERSION 1.1.4 ###
 
 ### DATED 27TH JUNE 2020 ###
 
@@ -2509,7 +2583,25 @@ viprs:has_file_metadata_item a owl:DatatypeProperty;
 @prefix viso: <https://purl.vimmp.eu/semantics/viso/viso-general.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
-<https://purl.vimmp.eu/semantics/macro/macro.ttl> a owl:Ontology.
+<https://purl.vimmp.eu/semantics/macro/macro.ttl> a owl:Ontology;
+   dcterms:title "MACRO: Marketplace-Accessible Computational Resource Ontology"^^xs:string;
+   owl:versionInfo "version 1.1.4"^^xs:string;
+   dcterms:modified "2020-06-27"^^xs:date;
+   dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
+   dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
+   dcterms:bibliographicCitation "doi:10.1007/s13218-020-00648-9"^^xs:string;
+   dcterms:creator "Martin Thomas Horsch (ORCID 0000-0002-9464-6739)"^^xs:string;
+   dcterms:creator "Silvia Chiacchiera (ORCID 0000-0003-0422-7870)"^^xs:string;
+   dcterms:creator "Michael A. Seaton (ORCID 0000-0002-4708-573X)"^^xs:string;
+   dcterms:creator "Ilian T. Todorov (ORCID 0000-0001-7275-1784)"^^xs:string;
+   dcterms:contributor "Welchy Leite Cavalcanti"^^xs:string;
+   dcterms:contributor "Éric Fayolle"^^xs:string;
+   dcterms:contributor "Yvan Fournier"^^xs:string;
+   dcterms:contributor "Gerhard Goldbeck (ORCID 0000-0002-4181-2852)"^^xs:string;
+   dcterms:contributor "Jean-Pierre Minier"^^xs:string;
+   dcterms:contributor "Pascale Noyret"^^xs:string;
+   dcterms:contributor "Vincent Stobiac"^^xs:string;
+   dcterms:contributor "Daniele Toti (ORCID 0000-0002-9668-6961)"^^xs:string.
 
 macro:computational_resource a owl:Class;
    rdfs:subClassOf evmpo:infrastructure;
@@ -2991,7 +3083,7 @@ macro:has_file_ending rdfs:subPropertyOf viprs:has_file_metadata_item.
 
 ### MATERIALS MODELLING TRANSLATION ONTOLOGY (MMTO) ###
 
-### VERSION 1.3.3 ###
+### VERSION 1.3.4 ###
 
 ### DATED 27TH JUNE 2020 ###
 
@@ -3008,7 +3100,23 @@ macro:has_file_ending rdfs:subPropertyOf viprs:has_file_metadata_item.
 @prefix vivo: <https://purl.vimmp.eu/semantics/vivo/vivo.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
-<https://purl.vimmp.eu/semantics/mmto/mmto.ttl> a owl:Ontology.
+<https://purl.vimmp.eu/semantics/mmto/mmto.ttl> a owl:Ontology;
+   dcterms:title "MMTO: Materials Modelling Translation Ontology"^^xs:string;
+   owl:versionInfo "version 1.3.4"^^xs:string;
+   dcterms:modified "2020-06-27"^^xs:date;
+   dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
+   dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
+   dcterms:bibliographicCitation "doi:10.5281/zenodo.3902881 and doi:10.1007/s13218-020-00648-9"^^xs:string;
+   dcterms:creator "Martin Thomas Horsch (ORCID 0000-0002-9464-6739)"^^xs:string;
+   dcterms:creator "Silvia Chiacchiera (ORCID 0000-0003-0422-7870)"^^xs:string;
+   dcterms:creator "Peter Klein"^^xs:string;
+   dcterms:creator "Michael A. Seaton (ORCID 0000-0002-4708-573X)"^^xs:string;
+   dcterms:creator "Ilian T. Todorov (ORCID 0000-0001-7275-1784)"^^xs:string;
+   dcterms:creator "Natalia A. Konchakova"^^xs:string;
+   dcterms:contributor "Welchy Leite Cavalcanti"^^xs:string;
+   dcterms:contributor "Gerhard Goldbeck (ORCID 0000-0002-4181-2852)"^^xs:string;
+   dcterms:contributor "Björn Schembera (ORCID 0000-0003-2860-6621)"^^xs:string;
+   dcterms:contributor "Daniele Toti (ORCID 0000-0002-9668-6961)"^^xs:string.
 
 mmto:project a owl:Class;
    rdfs:subClassOf evmpo:process;
@@ -3894,7 +4002,7 @@ mmto:has_step_description rdfs:subPropertyOf viprs:has_descriptor.
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 1.6.4 ###
+### VERSION 1.6.5 ###
 
 ### DATED 27TH JUNE 2020 ###
 
@@ -3912,8 +4020,29 @@ mmto:has_step_description rdfs:subPropertyOf viprs:has_descriptor.
 @prefix vivo: <https://purl.vimmp.eu/semantics/vivo/vivo.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
-<https://purl.vimmp.eu/semantics/osmo/osmo.ttl> a owl:Ontology.
-
+<https://purl.vimmp.eu/semantics/osmo/osmo.ttl> a owl:Ontology;
+   dcterms:title "OSMO: Ontology for Simulation, Modelling, and Optimization"^^xs:string;
+   owl:versionInfo "version 1.6.5"^^xs:string;
+   dcterms:modified "2020-06-27"^^xs:date;
+   dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
+   dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
+   dcterms:bibliographicCitation "10.1021/acs.jced.9b00739"^^xs:string;
+   dcterms:creator "Martin Thomas Horsch (ORCID 0000-0002-9464-6739)"^^xs:string;
+   dcterms:creator "Silvia Chiacchiera (ORCID 0000-0003-0422-7870)"^^xs:string;
+   dcterms:creator "Michael A. Seaton (ORCID 0000-0002-4708-573X)"^^xs:string;
+   dcterms:creator "Ilian T. Todorov (ORCID 0000-0001-7275-1784)"^^xs:string;
+   dcterms:contributor "Gianluca Boccardo (ORCID 0000-0003-1264-8237)"^^xs:string;
+   dcterms:contributor "Paola Carbone (ORCID 0000-0001-9927-8376)"^^xs:string;
+   dcterms:contributor "Welchy Leite Cavalcanti"^^xs:string;
+   dcterms:contributor "Mara Chiricotto (ORCID 0000-0003-1609-5254)"^^xs:string;
+   dcterms:contributor "Joshua D. Elliott (ORCID 0000-0002-0729-246X)"^^xs:string;
+   dcterms:contributor "Gerhard Goldbeck (ORCID 0000-0002-4181-2852)"^^xs:string;
+   dcterms:contributor "Vladimir Lobaskin (ORCID 0000-0002-5231-0639)"^^xs:string;
+   dcterms:contributor "Philipp Neumann"^^xs:string;
+   dcterms:contributor "Christoph Niethammer"^^xs:string;
+   dcterms:contributor "Peter Schiffels"^^xs:string;
+   dcterms:contributor "Daniele Toti (ORCID 0000-0002-9668-6961)"^^xs:string;
+   dcterms:contributor "Jadran Vrabec (ORCID 0000-0002-7947-4051)"^^xs:string.
 
 osmo:materials_model_classifier a owl:Class;
    rdfs:subClassOf evmpo:annotation, [
@@ -5766,9 +5895,10 @@ osmo:has_uf_descriptor rdfs:subPropertyOf viprs:has_descriptor.
 
 # A condition is a mathematical entity
 
-# A logical term is a symbolic
-# A logical variable is a numerical entity
-# A unique elementary is a variable and a quantity
+# A logical term is a mathematical entity
+# A logical value is a numerical entity
+# A logical variable is a variable
+# A unique elementary is a quantity
 # A logical array is an array
 
 # A materials_model_classifier is a sign for a materials model
@@ -5784,7 +5914,7 @@ osmo:has_uf_descriptor rdfs:subPropertyOf viprs:has_descriptor.
 
 ### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
 
-### VERSION 1.0.4 ###
+### VERSION 1.0.5 ###
 
 ### DATED 27TH JUNE 2020 ###
 
@@ -5803,7 +5933,32 @@ osmo:has_uf_descriptor rdfs:subPropertyOf viprs:has_descriptor.
 @prefix viprs: <https://purl.vimmp.eu/semantics/alignment/viprs.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
-<https://purl.vimmp.eu/semantics/otras/otras.ttl> a owl:Ontology.
+<https://purl.vimmp.eu/semantics/otras/otras.ttl> a owl:Ontology;
+   dcterms:title "OTRAS: Ontology for Training Services"^^xs:string;
+   owl:versionInfo "version 1.0.5"^^xs:string;
+   dcterms:modified "2020-06-27"^^xs:date;
+   dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
+   dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
+   dcterms:bibliographicCitation "doi:10.1007/s13218-020-00648-9"^^xs:string;
+   dcterms:creator "Martin Thomas Horsch (ORCID 0000-0002-9464-6739)"^^xs:string;
+   dcterms:creator "Silvia Chiacchiera (ORCID 0000-0003-0422-7870)"^^xs:string;
+   dcterms:creator "Michael A. Seaton (ORCID 0000-0002-4708-573X)"^^xs:string;
+   dcterms:creator "Ilian T. Todorov (ORCID 0000-0001-7275-1784)"^^xs:string;
+   dcterms:contributor "Barbara Andreon"^^xs:string;
+   dcterms:contributor "Esteban Bayro Kaiser (ORCID 0000-0002-5281-0836)"^^xs:string;
+   dcterms:contributor "Hauke Brüning"^^xs:string;
+   dcterms:contributor "Welchy Leite Cavalcanti"^^xs:string;
+   dcterms:contributor "Javier Díaz Brañas"^^xs:string;
+   dcterms:contributor "Joshua D. Elliott (ORCID 0000-0002-0729-246X)"^^xs:string;
+   dcterms:contributor "Andreas Fiseni"^^xs:string;
+   dcterms:contributor "Gerhard Goldbeck (ORCID 0000-0002-4181-2852)"^^xs:string;
+   dcterms:contributor "Martin Lísal (ORCID 0000-0001-8005-7143)"^^xs:string;
+   dcterms:contributor "Ignacio Pagonabarraga Mora (ORCID 0000-0002-6187-5025)"^^xs:string;
+   dcterms:contributor "Barbora Planková (ORCID 0000-0002-3309-6809)"^^xs:string;
+   dcterms:contributor "Peter Schiffels"^^xs:string;
+   dcterms:contributor "Andrea Scotto di Minico"^^xs:string;
+   dcterms:contributor "Karel Šindelka (ORCID 0000-0003-3925-924X)"^^xs:string;
+   dcterms:contributor "Daniele Toti (ORCID 0000-0002-9668-6961)"^^xs:string.
 
 otras:carrier a owl:Class;
    rdfs:subClassOf evmpo:paradigmatic_entity, [owl:unionOf (evmpo:calendar_event evmpo:information_content_entity)];
@@ -8349,7 +8504,7 @@ otras:is_defined_by rdfs:subPropertyOf viprs:has_descriptor.
 
 ### VIMMP COMMUNICATION ONTOLOGY (VICO) ###
 
-### VERSION 1.2.4 ###
+### VERSION 1.2.5 ###
 
 ### DATED 27TH JUNE 2020 ###
 
@@ -8369,7 +8524,20 @@ otras:is_defined_by rdfs:subPropertyOf viprs:has_descriptor.
 @prefix vivo: <https://purl.vimmp.eu/semantics/vivo/vivo.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
-<https://purl.vimmp.eu/semantics/vico/vico.ttl> a owl:Ontology.
+<https://purl.vimmp.eu/semantics/vico/vico.ttl> a owl:Ontology;
+   dcterms:title "VICO: VIMMP Communication Ontology"^^xs:string;
+   owl:versionInfo "version 1.2.5"^^xs:string;
+   dcterms:modified "2020-06-27"^^xs:date;
+   dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
+   dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
+   dcterms:bibliographicCitation "doi:10.1007/s13218-020-00648-9"^^xs:string;
+   dcterms:creator "Martin Thomas Horsch (ORCID 0000-0002-9464-6739)"^^xs:string;
+   dcterms:creator "Silvia Chiacchiera (ORCID 0000-0003-0422-7870)"^^xs:string;
+   dcterms:creator "Michael A. Seaton (ORCID 0000-0002-4708-573X)"^^xs:string;
+   dcterms:creator "Ilian T. Todorov (ORCID 0000-0001-7275-1784)"^^xs:string;
+   dcterms:contributor "Welchy Leite Cavalcanti"^^xs:string;
+   dcterms:contributor "Gerhard Goldbeck (ORCID 0000-0002-4181-2852)"^^xs:string;
+   dcterms:contributor "Daniele Toti (ORCID 0000-0002-9668-6961)"^^xs:string.
 
 vico:contains a owl:ObjectProperty, owl:TransitiveProperty;
    rdfs:domain evmpo:communication;
@@ -9238,7 +9406,7 @@ vico:has_profile_image rdfs:subPropertyOf viprs:has_file_metadata_item.
 
 ### VIMMP VALIDATION ONTOLOGY (VIVO) ###
 
-### VERSION 1.1.3 ###
+### VERSION 1.1.4 ###
 
 ### DATED 27TH JUNE 2020 ###
 
@@ -9256,7 +9424,20 @@ vico:has_profile_image rdfs:subPropertyOf viprs:has_file_metadata_item.
 @prefix viprs: <https://purl.vimmp.eu/semantics/alignment/viprs.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
-<https://purl.vimmp.eu/semantics/vivo/vivo.ttl> a owl:Ontology.
+<https://purl.vimmp.eu/semantics/vivo/vivo.ttl> a owl:Ontology;
+   dcterms:title "VIVO: VIMMP Validation Ontology"^^xs:string;
+   owl:versionInfo "version 1.1.4"^^xs:string;
+   dcterms:modified "2020-06-27"^^xs:date;
+   dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
+   dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
+   dcterms:bibliographicCitation "doi:10.1007/s13218-020-00648-9"^^xs:string;
+   dcterms:creator "Martin Thomas Horsch (ORCID 0000-0002-9464-6739)"^^xs:string;
+   dcterms:creator "Silvia Chiacchiera (ORCID 0000-0003-0422-7870)"^^xs:string;
+   dcterms:creator "Michael A. Seaton (ORCID 0000-0002-4708-573X)"^^xs:string;
+   dcterms:creator "Ilian T. Todorov (ORCID 0000-0001-7275-1784)"^^xs:string;
+   dcterms:contributor "Welchy Leite Cavalcanti"^^xs:string;
+   dcterms:contributor "Gerhard Goldbeck (ORCID 0000-0002-4181-2852)"^^xs:string;
+   dcterms:contributor "Daniele Toti (ORCID 0000-0002-9668-6961)"^^xs:string.
 
 
 #####################################
