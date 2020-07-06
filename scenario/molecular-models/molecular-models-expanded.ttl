@@ -2,7 +2,7 @@
 ##                                                      ##
 ##  EXAMPLE: INTERMOLECULAR PAIR POTENTIALS (EXPANDED)  ##
 ##                                                      ##
-##             LAST UPDATED: 27TH JUNE 2020             ##
+##              LAST UPDATED: 6TH JULY 2020             ##
 ##                                                      ##
 ##########################################################
 
@@ -44,11 +44,24 @@
 molmod:AMMONIA a osmo:cas_listed_material, osmo:einecs_listed_material;
    osmo:has_cas_number "7664-41-7"^^xs:string;
    osmo:has_ec_number "231-635-3"^^xs:string.  # identifies ammonia
+molmod:AMMONIA_LITERATURE_USE_CASE a osmo:use_case;
+   osmo:has_use_case_material molmod:AMMONIA_UC_MATERIAL_ASPECT;
+   osmo:has_use_case_literature molmod:AMMONIA_UC_LITERATURE_ASPECT.
+molmod:AMMONIA_UC_MATERIAL_ASPECT a osmo:use_case_material;
+   osmo:has_aspect_paradigmatic_content molmod:AMMONIA.
+molmod:AMMONIA_UC_LITERATURE_ASPECT a osmo:use_case_literature;
+   osmo:has_aspect_paradigmatic_content molmod:ERVIK_ET_AL_2016.
+
+molmod:NH3_MODEL a osmo:materials_model;
+   osmo:applies_to molmod:NH3_EXAMPLE_WORKFLOW_GRAPH.
+molmod:NH3_EXAMPLE_WORKFLOW_GRAPH a osmo:workflow_graph;
+   osmo:considers_use_case molmod:AMMONIA_LITERATURE_USE_CASE.
 
 molmod:NH3_RIGID_UNIT a viso-am:rigid_object;
    viso:has_part molmod:NH3_SITE_A, molmod:NH3_SITE_B, molmod:NH3_SITE_COM.
 molmod:NH3_POTENTIAL a osmo:materials_relation, viso-am:two_body_potential;
-   osmo:has_aspect_paradigmatic_content molmod:AMMONIA, molmod:ERVIK_ET_AL_2016;
+   osmo:is_governing_equation_in molmod:NH3_MODEL;
+   osmo:has_aspect_paradigmatic_content molmod:AMMONIA;
    viso:involves molmod:NH3_RIGID_UNIT;
    osmo:has_aspect_object_content molmod:NH3_POTENTIAL_SITE_A, molmod:NH3_MASS_SITE_A, molmod:NH3_CONSTRAINT_SITE_A, molmod:NH3_POTENTIAL_SITE_B, molmod:NH3_MASS_SITE_B, molmod:NH3_CONSTRAINT_SITE_B.
 
@@ -90,23 +103,27 @@ molmod:NH3_CONDITION_RAD_A a osmo:quantitative_condition;
 molmod:NH3_CONDITION_RAD_B a osmo:quantitative_condition;
    osmo:contains_predetermined_variable molmod:NH3_PARAMETER_SITE_B_RAD.
 
-molmod:NH3_PARAMETER_SIG a osmo:unique_elementary, osmo:logical_constant;
+molmod:NH3_PARAMETER_SIG a osmo:unique_elementary, osmo:logical_constant, vov:variable;
    osmo:has_variable_name "sigma"^^xs:string;
    osmo:has_initial_elementary_value molmod:NH3_ELEMENTARY_SIG;
+   vov:shares_role_with vov:MIE_SIGMA;
    osmo:has_variable_unit qudt-unit:Angstrom.
-molmod:NH3_PARAMETER_EPS a osmo:unique_elementary, osmo:logical_constant;
+molmod:NH3_PARAMETER_EPS a osmo:unique_elementary, osmo:logical_constant, vov:variable;
    osmo:has_variable_name "epsilon"^^xs:string;
    osmo:has_initial_elementary_value molmod:NH3_ELEMENTARY_EPS;
+   vov:shares_role_with vov:MIE_EPSILON;
    osmo:has_variable_unit vivo:UNIT_KELVIN_BOLTZMANN.
-molmod:NH3_PARAMETER_M a osmo:unique_elementary, osmo:logical_constant;
+molmod:NH3_PARAMETER_M a osmo:unique_elementary, osmo:logical_constant, vov:variable;
    osmo:has_variable_name "m"^^xs:string;
    osmo:has_initial_elementary_value molmod:NH3_ELEMENTARY_M;
+   vov:shares_role_with vov:MIE_ATTRACTIVE_EXPONENT;
    osmo:has_variable_unit qudt-unit:Unitless.
-molmod:NH3_PARAMETER_N a osmo:unique_elementary, osmo:logical_constant;
+molmod:NH3_PARAMETER_N a osmo:unique_elementary, osmo:logical_constant, vov:variable;
    osmo:has_variable_name "n"^^xs:string;
    osmo:has_initial_elementary_value molmod:NH3_ELEMENTARY_N;
+   vov:shares_role_with vov:MIE_REPULSIVE_EXPONENT;
    osmo:has_variable_unit qudt-unit:Unitless.
-molmod:NH3_HALF_MASS a osmo:unique_physical_constant;
+molmod:NH3_HALF_MASS a osmo:unique_physical_constant, vov:variable;
    osmo:is_constant "true"^^xs:boolean;
    osmo:has_variable_name "mass"^^xs:string;
    osmo:has_initial_elementary_value molmod:NH3_ELEMENTARY_HALF_MASS;
@@ -123,34 +140,38 @@ molmod:NH3_ELEMENTARY_N a osmo:elementary_value;
 molmod:NH3_ELEMENTARY_HALF_MASS a osmo:elementary_value;
    osmo:is_decimal 8.515.
 
-molmod:NH3_PARAMETER_SITE_A_RAD a osmo:logical_array, osmo:logical_constant;
+molmod:NH3_PARAMETER_SITE_A_RAD a osmo:logical_array, osmo:logical_constant, vov:relative_position;
+   vov:has_initial_point molmod:NH3_SITE_COM;
+   vov:has_final_point molmod:NH3_CONSTRAINT_SITE_A;
    osmo:has_variable_name "radius"^^xs:string;
    osmo:has_index_name "d"^^xs:string;
    osmo:has_static_array_size 3;
    osmo:has_element_unit qudt-unit:Angstrom;
    osmo:has_specific_element molmod:NH3_PARAMETER_SITE_A_RX, molmod:NH3_PARAMETER_SITE_A_RY, molmod:NH3_PARAMETER_SITE_A_RZ.
-molmod:NH3_PARAMETER_SITE_B_RAD a osmo:logical_array, osmo:logical_constant;
+molmod:NH3_PARAMETER_SITE_B_RAD a osmo:logical_array, osmo:logical_constant, vov:relative_position;
+   vov:has_initial_point molmod:NH3_SITE_COM;
+   vov:has_final_point molmod:NH3_CONSTRAINT_SITE_B;
    osmo:has_variable_name "radius"^^xs:string;
    osmo:has_index_name "d"^^xs:string;
    osmo:has_static_array_size 3;
    osmo:has_element_unit qudt-unit:Angstrom;
    osmo:has_specific_element molmod:NH3_PARAMETER_SITE_B_RX, molmod:NH3_PARAMETER_SITE_B_RY, molmod:NH3_PARAMETER_SITE_B_RZ.
-molmod:NH3_PARAMETER_SITE_A_RX a osmo:unique_elementary, osmo:logical_constant;
+molmod:NH3_PARAMETER_SITE_A_RX a osmo:unique_elementary, osmo:logical_constant, vov:variable;
    osmo:has_variable_index 0;
    osmo:has_initial_elementary_value molmod:NH3_ELEMENTARY_A_RX.
-molmod:NH3_PARAMETER_SITE_A_RY a osmo:unique_elementary, osmo:logical_constant;
+molmod:NH3_PARAMETER_SITE_A_RY a osmo:unique_elementary, osmo:logical_constant, vov:variable;
    osmo:has_variable_index 1;
    osmo:has_initial_elementary_value molmod:NH3_ELEMENTARY_A_RY.
-molmod:NH3_PARAMETER_SITE_A_RZ a osmo:unique_elementary, osmo:logical_constant;
+molmod:NH3_PARAMETER_SITE_A_RZ a osmo:unique_elementary, osmo:logical_constant, vov:variable;
    osmo:has_variable_index 2;
    osmo:has_initial_elementary_value molmod:NH3_ELEMENTARY_A_RZ.
-molmod:NH3_PARAMETER_SITE_B_RX a osmo:unique_elementary, osmo:logical_constant;
+molmod:NH3_PARAMETER_SITE_B_RX a osmo:unique_elementary, osmo:logical_constant, vov:variable;
    osmo:has_variable_index 0;
    osmo:has_initial_elementary_value molmod:NH3_ELEMENTARY_B_RX.
-molmod:NH3_PARAMETER_SITE_B_RY a osmo:unique_elementary, osmo:logical_constant;
+molmod:NH3_PARAMETER_SITE_B_RY a osmo:unique_elementary, osmo:logical_constant, vov:variable;
    osmo:has_variable_index 1;
    osmo:has_initial_elementary_value molmod:NH3_ELEMENTARY_B_RY.
-molmod:NH3_PARAMETER_SITE_B_RZ a osmo:unique_elementary, osmo:logical_constant;
+molmod:NH3_PARAMETER_SITE_B_RZ a osmo:unique_elementary, osmo:logical_constant, vov:variable;
    osmo:has_variable_index 2;
    osmo:has_initial_elementary_value molmod:NH3_ELEMENTARY_B_RZ.
 molmod:NH3_ELEMENTARY_A_RX a osmo:elementary_value;
