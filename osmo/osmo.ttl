@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 1.6.5 ###
+### VERSION 1.6.6 ###
 
-### DATED 27TH JUNE 2020 ###
+### DATED 6TH JULY 2020 ###
 
 @prefix osmo: <https://purl.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -22,8 +22,8 @@
 
 <https://purl.vimmp.eu/semantics/osmo/osmo.ttl> a owl:Ontology;
    dcterms:title "OSMO: Ontology for Simulation, Modelling, and Optimization"^^xs:string;
-   owl:versionInfo "version 1.6.5"^^xs:string;
-   dcterms:modified "2020-06-27"^^xs:date;
+   owl:versionInfo "version 1.6.6"^^xs:string;
+   dcterms:modified "2020-07-06"^^xs:date;
    dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
    dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
    dcterms:bibliographicCitation "10.1021/acs.jced.9b00739"^^xs:string;
@@ -910,7 +910,13 @@ osmo:has_model_aspect a owl:ObjectProperty;
 osmo:has_materials_model_ge a owl:ObjectProperty;
    rdfs:domain osmo:materials_model;
    rdfs:range osmo:governing_equation;
-   rdfs:subPropertyOf osmo:has_model_aspect.
+   owl:inverseOf osmo:is_governing_equation_in;
+   rdfs:subPropertyOf osmo:has_model_aspect, viprs:has_proper_part.
+osmo:is_governing_equation_in a owl:ObjectProperty;
+   rdfs:domain osmo:governing_equation;
+   rdfs:range osmo:materials_model;
+   owl:inverseOf osmo:has_materials_model_ge;
+   rdfs:subPropertyOf viprs:is_proper_part_of.
 
 osmo:has_model_type a owl:ObjectProperty;
    rdfs:domain osmo:materials_model;
