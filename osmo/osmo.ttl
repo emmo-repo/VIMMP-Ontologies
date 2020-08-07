@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 1.6.6 ###
+### VERSION 1.6.7 ###
 
-### DATED 6TH JULY 2020 ###
+### DATED 7TH AUGUST 2020 ###
 
 @prefix osmo: <https://purl.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -1523,6 +1523,11 @@ osmo:is_decimal a owl:DatatypeProperty;
 osmo:is_string a owl:DatatypeProperty;
    rdfs:domain osmo:elementary_value;
    rdfs:range xs:string.
+
+osmo:ZERO a osmo:elementary_value;
+   osmo:is_decimal 0.0.
+osmo:ONE a osmo:elementary_value;
+   osmo:is_decimal 1.0.
 
 osmo:structure_value a owl:Class;
    rdfs:subClassOf osmo:logical_value, osmo:structure_term;
