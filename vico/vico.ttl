@@ -863,6 +863,7 @@ vico:has_prefix_text rdfs:subPropertyOf viprs:has_textual_content.
 vico:has_suffix_text rdfs:subPropertyOf viprs:has_textual_content.
 vico:has_agentid rdfs:subPropertyOf viprs:has_numerical_identifier.
 vico:has_token_index rdfs:subPropertyOf viprs:has_numerical_identifier.
+vico:has_orcid rdfs:subPropertyOf viprs:has_textual_identifier.
 vico:has_interpreter_label rdfs:subPropertyOf viprs:has_label.
 vico:has_file_content_locator rdfs:subPropertyOf viprs:has_standardized_reference.
 vico:has_agent_name rdfs:subPropertyOf viprs:has_name.
