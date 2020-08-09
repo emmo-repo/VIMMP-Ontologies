@@ -8586,9 +8586,9 @@ otras:is_defined_by rdfs:subPropertyOf viprs:has_descriptor.
 
 ### VIMMP COMMUNICATION ONTOLOGY (VICO) ###
 
-### VERSION 1.2.5 ###
+### VERSION 1.2.6 ###
 
-### DATED 27TH JUNE 2020 ###
+### DATED 9TH AUGUST 2020 ###
 
 @prefix vico: <https://purl.vimmp.eu/semantics/vico/vico.ttl#>.
 
@@ -8608,8 +8608,8 @@ otras:is_defined_by rdfs:subPropertyOf viprs:has_descriptor.
 
 <https://purl.vimmp.eu/semantics/vico/vico.ttl> a owl:Ontology;
    dcterms:title "VICO: VIMMP Communication Ontology"^^xs:string;
-   owl:versionInfo "version 1.2.5"^^xs:string;
-   dcterms:modified "2020-06-27"^^xs:date;
+   owl:versionInfo "version 1.2.6"^^xs:string;
+   dcterms:modified "2020-08-09"^^xs:date;
    dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
    dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
    dcterms:bibliographicCitation "doi:10.1007/s13218-020-00648-9"^^xs:string;
@@ -9114,6 +9114,9 @@ vico:has_personal_title a owl:ObjectProperty;
    rdfs:domain evmpo:human_agent;
    rdfs:range vico:personal_title;
    rdfs:subPropertyOf evmpo:has_interpreter_annotation.
+vico:has_orcid a owl:DatatypeProperty;
+   rdfs:domain evmpo:human_agent;
+   rdfs:range xs:string.
 
 vico:virtual_agent a owl:Class;
    rdfs:subClassOf vico:person;
