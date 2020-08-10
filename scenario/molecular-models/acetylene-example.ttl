@@ -2,7 +2,7 @@
 ##                                          ##
 ##  EXAMPLE: MOLMOD DB MODEL FOR ACETYLENE  ##
 ##                                          ##
-##       LAST UPDATED: 9TH AUGUST 2020      ##
+##      LAST UPDATED: 10TH AUGUST 2020      ##
 ##                                          ##
 ##############################################
 
@@ -206,9 +206,9 @@ acetylene-example:QPL_MOM_ZZ_EL a osmo:elementary_value;
 acetylene-example:USE_CASE a osmo:use_case;
    osmo:has_use_case_material acetylene-example:USE_CASE_ASP_MATERIAL;
    osmo:has_use_case_literature acetylene-example:USE_CASE_ASP_LITERATURE.
-acetylene-example:USE_CASE_ASP_MATERIAL a osmo:has_use_case_material;
+acetylene-example:USE_CASE_ASP_MATERIAL a osmo:use_case_material;
    osmo:has_aspect_paradigmatic_content acetylene-example:ACETYLENE.
-acetylene-example:USE_CASE_ASP_LITERATURE a osmo:has_use_case_literature;
+acetylene-example:USE_CASE_ASP_LITERATURE a osmo:use_case_literature;
    osmo:has_aspect_paradigmatic_content acetylene-example:STOEBENER_ET_AL_2016.
 acetylene-example:MODEL a osmo:materials_model;
    osmo:has_materials_relation acetylene-example:MODEL_ASP_MATERIALS_RELATION.
