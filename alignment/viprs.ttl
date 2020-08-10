@@ -1,9 +1,9 @@
 
 ### VIMMP PRIMITIVES (VIPRS) ###
 
-### VERSION 1.0.3 ###
+### VERSION 1.0.4 ###
 
-### DATED 27TH JUNE 2020 ###
+### DATED 10TH AUGUST 2020 ###
 
 # 1. Modal square of opposition
 #
@@ -39,8 +39,8 @@
 
 <https://purl.vimmp.eu/semantics/alignment/viprs.ttl> a owl:Ontology;
    dcterms:title "VIPRS: VIMMP Primitives"^^xs:string;
-   owl:versionInfo "version 1.0.3"^^xs:string;
-   dcterms:modified "2020-06-27"^^xs:date;
+   owl:versionInfo "version 1.0.4"^^xs:string;
+   dcterms:modified "2020-08-10"^^xs:date;
    dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
    dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
    dcterms:creator "Martin Thomas Horsch (ORCID 0000-0002-9464-6739)"^^xs:string;
@@ -394,7 +394,23 @@ viprs:is_model_for a owl:ObjectProperty;
 viprs:shares_a_sign_with a owl:ObjectProperty;  # user-friendly IRI for the important relation "mereosemiotics_hs_is"
    # owl:sameAs viprs:mereosemiotics_hs_is;
    # owl:equivalentProperty viprs:mereosemiotics_hs_is;
-   rdfs:subPropertyOf viprs:mereosemiotic_relation, viprs:mereosemiotics_hs_is.
+   rdfs:subPropertyOf viprs:mereosemiotics_hs_is.
+viprs:is_subsign_of a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation;
+   owl:inverseOf viprs:has_subsign;
+   owl:propertyChainAxiom (viprs:mereosemiotics_is_hs viprs:mereosemiotics_ip_is_hs);
+   owl:propertyChainAxiom (viprs:mereosemiotics_is_hs_ip viprs:mereosemiotics_is_hs);
+   rdfs:comment "X is_subsign_of Y == X and Y are signs, there is a sign X' that shares a referent (represented object) with X, and there is a sign Y' that shares a referent with Y, such that X' is_proper_part_of Y'; in other words, X and Y can be rewritten, retaining their meaning at least in one particular respect, such that the alternate formulation of X is a proper part of the alternate formulation of Y; remark: if X and Y are signs, X is_proper_part_of Y implies X is_subsign_of Y"^^xs:string.
+viprs:has_subsign a owl:ObjectProperty;
+   rdfs:domain viprs:immanent_entity;
+   rdfs:range viprs:immanent_entity;
+   rdfs:subPropertyOf viprs:mereosemiotic_relation;
+   owl:inverseOf viprs:is_subsign_of;
+   owl:propertyChainAxiom (viprs:mereosemiotics_is_hs viprs:mereosemiotics_ip_is_hs);
+   owl:propertyChainAxiom (viprs:mereosemiotics_is_hs_ip viprs:mereosemiotics_is_hs);
+   rdfs:comment "X has_subsign Y == X and Y are signs, there is a sign X' that shares a referent (represented object) with X, and there is a sign Y' that shares a referent with Y, such that X' has_proper_part Y'; in other words, X and Y can be rewritten, retaining their meaning at least in one particular respect, such that the alternate formulation of Y is a proper part of the alternate formulation of X; remark: if X and Y are signs, X has_proper_part Y implies X has_subsign Y"^^xs:string.
 
 ##
 # mereosemiotic object properties corresponding to:
