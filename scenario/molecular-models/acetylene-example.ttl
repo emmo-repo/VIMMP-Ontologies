@@ -209,7 +209,7 @@ acetylene-example:USE_CASE a osmo:use_case;
 acetylene-example:USE_CASE_ASP_MATERIAL a osmo:use_case_material;
    osmo:has_aspect_paradigmatic_content acetylene-example:ACETYLENE.
 acetylene-example:USE_CASE_ASP_LITERATURE a osmo:use_case_literature;
-   osmo:has_aspect_paradigmatic_content acetylene-example:STOEBENER_ET_AL_2016.
+   osmo:has_aspect_paradigmatic_content acetylene-example:SKHKH16.
 acetylene-example:MODEL a osmo:materials_model;
    osmo:has_materials_relation acetylene-example:MODEL_ASP_MATERIALS_RELATION.
 acetylene-example:MODEL_ASP_MATERIALS_RELATION a osmo:materials_relation;
