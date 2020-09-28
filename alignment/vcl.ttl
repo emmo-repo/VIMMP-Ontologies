@@ -1,9 +1,9 @@
 
 ### VIMMP CODELISTS (VCL) FOR ZONTAL ###
 
-### VERSION 0.2.3 ###
+### VERSION 0.3.0 ###
 
-### DATED 27TH JUNE 2020 ###
+### DATED 28TH SEPTEMBER 2020 ###
 
 @prefix vcl: <https://purl.vimmp.eu/semantics/alignment/vcl.ttl#>.
 
@@ -33,7 +33,7 @@
    dcterms:contributor "Andreas Fiseni"^^xs:string.
 
 vcl:codelist_mm_topic a owl:Class;
-   rdfs:subClassOf evmpo:marketplace_related_entity;
+   rdfs:subClassOf evmpo:marketplace_related_entity, viprs:conceptualization;
    owl:equivalentClass otras:mm_topic, [
       a owl:Restriction;
       owl:onProperty skos:inScheme;
@@ -45,7 +45,7 @@ vcl:CL_SCHEME_MM_TOPIC a owl:NamedIndividual, skos:ConceptScheme;
    skos:definition "materials modelling topic"^^xs:string.
 
 vcl:codelist_interlocutor_group a owl:Class;
-   rdfs:subClassOf evmpo:annotation;
+   rdfs:subClassOf evmpo:annotation, viprs:conceptualization;
    owl:equivalentClass vico:interlocutor_group, [
       a owl:Restriction;
       owl:onProperty skos:inScheme;

@@ -1,9 +1,9 @@
 
 ### VIMMP COMMUNICATION ONTOLOGY (VICO) ###
 
-### VERSION 1.2.6 ###
+### VERSION 1.3.0 ###
 
-### DATED 9TH AUGUST 2020 ###
+### DATED 28TH SEPTEMBER 2020 ###
 
 @prefix vico: <https://purl.vimmp.eu/semantics/vico/vico.ttl#>.
 
@@ -608,6 +608,9 @@ vico:manufacturer a owl:Class;
 
 evmpo:model_provider rdfs:subClassOf vico:interlocutor.
 
+vico:research_software_engineer a owl:Class;
+   rdfs:subClassOf vico:interlocutor.
+
 evmpo:software_owner rdfs:subClassOf vico:interlocutor.
 
 evmpo:training_provider rdfs:subClassOf vico:interlocutor.
@@ -623,49 +626,65 @@ vico:pseudonym a owl:Class;
    rdfs:subClassOf vico:marketplace_subject, vico:virtual_agent.
 
 vico:interlocutor_type a owl:Class;
-   rdfs:subClassOf evmpo:annotation.
+   rdfs:subClassOf evmpo:annotation;
+   rdfs:comment "Interlocutor type, i.e., an annotation that characterizes kinds of interlocutors"^^xs:string.
 
 vico:interlocutor_group a owl:Class;
-   rdfs:subClassOf vico:interlocutor_type.
+   rdfs:subClassOf viprs:conceptualization, vico:interlocutor_type;
+   rdfs:comment "Interlocutor groups are conceptualizations for subclasses of the concept 'interlocutor'."^^xs:string.
 
-vico:interlocutor_group owl:oneOf (vico:IG_CONSULTANT vico:IG_DATA_PROVIDER vico:IG_END_USER vico:IG_GUEST vico:IG_MANUFACTURER vico:IG_MODEL_PROVIDER vico:IG_SOFTWARE_OWNER vico:IG_TRAINING_PROVIDER vico:IG_TRANSLATOR).
+vico:interlocutor_group owl:oneOf (vico:IG_CONSULTANT vico:IG_DATA_PROVIDER vico:IG_END_USER vico:IG_GUEST vico:IG_MANUFACTURER vico:IG_MODEL_PROVIDER vico:IG_RESEARCH_SOFTWARE_ENGINEER vico:IG_SOFTWARE_OWNER vico:IG_TRAINING_PROVIDER vico:IG_TRANSLATOR).
 
 vico:IG_CONSULTANT a vico:interlocutor_group, vcl:codelist_interlocutor_group;
    skos:inScheme vcl:CL_SCHEME_INTERLOCUTOR_GROUP;
    skos:notation "Consultant"^^xs:string;
    skos:prefLabel "Consultant"^^xs:string.
+vico:consultant rdfs:subClassOf [a owl:Restriction; owl:onProperty viprs:is_conceptualized_by; owl:hasValue vico:IG_CONSULTANT].
 vico:IG_DATA_PROVIDER a vico:interlocutor_group, vcl:codelist_interlocutor_group;
    skos:inScheme vcl:CL_SCHEME_INTERLOCUTOR_GROUP;
    skos:notation "Data provider"^^xs:string;
    skos:prefLabel "Data provider"^^xs:string.
+evmpo:data_provider rdfs:subClassOf [a owl:Restriction; owl:onProperty viprs:is_conceptualized_by; owl:hasValue vico:IG_DATA_PROVIDER].
 vico:IG_END_USER a vico:interlocutor_group, vcl:codelist_interlocutor_group;
    skos:inScheme vcl:CL_SCHEME_INTERLOCUTOR_GROUP;
    skos:notation "End user"^^xs:string;
    skos:prefLabel "End user"^^xs:string.
+evmpo:end_user rdfs:subClassOf [a owl:Restriction; owl:onProperty viprs:is_conceptualized_by; owl:hasValue vico:IG_END_USER].
 vico:IG_GUEST a vico:interlocutor_group, vcl:codelist_interlocutor_group;
    skos:inScheme vcl:CL_SCHEME_INTERLOCUTOR_GROUP;
    skos:notation "Guest"^^xs:string;
    skos:prefLabel "Guest"^^xs:string.
+vico:guest rdfs:subClassOf [a owl:Restriction; owl:onProperty viprs:is_conceptualized_by; owl:hasValue vico:IG_GUEST].
 vico:IG_MANUFACTURER a vico:interlocutor_group, vcl:codelist_interlocutor_group;
    skos:inScheme vcl:CL_SCHEME_INTERLOCUTOR_GROUP;
    skos:notation "Manufacturer"^^xs:string;
    skos:prefLabel "Manufacturer"^^xs:string.
+vico:manufacturer rdfs:subClassOf [a owl:Restriction; owl:onProperty viprs:is_conceptualized_by; owl:hasValue vico:IG_MANUFACTURER].
 vico:IG_MODEL_PROVIDER a vico:interlocutor_group, vcl:codelist_interlocutor_group;
    skos:inScheme vcl:CL_SCHEME_INTERLOCUTOR_GROUP;
    skos:notation "Model provider"^^xs:string;
    skos:prefLabel "Model provider"^^xs:string.
+evmpo:model_provider rdfs:subClassOf [a owl:Restriction; owl:onProperty viprs:is_conceptualized_by; owl:hasValue vico:IG_MODEL_PROVIDER].
+vico:IG_RESEARCH_SOFTWARE_ENGINEER a vico:interlocutor_group, vcl:codelist_interlocutor_group;
+   skos:inScheme vcl:CL_SCHEME_INTERLOCUTOR_GROUP;
+   skos:notation "Software owner"^^xs:string;
+   skos:prefLabel "Software owner"^^xs:string.
+vico:research_software_engineer rdfs:subClassOf [a owl:Restriction; owl:onProperty viprs:is_conceptualized_by; owl:hasValue vico:IG_RESEARCH_SOFTWARE_ENGINEER].
 vico:IG_SOFTWARE_OWNER a vico:interlocutor_group, vcl:codelist_interlocutor_group;
    skos:inScheme vcl:CL_SCHEME_INTERLOCUTOR_GROUP;
    skos:notation "Software owner"^^xs:string;
    skos:prefLabel "Software owner"^^xs:string.
+evmpo:software_owner rdfs:subClassOf [a owl:Restriction; owl:onProperty viprs:is_conceptualized_by; owl:hasValue vico:IG_SOFTWARE_OWNER].
 vico:IG_TRAINING_PROVIDER a vico:interlocutor_group, vcl:codelist_interlocutor_group;
    skos:inScheme vcl:CL_SCHEME_INTERLOCUTOR_GROUP;
    skos:notation "Training provider"^^xs:string;
    skos:prefLabel "Training provider"^^xs:string.
+evmpo:training_provider rdfs:subClassOf [a owl:Restriction; owl:onProperty viprs:is_conceptualized_by; owl:hasValue vico:IG_TRAINING_PROVIDER].
 vico:IG_TRANSLATOR a vico:interlocutor_group, vcl:codelist_interlocutor_group;
    skos:inScheme vcl:CL_SCHEME_INTERLOCUTOR_GROUP;
    skos:notation "Translator"^^xs:string;
    skos:prefLabel "Translator"^^xs:string.
+evmpo:translator rdfs:subClassOf [a owl:Restriction; owl:onProperty viprs:is_conceptualized_by; owl:hasValue vico:IG_TRANSLATOR].
 
 vico:interlocutor_tag a owl:Class;
    rdfs:subClassOf vico:interlocutor_type;

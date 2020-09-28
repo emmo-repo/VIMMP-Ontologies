@@ -1,9 +1,9 @@
 
 ### EMMO-VIMMP INTEGRATION (EVI) ###
 
-### VERSION 1.1.6 ###
+### VERSION 1.1.7 ###
 
-### DATED 27TH JUNE 2020 ###
+### DATED 28TH SEPTEMBER 2020 ###
 
 @prefix evi: <https://purl.vimmp.eu/semantics/alignment/evi.ttl#>.
 
@@ -67,6 +67,8 @@ viprs:transcendent_entity a owl:Class;
 viprs:immanent_entity a owl:Class;
    rdfs:subClassOf viprs:top_entity.
 emmo1s:EMMO rdfs:subClassOf viprs:immanent_entity, evi:meta_emmo.
+viprs:conceptualization a owl:Class;
+   rdfs:subClassOf viprs:immanent_entity, emmo1s:Sign.
 
 viprs:has_proper_part a owl:ObjectProperty;
    owl:inverseOf viprs:is_proper_part_of;
