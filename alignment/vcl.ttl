@@ -1,9 +1,9 @@
 
 ### VIMMP CODELISTS (VCL) FOR ZONTAL ###
 
-### VERSION 0.3.0 ###
+### VERSION 0.3.1 ###
 
-### DATED 28TH SEPTEMBER 2020 ###
+### DATED 30TH SEPTEMBER 2020 ###
 
 @prefix vcl: <https://purl.vimmp.eu/semantics/alignment/vcl.ttl#>.
 
@@ -17,12 +17,13 @@
 @prefix skos: <http://www.w3.org/2004/02/skos/core#>.
 @prefix vico: <https://purl.vimmp.eu/semantics/vico/vico.ttl#>.
 @prefix viprs: <https://purl.vimmp.eu/semantics/alignment/viprs.ttl#>.
+@prefix viso: <https://purl.vimmp.eu/semantics/viso/viso-general.ttl#>.
 @prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
 <https://purl.vimmp.eu/semantics/alignment/vcl.ttl> a owl:Ontology;
    dcterms:title "VCL: VIMMP Codelists"^^xs:string;
-   owl:versionInfo "version 0.2.3"^^xs:string;
-   dcterms:modified "2020-06-27"^^xs:date;
+   owl:versionInfo "version 0.3.1"^^xs:string;
+   dcterms:modified "2020-09-30"^^xs:date;
    dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
    dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
    dcterms:creator "Martin Thomas Horsch (ORCID 0000-0002-9464-6739)"^^xs:string;
@@ -55,6 +56,19 @@ vcl:codelist_interlocutor_group a owl:Class;
 vcl:CL_SCHEME_INTERLOCUTOR_GROUP a owl:NamedIndividual, skos:ConceptScheme;
    skos:prefLabel "interlocutor_group"^^xs:string;
    skos:definition "interlocutor group"^^xs:string.
+
+vcl:programming_language a owl:Class;
+   rdfs:subClassOf evmpo:annotation;
+   owl:equivalentClass viso:programming_language, [
+      a owl:Restriction;
+      owl:onProperty skos:inScheme;
+      owl:hasValue vcl:CL_SCHEME_PROGRAMMING_LANGUAGE
+      ];
+      rdfs:comment "programming language"^^xs:string.
+
+vcl:CL_SCHEME_PROGRAMMING_LANGUAGE a owl:NamedIndividual, skos:ConceptScheme;
+   skos:prefLabel "programming_language"^^xs:string;
+   skos:definition "programming language"^^xs:string.
 
 ###
 # DATATYPE PROPERTIES
