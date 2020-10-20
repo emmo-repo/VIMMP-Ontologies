@@ -1,9 +1,9 @@
 
 ### EMMO-VIMMP INTEGRATION (EVI) ###
 
-### VERSION 1.1.7 ###
+### VERSION 1.1.8 ###
 
-### DATED 28TH SEPTEMBER 2020 ###
+### DATED 20TH OCTOBER 2020 ###
 
 @prefix evi: <https://purl.vimmp.eu/semantics/alignment/evi.ttl#>.
 
@@ -27,8 +27,8 @@
 
 <https://purl.vimmp.eu/semantics/alignment/evi.ttl> a owl:Ontology;
    dcterms:title "EVI: EMMO-VIMMP Integration"^^xs:string;
-   owl:versionInfo "version 1.1.6"^^xs:string;
-   dcterms:modified "2020-06-27"^^xs:date;
+   owl:versionInfo "version 1.1.8"^^xs:string;
+   dcterms:modified "2020-10-20"^^xs:date;
    dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
    dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
    dcterms:bibliographicCitation "doi:10.1007/s13218-020-00648-9"^^xs:string;
@@ -346,10 +346,23 @@ osmo:materials_relation a owl:Class;
    owl:equivalentClass emmo1s:MaterialRelation;
    owl:sameAs emmo1s:MaterialRelation.
 
+# A section is a symbolic entity (via workflow_resource)
+#
+osmo:section a owl:Class; rdfs:subClassOf osmo:workflow_resource.
+
 # A section_aspect is a symbolic entity
 #
 osmo:section_aspect a owl:Class;
    rdfs:subClassOf evmpo:marketplace_related_entity, emmo1s:Symbolic.
+
+# a simulation is a semiosis (process), and a simulation overview is a sign for a simulation
+#
+osmo:simulation_overview a owl:Class;
+   rdfs:subClassOf osmo:section, [
+      a owl:Restriction;
+      owl:onProperty [owl:inverseOf emmo1s:hasSign];
+      owl:someValuesFrom emmo1s:Semiosis
+   ].
 
 # a workflow_resource is a symbolic entity
 # a workflow_graph is a well-formed symbolic entity

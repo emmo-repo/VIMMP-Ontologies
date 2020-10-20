@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 1.6.7 ###
+### VERSION 1.7.0 ###
 
-### DATED 7TH AUGUST 2020 ###
+### DATED 20TH OCTOBER 2020 ###
 
 @prefix osmo: <https://purl.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -22,8 +22,8 @@
 
 <https://purl.vimmp.eu/semantics/osmo/osmo.ttl> a owl:Ontology;
    dcterms:title "OSMO: Ontology for Simulation, Modelling, and Optimization"^^xs:string;
-   owl:versionInfo "version 1.6.6"^^xs:string;
-   dcterms:modified "2020-07-06"^^xs:date;
+   owl:versionInfo "version 1.7.0"^^xs:string;
+   dcterms:modified "2020-10-20"^^xs:date;
    dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
    dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
    dcterms:bibliographicCitation "10.1021/acs.jced.9b00739"^^xs:string;
@@ -516,9 +516,9 @@ osmo:indexed_graph rdfs:subClassOf [
 osmo:section a owl:Class;
    rdfs:subClassOf osmo:workflow_resource;
    owl:disjointWith osmo:section_aspect;
-   rdfs:comment "section, i.e., an application case, model, solver, or processor (as in MODA)"^^xs:string.
+   rdfs:comment "section, i.e., a simulation overview, application case, model, solver, or processor (as in MODA)"^^xs:string.
 
-osmo:section owl:disjointUnionOf (osmo:application_case osmo:materials_model osmo:solver osmo:processor).
+osmo:section owl:disjointUnionOf (osmo:simulation_overview osmo:application_case osmo:materials_model osmo:solver osmo:processor).
 
 osmo:has_internal_lv a owl:ObjectProperty;
    rdfs:domain osmo:section;
@@ -629,7 +629,7 @@ osmo:has_timespan a owl:ObjectProperty;
    rdfs:subPropertyOf osmo:has_aspect.
 
 osmo:applies_to a owl:ObjectProperty;
-   rdfs:domain osmo:section, [a owl:Class; owl:unionOf (osmo:use_case osmo:materials_model)];
+   rdfs:domain osmo:section, [a owl:Class; owl:unionOf (osmo:simulation_overview osmo:use_case osmo:materials_model)];
    rdfs:range osmo:workflow_graph;
    rdfs:subPropertyOf viprs:shares_a_sign_with;
    rdfs:comment "points to the workflow (sub)graph to which a particular use case or materials model applies"^^xs:string;
@@ -639,7 +639,7 @@ osmo:section_aspect a owl:Class;
    rdfs:subClassOf evmpo:marketplace_related_entity;
    rdfs:comment "section aspect, i.e., a descriptor of an application case, model, solver, or processor that can be represented by a section"^^xs:string.
 
-osmo:section_aspect owl:disjointUnionOf (osmo:application_case_aspect osmo:model_aspect osmo:solver osmo:processor_aspect).
+osmo:section_aspect owl:disjointUnionOf (osmo:simulation_overview_aspect osmo:application_case_aspect osmo:model_aspect osmo:solver_aspect osmo:processor_aspect).
 
 osmo:has_aspect_text_content a owl:DatatypeProperty;
    rdfs:domain osmo:section_aspect;
@@ -754,6 +754,80 @@ osmo:temporal_discretization a owl:Class;
 osmo:timespan_information a owl:Class;
    rdfs:subClassOf osmo:section_aspect;
    rdfs:comment "time span information, i.e., statement on the time interval considered, modelled, or represented by an OSMO/MODA section"^^xs:string.
+
+osmo:simulation_overview a owl:Class;
+   rdfs:subClassOf osmo:section, evmpo:annotation;
+   rdfs:comment "simulation overview (as in MODA)"^^xs:string.
+
+osmo:simulation_overview rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty osmo:applies_to;
+      owl:allValuesFrom osmo:simulation_workflow
+   ], [
+      a owl:Restriction;
+      owl:onProperty osmo:applies_to;
+      owl:cardinality 1
+   ], [
+      a owl:Restriction;
+      owl:onProperty [owl:inverseOf osmo:has_simulation_overview];
+      owl:cardinality 1
+   ].
+
+osmo:has_simulation_overview_aspect a owl:ObjectProperty;
+   rdfs:domain osmo:simulation_overview;
+   rdfs:range osmo:simulation_overview_aspect;
+   rdfs:subPropertyOf osmo:has_aspect, evmpo:has_meta_annotation;
+   rdfs:comment "points to an aspect of a simulation overview (following MODA)"^^xs:string.
+
+osmo:has_overview_use_case_description a owl:ObjectProperty;
+   rdfs:domain osmo:simulation_overview;
+   rdfs:range osmo:overview_use_case_description;
+   rdfs:subPropertyOf osmo:has_simulation_overview_aspect;
+   rdfs:comment "MODA cover sheet, aspect 1"^^xs:string.
+osmo:has_overview_model_description a owl:ObjectProperty;
+   rdfs:domain osmo:simulation_overview;
+   rdfs:range osmo:overview_model_description;
+   rdfs:subPropertyOf osmo:has_simulation_overview_aspect;
+   rdfs:comment "MODA cover sheet, aspect 2"^^xs:string.
+osmo:has_overview_literature a owl:ObjectProperty;
+   rdfs:domain osmo:simulation_overview;
+   rdfs:range osmo:overview_literature;
+   rdfs:subPropertyOf osmo:has_simulation_overview_aspect, osmo:has_section_literature;
+   rdfs:comment "MODA cover sheet, aspect 3"^^xs:string.
+osmo:has_overview_access_conditions a owl:ObjectProperty;
+   rdfs:domain osmo:simulation_overview;
+   rdfs:range osmo:overview_access_conditions;
+   rdfs:subPropertyOf osmo:has_simulation_overview_aspect;
+   rdfs:comment "MODA cover sheet, aspect 4"^^xs:string.
+osmo:has_overview_rationale a owl:ObjectProperty;
+   rdfs:domain osmo:simulation_overview;
+   rdfs:range osmo:overview_rationale;
+   rdfs:subPropertyOf osmo:has_simulation_overview_aspect;
+   rdfs:comment "MODA cover sheet, aspect 5"^^xs:string.
+
+osmo:simulation_overview_aspect a owl:Class;
+   rdfs:subClassOf osmo:section_aspect;
+   rdfs:comment "Simulation overview aspect, i.e., an aspect of a simulation overview (as specified in the MODA cover page)"^^xs:string.
+
+osmo:overview_use_case_description a owl:Class;
+   rdfs:subClassOf osmo:simulation_overview_aspect;
+   rdfs:comment "General description of the use case (MODA cover page, aspect 1), to be provided as plain-text content"^^xs:string.
+
+osmo:overview_model_description a owl:Class;
+   rdfs:subClassOf osmo:simulation_overview_aspect;
+   rdfs:comment "General description of the chain of models (MODA cover page, aspect 2), to be provided as plain-text content; n.b., the detailed workflow and specification of how exactly the models are connected should be provided in terms of OSMO/LDT workflow notation. Here, it is appropriate to provide only a summary in text form."^^xs:string.
+
+osmo:overview_literature a owl:Class;
+   rdfs:subClassOf osmo:simulation_overview_aspect, osmo:section_literature;
+   rdfs:comment "publication that documents data pertaining to the present simulation workflow (MODA cover page, aspect 3)"^^xs:string.
+
+osmo:overview_access_conditions a owl:Class;
+   rdfs:subClassOf osmo:simulation_overview_aspect;
+   rdfs:comment "Access conditions - MODA cover page, aspect 4: Please list whether the model and/or data are free, commercial or open source. Please list the owner and the name of the software or database (including web link if available)."^^xs:string.
+
+osmo:overview_rationale a owl:Class;
+   rdfs:subClassOf osmo:simulation_overview_aspect;
+   rdfs:comment "Rationale - MODA cover page, aspect 5: Please give a textual rationale of why you as a modeller have chosen these models and this workflow. This should include the reason why a particular aspect of the user case is to be simulated with a particular model."^^xs:string.
 
 osmo:application_case a owl:Class;
    rdfs:subClassOf evmpo:annotation, osmo:section;
@@ -1236,7 +1310,7 @@ osmo:workflow_graph owl:disjointUnionOf (osmo:concrete_graph osmo:virtual_graph)
 
 osmo:considers a owl:ObjectProperty;
    rdfs:domain osmo:workflow_graph;
-   rdfs:range osmo:section, [a owl:Class; owl:unionOf (osmo:use_case osmo:materials_model)];
+   rdfs:range osmo:section, [a owl:Class; owl:unionOf (osmo:simulation_overview osmo:use_case osmo:materials_model)];
    rdfs:comment "points to the use case or materials model considered by a workflow (sub)graph"^^xs:string;
    rdfs:subPropertyOf viprs:shares_a_sign_with;
    owl:inverseOf osmo:applies_to.
@@ -1250,6 +1324,11 @@ osmo:considers_use_case a owl:ObjectProperty;
    rdfs:range osmo:use_case;
    rdfs:comment "points to the use case considered by a workflow (sub)graph"^^xs:string;
    rdfs:subPropertyOf osmo:considers, evmpo:has_annotation.
+osmo:has_simulation_overview a owl:ObjectProperty;
+   rdfs:domain osmo:simulation_workflow;
+   rdfs:range osmo:simulation_overview;
+   rdfs:comment "points to the overview of a simulation workflow"^^xs:string;
+   rdfs:subPropertyOf osmo:considers, evmpo:has_annotation, viprs:mereosemiotics_is_hs.
 
 osmo:has_subgraph a owl:ObjectProperty, owl:TransitiveProperty;
    rdfs:domain osmo:workflow_graph;
@@ -1347,7 +1426,23 @@ osmo:simulation_workflow a owl:Class;
    ];
    rdfs:comment "simulation workflow, i.e., a (complete) workflow graph of an actually executable simulation workflow"^^xs:string.
 
-osmo:simulation_workflow owl:intersectionOf (osmo:workflow_graph evmpo:simulation).
+osmo:has_simulation_use_case_name a owl:DatatypeProperty;
+   rdfs:domain osmo:simulation_workflow;
+   rdfs:range xs:string;
+   rdfs:comment "Use-case 'name', to be provided as part of an overall simulation workflow description, cf. heading of the MODA cover sheet ('MOdelling DAta providing a description for <user-case name>  simulated in project <acronym>')"^^xs:string.
+osmo:has_simulation_project_acronym a owl:DatatypeProperty;
+   rdfs:domain osmo:simulation_workflow;
+   rdfs:range xs:string;
+   rdfs:comment "Project acronym, to be provided as part of an overall simulation workflow description, cf. heading of the MODA cover sheet ('MOdelling DAta providing a description for <user-case name>  simulated in project <acronym>')"^^xs:string.
+osmo:has_simulation_data_owner a owl:ObjectProperty;
+   rdfs:domain osmo:simulation_workflow;
+   rdfs:range evmpo:agent;
+   rdfs:subPropertyOf viprs:has_requirement_satisfied_by;
+   rdfs:comment "Data owner, information to be provided as part of an overall simulation workflow description, cf. heading of the MODA cover sheet; since conducting the simulation requires the authorization and hence 'occurrence' of a/the data owner, this relation is positioned below viprs:has_requirement_satisfied_by"^^xs:string.
+osmo:has_workflow_diagram_url a owl:DatatypeProperty;
+   rdfs:domain osmo:simulation_workflow;
+   rdfs:range xs:anyURI;
+   rdfs:comment "URL of a diagram ('workflow picture' according to the MODA cover sheet) illustrating the simulation workflow"^^xs:string.
 
 osmo:has_simulation_outcome a owl:ObjectProperty;
    rdfs:domain osmo:simulation_workflow;
@@ -1672,6 +1767,69 @@ osmo:has_static_array_size a owl:DatatypeProperty;
    rdfs:range xs:nonNegativeInteger;
    rdfs:comment "value that gives the array size; convention: element indices run from 0 to the array size minus one"^^xs:string.
 
+# value can be assigned to another array using vov:shares_value_with
+#
+osmo:ZERO_VECTOR_3D a osmo:logical_array;
+   osmo:has_static_array_size 3;
+   osmo:has_specific_element [
+      a osmo:unique_elementary;
+      osmo:has_variable_index 0;
+      osmo:has_elementary_value osmo:ZERO
+   ], [
+      a osmo:unique_elementary;
+      osmo:has_variable_index 1;
+      osmo:has_elementary_value osmo:ZERO
+   ], [
+      a osmo:unique_elementary;
+      osmo:has_variable_index 2;
+      osmo:has_elementary_value osmo:ZERO
+   ].
+osmo:X_UNIT_VECTOR_3D a osmo:logical_array;
+   osmo:has_static_array_size 3;
+   osmo:has_specific_element [
+      a osmo:unique_elementary;
+      osmo:has_variable_index 0;
+      osmo:has_elementary_value osmo:ONE
+   ], [
+      a osmo:unique_elementary;
+      osmo:has_variable_index 1;
+      osmo:has_elementary_value osmo:ZERO
+   ], [
+      a osmo:unique_elementary;
+      osmo:has_variable_index 2;
+      osmo:has_elementary_value osmo:ZERO
+   ].
+osmo:Y_UNIT_VECTOR_3D a osmo:logical_array;
+   osmo:has_static_array_size 3;
+   osmo:has_specific_element [
+      a osmo:unique_elementary;
+      osmo:has_variable_index 0;
+      osmo:has_elementary_value osmo:ZERO
+   ], [
+      a osmo:unique_elementary;
+      osmo:has_variable_index 1;
+      osmo:has_elementary_value osmo:ONE
+   ], [
+      a osmo:unique_elementary;
+      osmo:has_variable_index 2;
+      osmo:has_elementary_value osmo:ZERO
+   ].
+osmo:Z_UNIT_VECTOR_3D a osmo:logical_array;
+   osmo:has_static_array_size 3;
+   osmo:has_specific_element [
+      a osmo:unique_elementary;
+      osmo:has_variable_index 0;
+      osmo:has_elementary_value osmo:ZERO
+   ], [
+      a osmo:unique_elementary;
+      osmo:has_variable_index 1;
+      osmo:has_elementary_value osmo:ZERO
+   ], [
+      a osmo:unique_elementary;
+      osmo:has_variable_index 2;
+      osmo:has_elementary_value osmo:ONE
+   ].
+
 osmo:unique_logical a owl:Class;
    rdfs:subClassOf osmo:logical_variable;
    rdfs:comment "logical scalar, i.e., an logical variable that can have only one value at the same time"^^xs:string.
@@ -1881,6 +2039,7 @@ osmo:has_pe_type_id rdfs:subPropertyOf viprs:has_standardized_reference.
 osmo:has_cas_number rdfs:subPropertyOf viprs:has_standardized_reference.
 osmo:has_ec_number rdfs:subPropertyOf viprs:has_standardized_reference.
 osmo:has_index_name rdfs:subPropertyOf viprs:has_name.
+osmo:has_simulation_use_case_name rdfs:subPropertyOf viprs:has_name.
 osmo:has_term_name rdfs:subPropertyOf viprs:has_name.
 osmo:has_variable_name rdfs:subPropertyOf viprs:has_name.
 osmo:has_coupled_instances rdfs:subPropertyOf viprs:has_flag.
@@ -1896,7 +2055,9 @@ osmo:is_parameterization rdfs:subPropertyOf viprs:has_flag.
 osmo:has_collection_size rdfs:subPropertyOf viprs:has_numerical_specifier.
 osmo:has_static_array_size rdfs:subPropertyOf viprs:has_numerical_specifier.
 osmo:has_pe_type_descriptor rdfs:subPropertyOf viprs:has_descriptor.
+osmo:has_simulation_project_acronym rdfs:subPropertyOf viprs:has_descriptor.
 osmo:has_uf_descriptor rdfs:subPropertyOf viprs:has_descriptor.
+osmo:has_workflow_diagram_url rdfs:subPropertyOf viprs:has_file_metadata_item.
 
 ###
 # NOTES ON ALIGNMENT
@@ -1919,6 +2080,8 @@ osmo:has_uf_descriptor rdfs:subPropertyOf viprs:has_descriptor.
 # a workflow_resource is a symbolic entity
 # a workflow_graph is a well-formed symbolic entity
 # a simulation is a semiosis (process), and a simulation_workflow is a sign for a simulation
+
+# similarly, a simulation_overview is also a sign for a simulation (and is_sign_for o has_sign some simulation_workflow)
 
 # has_value is a subproperty of [owl:inverseOf hasConvention]
 # has_variable_unit is a subproperty of hasReferenceUnit
