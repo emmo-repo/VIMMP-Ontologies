@@ -1,9 +1,9 @@
 
 ### VIMMP CODELISTS (VCL) FOR ZONTAL ###
 
-### VERSION 0.3.1 ###
+### VERSION 0.3.2 ###
 
-### DATED 30TH SEPTEMBER 2020 ###
+### DATED 21TH OCTOBER 2020 ###
 
 @prefix vcl: <https://purl.vimmp.eu/semantics/alignment/vcl.ttl#>.
 
@@ -22,8 +22,8 @@
 
 <https://purl.vimmp.eu/semantics/alignment/vcl.ttl> a owl:Ontology;
    dcterms:title "VCL: VIMMP Codelists"^^xs:string;
-   owl:versionInfo "version 0.3.1"^^xs:string;
-   dcterms:modified "2020-09-30"^^xs:date;
+   owl:versionInfo "version 0.3.2"^^xs:string;
+   dcterms:modified "2020-10-21"^^xs:date;
    dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
    dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
    dcterms:creator "Martin Thomas Horsch (ORCID 0000-0002-9464-6739)"^^xs:string;
@@ -57,7 +57,7 @@ vcl:CL_SCHEME_INTERLOCUTOR_GROUP a owl:NamedIndividual, skos:ConceptScheme;
    skos:prefLabel "interlocutor_group"^^xs:string;
    skos:definition "interlocutor group"^^xs:string.
 
-vcl:programming_language a owl:Class;
+vcl:codelist_programming_language a owl:Class;
    rdfs:subClassOf evmpo:annotation;
    owl:equivalentClass viso:programming_language, [
       a owl:Restriction;
@@ -69,6 +69,19 @@ vcl:programming_language a owl:Class;
 vcl:CL_SCHEME_PROGRAMMING_LANGUAGE a owl:NamedIndividual, skos:ConceptScheme;
    skos:prefLabel "programming_language"^^xs:string;
    skos:definition "programming language"^^xs:string.
+
+vcl:codelist_license a owl:Class;
+   rdfs:subClassOf evmpo:legal_document;
+   owl:equivalentClass viso:license, [
+      a owl:Restriction;
+      owl:onProperty skos:inScheme;
+      owl:hasValue vcl:CL_SCHEME_LICENSE
+      ];
+      rdfs:comment "license"^^xs:string.
+
+vcl:CL_SCHEME_LICENSE a owl:NamedIndividual, skos:ConceptScheme;
+   skos:prefLabel "license"^^xs:string;
+   skos:definition "license"^^xs:string.
 
 ###
 # DATATYPE PROPERTIES
