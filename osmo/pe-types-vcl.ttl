@@ -1,0 +1,130 @@
+@prefix osmo: <https://purl.vimmp.eu/semantics/osmo/osmo.ttl#>.
+@prefix xs: <http://www.w3.org/2001/XMLSchema#>.
+@prefix skos: <http://www.w3.org/2004/02/skos/core#>.
+@prefix vcl: <https://purl.vimmp.eu/semantics/alignment/vcl.ttl#>.
+
+osmo:INDIVIDUAL_OF_PE_TYPE_A.1 a osmo:physical_equation_type, vcl:codelist_pe_type, osmo:pe_type_atomistic_density_functional;
+  skos:inScheme vcl:CL_PE_TYPE;
+  skos:notation "PE_TYPE_A.1"^^xs:string, "PE_TYPE_A.1"@en;
+  skos:prefLabel "PE type A.1: Classical-mechanical density functional theory (atomistic)"^^xs:string.
+
+osmo:INDIVIDUAL_OF_PE_TYPE_A.2 a osmo:physical_equation_type, vcl:codelist_pe_type, osmo:pe_type_atomistic_molecular_statics;
+  skos:inScheme vcl:CL_PE_TYPE;
+  skos:notation "PE_TYPE_A.2"^^xs:string, "PE_TYPE_A.2"@en;
+  skos:prefLabel "PE type A.2: Molecular statics (atomistic), energy minimization"^^xs:string.
+
+osmo:INDIVIDUAL_OF_PE_TYPE_A.3 a osmo:physical_equation_type, vcl:codelist_pe_type, osmo:pe_type_atomistic_molecular_dynamics;
+  skos:inScheme vcl:CL_PE_TYPE;
+  skos:notation "PE_TYPE_A.3"^^xs:string, "PE_TYPE_A.3"@en;
+  skos:prefLabel "PE type A.3: Molecular dynamics (atomistic)"^^xs:string.
+
+osmo:INDIVIDUAL_OF_PE_TYPE_A.4 a osmo:physical_equation_type, vcl:codelist_pe_type, osmo:pe_type_atomistic_partition_function;
+  skos:inScheme vcl:CL_PE_TYPE;
+  skos:notation "PE_TYPE_A.4"^^xs:string, "PE_TYPE_A.4"@en;
+  skos:prefLabel "PE type A.4: Partition function (atomistic), e.g., for a Monte Carlo solver"^^xs:string.
+
+osmo:INDIVIDUAL_OF_PE_TYPE_A.5 a osmo:physical_equation_type, vcl:codelist_pe_type, osmo:pe_type_atomistic_spin_model;
+  skos:inScheme vcl:CL_PE_TYPE;
+  skos:notation "PE_TYPE_A.5"^^xs:string, "PE_TYPE_A.5"@en;
+  skos:prefLabel "PE type A.5: Atomistic spin model"^^xs:string.
+
+osmo:INDIVIDUAL_OF_PE_TYPE_A.6 a osmo:physical_equation_type, vcl:codelist_pe_type, osmo:pe_type_atomistic_statistical_transport;
+  skos:inScheme vcl:CL_PE_TYPE;
+  skos:notation "PE_TYPE_A.6"^^xs:string, "PE_TYPE_A.6"@en;
+  skos:prefLabel "PE type A.6: Statistical transport model (atomistic)"^^xs:string.
+
+osmo:INDIVIDUAL_OF_PE_TYPE_CO.1 a osmo:physical_equation_type, vcl:codelist_pe_type, osmo:pe_type_continuum_solid_mechanics;
+  skos:inScheme vcl:CL_PE_TYPE;
+  skos:notation "PE_TYPE_CO.1"^^xs:string, "PE_TYPE_CO.1"@en;
+  skos:prefLabel "PE type CO.1: Continuum solid mechanics"^^xs:string.
+
+osmo:INDIVIDUAL_OF_PE_TYPE_CO.2 a osmo:physical_equation_type, vcl:codelist_pe_type, osmo:pe_type_continuum_fluid_mechanics;
+  skos:inScheme vcl:CL_PE_TYPE;
+  skos:notation "PE_TYPE_CO.2"^^xs:string, "PE_TYPE_CO.2"@en;
+  skos:prefLabel "PE type CO.2: Continuum fluid mechanics"^^xs:string.
+
+osmo:INDIVIDUAL_OF_PE_TYPE_CO.3 a osmo:physical_equation_type, vcl:codelist_pe_type, osmo:pe_type_continuum_heat_transfer;
+  skos:inScheme vcl:CL_PE_TYPE;
+  skos:notation "PE_TYPE_CO.3"^^xs:string, "PE_TYPE_CO.3"@en;
+  skos:prefLabel "PE type CO.3: Continuum modelling of heat transfer and thermomechanics"^^xs:string.
+
+osmo:INDIVIDUAL_OF_PE_TYPE_CO.4 a osmo:physical_equation_type, vcl:codelist_pe_type, osmo:pe_type_continuum_phase_field;
+  skos:inScheme vcl:CL_PE_TYPE;
+  skos:notation "PE_TYPE_CO.4"^^xs:string, "PE_TYPE_CO.4"@en;
+  skos:prefLabel "PE type CO.4: Phase field model or continuum density gradient theory"^^xs:string.
+
+osmo:INDIVIDUAL_OF_PE_TYPE_CO.5 a osmo:physical_equation_type, vcl:codelist_pe_type, osmo:pe_type_continuum_thermodynamics;
+  skos:inScheme vcl:CL_PE_TYPE;
+  skos:notation "PE_TYPE_CO.5"^^xs:string, "PE_TYPE_CO.5"@en;
+  skos:prefLabel "PE type CO.5: Continuum thermodynamics"^^xs:string.
+
+osmo:INDIVIDUAL_OF_PE_TYPE_CO.6 a osmo:physical_equation_type, vcl:codelist_pe_type, osmo:pe_type_continuum_reaction_kinetics;
+  skos:inScheme vcl:CL_PE_TYPE;
+  skos:notation "PE_TYPE_CO.6"^^xs:string, "PE_TYPE_CO.6"@en;
+  skos:prefLabel "PE type CO.6: Continuum modelling of chemical reaction kinetics"^^xs:string.
+
+osmo:INDIVIDUAL_OF_PE_TYPE_CO.7 a osmo:physical_equation_type, vcl:codelist_pe_type, osmo:pe_type_continuum_electromagnetism;
+  skos:inScheme vcl:CL_PE_TYPE;
+  skos:notation "PE_TYPE_CO.7"^^xs:string, "PE_TYPE_CO.7"@en;
+  skos:prefLabel "PE type CO.7: Continuum electromagnetism model (including optics, magnetism, etc.)"^^xs:string.
+
+osmo:INDIVIDUAL_OF_PE_TYPE_CO.8 a osmo:physical_equation_type, vcl:codelist_pe_type, osmo:pe_type_continuum_process_model;
+  skos:inScheme vcl:CL_PE_TYPE;
+  skos:notation "PE_TYPE_CO.8"^^xs:string, "PE_TYPE_CO.8"@en;
+  skos:prefLabel "PE type CO.8: Continuum process model (including devices and components of chemical/mechanical processes, flow-chart models, etc.)"^^xs:string.
+
+osmo:INDIVIDUAL_OF_PE_TYPE_EL.1 a osmo:physical_equation_type, vcl:codelist_pe_type, osmo:pe_type_electronic_qm_abinitio;
+  skos:inScheme vcl:CL_PE_TYPE;
+  skos:notation "PE_TYPE_EL.1"^^xs:string, "PE_TYPE_EL.1"@en;
+  skos:prefLabel "PE type EL.1: Ab-initio quantum mechanical (or first principle) model"^^xs:string.
+
+osmo:INDIVIDUAL_OF_PE_TYPE_EL.2 a osmo:physical_equation_type, vcl:codelist_pe_type, osmo:pe_type_electronic_manybody_effective;
+  skos:inScheme vcl:CL_PE_TYPE;
+  skos:notation "PE_TYPE_EL.2"^^xs:string, "PE_TYPE_EL.2"@en;
+  skos:prefLabel "PE type EL.2: Electronic many-body and/or effective Hamiltonian model"^^xs:string.
+
+osmo:INDIVIDUAL_OF_PE_TYPE_EL.3 a osmo:physical_equation_type, vcl:codelist_pe_type, osmo:pe_type_electronic_time_dependent;
+  skos:inScheme vcl:CL_PE_TYPE;
+  skos:notation "PE_TYPE_EL.3"^^xs:string, "PE_TYPE_EL.3"@en;
+  skos:prefLabel "PE type EL.3: QM model of the response to time-dependent fields"^^xs:string.
+
+osmo:INDIVIDUAL_OF_PE_TYPE_EL.4 a osmo:physical_equation_type, vcl:codelist_pe_type, osmo:pe_type_electronic_charge_transport;
+  skos:inScheme vcl:CL_PE_TYPE;
+  skos:notation "PE_TYPE_EL.4"^^xs:string, "PE_TYPE_EL.4"@en;
+  skos:prefLabel "PE type EL.4: Statistical charge transport model"^^xs:string.
+
+osmo:INDIVIDUAL_OF_PE_TYPE_EL.5 a osmo:physical_equation_type, vcl:codelist_pe_type, osmo:pe_type_electronic_spin_transport;
+  skos:inScheme vcl:CL_PE_TYPE;
+  skos:notation "PE_TYPE_EL.5"^^xs:string, "PE_TYPE_EL.5"@en;
+  skos:prefLabel "PE type EL.5: Statistical electron spin transport model"^^xs:string.
+
+osmo:INDIVIDUAL_OF_PE_TYPE_M.1 a osmo:physical_equation_type, vcl:codelist_pe_type, osmo:pe_type_mesoscopic_density_functional;
+  skos:inScheme vcl:CL_PE_TYPE;
+  skos:notation "PE_TYPE_M.1"^^xs:string, "PE_TYPE_M.1"@en;
+  skos:prefLabel "PE type M.1: Classical-mechanical density functional theory (mesoscopic)"^^xs:string.
+
+osmo:INDIVIDUAL_OF_PE_TYPE_M.2 a osmo:physical_equation_type, vcl:codelist_pe_type, osmo:pe_type_mesoscopic_molecular_statics;
+  skos:inScheme vcl:CL_PE_TYPE;
+  skos:notation "PE_TYPE_M.2"^^xs:string, "PE_TYPE_M.2"@en;
+  skos:prefLabel "PE type M.2: Molecular statics (mesoscopic), i.e., energy minimization"^^xs:string.
+
+osmo:INDIVIDUAL_OF_PE_TYPE_M.3 a osmo:physical_equation_type, vcl:codelist_pe_type, osmo:pe_type_mesoscopic_molecular_dynamics;
+  skos:inScheme vcl:CL_PE_TYPE;
+  skos:notation "PE_TYPE_M.3"^^xs:string, "PE_TYPE_M.3"@en;
+  skos:prefLabel "PE type M.3: Molecular dynamics (mesoscopic), i.e., coarse-grained or united-atom modelling"^^xs:string.
+
+osmo:INDIVIDUAL_OF_PE_TYPE_M.4 a osmo:physical_equation_type, vcl:codelist_pe_type, osmo:pe_type_mesoscopic_partition_function;
+  skos:inScheme vcl:CL_PE_TYPE;
+  skos:notation "PE_TYPE_M.4"^^xs:string, "PE_TYPE_M.4"@en;
+  skos:prefLabel "PE type M.4: Partition function (mesoscopic), e.g., for a Monte Carlo solver"^^xs:string.
+
+osmo:INDIVIDUAL_OF_PE_TYPE_M.5 a osmo:physical_equation_type, vcl:codelist_pe_type, osmo:pe_type_mesoscopic_micromagnetism;
+  skos:inScheme vcl:CL_PE_TYPE;
+  skos:notation "PE_TYPE_M.5"^^xs:string, "PE_TYPE_M.5"@en;
+  skos:prefLabel "PE type M.5: Micromagnetism model"^^xs:string.
+
+osmo:INDIVIDUAL_OF_PE_TYPE_M.6 a osmo:physical_equation_type, vcl:codelist_pe_type, osmo:pe_type_mesoscopic_statistical_transport;
+  skos:inScheme vcl:CL_PE_TYPE;
+  skos:notation "PE_TYPE_M.6"^^xs:string, "PE_TYPE_M.6"@en;
+  skos:prefLabel "PE type M.6: Statistical transport model (mesoscopic)"^^xs:string.
+
