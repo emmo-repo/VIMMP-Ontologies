@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
 
-### VERSION 1.1.0 ###
+### VERSION 1.1.1 ###
 
-### DATED 28TH SEPTEMBER 2020 ###
+### DATED 28TH OCTOBER 2020 ###
 
 @prefix otras: <https://purl.vimmp.eu/semantics/otras/otras.ttl#>.
 
@@ -24,7 +24,7 @@
 <https://purl.vimmp.eu/semantics/otras/otras.ttl> a owl:Ontology;
    dcterms:title "OTRAS: Ontology for Training Services"^^xs:string;
    owl:versionInfo "version 1.1.0"^^xs:string;
-   dcterms:modified "2020-09-28"^^xs:date;
+   dcterms:modified "2020-10-28"^^xs:date;
    dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
    dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
    dcterms:bibliographicCitation "doi:10.1007/s13218-020-00648-9"^^xs:string;
@@ -177,6 +177,10 @@ otras:is_discussed_by_document a owl:ObjectProperty;
    rdfs:range evmpo:document;
    rdfs:subPropertyOf [owl:inverseOf evmpo:has_annotation], viprs:is_symbolic_part_of_sign_for;
    owl:inverseOf otras:has_document_topic.
+otras:refers_to a owl:ObjectProperty;
+   rdfs:domain otras:topic;
+   rdfs:range evmpo:marketplace_related_entity;
+   rdfs:subPropertyOf viprs:is_sign_for.
 
 otras:specifier a owl:Class;
    rdfs:comment "specifier, i.e., a constitutive element of a learning outcome (acquired competency) description"^^xs:string;
@@ -490,66 +494,85 @@ otras:mm_topic_computational_electronic a owl:Class;
    rdfs:comment "computational aspects of electronic modelling (code 31XX)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_computational.
 otras:mm_topic_computational_EL1 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_EL.1;
    rdfs:comment "computational aspects of physical equation EL.1 (code 312X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_computational_electronic.
 otras:mm_topic_computational_EL2 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_EL.2;
    rdfs:comment "computational aspects of physical equation EL.2 (code 313X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_computational_electronic.
 otras:mm_topic_computational_EL3 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_EL.3;
    rdfs:comment "computational aspects of physical equation EL.3 (code 314X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_computational_electronic.
 otras:mm_topic_computational_EL4 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_EL.4;
    rdfs:comment "computational aspects of physical equation EL.4 (code 315X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_computational_electronic.
 otras:mm_topic_computational_EL5 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_EL.5;
    rdfs:comment "computational aspects of physical equation EL.5 (code 316X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_computational_electronic.
 otras:mm_topic_computational_discrete a owl:Class;
    rdfs:comment "computational aspects of discrete (atomistic and mesoscopic) modelling (code 32XX)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_computational.
 otras:mm_topic_computational_AM1 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_A.1, osmo:INDIVIDUAL_OF_PE_TYPE_M.1;
    rdfs:comment "computational aspects of physical equations A.1/M.1 (code 322X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_computational_discrete.
 otras:mm_topic_computational_AM2 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_A.2, osmo:INDIVIDUAL_OF_PE_TYPE_M.2;
    rdfs:comment "computational aspects of physical equations A.2/M.2 (code 323X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_computational_discrete.
 otras:mm_topic_computational_AM3 a owl:Class;
    rdfs:comment "computational aspects of physical equations A.3/M.3 (code 324X)"^^xs:string;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_A.3, osmo:INDIVIDUAL_OF_PE_TYPE_M.3;
    rdfs:subClassOf otras:mm_topic_computational_discrete.
 otras:mm_topic_computational_AM4 a owl:Class;
    rdfs:comment "computational aspects of physical equations A.4/M.4 (code 325X)"^^xs:string;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_A.4, osmo:INDIVIDUAL_OF_PE_TYPE_M.4;
    rdfs:subClassOf otras:mm_topic_computational_discrete.
 otras:mm_topic_computational_AM5 a owl:Class;
    rdfs:comment "computational aspects of physical equations A.5/M.5 (code 326X)"^^xs:string;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_A.5, osmo:INDIVIDUAL_OF_PE_TYPE_M.5;
    rdfs:subClassOf otras:mm_topic_computational_discrete.
 otras:mm_topic_computational_AM6 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_A.6, osmo:INDIVIDUAL_OF_PE_TYPE_M.6;
    rdfs:comment "computational aspects of physical equations A.6/M.6 (code 327X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_computational_discrete.
 otras:mm_topic_computational_continuum a owl:Class;
    rdfs:comment "computational aspects of (non-electronic, classical-mechanical) continuum modelling (code 33XX)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_computational.
 otras:mm_topic_computational_CO1 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_CO.1;
    rdfs:comment "computational aspects of physical equation CO.1 (code 332X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_computational_continuum.
 otras:mm_topic_computational_CO2 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_CO.2;
    rdfs:comment "computational aspects of physical equation CO.2 (code 333X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_computational_continuum.
 otras:mm_topic_computational_CO3 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_CO.3;
    rdfs:comment "computational aspects of physical equation CO.3 (code 334X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_computational_continuum.
 otras:mm_topic_computational_CO4 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_CO.4;
    rdfs:comment "computational aspects of physical equation CO.4 (code 335X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_computational_continuum.
 otras:mm_topic_computational_CO5 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_CO.5;
    rdfs:comment "computational aspects of physical equation CO.5 (code 336X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_computational_continuum.
 otras:mm_topic_computational_CO6 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_CO.6;
    rdfs:comment "computational aspects of physical equation CO.6 (code 337X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_computational_continuum.
 otras:mm_topic_computational_CO7 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_CO.7;
    rdfs:comment "computational aspects of physical equation CO.7 (code 338X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_computational_continuum.
 otras:mm_topic_computational_CO8 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_CO.8;
    rdfs:comment "computational aspects of physical equation CO.8 (code 339X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_computational_continuum.
 otras:mm_topic_computational_non_equilibrium a owl:Class;
@@ -680,66 +703,85 @@ otras:mm_topic_theoretical_electronic a owl:Class;
    rdfs:comment "theoretical aspects of electronic modelling (code 71XX)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_theoretical.
 otras:mm_topic_theoretical_EL1 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_EL.1;
    rdfs:comment "theoretical aspects of physical equation EL.1 (code 712X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_theoretical_electronic.
 otras:mm_topic_theoretical_EL2 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_EL.2;
    rdfs:comment "theoretical aspects of physical equation EL.2 (code 713X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_theoretical_electronic.
 otras:mm_topic_theoretical_EL3 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_EL.3;
    rdfs:comment "theoretical aspects of physical equation EL.3 (code 714X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_theoretical_electronic.
 otras:mm_topic_theoretical_EL4 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_EL.4;
    rdfs:comment "theoretical aspects of physical equation EL.4 (code 715X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_theoretical_electronic.
 otras:mm_topic_theoretical_EL5 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_EL.5;
    rdfs:comment "theoretical aspects of physical equation EL.5 (code 716X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_theoretical_electronic.
 otras:mm_topic_theoretical_discrete a owl:Class;
    rdfs:comment "theoretical aspects of discrete (atomistic and mesoscopic) modelling (code 72XX)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_theoretical.
 otras:mm_topic_theoretical_AM1 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_A.1, osmo:INDIVIDUAL_OF_PE_TYPE_M.1;
    rdfs:comment "theoretical aspects of physical equations A.1/M.1 (code 722X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_theoretical_discrete.
 otras:mm_topic_theoretical_AM2 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_A.2, osmo:INDIVIDUAL_OF_PE_TYPE_M.2;
    rdfs:comment "theoretical aspects of physical equations A.2/M.2 (code 723X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_theoretical_discrete.
 otras:mm_topic_theoretical_AM3 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_A.3, osmo:INDIVIDUAL_OF_PE_TYPE_M.3;
    rdfs:comment "theoretical aspects of physical equations A.3/M.3 (code 724X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_theoretical_discrete.
 otras:mm_topic_theoretical_AM4 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_A.4, osmo:INDIVIDUAL_OF_PE_TYPE_M.4;
    rdfs:comment "theoretical aspects of physical equations A.4/M.4 (code 725X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_theoretical_discrete.
 otras:mm_topic_theoretical_AM5 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_A.5, osmo:INDIVIDUAL_OF_PE_TYPE_M.5;
    rdfs:comment "theoretical aspects of physical equations A.5/M.5 (code 726X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_theoretical_discrete.
 otras:mm_topic_theoretical_AM6 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_A.6, osmo:INDIVIDUAL_OF_PE_TYPE_M.6;
    rdfs:comment "theoretical aspects of physical equations A.6/M.6 (code 727X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_theoretical_discrete.
 otras:mm_topic_theoretical_continuum a owl:Class;
    rdfs:comment "theoretical aspects of (non-electronic, classical-mechanical) continuum modelling (code 73XX)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_theoretical.
 otras:mm_topic_theoretical_CO1 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_CO.1;
    rdfs:comment "theoretical aspects of physical equation CO.1 (code 732X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_theoretical_continuum.
 otras:mm_topic_theoretical_CO2 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_CO.2;
    rdfs:comment "theoretical aspects of physical equation CO.2 (code 733X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_theoretical_continuum.
 otras:mm_topic_theoretical_CO3 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_CO.3;
    rdfs:comment "theoretical aspects of physical equation CO.3 (code 734X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_theoretical_continuum.
 otras:mm_topic_theoretical_CO4 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_CO.4;
    rdfs:comment "theoretical aspects of physical equation CO.4 (code 735X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_theoretical_continuum.
 otras:mm_topic_theoretical_CO5 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_CO.5;
    rdfs:comment "theoretical aspects of physical equation CO.5 (code 736X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_theoretical_continuum.
 otras:mm_topic_theoretical_CO6 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_CO.6;
    rdfs:comment "theoretical aspects of physical equation CO.6 (code 737X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_theoretical_continuum.
 otras:mm_topic_theoretical_CO7 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_CO.7;
    rdfs:comment "theoretical aspects of physical equation CO.7 (code 738X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_theoretical_continuum.
 otras:mm_topic_theoretical_CO8 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_CO.8;
    rdfs:comment "theoretical aspects of physical equation CO.8 (code 739X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_theoretical_continuum.
 otras:mm_topic_theoretical_non_equilibrium a owl:Class;

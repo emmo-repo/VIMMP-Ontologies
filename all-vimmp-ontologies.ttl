@@ -1726,9 +1726,9 @@ evmpo:has_meta_annotation a owl:ObjectProperty;
 
 ### VIMMP CODELISTS (VCL) FOR ZONTAL ###
 
-### VERSION 0.3.1 ###
+### VERSION 0.3.3 ###
 
-### DATED 30TH SEPTEMBER 2020 ###
+### DATED 26TH OCTOBER 2020 ###
 
 @prefix vcl: <https://purl.vimmp.eu/semantics/alignment/vcl.ttl#>.
 
@@ -1747,8 +1747,8 @@ evmpo:has_meta_annotation a owl:ObjectProperty;
 
 <https://purl.vimmp.eu/semantics/alignment/vcl.ttl> a owl:Ontology;
    dcterms:title "VCL: VIMMP Codelists"^^xs:string;
-   owl:versionInfo "version 0.3.1"^^xs:string;
-   dcterms:modified "2020-09-30"^^xs:date;
+   owl:versionInfo "version 0.3.3"^^xs:string;
+   dcterms:modified "2020-10-26"^^xs:date;
    dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
    dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
    dcterms:creator "Martin Thomas Horsch (ORCID 0000-0002-9464-6739)"^^xs:string;
@@ -1782,7 +1782,7 @@ vcl:CL_SCHEME_INTERLOCUTOR_GROUP a owl:NamedIndividual, skos:ConceptScheme;
    skos:prefLabel "interlocutor_group"^^xs:string;
    skos:definition "interlocutor group"^^xs:string.
 
-vcl:programming_language a owl:Class;
+vcl:codelist_programming_language a owl:Class;
    rdfs:subClassOf evmpo:annotation;
    owl:equivalentClass viso:programming_language, [
       a owl:Restriction;
@@ -1794,6 +1794,32 @@ vcl:programming_language a owl:Class;
 vcl:CL_SCHEME_PROGRAMMING_LANGUAGE a owl:NamedIndividual, skos:ConceptScheme;
    skos:prefLabel "programming_language"^^xs:string;
    skos:definition "programming language"^^xs:string.
+
+vcl:codelist_license a owl:Class;
+   rdfs:subClassOf evmpo:legal_document;
+   owl:equivalentClass viso:license, [
+      a owl:Restriction;
+      owl:onProperty skos:inScheme;
+      owl:hasValue vcl:CL_SCHEME_LICENSE
+      ];
+      rdfs:comment "license"^^xs:string.
+
+vcl:CL_SCHEME_LICENSE a owl:NamedIndividual, skos:ConceptScheme;
+   skos:prefLabel "license"^^xs:string;
+   skos:definition "license"^^xs:string.
+
+vcl:codelist_pe_type a owl:Class;
+   rdfs:subClassOf evmpo:annotation;
+   owl:equivalentClass osmo:physical_equation_type, [
+      a owl:Restriction;
+      owl:onProperty skos:inScheme;
+      owl:hasValue vcl:CL_SCHEME_PE_TYPE
+      ];
+      rdfs:comment "Physical Equation (PE) type"^^xs:string.
+
+vcl:CL_SCHEME_PE_TYPE a owl:NamedIndividual, skos:ConceptScheme;
+   skos:prefLabel "Physical Equation (PE) type"^^xs:string;
+   skos:definition "Physical Equation (PE) type"^^xs:string.
 
 ###
 # DATATYPE PROPERTIES
@@ -4103,9 +4129,9 @@ mmto:has_step_description rdfs:subPropertyOf viprs:has_descriptor.
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 1.7.0 ###
+### VERSION 1.7.2 ###
 
-### DATED 20TH OCTOBER 2020 ###
+### DATED 28TH OCTOBER 2020 ###
 
 @prefix osmo: <https://purl.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -4117,6 +4143,8 @@ mmto:has_step_description rdfs:subPropertyOf viprs:has_descriptor.
 @prefix otras: <https://purl.vimmp.eu/semantics/otras/otras.ttl#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix skos: <http://www.w3.org/2004/02/skos/core#>.
+@prefix vcl: <https://purl.vimmp.eu/semantics/alignment/vcl.ttl#>.
 @prefix viprs: <https://purl.vimmp.eu/semantics/alignment/viprs.ttl#>.
 @prefix viso: <https://purl.vimmp.eu/semantics/viso/viso-general.ttl#>.
 @prefix vivo: <https://purl.vimmp.eu/semantics/vivo/vivo.ttl#>.
@@ -4124,8 +4152,8 @@ mmto:has_step_description rdfs:subPropertyOf viprs:has_descriptor.
 
 <https://purl.vimmp.eu/semantics/osmo/osmo.ttl> a owl:Ontology;
    dcterms:title "OSMO: Ontology for Simulation, Modelling, and Optimization"^^xs:string;
-   owl:versionInfo "version 1.7.0"^^xs:string;
-   dcterms:modified "2020-10-20"^^xs:date;
+   owl:versionInfo "version 1.7.2"^^xs:string;
+   dcterms:modified "2020-10-28"^^xs:date;
    dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
    dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
    dcterms:bibliographicCitation "10.1021/acs.jced.9b00739"^^xs:string;
@@ -4513,7 +4541,7 @@ osmo:pe_type_continuum_reaction_kinetics a owl:Class;
    rdfs:subClassOf osmo:pe_type_continuum;
    rdfs:subClassOf [a owl:Restriction;
       owl:onProperty osmo:has_pe_type_descriptor;
-      owl:hasValue "OSMO PE type CO.6: Continuum modelling of chemical reaction kinetics"^^xs:string];
+      owl:hasValue "PE type CO.6: Continuum modelling of chemical reaction kinetics"^^xs:string];
    rdfs:subClassOf [a owl:Restriction;
       owl:onProperty osmo:has_pe_type_id;
       owl:hasValue "CO.6"^^xs:string];
@@ -6121,6 +6149,135 @@ osmo:use_case_decision_support_system a owl:Class;
    rdfs:comment "use-case decision support system (UDSS), i.e., a decision support system that is applied to a use case"^^xs:string.
 
 ###
+# OUTPUT OF THE pe_types_vcl.py SCRIPT
+###
+
+osmo:INDIVIDUAL_OF_PE_TYPE_A.1 a osmo:physical_equation_type, vcl:codelist_pe_type, osmo:pe_type_atomistic_density_functional;
+  skos:inScheme vcl:CL_PE_TYPE;
+  skos:notation "PE_TYPE_A.1"^^xs:string, "PE_TYPE_A.1"@en;
+  skos:prefLabel "PE type A.1: Classical-mechanical density functional theory (atomistic)"^^xs:string.
+
+osmo:INDIVIDUAL_OF_PE_TYPE_A.2 a osmo:physical_equation_type, vcl:codelist_pe_type, osmo:pe_type_atomistic_molecular_statics;
+  skos:inScheme vcl:CL_PE_TYPE;
+  skos:notation "PE_TYPE_A.2"^^xs:string, "PE_TYPE_A.2"@en;
+  skos:prefLabel "PE type A.2: Molecular statics (atomistic), energy minimization"^^xs:string.
+
+osmo:INDIVIDUAL_OF_PE_TYPE_A.3 a osmo:physical_equation_type, vcl:codelist_pe_type, osmo:pe_type_atomistic_molecular_dynamics;
+  skos:inScheme vcl:CL_PE_TYPE;
+  skos:notation "PE_TYPE_A.3"^^xs:string, "PE_TYPE_A.3"@en;
+  skos:prefLabel "PE type A.3: Molecular dynamics (atomistic)"^^xs:string.
+
+osmo:INDIVIDUAL_OF_PE_TYPE_A.4 a osmo:physical_equation_type, vcl:codelist_pe_type, osmo:pe_type_atomistic_partition_function;
+  skos:inScheme vcl:CL_PE_TYPE;
+  skos:notation "PE_TYPE_A.4"^^xs:string, "PE_TYPE_A.4"@en;
+  skos:prefLabel "PE type A.4: Partition function (atomistic), e.g., for a Monte Carlo solver"^^xs:string.
+
+osmo:INDIVIDUAL_OF_PE_TYPE_A.5 a osmo:physical_equation_type, vcl:codelist_pe_type, osmo:pe_type_atomistic_spin_model;
+  skos:inScheme vcl:CL_PE_TYPE;
+  skos:notation "PE_TYPE_A.5"^^xs:string, "PE_TYPE_A.5"@en;
+  skos:prefLabel "PE type A.5: Atomistic spin model"^^xs:string.
+
+osmo:INDIVIDUAL_OF_PE_TYPE_A.6 a osmo:physical_equation_type, vcl:codelist_pe_type, osmo:pe_type_atomistic_statistical_transport;
+  skos:inScheme vcl:CL_PE_TYPE;
+  skos:notation "PE_TYPE_A.6"^^xs:string, "PE_TYPE_A.6"@en;
+  skos:prefLabel "PE type A.6: Statistical transport model (atomistic)"^^xs:string.
+
+osmo:INDIVIDUAL_OF_PE_TYPE_CO.1 a osmo:physical_equation_type, vcl:codelist_pe_type, osmo:pe_type_continuum_solid_mechanics;
+  skos:inScheme vcl:CL_PE_TYPE;
+  skos:notation "PE_TYPE_CO.1"^^xs:string, "PE_TYPE_CO.1"@en;
+  skos:prefLabel "PE type CO.1: Continuum solid mechanics"^^xs:string.
+
+osmo:INDIVIDUAL_OF_PE_TYPE_CO.2 a osmo:physical_equation_type, vcl:codelist_pe_type, osmo:pe_type_continuum_fluid_mechanics;
+  skos:inScheme vcl:CL_PE_TYPE;
+  skos:notation "PE_TYPE_CO.2"^^xs:string, "PE_TYPE_CO.2"@en;
+  skos:prefLabel "PE type CO.2: Continuum fluid mechanics"^^xs:string.
+
+osmo:INDIVIDUAL_OF_PE_TYPE_CO.3 a osmo:physical_equation_type, vcl:codelist_pe_type, osmo:pe_type_continuum_heat_transfer;
+  skos:inScheme vcl:CL_PE_TYPE;
+  skos:notation "PE_TYPE_CO.3"^^xs:string, "PE_TYPE_CO.3"@en;
+  skos:prefLabel "PE type CO.3: Continuum modelling of heat transfer and thermomechanics"^^xs:string.
+
+osmo:INDIVIDUAL_OF_PE_TYPE_CO.4 a osmo:physical_equation_type, vcl:codelist_pe_type, osmo:pe_type_continuum_phase_field;
+  skos:inScheme vcl:CL_PE_TYPE;
+  skos:notation "PE_TYPE_CO.4"^^xs:string, "PE_TYPE_CO.4"@en;
+  skos:prefLabel "PE type CO.4: Phase field model or continuum density gradient theory"^^xs:string.
+
+osmo:INDIVIDUAL_OF_PE_TYPE_CO.5 a osmo:physical_equation_type, vcl:codelist_pe_type, osmo:pe_type_continuum_thermodynamics;
+  skos:inScheme vcl:CL_PE_TYPE;
+  skos:notation "PE_TYPE_CO.5"^^xs:string, "PE_TYPE_CO.5"@en;
+  skos:prefLabel "PE type CO.5: Continuum thermodynamics"^^xs:string.
+
+osmo:INDIVIDUAL_OF_PE_TYPE_CO.6 a osmo:physical_equation_type, vcl:codelist_pe_type, osmo:pe_type_continuum_reaction_kinetics;
+  skos:inScheme vcl:CL_PE_TYPE;
+  skos:notation "PE_TYPE_CO.6"^^xs:string, "PE_TYPE_CO.6"@en;
+  skos:prefLabel "PE type CO.6: Continuum modelling of chemical reaction kinetics"^^xs:string.
+
+osmo:INDIVIDUAL_OF_PE_TYPE_CO.7 a osmo:physical_equation_type, vcl:codelist_pe_type, osmo:pe_type_continuum_electromagnetism;
+  skos:inScheme vcl:CL_PE_TYPE;
+  skos:notation "PE_TYPE_CO.7"^^xs:string, "PE_TYPE_CO.7"@en;
+  skos:prefLabel "PE type CO.7: Continuum electromagnetism model (including optics, magnetism, etc.)"^^xs:string.
+
+osmo:INDIVIDUAL_OF_PE_TYPE_CO.8 a osmo:physical_equation_type, vcl:codelist_pe_type, osmo:pe_type_continuum_process_model;
+  skos:inScheme vcl:CL_PE_TYPE;
+  skos:notation "PE_TYPE_CO.8"^^xs:string, "PE_TYPE_CO.8"@en;
+  skos:prefLabel "PE type CO.8: Continuum process model (including devices and components of chemical/mechanical processes, flow-chart models, etc.)"^^xs:string.
+
+osmo:INDIVIDUAL_OF_PE_TYPE_EL.1 a osmo:physical_equation_type, vcl:codelist_pe_type, osmo:pe_type_electronic_qm_abinitio;
+  skos:inScheme vcl:CL_PE_TYPE;
+  skos:notation "PE_TYPE_EL.1"^^xs:string, "PE_TYPE_EL.1"@en;
+  skos:prefLabel "PE type EL.1: Ab-initio quantum mechanical (or first principle) model"^^xs:string.
+
+osmo:INDIVIDUAL_OF_PE_TYPE_EL.2 a osmo:physical_equation_type, vcl:codelist_pe_type, osmo:pe_type_electronic_manybody_effective;
+  skos:inScheme vcl:CL_PE_TYPE;
+  skos:notation "PE_TYPE_EL.2"^^xs:string, "PE_TYPE_EL.2"@en;
+  skos:prefLabel "PE type EL.2: Electronic many-body and/or effective Hamiltonian model"^^xs:string.
+
+osmo:INDIVIDUAL_OF_PE_TYPE_EL.3 a osmo:physical_equation_type, vcl:codelist_pe_type, osmo:pe_type_electronic_time_dependent;
+  skos:inScheme vcl:CL_PE_TYPE;
+  skos:notation "PE_TYPE_EL.3"^^xs:string, "PE_TYPE_EL.3"@en;
+  skos:prefLabel "PE type EL.3: QM model of the response to time-dependent fields"^^xs:string.
+
+osmo:INDIVIDUAL_OF_PE_TYPE_EL.4 a osmo:physical_equation_type, vcl:codelist_pe_type, osmo:pe_type_electronic_charge_transport;
+  skos:inScheme vcl:CL_PE_TYPE;
+  skos:notation "PE_TYPE_EL.4"^^xs:string, "PE_TYPE_EL.4"@en;
+  skos:prefLabel "PE type EL.4: Statistical charge transport model"^^xs:string.
+
+osmo:INDIVIDUAL_OF_PE_TYPE_EL.5 a osmo:physical_equation_type, vcl:codelist_pe_type, osmo:pe_type_electronic_spin_transport;
+  skos:inScheme vcl:CL_PE_TYPE;
+  skos:notation "PE_TYPE_EL.5"^^xs:string, "PE_TYPE_EL.5"@en;
+  skos:prefLabel "PE type EL.5: Statistical electron spin transport model"^^xs:string.
+
+osmo:INDIVIDUAL_OF_PE_TYPE_M.1 a osmo:physical_equation_type, vcl:codelist_pe_type, osmo:pe_type_mesoscopic_density_functional;
+  skos:inScheme vcl:CL_PE_TYPE;
+  skos:notation "PE_TYPE_M.1"^^xs:string, "PE_TYPE_M.1"@en;
+  skos:prefLabel "PE type M.1: Classical-mechanical density functional theory (mesoscopic)"^^xs:string.
+
+osmo:INDIVIDUAL_OF_PE_TYPE_M.2 a osmo:physical_equation_type, vcl:codelist_pe_type, osmo:pe_type_mesoscopic_molecular_statics;
+  skos:inScheme vcl:CL_PE_TYPE;
+  skos:notation "PE_TYPE_M.2"^^xs:string, "PE_TYPE_M.2"@en;
+  skos:prefLabel "PE type M.2: Molecular statics (mesoscopic), i.e., energy minimization"^^xs:string.
+
+osmo:INDIVIDUAL_OF_PE_TYPE_M.3 a osmo:physical_equation_type, vcl:codelist_pe_type, osmo:pe_type_mesoscopic_molecular_dynamics;
+  skos:inScheme vcl:CL_PE_TYPE;
+  skos:notation "PE_TYPE_M.3"^^xs:string, "PE_TYPE_M.3"@en;
+  skos:prefLabel "PE type M.3: Molecular dynamics (mesoscopic), i.e., coarse-grained or united-atom modelling"^^xs:string.
+
+osmo:INDIVIDUAL_OF_PE_TYPE_M.4 a osmo:physical_equation_type, vcl:codelist_pe_type, osmo:pe_type_mesoscopic_partition_function;
+  skos:inScheme vcl:CL_PE_TYPE;
+  skos:notation "PE_TYPE_M.4"^^xs:string, "PE_TYPE_M.4"@en;
+  skos:prefLabel "PE type M.4: Partition function (mesoscopic), e.g., for a Monte Carlo solver"^^xs:string.
+
+osmo:INDIVIDUAL_OF_PE_TYPE_M.5 a osmo:physical_equation_type, vcl:codelist_pe_type, osmo:pe_type_mesoscopic_micromagnetism;
+  skos:inScheme vcl:CL_PE_TYPE;
+  skos:notation "PE_TYPE_M.5"^^xs:string, "PE_TYPE_M.5"@en;
+  skos:prefLabel "PE type M.5: Micromagnetism model"^^xs:string.
+
+osmo:INDIVIDUAL_OF_PE_TYPE_M.6 a osmo:physical_equation_type, vcl:codelist_pe_type, osmo:pe_type_mesoscopic_statistical_transport;
+  skos:inScheme vcl:CL_PE_TYPE;
+  skos:notation "PE_TYPE_M.6"^^xs:string, "PE_TYPE_M.6"@en;
+  skos:prefLabel "PE type M.6: Statistical transport model (mesoscopic)"^^xs:string.
+
+###
 # DATATYPE PROPERTIES
 ###
 
@@ -6190,9 +6347,9 @@ osmo:has_workflow_diagram_url rdfs:subPropertyOf viprs:has_file_metadata_item.
 
 ### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
 
-### VERSION 1.1.0 ###
+### VERSION 1.1.1 ###
 
-### DATED 28TH SEPTEMBER 2020 ###
+### DATED 28TH OCTOBER 2020 ###
 
 @prefix otras: <https://purl.vimmp.eu/semantics/otras/otras.ttl#>.
 
@@ -6213,7 +6370,7 @@ osmo:has_workflow_diagram_url rdfs:subPropertyOf viprs:has_file_metadata_item.
 <https://purl.vimmp.eu/semantics/otras/otras.ttl> a owl:Ontology;
    dcterms:title "OTRAS: Ontology for Training Services"^^xs:string;
    owl:versionInfo "version 1.1.0"^^xs:string;
-   dcterms:modified "2020-09-28"^^xs:date;
+   dcterms:modified "2020-10-28"^^xs:date;
    dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
    dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
    dcterms:bibliographicCitation "doi:10.1007/s13218-020-00648-9"^^xs:string;
@@ -6366,6 +6523,10 @@ otras:is_discussed_by_document a owl:ObjectProperty;
    rdfs:range evmpo:document;
    rdfs:subPropertyOf [owl:inverseOf evmpo:has_annotation], viprs:is_symbolic_part_of_sign_for;
    owl:inverseOf otras:has_document_topic.
+otras:refers_to a owl:ObjectProperty;
+   rdfs:domain otras:topic;
+   rdfs:range evmpo:marketplace_related_entity;
+   rdfs:subPropertyOf viprs:is_sign_for.
 
 otras:specifier a owl:Class;
    rdfs:comment "specifier, i.e., a constitutive element of a learning outcome (acquired competency) description"^^xs:string;
@@ -6679,66 +6840,85 @@ otras:mm_topic_computational_electronic a owl:Class;
    rdfs:comment "computational aspects of electronic modelling (code 31XX)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_computational.
 otras:mm_topic_computational_EL1 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_EL.1;
    rdfs:comment "computational aspects of physical equation EL.1 (code 312X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_computational_electronic.
 otras:mm_topic_computational_EL2 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_EL.2;
    rdfs:comment "computational aspects of physical equation EL.2 (code 313X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_computational_electronic.
 otras:mm_topic_computational_EL3 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_EL.3;
    rdfs:comment "computational aspects of physical equation EL.3 (code 314X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_computational_electronic.
 otras:mm_topic_computational_EL4 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_EL.4;
    rdfs:comment "computational aspects of physical equation EL.4 (code 315X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_computational_electronic.
 otras:mm_topic_computational_EL5 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_EL.5;
    rdfs:comment "computational aspects of physical equation EL.5 (code 316X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_computational_electronic.
 otras:mm_topic_computational_discrete a owl:Class;
    rdfs:comment "computational aspects of discrete (atomistic and mesoscopic) modelling (code 32XX)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_computational.
 otras:mm_topic_computational_AM1 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_A.1, osmo:INDIVIDUAL_OF_PE_TYPE_M.1;
    rdfs:comment "computational aspects of physical equations A.1/M.1 (code 322X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_computational_discrete.
 otras:mm_topic_computational_AM2 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_A.2, osmo:INDIVIDUAL_OF_PE_TYPE_M.2;
    rdfs:comment "computational aspects of physical equations A.2/M.2 (code 323X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_computational_discrete.
 otras:mm_topic_computational_AM3 a owl:Class;
    rdfs:comment "computational aspects of physical equations A.3/M.3 (code 324X)"^^xs:string;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_A.3, osmo:INDIVIDUAL_OF_PE_TYPE_M.3;
    rdfs:subClassOf otras:mm_topic_computational_discrete.
 otras:mm_topic_computational_AM4 a owl:Class;
    rdfs:comment "computational aspects of physical equations A.4/M.4 (code 325X)"^^xs:string;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_A.4, osmo:INDIVIDUAL_OF_PE_TYPE_M.4;
    rdfs:subClassOf otras:mm_topic_computational_discrete.
 otras:mm_topic_computational_AM5 a owl:Class;
    rdfs:comment "computational aspects of physical equations A.5/M.5 (code 326X)"^^xs:string;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_A.5, osmo:INDIVIDUAL_OF_PE_TYPE_M.5;
    rdfs:subClassOf otras:mm_topic_computational_discrete.
 otras:mm_topic_computational_AM6 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_A.6, osmo:INDIVIDUAL_OF_PE_TYPE_M.6;
    rdfs:comment "computational aspects of physical equations A.6/M.6 (code 327X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_computational_discrete.
 otras:mm_topic_computational_continuum a owl:Class;
    rdfs:comment "computational aspects of (non-electronic, classical-mechanical) continuum modelling (code 33XX)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_computational.
 otras:mm_topic_computational_CO1 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_CO.1;
    rdfs:comment "computational aspects of physical equation CO.1 (code 332X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_computational_continuum.
 otras:mm_topic_computational_CO2 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_CO.2;
    rdfs:comment "computational aspects of physical equation CO.2 (code 333X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_computational_continuum.
 otras:mm_topic_computational_CO3 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_CO.3;
    rdfs:comment "computational aspects of physical equation CO.3 (code 334X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_computational_continuum.
 otras:mm_topic_computational_CO4 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_CO.4;
    rdfs:comment "computational aspects of physical equation CO.4 (code 335X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_computational_continuum.
 otras:mm_topic_computational_CO5 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_CO.5;
    rdfs:comment "computational aspects of physical equation CO.5 (code 336X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_computational_continuum.
 otras:mm_topic_computational_CO6 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_CO.6;
    rdfs:comment "computational aspects of physical equation CO.6 (code 337X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_computational_continuum.
 otras:mm_topic_computational_CO7 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_CO.7;
    rdfs:comment "computational aspects of physical equation CO.7 (code 338X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_computational_continuum.
 otras:mm_topic_computational_CO8 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_CO.8;
    rdfs:comment "computational aspects of physical equation CO.8 (code 339X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_computational_continuum.
 otras:mm_topic_computational_non_equilibrium a owl:Class;
@@ -6869,66 +7049,85 @@ otras:mm_topic_theoretical_electronic a owl:Class;
    rdfs:comment "theoretical aspects of electronic modelling (code 71XX)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_theoretical.
 otras:mm_topic_theoretical_EL1 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_EL.1;
    rdfs:comment "theoretical aspects of physical equation EL.1 (code 712X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_theoretical_electronic.
 otras:mm_topic_theoretical_EL2 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_EL.2;
    rdfs:comment "theoretical aspects of physical equation EL.2 (code 713X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_theoretical_electronic.
 otras:mm_topic_theoretical_EL3 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_EL.3;
    rdfs:comment "theoretical aspects of physical equation EL.3 (code 714X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_theoretical_electronic.
 otras:mm_topic_theoretical_EL4 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_EL.4;
    rdfs:comment "theoretical aspects of physical equation EL.4 (code 715X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_theoretical_electronic.
 otras:mm_topic_theoretical_EL5 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_EL.5;
    rdfs:comment "theoretical aspects of physical equation EL.5 (code 716X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_theoretical_electronic.
 otras:mm_topic_theoretical_discrete a owl:Class;
    rdfs:comment "theoretical aspects of discrete (atomistic and mesoscopic) modelling (code 72XX)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_theoretical.
 otras:mm_topic_theoretical_AM1 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_A.1, osmo:INDIVIDUAL_OF_PE_TYPE_M.1;
    rdfs:comment "theoretical aspects of physical equations A.1/M.1 (code 722X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_theoretical_discrete.
 otras:mm_topic_theoretical_AM2 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_A.2, osmo:INDIVIDUAL_OF_PE_TYPE_M.2;
    rdfs:comment "theoretical aspects of physical equations A.2/M.2 (code 723X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_theoretical_discrete.
 otras:mm_topic_theoretical_AM3 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_A.3, osmo:INDIVIDUAL_OF_PE_TYPE_M.3;
    rdfs:comment "theoretical aspects of physical equations A.3/M.3 (code 724X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_theoretical_discrete.
 otras:mm_topic_theoretical_AM4 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_A.4, osmo:INDIVIDUAL_OF_PE_TYPE_M.4;
    rdfs:comment "theoretical aspects of physical equations A.4/M.4 (code 725X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_theoretical_discrete.
 otras:mm_topic_theoretical_AM5 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_A.5, osmo:INDIVIDUAL_OF_PE_TYPE_M.5;
    rdfs:comment "theoretical aspects of physical equations A.5/M.5 (code 726X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_theoretical_discrete.
 otras:mm_topic_theoretical_AM6 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_A.6, osmo:INDIVIDUAL_OF_PE_TYPE_M.6;
    rdfs:comment "theoretical aspects of physical equations A.6/M.6 (code 727X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_theoretical_discrete.
 otras:mm_topic_theoretical_continuum a owl:Class;
    rdfs:comment "theoretical aspects of (non-electronic, classical-mechanical) continuum modelling (code 73XX)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_theoretical.
 otras:mm_topic_theoretical_CO1 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_CO.1;
    rdfs:comment "theoretical aspects of physical equation CO.1 (code 732X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_theoretical_continuum.
 otras:mm_topic_theoretical_CO2 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_CO.2;
    rdfs:comment "theoretical aspects of physical equation CO.2 (code 733X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_theoretical_continuum.
 otras:mm_topic_theoretical_CO3 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_CO.3;
    rdfs:comment "theoretical aspects of physical equation CO.3 (code 734X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_theoretical_continuum.
 otras:mm_topic_theoretical_CO4 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_CO.4;
    rdfs:comment "theoretical aspects of physical equation CO.4 (code 735X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_theoretical_continuum.
 otras:mm_topic_theoretical_CO5 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_CO.5;
    rdfs:comment "theoretical aspects of physical equation CO.5 (code 736X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_theoretical_continuum.
 otras:mm_topic_theoretical_CO6 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_CO.6;
    rdfs:comment "theoretical aspects of physical equation CO.6 (code 737X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_theoretical_continuum.
 otras:mm_topic_theoretical_CO7 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_CO.7;
    rdfs:comment "theoretical aspects of physical equation CO.7 (code 738X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_theoretical_continuum.
 otras:mm_topic_theoretical_CO8 a owl:Class;
+   otras:refers_to osmo:INDIVIDUAL_OF_PE_TYPE_CO.8;
    rdfs:comment "theoretical aspects of physical equation CO.8 (code 739X)"^^xs:string;
    rdfs:subClassOf otras:mm_topic_theoretical_continuum.
 otras:mm_topic_theoretical_non_equilibrium a owl:Class;
