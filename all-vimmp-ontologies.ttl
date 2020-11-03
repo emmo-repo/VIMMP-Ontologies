@@ -10050,7 +10050,6 @@ vico:has_file_content_locator rdfs:subPropertyOf viprs:has_standardized_referenc
 vico:has_agent_name rdfs:subPropertyOf viprs:has_name.
 vico:has_first_name rdfs:subPropertyOf viprs:has_name.
 vico:has_last_name rdfs:subPropertyOf viprs:has_name.
-vico:has_user_name rdfs:subPropertyOf viprs:has_name.
 vico:is_po_box rdfs:subPropertyOf viprs:has_flag.
 vico:is_at_uri rdfs:subPropertyOf viprs:has_flag.
 vico:is_academic rdfs:subPropertyOf viprs:has_flag.
