@@ -1,0 +1,147 @@
+#######################################
+##                                   ##
+##     EXAMPLE: HPC JOB METADATA     ##
+##                                   ##
+##  LAST UPDATED: 3RD NOVEMBER 2020  ##
+##                                   ##
+#######################################
+
+<https://purl.vimmp.eu/semantics/scenario/hpc-job/hpc-job-wporter.ttl> a owl:Ontology.
+
+@prefix hpcjob: <https://purl.vimmp.eu/semantics/scenario/hpc-job/hpc-job-wporter.ttl#>.
+
+################################
+# IMPORTED EXTERNAL ONTOLOGIES #
+################################
+
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix paasport: <http://lpis.csd.auth.gr/ontologies/paasport/paasport1.owl#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix viprs: <https://purl.vimmp.eu/semantics/alignment/viprs.ttl#>.
+@prefix xs: <http://www.w3.org/2001/XMLSchema#>.
+
+#############################
+# IMPORTED VIMMP ONTOLOGIES #
+#############################
+
+@prefix evmpo: <https://emmc.eu/semantics/evmpo/evmpo.ttl#>.
+@prefix macro: <https://purl.vimmp.eu/semantics/macro/macro.ttl#>.
+@prefix mmto: <https://purl.vimmp.eu/semantics/mmto/mmto.ttl#>.
+@prefix osmo: <https://purl.vimmp.eu/semantics/osmo/osmo.ttl#>.
+@prefix vico: <https://purl.vimmp.eu/semantics/vico/vico.ttl#>.
+@prefix viso: <https://purl.vimmp.eu/semantics/viso/viso-general.ttl#>.
+@prefix vov: <https://purl.vimmp.eu/semantics/viso/vov.ttl#>.
+
+######################################################
+# USER/OWNER OF THE JOB (HERE, "DR. WILLIAM PORTER") #
+######################################################
+
+hpcjob:WILLIAM_PORTER a evmpo:human_agent, vico:marketplace_subject;
+   vico:has_first_name "William"^^xs:string;
+   vico:has_last_name "Porter"^^xs:string;
+   vico:has_academic_title vico:TITLE_DOCTOR_GENERIC;
+   vico:has_user_name "hpc.cluster.com:wporter_001"^^xs:string;
+   vico:acts_at hpcjob:HPC_NETWORK.
+
+#########################################################
+# SEMANTIC LINK BETWEEN THE USER AND THE WORKFLOW GRAPH #
+#########################################################
+
+hpcjob:JOB_STATEMENT a mmto:solution_statement, evmpo:declaration;
+   vico:has_author hpcjob:WILLIAM_PORTER;
+   vico:has_object_content hpcjob:WORKFLOW;
+   vico:has_status hpcjob:JOB_COMPLETION.
+hpcjob:JOB_COMPLETION a vico:completed_status.
+
+######################
+# MODA/OSMO WORKFLOW #
+######################
+
+hpcjob:WORKFLOW a osmo:workflow_graph;
+   osmo:contains_section hpcjob:MD_SOLVER, hpcjob:GLUE_CODE, hpcjob:DOCKER;
+   osmo:has_simulation_outcome hpcjob:RESULT_NODE.
+hpcjob:RESULT_NODE a osmo:logical_node;
+   osmo:contains_logical hpcjob:RESULT_LOGICAL.
+hpcjob:RESULT_LOGICAL a osmo:logical_resource;
+   osmo:has_logical_label "JOBRESULT-2020-10-21-12-35-00"^^xs:string;
+   osmo:has_lrid "adf://dp/kalp15-next-npt-md-result.zip"^^xs:string.
+
+###################
+# SOLVER: GROMACS #
+###################
+
+hpcjob:MD_SOLVER a osmo:solver;
+   osmo:has_solver_software hpcjob:MD_SOLVER_SOFTWARE_ASPECT;
+   osmo:has_internal_lv hpcjob:RESULT_FILE_NAME.
+hpcjob:MD_SOLVER_SOFTWARE_ASPECT a osmo:solver_software;
+   osmo:has_aspect_object_content hpcjob:GROMACS.
+hpcjob:GROMACS a viso:software_tool;
+   viso:has_main_name "GROMACS"^^xs:string;
+   viso:has_version_identifier "GROMACS version 2020.3"^^xs:string.
+hpcjob:RESULT_FILE_NAME a osmo:unique_elementary, osmo:logical_constant;
+   osmo:has_variable_name "HPC result file name"^^xs:string;
+   osmo:has_elementary_value hpcjob:RESULT_FILE_NAME_STRING.
+hpcjob:RESULT_FILE_NAME_STRING a osmo:elementary_value;
+   osmo:is_string "md.trr"^^xs:string.
+
+##################################
+# PROCESSOR (COUPLED): GLUE CODE #
+##################################
+
+hpcjob:GLUE_CODE a osmo:coupled_processor;
+   osmo:has_processor_software hpcjob:GLUE_CODE_SOFTWARE_ASPECT;
+   osmo:has_logical_input hpcjob:JOB_DATA_URL;
+   osmo:has_internal_lv hpcjob:JOB_LABEL, hpcjob:JOB_NUMBER.
+hpcjob:GLUE_CODE_SOFTWARE_ASPECT a osmo:processor_software;
+   osmo:has_aspect_textual_content "adf://dp/glue-code.sh"^^xs:string;
+   osmo:has_aspect_object_content hpcjob:GLUE_CODE_SOFTWARE_TOOL.
+hpcjob:GLUE_CODE_SOFTWARE_TOOL a viso:software_tool;
+   viso:has_main_name "glue-code.sh"^^xs:string.
+hpcjob:JOB_DATA_URL a osmo:unique_elementary, osmo:logical_constant;
+   osmo:has_variable_name "HPC job data URL"^^xs:string;
+   osmo:has_elementary_value hpcjob:JOB_DATA_URL_STRING.
+hpcjob:JOB_DATA_URL_STRING a osmo:elementary_value;
+   osmo:is_string "adf://dp/kalp15-next-npt-md.zip"^^xs:string.
+hpcjob:JOB_LABEL a osmo:unique_elementary, osmo:logical_constant;
+   osmo:has_variable_name "HPC job name"^^xs:string;
+   osmo:has_elementary_value hpcjob:JOB_LABEL_STRING.
+hpcjob:JOB_LABEL_STRING a osmo:elementary_value;
+   osmo:is_string "gromacs_kalp15"^^xs:string.
+hpcjob:JOB_NUMBER a osmo:unique_elementary;
+   osmo:has_final_elementary_value hpcjob:JOB_NUMBER_DECIMAL.
+hpcjob:JOB_NUMBER_DECIMAL a osmo:elementary_value;
+   osmo:is_decimal 88723.
+
+###############################
+# PROCESSOR (COUPLED): DOCKER #
+###############################
+
+hpcjob:DOCKER a osmo:coupled_processor;
+   osmo:has_processor_method_type hpcjob:AUTHENTIFICATION_METHOD;
+   osmo:has_logical_input hpcjob:IMAGE_NAME;
+   osmo:has_internal_lv hpcjob:REGISTRY_URL.
+hpcjob:IMAGE_NAME a osmo:unique_elementary, osmo:logical_constant;
+   osmo:has_variable_name "Docker image name"^^xs:string;
+   osmo:has_elementary_value hpcjob:IMAGE_NAME_STRING.
+hpcjob:IMAGE_NAME_STRING a osmo:elementary_value;
+   osmo:is_string "gromacs/gromacs:2020.3"^^xs:string.
+hpcjob:REGISTRY_URL a osmo:unique_elementary, osmo:logical_constant;
+   osmo:has_variable_name "Docker registry URL"^^xs:string;
+   osmo:has_elementary_value hpcjob:REGISTRY_URL_STRING.
+hpcjob:REGISTRY_URL_STRING a osmo:elementary_value;
+   osmo:is_string "https://hub.docker.com/r/"^^xs:string.
+
+##########################################
+# SEMANTIC LINK TO THE PAASPORT ONTOLOGY #
+##########################################
+
+hpcjob:HPC_NETWORK a paasport:Network, macro:hpc_infrastructure;
+   macro:has_cr_name "hpc.cluster.com"^^xs:string;
+   paasport:hasParameter hpcjob:LOGIN_TYPE, hpcjob:ROOT_NODE.
+hpcjob:AUTHENTIFICATION_METHOD a osmo:coupled_processor_method_type;
+   osmo:has_aspect_object_content hpcjob:LOGIN_TYPE.
+hpcjob:LOGIN_TYPE a paasport:NetworkParameter;
+   paasport:hasParameterDataValue "token"^^xs:string.
+hpcjob:ROOT_NODE a paasport:NetworkParameter;
+   paasport:hasParameterDataValue "d09n01s01"^^xs:string.
