@@ -1,9 +1,9 @@
 
 ### MATERIALS MODELLING TRANSLATION ONTOLOGY (MMTO) ###
 
-### VERSION 1.3.4 ###
+### VERSION 1.3.5 ###
 
-### DATED 27TH JUNE 2020 ###
+### DATED 3RD NOVEMBER 2020 ###
 
 @prefix mmto: <https://purl.vimmp.eu/semantics/mmto/mmto.ttl#>.
 
@@ -21,8 +21,8 @@
 
 <https://purl.vimmp.eu/semantics/mmto/mmto.ttl> a owl:Ontology;
    dcterms:title "MMTO: Materials Modelling Translation Ontology"^^xs:string;
-   owl:versionInfo "version 1.3.4"^^xs:string;
-   dcterms:modified "2020-06-27"^^xs:date;
+   owl:versionInfo "version 1.3.5"^^xs:string;
+   dcterms:modified "2020-11-03"^^xs:date;
    dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
    dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
    dcterms:bibliographicCitation "doi:10.5281/zenodo.3902881 and doi:10.1007/s13218-020-00648-9"^^xs:string;
@@ -593,17 +593,25 @@ mmto:translation_statement a owl:Class;
 mmto:translation_statement owl:disjointUnionOf (mmto:modelling_statement mmto:negotiation_statement mmto:project_statement).
 
 mmto:modelling_statement a owl:Class;
-   rdfs:subClassOf mmto:translation_statement;
-   rdfs:comment "modelling statement, i.e., a translation statement that relates to a MODA graph and/or user case (following OSMO)"^^xs:string.
+   rdfs:subClassOf mmto:translation_statement, [
+      a owl:Restriction;
+      owl:onProperty vico:has_object_content;
+      owl:someValuesFrom osmo:workflow_resource
+   ];
+   rdfs:comment "modelling statement, i.e., a translation statement that relates to a MODA graph and/or application/use case (following OSMO)"^^xs:string.
 
 mmto:modelling_statement owl:disjointUnionOf (mmto:problem_statement mmto:solution_statement).
 
 mmto:problem_statement a owl:Class;
    rdfs:subClassOf mmto:modelling_statement;
-   rdfs:comment "problem statement, i.e., a MODA statement that discusses a user case from the user-side point of view, in terms of MODA section 1"^^xs:string.
+   rdfs:comment "problem statement, i.e., a MODA statement that discusses an application/use case from the user-side point of view, in terms of MODA section 1"^^xs:string.
 
 mmto:solution_statement a owl:Class;
-   rdfs:subClassOf mmto:modelling_statement;
+   rdfs:subClassOf mmto:modelling_statement, [
+      a owl:Restriction;
+      owl:onProperty vico:has_object_content;
+      owl:someValuesFrom osmo:workflow_graph
+   ];
    rdfs:comment "solution statement, i.e., a MODA statement by which a modelling and simulation solution is provided in response to a problem statement"^^xs:string.
 
 mmto:negotiation_statement a owl:Class;

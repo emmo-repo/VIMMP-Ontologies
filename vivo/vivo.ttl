@@ -1,7 +1,7 @@
 
 ### VIMMP VALIDATION ONTOLOGY (VIVO) ###
 
-### VERSION 1.1.4 ###
+### VERSION 1.1.5 ###
 
 ### DATED 27TH JUNE 2020 ###
 
@@ -22,8 +22,8 @@
 
 <https://purl.vimmp.eu/semantics/vivo/vivo.ttl> a owl:Ontology;
    dcterms:title "VIVO: VIMMP Validation Ontology"^^xs:string;
-   owl:versionInfo "version 1.1.4"^^xs:string;
-   dcterms:modified "2020-06-27"^^xs:date;
+   owl:versionInfo "version 1.1.5"^^xs:string;
+   dcterms:modified "2020-11-03"^^xs:date;
    dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
    dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
    dcterms:bibliographicCitation "doi:10.1007/s13218-020-00648-9"^^xs:string;
@@ -374,7 +374,7 @@ vivo:has_certifier a owl:ObjectProperty;
 vivo:states_assessment a owl:ObjectProperty;
    rdfs:domain vivo:certificate;
    rdfs:range evmpo:assessment;
-   rdfs:subPropertyOf viprs:enables, viprs:has_proper_part.
+   rdfs:subPropertyOf vico:has_object_content, viprs:enables, viprs:has_proper_part.
 
 vivo:certificate rdfs:subClassOf [
       a owl:Restriction;

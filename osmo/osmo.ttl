@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 1.7.2 ###
+### VERSION 1.7.3 ###
 
-### DATED 28TH OCTOBER 2020 ###
+### DATED 3RD NOVEMBER 2020 ###
 
 @prefix osmo: <https://purl.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -24,8 +24,8 @@
 
 <https://purl.vimmp.eu/semantics/osmo/osmo.ttl> a owl:Ontology;
    dcterms:title "OSMO: Ontology for Simulation, Modelling, and Optimization"^^xs:string;
-   owl:versionInfo "version 1.7.2"^^xs:string;
-   dcterms:modified "2020-10-28"^^xs:date;
+   owl:versionInfo "version 1.7.3"^^xs:string;
+   dcterms:modified "2020-11-03"^^xs:date;
    dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
    dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
    dcterms:bibliographicCitation "10.1021/acs.jced.9b00739"^^xs:string;
@@ -38,7 +38,9 @@
    dcterms:contributor "Welchy Leite Cavalcanti"^^xs:string;
    dcterms:contributor "Mara Chiricotto (ORCID 0000-0003-1609-5254)"^^xs:string;
    dcterms:contributor "Joshua D. Elliott (ORCID 0000-0002-0729-246X)"^^xs:string;
+   dcterms:contributor "Andreas Fiseni"^^xs:string;
    dcterms:contributor "Gerhard Goldbeck (ORCID 0000-0002-4181-2852)"^^xs:string;
+   dcterms:contributor "Helge Krieg"^^xs:string;
    dcterms:contributor "Vladimir Lobaskin (ORCID 0000-0002-5231-0639)"^^xs:string;
    dcterms:contributor "Philipp Neumann"^^xs:string;
    dcterms:contributor "Christoph Niethammer"^^xs:string;
@@ -1236,6 +1238,11 @@ osmo:has_processor_error_statement a owl:ObjectProperty;
    rdfs:range osmo:processor_error_statement;
    rdfs:subPropertyOf osmo:has_processor_aspect, osmo:has_error_statement;
    rdfs:comment "MODA subsection 4.3"^^xs:string.
+osmo:has_processor_software a owl:ObjectProperty;
+   rdfs:domain osmo:processor;
+   rdfs:range osmo:processor_software;
+   rdfs:subPropertyOf osmo:has_processor_aspect, osmo:has_employed_software;
+   rdfs:comment "OSMO-only subsection 4.4, extending MODA"^^xs:string.
 
 osmo:processor rdfs:subClassOf [
       a owl:Restriction;
@@ -1295,6 +1302,16 @@ osmo:data_processor_method_type a owl:Class;
 osmo:processor_error_statement a owl:Class;
    rdfs:subClassOf osmo:processor_aspect, osmo:error_statement;
    rdfs:comment "processor error statement (MODA subsection 4.3), characterizes/describes the error or uncertainty associated with a processor output"^^xs:string.
+
+osmo:processor_software a owl:Class;
+   rdfs:subClassOf osmo:processor_aspect, osmo:software;
+   rdfs:comment "processor software (OSMO aspect 4.4, extending MODA), characterizes/describes a code/package to be used as a processor"^^xs:string.
+
+osmo:processor_software rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty osmo:has_aspect_object_content;
+      owl:someValuesFrom viso:software_tool
+   ].
 
 
 osmo:workflow_graph a owl:Class;
@@ -1447,7 +1464,7 @@ osmo:has_workflow_diagram_url a owl:DatatypeProperty;
    rdfs:comment "URL of a diagram ('workflow picture' according to the MODA cover sheet) illustrating the simulation workflow"^^xs:string.
 
 osmo:has_simulation_outcome a owl:ObjectProperty;
-   rdfs:domain osmo:simulation_workflow;
+   rdfs:domain osmo:workflow_graph;
    rdfs:range osmo:logical_node;
    rdfs:comment "points to a node that contains a logical resource with (all or part of) the end outcome of the simulation workflow"^^xs:string;
    rdfs:subPropertyOf osmo:has_subgraph, evmpo:has_process_annotation.
@@ -1652,6 +1669,10 @@ osmo:has_initial_value a owl:ObjectProperty;
    rdfs:domain osmo:logical_variable;
    rdfs:range osmo:logical_value;
    rdfs:subPropertyOf osmo:has_value.
+osmo:has_final_value a owl:ObjectProperty;
+   rdfs:domain osmo:logical_variable;
+   rdfs:range osmo:logical_value;
+   rdfs:subPropertyOf osmo:has_value.
 
 osmo:has_variable_index a owl:DatatypeProperty;
    rdfs:domain osmo:logical_variable;
@@ -1702,6 +1723,10 @@ osmo:has_initial_elementary_value a owl:ObjectProperty;
    rdfs:domain osmo:elementary_logical;
    rdfs:range osmo:elementary_value;
    rdfs:subPropertyOf osmo:has_elementary_value, osmo:has_initial_value.
+osmo:has_final_elementary_value a owl:ObjectProperty;
+   rdfs:domain osmo:elementary_logical;
+   rdfs:range osmo:elementary_value;
+   rdfs:subPropertyOf osmo:has_elementary_value, osmo:has_final_value.
 
 osmo:has_variable_unit a owl:ObjectProperty, owl:FunctionalProperty;
    rdfs:domain osmo:elementary_logical;
@@ -1730,6 +1755,10 @@ osmo:has_initial_structure_value a owl:ObjectProperty;
    rdfs:domain osmo:logical_structure;
    rdfs:range osmo:structure_value;
    rdfs:subPropertyOf osmo:has_structure_value, osmo:has_initial_value.
+osmo:has_final_structure_value a owl:ObjectProperty;
+   rdfs:domain osmo:logical_structure;
+   rdfs:range osmo:structure_value;
+   rdfs:subPropertyOf osmo:has_structure_value, osmo:has_final_value.
 
 osmo:logical_array a owl:Class;
    rdfs:subClassOf osmo:unique_structure;

@@ -1,9 +1,9 @@
 
 ### VIMMP COMMUNICATION ONTOLOGY (VICO) ###
 
-### VERSION 1.3.0 ###
+### VERSION 1.3.1 ###
 
-### DATED 28TH SEPTEMBER 2020 ###
+### DATED 3RD NOVEMBER 2020 ###
 
 @prefix vico: <https://purl.vimmp.eu/semantics/vico/vico.ttl#>.
 
@@ -23,8 +23,8 @@
 
 <https://purl.vimmp.eu/semantics/vico/vico.ttl> a owl:Ontology;
    dcterms:title "VICO: VIMMP Communication Ontology"^^xs:string;
-   owl:versionInfo "version 1.3.0"^^xs:string;
-   dcterms:modified "2020-09-28"^^xs:date;
+   owl:versionInfo "version 1.3.1"^^xs:string;
+   dcterms:modified "2020-11-03"^^xs:date;
    dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
    dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
    dcterms:bibliographicCitation "doi:10.1007/s13218-020-00648-9"^^xs:string;
@@ -76,6 +76,10 @@ vico:has_submission_date a owl:ObjectProperty, owl:FunctionalProperty;
    rdfs:domain evmpo:communication;
    rdfs:range dcterms:W3C-DTF;
    rdfs:subPropertyOf viprs:has_symbolic_part_of_sign.
+vico:has_object_content a owl:ObjectProperty;
+   rdfs:domain evmpo:communication;
+   rdfs:range evmpo:marketplace_related_entity;
+   rdfs:subPropertyOf viprs:has_proper_part.
 vico:has_text_content a owl:DatatypeProperty;
    rdfs:domain evmpo:communication;
    rdfs:range xs:string.
@@ -159,6 +163,15 @@ vico:has_fractional_progress a owl:DatatypeProperty;
    rdfs:domain vico:processed_status;
    rdfs:range xs:decimal;
    rdfs:comment "fractional extent to which the communication has been processed; minimum: 0 for zero progress, maximum: 1 for completion"^^xs:string.
+
+vico:completed_status a owl:Class;
+   rdfs:subClassOf vico:processed_status;
+   owl:equivalentClass [
+      a owl:Restriction;
+      owl:onProperty vico:has_fractional_progress;
+      owl:hasValue 1.0
+   ];
+   rdfs:comment "completed status, i.e., a processed status expressing 1.0 fractional progress (100% completion)"^^xs:string.
 
 vico:read_status a owl:Class;
    rdfs:subClassOf vico:status;
@@ -406,13 +419,13 @@ vico:mobile_number a owl:Class;
 #
 vico:acts_at a owl:ObjectProperty;
    rdfs:domain evmpo:agent;
-   rdfs:range macro:digital_marketplace;
-   owl:inverseOf macro:has_marketplace_participant;
-   rdfs:subPropertyOf vico:has_access_to.
+   rdfs:range macro:computational_resource;
+   owl:inverseOf macro:has_agent;
+   rdfs:subPropertyOf viprs:is_proper_part_of.
 vico:has_access_to a owl:ObjectProperty;
    rdfs:domain evmpo:agent;
    rdfs:range macro:channel;
-   rdfs:subPropertyOf viprs:is_proper_part_of;
+   rdfs:subPropertyOf vico:acts_at;
    owl:inverseOf macro:has_channel_member.
 vico:has_address a owl:ObjectProperty;
    rdfs:domain evmpo:agent;
@@ -428,6 +441,13 @@ vico:has_interest a owl:ObjectProperty;
 vico:has_agent_name a owl:DatatypeProperty;
    rdfs:domain evmpo:agent;
    rdfs:range xs:string.
+vico:has_agent_label a owl:DatatypeProperty;
+   rdfs:domain evmpo:agent;
+   rdfs:range xs:string.
+vico:has_user_name a owl:DatatypeProperty;
+   rdfs:domain evmpo:agent;
+   rdfs:range xs:string;
+   rdfs:subPropertyOf vico:has_agent_name.
 vico:is_assignee_of a owl:ObjectProperty;
    rdfs:domain evmpo:agent;    # the agent participates in a process enabled by the message
    rdfs:range vico:message;
@@ -504,9 +524,6 @@ vico:has_profile_image a owl:DatatypeProperty;
    rdfs:domain vico:person;
    rdfs:range xs:anyURI.
 vico:has_profile_text a owl:DatatypeProperty;
-   rdfs:domain vico:person;
-   rdfs:range xs:string.
-vico:has_interpreter_label a owl:DatatypeProperty;
    rdfs:domain vico:person;
    rdfs:range xs:string.
 
@@ -883,11 +900,12 @@ vico:has_suffix_text rdfs:subPropertyOf viprs:has_textual_content.
 vico:has_agentid rdfs:subPropertyOf viprs:has_numerical_identifier.
 vico:has_token_index rdfs:subPropertyOf viprs:has_numerical_identifier.
 vico:has_orcid rdfs:subPropertyOf viprs:has_textual_identifier.
-vico:has_interpreter_label rdfs:subPropertyOf viprs:has_label.
+vico:has_agent_label rdfs:subPropertyOf viprs:has_label.
 vico:has_file_content_locator rdfs:subPropertyOf viprs:has_standardized_reference.
 vico:has_agent_name rdfs:subPropertyOf viprs:has_name.
 vico:has_first_name rdfs:subPropertyOf viprs:has_name.
 vico:has_last_name rdfs:subPropertyOf viprs:has_name.
+vico:has_user_name rdfs:subPropertyOf viprs:has_name.
 vico:is_po_box rdfs:subPropertyOf viprs:has_flag.
 vico:is_at_uri rdfs:subPropertyOf viprs:has_flag.
 vico:is_academic rdfs:subPropertyOf viprs:has_flag.

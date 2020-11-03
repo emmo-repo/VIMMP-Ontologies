@@ -2691,9 +2691,9 @@ skos:narrower rdfs:subPropertyOf viprs:mereosemiotics_is_hs.  # there is an obje
 
 ### MARKETPLACE-ACCESSIBLE COMPUTATIONAL RESOURCE ONTOLOGY (MACRO) ###
 
-### VERSION 1.1.4 ###
+### VERSION 1.1.5 ###
 
-### DATED 27TH JUNE 2020 ###
+### DATED 3RD NOVEMBER ###
 
 @prefix macro: <https://purl.vimmp.eu/semantics/macro/macro.ttl#>.
 
@@ -2702,6 +2702,7 @@ skos:narrower rdfs:subPropertyOf viprs:mereosemiotics_is_hs.  # there is an obje
 @prefix evmpo: <https://emmc.eu/semantics/evmpo/evmpo.ttl#>.
 @prefix osmo: <https://purl.vimmp.eu/semantics/osmo/osmo.ttl#>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix paasport: <http://lpis.csd.auth.gr/ontologies/paasport/paasport1.owl#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix vico: <https://purl.vimmp.eu/semantics/vico/vico.ttl#>.
@@ -2711,8 +2712,8 @@ skos:narrower rdfs:subPropertyOf viprs:mereosemiotics_is_hs.  # there is an obje
 
 <https://purl.vimmp.eu/semantics/macro/macro.ttl> a owl:Ontology;
    dcterms:title "MACRO: Marketplace-Accessible Computational Resource Ontology"^^xs:string;
-   owl:versionInfo "version 1.1.4"^^xs:string;
-   dcterms:modified "2020-06-27"^^xs:date;
+   owl:versionInfo "version 1.1.5"^^xs:string;
+   dcterms:modified "2020-11-03"^^xs:date;
    dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
    dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
    dcterms:bibliographicCitation "doi:10.1007/s13218-020-00648-9"^^xs:string;
@@ -2722,16 +2723,29 @@ skos:narrower rdfs:subPropertyOf viprs:mereosemiotics_is_hs.  # there is an obje
    dcterms:creator "Ilian T. Todorov (ORCID 0000-0001-7275-1784)"^^xs:string;
    dcterms:contributor "Welchy Leite Cavalcanti"^^xs:string;
    dcterms:contributor "Éric Fayolle"^^xs:string;
+   dcterms:contributor "Andreas Fiseni"^^xs:string;
    dcterms:contributor "Yvan Fournier"^^xs:string;
    dcterms:contributor "Gerhard Goldbeck (ORCID 0000-0002-4181-2852)"^^xs:string;
+   dcterms:contributor "Helge Krieg"^^xs:string;
    dcterms:contributor "Jean-Pierre Minier"^^xs:string;
    dcterms:contributor "Pascale Noyret"^^xs:string;
    dcterms:contributor "Vincent Stobiac"^^xs:string;
    dcterms:contributor "Daniele Toti (ORCID 0000-0002-9668-6961)"^^xs:string.
 
+evmpo:infrastructure rdfs:subClassOf paasport:Resource.
+
 macro:computational_resource a owl:Class;
    rdfs:subClassOf evmpo:infrastructure;
    rdfs:comment "computational resource, i.e., an infrastructure that can be accessed by means of data, hardware, or software related services"^^xs:string.
+
+macro:has_agent a owl:ObjectProperty;
+   rdfs:domain macro:computational_resource;
+   rdfs:range evmpo:agent;
+   rdfs:subPropertyOf viprs:has_proper_part;
+   owl:inverseOf vico:acts_at.
+macro:has_cr_name a owl:DatatypeProperty;
+   rdfs:domain macro:computational_resource;
+   rdfs:range xs:string.
 
 macro:computational_resource owl:unionOf (evmpo:data_infrastructure evmpo:hardware_infrastructure evmpo:software_infrastructure).
 
@@ -2754,7 +2768,7 @@ macro:repository a owl:Class;
    rdfs:subClassOf evmpo:data_infrastructure, evmpo:hardware_infrastructure, evmpo:agent.
 
 macro:VIMMP_CERTIFICATE_REGISTRY a macro:repository;
-   vico:acts_on macro:VIMMP_MARKETPLACE;
+   vico:acts_at macro:VIMMP_MARKETPLACE;
    vico:has_agent_name "VIMMP Marketplace Certificate Registry"^^xs:string.
 
 macro:model_database a owl:Class;
@@ -2762,7 +2776,7 @@ macro:model_database a owl:Class;
    rdfs:comment "model database, i.e., a repository that can act as a model provider"^^xs:string.
 
 macro:BOTTLED_SAFT a macro:model_database;
-   vico:acts_on macro:VIMMP_MARKETPLACE;
+   vico:acts_at macro:VIMMP_MARKETPLACE;
    vico:has_agent_name "Bottled SAFT"^^xs:string.
 
 macro:channel a owl:Class;
@@ -2772,12 +2786,13 @@ macro:channel a owl:Class;
 macro:has_channel_member a owl:ObjectProperty;
    rdfs:domain macro:channel;
    rdfs:range evmpo:agent;
-   rdfs:subPropertyOf viprs:has_proper_part;
+   rdfs:subPropertyOf macro:has_agent;
    owl:inverseOf vico:has_access_to;
    rdfs:comment "points to an agent that participates in connunicating through a channel"^^xs:string.
 macro:has_channel_name a owl:DatatypeProperty;
    rdfs:domain macro:channel;
-   rdfs:range xs:string.
+   rdfs:range xs:string;
+   rdfs:subPropertyOf macro:has_cr_name.
 
 macro:channel owl:disjointUnionOf (macro:unidirectional_channel macro:bidirectional_channel).
 
@@ -2815,7 +2830,6 @@ macro:digital_marketplace a owl:Class;
 macro:has_marketplace_participant a owl:ObjectProperty;
    rdfs:domain macro:digital_marketplace;
    rdfs:range evmpo:agent;
-   owl:inverseOf vico:acts_at;
    rdfs:subPropertyOf macro:has_channel_member.
 
 macro:VIMMP_MARKETPLACE a macro:digital_marketplace.
@@ -2826,7 +2840,7 @@ _:C_digital_marketplace a owl:AllDifferent;
    owl:members (macro:VIMMP_MARKETPLACE macro:MARKETPLACE_MARKETPLACE macro:MARKET40_MARKETPLACE).
 
 macro:infrastructure_service a owl:Class;
-   rdfs:subClassOf evmpo:service;
+   rdfs:subClassOf evmpo:service, paasport:Service;
    rdfs:comment "infrastructure service, i.e., a service providing access to (or use of) an infrastructure"^^xs:string.
 
 macro:provides_access_to a owl:ObjectProperty;
@@ -3154,7 +3168,7 @@ macro:VOCTA_XML_FORMAT macro:is_input_format_of macro:SOFTWARE_TOOL_VOCTA.
 ###
 
 macro:has_definition_uri rdfs:subPropertyOf viprs:has_standardized_reference.
-macro:has_channel_name rdfs:subPropertyOf viprs:has_name.
+macro:has_cr_name rdfs:subPropertyOf viprs:has_name.
 macro:has_format_name rdfs:subPropertyOf viprs:has_name.
 macro:has_format_abbreviation rdfs:subPropertyOf viprs:has_file_metadata_item.
 macro:has_format_version rdfs:subPropertyOf viprs:has_file_metadata_item.
@@ -3209,9 +3223,9 @@ macro:has_file_ending rdfs:subPropertyOf viprs:has_file_metadata_item.
 
 ### MATERIALS MODELLING TRANSLATION ONTOLOGY (MMTO) ###
 
-### VERSION 1.3.4 ###
+### VERSION 1.3.5 ###
 
-### DATED 27TH JUNE 2020 ###
+### DATED 3RD NOVEMBER 2020 ###
 
 @prefix mmto: <https://purl.vimmp.eu/semantics/mmto/mmto.ttl#>.
 
@@ -3229,8 +3243,8 @@ macro:has_file_ending rdfs:subPropertyOf viprs:has_file_metadata_item.
 
 <https://purl.vimmp.eu/semantics/mmto/mmto.ttl> a owl:Ontology;
    dcterms:title "MMTO: Materials Modelling Translation Ontology"^^xs:string;
-   owl:versionInfo "version 1.3.4"^^xs:string;
-   dcterms:modified "2020-06-27"^^xs:date;
+   owl:versionInfo "version 1.3.5"^^xs:string;
+   dcterms:modified "2020-11-03"^^xs:date;
    dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
    dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
    dcterms:bibliographicCitation "doi:10.5281/zenodo.3902881 and doi:10.1007/s13218-020-00648-9"^^xs:string;
@@ -3801,17 +3815,25 @@ mmto:translation_statement a owl:Class;
 mmto:translation_statement owl:disjointUnionOf (mmto:modelling_statement mmto:negotiation_statement mmto:project_statement).
 
 mmto:modelling_statement a owl:Class;
-   rdfs:subClassOf mmto:translation_statement;
-   rdfs:comment "modelling statement, i.e., a translation statement that relates to a MODA graph and/or user case (following OSMO)"^^xs:string.
+   rdfs:subClassOf mmto:translation_statement, [
+      a owl:Restriction;
+      owl:onProperty vico:has_object_content;
+      owl:someValuesFrom osmo:workflow_resource
+   ];
+   rdfs:comment "modelling statement, i.e., a translation statement that relates to a MODA graph and/or application/use case (following OSMO)"^^xs:string.
 
 mmto:modelling_statement owl:disjointUnionOf (mmto:problem_statement mmto:solution_statement).
 
 mmto:problem_statement a owl:Class;
    rdfs:subClassOf mmto:modelling_statement;
-   rdfs:comment "problem statement, i.e., a MODA statement that discusses a user case from the user-side point of view, in terms of MODA section 1"^^xs:string.
+   rdfs:comment "problem statement, i.e., a MODA statement that discusses an application/use case from the user-side point of view, in terms of MODA section 1"^^xs:string.
 
 mmto:solution_statement a owl:Class;
-   rdfs:subClassOf mmto:modelling_statement;
+   rdfs:subClassOf mmto:modelling_statement, [
+      a owl:Restriction;
+      owl:onProperty vico:has_object_content;
+      owl:someValuesFrom osmo:workflow_graph
+   ];
    rdfs:comment "solution statement, i.e., a MODA statement by which a modelling and simulation solution is provided in response to a problem statement"^^xs:string.
 
 mmto:negotiation_statement a owl:Class;
@@ -4129,9 +4151,9 @@ mmto:has_step_description rdfs:subPropertyOf viprs:has_descriptor.
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 1.7.2 ###
+### VERSION 1.7.3 ###
 
-### DATED 28TH OCTOBER 2020 ###
+### DATED 3RD NOVEMBER 2020 ###
 
 @prefix osmo: <https://purl.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -4152,8 +4174,8 @@ mmto:has_step_description rdfs:subPropertyOf viprs:has_descriptor.
 
 <https://purl.vimmp.eu/semantics/osmo/osmo.ttl> a owl:Ontology;
    dcterms:title "OSMO: Ontology for Simulation, Modelling, and Optimization"^^xs:string;
-   owl:versionInfo "version 1.7.2"^^xs:string;
-   dcterms:modified "2020-10-28"^^xs:date;
+   owl:versionInfo "version 1.7.3"^^xs:string;
+   dcterms:modified "2020-11-03"^^xs:date;
    dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
    dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
    dcterms:bibliographicCitation "10.1021/acs.jced.9b00739"^^xs:string;
@@ -4166,7 +4188,9 @@ mmto:has_step_description rdfs:subPropertyOf viprs:has_descriptor.
    dcterms:contributor "Welchy Leite Cavalcanti"^^xs:string;
    dcterms:contributor "Mara Chiricotto (ORCID 0000-0003-1609-5254)"^^xs:string;
    dcterms:contributor "Joshua D. Elliott (ORCID 0000-0002-0729-246X)"^^xs:string;
+   dcterms:contributor "Andreas Fiseni"^^xs:string;
    dcterms:contributor "Gerhard Goldbeck (ORCID 0000-0002-4181-2852)"^^xs:string;
+   dcterms:contributor "Helge Krieg"^^xs:string;
    dcterms:contributor "Vladimir Lobaskin (ORCID 0000-0002-5231-0639)"^^xs:string;
    dcterms:contributor "Philipp Neumann"^^xs:string;
    dcterms:contributor "Christoph Niethammer"^^xs:string;
@@ -5364,6 +5388,11 @@ osmo:has_processor_error_statement a owl:ObjectProperty;
    rdfs:range osmo:processor_error_statement;
    rdfs:subPropertyOf osmo:has_processor_aspect, osmo:has_error_statement;
    rdfs:comment "MODA subsection 4.3"^^xs:string.
+osmo:has_processor_software a owl:ObjectProperty;
+   rdfs:domain osmo:processor;
+   rdfs:range osmo:processor_software;
+   rdfs:subPropertyOf osmo:has_processor_aspect, osmo:has_employed_software;
+   rdfs:comment "OSMO-only subsection 4.4, extending MODA"^^xs:string.
 
 osmo:processor rdfs:subClassOf [
       a owl:Restriction;
@@ -5423,6 +5452,16 @@ osmo:data_processor_method_type a owl:Class;
 osmo:processor_error_statement a owl:Class;
    rdfs:subClassOf osmo:processor_aspect, osmo:error_statement;
    rdfs:comment "processor error statement (MODA subsection 4.3), characterizes/describes the error or uncertainty associated with a processor output"^^xs:string.
+
+osmo:processor_software a owl:Class;
+   rdfs:subClassOf osmo:processor_aspect, osmo:software;
+   rdfs:comment "processor software (OSMO aspect 4.4, extending MODA), characterizes/describes a code/package to be used as a processor"^^xs:string.
+
+osmo:processor_software rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty osmo:has_aspect_object_content;
+      owl:someValuesFrom viso:software_tool
+   ].
 
 
 osmo:workflow_graph a owl:Class;
@@ -5575,7 +5614,7 @@ osmo:has_workflow_diagram_url a owl:DatatypeProperty;
    rdfs:comment "URL of a diagram ('workflow picture' according to the MODA cover sheet) illustrating the simulation workflow"^^xs:string.
 
 osmo:has_simulation_outcome a owl:ObjectProperty;
-   rdfs:domain osmo:simulation_workflow;
+   rdfs:domain osmo:workflow_graph;
    rdfs:range osmo:logical_node;
    rdfs:comment "points to a node that contains a logical resource with (all or part of) the end outcome of the simulation workflow"^^xs:string;
    rdfs:subPropertyOf osmo:has_subgraph, evmpo:has_process_annotation.
@@ -5780,6 +5819,10 @@ osmo:has_initial_value a owl:ObjectProperty;
    rdfs:domain osmo:logical_variable;
    rdfs:range osmo:logical_value;
    rdfs:subPropertyOf osmo:has_value.
+osmo:has_final_value a owl:ObjectProperty;
+   rdfs:domain osmo:logical_variable;
+   rdfs:range osmo:logical_value;
+   rdfs:subPropertyOf osmo:has_value.
 
 osmo:has_variable_index a owl:DatatypeProperty;
    rdfs:domain osmo:logical_variable;
@@ -5830,6 +5873,10 @@ osmo:has_initial_elementary_value a owl:ObjectProperty;
    rdfs:domain osmo:elementary_logical;
    rdfs:range osmo:elementary_value;
    rdfs:subPropertyOf osmo:has_elementary_value, osmo:has_initial_value.
+osmo:has_final_elementary_value a owl:ObjectProperty;
+   rdfs:domain osmo:elementary_logical;
+   rdfs:range osmo:elementary_value;
+   rdfs:subPropertyOf osmo:has_elementary_value, osmo:has_final_value.
 
 osmo:has_variable_unit a owl:ObjectProperty, owl:FunctionalProperty;
    rdfs:domain osmo:elementary_logical;
@@ -5858,6 +5905,10 @@ osmo:has_initial_structure_value a owl:ObjectProperty;
    rdfs:domain osmo:logical_structure;
    rdfs:range osmo:structure_value;
    rdfs:subPropertyOf osmo:has_structure_value, osmo:has_initial_value.
+osmo:has_final_structure_value a owl:ObjectProperty;
+   rdfs:domain osmo:logical_structure;
+   rdfs:range osmo:structure_value;
+   rdfs:subPropertyOf osmo:has_structure_value, osmo:has_final_value.
 
 osmo:logical_array a owl:Class;
    rdfs:subClassOf osmo:unique_structure;
@@ -9095,9 +9146,9 @@ otras:is_defined_by rdfs:subPropertyOf viprs:has_descriptor.
 
 ### VIMMP COMMUNICATION ONTOLOGY (VICO) ###
 
-### VERSION 1.3.0 ###
+### VERSION 1.3.1 ###
 
-### DATED 28TH SEPTEMBER 2020 ###
+### DATED 3RD NOVEMBER 2020 ###
 
 @prefix vico: <https://purl.vimmp.eu/semantics/vico/vico.ttl#>.
 
@@ -9117,8 +9168,8 @@ otras:is_defined_by rdfs:subPropertyOf viprs:has_descriptor.
 
 <https://purl.vimmp.eu/semantics/vico/vico.ttl> a owl:Ontology;
    dcterms:title "VICO: VIMMP Communication Ontology"^^xs:string;
-   owl:versionInfo "version 1.3.0"^^xs:string;
-   dcterms:modified "2020-09-28"^^xs:date;
+   owl:versionInfo "version 1.3.1"^^xs:string;
+   dcterms:modified "2020-11-03"^^xs:date;
    dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
    dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
    dcterms:bibliographicCitation "doi:10.1007/s13218-020-00648-9"^^xs:string;
@@ -9170,6 +9221,10 @@ vico:has_submission_date a owl:ObjectProperty, owl:FunctionalProperty;
    rdfs:domain evmpo:communication;
    rdfs:range dcterms:W3C-DTF;
    rdfs:subPropertyOf viprs:has_symbolic_part_of_sign.
+vico:has_object_content a owl:ObjectProperty;
+   rdfs:domain evmpo:communication;
+   rdfs:range evmpo:marketplace_related_entity;
+   rdfs:subPropertyOf viprs:has_proper_part.
 vico:has_text_content a owl:DatatypeProperty;
    rdfs:domain evmpo:communication;
    rdfs:range xs:string.
@@ -9253,6 +9308,15 @@ vico:has_fractional_progress a owl:DatatypeProperty;
    rdfs:domain vico:processed_status;
    rdfs:range xs:decimal;
    rdfs:comment "fractional extent to which the communication has been processed; minimum: 0 for zero progress, maximum: 1 for completion"^^xs:string.
+
+vico:completed_status a owl:Class;
+   rdfs:subClassOf vico:processed_status;
+   owl:equivalentClass [
+      a owl:Restriction;
+      owl:onProperty vico:has_fractional_progress;
+      owl:hasValue 1.0
+   ];
+   rdfs:comment "completed status, i.e., a processed status expressing 1.0 fractional progress (100% completion)"^^xs:string.
 
 vico:read_status a owl:Class;
    rdfs:subClassOf vico:status;
@@ -9500,13 +9564,13 @@ vico:mobile_number a owl:Class;
 #
 vico:acts_at a owl:ObjectProperty;
    rdfs:domain evmpo:agent;
-   rdfs:range macro:digital_marketplace;
-   owl:inverseOf macro:has_marketplace_participant;
-   rdfs:subPropertyOf vico:has_access_to.
+   rdfs:range macro:computational_resource;
+   owl:inverseOf macro:has_agent;
+   rdfs:subPropertyOf viprs:is_proper_part_of.
 vico:has_access_to a owl:ObjectProperty;
    rdfs:domain evmpo:agent;
    rdfs:range macro:channel;
-   rdfs:subPropertyOf viprs:is_proper_part_of;
+   rdfs:subPropertyOf vico:acts_at;
    owl:inverseOf macro:has_channel_member.
 vico:has_address a owl:ObjectProperty;
    rdfs:domain evmpo:agent;
@@ -9522,6 +9586,13 @@ vico:has_interest a owl:ObjectProperty;
 vico:has_agent_name a owl:DatatypeProperty;
    rdfs:domain evmpo:agent;
    rdfs:range xs:string.
+vico:has_agent_label a owl:DatatypeProperty;
+   rdfs:domain evmpo:agent;
+   rdfs:range xs:string.
+vico:has_user_name a owl:DatatypeProperty;
+   rdfs:domain evmpo:agent;
+   rdfs:range xs:string;
+   rdfs:subPropertyOf vico:has_agent_name.
 vico:is_assignee_of a owl:ObjectProperty;
    rdfs:domain evmpo:agent;    # the agent participates in a process enabled by the message
    rdfs:range vico:message;
@@ -9598,9 +9669,6 @@ vico:has_profile_image a owl:DatatypeProperty;
    rdfs:domain vico:person;
    rdfs:range xs:anyURI.
 vico:has_profile_text a owl:DatatypeProperty;
-   rdfs:domain vico:person;
-   rdfs:range xs:string.
-vico:has_interpreter_label a owl:DatatypeProperty;
    rdfs:domain vico:person;
    rdfs:range xs:string.
 
@@ -9977,11 +10045,12 @@ vico:has_suffix_text rdfs:subPropertyOf viprs:has_textual_content.
 vico:has_agentid rdfs:subPropertyOf viprs:has_numerical_identifier.
 vico:has_token_index rdfs:subPropertyOf viprs:has_numerical_identifier.
 vico:has_orcid rdfs:subPropertyOf viprs:has_textual_identifier.
-vico:has_interpreter_label rdfs:subPropertyOf viprs:has_label.
+vico:has_agent_label rdfs:subPropertyOf viprs:has_label.
 vico:has_file_content_locator rdfs:subPropertyOf viprs:has_standardized_reference.
 vico:has_agent_name rdfs:subPropertyOf viprs:has_name.
 vico:has_first_name rdfs:subPropertyOf viprs:has_name.
 vico:has_last_name rdfs:subPropertyOf viprs:has_name.
+vico:has_user_name rdfs:subPropertyOf viprs:has_name.
 vico:is_po_box rdfs:subPropertyOf viprs:has_flag.
 vico:is_at_uri rdfs:subPropertyOf viprs:has_flag.
 vico:is_academic rdfs:subPropertyOf viprs:has_flag.
@@ -10020,7 +10089,7 @@ vico:has_profile_image rdfs:subPropertyOf viprs:has_file_metadata_item.
 
 ### VIMMP VALIDATION ONTOLOGY (VIVO) ###
 
-### VERSION 1.1.4 ###
+### VERSION 1.1.5 ###
 
 ### DATED 27TH JUNE 2020 ###
 
@@ -10041,8 +10110,8 @@ vico:has_profile_image rdfs:subPropertyOf viprs:has_file_metadata_item.
 
 <https://purl.vimmp.eu/semantics/vivo/vivo.ttl> a owl:Ontology;
    dcterms:title "VIVO: VIMMP Validation Ontology"^^xs:string;
-   owl:versionInfo "version 1.1.4"^^xs:string;
-   dcterms:modified "2020-06-27"^^xs:date;
+   owl:versionInfo "version 1.1.5"^^xs:string;
+   dcterms:modified "2020-11-03"^^xs:date;
    dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
    dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
    dcterms:bibliographicCitation "doi:10.1007/s13218-020-00648-9"^^xs:string;
@@ -10393,7 +10462,7 @@ vivo:has_certifier a owl:ObjectProperty;
 vivo:states_assessment a owl:ObjectProperty;
    rdfs:domain vivo:certificate;
    rdfs:range evmpo:assessment;
-   rdfs:subPropertyOf viprs:enables, viprs:has_proper_part.
+   rdfs:subPropertyOf vico:has_object_content, viprs:enables, viprs:has_proper_part.
 
 vivo:certificate rdfs:subClassOf [
       a owl:Restriction;
