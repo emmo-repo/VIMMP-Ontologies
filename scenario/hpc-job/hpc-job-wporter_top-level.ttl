@@ -1,0 +1,164 @@
+#########################################
+##                                     ##
+##      EXAMPLE: HPC JOB METADATA      ##
+##                                     ##
+##      TOP-LEVEL REPRESENTATION       ##
+##                                     ##
+##   LAST UPDATED: 4TH NOVEMBER 2020   ##
+##                                     ##
+##    NOTE: DATATYPE PROPERTIES AND    ##
+##  MODAL RELATIONS ARE RETAINED FROM  ##
+##    THE INTERMEDIATE-LEVEL VERSION   ##
+##                                     ##
+#########################################
+
+<https://purl.vimmp.eu/semantics/scenario/hpc-job/hpc-job-wporter_domain-level.ttl> a owl:Ontology.
+<https://purl.vimmp.eu/semantics/scenario/hpc-job/hpc-job-wporter_top-level.ttl> a owl:Ontology.
+
+@prefix hpcjob: <https://purl.vimmp.eu/semantics/scenario/hpc-job/hpc-job-wporter_domain-level.ttl#>.
+@prefix hpcjob-emmo: <https://purl.vimmp.eu/semantics/scenario/hpc-job/hpc-job-wporter_top-level.ttl#>.
+
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xs: <http://www.w3.org/2001/XMLSchema#>.
+
+#############################
+# IMPORTED VIMMP ONTOLOGIES #
+#############################
+
+@prefix emmo1s: <https://purl.vimmp.eu/semantics/alignment/emmo1s.ttl#>.
+@prefix vico: <https://purl.vimmp.eu/semantics/vico/vico.ttl#>.
+@prefix viprs: <https://purl.vimmp.eu/semantics/alignment/viprs.ttl#>.
+
+######################################################
+# USER/OWNER OF THE JOB (HERE, "DR. WILLIAM PORTER") #
+######################################################
+
+hpcjob:WILLIAM_PORTER a emmo1s:Interpreter;
+   viprs:has_name "William"^^xs:string, "Porter"^^xs:string, "hpc.cluster.com:wporter_001"^^xs:string;
+   emmo1s:hasSign hpcjob-emmo:WILLIAM_PORTER_DESCRIPTOR.
+hpcjob-emmo:WILLIAM_PORTER_DESCRIPTOR a emmo1s:Sign, emmo1s:Symbolic;
+   emmo1s:hasProperPart vico:TITLE_DOCTOR_GENERIC.
+vico:TITLE_DOCTOR_GENERIC a emmo1s:Symbolic.
+
+#########################################################
+# SEMANTIC LINK BETWEEN THE USER AND THE WORKFLOW GRAPH #
+#########################################################
+
+hpcjob:JOB_STATEMENT a emmo1s:Symbolic;
+   viprs:is_enabled_by hpcjob:WILLIAM_PORTER;
+   emmo1s:hasProperPart hpcjob-emmo:JOB_STATEMENT_OBJECT_ENTRY;
+   emmo1s:hasSign hpcjob-emmo:JOB_STATEMENT_ANNOTATION_LIST.
+hpcjob-emmo:JOB_STATEMENT_OBJECT_ENTRY a emmo1s:Sign.
+hpcjob-emmo:JOB_STATEMENT_ANNOTATION_LIST a emmo1s:Sign, emmo1s:Symbolic;
+   emmo1s:hasProperPart hpcjob:JOB_COMPLETION.
+hpcjob:JOB_COMPLETION a emmo1s:Symbolic.
+
+######################
+# MODA/OSMO WORKFLOW #
+######################
+
+hpcjob:WORKFLOW a emmo1s:WellFormedSymbolic;
+   emmo1s:hasProperPart hpcjob:MD_SOLVER, hpcjob:GLUE_CODE, hpcjob:DOCKER, hpcjob:RESULT_NODE;
+   emmo1s:hasSign hpcjob-emmo:JOB_STATEMENT_OBJECT_ENTRY.
+hpcjob:RESULT_NODE a emmo1s:WellFormedSymbolic;
+   emmo1s:hasProperPart hpcjob:RESULT_LOGICAL.
+hpcjob:RESULT_LOGICAL a emmo1s:Symbolic;
+   viprs:has_label "JOBRESULT-2020-10-21-12-35-00"^^xs:string, "adf://dp/kalp15-next-npt-md-result.zip"^^xs:string.
+
+###################
+# SOLVER: GROMACS #
+###################
+
+hpcjob:MD_SOLVER a emmo1s:Symbolic;
+   emmo1s:hasSign hpcjob-emmo:MD_SOLVER_MODA_PAGE, hpcjob-emmo:MD_SOLVER_VARIABLE_LIST.
+hpcjob-emmo:MD_SOLVER_MODA_PAGE a emmo1s:Sign, emmo1s:Symbolic;
+   emmo1s:hasProperPart hpcjob:MD_SOLVER_SOFTWARE_ASPECT.
+hpcjob:MD_SOLVER_SOFTWARE_ASPECT a emmo1s:Symbolic;
+   emmo1s:hasProperPart hpcjob-emmo:MD_SOLVER_SOFTWARE_ASPECT_OBJECT_ENTRY.
+hpcjob-emmo:MD_SOLVER_SOFTWARE_ASPECT_OBJECT_ENTRY a emmo1s:Sign.
+hpcjob:GROMACS a emmo1s:Engineered, emmo1s:Symbolic;
+   viprs:has_name "GROMACS"^^xs:string;
+   viprs:has_specifier "GROMACS version 2020.3"^^xs:string;
+   emmo1s:hasSign hpcjob-emmo:MD_SOLVER_SOFTWARE_ASPECT_OBJECT_ENTRY.
+hpcjob-emmo:MD_SOLVER_VARIABLE_LIST a emmo1s:Sign, emmo1s:Symbolic;
+   emmo1s:hasProperPart hpcjob:RESULT_FILE_NAME.
+hpcjob:RESULT_FILE_NAME a emmo1s:Variable;
+   viprs:has_name "HPC result file name"^^xs:string.
+hpcjob:RESULT_FILE_NAME_STRING a emmo1s:Symbolic;
+   viprs:has_textual_content "md.trr"^^xs:string;
+   emmo1s:hasSign hpcjob:RESULT_FILE_NAME.
+
+##################################
+# PROCESSOR (COUPLED): GLUE CODE #
+##################################
+
+hpcjob:GLUE_CODE a emmo1s:Symbolic;
+   emmo1s:hasSign hpcjob-emmo:GLUE_CODE_MODA_PAGE, hpcjob-emmo:GLUE_CODE_VARIABLE_LIST.
+hpcjob-emmo:GLUE_CODE_MODA_PAGE a emmo1s:Sign, emmo1s:Symbolic;
+   emmo1s:hasProperPart hpcjob:GLUE_CODE_SOFTWARE_ASPECT.
+hpcjob:GLUE_CODE_SOFTWARE_ASPECT a emmo1s:Symbolic;
+   viprs:has_textual_content "adf://dp/glue-code.sh"^^xs:string;
+   emmo1s:hasProperPart hpcjob:GLUE_CODE_SOFTWARE_ASPECT_OBJECT_ENTRY.
+hpcjob:GLUE_CODE_SOFTWARE_ASPECT_OBJECT_ENTRY a emmo1s:Sign.
+hpcjob:GLUE_CODE_SOFTWARE_TOOL a emmo1s:Engineered, emmo1s:Symbolic;
+   viprs:has_name "glue-code.sh"^^xs:string;
+   emmo1s:hasSign hpcjob:GLUE_CODE_SOFTWARE_ASPECT_OBJECT_ENTRY.
+hpcjob-emmo:GLUE_CODE_VARIABLE_LIST a emmo1s:Sign, emmo1s:Symbolic;
+   emmo1s:hasProperPart hpcjob:JOB_DATA_URL, hpcjob:JOB_LABEL, hpcjob:JOB_NUMBER.
+hpcjob:JOB_DATA_URL a emmo1s:Variable;
+   viprs:has_name "HPC job data URL"^^xs:string.
+hpcjob:JOB_DATA_URL_STRING a emmo1s:Symbolic;
+   viprs:has_textual_content "adf://dp/kalp15-next-npt-md.zip"^^xs:string;
+   emmo1s:hasSign hpcjob:JOB_DATA_URL.
+hpcjob:JOB_LABEL a emmo1s:Variable;
+   viprs:has_name "HPC job name"^^xs:string.
+hpcjob:JOB_LABEL_STRING a emmo1s:Symbolic;
+   viprs:has_textual_content "gromacs_kalp15"^^xs:string;
+   emmo1s:hasSign hpcjob:JOB_LABEL.
+hpcjob:JOB_NUMBER a emmo1s:Variable;
+   viprs:has_name "HPC job ID"^^xs:string.
+hpcjob:JOB_NUMBER_DECIMAL a emmo1s:Symbolic;
+   viprs:has_numerical_content 88723;
+   emmo1s:hasSign hpcjob:JOB_NUMBER.
+
+###############################
+# PROCESSOR (COUPLED): DOCKER #
+###############################
+
+hpcjob:DOCKER a emmo1s:Symbolic;
+   emmo1s:hasSign hpcjob-emmo:DOCKER_MODA_PAGE, hpcjob-emmo:DOCKER_VARIABLE_LIST.
+hpcjob-emmo:DOCKER_MODA_PAGE a emmo1s:Sign, emmo1s:Symbolic;
+   emmo1s:hasProperPart hpcjob:AUTHENTIFICATION_METHOD.
+hpcjob-emmo:DOCKER_VARIABLE_LIST a emmo1s:Sign, emmo1s:Symbolic;
+   emmo1s:hasProperPart hpcjob:IMAGE_NAME, hpcjob:REGISTRY_URL.
+hpcjob:IMAGE_NAME a emmo1s:Variable;
+   viprs:has_name "Docker image name"^^xs:string.
+hpcjob:IMAGE_NAME_STRING a emmo1s:Symbolic;
+   viprs:has_textual_content "gromacs/gromacs:2020.3"^^xs:string;
+   emmo1s:hasSign hpcjob:IMAGE_NAME.
+hpcjob:REGISTRY_URL a emmo1s:Variable;
+   viprs:has_name "Docker registry URL"^^xs:string.
+hpcjob:REGISTRY_URL_STRING a emmo1s:Symbolic;
+   viprs:has_textual_content "https://hub.docker.com/r/"^^xs:string;
+   emmo1s:hasSign hpcjob:REGISTRY_URL.
+
+##########################################
+# SEMANTIC LINK TO THE PAASPORT ONTOLOGY #
+##########################################
+
+hpcjob:HPC_NETWORK a emmo1s:Engineered;
+   viprs:has_name "hpc.cluster.com"^^xs:string;
+   emmo1s:hasSign hpcjob-emmo:HPC_NETWORK_PARAMETER_LIST;
+   emmo1s:hasProperPart hpcjob:WILLIAM_PORTER.
+hpcjob:AUTHENTIFICATION_METHOD a emmo1s:Symbolic;
+   emmo1s:hasProperPart hpcjob-emmo:AUTHENTIFICATION_METHOD_OBJECT_ENTRY.
+hpcjob-emmo:AUTHENTIFICATION_METHOD_OBJECT_ENTRY a emmo1s:Sign.
+hpcjob-emmo:HPC_NETWORK_PARAMETER_LIST a emmo1s:Sign, emmo1s:Symbolic;
+   emmo1s:hasProperPart hpcjob:LOGIN_TYPE, hpcjob:ROOT_NODE.
+hpcjob:LOGIN_TYPE a emmo1s:Variable;
+   viprs:has_textual_content "token"^^xs:string;
+   emmo1s:hasSign hpcjob-emmo:AUTHENTIFICATION_METHOD_OBJECT_ENTRY.
+hpcjob:ROOT_NODE a emmo1s:Variable;
+   viprs:has_textual_content "d09n01s01"^^xs:string.

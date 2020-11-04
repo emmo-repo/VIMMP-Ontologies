@@ -2,24 +2,24 @@
 ##                                   ##
 ##     EXAMPLE: HPC JOB METADATA     ##
 ##                                   ##
-##  LAST UPDATED: 3RD NOVEMBER 2020  ##
+##  LAST UPDATED: 4TH NOVEMBER 2020  ##
 ##                                   ##
 #######################################
 
-<https://purl.vimmp.eu/semantics/scenario/hpc-job/hpc-job-wporter.ttl> a owl:Ontology.
+<https://purl.vimmp.eu/semantics/scenario/hpc-job/hpc-job-wporter_domain-level.ttl> a owl:Ontology.
 
-@prefix hpcjob: <https://purl.vimmp.eu/semantics/scenario/hpc-job/hpc-job-wporter.ttl#>.
+@prefix hpcjob: <https://purl.vimmp.eu/semantics/scenario/hpc-job/hpc-job-wporter_domain-level.ttl#>.
+
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
 ################################
 # IMPORTED EXTERNAL ONTOLOGIES #
 ################################
 
-@prefix owl: <http://www.w3.org/2002/07/owl#>.
 @prefix paasport: <http://lpis.csd.auth.gr/ontologies/paasport/paasport1.owl#>.
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
-@prefix viprs: <https://purl.vimmp.eu/semantics/alignment/viprs.ttl#>.
-@prefix xs: <http://www.w3.org/2001/XMLSchema#>.
 
 #############################
 # IMPORTED VIMMP ONTOLOGIES #
@@ -31,7 +31,6 @@
 @prefix osmo: <https://purl.vimmp.eu/semantics/osmo/osmo.ttl#>.
 @prefix vico: <https://purl.vimmp.eu/semantics/vico/vico.ttl#>.
 @prefix viso: <https://purl.vimmp.eu/semantics/viso/viso-general.ttl#>.
-@prefix vov: <https://purl.vimmp.eu/semantics/viso/vov.ttl#>.
 
 ######################################################
 # USER/OWNER OF THE JOB (HERE, "DR. WILLIAM PORTER") #
@@ -94,7 +93,7 @@ hpcjob:GLUE_CODE a osmo:coupled_processor;
    osmo:has_logical_input hpcjob:JOB_DATA_URL;
    osmo:has_internal_lv hpcjob:JOB_LABEL, hpcjob:JOB_NUMBER.
 hpcjob:GLUE_CODE_SOFTWARE_ASPECT a osmo:processor_software;
-   osmo:has_aspect_textual_content "adf://dp/glue-code.sh"^^xs:string;
+   osmo:has_aspect_text_content "adf://dp/glue-code.sh"^^xs:string;
    osmo:has_aspect_object_content hpcjob:GLUE_CODE_SOFTWARE_TOOL.
 hpcjob:GLUE_CODE_SOFTWARE_TOOL a viso:software_tool;
    viso:has_main_name "glue-code.sh"^^xs:string.
@@ -109,6 +108,7 @@ hpcjob:JOB_LABEL a osmo:unique_elementary, osmo:logical_constant;
 hpcjob:JOB_LABEL_STRING a osmo:elementary_value;
    osmo:is_string "gromacs_kalp15"^^xs:string.
 hpcjob:JOB_NUMBER a osmo:unique_elementary;
+   osmo:has_variable_name "HPC job ID"^^xs:string;
    osmo:has_final_elementary_value hpcjob:JOB_NUMBER_DECIMAL.
 hpcjob:JOB_NUMBER_DECIMAL a osmo:elementary_value;
    osmo:is_decimal 88723.
