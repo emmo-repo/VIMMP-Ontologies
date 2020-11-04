@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
 
-### VERSION 1.1.1 ###
+### VERSION 1.1.2 ###
 
-### DATED 28TH OCTOBER 2020 ###
+### DATED 4TH NOVEMBER 2020 ###
 
 @prefix otras: <https://purl.vimmp.eu/semantics/otras/otras.ttl#>.
 
@@ -12,6 +12,7 @@
 @prefix evmpo: <https://emmc.eu/semantics/evmpo/evmpo.ttl#>.
 @prefix iao: <http://purl.obolibrary.org/obo/iao.owl#>.
 @prefix ical: <https://www.w3.org/2002/12/cal/icaltzd#>.
+@prefix osmo: <https://purl.vimmp.eu/semantics/osmo/osmo.ttl#>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
@@ -23,8 +24,8 @@
 
 <https://purl.vimmp.eu/semantics/otras/otras.ttl> a owl:Ontology;
    dcterms:title "OTRAS: Ontology for Training Services"^^xs:string;
-   owl:versionInfo "version 1.1.0"^^xs:string;
-   dcterms:modified "2020-10-28"^^xs:date;
+   owl:versionInfo "version 1.1.2"^^xs:string;
+   dcterms:modified "2020-11-04"^^xs:date;
    dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
    dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
    dcterms:bibliographicCitation "doi:10.1007/s13218-020-00648-9"^^xs:string;
