@@ -1,9 +1,9 @@
 
 ### VIMMP COMMUNICATION ONTOLOGY (VICO) ###
 
-### VERSION 1.3.1 ###
+### VERSION 1.3.2 ###
 
-### DATED 3RD NOVEMBER 2020 ###
+### DATED 4TH NOVEMBER 2020 ###
 
 @prefix vico: <https://purl.vimmp.eu/semantics/vico/vico.ttl#>.
 
@@ -23,8 +23,8 @@
 
 <https://purl.vimmp.eu/semantics/vico/vico.ttl> a owl:Ontology;
    dcterms:title "VICO: VIMMP Communication Ontology"^^xs:string;
-   owl:versionInfo "version 1.3.1"^^xs:string;
-   dcterms:modified "2020-11-03"^^xs:date;
+   owl:versionInfo "version 1.3.2"^^xs:string;
+   dcterms:modified "2020-11-04"^^xs:date;
    dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
    dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
    dcterms:bibliographicCitation "doi:10.1007/s13218-020-00648-9"^^xs:string;
@@ -79,7 +79,7 @@ vico:has_submission_date a owl:ObjectProperty, owl:FunctionalProperty;
 vico:has_object_content a owl:ObjectProperty;
    rdfs:domain evmpo:communication;
    rdfs:range evmpo:marketplace_related_entity;
-   rdfs:subPropertyOf viprs:has_proper_part.
+   rdfs:subPropertyOf viprs:mereosemiotics_hp_is.
 vico:has_text_content a owl:DatatypeProperty;
    rdfs:domain evmpo:communication;
    rdfs:range xs:string.

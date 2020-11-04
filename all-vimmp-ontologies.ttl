@@ -752,9 +752,9 @@ emmo1s:hasProperty a owl:ObjectProperty;
 
 ### EMMO-VIMMP INTEGRATION (EVI) ###
 
-### VERSION 1.1.8 ###
+### VERSION 1.1.9 ###
 
-### DATED 20TH OCTOBER 2020 ###
+### DATED 4TH NOVEMBER 2020 ###
 
 @prefix evi: <https://purl.vimmp.eu/semantics/alignment/evi.ttl#>.
 
@@ -778,8 +778,8 @@ emmo1s:hasProperty a owl:ObjectProperty;
 
 <https://purl.vimmp.eu/semantics/alignment/evi.ttl> a owl:Ontology;
    dcterms:title "EVI: EMMO-VIMMP Integration"^^xs:string;
-   owl:versionInfo "version 1.1.8"^^xs:string;
-   dcterms:modified "2020-10-20"^^xs:date;
+   owl:versionInfo "version 1.1.9"^^xs:string;
+   dcterms:modified "2020-11-04"^^xs:date;
    dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
    dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
    dcterms:bibliographicCitation "doi:10.1007/s13218-020-00648-9"^^xs:string;
@@ -1054,19 +1054,10 @@ osmo:logical_array a owl:Class;
    owl:sameAs emmo1s:Array;
    owl:equivalentClass emmo1s:Array.
 
-# A logical term is a mathematical entity
+# A logical term is a symbolic entity
 #
 osmo:logical_term a owl:Class;
-   rdfs:subClassOf evmpo:marketplace_related_entity, emmo1s:Mathematical, [
-      owl:unionOf (emmo1s:Numerical emmo1s:Variable)
-   ].
-
-# A logical value is a numerical entity
-#
-osmo:logical_value a owl:Class;
-   rdfs:subClassOf osmo:logical_term;
-   owl:sameAs emmo1s:Numerical;
-   owl:equivalentClass emmo1s:Numerical.
+   rdfs:subClassOf emmo1s:Symbolic.
 
 # A logical variable is a variable
 #
@@ -1074,11 +1065,6 @@ osmo:logical_variable a owl:Class;
    rdfs:subClassOf osmo:logical_term;
    owl:sameAs emmo1s:Variable;
    owl:equivalentClass emmo1s:Variable.
-
-# A unique elementary is a quantity
-#
-osmo:unique_elementary a owl:Class;
-   rdfs:subClassOf osmo:logical_variable, emmo1s:Quantity.
 
 # A materials_model_classifier is a sign for a materials model
 #
@@ -4151,9 +4137,9 @@ mmto:has_step_description rdfs:subPropertyOf viprs:has_descriptor.
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 1.7.3 ###
+### VERSION 1.7.4 ###
 
-### DATED 3RD NOVEMBER 2020 ###
+### DATED 4TH NOVEMBER 2020 ###
 
 @prefix osmo: <https://purl.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -4174,8 +4160,8 @@ mmto:has_step_description rdfs:subPropertyOf viprs:has_descriptor.
 
 <https://purl.vimmp.eu/semantics/osmo/osmo.ttl> a owl:Ontology;
    dcterms:title "OSMO: Ontology for Simulation, Modelling, and Optimization"^^xs:string;
-   owl:versionInfo "version 1.7.3"^^xs:string;
-   dcterms:modified "2020-11-03"^^xs:date;
+   owl:versionInfo "version 1.7.4"^^xs:string;
+   dcterms:modified "2020-11-04"^^xs:date;
    dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
    dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
    dcterms:bibliographicCitation "10.1021/acs.jced.9b00739"^^xs:string;
@@ -6342,8 +6328,6 @@ osmo:has_use_case_summary rdfs:subPropertyOf viprs:has_textual_content.
 osmo:has_term_index rdfs:subPropertyOf viprs:has_numerical_identifier.
 osmo:has_variable_index rdfs:subPropertyOf viprs:has_numerical_identifier.
 osmo:has_resource_label rdfs:subPropertyOf viprs:has_label.
-osmo:has_section_label rdfs:subPropertyOf viprs:has_label.
-osmo:has_logical_label rdfs:subPropertyOf viprs:has_label.
 osmo:has_lrid rdfs:subPropertyOf viprs:has_label.
 osmo:has_pe_type_id rdfs:subPropertyOf viprs:has_standardized_reference.
 osmo:has_cas_number rdfs:subPropertyOf viprs:has_standardized_reference.
@@ -6351,7 +6335,6 @@ osmo:has_ec_number rdfs:subPropertyOf viprs:has_standardized_reference.
 osmo:has_index_name rdfs:subPropertyOf viprs:has_name.
 osmo:has_simulation_use_case_name rdfs:subPropertyOf viprs:has_name.
 osmo:has_term_name rdfs:subPropertyOf viprs:has_name.
-osmo:has_variable_name rdfs:subPropertyOf viprs:has_name.
 osmo:has_coupled_instances rdfs:subPropertyOf viprs:has_flag.
 osmo:has_linked_instances rdfs:subPropertyOf viprs:has_flag.
 osmo:is_concrete rdfs:subPropertyOf viprs:has_flag.
@@ -6377,10 +6360,8 @@ osmo:has_workflow_diagram_url rdfs:subPropertyOf viprs:has_file_metadata_item.
 
 # A condition is a mathematical entity
 
-# A logical term is a mathematical entity
-# A logical value is a numerical entity
+# A logical term is a symbolic entity
 # A logical variable is a variable
-# A unique elementary is a quantity
 # A logical array is an array
 
 # A materials_model_classifier is a sign for a materials model
@@ -9146,9 +9127,9 @@ otras:is_defined_by rdfs:subPropertyOf viprs:has_descriptor.
 
 ### VIMMP COMMUNICATION ONTOLOGY (VICO) ###
 
-### VERSION 1.3.1 ###
+### VERSION 1.3.2 ###
 
-### DATED 3RD NOVEMBER 2020 ###
+### DATED 4TH NOVEMBER 2020 ###
 
 @prefix vico: <https://purl.vimmp.eu/semantics/vico/vico.ttl#>.
 
@@ -9168,8 +9149,8 @@ otras:is_defined_by rdfs:subPropertyOf viprs:has_descriptor.
 
 <https://purl.vimmp.eu/semantics/vico/vico.ttl> a owl:Ontology;
    dcterms:title "VICO: VIMMP Communication Ontology"^^xs:string;
-   owl:versionInfo "version 1.3.1"^^xs:string;
-   dcterms:modified "2020-11-03"^^xs:date;
+   owl:versionInfo "version 1.3.2"^^xs:string;
+   dcterms:modified "2020-11-04"^^xs:date;
    dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
    dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
    dcterms:bibliographicCitation "doi:10.1007/s13218-020-00648-9"^^xs:string;
@@ -9224,7 +9205,7 @@ vico:has_submission_date a owl:ObjectProperty, owl:FunctionalProperty;
 vico:has_object_content a owl:ObjectProperty;
    rdfs:domain evmpo:communication;
    rdfs:range evmpo:marketplace_related_entity;
-   rdfs:subPropertyOf viprs:has_proper_part.
+   rdfs:subPropertyOf viprs:mereosemiotics_hp_is.
 vico:has_text_content a owl:DatatypeProperty;
    rdfs:domain evmpo:communication;
    rdfs:range xs:string.
