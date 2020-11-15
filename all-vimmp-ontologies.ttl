@@ -13,9 +13,9 @@
 
 ### EMMO 1.0 SIMPLIFIED (EMMO1S) ###
 
-### VERSION 1.0.4 ###
+### VERSION 1.1.0 ###
 
-### DATED 27TH JUNE 2020 ###
+### DATED 15TH NOVEMBER 2020 ###
 
 @prefix emmo1s: <https://purl.vimmp.eu/semantics/alignment/emmo1s.ttl#>.
 
@@ -99,7 +99,7 @@ emmo1s:connected a owl:ObjectProperty, owl:SymmetricProperty;
    owl:sameAs emmo-mereotopology:EMMO_6703954e_34c4_4a15_a9e7_f313760ae1a8;
    rdfs:domain emmo1s:EMMO;
    rdfs:range emmo1s:EMMO;
-   rdfs:subPropertyOf emmo1s:EMMORelation;
+   rdfs:subPropertyOf emmo1s:mereotopological;
    owl2:disjointObjectProperties emmo1s:disconnected;
    rdfs:comment "4D spatiotemporal relation of immediate connectivity or contact"^^xs:string.
 emmo1s:disconnected a owl:ObjectProperty, owl:SymmetricProperty;
@@ -107,7 +107,7 @@ emmo1s:disconnected a owl:ObjectProperty, owl:SymmetricProperty;
    owl:sameAs emmo-mereotopology:EMMO_517dfaf9_4970_41ac_81ee_d031627d2c7c;
    rdfs:domain emmo1s:EMMO;
    rdfs:range emmo1s:EMMO;
-   rdfs:subPropertyOf emmo1s:EMMORelation;
+   rdfs:subPropertyOf emmo1s:mereotopological;
    owl2:disjointObjectProperties emmo1s:connected;
    rdfs:comment "the meaning of this is not clarified by the EMMO - it could be the complement of 'connected' or the complement of its transitive closure (i.e., of path connectivity)"^^xs:string.
 emmo1s:EMMORelation a owl:ObjectProperty, owl:SymmetricProperty, owl:TransitiveProperty;
@@ -142,7 +142,7 @@ emmo1s:hasOverlapWith a owl:ObjectProperty, owl:SymmetricProperty;
    rdfs:domain emmo1s:EMMO;
    rdfs:range emmo1s:EMMO;
    rdfs:subPropertyOf emmo1s:connected;
-   owl:propertyChainAxiom (emmo1s:hasPart [owl:inverseOf emmo1s:hasPart]).
+   owl:propertyChainAxiom (emmo1s:hasProperPart [owl:inverseOf emmo1s:hasProperPart]).
 emmo1s:hasPart a owl:ObjectProperty, owl:TransitiveProperty;
    rdfs:label "hasPart"^^xs:string;
    owl:sameAs emmo-mereotopology:EMMO_17e27c22_37e1_468c_9dd7_95e137f73e7f;
@@ -157,6 +157,13 @@ emmo1s:hasProperPart a owl:ObjectProperty, owl:TransitiveProperty;
    rdfs:range emmo1s:EMMO;
    rdfs:subPropertyOf emmo1s:hasPart;
    rdfs:comment "4D spatiotemporal parthood relation (antireflexive version, i.e., proper parthood)"^^xs:string.
+emmo1s:mereotopological a owl:ObjectProperty, owl:TransitiveProperty, owl:SymmetricProperty;
+   rdfs:label "mereotopological"^^xs:string;
+   owl:sameAs emmo-mereotopology:EMMO_03212fd7_abfd_4828_9c8e_62c293052d4b;
+   rdfs:domain emmo1s:EMMO;
+   rdfs:range emmo1s:EMMO;
+   rdfs:subPropertyOf emmo1s:EMMORelation;
+   rdfs:comment "Top mereotopological relation"^^xs:string.
 
 ## EMMO mereotopology individuals
 #
