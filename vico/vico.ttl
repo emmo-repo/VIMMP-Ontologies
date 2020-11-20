@@ -1,9 +1,9 @@
 
 ### VIMMP COMMUNICATION ONTOLOGY (VICO) ###
 
-### VERSION 1.3.2 ###
+### VERSION 1.3.3 ###
 
-### DATED 4TH NOVEMBER 2020 ###
+### DATED 19TH NOVEMBER 2020 ###
 
 @prefix vico: <https://purl.vimmp.eu/semantics/vico/vico.ttl#>.
 
@@ -23,8 +23,8 @@
 
 <https://purl.vimmp.eu/semantics/vico/vico.ttl> a owl:Ontology;
    dcterms:title "VICO: VIMMP Communication Ontology"^^xs:string;
-   owl:versionInfo "version 1.3.2"^^xs:string;
-   dcterms:modified "2020-11-04"^^xs:date;
+   owl:versionInfo "version 1.3.3"^^xs:string;
+   dcterms:modified "2020-11-19"^^xs:date;
    dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
    dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
    dcterms:bibliographicCitation "doi:10.1007/s13218-020-00648-9"^^xs:string;
@@ -63,7 +63,8 @@ vico:has_file_content_locator a owl:DatatypeProperty;
 vico:has_file_content_format a owl:ObjectProperty;
    rdfs:domain evmpo:communication;
    rdfs:range macro:file_format;
-   rdfs:subPropertyOf evmpo:has_communication_annotation.
+   rdfs:subPropertyOf evmpo:has_communication_annotation;
+   rdfs:comment "format of the file associated with this communication by the relation has_file_content_locator"^^xs:string.
 vico:has_label a owl:ObjectProperty;
    rdfs:domain evmpo:communication;
    rdfs:range vico:label;
@@ -79,7 +80,8 @@ vico:has_submission_date a owl:ObjectProperty, owl:FunctionalProperty;
 vico:has_object_content a owl:ObjectProperty;
    rdfs:domain evmpo:communication;
    rdfs:range evmpo:marketplace_related_entity;
-   rdfs:subPropertyOf viprs:mereosemiotics_hp_is.
+   rdfs:subPropertyOf viprs:mereosemiotics_hp_is;
+   rdfs:comment "points to an object (which can be any resource on the semantic web) that constitutes a/the communicated content"^^xs:string.
 vico:has_text_content a owl:DatatypeProperty;
    rdfs:domain evmpo:communication;
    rdfs:range xs:string.
@@ -217,12 +219,14 @@ vico:has_listener a owl:ObjectProperty;
 vico:has_signal a owl:ObjectProperty;
    rdfs:domain vico:message;
    rdfs:range vico:signal_statement;
-   rdfs:subPropertyOf vico:is_followed_by.
+   rdfs:subPropertyOf vico:is_followed_by;
+   rdfs:comment "relates the message to a signal statement such as 'I like'"^^xs:string.
 vico:is_followed_by a owl:ObjectProperty;
    rdfs:domain vico:message;
    rdfs:range vico:message;
    rdfs:subPropertyOf viprs:enables, viprs:has_sign;
-   owl:inverseOf vico:follows.
+   owl:inverseOf vico:follows;
+   rdfs:comment "(C is_followed_by D): C and D are messages, and D addresses or refers to C"^^xs:string.
 
 vico:message rdfs:subClassOf [
       a owl:Restriction;

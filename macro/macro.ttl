@@ -1,9 +1,9 @@
 
 ### MARKETPLACE-ACCESSIBLE COMPUTATIONAL RESOURCE ONTOLOGY (MACRO) ###
 
-### VERSION 1.1.5 ###
+### VERSION 1.1.6 ###
 
-### DATED 3RD NOVEMBER ###
+### DATED 19TH NOVEMBER ###
 
 @prefix macro: <https://purl.vimmp.eu/semantics/macro/macro.ttl#>.
 
@@ -22,8 +22,8 @@
 
 <https://purl.vimmp.eu/semantics/macro/macro.ttl> a owl:Ontology;
    dcterms:title "MACRO: Marketplace-Accessible Computational Resource Ontology"^^xs:string;
-   owl:versionInfo "version 1.1.5"^^xs:string;
-   dcterms:modified "2020-11-03"^^xs:date;
+   owl:versionInfo "version 1.1.6"^^xs:string;
+   dcterms:modified "2020-11-19"^^xs:date;
    dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
    dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
    dcterms:bibliographicCitation "doi:10.1007/s13218-020-00648-9"^^xs:string;
@@ -55,7 +55,8 @@ macro:has_agent a owl:ObjectProperty;
    owl:inverseOf vico:acts_at.
 macro:has_cr_name a owl:DatatypeProperty;
    rdfs:domain macro:computational_resource;
-   rdfs:range xs:string.
+   rdfs:range xs:string;
+   rdfs:comment "specifies a/the name of a computational resource"^^xs:string.
 
 macro:computational_resource owl:unionOf (evmpo:data_infrastructure evmpo:hardware_infrastructure evmpo:software_infrastructure).
 
@@ -176,6 +177,48 @@ macro:hpc_service a owl:Class;
    rdfs:subClassOf macro:hardware_service;
    owl:intersectionOf (macro:hardware_service [a owl:Restriction; owl:onProperty macro:provides_access_to; owl:someValuesFrom macro:hpc_infrastructure]).
 
+macro:hpc_scheduler a owl:Class;
+   rdfs:subClassOf macro:hpc_service;
+   rdfs:comment "a scheduling/queueing service on an HPC infrastructure, e.g. following the IEEE 1003.1-2008 standard, providing access to that HPC infrastructure"^^xs:string.
+
+macro:hpc_job_parameters a owl:Class;
+   rdfs:subClassOf osmo:logical_structure, [
+      a owl:Restriction;
+      owl:onProperty macro:has_job_id;
+      owl:cardinality 1
+   ], [
+      a owl:Restriction;
+      owl:onProperty macro:has_job_name;
+      owl:cardinality 1
+   ];
+   rdfs:comment "HPC job parameters, i.e., a logical structure containing a name, a numerical ID, and possible additional elements such as a locator or file name of the submitted batch script"^^xs:string.
+
+macro:has_job_id a owl:ObjectProperty;
+   rdfs:domain macro:hpc_job_parameters;
+   rdfs:range macro:hpc_job_id;
+   rdfs:subPropertyOf osmo:has_structure_element;
+   rdfs:comment "relates an hpc_job_parameters structure to its hpc_job_id element"^^xs:string.
+macro:has_job_name a owl:ObjectProperty;
+   rdfs:domain macro:hpc_job_parameters;
+   rdfs:range macro:hpc_job_name;
+   rdfs:subPropertyOf osmo:has_structure_element;
+   rdfs:comment "relates an hpc_job_parameters structure to its hpc_job_name element"^^xs:string.
+macro:has_job_data_locator a owl:ObjectProperty;
+   rdfs:domain macro:hpc_job_parameters;
+   rdfs:range macro:hpc_job_data_locator;
+   rdfs:subPropertyOf osmo:has_structure_element;
+   rdfs:comment "relates an hpc_job_parameters structure to an HPC job data locator"^^xs:string.
+
+macro:hpc_job_id a owl:Class;
+   rdfs:subClassOf osmo:unique_elementary;
+   rdfs:comment "HPC job ID, i.e., a unique elementary logical variable containing the ID from the scheduler"^^xs:string.
+macro:hpc_job_name a owl:Class;
+   rdfs:subClassOf osmo:unique_elementary;
+   rdfs:comment "HPC job name, i.e., a unique elementary logical variable containing the name of a job submitted to the scheduler"^^xs:string.
+macro:hpc_job_data_locator a owl:Class;
+   rdfs:subClassOf osmo:unique_elementary;
+   rdfs:comment "HPC job data locator, i.e., URL or file name of the batch script and/or other data pertaining to an HPC job"^^xs:string.
+
 macro:software_service a owl:Class;
    rdfs:subClassOf macro:cr_service;
    owl:intersectionOf (macro:cr_service [a owl:Restriction; owl:onProperty macro:provides_access_to; owl:someValuesFrom evmpo:software_infrastructure]).
@@ -217,6 +260,7 @@ macro:file_format a owl:Class;
    owl:sameAs edam:format_1915;
    owl:equivalentClass edam:format_1915;  # "Format" in EDAM
    rdfs:comment "file format, i.e., a syntactical standard for files"^^xs:string.
+edam:format_1915 rdfs:subClassOf macro:io_format.
 
 macro:has_file_ending a owl:DatatypeProperty;
    rdfs:domain macro:file_format;
@@ -229,6 +273,7 @@ macro:textual_file_format a owl:Class;
    owl:sameAs edam:format_2330;  # "Textual format" in EDAM
    owl:equivalentClass edam:format_2330;  # "Textual format" in EDAM
    rdfs:comment "textual file format, i.e., any file format encoded in ASCII, Unicode, or comparable"^^xs:string.
+edam:format_2330 rdfs:subClassOf macro:file_format.
 
 macro:textual_xml_format a owl:Class;
    rdfs:subClassOf macro:textual_file_format, edam:format_2332;  # "XML" in EDAM
@@ -242,6 +287,7 @@ macro:textual_xml_format a owl:Class;
       owl:hasValue "XML"^^xs:string
    ];
    rdfs:comment "textual XML format, i.e., an XML-based textual file format"^^xs:string.
+edam:format_2332 rdfs:subClassOf macro:file_format.
 
 macro:textual_csv_format a owl:Class;
    rdfs:subClassOf macro:textual_file_format;
@@ -257,18 +303,21 @@ macro:textual_csv_format a owl:Class;
       owl:hasValue "CSV"^^xs:string
    ];
    rdfs:comment "CSV format, i.e., comma-separated values (table-like)"^^xs:string.
+edam:format_3752 rdfs:subClassOf macro:file_format.
 
 macro:binary_file_format a owl:Class;
    rdfs:subClassOf macro:file_format;
    owl:sameAs edam:format_2333;  # "Binary format" in EDAM
    owl:equivalentClass edam:format_2333;  # "Binary format" in EDAM
    rdfs:comment "binary file format, i.e., any file format not encoded in ASCII, Unicode, or comparable"^^xs:string.
+edam:format_2333 rdfs:subClassOf macro:file_format.
 
 macro:image_format a owl:Class;
    rdfs:subClassOf macro:file_format;
    owl:sameAs edam:format_3547;  # "Image format" in EDAM
    owl:equivalentClass edam:format_3547;  # "Image format" in EDAM
    rdfs:comment "format for representing images/graphics"^^xs:string.
+edam:format_3547 rdfs:subClassOf macro:file_format.
 
 macro:png_format a owl:Class;
    rdfs:subClassOf macro:image_format, macro:binary_file_format;
@@ -288,6 +337,7 @@ macro:png_format a owl:Class;
       owl:hasValue "portable network graphics"^^xs:string
    ];
    rdfs:comment "PNG graphics format"^^xs:string.
+edam:format_3602 rdfs:subClassOf macro:image_format, macro:binary_file_format.
 
 macro:PNG_FORMAT_ISO a macro:png_format;
    macro:has_definition_uri "https://www.iso.org/standard/29581.html"^^xs:string.
@@ -455,6 +505,26 @@ macro:VOCTA_XML_FORMAT a macro:solver_parameter_format, macro:textual_xml_format
    macro:has_format_name "VOCTA control/settings format"^^xs:string;
    macro:has_granularity osmo:MESOSCOPIC.
 
+####################
+# explicit imports #
+####################
+
+paasport:Network a owl:Class;
+   rdfs:subClassOf evmpo:hardware_infrastructure, [
+      a owl:Restriction;
+      owl:onProperty paasport:hasParameter;
+      owl:allValuesFrom paasport:NetworkParameter
+   ];
+   rdfs:comment "network as a hardware infrastructure and PaaS resource (Network [= Resource [= PaaSCharacteristic)"^^xs:string.
+paasport:NetworkParameter a owl:Class;
+   rdfs:subClassOf osmo:logical_variable;
+   rdfs:comment "network parameter 'of an offering' (here, specifically a Network) according to the PaaSPort ontology; taxonomically, NetworkParameter [= ResourceParameter [= NonFunctionalParameter [= MatchmakingParameter [= PaaSParameter"^^xs:string.
+paasport:hasParameter a owl:ObjectProperty;
+   rdfs:subPropertyOf viprs:is_sign_for;
+   rdfs:comment "relates a PaaSPort 'Characteristic' to a 'PaaSParameter'"^^xs:string.
+paasport:hasParameterDataValue a owl:DatatypeProperty;
+   rdfs:comment "relates a PaaSParameter to an elementary data value"^^xs:string.
+
 ####################################################################
 # software tool individuals - details to be sorted out within VISO #
 ####################################################################
@@ -483,6 +553,8 @@ macro:has_format_name rdfs:subPropertyOf viprs:has_name.
 macro:has_format_abbreviation rdfs:subPropertyOf viprs:has_file_metadata_item.
 macro:has_format_version rdfs:subPropertyOf viprs:has_file_metadata_item.
 macro:has_file_ending rdfs:subPropertyOf viprs:has_file_metadata_item.
+
+paasport:hasParameterDataValue rdfs:subPropertyOf viprs:has_content.
 
 ###
 # NOTES ON ALIGNMENT

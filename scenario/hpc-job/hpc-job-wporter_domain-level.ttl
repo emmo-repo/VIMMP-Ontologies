@@ -1,14 +1,13 @@
-#######################################
-##                                   ##
-##     EXAMPLE: HPC JOB METADATA     ##
-##                                   ##
-##  LAST UPDATED: 4TH NOVEMBER 2020  ##
-##                                   ##
-#######################################
-
-<https://purl.vimmp.eu/semantics/scenario/hpc-job/hpc-job-wporter_domain-level.ttl> a owl:Ontology.
+########################################
+##                                    ##
+##      EXAMPLE: HPC JOB METADATA     ##
+##                                    ##
+##  LAST UPDATED: 19TH NOVEMBER 2020  ##
+##                                    ##
+########################################
 
 @prefix hpcjob: <https://purl.vimmp.eu/semantics/scenario/hpc-job/hpc-job-wporter_domain-level.ttl#>.
+<https://purl.vimmp.eu/semantics/scenario/hpc-job/hpc-job-wporter_domain-level.ttl> a owl:Ontology.
 
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
@@ -90,24 +89,27 @@ hpcjob:RESULT_FILE_NAME_STRING a osmo:elementary_value;
 
 hpcjob:GLUE_CODE a osmo:coupled_processor;
    osmo:has_processor_software hpcjob:GLUE_CODE_SOFTWARE_ASPECT;
-   osmo:has_logical_input hpcjob:JOB_DATA_URL;
-   osmo:has_internal_lv hpcjob:JOB_LABEL, hpcjob:JOB_NUMBER.
+   osmo:has_logical_input hpcjob:JOB_PARAMETERS.
 hpcjob:GLUE_CODE_SOFTWARE_ASPECT a osmo:processor_software;
    osmo:has_aspect_text_content "adf://dp/glue-code.sh"^^xs:string;
    osmo:has_aspect_object_content hpcjob:GLUE_CODE_SOFTWARE_TOOL.
 hpcjob:GLUE_CODE_SOFTWARE_TOOL a viso:software_tool;
    viso:has_main_name "glue-code.sh"^^xs:string.
+hpcjob:JOB_PARAMETERS a macro:hpc_job_parameters;
+   macro:has_job_id hpcjob:JOB_NUMBER;
+   macro:has_job_name hpcjob:JOB_LABEL;
+   macro:has_job_data_locator hpcjob:JOB_DATA_URL.
 hpcjob:JOB_DATA_URL a osmo:unique_elementary, osmo:logical_constant;
    osmo:has_variable_name "HPC job data URL"^^xs:string;
    osmo:has_elementary_value hpcjob:JOB_DATA_URL_STRING.
 hpcjob:JOB_DATA_URL_STRING a osmo:elementary_value;
    osmo:is_string "adf://dp/kalp15-next-npt-md.zip"^^xs:string.
-hpcjob:JOB_LABEL a osmo:unique_elementary, osmo:logical_constant;
+hpcjob:JOB_LABEL a macro:has_job_name;
    osmo:has_variable_name "HPC job name"^^xs:string;
    osmo:has_elementary_value hpcjob:JOB_LABEL_STRING.
 hpcjob:JOB_LABEL_STRING a osmo:elementary_value;
    osmo:is_string "gromacs_kalp15"^^xs:string.
-hpcjob:JOB_NUMBER a osmo:unique_elementary;
+hpcjob:JOB_NUMBER a macro:hpc_job_id;
    osmo:has_variable_name "HPC job ID"^^xs:string;
    osmo:has_final_elementary_value hpcjob:JOB_NUMBER_DECIMAL.
 hpcjob:JOB_NUMBER_DECIMAL a osmo:elementary_value;

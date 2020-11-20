@@ -4,7 +4,7 @@
 ##                                     ##
 ##  INTERMEDIATE-LEVEL REPRESENTATION  ##
 ##                                     ##
-##   LAST UPDATED: 4TH NOVEMBER 2020   ##
+##  LAST UPDATED: 19TH NOVEMBER 2020   ##
 ##                                     ##
 #########################################
 
@@ -80,12 +80,14 @@ hpcjob:RESULT_FILE_NAME_STRING a emmo1s:Symbolic;
 
 hpcjob:GLUE_CODE a emmo1s:Symbolic;
    viprs:mereosemiotics_hs_hp hpcjob:GLUE_CODE_SOFTWARE_ASPECT;
-   viprs:mereosemiotics_hs_hp hpcjob:JOB_DATA_URL, hpcjob:JOB_LABEL, hpcjob:JOB_NUMBER.
+   viprs:mereosemiotics_hs_hp hpcjob:JOB_PARAMETERS.
 hpcjob:GLUE_CODE_SOFTWARE_ASPECT a emmo1s:Symbolic;
    viprs:has_textual_content "adf://dp/glue-code.sh"^^xs:string;
    viprs:mereosemiotics_hp_is hpcjob:GLUE_CODE_SOFTWARE_TOOL.
 hpcjob:GLUE_CODE_SOFTWARE_TOOL a emmo1s:Engineered, emmo1s:Symbolic;
    viprs:has_name "glue-code.sh"^^xs:string.
+hpcjob:JOB_PARAMETERS a emmo1s:Variable;
+   viprs:has_proper_part hpcjob:JOB_NUMBER, hpcjob:JOB_LABEL, hpcjob:JOB_DATA_URL.
 hpcjob:JOB_DATA_URL a emmo1s:Variable;
    viprs:has_name "HPC job data URL"^^xs:string;
    viprs:is_sign_for hpcjob:JOB_DATA_URL_STRING.

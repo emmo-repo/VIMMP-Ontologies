@@ -4,7 +4,7 @@
 ##                                     ##
 ##      TOP-LEVEL REPRESENTATION       ##
 ##                                     ##
-##   LAST UPDATED: 4TH NOVEMBER 2020   ##
+##  LAST UPDATED: 19TH NOVEMBER 2020   ##
 ##                                     ##
 ##    NOTE: DATATYPE PROPERTIES AND    ##
 ##  MODAL RELATIONS ARE RETAINED FROM  ##
@@ -106,7 +106,9 @@ hpcjob:GLUE_CODE_SOFTWARE_TOOL a emmo1s:Engineered, emmo1s:Symbolic;
    viprs:has_name "glue-code.sh"^^xs:string;
    emmo1s:hasSign hpcjob:GLUE_CODE_SOFTWARE_ASPECT_OBJECT_ENTRY.
 hpcjob-emmo:GLUE_CODE_VARIABLE_LIST a emmo1s:Sign, emmo1s:Symbolic;
-   emmo1s:hasProperPart hpcjob:JOB_DATA_URL, hpcjob:JOB_LABEL, hpcjob:JOB_NUMBER.
+   emmo1s:hasProperPart hpcjob:JOB_PARAMETERS.
+hpcjob:JOB_PARAMETERS a emmo1s:Variable;
+   viprs:has_proper_part hpcjob:JOB_NUMBER, hpcjob:JOB_LABEL, hpcjob:JOB_DATA_URL.
 hpcjob:JOB_DATA_URL a emmo1s:Variable;
    viprs:has_name "HPC job data URL"^^xs:string.
 hpcjob:JOB_DATA_URL_STRING a emmo1s:Symbolic;

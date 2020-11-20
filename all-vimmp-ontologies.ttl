@@ -2685,9 +2685,9 @@ skos:narrower rdfs:subPropertyOf viprs:mereosemiotics_is_hs.  # there is an obje
 
 ### MARKETPLACE-ACCESSIBLE COMPUTATIONAL RESOURCE ONTOLOGY (MACRO) ###
 
-### VERSION 1.1.5 ###
+### VERSION 1.1.6 ###
 
-### DATED 3RD NOVEMBER ###
+### DATED 19TH NOVEMBER ###
 
 @prefix macro: <https://purl.vimmp.eu/semantics/macro/macro.ttl#>.
 
@@ -2706,8 +2706,8 @@ skos:narrower rdfs:subPropertyOf viprs:mereosemiotics_is_hs.  # there is an obje
 
 <https://purl.vimmp.eu/semantics/macro/macro.ttl> a owl:Ontology;
    dcterms:title "MACRO: Marketplace-Accessible Computational Resource Ontology"^^xs:string;
-   owl:versionInfo "version 1.1.5"^^xs:string;
-   dcterms:modified "2020-11-03"^^xs:date;
+   owl:versionInfo "version 1.1.6"^^xs:string;
+   dcterms:modified "2020-11-19"^^xs:date;
    dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
    dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
    dcterms:bibliographicCitation "doi:10.1007/s13218-020-00648-9"^^xs:string;
@@ -2739,7 +2739,8 @@ macro:has_agent a owl:ObjectProperty;
    owl:inverseOf vico:acts_at.
 macro:has_cr_name a owl:DatatypeProperty;
    rdfs:domain macro:computational_resource;
-   rdfs:range xs:string.
+   rdfs:range xs:string;
+   rdfs:comment "specifies a/the name of a computational resource"^^xs:string.
 
 macro:computational_resource owl:unionOf (evmpo:data_infrastructure evmpo:hardware_infrastructure evmpo:software_infrastructure).
 
@@ -2860,6 +2861,48 @@ macro:hpc_service a owl:Class;
    rdfs:subClassOf macro:hardware_service;
    owl:intersectionOf (macro:hardware_service [a owl:Restriction; owl:onProperty macro:provides_access_to; owl:someValuesFrom macro:hpc_infrastructure]).
 
+macro:hpc_scheduler a owl:Class;
+   rdfs:subClassOf macro:hpc_service;
+   rdfs:comment "a scheduling/queueing service on an HPC infrastructure, e.g. following the IEEE 1003.1-2008 standard, providing access to that HPC infrastructure"^^xs:string.
+
+macro:hpc_job_parameters a owl:Class;
+   rdfs:subClassOf osmo:logical_structure, [
+      a owl:Restriction;
+      owl:onProperty macro:has_job_id;
+      owl:cardinality 1
+   ], [
+      a owl:Restriction;
+      owl:onProperty macro:has_job_name;
+      owl:cardinality 1
+   ];
+   rdfs:comment "HPC job parameters, i.e., a logical structure containing a name, a numerical ID, and possible additional elements such as a locator or file name of the submitted batch script"^^xs:string.
+
+macro:has_job_id a owl:ObjectProperty;
+   rdfs:domain macro:hpc_job_parameters;
+   rdfs:range macro:hpc_job_id;
+   rdfs:subPropertyOf osmo:has_structure_element;
+   rdfs:comment "relates an hpc_job_parameters structure to its hpc_job_id element"^^xs:string.
+macro:has_job_name a owl:ObjectProperty;
+   rdfs:domain macro:hpc_job_parameters;
+   rdfs:range macro:hpc_job_name;
+   rdfs:subPropertyOf osmo:has_structure_element;
+   rdfs:comment "relates an hpc_job_parameters structure to its hpc_job_name element"^^xs:string.
+macro:has_job_data_locator a owl:ObjectProperty;
+   rdfs:domain macro:hpc_job_parameters;
+   rdfs:range macro:hpc_job_data_locator;
+   rdfs:subPropertyOf osmo:has_structure_element;
+   rdfs:comment "relates an hpc_job_parameters structure to an HPC job data locator"^^xs:string.
+
+macro:hpc_job_id a owl:Class;
+   rdfs:subClassOf osmo:unique_elementary;
+   rdfs:comment "HPC job ID, i.e., a unique elementary logical variable containing the ID from the scheduler"^^xs:string.
+macro:hpc_job_name a owl:Class;
+   rdfs:subClassOf osmo:unique_elementary;
+   rdfs:comment "HPC job name, i.e., a unique elementary logical variable containing the name of a job submitted to the scheduler"^^xs:string.
+macro:hpc_job_data_locator a owl:Class;
+   rdfs:subClassOf osmo:unique_elementary;
+   rdfs:comment "HPC job data locator, i.e., URL or file name of the batch script and/or other data pertaining to an HPC job"^^xs:string.
+
 macro:software_service a owl:Class;
    rdfs:subClassOf macro:cr_service;
    owl:intersectionOf (macro:cr_service [a owl:Restriction; owl:onProperty macro:provides_access_to; owl:someValuesFrom evmpo:software_infrastructure]).
@@ -2901,6 +2944,7 @@ macro:file_format a owl:Class;
    owl:sameAs edam:format_1915;
    owl:equivalentClass edam:format_1915;  # "Format" in EDAM
    rdfs:comment "file format, i.e., a syntactical standard for files"^^xs:string.
+edam:format_1915 rdfs:subClassOf macro:io_format.
 
 macro:has_file_ending a owl:DatatypeProperty;
    rdfs:domain macro:file_format;
@@ -2913,6 +2957,7 @@ macro:textual_file_format a owl:Class;
    owl:sameAs edam:format_2330;  # "Textual format" in EDAM
    owl:equivalentClass edam:format_2330;  # "Textual format" in EDAM
    rdfs:comment "textual file format, i.e., any file format encoded in ASCII, Unicode, or comparable"^^xs:string.
+edam:format_2330 rdfs:subClassOf macro:file_format.
 
 macro:textual_xml_format a owl:Class;
    rdfs:subClassOf macro:textual_file_format, edam:format_2332;  # "XML" in EDAM
@@ -2926,6 +2971,7 @@ macro:textual_xml_format a owl:Class;
       owl:hasValue "XML"^^xs:string
    ];
    rdfs:comment "textual XML format, i.e., an XML-based textual file format"^^xs:string.
+edam:format_2332 rdfs:subClassOf macro:file_format.
 
 macro:textual_csv_format a owl:Class;
    rdfs:subClassOf macro:textual_file_format;
@@ -2941,18 +2987,21 @@ macro:textual_csv_format a owl:Class;
       owl:hasValue "CSV"^^xs:string
    ];
    rdfs:comment "CSV format, i.e., comma-separated values (table-like)"^^xs:string.
+edam:format_3752 rdfs:subClassOf macro:file_format.
 
 macro:binary_file_format a owl:Class;
    rdfs:subClassOf macro:file_format;
    owl:sameAs edam:format_2333;  # "Binary format" in EDAM
    owl:equivalentClass edam:format_2333;  # "Binary format" in EDAM
    rdfs:comment "binary file format, i.e., any file format not encoded in ASCII, Unicode, or comparable"^^xs:string.
+edam:format_2333 rdfs:subClassOf macro:file_format.
 
 macro:image_format a owl:Class;
    rdfs:subClassOf macro:file_format;
    owl:sameAs edam:format_3547;  # "Image format" in EDAM
    owl:equivalentClass edam:format_3547;  # "Image format" in EDAM
    rdfs:comment "format for representing images/graphics"^^xs:string.
+edam:format_3547 rdfs:subClassOf macro:file_format.
 
 macro:png_format a owl:Class;
    rdfs:subClassOf macro:image_format, macro:binary_file_format;
@@ -2972,6 +3021,7 @@ macro:png_format a owl:Class;
       owl:hasValue "portable network graphics"^^xs:string
    ];
    rdfs:comment "PNG graphics format"^^xs:string.
+edam:format_3602 rdfs:subClassOf macro:image_format, macro:binary_file_format.
 
 macro:PNG_FORMAT_ISO a macro:png_format;
    macro:has_definition_uri "https://www.iso.org/standard/29581.html"^^xs:string.
@@ -3139,6 +3189,26 @@ macro:VOCTA_XML_FORMAT a macro:solver_parameter_format, macro:textual_xml_format
    macro:has_format_name "VOCTA control/settings format"^^xs:string;
    macro:has_granularity osmo:MESOSCOPIC.
 
+####################
+# explicit imports #
+####################
+
+paasport:Network a owl:Class;
+   rdfs:subClassOf evmpo:hardware_infrastructure, [
+      a owl:Restriction;
+      owl:onProperty paasport:hasParameter;
+      owl:allValuesFrom paasport:NetworkParameter
+   ];
+   rdfs:comment "network as a hardware infrastructure and PaaS resource (Network [= Resource [= PaaSCharacteristic)"^^xs:string.
+paasport:NetworkParameter a owl:Class;
+   rdfs:subClassOf osmo:logical_variable;
+   rdfs:comment "network parameter 'of an offering' (here, specifically a Network) according to the PaaSPort ontology; taxonomically, NetworkParameter [= ResourceParameter [= NonFunctionalParameter [= MatchmakingParameter [= PaaSParameter"^^xs:string.
+paasport:hasParameter a owl:ObjectProperty;
+   rdfs:subPropertyOf viprs:is_sign_for;
+   rdfs:comment "relates a PaaSPort 'Characteristic' to a 'PaaSParameter'"^^xs:string.
+paasport:hasParameterDataValue a owl:DatatypeProperty;
+   rdfs:comment "relates a PaaSParameter to an elementary data value"^^xs:string.
+
 ####################################################################
 # software tool individuals - details to be sorted out within VISO #
 ####################################################################
@@ -3167,6 +3237,8 @@ macro:has_format_name rdfs:subPropertyOf viprs:has_name.
 macro:has_format_abbreviation rdfs:subPropertyOf viprs:has_file_metadata_item.
 macro:has_format_version rdfs:subPropertyOf viprs:has_file_metadata_item.
 macro:has_file_ending rdfs:subPropertyOf viprs:has_file_metadata_item.
+
+paasport:hasParameterDataValue rdfs:subPropertyOf viprs:has_content.
 
 ###
 # NOTES ON ALIGNMENT
@@ -4145,9 +4217,9 @@ mmto:has_step_description rdfs:subPropertyOf viprs:has_descriptor.
 
 ### ONTOLOGY FOR SIMULATION, MODELLING, AND OPTIMIZATION (OSMO) ###
 
-### VERSION 1.7.4 ###
+### VERSION 1.7.5 ###
 
-### DATED 4TH NOVEMBER 2020 ###
+### DATED 19TH NOVEMBER 2020 ###
 
 @prefix osmo: <https://purl.vimmp.eu/semantics/osmo/osmo.ttl#>.
 
@@ -4168,8 +4240,8 @@ mmto:has_step_description rdfs:subPropertyOf viprs:has_descriptor.
 
 <https://purl.vimmp.eu/semantics/osmo/osmo.ttl> a owl:Ontology;
    dcterms:title "OSMO: Ontology for Simulation, Modelling, and Optimization"^^xs:string;
-   owl:versionInfo "version 1.7.4"^^xs:string;
-   dcterms:modified "2020-11-04"^^xs:date;
+   owl:versionInfo "version 1.7.5"^^xs:string;
+   dcterms:modified "2020-11-19"^^xs:date;
    dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
    dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
    dcterms:bibliographicCitation "10.1021/acs.jced.9b00739"^^xs:string;
@@ -5804,19 +5876,23 @@ osmo:has_value a owl:ObjectProperty;
 osmo:has_current_value a owl:ObjectProperty;
    rdfs:domain osmo:logical_variable;
    rdfs:range osmo:logical_value;
-   rdfs:subPropertyOf osmo:has_value.
+   rdfs:subPropertyOf osmo:has_value;
+   rdfs:comment "value associated with a logical variable at any concrete state/point in time, either explictly specified or clear from context"^^xs:string.
 osmo:has_default_value a owl:ObjectProperty;
    rdfs:domain osmo:logical_variable;
    rdfs:range osmo:logical_value;
-   rdfs:subPropertyOf osmo:has_value.
+   rdfs:subPropertyOf osmo:has_value;
+   rdfs:comment "value to be associated with a logical variable in the absence of any other overriding assertion"^^xs:string.
 osmo:has_initial_value a owl:ObjectProperty;
    rdfs:domain osmo:logical_variable;
    rdfs:range osmo:logical_value;
-   rdfs:subPropertyOf osmo:has_value.
+   rdfs:subPropertyOf osmo:has_value;
+   rdfs:comment "value associated with a logical variable in an initial state, e.g., at the start of a workflow or subworkflow execution"^^xs:string.
 osmo:has_final_value a owl:ObjectProperty;
    rdfs:domain osmo:logical_variable;
    rdfs:range osmo:logical_value;
-   rdfs:subPropertyOf osmo:has_value.
+   rdfs:subPropertyOf osmo:has_value;
+   rdfs:comment "value associated with a logical variable in a terminal state, e.g., at the end of a workflow or subworkflow execution"^^xs:string.
 
 osmo:has_variable_index a owl:DatatypeProperty;
    rdfs:domain osmo:logical_variable;
@@ -5854,7 +5930,8 @@ osmo:elementary_logical a owl:Class;
 osmo:has_elementary_value a owl:ObjectProperty;
    rdfs:domain osmo:elementary_logical;
    rdfs:range osmo:elementary_value;
-   rdfs:subPropertyOf osmo:has_value.
+   rdfs:subPropertyOf osmo:has_value;
+   rdfs:comment "value associated with an elementary logical variable"^^xs:string.
 osmo:has_current_elementary_value a owl:ObjectProperty;
    rdfs:domain osmo:elementary_logical;
    rdfs:range osmo:elementary_value;
@@ -5870,7 +5947,8 @@ osmo:has_initial_elementary_value a owl:ObjectProperty;
 osmo:has_final_elementary_value a owl:ObjectProperty;
    rdfs:domain osmo:elementary_logical;
    rdfs:range osmo:elementary_value;
-   rdfs:subPropertyOf osmo:has_elementary_value, osmo:has_final_value.
+   rdfs:subPropertyOf osmo:has_elementary_value, osmo:has_final_value;
+   rdfs:comment "value associated with an elementary logical variable in a terminal state, e.g., at the end of a workflow or subworkflow execution"^^xs:string.
 
 osmo:has_variable_unit a owl:ObjectProperty, owl:FunctionalProperty;
    rdfs:domain osmo:elementary_logical;
@@ -9136,9 +9214,9 @@ otras:is_defined_by rdfs:subPropertyOf viprs:has_descriptor.
 
 ### VIMMP COMMUNICATION ONTOLOGY (VICO) ###
 
-### VERSION 1.3.2 ###
+### VERSION 1.3.3 ###
 
-### DATED 4TH NOVEMBER 2020 ###
+### DATED 19TH NOVEMBER 2020 ###
 
 @prefix vico: <https://purl.vimmp.eu/semantics/vico/vico.ttl#>.
 
@@ -9158,8 +9236,8 @@ otras:is_defined_by rdfs:subPropertyOf viprs:has_descriptor.
 
 <https://purl.vimmp.eu/semantics/vico/vico.ttl> a owl:Ontology;
    dcterms:title "VICO: VIMMP Communication Ontology"^^xs:string;
-   owl:versionInfo "version 1.3.2"^^xs:string;
-   dcterms:modified "2020-11-04"^^xs:date;
+   owl:versionInfo "version 1.3.3"^^xs:string;
+   dcterms:modified "2020-11-19"^^xs:date;
    dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
    dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
    dcterms:bibliographicCitation "doi:10.1007/s13218-020-00648-9"^^xs:string;
@@ -9198,7 +9276,8 @@ vico:has_file_content_locator a owl:DatatypeProperty;
 vico:has_file_content_format a owl:ObjectProperty;
    rdfs:domain evmpo:communication;
    rdfs:range macro:file_format;
-   rdfs:subPropertyOf evmpo:has_communication_annotation.
+   rdfs:subPropertyOf evmpo:has_communication_annotation;
+   rdfs:comment "format of the file associated with this communication by the relation has_file_content_locator"^^xs:string.
 vico:has_label a owl:ObjectProperty;
    rdfs:domain evmpo:communication;
    rdfs:range vico:label;
@@ -9214,7 +9293,8 @@ vico:has_submission_date a owl:ObjectProperty, owl:FunctionalProperty;
 vico:has_object_content a owl:ObjectProperty;
    rdfs:domain evmpo:communication;
    rdfs:range evmpo:marketplace_related_entity;
-   rdfs:subPropertyOf viprs:mereosemiotics_hp_is.
+   rdfs:subPropertyOf viprs:mereosemiotics_hp_is;
+   rdfs:comment "points to an object (which can be any resource on the semantic web) that constitutes a/the communicated content"^^xs:string.
 vico:has_text_content a owl:DatatypeProperty;
    rdfs:domain evmpo:communication;
    rdfs:range xs:string.
@@ -9352,12 +9432,14 @@ vico:has_listener a owl:ObjectProperty;
 vico:has_signal a owl:ObjectProperty;
    rdfs:domain vico:message;
    rdfs:range vico:signal_statement;
-   rdfs:subPropertyOf vico:is_followed_by.
+   rdfs:subPropertyOf vico:is_followed_by;
+   rdfs:comment "relates the message to a signal statement such as 'I like'"^^xs:string.
 vico:is_followed_by a owl:ObjectProperty;
    rdfs:domain vico:message;
    rdfs:range vico:message;
    rdfs:subPropertyOf viprs:enables, viprs:has_sign;
-   owl:inverseOf vico:follows.
+   owl:inverseOf vico:follows;
+   rdfs:comment "(C is_followed_by D): C and D are messages, and D addresses or refers to C"^^xs:string.
 
 vico:message rdfs:subClassOf [
       a owl:Restriction;
