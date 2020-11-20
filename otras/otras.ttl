@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
 
-### VERSION 1.1.2 ###
+### VERSION 1.1.3 ###
 
-### DATED 4TH NOVEMBER 2020 ###
+### DATED 20TH NOVEMBER 2020 ###
 
 @prefix otras: <https://purl.vimmp.eu/semantics/otras/otras.ttl#>.
 
@@ -24,8 +24,8 @@
 
 <https://purl.vimmp.eu/semantics/otras/otras.ttl> a owl:Ontology;
    dcterms:title "OTRAS: Ontology for Training Services"^^xs:string;
-   owl:versionInfo "version 1.1.2"^^xs:string;
-   dcterms:modified "2020-11-04"^^xs:date;
+   owl:versionInfo "version 1.1.3"^^xs:string;
+   dcterms:modified "2020-11-20"^^xs:date;
    dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
    dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
    dcterms:bibliographicCitation "doi:10.1007/s13218-020-00648-9"^^xs:string;
@@ -62,7 +62,6 @@ otras:has_abstract a owl:ObjectProperty;
    rdfs:domain evmpo:document;
    rdfs:range otras:abstract;
    rdfs:subPropertyOf viprs:has_proper_part, iao:BFO_0000051.  # BFO "has_part" referenced through the IAO
-iao:BFO_0000051 rdfs:subPropertyOf viprs:mereosemiotics_hp_ip.
 otras:is_cited_as a owl:ObjectProperty;
    rdfs:domain evmpo:document;
    rdfs:range otras:citation;
@@ -322,19 +321,16 @@ otras:aims_to a owl:ObjectProperty;
    # owl:equivalentProperty ccso:aimsToLO;
    # owl:sameAs ccso:aimsToLO;
    rdfs:subPropertyOf evmpo:has_information_content_entity_annotation, ccso:aimsToLO.
-ccso:aimsToLO rdfs:subPropertyOf evmpo:has_information_content_entity_annotation.
 otras:covers_topic a owl:ObjectProperty;
    rdfs:domain otras:syllabus;
    rdfs:range otras:topic;
    # owl:equivalentProperty ccso:coversTopic;
    # owl:sameAs ccso:coversTopic;
    rdfs:subPropertyOf evmpo:has_information_content_entity_annotation, ccso:coversTopic.
-ccso:coversTopic rdfs:subPropertyOf evmpo:has_information_content_entity_annotation.
 otras:has_learning_material_citation a owl:ObjectProperty;
    rdfs:domain otras:syllabus;
    rdfs:range otras:citation;  # the citation is part of the syllabus
    rdfs:subPropertyOf ccso:hasLM, viprs:has_proper_part.
-ccso:hasLM rdfs:subPropertyOf viprs:has_proper_part.
 otras:has_literature_citation a owl:ObjectProperty;
    rdfs:domain otras:syllabus;
    rdfs:range otras:citation;
@@ -372,7 +368,6 @@ otras:has_syllabus a owl:ObjectProperty;
    # owl:equivalentProperty ccso:hasSyllabus;
    # owl:sameAs ccso:hasSyllabus;
    rdfs:subPropertyOf viprs:has_sign, ccso:hasSyllabus.
-ccso:hasSyllabus rdfs:subPropertyOf viprs:has_sign.
 otras:is_offered_by a owl:ObjectProperty;
    rdfs:domain otras:course;
    rdfs:range otras:training_service;
@@ -441,7 +436,7 @@ otras:ccs_concept rdfs:subClassOf [
 
 otras:mm_topic a owl:Class;
    rdfs:comment "materials modelling topic, i.e., a topic related to the subject area of materials modelling, understood broadly"^^xs:string;
-   rdfs:subClassOf otras:topic, owl:NamedIndividual.
+   rdfs:subClassOf otras:topic.
 
 otras:has_topic_code a owl:DatatypeProperty, owl:FunctionalProperty;
    rdfs:domain otras:mm_topic;
@@ -2494,7 +2489,6 @@ otras:has_resource_identifier a owl:DatatypeProperty;
    rdfs:domain otras:citation;
    rdfs:range xs:string.
 
-iao:IAO_0000136 rdfs:subPropertyOf viprs:is_sign_for.  # iao property labelled "is about"
 otras:is_about a owl:ObjectProperty;
    rdfs:domain evmpo:information_content_entity;
    rdfs:range evmpo:marketplace_related_entity;
@@ -2693,7 +2687,57 @@ otras:author_map_element rdfs:subClassOf [
 otras:instructor a owl:Class;
    rdfs:subClassOf evmpo:expert, evmpo:training_provider, ccso:Professor;
    rdfs:comment "instructor, i.e., an individual human agent with expertise who can take responsibility for courses, training units, or training services"^^xs:string.
-ccso:Professor rdfs:subClassOf evmpo:agent.
+
+###
+# EXPLICIT IMPORTS
+###
+
+ccso:Course a owl:Class;
+   rdfs:subClassOf evmpo:process.
+ccso:Event a owl:Class;
+   rdfs:subClassOf evmpo:calendar_event, otras:carrier.
+ccso:LearningOutcome a owl:Class;
+   rdfs:subClassOf otras:focus.
+ccso:Professor a owl:Class;
+   rdfs:subClassOf evmpo:agent.
+ccso:Syllabus a owl:Class;
+   rdfs:subClassOf evmpo:document.
+ccso:Topic a owl:Class;
+   rdfs:subClassOf otras:focus, viprs:conceptualization.
+
+ccso:aimsToLO a owl:ObjectProperty;
+   rdfs:subPropertyOf evmpo:has_information_content_entity_annotation.
+ccso:coversTopic a owl:ObjectProperty;
+   rdfs:subPropertyOf evmpo:has_information_content_entity_annotation.
+ccso:hasLM a owl:ObjectProperty;
+   rdfs:subPropertyOf viprs:has_proper_part.
+ccso:hasSyllabus a owl:ObjectProperty;
+   rdfs:subPropertyOf viprs:has_sign.
+
+iao:IAO_0000027 a owl:Class;  # iao label "data item"
+   rdfs:subClassOf iao:IAO_0000030.
+iao:IAO_0000030 a owl:Class;  # iao label "information content entity"
+   rdfs:subClassOf evmpo:paradigmatic_entity.
+iao:IAO_0000301 a owl:Class;  # iao label "citation"
+   rdfs:subClassOf iao:IAO_0000030.
+iao:IAO_0000310 a owl:Class;  # iao label "document"
+   rdfs:subClassOf iao:IAO_0000030.
+iao:IAO_0000311 a owl:Class;  # iao label "publication"
+   rdfs:subClassOf iao:IAO_0000310.
+iao:IAO_0000312 a owl:Class;  # iao label "scientific publication" or equivalently "publication about an investigation"
+   rdfs:subClassOf iao:IAO_0000311.
+iao:IAO_0000315 a owl:Class;  # iao label "abstract"
+   rdfs:subClassOf iao:IAO_0000030.
+
+iao:BFO_0000051 a owl:ObjectProperty;   # BFO "has_part" referenced through the IAO
+   rdfs:subPropertyOf viprs:mereosemiotics_hp_ip.  #  has_part is a subproperty of overlap
+viprs:has_proper_part rdfs:subPropertyOf iao:BFO_0000051.
+iao:IAO_0000136 a owl:ObjectProperty; # iao property labelled "is about"
+   rdfs:subPropertyOf viprs:is_sign_for.
+
+ical:Vevent a owl:Class;
+   rdfs:subClassOf evmpo:paradigmatic_entity;
+   owl:sameAs evmpo:calendar_event.
 
 ###
 # DATATYPE PROPERTIES

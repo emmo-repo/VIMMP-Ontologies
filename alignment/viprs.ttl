@@ -1,9 +1,9 @@
 
 ### VIMMP PRIMITIVES (VIPRS) ###
 
-### VERSION 1.1.0 ###
+### VERSION 1.1.1 ###
 
-### DATED 28TH SEPTEMBER 2020 ###
+### DATED 20TH NOVEMBER 2020 ###
 
 # 1. Modal square of opposition
 #
@@ -42,8 +42,8 @@
 
 <https://purl.vimmp.eu/semantics/alignment/viprs.ttl> a owl:Ontology;
    dcterms:title "VIPRS: VIMMP Primitives"^^xs:string;
-   owl:versionInfo "version 1.1.0"^^xs:string;
-   dcterms:modified "2020-09-28"^^xs:date;
+   owl:versionInfo "version 1.1.1"^^xs:string;
+   dcterms:modified "2020-11-20"^^xs:date;
    dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
    dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
    dcterms:creator "Martin Thomas Horsch (ORCID 0000-0002-9464-6739)"^^xs:string;
@@ -53,7 +53,7 @@
    dcterms:contributor "Welchy Leite Cavalcanti"^^xs:string.
 
 viprs:top_entity a owl:Class;
-   rdfs:subClassOf owl:Thing;
+   rdfs:subClassOf owl:NamedIndividual;
    owl:disjointUnionOf (viprs:immanent_entity viprs:transcendent_entity).
 viprs:immanent_entity a owl:Class;
    rdfs:subClassOf viprs:top_entity;
@@ -355,12 +355,12 @@ viprs:is_proper_part_of a owl:ObjectProperty;
    rdfs:domain viprs:immanent_entity;
    rdfs:range viprs:immanent_entity;
    owl:inverseOf viprs:has_proper_part;
-   rdfs:subPropertyOf viprs:mereosemiotic_relation.
+   rdfs:subPropertyOf viprs:mereosemiotics_hp_ip.  # proper parthood is a subrelation of overlap
 viprs:has_proper_part a owl:ObjectProperty;
    rdfs:domain viprs:immanent_entity;
    rdfs:range viprs:immanent_entity;
    owl:inverseOf viprs:is_proper_part_of;
-   rdfs:subPropertyOf viprs:mereosemiotic_relation.
+   rdfs:subPropertyOf viprs:mereosemiotics_hp_ip.  # proper parthood is a subrelation of overlap
 
 ######################
 # 2C. REPRESENTATION #
@@ -826,7 +826,9 @@ viprs:has_file_metadata_item a owl:DatatypeProperty;
 # Beside, :X conceptualizes all narrower conceptualizations.
 
 viprs:conceptualization a owl:Class;
-   rdfs:subClassOf viprs:immanent_entity, skos:Concept;
+   rdfs:subClassOf viprs:immanent_entity;
+   owl:equivalentClass skos:Concept;
+   owl:sameAs skos:Concept;
    rdfs:comment "If an individual is a conceptualization, i.e., 'represents a concept as such,' where :x would be the concept, state :X a viprs:conceptualization. :x rdfs:subClassOf [owl:restriction; owl:onProperty viprs:is_conceptualized_by; owl:hasValue :X]. For all individuals :Y of :x, then :X viprs:conceptualizes :Y. Beside, :X conceptualizes all the narrower conceptualizations."^^xs:string.
 
 viprs:conceptualizes a owl:ObjectProperty, owl:ReflexiveProperty;
@@ -855,3 +857,13 @@ viprs:is_narrower_than a owl:ObjectProperty, owl:TransitiveProperty;
    rdfs:comment "(A is narrower than B): A represents a concept that is a subclass of the concept represented by B"^^xs:string.
 skos:broader rdfs:subPropertyOf viprs:mereosemiotics_is_hs.  # there is an object for which both topics are signs
 skos:narrower rdfs:subPropertyOf viprs:mereosemiotics_is_hs.  # there is an object for which both topics are signs
+
+###
+# EXPLICIT IMPORTS
+###
+
+owl:NamedIndividual a owl:Class;
+   rdfs:subClassOf owl:Thing;
+   owl:equivalentClass owl:Thing.
+skos:Concept a owl:Class;
+   rdfs:subClassOf viprs:immanent_entity.

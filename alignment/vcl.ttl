@@ -1,9 +1,9 @@
 
 ### VIMMP CODELISTS (VCL) FOR ZONTAL ###
 
-### VERSION 0.3.4 ###
+### VERSION 0.3.5 ###
 
-### DATED 4TH NOVEMBER 2020 ###
+### DATED 20TH NOVEMBER 2020 ###
 
 @prefix vcl: <https://purl.vimmp.eu/semantics/alignment/vcl.ttl#>.
 
@@ -23,8 +23,8 @@
 
 <https://purl.vimmp.eu/semantics/alignment/vcl.ttl> a owl:Ontology;
    dcterms:title "VCL: VIMMP Codelists"^^xs:string;
-   owl:versionInfo "version 0.3.4"^^xs:string;
-   dcterms:modified "2020-11-04"^^xs:date;
+   owl:versionInfo "version 0.3.5"^^xs:string;
+   dcterms:modified "2020-11-20"^^xs:date;
    dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
    dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
    dcterms:creator "Martin Thomas Horsch (ORCID 0000-0002-9464-6739)"^^xs:string;
@@ -42,7 +42,7 @@ vcl:codelist_mm_topic a owl:Class;
       owl:hasValue vcl:CL_SCHEME_MM_TOPIC
    ];
    rdfs:comment "materials modelling topic"^^xs:string.
-vcl:CL_SCHEME_MM_TOPIC a owl:NamedIndividual, skos:ConceptScheme;
+vcl:CL_SCHEME_MM_TOPIC a skos:ConceptScheme;
    skos:prefLabel "mm_topic"^^xs:string;
    skos:definition "materials modelling topic"^^xs:string.
 
@@ -54,7 +54,7 @@ vcl:codelist_interlocutor_group a owl:Class;
       owl:hasValue vcl:CL_SCHEME_INTERLOCUTOR_GROUP
    ];
    rdfs:comment "interlocutor group"^^xs:string.
-vcl:CL_SCHEME_INTERLOCUTOR_GROUP a owl:NamedIndividual, skos:ConceptScheme;
+vcl:CL_SCHEME_INTERLOCUTOR_GROUP a skos:ConceptScheme;
    skos:prefLabel "interlocutor_group"^^xs:string;
    skos:definition "interlocutor group"^^xs:string.
 
@@ -67,7 +67,7 @@ vcl:codelist_programming_language a owl:Class;
       ];
       rdfs:comment "programming language"^^xs:string.
 
-vcl:CL_SCHEME_PROGRAMMING_LANGUAGE a owl:NamedIndividual, skos:ConceptScheme;
+vcl:CL_SCHEME_PROGRAMMING_LANGUAGE a skos:ConceptScheme;
    skos:prefLabel "programming_language"^^xs:string;
    skos:definition "programming language"^^xs:string.
 
@@ -80,7 +80,7 @@ vcl:codelist_license a owl:Class;
       ];
       rdfs:comment "license"^^xs:string.
 
-vcl:CL_SCHEME_LICENSE a owl:NamedIndividual, skos:ConceptScheme;
+vcl:CL_SCHEME_LICENSE a skos:ConceptScheme;
    skos:prefLabel "license"^^xs:string;
    skos:definition "license"^^xs:string.
 
@@ -93,9 +93,22 @@ vcl:codelist_pe_type a owl:Class;
       ];
       rdfs:comment "Physical Equation (PE) type"^^xs:string.
 
-vcl:CL_SCHEME_PE_TYPE a owl:NamedIndividual, skos:ConceptScheme;
+vcl:CL_SCHEME_PE_TYPE a skos:ConceptScheme;
    skos:prefLabel "Physical Equation (PE) type"^^xs:string;
    skos:definition "Physical Equation (PE) type"^^xs:string.
+
+###
+# EXPLICIT IMPORTS
+###
+
+skos:ConceptScheme a owl:Class;
+   rdfs:subClassOf evmpo:annotation.
+
+skos:inScheme a owl:ObjectProperty;
+   rdfs:subPropertyOf viprs:has_sign, evmpo:has_annotation.
+
+viso:license a owl:Class;
+   rdfs:subClassOf evmpo:legal_document.
 
 ###
 # DATATYPE PROPERTIES
@@ -105,5 +118,3 @@ skos:definition a owl:DatatypeProperty;
    rdfs:subPropertyOf viprs:has_descriptor.
 skos:prefLabel a owl:DatatypeProperty;
    rdfs:subPropertyOf viprs:has_label.
-skos:inScheme a owl:ObjectProperty;
-   rdfs:subPropertyOf viprs:is_proper_part_of.

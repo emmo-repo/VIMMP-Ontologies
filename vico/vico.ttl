@@ -1,9 +1,9 @@
 
 ### VIMMP COMMUNICATION ONTOLOGY (VICO) ###
 
-### VERSION 1.3.3 ###
+### VERSION 1.3.4 ###
 
-### DATED 19TH NOVEMBER 2020 ###
+### DATED 20TH NOVEMBER 2020 ###
 
 @prefix vico: <https://purl.vimmp.eu/semantics/vico/vico.ttl#>.
 
@@ -23,8 +23,8 @@
 
 <https://purl.vimmp.eu/semantics/vico/vico.ttl> a owl:Ontology;
    dcterms:title "VICO: VIMMP Communication Ontology"^^xs:string;
-   owl:versionInfo "version 1.3.3"^^xs:string;
-   dcterms:modified "2020-11-19"^^xs:date;
+   owl:versionInfo "version 1.3.4"^^xs:string;
+   dcterms:modified "2020-11-20"^^xs:date;
    dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
    dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
    dcterms:bibliographicCitation "doi:10.1007/s13218-020-00648-9"^^xs:string;
@@ -52,10 +52,14 @@ vico:has_author a owl:ObjectProperty, owl:FunctionalProperty;
    rdfs:subPropertyOf viprs:is_enabled_by;
    owl:inverseOf vico:is_author_of;
    rdfs:comments "points to the agent that has issued the given communication"^^xs:string.
-vico:has_expiry_date a owl:ObjectProperty, owl:FunctionalProperty;
+vico:has_communication_date a owl:DatatypeProperty;
    rdfs:domain evmpo:communication;
-   rdfs:range dcterms:W3C-DTF;
-   rdfs:subPropertyOf viprs:has_symbolic_part_of_sign.
+   rdfs:range xs:dateTime;
+   rdfs:comment "any date (submission, expiry, etc.) associated with a communication"^^xs:string.
+vico:has_expiry_date a owl:DatatypeProperty;
+   rdfs:domain evmpo:communication;
+   rdfs:range xs:dateTime;
+   rdfs:subPropertyOf vico:has_communication_date.
 vico:has_file_content_locator a owl:DatatypeProperty;
    rdfs:domain evmpo:communication;
    rdfs:range xs:string;
@@ -73,10 +77,10 @@ vico:has_status a owl:ObjectProperty;
    rdfs:domain evmpo:communication;
    rdfs:range vico:status;
    rdfs:subPropertyOf vico:has_label.
-vico:has_submission_date a owl:ObjectProperty, owl:FunctionalProperty;
+vico:has_submission_date a owl:DatatypeProperty;
    rdfs:domain evmpo:communication;
-   rdfs:range dcterms:W3C-DTF;
-   rdfs:subPropertyOf viprs:has_symbolic_part_of_sign.
+   rdfs:range xs:dateTime;
+   rdfs:subPropertyOf vico:has_communication_date.
 vico:has_object_content a owl:ObjectProperty;
    rdfs:domain evmpo:communication;
    rdfs:range evmpo:marketplace_related_entity;
@@ -152,10 +156,10 @@ vico:status a owl:Class;
    rdfs:subClassOf vico:label;
    rdfs:comment "status, i.e., a label that expresses information on the submission, reading, or exchange process of a communication"^^xs:string.
 
-vico:has_status_timestamp a owl:ObjectProperty, owl:FunctionalProperty;
+vico:has_status_timestamp a owl:DatatypeProperty;
    rdfs:domain vico:status;
-   rdfs:range dcterms:W3C-DTF;
-   rdfs:subPropertyOf viprs:has_symbolic_part_of_sign.
+   rdfs:range xs:dateTime;
+   rdfs:subPropertyOf vico:has_communication_date.
 
 vico:processed_status a owl:Class;
    rdfs:subClassOf vico:status;
@@ -891,6 +895,12 @@ vico:TITLE_PROFESSOR_GENERIC_SHORT a vico:postdoctoral_title;
 _:C_PERSONAL_TITLE a owl:AllDifferent;
    owl:members (vico:TITLE_FEMALE_GENERIC vico:TITLE_MALE_GENERIC vico:TITLE_DOCTOR_GENERIC vico:TITLE_PROFESSOR_GENERIC_LONG vico:TITLE_PROFESSOR_GENERIC_SHORT).
 
+###
+# EXPLICIT IMPORTS
+###
+
+lcc-cr:Country a owl:Class;
+   rdfs:subClassOf evmpo:annotation.
 
 ###
 # DATATYPE PROPERTIES
@@ -909,6 +919,7 @@ vico:has_file_content_locator rdfs:subPropertyOf viprs:has_standardized_referenc
 vico:has_agent_name rdfs:subPropertyOf viprs:has_name.
 vico:has_first_name rdfs:subPropertyOf viprs:has_name.
 vico:has_last_name rdfs:subPropertyOf viprs:has_name.
+vico:has_communication_date rdfs:subPropertyOf viprs:has_specifier.
 vico:is_po_box rdfs:subPropertyOf viprs:has_flag.
 vico:is_at_uri rdfs:subPropertyOf viprs:has_flag.
 vico:is_academic rdfs:subPropertyOf viprs:has_flag.

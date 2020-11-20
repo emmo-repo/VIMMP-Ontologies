@@ -13,9 +13,9 @@
 
 ### EMMO 1.0 SIMPLIFIED (EMMO1S) ###
 
-### VERSION 1.1.0 ###
+### VERSION 1.1.1 ###
 
-### DATED 15TH NOVEMBER 2020 ###
+### DATED 20TH NOVEMBER 2020 ###
 
 @prefix emmo1s: <https://purl.vimmp.eu/semantics/alignment/emmo1s.ttl#>.
 
@@ -39,8 +39,8 @@
 
 <https://purl.vimmp.eu/semantics/alignment/emmo1s.ttl> a owl:Ontology;
    dcterms:title "EMMO1s: European Materials Modelling Ontology (EMMO) version 1 simplified"^^xs:string;
-   owl:versionInfo "version 1.0.4"^^xs:string;
-   dcterms:modified "2020-06-27"^^xs:date;
+   owl:versionInfo "version 1.1.1"^^xs:string;
+   dcterms:modified "2020-11-20"^^xs:date;
    dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
    dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
    dcterms:creator "Martin Thomas Horsch (ORCID 0000-0002-9464-6739)"^^xs:string;
@@ -804,8 +804,10 @@ emmo1s:hasProperty a owl:ObjectProperty;
 #########################
 
 evi:meta_emmo a owl:Class;
+   rdfs:subClassOf owl:NamedIndividual;
    owl:disjointUnionOf (emmo1s:EMMO evi:non_emmo);
    rdfs:comment "this class contains EMMO entities as well as non-spacetime entities that are not covered by the EMMO"^^xs:string.
+emmo1s:EMMO rdfs:subClassOf evi:meta_emmo.
 evi:non_emmo a owl:Class;
    rdfs:subClassOf evi:meta_emmo;
    rdfs:comment "any non-spacetime entities (hence, not covered by the EMMO) are to be subsumed under this class"^^xs:string.
@@ -1719,9 +1721,9 @@ evmpo:has_meta_annotation a owl:ObjectProperty;
 
 ### VIMMP CODELISTS (VCL) FOR ZONTAL ###
 
-### VERSION 0.3.4 ###
+### VERSION 0.3.5 ###
 
-### DATED 4TH NOVEMBER 2020 ###
+### DATED 20TH NOVEMBER 2020 ###
 
 @prefix vcl: <https://purl.vimmp.eu/semantics/alignment/vcl.ttl#>.
 
@@ -1741,8 +1743,8 @@ evmpo:has_meta_annotation a owl:ObjectProperty;
 
 <https://purl.vimmp.eu/semantics/alignment/vcl.ttl> a owl:Ontology;
    dcterms:title "VCL: VIMMP Codelists"^^xs:string;
-   owl:versionInfo "version 0.3.4"^^xs:string;
-   dcterms:modified "2020-11-04"^^xs:date;
+   owl:versionInfo "version 0.3.5"^^xs:string;
+   dcterms:modified "2020-11-20"^^xs:date;
    dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
    dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
    dcterms:creator "Martin Thomas Horsch (ORCID 0000-0002-9464-6739)"^^xs:string;
@@ -1760,7 +1762,7 @@ vcl:codelist_mm_topic a owl:Class;
       owl:hasValue vcl:CL_SCHEME_MM_TOPIC
    ];
    rdfs:comment "materials modelling topic"^^xs:string.
-vcl:CL_SCHEME_MM_TOPIC a owl:NamedIndividual, skos:ConceptScheme;
+vcl:CL_SCHEME_MM_TOPIC a skos:ConceptScheme;
    skos:prefLabel "mm_topic"^^xs:string;
    skos:definition "materials modelling topic"^^xs:string.
 
@@ -1772,7 +1774,7 @@ vcl:codelist_interlocutor_group a owl:Class;
       owl:hasValue vcl:CL_SCHEME_INTERLOCUTOR_GROUP
    ];
    rdfs:comment "interlocutor group"^^xs:string.
-vcl:CL_SCHEME_INTERLOCUTOR_GROUP a owl:NamedIndividual, skos:ConceptScheme;
+vcl:CL_SCHEME_INTERLOCUTOR_GROUP a skos:ConceptScheme;
    skos:prefLabel "interlocutor_group"^^xs:string;
    skos:definition "interlocutor group"^^xs:string.
 
@@ -1785,7 +1787,7 @@ vcl:codelist_programming_language a owl:Class;
       ];
       rdfs:comment "programming language"^^xs:string.
 
-vcl:CL_SCHEME_PROGRAMMING_LANGUAGE a owl:NamedIndividual, skos:ConceptScheme;
+vcl:CL_SCHEME_PROGRAMMING_LANGUAGE a skos:ConceptScheme;
    skos:prefLabel "programming_language"^^xs:string;
    skos:definition "programming language"^^xs:string.
 
@@ -1798,7 +1800,7 @@ vcl:codelist_license a owl:Class;
       ];
       rdfs:comment "license"^^xs:string.
 
-vcl:CL_SCHEME_LICENSE a owl:NamedIndividual, skos:ConceptScheme;
+vcl:CL_SCHEME_LICENSE a skos:ConceptScheme;
    skos:prefLabel "license"^^xs:string;
    skos:definition "license"^^xs:string.
 
@@ -1811,9 +1813,22 @@ vcl:codelist_pe_type a owl:Class;
       ];
       rdfs:comment "Physical Equation (PE) type"^^xs:string.
 
-vcl:CL_SCHEME_PE_TYPE a owl:NamedIndividual, skos:ConceptScheme;
+vcl:CL_SCHEME_PE_TYPE a skos:ConceptScheme;
    skos:prefLabel "Physical Equation (PE) type"^^xs:string;
    skos:definition "Physical Equation (PE) type"^^xs:string.
+
+###
+# EXPLICIT IMPORTS
+###
+
+skos:ConceptScheme a owl:Class;
+   rdfs:subClassOf evmpo:annotation.
+
+skos:inScheme a owl:ObjectProperty;
+   rdfs:subPropertyOf viprs:has_sign, evmpo:has_annotation.
+
+viso:license a owl:Class;
+   rdfs:subClassOf evmpo:legal_document.
 
 ###
 # DATATYPE PROPERTIES
@@ -1823,14 +1838,12 @@ skos:definition a owl:DatatypeProperty;
    rdfs:subPropertyOf viprs:has_descriptor.
 skos:prefLabel a owl:DatatypeProperty;
    rdfs:subPropertyOf viprs:has_label.
-skos:inScheme a owl:ObjectProperty;
-   rdfs:subPropertyOf viprs:is_proper_part_of.
 
 ### VIMMP PRIMITIVES (VIPRS) ###
 
-### VERSION 1.1.0 ###
+### VERSION 1.1.1 ###
 
-### DATED 28TH SEPTEMBER 2020 ###
+### DATED 20TH NOVEMBER 2020 ###
 
 # 1. Modal square of opposition
 #
@@ -1869,8 +1882,8 @@ skos:inScheme a owl:ObjectProperty;
 
 <https://purl.vimmp.eu/semantics/alignment/viprs.ttl> a owl:Ontology;
    dcterms:title "VIPRS: VIMMP Primitives"^^xs:string;
-   owl:versionInfo "version 1.1.0"^^xs:string;
-   dcterms:modified "2020-09-28"^^xs:date;
+   owl:versionInfo "version 1.1.1"^^xs:string;
+   dcterms:modified "2020-11-20"^^xs:date;
    dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
    dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
    dcterms:creator "Martin Thomas Horsch (ORCID 0000-0002-9464-6739)"^^xs:string;
@@ -1880,7 +1893,7 @@ skos:inScheme a owl:ObjectProperty;
    dcterms:contributor "Welchy Leite Cavalcanti"^^xs:string.
 
 viprs:top_entity a owl:Class;
-   rdfs:subClassOf owl:Thing;
+   rdfs:subClassOf owl:NamedIndividual;
    owl:disjointUnionOf (viprs:immanent_entity viprs:transcendent_entity).
 viprs:immanent_entity a owl:Class;
    rdfs:subClassOf viprs:top_entity;
@@ -2182,12 +2195,12 @@ viprs:is_proper_part_of a owl:ObjectProperty;
    rdfs:domain viprs:immanent_entity;
    rdfs:range viprs:immanent_entity;
    owl:inverseOf viprs:has_proper_part;
-   rdfs:subPropertyOf viprs:mereosemiotic_relation.
+   rdfs:subPropertyOf viprs:mereosemiotics_hp_ip.  # proper parthood is a subrelation of overlap
 viprs:has_proper_part a owl:ObjectProperty;
    rdfs:domain viprs:immanent_entity;
    rdfs:range viprs:immanent_entity;
    owl:inverseOf viprs:is_proper_part_of;
-   rdfs:subPropertyOf viprs:mereosemiotic_relation.
+   rdfs:subPropertyOf viprs:mereosemiotics_hp_ip.  # proper parthood is a subrelation of overlap
 
 ######################
 # 2C. REPRESENTATION #
@@ -2653,7 +2666,9 @@ viprs:has_file_metadata_item a owl:DatatypeProperty;
 # Beside, :X conceptualizes all narrower conceptualizations.
 
 viprs:conceptualization a owl:Class;
-   rdfs:subClassOf viprs:immanent_entity, skos:Concept;
+   rdfs:subClassOf viprs:immanent_entity;
+   owl:equivalentClass skos:Concept;
+   owl:sameAs skos:Concept;
    rdfs:comment "If an individual is a conceptualization, i.e., 'represents a concept as such,' where :x would be the concept, state :X a viprs:conceptualization. :x rdfs:subClassOf [owl:restriction; owl:onProperty viprs:is_conceptualized_by; owl:hasValue :X]. For all individuals :Y of :x, then :X viprs:conceptualizes :Y. Beside, :X conceptualizes all the narrower conceptualizations."^^xs:string.
 
 viprs:conceptualizes a owl:ObjectProperty, owl:ReflexiveProperty;
@@ -2683,11 +2698,21 @@ viprs:is_narrower_than a owl:ObjectProperty, owl:TransitiveProperty;
 skos:broader rdfs:subPropertyOf viprs:mereosemiotics_is_hs.  # there is an object for which both topics are signs
 skos:narrower rdfs:subPropertyOf viprs:mereosemiotics_is_hs.  # there is an object for which both topics are signs
 
+###
+# EXPLICIT IMPORTS
+###
+
+owl:NamedIndividual a owl:Class;
+   rdfs:subClassOf owl:Thing;
+   owl:equivalentClass owl:Thing.
+skos:Concept a owl:Class;
+   rdfs:subClassOf viprs:immanent_entity.
+
 ### MARKETPLACE-ACCESSIBLE COMPUTATIONAL RESOURCE ONTOLOGY (MACRO) ###
 
-### VERSION 1.1.6 ###
+### VERSION 1.1.7 ###
 
-### DATED 19TH NOVEMBER ###
+### DATED 20TH NOVEMBER 2020 ###
 
 @prefix macro: <https://purl.vimmp.eu/semantics/macro/macro.ttl#>.
 
@@ -2706,8 +2731,8 @@ skos:narrower rdfs:subPropertyOf viprs:mereosemiotics_is_hs.  # there is an obje
 
 <https://purl.vimmp.eu/semantics/macro/macro.ttl> a owl:Ontology;
    dcterms:title "MACRO: Marketplace-Accessible Computational Resource Ontology"^^xs:string;
-   owl:versionInfo "version 1.1.6"^^xs:string;
-   dcterms:modified "2020-11-19"^^xs:date;
+   owl:versionInfo "version 1.1.7"^^xs:string;
+   dcterms:modified "2020-11-20"^^xs:date;
    dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
    dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
    dcterms:bibliographicCitation "doi:10.1007/s13218-020-00648-9"^^xs:string;
@@ -2725,8 +2750,6 @@ skos:narrower rdfs:subPropertyOf viprs:mereosemiotics_is_hs.  # there is an obje
    dcterms:contributor "Pascale Noyret"^^xs:string;
    dcterms:contributor "Vincent Stobiac"^^xs:string;
    dcterms:contributor "Daniele Toti (ORCID 0000-0002-9668-6961)"^^xs:string.
-
-evmpo:infrastructure rdfs:subClassOf paasport:Resource.
 
 macro:computational_resource a owl:Class;
    rdfs:subClassOf evmpo:infrastructure;
@@ -2835,7 +2858,7 @@ _:C_digital_marketplace a owl:AllDifferent;
    owl:members (macro:VIMMP_MARKETPLACE macro:MARKETPLACE_MARKETPLACE macro:MARKET40_MARKETPLACE).
 
 macro:infrastructure_service a owl:Class;
-   rdfs:subClassOf evmpo:service, paasport:Service;
+   rdfs:subClassOf paasport:Service;
    rdfs:comment "infrastructure service, i.e., a service providing access to (or use of) an infrastructure"^^xs:string.
 
 macro:provides_access_to a owl:ObjectProperty;
@@ -3194,7 +3217,7 @@ macro:VOCTA_XML_FORMAT a macro:solver_parameter_format, macro:textual_xml_format
 ####################
 
 paasport:Network a owl:Class;
-   rdfs:subClassOf evmpo:hardware_infrastructure, [
+   rdfs:subClassOf evmpo:hardware_infrastructure, paasport:Resource, [
       a owl:Restriction;
       owl:onProperty paasport:hasParameter;
       owl:allValuesFrom paasport:NetworkParameter
@@ -3203,6 +3226,12 @@ paasport:Network a owl:Class;
 paasport:NetworkParameter a owl:Class;
    rdfs:subClassOf osmo:logical_variable;
    rdfs:comment "network parameter 'of an offering' (here, specifically a Network) according to the PaaSPort ontology; taxonomically, NetworkParameter [= ResourceParameter [= NonFunctionalParameter [= MatchmakingParameter [= PaaSParameter"^^xs:string.
+paasport:Resource a owl:Class;
+   rdfs:subClassOf evmpo:marketplace_related_entity.
+evmpo:infrastructure rdfs:subClassOf paasport:Resource.
+paasport:Service a owl:Class;
+   rdfs:subClassOf evmpo:service.
+
 paasport:hasParameter a owl:ObjectProperty;
    rdfs:subPropertyOf viprs:is_sign_for;
    rdfs:comment "relates a PaaSPort 'Characteristic' to a 'PaaSParameter'"^^xs:string.
@@ -3289,9 +3318,9 @@ paasport:hasParameterDataValue rdfs:subPropertyOf viprs:has_content.
 
 ### MATERIALS MODELLING TRANSLATION ONTOLOGY (MMTO) ###
 
-### VERSION 1.3.5 ###
+### VERSION 1.3.6 ###
 
-### DATED 3RD NOVEMBER 2020 ###
+### DATED 20TH NOVEMBER 2020 ###
 
 @prefix mmto: <https://purl.vimmp.eu/semantics/mmto/mmto.ttl#>.
 
@@ -3309,8 +3338,8 @@ paasport:hasParameterDataValue rdfs:subPropertyOf viprs:has_content.
 
 <https://purl.vimmp.eu/semantics/mmto/mmto.ttl> a owl:Ontology;
    dcterms:title "MMTO: Materials Modelling Translation Ontology"^^xs:string;
-   owl:versionInfo "version 1.3.5"^^xs:string;
-   dcterms:modified "2020-11-03"^^xs:date;
+   owl:versionInfo "version 1.3.6"^^xs:string;
+   dcterms:modified "2020-11-20"^^xs:date;
    dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
    dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
    dcterms:bibliographicCitation "doi:10.5281/zenodo.3902881 and doi:10.1007/s13218-020-00648-9"^^xs:string;
@@ -4151,6 +4180,13 @@ mmto:has_represented_kpi a owl:ObjectProperty;
    rdfs:domain mmto:key_performance_indicator;
    rdfs:subPropertyOf viprs:is_model_for;
    rdfs:comment "points to a KPI that is represented (modelled) by the present KPI model"^^xs:string.
+
+###
+# EXPLICIT IMPORTS
+###
+
+cao:Currency a owl:Class;
+   rdfs:subClassOf vivo:unit.
 
 ###
 # DATATYPE PROPERTIES
@@ -6465,9 +6501,9 @@ osmo:has_workflow_diagram_url rdfs:subPropertyOf viprs:has_file_metadata_item.
 
 ### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
 
-### VERSION 1.1.2 ###
+### VERSION 1.1.3 ###
 
-### DATED 4TH NOVEMBER 2020 ###
+### DATED 20TH NOVEMBER 2020 ###
 
 @prefix otras: <https://purl.vimmp.eu/semantics/otras/otras.ttl#>.
 
@@ -6488,8 +6524,8 @@ osmo:has_workflow_diagram_url rdfs:subPropertyOf viprs:has_file_metadata_item.
 
 <https://purl.vimmp.eu/semantics/otras/otras.ttl> a owl:Ontology;
    dcterms:title "OTRAS: Ontology for Training Services"^^xs:string;
-   owl:versionInfo "version 1.1.2"^^xs:string;
-   dcterms:modified "2020-11-04"^^xs:date;
+   owl:versionInfo "version 1.1.3"^^xs:string;
+   dcterms:modified "2020-11-20"^^xs:date;
    dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
    dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
    dcterms:bibliographicCitation "doi:10.1007/s13218-020-00648-9"^^xs:string;
@@ -6526,7 +6562,6 @@ otras:has_abstract a owl:ObjectProperty;
    rdfs:domain evmpo:document;
    rdfs:range otras:abstract;
    rdfs:subPropertyOf viprs:has_proper_part, iao:BFO_0000051.  # BFO "has_part" referenced through the IAO
-iao:BFO_0000051 rdfs:subPropertyOf viprs:mereosemiotics_hp_ip.
 otras:is_cited_as a owl:ObjectProperty;
    rdfs:domain evmpo:document;
    rdfs:range otras:citation;
@@ -6786,19 +6821,16 @@ otras:aims_to a owl:ObjectProperty;
    # owl:equivalentProperty ccso:aimsToLO;
    # owl:sameAs ccso:aimsToLO;
    rdfs:subPropertyOf evmpo:has_information_content_entity_annotation, ccso:aimsToLO.
-ccso:aimsToLO rdfs:subPropertyOf evmpo:has_information_content_entity_annotation.
 otras:covers_topic a owl:ObjectProperty;
    rdfs:domain otras:syllabus;
    rdfs:range otras:topic;
    # owl:equivalentProperty ccso:coversTopic;
    # owl:sameAs ccso:coversTopic;
    rdfs:subPropertyOf evmpo:has_information_content_entity_annotation, ccso:coversTopic.
-ccso:coversTopic rdfs:subPropertyOf evmpo:has_information_content_entity_annotation.
 otras:has_learning_material_citation a owl:ObjectProperty;
    rdfs:domain otras:syllabus;
    rdfs:range otras:citation;  # the citation is part of the syllabus
    rdfs:subPropertyOf ccso:hasLM, viprs:has_proper_part.
-ccso:hasLM rdfs:subPropertyOf viprs:has_proper_part.
 otras:has_literature_citation a owl:ObjectProperty;
    rdfs:domain otras:syllabus;
    rdfs:range otras:citation;
@@ -6836,7 +6868,6 @@ otras:has_syllabus a owl:ObjectProperty;
    # owl:equivalentProperty ccso:hasSyllabus;
    # owl:sameAs ccso:hasSyllabus;
    rdfs:subPropertyOf viprs:has_sign, ccso:hasSyllabus.
-ccso:hasSyllabus rdfs:subPropertyOf viprs:has_sign.
 otras:is_offered_by a owl:ObjectProperty;
    rdfs:domain otras:course;
    rdfs:range otras:training_service;
@@ -6905,7 +6936,7 @@ otras:ccs_concept rdfs:subClassOf [
 
 otras:mm_topic a owl:Class;
    rdfs:comment "materials modelling topic, i.e., a topic related to the subject area of materials modelling, understood broadly"^^xs:string;
-   rdfs:subClassOf otras:topic, owl:NamedIndividual.
+   rdfs:subClassOf otras:topic.
 
 otras:has_topic_code a owl:DatatypeProperty, owl:FunctionalProperty;
    rdfs:domain otras:mm_topic;
@@ -8958,7 +8989,6 @@ otras:has_resource_identifier a owl:DatatypeProperty;
    rdfs:domain otras:citation;
    rdfs:range xs:string.
 
-iao:IAO_0000136 rdfs:subPropertyOf viprs:is_sign_for.  # iao property labelled "is about"
 otras:is_about a owl:ObjectProperty;
    rdfs:domain evmpo:information_content_entity;
    rdfs:range evmpo:marketplace_related_entity;
@@ -9157,7 +9187,57 @@ otras:author_map_element rdfs:subClassOf [
 otras:instructor a owl:Class;
    rdfs:subClassOf evmpo:expert, evmpo:training_provider, ccso:Professor;
    rdfs:comment "instructor, i.e., an individual human agent with expertise who can take responsibility for courses, training units, or training services"^^xs:string.
-ccso:Professor rdfs:subClassOf evmpo:agent.
+
+###
+# EXPLICIT IMPORTS
+###
+
+ccso:Course a owl:Class;
+   rdfs:subClassOf evmpo:process.
+ccso:Event a owl:Class;
+   rdfs:subClassOf evmpo:calendar_event, otras:carrier.
+ccso:LearningOutcome a owl:Class;
+   rdfs:subClassOf otras:focus.
+ccso:Professor a owl:Class;
+   rdfs:subClassOf evmpo:agent.
+ccso:Syllabus a owl:Class;
+   rdfs:subClassOf evmpo:document.
+ccso:Topic a owl:Class;
+   rdfs:subClassOf otras:focus, viprs:conceptualization.
+
+ccso:aimsToLO a owl:ObjectProperty;
+   rdfs:subPropertyOf evmpo:has_information_content_entity_annotation.
+ccso:coversTopic a owl:ObjectProperty;
+   rdfs:subPropertyOf evmpo:has_information_content_entity_annotation.
+ccso:hasLM a owl:ObjectProperty;
+   rdfs:subPropertyOf viprs:has_proper_part.
+ccso:hasSyllabus a owl:ObjectProperty;
+   rdfs:subPropertyOf viprs:has_sign.
+
+iao:IAO_0000027 a owl:Class;  # iao label "data item"
+   rdfs:subClassOf iao:IAO_0000030.
+iao:IAO_0000030 a owl:Class;  # iao label "information content entity"
+   rdfs:subClassOf evmpo:paradigmatic_entity.
+iao:IAO_0000301 a owl:Class;  # iao label "citation"
+   rdfs:subClassOf iao:IAO_0000030.
+iao:IAO_0000310 a owl:Class;  # iao label "document"
+   rdfs:subClassOf iao:IAO_0000030.
+iao:IAO_0000311 a owl:Class;  # iao label "publication"
+   rdfs:subClassOf iao:IAO_0000310.
+iao:IAO_0000312 a owl:Class;  # iao label "scientific publication" or equivalently "publication about an investigation"
+   rdfs:subClassOf iao:IAO_0000311.
+iao:IAO_0000315 a owl:Class;  # iao label "abstract"
+   rdfs:subClassOf iao:IAO_0000030.
+
+iao:BFO_0000051 a owl:ObjectProperty;   # BFO "has_part" referenced through the IAO
+   rdfs:subPropertyOf viprs:mereosemiotics_hp_ip.  #  has_part is a subproperty of overlap
+viprs:has_proper_part rdfs:subPropertyOf iao:BFO_0000051.
+iao:IAO_0000136 a owl:ObjectProperty; # iao property labelled "is about"
+   rdfs:subPropertyOf viprs:is_sign_for.
+
+ical:Vevent a owl:Class;
+   rdfs:subClassOf evmpo:paradigmatic_entity;
+   owl:sameAs evmpo:calendar_event.
 
 ###
 # DATATYPE PROPERTIES
@@ -9214,9 +9294,9 @@ otras:is_defined_by rdfs:subPropertyOf viprs:has_descriptor.
 
 ### VIMMP COMMUNICATION ONTOLOGY (VICO) ###
 
-### VERSION 1.3.3 ###
+### VERSION 1.3.4 ###
 
-### DATED 19TH NOVEMBER 2020 ###
+### DATED 20TH NOVEMBER 2020 ###
 
 @prefix vico: <https://purl.vimmp.eu/semantics/vico/vico.ttl#>.
 
@@ -9236,8 +9316,8 @@ otras:is_defined_by rdfs:subPropertyOf viprs:has_descriptor.
 
 <https://purl.vimmp.eu/semantics/vico/vico.ttl> a owl:Ontology;
    dcterms:title "VICO: VIMMP Communication Ontology"^^xs:string;
-   owl:versionInfo "version 1.3.3"^^xs:string;
-   dcterms:modified "2020-11-19"^^xs:date;
+   owl:versionInfo "version 1.3.4"^^xs:string;
+   dcterms:modified "2020-11-20"^^xs:date;
    dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
    dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
    dcterms:bibliographicCitation "doi:10.1007/s13218-020-00648-9"^^xs:string;
@@ -9265,10 +9345,14 @@ vico:has_author a owl:ObjectProperty, owl:FunctionalProperty;
    rdfs:subPropertyOf viprs:is_enabled_by;
    owl:inverseOf vico:is_author_of;
    rdfs:comments "points to the agent that has issued the given communication"^^xs:string.
-vico:has_expiry_date a owl:ObjectProperty, owl:FunctionalProperty;
+vico:has_communication_date a owl:DatatypeProperty;
    rdfs:domain evmpo:communication;
-   rdfs:range dcterms:W3C-DTF;
-   rdfs:subPropertyOf viprs:has_symbolic_part_of_sign.
+   rdfs:range xs:dateTime;
+   rdfs:comment "any date (submission, expiry, etc.) associated with a communication"^^xs:string.
+vico:has_expiry_date a owl:DatatypeProperty;
+   rdfs:domain evmpo:communication;
+   rdfs:range xs:dateTime;
+   rdfs:subPropertyOf vico:has_communication_date.
 vico:has_file_content_locator a owl:DatatypeProperty;
    rdfs:domain evmpo:communication;
    rdfs:range xs:string;
@@ -9286,10 +9370,10 @@ vico:has_status a owl:ObjectProperty;
    rdfs:domain evmpo:communication;
    rdfs:range vico:status;
    rdfs:subPropertyOf vico:has_label.
-vico:has_submission_date a owl:ObjectProperty, owl:FunctionalProperty;
+vico:has_submission_date a owl:DatatypeProperty;
    rdfs:domain evmpo:communication;
-   rdfs:range dcterms:W3C-DTF;
-   rdfs:subPropertyOf viprs:has_symbolic_part_of_sign.
+   rdfs:range xs:dateTime;
+   rdfs:subPropertyOf vico:has_communication_date.
 vico:has_object_content a owl:ObjectProperty;
    rdfs:domain evmpo:communication;
    rdfs:range evmpo:marketplace_related_entity;
@@ -9365,10 +9449,10 @@ vico:status a owl:Class;
    rdfs:subClassOf vico:label;
    rdfs:comment "status, i.e., a label that expresses information on the submission, reading, or exchange process of a communication"^^xs:string.
 
-vico:has_status_timestamp a owl:ObjectProperty, owl:FunctionalProperty;
+vico:has_status_timestamp a owl:DatatypeProperty;
    rdfs:domain vico:status;
-   rdfs:range dcterms:W3C-DTF;
-   rdfs:subPropertyOf viprs:has_symbolic_part_of_sign.
+   rdfs:range xs:dateTime;
+   rdfs:subPropertyOf vico:has_communication_date.
 
 vico:processed_status a owl:Class;
    rdfs:subClassOf vico:status;
@@ -10104,6 +10188,12 @@ vico:TITLE_PROFESSOR_GENERIC_SHORT a vico:postdoctoral_title;
 _:C_PERSONAL_TITLE a owl:AllDifferent;
    owl:members (vico:TITLE_FEMALE_GENERIC vico:TITLE_MALE_GENERIC vico:TITLE_DOCTOR_GENERIC vico:TITLE_PROFESSOR_GENERIC_LONG vico:TITLE_PROFESSOR_GENERIC_SHORT).
 
+###
+# EXPLICIT IMPORTS
+###
+
+lcc-cr:Country a owl:Class;
+   rdfs:subClassOf evmpo:annotation.
 
 ###
 # DATATYPE PROPERTIES
@@ -10122,6 +10212,7 @@ vico:has_file_content_locator rdfs:subPropertyOf viprs:has_standardized_referenc
 vico:has_agent_name rdfs:subPropertyOf viprs:has_name.
 vico:has_first_name rdfs:subPropertyOf viprs:has_name.
 vico:has_last_name rdfs:subPropertyOf viprs:has_name.
+vico:has_communication_date rdfs:subPropertyOf viprs:has_specifier.
 vico:is_po_box rdfs:subPropertyOf viprs:has_flag.
 vico:is_at_uri rdfs:subPropertyOf viprs:has_flag.
 vico:is_academic rdfs:subPropertyOf viprs:has_flag.
@@ -10160,9 +10251,9 @@ vico:has_profile_image rdfs:subPropertyOf viprs:has_file_metadata_item.
 
 ### VIMMP VALIDATION ONTOLOGY (VIVO) ###
 
-### VERSION 1.1.5 ###
+### VERSION 1.1.6 ###
 
-### DATED 27TH JUNE 2020 ###
+### DATED 20TH NOVEMBER 2020 ###
 
 @prefix vivo: <https://purl.vimmp.eu/semantics/vivo/vivo.ttl#>.
 
@@ -10181,8 +10272,8 @@ vico:has_profile_image rdfs:subPropertyOf viprs:has_file_metadata_item.
 
 <https://purl.vimmp.eu/semantics/vivo/vivo.ttl> a owl:Ontology;
    dcterms:title "VIVO: VIMMP Validation Ontology"^^xs:string;
-   owl:versionInfo "version 1.1.5"^^xs:string;
-   dcterms:modified "2020-11-03"^^xs:date;
+   owl:versionInfo "version 1.1.6"^^xs:string;
+   dcterms:modified "2020-11-20"^^xs:date;
    dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
    dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
    dcterms:bibliographicCitation "doi:10.1007/s13218-020-00648-9"^^xs:string;
@@ -10573,7 +10664,7 @@ evmpo:material_property rdfs:subClassOf osmo:logical_variable;
 vivo:is_quantity_kind a owl:ObjectProperty, owl:FunctionalProperty;
    rdfs:domain evmpo:material_property;
    rdfs:range qudt:QuantityKind;
-   rdfs:subPropertyOf viprs:has_sign;
+   rdfs:subPropertyOf viprs:has_sign, evmpo:has_property_annotation;
    rdfs:comment "points to the physical property characterization following QUDT"^^xs:string.
 
 evmpo:material_property owl:disjointWith vivo:assertion, evmpo:assessment, vivo:validation_statement, vivo:validation_infrastructure.
@@ -10607,6 +10698,16 @@ vivo:UNIT_U a vivo:unit, qudt:MassUnit;  # note: this exists within qudt, but th
    qudt:symbol "u"^^xs:string;
    qudt:description "Unit of mass corresponding to 1 g/mol, also referred to as Dalton"^^xs:string.
 qudt:MassUnit rdfs:subClassOf vivo:unit.
+
+
+###
+# EXPLICIT IMPORTS
+###
+
+qudt:QuantityKind a owl:Class;
+   rdfs:subClassOf evmpo:annotation.
+qudt:Unit a owl:Class;
+   rdfs:subClassOf evmpo:annotation.
 
 
 ###

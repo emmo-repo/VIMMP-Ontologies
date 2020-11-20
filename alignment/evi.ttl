@@ -46,8 +46,10 @@
 #########################
 
 evi:meta_emmo a owl:Class;
+   rdfs:subClassOf owl:NamedIndividual;
    owl:disjointUnionOf (emmo1s:EMMO evi:non_emmo);
    rdfs:comment "this class contains EMMO entities as well as non-spacetime entities that are not covered by the EMMO"^^xs:string.
+emmo1s:EMMO rdfs:subClassOf evi:meta_emmo.
 evi:non_emmo a owl:Class;
    rdfs:subClassOf evi:meta_emmo;
    rdfs:comment "any non-spacetime entities (hence, not covered by the EMMO) are to be subsumed under this class"^^xs:string.

@@ -1,9 +1,9 @@
 
 ### MARKETPLACE-ACCESSIBLE COMPUTATIONAL RESOURCE ONTOLOGY (MACRO) ###
 
-### VERSION 1.1.6 ###
+### VERSION 1.1.7 ###
 
-### DATED 19TH NOVEMBER ###
+### DATED 20TH NOVEMBER 2020 ###
 
 @prefix macro: <https://purl.vimmp.eu/semantics/macro/macro.ttl#>.
 
@@ -22,8 +22,8 @@
 
 <https://purl.vimmp.eu/semantics/macro/macro.ttl> a owl:Ontology;
    dcterms:title "MACRO: Marketplace-Accessible Computational Resource Ontology"^^xs:string;
-   owl:versionInfo "version 1.1.6"^^xs:string;
-   dcterms:modified "2020-11-19"^^xs:date;
+   owl:versionInfo "version 1.1.7"^^xs:string;
+   dcterms:modified "2020-11-20"^^xs:date;
    dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
    dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
    dcterms:bibliographicCitation "doi:10.1007/s13218-020-00648-9"^^xs:string;
@@ -41,8 +41,6 @@
    dcterms:contributor "Pascale Noyret"^^xs:string;
    dcterms:contributor "Vincent Stobiac"^^xs:string;
    dcterms:contributor "Daniele Toti (ORCID 0000-0002-9668-6961)"^^xs:string.
-
-evmpo:infrastructure rdfs:subClassOf paasport:Resource.
 
 macro:computational_resource a owl:Class;
    rdfs:subClassOf evmpo:infrastructure;
@@ -151,7 +149,7 @@ _:C_digital_marketplace a owl:AllDifferent;
    owl:members (macro:VIMMP_MARKETPLACE macro:MARKETPLACE_MARKETPLACE macro:MARKET40_MARKETPLACE).
 
 macro:infrastructure_service a owl:Class;
-   rdfs:subClassOf evmpo:service, paasport:Service;
+   rdfs:subClassOf paasport:Service;
    rdfs:comment "infrastructure service, i.e., a service providing access to (or use of) an infrastructure"^^xs:string.
 
 macro:provides_access_to a owl:ObjectProperty;
@@ -510,7 +508,7 @@ macro:VOCTA_XML_FORMAT a macro:solver_parameter_format, macro:textual_xml_format
 ####################
 
 paasport:Network a owl:Class;
-   rdfs:subClassOf evmpo:hardware_infrastructure, [
+   rdfs:subClassOf evmpo:hardware_infrastructure, paasport:Resource, [
       a owl:Restriction;
       owl:onProperty paasport:hasParameter;
       owl:allValuesFrom paasport:NetworkParameter
@@ -519,6 +517,12 @@ paasport:Network a owl:Class;
 paasport:NetworkParameter a owl:Class;
    rdfs:subClassOf osmo:logical_variable;
    rdfs:comment "network parameter 'of an offering' (here, specifically a Network) according to the PaaSPort ontology; taxonomically, NetworkParameter [= ResourceParameter [= NonFunctionalParameter [= MatchmakingParameter [= PaaSParameter"^^xs:string.
+paasport:Resource a owl:Class;
+   rdfs:subClassOf evmpo:marketplace_related_entity.
+evmpo:infrastructure rdfs:subClassOf paasport:Resource.
+paasport:Service a owl:Class;
+   rdfs:subClassOf evmpo:service.
+
 paasport:hasParameter a owl:ObjectProperty;
    rdfs:subPropertyOf viprs:is_sign_for;
    rdfs:comment "relates a PaaSPort 'Characteristic' to a 'PaaSParameter'"^^xs:string.
