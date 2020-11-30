@@ -1,15 +1,15 @@
 
 ##############################################
 ##                                          ##
-##  EXAMPLE: SWiMM 2020 SCHOOL DESCRIPTION  ##
+##  EXAMPLE: SWiMM 2021 SCHOOL DESCRIPTION  ##
 ##                                          ##
-##       LAST UPDATED: 27TH JUNE 2020       ##
+##     LAST UPDATED: 30TH NOVEMBER 2020     ##
 ##                                          ##
 ##############################################
 
-<https://purl.vimmp.eu/semantics/scenario/summer-school/swimm-2020.ttl> a owl:Ontology.
+<https://purl.vimmp.eu/semantics/scenario/summer-school/swimm-2021.ttl> a owl:Ontology.
 
-@prefix swimm: <https://purl.vimmp.eu/semantics/scenario/summer-school/swimm-2020.ttl#>.
+@prefix swimm: <https://purl.vimmp.eu/semantics/scenario/summer-school/swimm-2021.ttl#>.
 
 
 ################################
@@ -38,16 +38,16 @@
 swimm:COURSE_WHOLE a otras:course;
    otras:has_event [
       ical:location "CECAM HQ, EPFL, 2 Avenue Forel, Lausanne"^^xs:string;
-      ical:dtstart "2020-06-22T14:00:00+02:00"^^xs:dateTime;
-      ical:dtend "2020-06-26T14:00:00+02:00"^^xs:dateTime
+      ical:dtstart "2021-03-15T14:40:00+01:00"^^xs:dateTime;
+      ical:dtend "2021-03-19T13:20:00+01:00"^^xs:dateTime
    ];
-   ccso:csName "Simulation Workflows in Materials Modelling (SWiMM 2020)"^^xs:string;
+   ccso:csName "Simulation Workflows in Materials Modelling (SWiMM 2021)"^^xs:string;
    otras:has_syllabus swimm:SYLLABUS_WHOLE;
-   otras:has_training_unit swimm:UNIT_1, swimm:UNIT_2, swimm:UNIT_3, swimm:UNIT_4, swimm:UNIT_5, swimm:UNIT_6, swimm:UNIT_7, swimm:GROUP_SESSION_1, swimm:GROUP_SESSION_2.
+   otras:has_training_unit swimm:UNIT_1, swimm:UNIT_2, swimm:UNIT_3, swimm:UNIT_4, swimm:UNIT_6, swimm:UNIT_7, swimm:GROUP_SESSION_1, swimm:GROUP_SESSION_2.
 
 swimm:SYLLABUS_WHOLE a otras:syllabus;
-   ccso:academicYear "2019-2020"^^xs:string;
-   ccso:hasInstructor swimm:SILVIA_CHIACCHIERA, swimm:JOSHUA_D_ELLIOTT, swimm:ERIC_FAYOLLE, swimm:MARTIN_THOMAS_HORSCH, swimm:JAN_JANSSEN, swimm:JAMES_R_KERMODE, swimm:JEAN_PIERRE_MINIER, swimm:JOERG_NEUGEBAUER, swimm:PHILIPP_NEUMANN, swimm:PASCALE_NOYRET, swimm:ARDITA_SHKURTI, swimm:KRISTIAN_SOMMER_THYGESEN, swimm:JADRAN_VRABEC;
+   ccso:academicYear "2020-2021"^^xs:string;
+   ccso:hasInstructor swimm:SILVIA_CHIACCHIERA, swimm:JOSHUA_D_ELLIOTT, swimm:ERIC_FAYOLLE, swimm:MARTIN_THOMAS_HORSCH, swimm:JAN_JANSSEN, swimm:JAMES_R_KERMODE, swimm:JEAN_PIERRE_MINIER, swimm:JOERG_NEUGEBAUER, swimm:PHILIPP_NEUMANN, swimm:PASCALE_NOYRET, swimm:KRISTIAN_SOMMER_THYGESEN, swimm:JADRAN_VRABEC;
    ccso:language "en"^^xs:language;
    otras:covers_topic otras:MM_TOPIC_3000, otras:MM_TOPIC_4000, otras:MM_TOPIC_6120, otras:MM_TOPIC_7700, otras:MM_TOPIC_8340, otras:MM_TOPIC_8350, otras:MM_TOPIC_8370, otras:MM_TOPIC_8450;
    otras:has_recommended_literature swimm:EDF_2019, swimm:JANSSEN_ET_AL_2019, swimm:THOL_ET_AL_2017.
@@ -58,10 +58,10 @@ swimm:UNIT_1 a otras:training_unit;
    otras:has_syllabus swimm:SYLLABUS_UNIT_1.
 swimm:EVENT_UNIT_1 a otras:training_event, ccso:TeachingEvent;
    ical:location "CECAM HQ, EPFL, 2 Avenue Forel, Lausanne"^^xs:string;
-   ical:dtstart "2020-06-22T14:40:00+02:00"^^xs:dateTime;
-   ical:dtend "2020-06-22T17:40:00+02:00"^^xs:dateTime.
+   ical:dtstart "2021-03-15T14:40:00+01:00"^^xs:dateTime;
+   ical:dtend "2021-03-15T17:40:00+01:00"^^xs:dateTime.
 swimm:SYLLABUS_UNIT_1 a otras:syllabus;
-   ccso:academicYear "2019-2020"^^xs:string;
+   ccso:academicYear "2020-2021"^^xs:string;
    ccso:hasInstructor swimm:ERIC_FAYOLLE, swimm:JEAN_PIERRE_MINIER, swimm:PASCALE_NOYRET;
    ccso:language "en"^^xs:language;
    otras:covers_topic otras:MM_TOPIC_3000, otras:MM_TOPIC_8350;
@@ -69,103 +69,89 @@ swimm:SYLLABUS_UNIT_1 a otras:syllabus;
 
 swimm:UNIT_2 a otras:training_unit;
    otras:has_event swimm:EVENT_UNIT_2;
-   ccso:csName "Uncertainty quantification, machine learning, and workflows for model optimization"^^xs:string;
+   ccso:csName "Industrial-accuracy data-driven modelling and workflows for model parameterization"^^xs:string;
    otras:has_syllabus swimm:SYLLABUS_UNIT_2.
 swimm:EVENT_UNIT_2 a otras:training_event, ccso:TeachingEvent;
    ical:location "CECAM HQ, EPFL, 2 Avenue Forel, Lausanne"^^xs:string;
-   ical:dtstart "2020-06-23T08:40:00+02:00"^^xs:dateTime;
-   ical:dtend "2020-06-23T10:00:00+02:00"^^xs:dateTime.
+   ical:dtstart "2021-03-16T10:20:00+01:00"^^xs:dateTime;
+   ical:dtend "2021-03-16T13:20:00+01:00"^^xs:dateTime.
 swimm:SYLLABUS_UNIT_2 a otras:syllabus;
-   ccso:academicYear "2019-2020"^^xs:string;
-   ccso:hasInstructor swimm:JAMES_R_KERMODE;
+   ccso:academicYear "2020-2021"^^xs:string;
+   ccso:hasInstructor swimm:JAMES_R_KERMODE, swimm:JADRAN_VRABEC;
    ccso:language "en"^^xs:language;
-   otras:covers_topic otras:MM_TOPIC_8340, otras:MM_TOPIC_8350.
+   otras:covers_topic otras:MM_TOPIC_6120, otras:MM_TOPIC_7700, otras:MM_TOPIC_8340, otras:MM_TOPIC_8350;
+   otras:has_recommended_literature swimm:THOL_ET_AL_2017.
 
 swimm:UNIT_3 a otras:training_unit;
    otras:has_event swimm:EVENT_UNIT_3;
-   ccso:csName "The atomic simulation environment - a Python library for working with atoms"^^xs:string;
+   ccso:csName "Autotuning, load balancing, and task-based parallelization of simulation workflows"^^xs:string;
    otras:has_syllabus swimm:SYLLABUS_UNIT_3.
 swimm:EVENT_UNIT_3 a otras:training_event, ccso:TeachingEvent;
    ical:location "CECAM HQ, EPFL, 2 Avenue Forel, Lausanne"^^xs:string;
-   ical:dtstart "2020-06-23T10:20:00+02:00"^^xs:dateTime;
-   ical:dtend "2020-06-23T13:20:00+02:00"^^xs:dateTime.
+   ical:dtstart "2021-03-16T14:40:00+01:00"^^xs:dateTime;
+   ical:dtend "2021-03-17T10:00:00+01:00"^^xs:dateTime.
 swimm:SYLLABUS_UNIT_3 a otras:syllabus;
-   ccso:academicYear "2019-2020"^^xs:string;
-   ccso:hasInstructor swimm:JOSHUA_D_ELLIOTT, swimm:KRISTIAN_SOMMER_THYGESEN;
+   ccso:academicYear "2020-2021"^^xs:string;
+   ccso:hasInstructor swimm:PHILIPP_NEUMANN;
    ccso:language "en"^^xs:language;
-   otras:covers_topic otras:MM_TOPIC_8340, otras:MM_TOPIC_8350.
+   otras:covers_topic otras:MM_TOPIC_3000, otras:MM_TOPIC_8370.
 
 swimm:UNIT_4 a otras:training_unit;
    otras:has_event swimm:EVENT_UNIT_4;
-   ccso:csName "Semantic interoperability and container-based execution of simulation workflows"^^xs:string;
+   ccso:csName "Semantic interoperability and ontology-driven technology for simulation workflows"^^xs:string;
    otras:has_syllabus swimm:SYLLABUS_UNIT_4.
 swimm:EVENT_UNIT_4 a otras:training_event, ccso:TeachingEvent;
    ical:location "CECAM HQ, EPFL, 2 Avenue Forel, Lausanne"^^xs:string;
-   ical:dtstart "2020-06-23T14:40:00+02:00"^^xs:dateTime;
-   ical:dtend "2020-06-24T17:40:00+02:00"^^xs:dateTime.
+   ical:dtstart "2021-03-17T10:20:00+01:00"^^xs:dateTime;
+   ical:dtend "2021-03-17T13:20:00+01:00"^^xs:dateTime.
 swimm:SYLLABUS_UNIT_4 a otras:syllabus;
-   ccso:academicYear "2019-2020"^^xs:string;
-   ccso:hasInstructor swimm:SILVIA_CHIACCHIERA, swimm:MARTIN_THOMAS_HORSCH, swimm:ARDITA_SHKURTI;
+   ccso:academicYear "2020-2021"^^xs:string;
+   ccso:hasInstructor swimm:SILVIA_CHIACCHIERA, swimm:MARTIN_THOMAS_HORSCH;
    ccso:language "en"^^xs:language;
    otras:covers_topic otras:MM_TOPIC_4000, otras:MM_TOPIC_8340.
 
-swimm:UNIT_5 a otras:training_unit;
-   otras:has_event swimm:EVENT_UNIT_5;
+swimm:UNIT_6 a otras:training_unit;
+   otras:has_event swimm:EVENT_UNIT_6;
    ccso:csName "Pyiron - an integrated development environment for simulation workflows"^^xs:string;
-   otras:has_syllabus swimm:SYLLABUS_UNIT_5.
-swimm:EVENT_UNIT_5 a otras:training_event, ccso:TeachingEvent;
+   otras:has_syllabus swimm:SYLLABUS_UNIT_6.
+swimm:EVENT_UNIT_6 a otras:training_event, ccso:TeachingEvent;
    ical:location "CECAM HQ, EPFL, 2 Avenue Forel, Lausanne"^^xs:string;
-   ical:dtstart "2020-06-25T08:40:00+02:00"^^xs:dateTime;
-   ical:dtend "2020-06-25T11:40:00+02:00"^^xs:dateTime.
-swimm:SYLLABUS_UNIT_5 a otras:syllabus;
-   ccso:academicYear "2019-2020"^^xs:string;
+   ical:dtstart "2021-03-18T10:20:00+01:00"^^xs:dateTime;
+   ical:dtend "2021-03-18T13:20:00+01:00"^^xs:dateTime.
+swimm:SYLLABUS_UNIT_6 a otras:syllabus;
+   ccso:academicYear "2020-2021"^^xs:string;
    ccso:hasInstructor swimm:JAN_JANSSEN, swimm:JOERG_NEUGEBAUER;
    ccso:language "en"^^xs:language;
    otras:covers_topic otras:MM_TOPIC_8350, otras:MM_TOPIC_8450;
    otras:has_recommended_literature swimm:JANSSEN_ET_AL_2019.
 
-swimm:UNIT_6 a otras:training_unit;
-   otras:has_event swimm:EVENT_UNIT_6;
-   ccso:csName "Industrial-accuracy data-driven models from high-throughput simulation workflows"^^xs:string;
-   otras:has_syllabus swimm:SYLLABUS_UNIT_6.
-swimm:EVENT_UNIT_6 a otras:training_event, ccso:TeachingEvent;
-   ical:location "CECAM HQ, EPFL, 2 Avenue Forel, Lausanne"^^xs:string;
-   ical:dtstart "2020-06-25T12:00:00+02:00"^^xs:dateTime;
-   ical:dtend "2020-06-25T16:00:00+02:00"^^xs:dateTime.
-swimm:SYLLABUS_UNIT_6 a otras:syllabus;
-   ccso:academicYear "2019-2020"^^xs:string;
-   ccso:hasInstructor swimm:JADRAN_VRABEC;
-   ccso:language "en"^^xs:language;
-   otras:covers_topic otras:MM_TOPIC_6120, otras:MM_TOPIC_7700;
-   otras:has_recommended_literature swimm:THOL_ET_AL_2017.
-
 swimm:UNIT_7 a otras:training_unit;
    otras:has_event swimm:EVENT_UNIT_7;
-   ccso:csName "Autotuning, load balancing, and task-based parallelization of simulation workflows"^^xs:string;
+   ccso:csName "The atomic simulation environment - a Python library for working with atoms"^^xs:string;
    otras:has_syllabus swimm:SYLLABUS_UNIT_7.
 swimm:EVENT_UNIT_7 a otras:training_event, ccso:TeachingEvent;
    ical:location "CECAM HQ, EPFL, 2 Avenue Forel, Lausanne"^^xs:string;
-   ical:dtstart "2020-06-25T16:20:00+02:00"^^xs:dateTime;
-   ical:dtend "2020-06-26T13:20:00+02:00"^^xs:dateTime.
+   ical:dtstart "2021-03-18T14:40:00+01:00"^^xs:dateTime;
+   ical:dtend "2021-03-19T10:00:00+01:00"^^xs:dateTime.
 swimm:SYLLABUS_UNIT_7 a otras:syllabus;
-   ccso:academicYear "2019-2020"^^xs:string;
-   ccso:hasInstructor swimm:PHILIPP_NEUMANN;
+   ccso:academicYear "2020-2021"^^xs:string;
+   ccso:hasInstructor swimm:JOSHUA_D_ELLIOTT, swimm:KRISTIAN_SOMMER_THYGESEN;
    ccso:language "en"^^xs:language;
-   otras:covers_topic otras:MM_TOPIC_3000, otras:MM_TOPIC_8370.
+   otras:covers_topic otras:MM_TOPIC_8340, otras:MM_TOPIC_8350.
 
 swimm:GROUP_SESSION_1 a otras:training_unit;
    ccso:csName "Practical applications and discussions of future work (session 1)"^^xs:string;
    otras:has_event [
       ical:location "CECAM HQ, EPFL, 2 Avenue Forel, Lausanne"^^xs:string;
-      ical:dtstart "2020-06-24T09:00:00+02:00"^^xs:dateTime;
-      ical:dtend "2020-06-24T10:30:00+02:00"^^xs:dateTime
+      ical:dtstart "2021-03-16T16:30:00+01:00"^^xs:dateTime;
+      ical:dtend "2021-03-16T18:00:00+01:00"^^xs:dateTime
    ].
 swimm:GROUP_SESSION_2 a otras:training_unit;
    ccso:csName "Practical applications and discussions of future work (session 2)"^^xs:string;
    otras:has_event [
       ical:location "CECAM HQ, EPFL, 2 Avenue Forel, Lausanne"^^xs:string;
-      ical:dtstart "2020-06-26T09:30:00+02:00"^^xs:dateTime;
-      ical:dtend "2020-06-26T11:30:00+02:00"^^xs:dateTime
+      ical:dtstart "2021-03-18T16:30:00+01:00"^^xs:dateTime;
+      ical:dtend "2021-03-18T18:00:00+01:00"^^xs:dateTime
    ].
 
 
@@ -229,11 +215,11 @@ swimm:MARTIN_THOMAS_HORSCH a otras:instructor;
       a vico:email_address;
       vico:has_email_prefix [
          vico:has_token_index 1;
-         vico:has_textual_representation "martin.horsch"^^xs:string
+         vico:has_textual_representation "horsch"^^xs:string
       ];
       vico:has_email_domain_label [
          vico:has_token_index 2;
-         vico:has_textual_representation "stfc.ac.uk"^^xs:string
+         vico:has_textual_representation "inprodat.de"^^xs:string
       ]
    ].
 
@@ -330,22 +316,6 @@ swimm:PASCALE_NOYRET a otras:instructor;
       vico:has_email_domain_label [
          vico:has_token_index 2;
          vico:has_textual_representation "edf.fr"^^xs:string
-      ]
-   ].
-
-swimm:ARDITA_SHKURTI a otras:instructor;
-   vico:has_first_name "Ardita"^^xs:string;
-   vico:has_last_name "Shkurti"^^xs:string;
-   vico:has_academic_title vico:TITLE_DOCTOR_GENERIC;
-   vico:has_personal_address [
-      a vico:email_address;
-      vico:has_email_prefix [
-         vico:has_token_index 1;
-         vico:has_textual_representation "ardita.shkurti"^^xs:string
-      ];
-      vico:has_email_domain_label [
-         vico:has_token_index 2;
-         vico:has_textual_representation "stfc.ac.uk"^^xs:string
       ]
    ].
 
