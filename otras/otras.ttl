@@ -1,9 +1,9 @@
 
 ### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
 
-### VERSION 1.1.3 ###
+### VERSION 1.1.4 ###
 
-### DATED 20TH NOVEMBER 2020 ###
+### DATED 2ND DECEMBER 2020 ###
 
 @prefix otras: <https://purl.vimmp.eu/semantics/otras/otras.ttl#>.
 
@@ -24,8 +24,8 @@
 
 <https://purl.vimmp.eu/semantics/otras/otras.ttl> a owl:Ontology;
    dcterms:title "OTRAS: Ontology for Training Services"^^xs:string;
-   owl:versionInfo "version 1.1.3"^^xs:string;
-   dcterms:modified "2020-11-20"^^xs:date;
+   owl:versionInfo "version 1.1.4"^^xs:string;
+   dcterms:modified "2020-12-02"^^xs:date;
    dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
    dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
    dcterms:bibliographicCitation "doi:10.1007/s13218-020-00648-9"^^xs:string;
@@ -2100,8 +2100,11 @@ otras:is_at_numerical_level a owl:DatatypeProperty, owl:FunctionalProperty;
    rdfs:range xs:nonNegativeInteger;
    rdfs:comment "value which is 0 (special case: below basic), 1 (basic), 2 (intermediate), 3 (advanced), 4 (expert), or 5 (special case: exceptional distinction or unique skill)".
 
-otras:EXPERT_LEVEL a otras:operator_level;
-   otras:is_at_numerical_level "4"^^xs:nonNegativeInteger.
+otras:EXPERT_LEVEL a otras:operator_level, vcl:codelist_operator_level;
+   otras:is_at_numerical_level "4"^^xs:nonNegativeInteger;
+   skos:inScheme vcl:CL_SCHEME_OPERATOR_LEVEL;
+   skos:notation "Expert"^^xs:string, "Expert"@en;
+   skos:prefLabel "Expert"^^xs:string.
 
 otras:kmk_operator_level a owl:Class;
    rdfs:comment "KMK operator level, i.e., a requirement level corresponding to one of the headings from the KMK catalogue of operators for statements of learning outcomes in natural-science subjects"^^xs:string;
@@ -2115,15 +2118,30 @@ otras:kmk_operator_level rdfs:subClassOf [
 
 otras:kmk_operator_level owl:oneOf (otras:KMK_LEVEL_I otras:KMK_LEVEL_II otras:KMK_LEVEL_III).
 
-otras:KMK_LEVEL_I a otras:kmk_operator_level;
-   otras:is_at_numerical_level "1"^^xs:nonNegativeInteger.
-otras:KMK_LEVEL_II a otras:kmk_operator_level;
-   otras:is_at_numerical_level "2"^^xs:nonNegativeInteger.
-otras:KMK_LEVEL_III a otras:kmk_operator_level;
-   otras:is_at_numerical_level "3"^^xs:nonNegativeInteger.
+otras:KMK_LEVEL_I a otras:kmk_operator_level, vcl:codelist_operator_level;
+   otras:is_at_numerical_level "1"^^xs:nonNegativeInteger;
+   skos:inScheme vcl:CL_SCHEME_OPERATOR_LEVEL;
+   skos:notation "Basic"^^xs:string, "Basic"@en;
+   skos:prefLabel "Basic (Beginner)"^^xs:string.
+otras:KMK_LEVEL_II a otras:kmk_operator_level, vcl:codelist_operator_level;
+   otras:is_at_numerical_level "2"^^xs:nonNegativeInteger;
+   skos:inScheme vcl:CL_SCHEME_OPERATOR_LEVEL;
+   skos:notation "Intermediate"^^xs:string, "Intermediate"@en;
+   skos:prefLabel "Intermediate"^^xs:string.
+otras:KMK_LEVEL_III a otras:kmk_operator_level, vcl:codelist_operator_level;
+   otras:is_at_numerical_level "3"^^xs:nonNegativeInteger;
+   skos:inScheme vcl:CL_SCHEME_OPERATOR_LEVEL;
+   skos:notation "Advanced"^^xs:string, "Advanced"@en;
+   skos:prefLabel "Advanced"^^xs:string.
 
 _:C_OPERATOR_LEVEL a owl:AllDifferent;
    owl:members (otras:KMK_LEVEL_I otras:KMK_LEVEL_II otras:KMK_LEVEL_III otras:EXPERT_LEVEL).
+
+otras:OPERATOR_LEVEL a otras:operator_level, vcl:codelist_operator_level;
+   skos:inScheme vcl:CL_SCHEME_OPERATOR_LEVEL;
+   skos:notation "Any level"^^xs:string, "Any level"@en;
+   skos:prefLabel "Any level"^^xs:string.
+otras:operator_level rdfs:subClassOf [a owl:Restriction; owl:onProperty viprs:is_conceptualized_by; owl:hasValue otras:OPERATOR_LEVEL].
 
 otras:kmk_operator_specifier a owl:Class;
    rdfs:comment "KMK operator specifier, i.e., an operator from the catalogue for natural-science subjects agreed upon by the German Federal Conference of State Cultural Ministries (KMK)"^^xs:string;

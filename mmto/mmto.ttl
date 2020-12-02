@@ -1,9 +1,9 @@
 
 ### MATERIALS MODELLING TRANSLATION ONTOLOGY (MMTO) ###
 
-### VERSION 1.3.6 ###
+### VERSION 1.3.7 ###
 
-### DATED 20TH NOVEMBER 2020 ###
+### DATED 2ND DECEMBER 2020 ###
 
 @prefix mmto: <https://purl.vimmp.eu/semantics/mmto/mmto.ttl#>.
 
@@ -14,6 +14,8 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix skos: <http://www.w3.org/2004/02/skos/core#>.
+@prefix vcl: <https://purl.vimmp.eu/semantics/alignment/vcl.ttl#>.
 @prefix vico: <https://purl.vimmp.eu/semantics/vico/vico.ttl#>.
 @prefix viprs: <https://purl.vimmp.eu/semantics/alignment/viprs.ttl#>.
 @prefix vivo: <https://purl.vimmp.eu/semantics/vivo/vivo.ttl#>.
@@ -21,8 +23,8 @@
 
 <https://purl.vimmp.eu/semantics/mmto/mmto.ttl> a owl:Ontology;
    dcterms:title "MMTO: Materials Modelling Translation Ontology"^^xs:string;
-   owl:versionInfo "version 1.3.6"^^xs:string;
-   dcterms:modified "2020-11-20"^^xs:date;
+   owl:versionInfo "version 1.3.7"^^xs:string;
+   dcterms:modified "2020-12-02"^^xs:date;
    dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
    dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
    dcterms:bibliographicCitation "doi:10.5281/zenodo.3902881 and doi:10.1007/s13218-020-00648-9"^^xs:string;
@@ -863,6 +865,29 @@ mmto:has_represented_kpi a owl:ObjectProperty;
    rdfs:domain mmto:key_performance_indicator;
    rdfs:subPropertyOf viprs:is_model_for;
    rdfs:comment "points to a KPI that is represented (modelled) by the present KPI model"^^xs:string.
+
+mmto:project_size a owl:Class;
+   rdfs:subClassOf evmpo:annotation.
+
+mmto:has_project_size a owl:ObjectProperty;
+   rdfs:domain mmto:project;
+   rdfs:range mmto:project_size;
+   rdfs:subPropertyOf viprs:mereosemiotics_hs_hp;
+   rdfs:comment "points to size of the project"^^xs:string.   
+
+mmto:SMALL a mmto:project_size, vcl:codelist_project_size;
+   skos:inScheme vcl:CL_SCHEME_PROJECT_SIZE;
+   skos:notation "Small"^^xs:string, "Small"@en;
+   skos:prefLabel "Small"^^xs:string.
+
+mmto:LARGE a mmto:project_size, vcl:codelist_project_size;
+   skos:inScheme vcl:CL_SCHEME_PROJECT_SIZE;
+   skos:notation "Large"^^xs:string, "Large"@en;
+   skos:prefLabel "Large"^^xs:string.
+
+mmto:project_size owl:oneOf (mmto:SMALL mmto:LARGE).
+
+_:C_PROJECT_SIZE a owl:AllDifferent; owl:members (mmto:SMALL mmto:LARGE).
 
 ###
 # EXPLICIT IMPORTS

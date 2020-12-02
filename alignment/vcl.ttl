@@ -1,14 +1,15 @@
 
 ### VIMMP CODELISTS (VCL) FOR ZONTAL ###
 
-### VERSION 0.3.5 ###
+### VERSION 0.3.6 ###
 
-### DATED 20TH NOVEMBER 2020 ###
+### DATED 2ND DECEMBER 2020 ###
 
 @prefix vcl: <https://purl.vimmp.eu/semantics/alignment/vcl.ttl#>.
 
 @prefix dcterms: <http://purl.org/dc/terms/>.
 @prefix evmpo: <https://emmc.eu/semantics/evmpo/evmpo.ttl#>.
+@prefix mmto: <https://purl.vimmp.eu/semantics/mmto/mmto.ttl#>.
 @prefix osmo: <https://purl.vimmp.eu/semantics/osmo/osmo.ttl#>.
 @prefix otras: <https://purl.vimmp.eu/semantics/otras/otras.ttl#>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
@@ -23,8 +24,8 @@
 
 <https://purl.vimmp.eu/semantics/alignment/vcl.ttl> a owl:Ontology;
    dcterms:title "VCL: VIMMP Codelists"^^xs:string;
-   owl:versionInfo "version 0.3.5"^^xs:string;
-   dcterms:modified "2020-11-20"^^xs:date;
+   owl:versionInfo "version 0.3.6"^^xs:string;
+   dcterms:modified "2020-12-02"^^xs:date;
    dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
    dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
    dcterms:creator "Martin Thomas Horsch (ORCID 0000-0002-9464-6739)"^^xs:string;
@@ -96,6 +97,32 @@ vcl:codelist_pe_type a owl:Class;
 vcl:CL_SCHEME_PE_TYPE a skos:ConceptScheme;
    skos:prefLabel "Physical Equation (PE) type"^^xs:string;
    skos:definition "Physical Equation (PE) type"^^xs:string.
+
+vcl:codelist_operator_level a owl:Class;
+   rdfs:subClassOf evmpo:annotation;
+   owl:equivalentClass otras:operator_level, [
+      a owl:Restriction;
+      owl:onProperty skos:inScheme;
+      owl:hasValue vcl:CL_SCHEME_OPERATOR_LEVEL
+      ];
+      rdfs:comment "Operator level (i.e., competency level)"^^xs:string.
+
+vcl:CL_SCHEME_OPERATOR_LEVEL a skos:ConceptScheme;
+   skos:prefLabel "Operator level"^^xs:string;
+   skos:definition "Operator level (i.e., competency level)"^^xs:string.
+
+vcl:codelist_project_size a owl:Class;
+   rdfs:subClassOf evmpo:annotation;
+   owl:equivalentClass mmto:project_size, [
+      a owl:Restriction;
+      owl:onProperty skos:inScheme;
+      owl:hasValue vcl:CL_SCHEME_PROJECT_SIZE
+      ];
+      rdfs:comment "Project size"^^xs:string.
+
+vcl:CL_SCHEME_PROJECT_SIZE a skos:ConceptScheme;
+   skos:prefLabel "Project size"^^xs:string;
+   skos:definition "Project size"^^xs:string.
 
 ###
 # EXPLICIT IMPORTS
