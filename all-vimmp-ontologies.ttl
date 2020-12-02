@@ -1721,14 +1721,15 @@ evmpo:has_meta_annotation a owl:ObjectProperty;
 
 ### VIMMP CODELISTS (VCL) FOR ZONTAL ###
 
-### VERSION 0.3.5 ###
+### VERSION 0.3.6 ###
 
-### DATED 20TH NOVEMBER 2020 ###
+### DATED 2ND DECEMBER 2020 ###
 
 @prefix vcl: <https://purl.vimmp.eu/semantics/alignment/vcl.ttl#>.
 
 @prefix dcterms: <http://purl.org/dc/terms/>.
 @prefix evmpo: <https://emmc.eu/semantics/evmpo/evmpo.ttl#>.
+@prefix mmto: <https://purl.vimmp.eu/semantics/mmto/mmto.ttl#>.
 @prefix osmo: <https://purl.vimmp.eu/semantics/osmo/osmo.ttl#>.
 @prefix otras: <https://purl.vimmp.eu/semantics/otras/otras.ttl#>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
@@ -1743,8 +1744,8 @@ evmpo:has_meta_annotation a owl:ObjectProperty;
 
 <https://purl.vimmp.eu/semantics/alignment/vcl.ttl> a owl:Ontology;
    dcterms:title "VCL: VIMMP Codelists"^^xs:string;
-   owl:versionInfo "version 0.3.5"^^xs:string;
-   dcterms:modified "2020-11-20"^^xs:date;
+   owl:versionInfo "version 0.3.6"^^xs:string;
+   dcterms:modified "2020-12-02"^^xs:date;
    dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
    dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
    dcterms:creator "Martin Thomas Horsch (ORCID 0000-0002-9464-6739)"^^xs:string;
@@ -1816,6 +1817,32 @@ vcl:codelist_pe_type a owl:Class;
 vcl:CL_SCHEME_PE_TYPE a skos:ConceptScheme;
    skos:prefLabel "Physical Equation (PE) type"^^xs:string;
    skos:definition "Physical Equation (PE) type"^^xs:string.
+
+vcl:codelist_operator_level a owl:Class;
+   rdfs:subClassOf evmpo:annotation;
+   owl:equivalentClass otras:operator_level, [
+      a owl:Restriction;
+      owl:onProperty skos:inScheme;
+      owl:hasValue vcl:CL_SCHEME_OPERATOR_LEVEL
+      ];
+      rdfs:comment "Operator level (i.e., competency level)"^^xs:string.
+
+vcl:CL_SCHEME_OPERATOR_LEVEL a skos:ConceptScheme;
+   skos:prefLabel "Operator level"^^xs:string;
+   skos:definition "Operator level (i.e., competency level)"^^xs:string.
+
+vcl:codelist_project_size a owl:Class;
+   rdfs:subClassOf evmpo:annotation;
+   owl:equivalentClass mmto:project_size, [
+      a owl:Restriction;
+      owl:onProperty skos:inScheme;
+      owl:hasValue vcl:CL_SCHEME_PROJECT_SIZE
+      ];
+      rdfs:comment "Project size"^^xs:string.
+
+vcl:CL_SCHEME_PROJECT_SIZE a skos:ConceptScheme;
+   skos:prefLabel "Project size"^^xs:string;
+   skos:definition "Project size"^^xs:string.
 
 ###
 # EXPLICIT IMPORTS
@@ -3318,9 +3345,9 @@ paasport:hasParameterDataValue rdfs:subPropertyOf viprs:has_content.
 
 ### MATERIALS MODELLING TRANSLATION ONTOLOGY (MMTO) ###
 
-### VERSION 1.3.6 ###
+### VERSION 1.3.7 ###
 
-### DATED 20TH NOVEMBER 2020 ###
+### DATED 2ND DECEMBER 2020 ###
 
 @prefix mmto: <https://purl.vimmp.eu/semantics/mmto/mmto.ttl#>.
 
@@ -3331,6 +3358,8 @@ paasport:hasParameterDataValue rdfs:subPropertyOf viprs:has_content.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix skos: <http://www.w3.org/2004/02/skos/core#>.
+@prefix vcl: <https://purl.vimmp.eu/semantics/alignment/vcl.ttl#>.
 @prefix vico: <https://purl.vimmp.eu/semantics/vico/vico.ttl#>.
 @prefix viprs: <https://purl.vimmp.eu/semantics/alignment/viprs.ttl#>.
 @prefix vivo: <https://purl.vimmp.eu/semantics/vivo/vivo.ttl#>.
@@ -3338,8 +3367,8 @@ paasport:hasParameterDataValue rdfs:subPropertyOf viprs:has_content.
 
 <https://purl.vimmp.eu/semantics/mmto/mmto.ttl> a owl:Ontology;
    dcterms:title "MMTO: Materials Modelling Translation Ontology"^^xs:string;
-   owl:versionInfo "version 1.3.6"^^xs:string;
-   dcterms:modified "2020-11-20"^^xs:date;
+   owl:versionInfo "version 1.3.7"^^xs:string;
+   dcterms:modified "2020-12-02"^^xs:date;
    dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
    dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
    dcterms:bibliographicCitation "doi:10.5281/zenodo.3902881 and doi:10.1007/s13218-020-00648-9"^^xs:string;
@@ -4180,6 +4209,29 @@ mmto:has_represented_kpi a owl:ObjectProperty;
    rdfs:domain mmto:key_performance_indicator;
    rdfs:subPropertyOf viprs:is_model_for;
    rdfs:comment "points to a KPI that is represented (modelled) by the present KPI model"^^xs:string.
+
+mmto:project_size a owl:Class;
+   rdfs:subClassOf evmpo:annotation.
+
+mmto:has_project_size a owl:ObjectProperty;
+   rdfs:domain mmto:project;
+   rdfs:range mmto:project_size;
+   rdfs:subPropertyOf viprs:mereosemiotics_hs_hp;
+   rdfs:comment "points to size of the project"^^xs:string.   
+
+mmto:SMALL a mmto:project_size, vcl:codelist_project_size;
+   skos:inScheme vcl:CL_SCHEME_PROJECT_SIZE;
+   skos:notation "Small"^^xs:string, "Small"@en;
+   skos:prefLabel "Small"^^xs:string.
+
+mmto:LARGE a mmto:project_size, vcl:codelist_project_size;
+   skos:inScheme vcl:CL_SCHEME_PROJECT_SIZE;
+   skos:notation "Large"^^xs:string, "Large"@en;
+   skos:prefLabel "Large"^^xs:string.
+
+mmto:project_size owl:oneOf (mmto:SMALL mmto:LARGE).
+
+_:C_PROJECT_SIZE a owl:AllDifferent; owl:members (mmto:SMALL mmto:LARGE).
 
 ###
 # EXPLICIT IMPORTS
@@ -6501,9 +6553,9 @@ osmo:has_workflow_diagram_url rdfs:subPropertyOf viprs:has_file_metadata_item.
 
 ### ONTOLOGY FOR TRAINING SERVICES (OTRAS) ###
 
-### VERSION 1.1.3 ###
+### VERSION 1.1.4 ###
 
-### DATED 20TH NOVEMBER 2020 ###
+### DATED 2ND DECEMBER 2020 ###
 
 @prefix otras: <https://purl.vimmp.eu/semantics/otras/otras.ttl#>.
 
@@ -6524,8 +6576,8 @@ osmo:has_workflow_diagram_url rdfs:subPropertyOf viprs:has_file_metadata_item.
 
 <https://purl.vimmp.eu/semantics/otras/otras.ttl> a owl:Ontology;
    dcterms:title "OTRAS: Ontology for Training Services"^^xs:string;
-   owl:versionInfo "version 1.1.3"^^xs:string;
-   dcterms:modified "2020-11-20"^^xs:date;
+   owl:versionInfo "version 1.1.4"^^xs:string;
+   dcterms:modified "2020-12-02"^^xs:date;
    dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
    dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
    dcterms:bibliographicCitation "doi:10.1007/s13218-020-00648-9"^^xs:string;
@@ -8600,8 +8652,11 @@ otras:is_at_numerical_level a owl:DatatypeProperty, owl:FunctionalProperty;
    rdfs:range xs:nonNegativeInteger;
    rdfs:comment "value which is 0 (special case: below basic), 1 (basic), 2 (intermediate), 3 (advanced), 4 (expert), or 5 (special case: exceptional distinction or unique skill)".
 
-otras:EXPERT_LEVEL a otras:operator_level;
-   otras:is_at_numerical_level "4"^^xs:nonNegativeInteger.
+otras:EXPERT_LEVEL a otras:operator_level, vcl:codelist_operator_level;
+   otras:is_at_numerical_level "4"^^xs:nonNegativeInteger;
+   skos:inScheme vcl:CL_SCHEME_OPERATOR_LEVEL;
+   skos:notation "Expert"^^xs:string, "Expert"@en;
+   skos:prefLabel "Expert"^^xs:string.
 
 otras:kmk_operator_level a owl:Class;
    rdfs:comment "KMK operator level, i.e., a requirement level corresponding to one of the headings from the KMK catalogue of operators for statements of learning outcomes in natural-science subjects"^^xs:string;
@@ -8615,15 +8670,30 @@ otras:kmk_operator_level rdfs:subClassOf [
 
 otras:kmk_operator_level owl:oneOf (otras:KMK_LEVEL_I otras:KMK_LEVEL_II otras:KMK_LEVEL_III).
 
-otras:KMK_LEVEL_I a otras:kmk_operator_level;
-   otras:is_at_numerical_level "1"^^xs:nonNegativeInteger.
-otras:KMK_LEVEL_II a otras:kmk_operator_level;
-   otras:is_at_numerical_level "2"^^xs:nonNegativeInteger.
-otras:KMK_LEVEL_III a otras:kmk_operator_level;
-   otras:is_at_numerical_level "3"^^xs:nonNegativeInteger.
+otras:KMK_LEVEL_I a otras:kmk_operator_level, vcl:codelist_operator_level;
+   otras:is_at_numerical_level "1"^^xs:nonNegativeInteger;
+   skos:inScheme vcl:CL_SCHEME_OPERATOR_LEVEL;
+   skos:notation "Basic"^^xs:string, "Basic"@en;
+   skos:prefLabel "Basic (Beginner)"^^xs:string.
+otras:KMK_LEVEL_II a otras:kmk_operator_level, vcl:codelist_operator_level;
+   otras:is_at_numerical_level "2"^^xs:nonNegativeInteger;
+   skos:inScheme vcl:CL_SCHEME_OPERATOR_LEVEL;
+   skos:notation "Intermediate"^^xs:string, "Intermediate"@en;
+   skos:prefLabel "Intermediate"^^xs:string.
+otras:KMK_LEVEL_III a otras:kmk_operator_level, vcl:codelist_operator_level;
+   otras:is_at_numerical_level "3"^^xs:nonNegativeInteger;
+   skos:inScheme vcl:CL_SCHEME_OPERATOR_LEVEL;
+   skos:notation "Advanced"^^xs:string, "Advanced"@en;
+   skos:prefLabel "Advanced"^^xs:string.
 
 _:C_OPERATOR_LEVEL a owl:AllDifferent;
    owl:members (otras:KMK_LEVEL_I otras:KMK_LEVEL_II otras:KMK_LEVEL_III otras:EXPERT_LEVEL).
+
+otras:OPERATOR_LEVEL a otras:operator_level, vcl:codelist_operator_level;
+   skos:inScheme vcl:CL_SCHEME_OPERATOR_LEVEL;
+   skos:notation "Any level"^^xs:string, "Any level"@en;
+   skos:prefLabel "Any level"^^xs:string.
+otras:operator_level rdfs:subClassOf [a owl:Restriction; owl:onProperty viprs:is_conceptualized_by; owl:hasValue otras:OPERATOR_LEVEL].
 
 otras:kmk_operator_specifier a owl:Class;
    rdfs:comment "KMK operator specifier, i.e., an operator from the catalogue for natural-science subjects agreed upon by the German Federal Conference of State Cultural Ministries (KMK)"^^xs:string;
