@@ -1,9 +1,9 @@
 
 ### VIMMP CODELISTS (VCL) FOR ZONTAL ###
 
-### VERSION 0.3.6 ###
+### VERSION 0.3.7 ###
 
-### DATED 2ND DECEMBER 2020 ###
+### DATED 13TH AUGUST 2021 ###
 
 @prefix vcl: <https://purl.vimmp.eu/semantics/alignment/vcl.ttl#>.
 
@@ -24,8 +24,8 @@
 
 <https://purl.vimmp.eu/semantics/alignment/vcl.ttl> a owl:Ontology;
    dcterms:title "VCL: VIMMP Codelists"^^xs:string;
-   owl:versionInfo "version 0.3.6"^^xs:string;
-   dcterms:modified "2020-12-02"^^xs:date;
+   owl:versionInfo "version 0.3.7"^^xs:string;
+   dcterms:modified "2021-08-13"^^xs:date;
    dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
    dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
    dcterms:creator "Martin Thomas Horsch (ORCID 0000-0002-9464-6739)"^^xs:string;
@@ -123,6 +123,22 @@ vcl:codelist_project_size a owl:Class;
 vcl:CL_SCHEME_PROJECT_SIZE a skos:ConceptScheme;
    skos:prefLabel "Project size"^^xs:string;
    skos:definition "Project size"^^xs:string.
+
+vcl:codelist_software_feature a owl:Class;
+   rdfs:subClassOf evmpo:marketplace_related_entity;
+   owl:equivalentClass viso:software_tool_feature, [
+      a owl:Restriction;
+      owl:onProperty skos:inScheme;
+      owl:hasValue vcl:CL_SCHEME_SOFTWARE_FEATURE
+      ];
+      rdfs:comment "Capability of a software tool, intended as either a model aspect that can be
+addressed (viso:model_feature) or as a numerical algorithm which is implemented
+(viso:solver_feature). Following the approach from RoMM, these two classes
+are disjoint."^^xs:string.
+
+vcl:CL_SCHEME_SOFTWARE_FEATURE a skos:ConceptScheme;
+   skos:prefLabel "Software tool feature"^^xs:string;
+   skos:definition "Software tool feature"^^xs:string.
 
 ###
 # EXPLICIT IMPORTS
