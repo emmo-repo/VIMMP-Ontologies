@@ -1721,9 +1721,9 @@ evmpo:has_meta_annotation a owl:ObjectProperty;
 
 ### VIMMP CODELISTS (VCL) FOR ZONTAL ###
 
-### VERSION 0.3.6 ###
+### VERSION 0.3.7 ###
 
-### DATED 2ND DECEMBER 2020 ###
+### DATED 13TH AUGUST 2021 ###
 
 @prefix vcl: <https://purl.vimmp.eu/semantics/alignment/vcl.ttl#>.
 
@@ -1744,8 +1744,8 @@ evmpo:has_meta_annotation a owl:ObjectProperty;
 
 <https://purl.vimmp.eu/semantics/alignment/vcl.ttl> a owl:Ontology;
    dcterms:title "VCL: VIMMP Codelists"^^xs:string;
-   owl:versionInfo "version 0.3.6"^^xs:string;
-   dcterms:modified "2020-12-02"^^xs:date;
+   owl:versionInfo "version 0.3.7"^^xs:string;
+   dcterms:modified "2021-08-13"^^xs:date;
    dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
    dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
    dcterms:creator "Martin Thomas Horsch (ORCID 0000-0002-9464-6739)"^^xs:string;
@@ -1844,6 +1844,22 @@ vcl:CL_SCHEME_PROJECT_SIZE a skos:ConceptScheme;
    skos:prefLabel "Project size"^^xs:string;
    skos:definition "Project size"^^xs:string.
 
+vcl:codelist_software_feature a owl:Class;
+   rdfs:subClassOf evmpo:marketplace_related_entity;
+   owl:equivalentClass viso:software_tool_feature, [
+      a owl:Restriction;
+      owl:onProperty skos:inScheme;
+      owl:hasValue vcl:CL_SCHEME_SOFTWARE_FEATURE
+      ];
+      rdfs:comment "Capability of a software tool, intended as either a model aspect that can be
+addressed (viso:model_feature) or as a numerical algorithm which is implemented
+(viso:solver_feature). Following the approach from RoMM, these two classes
+are disjoint."^^xs:string.
+
+vcl:CL_SCHEME_SOFTWARE_FEATURE a skos:ConceptScheme;
+   skos:prefLabel "Software tool feature"^^xs:string;
+   skos:definition "Software tool feature"^^xs:string.
+
 ###
 # EXPLICIT IMPORTS
 ###
@@ -1868,9 +1884,9 @@ skos:prefLabel a owl:DatatypeProperty;
 
 ### VIMMP PRIMITIVES (VIPRS) ###
 
-### VERSION 1.1.1 ###
+### VERSION 1.1.2 ###
 
-### DATED 20TH NOVEMBER 2020 ###
+### DATED 1ST SEPTEMBER 2021 ###
 
 # 1. Modal square of opposition
 #
@@ -1909,8 +1925,8 @@ skos:prefLabel a owl:DatatypeProperty;
 
 <https://purl.vimmp.eu/semantics/alignment/viprs.ttl> a owl:Ontology;
    dcterms:title "VIPRS: VIMMP Primitives"^^xs:string;
-   owl:versionInfo "version 1.1.1"^^xs:string;
-   dcterms:modified "2020-11-20"^^xs:date;
+   owl:versionInfo "version 1.1.2"^^xs:string;
+   dcterms:modified "2021-09-01"^^xs:date;
    dcterms:publisher "Virtual Materials Marketplace (VIMMP) project consortium"^^xs:string;
    dcterms:license "GNU Lesser General Public License (LGPL) version 3"^^xs:string;
    dcterms:creator "Martin Thomas Horsch (ORCID 0000-0002-9464-6739)"^^xs:string;
@@ -2698,13 +2714,13 @@ viprs:conceptualization a owl:Class;
    owl:sameAs skos:Concept;
    rdfs:comment "If an individual is a conceptualization, i.e., 'represents a concept as such,' where :x would be the concept, state :X a viprs:conceptualization. :x rdfs:subClassOf [owl:restriction; owl:onProperty viprs:is_conceptualized_by; owl:hasValue :X]. For all individuals :Y of :x, then :X viprs:conceptualizes :Y. Beside, :X conceptualizes all the narrower conceptualizations."^^xs:string.
 
-viprs:conceptualizes a owl:ObjectProperty, owl:ReflexiveProperty;
+viprs:conceptualizes a owl:ObjectProperty;
    rdfs:domain viprs:conceptualization;
    rdfs:range viprs:immanent_entity;
    rdfs:subPropertyOf viprs:is_sign_for, viprs:n_loc_or_rnoc;
    owl:inverseOf viprs:is_conceptualized_by;
    rdfs:comment ":X viprs:conceptualizes :Y == the conceptualization :X is more (or equally) generic individual than :Y; in particular, this applies to two cases: 1) :X represents the concept :x, and :Y is an individual of :x. 2) :X represents the concept :x, while :Y represents the concept :y which is a subclass of :x (and hence, :X viprs:is_broader_than :Y). In particular, conceptualizes is a subproperty of is_sign_for (:X is_sign_for :Y, as is clear from the above), and also of n_loc_or_rnoc, i.e., occurrence of :Y necessarily implies an occurrence of :X, as a consequence of :X being more generic."^^xs:string.
-viprs:is_conceptualized_by a owl:ObjectProperty, owl:ReflexiveProperty;
+viprs:is_conceptualized_by a owl:ObjectProperty;
    rdfs:domain viprs:immanent_entity;
    rdfs:range viprs:conceptualization;
    rdfs:subPropertyOf viprs:has_sign, viprs:n_lnoc_or_roc;
